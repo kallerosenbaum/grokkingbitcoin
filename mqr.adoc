@@ -1,0 +1,63 @@
+= Minimum Qualified Reader
+
+== Minimum skills and knowledge (3)
+
+Generally, the reader does not need to have detailed knowledge on any
+computer science topic. But she needs to have an abstract
+understanding on some basic areas.
+
+Network communication (3):: A basic understanding of how computers
+communicate with eachother. No knowledge about how the communication
+works or anything about the physical structure of a computer network
+is needed. Just an abstract understanding of how each computer have an
+address and that messages can be sent between the computers.
+
+Databases (2):: A reader must understand that a database is a "more or
+less structured collection information". A text file containing phone
+numbers to customers is a database, as well as the National Security
+Agency's huge collection of snooped emails from/to average Joes.
+
+Computer programs (2):: A computer program, or software program, must
+be understood to be a set of instructions that a computer performs to
+fullfill a certain task. One must understand that a software program
+does not have to be something that you see on a computer screen, but
+can just as well be somethng that collects temperature data from a
+weather station and sends the data to another computer across a
+computer network.
+
+Web server (3):: A reader must know what a web server is. It is a
+computer program that listens on a computer network for requests for
+data and sends back the requested data. When you visit
+http://www.google.com, your computer sends a request over a computer
+network to a web server on a computer at Google. Google's web server
+will then send back a web page that is displayed in your web browser.
+
+== Takeaways
+
+This book should be enough to get the reader started on most tasks
+involving Bitcoin. Besides just performing the tasks below she will
+also understand on a deep, but still abstract, level what is actually
+going on under the hood. For example, she will understand that Bitcoin
+payments (transactions) are pieces of digital information describing
+what money to spend (inputs), where to send the money to (outputs),
+and that inputs link to previous transactions' outputs and that an
+input and an output together form a small computer program that will
+result in true or false depending on if the transaction is valid
+or not. She will not learn exactly the format of a transaction
+detailed enough to understand the mechanics of Bitcoin.
+
+* Send and receive payments.
+
+* Trustlessly monitor the Bitcoin network.
+
+* Secure your company's funds using multisignature transactions.
+
+* Transfer money internationally using Bitcoin to reduce fees.
+
+* Send and receive microtransactions of a dollar, or even tiny
+  fractions of cents.
+
+* Participate in flame wars on Reddit. Or not.
+
+* Make your mind up on wether you trust Bitcoin or not.
+
