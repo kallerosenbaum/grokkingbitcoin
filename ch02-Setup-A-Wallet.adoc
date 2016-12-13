@@ -1,0 +1,10 @@
+== Setup a wallet
+
+This chapter covers
+
+* getting to know Bitcoin
+* the problems solved by Bitcoin
+* getting the big picture
+
+NOTE short version of MQR
+

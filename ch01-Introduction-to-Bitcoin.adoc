@@ -1,8 +1,4 @@
-= Introduction to Bitcoin
-:chapter: 1
-:linkcss: 1
-:stylesdir: style
-:stylesheet: asciidoctor.css
+== Introduction to Bitcoin
 
 This chapter covers
 
@@ -12,12 +8,12 @@ This chapter covers
 
 NOTE short version of MQR
 
-== What is Bitcoin?
+=== What is Bitcoin?
 
 Bitcoin is an electronic cash system. It allows for people or
-computers to move value between them without using a bank or some
-other trusted third party. It resembles traditional bank notes and
-coins in that way, but it is purely electronic and used over the
+computers to move value between each other without using a bank or
+some other trusted third party. It resembles traditional bank notes
+and coins in that way, but it is purely electronic and used over the
 Internet. The currency unit is called bitcoin with lower-case _b_,
 while the system is referred to as Bitcoin with capital _B_. The
 currency is not tied to any specific _fiat currency_ like the US
@@ -39,7 +35,7 @@ working, more people got interested in it. Today, in 2017, several
 millions of people are aware of Bitcoin and thousands of professionals
 are working on Bitcoin related technology.
 
-== Problems to solve
+=== Problems to solve
 
 Bitcoin would not be this widespread today if it didn't solve real
 problems for real people. There are several problems that is solved by
@@ -47,7 +43,7 @@ Bitcoin and it has the potential to solve several more in the
 future. Let us focus on three commonly discussed problem areas
 for now.
 
-=== Inflation
+==== Inflation
 
 The money supply in fiat currencies is sometimes used as a tool for
 governments to extract value from its population to pay for expenses
@@ -61,7 +57,7 @@ better holds value, which further drives the value of the currency
 down.
 
 .Inflation
-image::images/inflation.jpg[scaledwidth="5%"]
+image::images/inflation.jpg[{half-size}]
 
 An example of hyperinflation from recent time is the Zimbabwean dollar
 that inflated nearly 80 billion percent during one and a half year,
@@ -71,7 +67,7 @@ countries suffer from very high inflation. One of them is Venezuela
 where its currency, the bolívar as of writing faces a 480% inflation
 during 2016 and 2017 is forecast to suffer from 1640% inflation.
 
-=== Borders
+==== Borders
 
 Moving value across borders using fiat currency is very hard and
 expensive. If you want to send 1000 Swedish crowns (SEK) from Sweden
@@ -103,14 +99,14 @@ made specifically for the currency. As long as you stay within one
 country and one currency, fiat currencies usually does a pretty
 good job.
 
-=== Segregation
+==== Segregation
 
 Not all people have bank accounts. Either because there is no bank 
 
 Fiat services can chose who they are interacting with and what
 services to provide.
 
-== How does Bitcoin solve that?
+=== How does Bitcoin solve that?
 
 NOTE Maybe rename heading to The Bitcoin approach
 
@@ -122,7 +118,7 @@ or just _nodes_, participating in the Bitcoin system. This property,
 called _decentralization_ opens up for two other interesting
 properties: _limited supply_ and _global_.
 
-=== Decentralized
+==== Decentralized
 
 No single node or group of nodes have more privileges or obligations
 than any other node. This equality between nodes makes the system
@@ -145,7 +141,7 @@ currency, for example the _limited supply_ of about 21 million
 bitcoins.
 
 [id=limited_supply]
-=== Limited supply
+==== Limited supply
 
 A hard promise of Bitcoin is that its monetary supply will not exceed
 21 million bitcoins. People can be sure that if they own one bitcoin,
@@ -168,7 +164,7 @@ a process called _mining_, where some nodes in the Bitcoin network
 perform costly work to ensure that no one changes the rules of
 the network.
 
-=== Global
+==== Global
 
 Since Bitcoin is a system run by ordinary computers connected to the
 Internet, the Bitcoin system is as global as the Internet itself. This
@@ -189,7 +185,7 @@ reversing the transfer.
 NOTE Rupees 500/1000 invalid
 
 
-== How is Bitcoin used?
+=== How is Bitcoin used?
 
 So far we have touched on payments and savings as common use cases for
 Bitcoin. As you will learn while reading this book, there are several
@@ -201,7 +197,7 @@ Bitcoin will be used. Predicting Bitcoin's future is like predicting
 in 1995 what the Internet will be used for in 20 years. Yet, there are
 some distinguished use cases worth mentioning here.
 
-=== Payments
+==== Payments
 
 NOTE Too negative tone here. Payments are still very possible and
 convenient
@@ -217,7 +213,7 @@ per hour. These limitations are about to become history though, as new
 innovations _on top_ of Bitcoin is evolving, this is described in
 [REFERENCE to lightning chapter].
 
-=== Savings
+==== Savings
 
 One interesting feature of bitcoin is that your money is kept by
 storing a set of _private keys_. You chose how those private keys are
@@ -253,7 +249,7 @@ serious enough flaw in Bitcoin would surface, it could lose value
 because of people selling off their bitcoin holdings, or your money
 could be stolen due to the flaw.
 
-=== Speculation
+==== Speculation
 
 The world is full of people wanting to get rich quick. Bitcoin can be
 very alluring to them, because of the _volatility_, tendency to
@@ -262,7 +258,7 @@ is very tempting to try to buy when it is low and sell when it is
 high.
 
 .Price since beginning of Bitcoin
-image::images/price_graph.jpg[scale="5%"]
+image::images/price_graph.jpg[]
 
 For a currency that can change this rapidly, it is very hard to
 predict when a trend is about to change. In November 2013, the price
@@ -277,13 +273,13 @@ advancements, but from speculations.
 Speculation can be fun but it is more like a lottery
 than something to make a living off of.
 
-=== Non-currency uses
+==== Non-currency uses
 
 Bitcoin is electronic cash, but this form of cash have a properties
 that can be used for other things beyond money. This section covers a
 few uses, but there are others including not yet invented uses.
 
-==== Ownership
+===== Ownership
 
 Bitcoin allows for arbitrary data to be stored in its _distributed
 database_ called the _blockchain_[REFERENCE]. The blockchain is a big
@@ -296,7 +292,7 @@ into a transaction, this data can be for example a chassis number of
 a car. A transaction containing such data can be seen as a transfer of
 ownership for that car from the sender of the bitcoin to the receiver.
 
-==== Proof of existence
+===== Proof of existence
 
 Using the same technique to store data in a transaction, you can prove
 that a document existed prior to a certain point in time. You need to
@@ -309,13 +305,13 @@ hash. The person you are proving it to, will take the document and
 calculate the cryptographic hash from it and verify that it matches
 the one in the transaction.
 
-==== Source of randomness
+===== Source of randomness
 
 The blockchain could make a good source of randomness. You may want to
 select what lunch restaurant youwill go to. INCOMPLETE
 
 
-=== How is Bitcoin valued?
+==== How is Bitcoin valued?
 
 As you could read in secion <<speculation>>, the price of a bitcoin
 can fluctuate quite dramatically. But where is this value actually
@@ -325,9 +321,9 @@ currencies where banks and exchanges choses what rate they are willing
 to trade the currencies in. A US exchange might want to sell 100 PHP,
 Phillipinean Pesos, for 50 USD. Another exchange might be willing to
 sell it for 49 USD. People wanting to buy PHP can then chose which
-exchange to go to. If there are enough participants a free market, a
-market price will emerge and adapt the price to new circumstances over
-time.
+exchange to go to. If there are enough participants in a free market,
+a market price will emerge and adapt the price to new circumstances
+over time.
 
 The value of bitcion work in the same way. There are several Bitcoin
 exchanges, mostly internet based. The simplest form of exchange will
@@ -341,7 +337,7 @@ There are also more advanced exchanges, called trading sites, where
 users submit bids and asks. Bids are what users have said that they
 are willing to pay for bitcoins, and asks are what users have said
 that they are willing to sell bitcoins for. If the trading site can
-match one user's bit to another user's ask, a trade happens. An
+match one user's bid to another user's ask, a trade happens. An
 example of a bid is "I want to buy 10 BTC (bitcoin) for at most $740
 each". Imagine a person wanting to sell her bitcoin, she can submit an
 ask like "I want to sell 12 BTC for at least $740 each". The trading
@@ -362,19 +358,43 @@ There are several trading sites and exchanges around the world. Most
 of them are on the Internet, but there are some physical shops where
 you can go in and exchange bitcoin and fiat currencies.
 
-== The big picture
+=== The big picture
 
 You will encounter several aspects of Bitcoin as you read this
 book. Each chapter focuses on a specific commonly performed task, and
-we will explore the technology behind that task as we stumble
-upon it. This section is to give you a mental model to carry with you,
+we will explore the technologies behind that task as we stumble upon
+them. This section is to give you a mental model to carry with you,
 that we can refer to if needed.
 
-[id=overview]
-=== Overview
+The Bitcoin network, a network of computers running Bitcoin software,
+processes payments. A payment starts by a user asking the Bitcoin
+network to move money from her to someone else.
 
-Let us start with a picture that visualizes an important process of
-Bitcoin, a payment.
+image::images/mental_model.jpg[]
+
+Let us follow Alice's payment from Alice to Bob:
+
+1. Alice asks the Bitcoin network to move 1 bitcoin from her to Bob.
+2. The computers in the network check that Alice actually has the
+money to send and that she is authorized to send them.
+3. Each computer update its own copy of the Bitcoin ledger with the
+new transaction information.
+4. The network notifies Bob that he has received 1 bitcoin.
+
+Alice asks the Bitcoin network to move 1 bitcoin
+from her to Bob. The computers in the network check that Alice
+actually has the money to send and that she is authorized to send
+them. Each computer update their own copy of a the Bitcoin ledger with
+the new transaction information. Bob listens to the network and will
+receive a notification that someone sent him 1 bitcoin.
+
+[id=overview]
+==== Overview
+
+When alice tells the network to send money to Bob, she creates a
+Bitcoin _transaction_. A transaction contains information about the
+movement of money. Let us start with a picture that visualizes a
+transaction.
 
 [id=bitcoin_payment]
 .Bitcoin payment
@@ -383,9 +403,9 @@ image::images/transaction_mailbox.jpg[scale="5%"]
 In its most basic form, a Bitcoin _transaction_, or payment, can be
 regarded as transferring money from one locked mailbox to
 another. Yes, we are talking about _physical_ mailboxes for this
-metaphore. Only the owner of a mailbox will be able to pull money out
-of it using the key to the mailbox, but anyone is able to put money
-into the mailbox throught the slot. The owner, Alice, of the key for
+analogy. Only the owner of a mailbox will be able to pull money out of
+it using the key to the mailbox, but anyone is able to put money into
+the mailbox throught the slot. The owner, Alice, of the key for
 mailbox 321 in the picture, will withdraw 1 BTC from mailbox 321 and
 deposit the bitcoin into mailbox 560. The movement of money from
 mailbox 321 to mailbox 560 _is the Bitcoin transaction_. In digital
@@ -396,30 +416,24 @@ form, this transaction is a piece of data specifying
 * what mailbox to move the money to (560).
 * a _digital signature_
 
-The digital signature is a string of numbers that proves that the
-sender actually owns the key to mailbox 321. The digital signature can
-only be made using the correct key, the one that opens 321 in this
-case. We will cover digital signatures in [REFERENCE].
-
-The transaction is then sent to other _Bitcoin nodes_, computers also
-running Bitcoin software, who will validate the transaction and pass
-it on to its neighbouring nodes in the Bitcoin _peer-to-peer
-network_.
+Alice sends the transaction to one or more _Bitcoin nodes_,
+computers also running Bitcoin software, who will validate the
+transaction and pass it on to its neighbouring nodes in the Bitcoin
+_peer-to-peer network_.
 
 [id=peer-to-peer-network]
 .Peer-to-peer network
 image::images/peer_to_peer_network.jpg[]
 
-Nodes validate transactions by checking that the sender actually owns
-the amount of money being sent (1 BTC in our example). This is done by
-looking at previous transactions which it keeps track of. The node
-also verifies that that the sender have signed using the correct key
-(321).
+Nodes validate transactions by checking in their copy of the shared
+ledger that the Alice actually owns 1 bitcoin and that the digital
+signature is in fact made by Alice.
 
 Bob, the recipient of Alice's transaction will watch the Bitcoin
 network. When a node he is connected to receives the transaction Bob
 will be notified. His phone will beep and say, "You are about to
 receive 1 BTC, stay tuned while the transaction is confirming".
+
 
 Eventually the transaction will end up at one of several _miners_ who
 will also validate the transaction. A miner is special Bitcoin node
@@ -463,7 +477,7 @@ to Bob, he will get more confirmation notifications and after say 3
 confirmations he is confident that the transaction is okay.
 
 [id=wallets]
-=== Wallets
+==== Wallets
 
 Alice used a key to move money to Bob. This key needs to be stored in
 a safe place only accessible by Alice. If someone else finds the key
@@ -528,7 +542,7 @@ Most electronic Bitcoin wallets can be used to create transactions and
 _broadcast_ them on the peer-to-peer network. Broadcast means that the
 message is intended for all participants in the network.
 
-=== Transactions
+==== Transactions
 
 We have mentioned transaction already a number of times. Transactions
 move money from one or more addresses to one or more other
@@ -612,7 +626,7 @@ transaction C and D; The exess money will go to miners as transaction
 fee.
 
 [id=the_blockchain]
-=== The blockchain
+==== The blockchain
 
 Typically transactions with zero confirmations, unconfirmed or 0-conf
 transactions in Bitcoin lingo, can be acceptable for very small
@@ -726,4 +740,4 @@ blocks claims to be block #1821. Hint: the taller pile of blocks
 will be considered more trustworthy than a smaller pile of blocks.
 
 
-=== The peer-to-peer network
+==== The peer-to-peer network
