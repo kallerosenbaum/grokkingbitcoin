@@ -1,0 +1,8 @@
+build/
+buildbook/asciidoc-manning-templates/
+*~
+chapter-tips.adoc
+*.pdf
+*.html
+*.xml
+
