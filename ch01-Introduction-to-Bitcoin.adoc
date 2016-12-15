@@ -57,7 +57,7 @@ better holds value, which further drives the value of the currency
 down.
 
 .Inflation
-image::images/inflation.jpg[{half-size}]
+image::images/ch01/inflation.jpg[{half-size}]
 
 An example of hyperinflation from recent time is the Zimbabwean dollar
 that inflated nearly 80 billion percent during one and a half year,
@@ -126,7 +126,7 @@ _decentralized_, as opposed to _centralized_ systems like an Internet
 Bank service or Google searches.
 
 .Centralized and decentralized services
-image::images/centralized_vs_decentralized.jpg[scale="5%"]
+image::images/ch01/centralized_vs_decentralized.jpg[scale="5%"]
 
 In centralized systems, servers controlled by a single entity, like a
 bank or a search engine, provide a service to its users. It implies
@@ -157,7 +157,7 @@ increasing at a diminishing rate, according to a predetermined
 schedule and will eventually stop increasing around year 2140.
 
 .The supply of bitcoins over time
-image::images/money_supply.jpg[]
+image::images/ch01/money_supply.jpg[]
 
 Throughout this book, you will learn how this is accomplished through
 a process called _mining_, where some nodes in the Bitcoin network
@@ -173,7 +173,7 @@ people across the world. No matter where they are or whom they are
 sending money to, the system will treat every user equally. 
 
 .Bitcoin is global
-image::images/global.jpg[]
+image::images/ch01/global.jpg[]
 
 There is no difference between sending a bitcoin to someone in the
 same room or sending it to someone on another continent. The
@@ -258,7 +258,7 @@ is very tempting to try to buy when it is low and sell when it is
 high.
 
 .Price since beginning of Bitcoin
-image::images/price_graph.jpg[]
+image::images/ch01/price_graph.jpg[]
 
 For a currency that can change this rapidly, it is very hard to
 predict when a trend is about to change. In November 2013, the price
@@ -349,7 +349,7 @@ trading side is the price of the last trade. A trading site usually
 publishes its _order book_, which can look something like this:
 
 .Order book
-image::images/order_book.jpg[scale="5%"]
+image::images/ch01/order_book.jpg[scale="5%"]
 
 It gives a user an overview of how much bitcoin is available at a
 certain price and how much bitcoin can be sold at a certain price.
@@ -360,17 +360,18 @@ you can go in and exchange bitcoin and fiat currencies.
 
 === The big picture
 
-You will encounter several aspects of Bitcoin as you read this
+You will encounter several concepts in Bitcoin as you read this
 book. Each chapter focuses on a specific commonly performed task, and
-we will explore the technologies behind that task as we stumble upon
+we will explore the concepts behind that task as we stumble upon
 them. This section is to give you a mental model to carry with you,
 that we can refer to if needed.
 
-The Bitcoin network, a network of computers running Bitcoin software,
-processes payments. A payment starts by a user asking the Bitcoin
-network to move money from her to someone else.
+The Bitcoin network validates and confirms payments. The Bitcoin
+network is a network of computers running Bitcoin software. A payment
+starts with a user, Alice in our example, asking the Bitcoin network to
+move money from her to Bob.
 
-image::images/mental_model.jpg[]
+image::images/ch01/mental_model.jpg[]
 
 Let us follow Alice's payment from Alice to Bob:
 
@@ -381,49 +382,172 @@ money to send and that she is authorized to send them.
 new transaction information.
 4. The network notifies Bob that he has received 1 bitcoin.
 
-Alice asks the Bitcoin network to move 1 bitcoin
-from her to Bob. The computers in the network check that Alice
-actually has the money to send and that she is authorized to send
-them. Each computer update their own copy of a the Bitcoin ledger with
-the new transaction information. Bob listens to the network and will
-receive a notification that someone sent him 1 bitcoin.
+Note how Alice does not really _send_ 1 bitcoin to Bob, but asks the
+Bitcoin network to subtract 1 bitcoin from Alice's balance, and to add
+1 bitcoin to Bob's balance in the Bitcoin ledger. The Bitcoin ledger
+is a database that each computer in the Bitcoin network has a
+copy of. This ledger contains historic information about previous
+payments, and new payments are added to it every now and then. The
+computers in the Bitcoin network constantly try to keep this ledger up
+to date between each other.
+
+We will go through these steps a bit closer in the next four
+sections, one step per section.
 
 [id=overview]
-==== Overview
+==== Transactions
 
-When alice tells the network to send money to Bob, she creates a
-Bitcoin _transaction_. A transaction contains information about the
-movement of money. Let us start with a picture that visualizes a
+Step 1 of the process is when Alice asks the network to move 1 bitcoin
+to Bob. She asks by sending a Bitcoin _transaction_ to the Bitcoin
+network. The transaction contains instructions on how to move the
+money in the ledger and a proof that Alice actually is authorized to
+move the money. Let us start with a picture that visualizes the
 transaction.
 
 [id=bitcoin_payment]
 .Bitcoin payment
-image::images/transaction_mailbox.jpg[scale="5%"]
+image::images/ch01/transaction_mailbox.jpg[scale="5%"]
 
-In its most basic form, a Bitcoin _transaction_, or payment, can be
-regarded as transferring money from one locked mailbox to
-another. Yes, we are talking about _physical_ mailboxes for this
-analogy. Only the owner of a mailbox will be able to pull money out of
-it using the key to the mailbox, but anyone is able to put money into
-the mailbox throught the slot. The owner, Alice, of the key for
-mailbox 321 in the picture, will withdraw 1 BTC from mailbox 321 and
-deposit the bitcoin into mailbox 560. The movement of money from
-mailbox 321 to mailbox 560 _is the Bitcoin transaction_. In digital
-form, this transaction is a piece of data specifying
+[NOTE maybe ditch this mailbox analogy, it's not perfect and may
+actually confuse more than help]
+
+The Bitcoin _transaction_, or payment, can be regarded as transferring
+money from one locked mailbox to another. Yes, we are talking about
+_physical_ mailboxes for this analogy. Only the owner of the key to a
+mailbox will be able to pull money out of that mailbox, but anyone is
+able to put money into the mailbox through the slot. Alice, the owner
+of the key to mailbox 321 in the picture, will withdraw 1 BTC from
+mailbox 321 and deposit the bitcoin into mailbox 560, Bob's
+mailbox. She is the only one who can do that because only she has the
+key to mailbox 321. In digital form, this transaction is a piece of
+data specifying
 
 * the mailbox to withdraw from (321)
 * the amount to withdraw (1 BTC)
 * what mailbox to move the money to (560).
 * a _digital signature_
 
-Alice sends the transaction to one or more _Bitcoin nodes_,
-computers also running Bitcoin software, who will validate the
-transaction and pass it on to its neighbouring nodes in the Bitcoin
-_peer-to-peer network_.
+The digital signature corresponds to Alice opening mailbox 321 with her
+key to pull out a bill. Only she can pull out a bill from
+mailbox 321. Likewise, only she can create the digital signature.
+
+Alice sends this transaction to one or more _Bitcoin nodes_, computers
+in the Bitcoin network. This is [REFERENCE step 1 in The Big Picture]
+where Alice asks the network to move money.
+
+==== The Bitcoin network
+
+Alice have already sent a transaction to a number of Bitcoin nodes. In
+step 2 of the process, each node checks that the transaction is
+valid. They do that by consulting their copy of the ledger, to see if
+
+* mailbox 321 contains the money she wants to spend.
+* she has successfully unlocked the mailbox.
+
+Each node doing these checks are part of the Bitcoin network. Nodes
+connect to some other nodes and together they form a network, the
+Bitcoin network.
+
+[id=bitcoin-network]
+.The Bitcoin network
+image::images/ch01/bitcoin_network.jpg[]
+
+If all checks pass, a node will forward the transaction to the nodes
+it is connected to in the Bitcoin network. Alice's transaction would
+shortly have travelled the whole network while being validated by each
+node along the way.
+
+==== The blockchain
+
+In step 3 each node updates its local copy of the ledger with the
+information in Alices transaction. The ledger is called _the
+blockchain_. The name will be explained in later chapters. It is not
+as straight forward as it may seem to update the blockchain. Alice's
+transaction is not the only transaction that goes on. There are
+possibly thousands of transactions in-flight at the same time in the
+Bitcoin network. If all nodes would just update their copy of the
+blockchain as they receive transactions the copies would not remain
+copies for long. The transactions may come in different order on
+different nodes:
+
+[id=transaction-ordering]
+.Transactions unordered
+image::images/ch01/transaction_ordering.jpg[]
+
+To coordinate the ordering of transactions, one node takes the lead
+saying "I want to add these 3 transactions to the blockchain in the
+order A, C, B!" to all its network neighbors. This message is sent out
+by the leader on the network, just as Alice's transaction was by
+Alice, until all nodes has received it. As nodes see this message they
+update their copy of the blockchain according to that message.
+
+Not all nodes want to take the lead, but some of them do. We call them
+_miners_. Imagine if all miners tried to take the lead at the same
+time. Chaos would emerge where hundereds of computers simultaneously
+say "I want to add these XYZ transactions to the blockchain in this
+specific order". Nodes receiving all those messages would not know
+which of them to use.
+
+[id=block-race]
+.Chaos among miners
+image::images/ch01/block_race.jpg[]
+
+To avoid this chaos, miners are required to perform work before taking
+the lead. This means that taking the lead is not as easy as just
+shouting on the network, the miner must first perform hard work to
+solve a mathematical problem by trial-and-error. The work is so hard
+that it takes about 10 minutes before _any miner_ on the whole network
+can send out their message. The result of this is that the miners
+becomes much less chatty, and usually only one sends out their message
+at a time.
+
+[id=block-race-solution]
+.Solving the chaos
+image::images/ch01/block_race_solution.jpg[]
+
+Now, since the chaos is solved, nodes can follow the only leader and
+update their copies of the blockchain with the transactions sent from
+the leader. Alice's transaction is one of them. It's time to notify Bob!
+
+==== Wallets
+
+Bob and Alice are users of the Bitcoin network, and they need some
+computer program to interact with the network. Such a program is
+called a _Bitcoin wallet_. There are several different Bitcoin wallets
+for several different devices, like mobile phones and desktop
+computers.
+
+At this stage in the payment process, all nodes in the network have
+updated their local copy of the blockchain. Now, in step 4, the
+network needs to notify Bob that he has received one bitcoin.
+
+[id=wallet-connection]
+.Notifying Bob
+image::images/ch01/notifying_bob.jpg[]
+
+Bob's wallet is connected to some of the nodes in the Bitcoin network, just
+like a node is connected to some nodes. When a transaction concerning
+Bob is added to the blockchain, the nodes that Bob's wallet is
+connected to will notify Bob's wallet. The wallet will then display a
+message to Bob that he just received one bitcoin.
+
+As noted at the start of this section, Alice also use a wallet. Her
+wallet will also be notified of her own transaction, but there's one
+more very important thing that her wallet does. It holds her keys
+for her. The keys, as discussed in secion [REFERENCE to Transactions
+section] are used to create digital signatures and those keys need to
+be stored securely so that only Alice can use them. Bob also has keys
+to mailbox 560 in his wallet so that he can spend the money he just
+received from Alice.
+
+
+
+
+
 
 [id=peer-to-peer-network]
 .Peer-to-peer network
-image::images/peer_to_peer_network.jpg[]
+image::images/ch01/peer_to_peer_network.jpg[]
 
 Nodes validate transactions by checking in their copy of the shared
 ledger that the Alice actually owns 1 bitcoin and that the digital
@@ -444,7 +568,7 @@ transparent glass boxes on top of eachother. New transactions are put
 in the topmost box.
 
 .Mining
-image::images/mining.jpg[]
+image::images/ch01/mining.jpg[]
 
 Every now and then a miner, any miner, on the network closes its box,
 and sends it out on the Bitcoin peer-to-peer network just as Alice did
@@ -505,7 +629,7 @@ your key. But most wallets are electronic wallets used on mobile
 phones or on laptops.
 
 .Bitcoin wallet
-image::images/bitcoin_wallet.jpg[]
+image::images/ch01/bitcoin_wallet.jpg[]
 
 Those wallet have some extra features apart from
 just storing keys. Those features almost certainly include
@@ -526,7 +650,7 @@ cannot calculate or easily guess what private key a Bitcoin address is
 derived from.
 
 .Bitcoin address machine
-image::images/bitcoin_address_machine.jpg[]
+image::images/ch01/bitcoin_address_machine.jpg[]
 
 A very important feature of this machine is that every time you feed
 it with the same private key, the exact same address is coming out of
@@ -560,7 +684,7 @@ things: a _reference to an output of another transaction_ and a
 _signature_. Using inputs and outputs, transactions are linked to each other:
 
 .Transactions
-image::images/transactions.jpg[]
+image::images/ch01/transactions.jpg[]
 
 Some time ago transaction A moved 0.6 BTC to Bitcoin address 685 and
 transaction B moved 0.8 BTC to Bitcoin address 120. Those two Bitcoin
