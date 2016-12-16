@@ -17,12 +17,15 @@ mkdir -p ${outputdir}
 ln -sr ${sourcedir}/images ${outputdir}
 
 ## AAMakePDF must be run from the AAMakePDF dir
-cp ${MAKEPDF} ${AAMAKEPDFDIR}
+ln -sr ${MAKEPDF} ${AAMAKEPDFDIR}
 cp ${buildtooldir}/document.docbook45.erb ${TEMPLATEDIR}
 for file in ${sourcedir}/grokking-bitcoin.adoc; do
         basename=`echo $file | sed 's/.*\/\([^\/]*\)\.adoc/\1/'`
+	# This will generate a docbook xml file from the input
 	cat $file | asciidoctor -T ${TEMPLATEDIR} -b docbook45 - > ${outputdir}/${basename}.xml
 
+	# This will create a .temp.xml file from the input .xml and
+	# generate a pdf from that temp file.
 	${AAMAKEPDFDIR}/makepdf.sh ${outputdir}/$basename.xml ${outputdir}/$basename.pdf
 done
 rm ${scriptdir}/'c:\sw\text.txt'
