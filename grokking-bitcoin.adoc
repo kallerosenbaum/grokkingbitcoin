@@ -1,29 +1,27 @@
 = Grokking Bitcoin
 :doctype: book
-:linkcss: 1
+:linkcss:
 :stylesdir: style
+:sectnums:
+:toc:
+:toclevels: 4
+:baseimagedir: images
+//:stylesheet: asciidoctor.css
+:stem:
+
 ifdef::backend-html5[]
-:twoinches: width='144'
 :full-width: width='100%'
 :half-width: width='50%'
-:half-size:
-:thumbnail: width='60'
 endif::[]
 ifdef::backend-pdf[]
-:twoinches: pdfwidth='2in'
-:full-width: pdfwidth='100vw'
-:half-width: pdfwidth='50vw'
-:half-size: pdfwidth='50%'
-:thumbnail: pdfwidth='20mm'
+:full-width: pdfwidth='100%'
+:half-width: pdfwidth='50%'
 endif::[]
-ifdef::backend-docbook5[]
-:twoinches: width='50mm'
+ifdef::backend-docbook45[]
 :full-width: scaledwidth='100%'
 :half-width: scaledwidth='50%'
-:half-size: width='10%'
-:thumbnail: width='20mm'
 endif::[]
 
 include::ch01-Introduction-to-Bitcoin.adoc[]
 
-include::ch02-Setup-A-Wallet.adoc[]
+//include::ch02-Setup-A-Wallet.adoc[]
