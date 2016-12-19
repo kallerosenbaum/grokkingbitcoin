@@ -7,7 +7,20 @@ This chapter covers
 * solving problems with Bitcoin
 * getting the big picture
 
-NOTE short version of MQR
+This book will hopefully teach you enough about Bitcoin so that you
+can make informed decisions on how you can use Bitcoin to improve your
+private life or your business. My hope is that you also will learn
+enough to make up your own mind whether you trust Bitcoin or not,
+hopefully the former. In order to get you off the ground, I'm going to
+assume that you know roughly what the following terms mean:
+
+* computer program
+* database
+* computer network
+* web server
+
+If you're unsure of any of these terms, don't worry. Either look them
+up or just go ahead anyway, I think you'll manage.
 
 === What is Bitcoin?
 
@@ -15,33 +28,32 @@ Bitcoin is an electronic cash system. It allows for people or
 computers to move value between each other without using a bank or
 some other trusted third party. It resembles traditional bank notes
 and coins in that way, but it is purely electronic and used over the
-Internet. The currency unit is called bitcoin with lower-case _b_,
-while the system is referred to as Bitcoin with capital _B_. The
-currency is not tied to any specific _fiat currency_ like the US
-dollar or the Chinese Renminbi; It has free floating exchange rates
-against all fiat currencies. No government or company is controlling
-Bitcoin. Instead, thousands of computers around the globe, running
-Bitcoin software, collectively keeps the system working day and night,
-seven days a week.
+Internet. The Bitcoin currency is not tied to any specific _fiat
+currency_ like the US dollar or the Chinese Renminbi; It has free
+floating exchange rates against all fiat currencies. No government or
+company is controlling Bitcoin. Instead, thousands of computers around
+the globe collectively keep the system working day and night, seven
+days a week.
 
-In October 2008, A pseudonym Satoshi Nakamoto, published a scientific
-paper called "Bitcoin: A Peer-to-Peer Electronic Cash
-System"footnote:[https://bitcoin.org/bitcoin.pdf] on an e-mail list
-for cryptography related discussions. This paper described the vital
-parts of Bitcoin. Later, in January 2009, Nakamoto published the first
-software program to implement the described system. Bitcoin didn't get
-much attention then, apart from within a very limited set of
-cryptography experts. But gradually, as the system proved itself to be
-working, more people got interested in it. Today, in 2017, several
+Satoshi Nakamoto, a pseudonym whose identity is unknown, published a
+scientific paper on an e-mail list for cryptography related
+discussions in October 2008. The title of the paper was "Bitcoin: A
+Peer-to-Peer Electronic Cash
+System"footnote:[https://bitcoin.org/bitcoin.pdf] and it described the
+vital parts of Bitcoin. Later, in January 2009, Nakamoto published the
+first software program to implement the described system. Bitcoin
+didn't get much attention then, apart from within a very limited set
+of cryptography experts. But gradually, as the system proved itself to
+be working, more people got interested in it. Today, in 2017, several
 millions of people are aware of Bitcoin and thousands of professionals
 are working on Bitcoin related technology.
 
 === Problems with money today
 
-Bitcoin would not be this widespread today if it didn't solve real
-problems for real people. Bitcoin solves several problems with the
-traditional financial system. Let us focus on three commonly discussed
-problem areas for now.
+Bitcoin would not be this widespread if it didn't solve real problems
+for real people. Bitcoin solves several problems with the traditional
+financial system. Let us look some commonly discussed problem areas
+for now.
 
 ==== Inflation
 
@@ -60,8 +72,8 @@ down.
 image::{imagedir}/inflation.jpg[{half-width}]
 
 An example of hyperinflation from recent time is the Zimbabwean dollar
-that during 2007-2008 inflated nearly stem:[10^23] %, peaking at 80
-billion percent per month during a few months in 2008. That is a daily
+that during 2007-2008 inflated nearly 10^23^%, peaking at 80 billion
+percent per month during a few months in 2008. That is a daily
 inflation rate of nearly 100%. This is one of the most extreme cases
 of inflation throughout history, but still today some countries suffer
 from very high inflation. One of them is Venezuela where its currency,
@@ -70,13 +82,14 @@ is forecast to suffer from 1640% inflation.
 
 ==== Borders
 
-Moving value across borders using fiat currency is hard and
-expensive. If you want to send 1000 Swedish crowns (SEK) from Sweden
-to a person in the Philippines, you can use a service like Western
-Union for the transfer. At the time I investigated this, 1000 SEK was
-worth 5305 Philippine Pesos (PHP) or 109 US dollars.
+Moving value across borders using fiat currency is hard, expensive and
+sometimes even forbidden. If you want to send 1000 Swedish crowns
+(SEK) from Sweden to a person in the Philippines, you can use a
+service like Western Union for the transfer. At the time I
+investigated this, 1000 SEK was worth 5305 Philippine Pesos (PHP) or
+109 US dollars.
 
-.Costs of sending 5305 PHP from Sweden to Philippines
+.Cost of sending 5305 PHP from Sweden to Philippines
 |===
 | Send from | Receive to | Received by recipient | Fees | Fees %
 
@@ -90,7 +103,7 @@ worth 5305 Philippine Pesos (PHP) or 109 US dollars.
 If the recipient have a bank account with the capability of receiving
 international money transfer, we could get away with a 4.9% fee. A
 typical remittance recipient will only be able to receive cash, which
-pumps up the cost to 10.5% or 16.3% depending on how quick or
+doubles or triples the cost to 10.5% or 16.3% depending on how quick or
 convenient you want it.
 
 To contrast the above, moving fiat currency within the borders of a
@@ -103,22 +116,19 @@ good job.
 ==== Segregation
 
 As noted in the previous section, not all people have access to bank
-accounts. People with bank accounts and advanced banking services like
-wire transfers or loans are very priveleged. According to the World
-Bank, about 38%
-footnote:[http://datatopics.worldbank.org/financialinclusion/] of the
-world population don't have a bank account at all. The numbers are
-improving but still a vast amount of people are stuck in a cash-only
-environment. If these people want to receive money from a family
-member abroad, they will receive 5% less than if they had a bank
-account.
+accounts. People with bank accounts and banking services like online
+payments or loans are very privileged. About 38% footnote:[http://datatopics.worldbank.org/financialinclusion/] of the
+world population don't have a bank account at all, according to the
+World Bank. The numbers are improving but still a vast amount of
+people are stuck in a cash-only environment. If these people want to
+receive money from a family member abroad, they will receive 5% less
+than if they had a bank account.
 
 Without a bank account and basic bank services like online payments,
-people are stuck with their local community, with no way of expanding
-their business outside of that community. A tailor will not be able
-offer services on the Internet to increase its customer base. A person
-living in a rural area may have to travel half a day just to pay a
-utility bill or top-up their prepaid mobile phone.
+people can not expand their businesses outside of their community. A
+tailor will not be able offer services on the Internet to increase its
+customer base. A person living in a rural area may have to travel half
+a day just to pay a utility bill or top-up their prepaid mobile phone.
 
 This segregation between banked people and unbanked people is driven
 by a number of factors:
@@ -129,10 +139,10 @@ by a number of factors:
 * Banking services may be denied to people with certain political
   views or people conducting certain businesses.
 
-==== Other issues
+==== Privacy issues
 
 Apart from the huge problems in the previous sections there are
-several other problems with traditional money. Governments can easily
+several other problems with traditional money. States can easily
 
 * trace payments
 * censor payments
@@ -148,11 +158,14 @@ your political view.
 
 We have seen lots of examples where these abilities are misused to
 disable someones ability to transact. For example, the non-profit
-organization WikiLeaks was put under a blockade in 2010, where all
-donations through traditional channels were blocked after pressure
-from the US government on the major payment networks. We have also
-seen how Cyprus seized 37.5% of all bank deposits exceeding 100,000€
-as part of a financial rescue program in 2013.
+organization WikiLeaks was put under a
+blockade footnote:[https://en.wikipedia.org/wiki/Reception_of_WikiLeaks#Response_from_the_financial_industry]
+in 2010, where all donations through traditional channels were blocked
+after pressure from the US government on the major payment
+networks. We have also seen how Cyprus
+seized footnote:[https://www.bloomberg.com/news/articles/2013-07-30/cyprus-sets-levy-on-bank-of-cyprus-uninsured-depositors-at-47-5-]
+47.5% of all bank deposits exceeding 100,000€ as part of a financial
+rescue program in 2013.
 
 === The Bitcoin approach
 
@@ -164,16 +177,14 @@ by one.
 
 Instead of a central organization controlling the currency, like the
 US Federal Reserve, the control is distributed among thousands of
-computers, called _Bitcoin nodes_ or just _nodes_, participating in
-the Bitcoin system.
-
-No single node or group of nodes have more privileges or obligations
-than any other node. This equality between nodes makes Bitcoin
-_decentralized_, as opposed to _centralized_ systems like an Internet
-Bank service or the Google search engine.
+computers, called _Bitcoin nodes_ or just _nodes_. No single node or
+group of nodes have more privileges or obligations than any other
+node. This equality between nodes makes Bitcoin _decentralized_, as
+opposed to _centralized_ systems like an Internet Bank service or the
+Google search engine.
 
 .Centralized and decentralized services
-image::{imagedir}/centralized_vs_decentralized.jpg[{half-width}]
+image::{imagedir}/centralized_decentralized.jpg[{half-width}]
 
 In a centralized system, the service is controlled by a single entity
 like a bank. It implies that this single entity can decide who gets to
@@ -182,8 +193,10 @@ national TV network may chose to provide movie clips online only to
 people in a certain geographical location.
 
 With at decentralized system like Bitcoin it is extremely hard to
-control how and by whom the system is used. There is no central point
-in the Bitcoin system that can be exploited to censor payments or
+control how and by whom the system is used. No matter where or who
+they are, or whom they are sending money to, the Bitcoin system will
+treat all users equally. There is no central point in the Bitcoin
+system that can be exploited to censor payments, deny users service or
 seize funds.
 
 The decentralization is also a way to make it nearly impossible to
@@ -199,35 +212,35 @@ A hard promise of Bitcoin is that its monetary supply will not exceed
 they know that they will _always_ own at least one 21 millionth of the
 total supply of bitcoins. This feature is not found in any fiat
 currencies, where decisions on the supply is made every so often by a
-company or a state. Bitcoin is very resistant to inflation because there is not way to increase the money supply at will.
+company or a state. Bitcoin is very resistant to inflation because
+there is no way to increase the money supply at will.
 
 The money supply of Bitcoin is actually not fixed today. It is
-increasing at a diminishing rate, according to a predetermined
+increasing, at a diminishing rate, according to a _predetermined_
 schedule and will eventually stop increasing around year 2140.
 
 .The supply of bitcoins over time
 image::{imagedir}/money_supply.jpg[{half-width}]
 
-As of writing, the current inflation rate is about 4%, but it is
-decreasing towards zero over time.
+As of writing, the current yearly increase in the money supply is
+about 4%, but it is decreasing towards zero over time.
 
-==== Global
+==== Borderless
 
 Since Bitcoin is a system run by ordinary computers connected to the
 Internet, the Bitcoin system is as global as the Internet itself. This
 means that anyone with an Internet connection can send money to other
-people across the world. No matter where they are or whom they are
-sending money to, the system will treat every user equally. 
+people across the world.
 
-.Bitcoin is global
-image::{imagedir}/global.jpg[{half-width}]
+.Bitcoin is borderless
+image::{imagedir}/borderless.jpg[{half-width}]
 
 There is no difference between sending a bitcoin to someone in the
 same room or sending it to someone on another continent. The
 experience is the same: Money is sent directly to the recipient, who
 will see the payment nearly instantaneously and after about 10 minutes
 the recipient can be _sure_ that the money is hers. There is no way of
-reversing the transfer once it has confirmed.
+reversing the transfer without the recipient's consent.
 
 === How is Bitcoin used?
 
@@ -256,31 +269,24 @@ your money is safe. There are a lot of different saving schemes you
 can chose from to find the right balance between security and
 convenience.
 
-Because the money supply is limited, as described in
-<<limited_supply>>, the risk of hyperinflation is very low. But the
-value of a bitcoin will still fluctuate dramatically at times, because
-of the highly speculative dimension of Bitcoin, see next section.
-
 ==== Speculation
 
 The world is full of people wanting to get rich quick. Bitcoin can be
 very alluring to them, because of the _volatility_, tendency to
-change, of the price of bitcoin. Looking at the history of Bitcoin, it
-is very tempting to try to buy when it is low and sell when it is
-high.
+change, of the price of bitcoin. Looking at the history of the Bitcoin
+price, it is very tempting to try to buy when it is low and sell when
+it is high.
 
 .Price since beginning of Bitcoin
 image::{imagedir}/price_graph.jpg[{half-width}]
 
-For a currency that can change this rapidly, it is very hard to
-predict when a trend is about to change. In November 2013, the price
-climbed from about $100 (US dollars) to over $1100 in a few
-weeks. This was clearly a so called _bubble_, where people were afraid
-of missing out on a great rise, so they bought in, driving the price
-further up, until it eventually started dropping again. The drop to
-50% of its peak value was just as quick as its rise. Fluctuations like
-this is rarely driven by any specific news or technological
-advancements, but from speculation.
+In November 2013, the price climbed from about $100 (US dollars) to
+over $1100 in a few weeks. This was clearly a so called _bubble_,
+where people were afraid of missing out on a great rise, so they
+bought in, driving the price further up, until it eventually started
+dropping again. The drop to 50% of its peak value was just as quick as
+its rise. Fluctuations like this is rarely driven by any specific news
+or technological advancements, but from speculation.
 
 Speculation can be fun but it is more like a lottery than something to
 make a living off of.
@@ -288,8 +294,8 @@ make a living off of.
 ==== Non-currency uses
 
 Bitcoin is electronic cash, but this form of cash have properties that
-can be used for other things beyond money. This section covers a few
-uses, but there are others including not yet invented uses.
+can be used for other things beyond money. This section covers two
+common uses, but there are others including not yet invented uses.
 
 ===== Ownership
 
@@ -307,7 +313,7 @@ the bitcoin address to the identity of the manufacturer. Anyone can
 then verify that the manufacturer has transferred ownership of the car
 to the new owner. The new owner can show that she owns the car by
 proving that she owns the Bitcoin address that the manufacturer
-transfered ownership to.
+transferred ownership to.
 
 The new owner can sell the car to someone else and transfer ownership
 by sending the very same money she got from the manufacturer to the
@@ -327,49 +333,92 @@ document with the same fingerprint. This fingerprint can be attached
 to a payment. It is irrelevant where the money goes; The important
 thing is that the fingerprint is recorded in the Bitcoin system.
 
-Since Bitcoin payments are public records, anyone can validate that
-the document existed before the time of the payment by taking the
+Bitcoin payments are public records, so anyone can validate that the
+document existed before the time of the payment by taking the
 fingerprint of the document and compare it to the fingerprint stored
 in the payment.
 
 ==== How is Bitcoin valued?
 
 As you could read in section <<speculation>>, the price of a bitcoin
-can fluctuate quite dramatically. But where is this value actually
-coming from? A fiat currency has values in terms of other
-currencies. These values comes from a more or less free market of
-currencies where banks and exchanges chose what rate they are willing
-to trade the currencies in. The value of bitcion works in the
-same way.
-
-There are several Bitcoin exchanges, mostly internet based. They
-resemble stock markets, where users wanting to sell bitcoins are
-matched with users wanting to buy bitcoins. These exchanges usually
-publish their _order books_, which can look something like this:
+can fluctuate quite dramatically. But where is this price actually
+coming from? There are several Bitcoin exchanges, mostly internet
+based. They resemble stock markets, where users wanting to sell
+bitcoins are matched with users wanting to buy bitcoins. Exchanges
+usually publish their _order books_, which can look something like
+this:
 
 .Order book
 image::{imagedir}/order_book.jpg[{half-width}]
 
 It gives a user an overview of how much bitcoin is available at a
-certain price and how much bitcoin can be sold at a certain price.
+certain price and how much bitcoin can be sold at a certain price. The
+price of bitcoin on an exchange is usually the price of the last trade
+made on that exchange. You can also get an idea of the price by
+looking where the two lines in the order book meet on the price axis.
 
-There are several exchanges around the world. Most of them are on the
-Internet, but there are some physical shops where you can go in and
-exchange bitcoin and fiat currencies.
+==== When not to use Bitcoin
+
+Bitcoin is nice and all, but it's not suitable for all sorts of
+financial activity. At least not yet.
+
+===== Tiny payments
+
+Each transaction needs to pay a fee to be processed, and if that fee
+is a significant share of the actual payment you want to make, it is
+not economically feasible to pay with ordinary Bitcoin
+transactions. There are however very promising emerging technology,
+called the Lightning Network, that is built on top of Bitcoin that
+allows for instantaneous micropayments of fractions of a cent.
+
+===== Savings you can not afford to lose
+
+Bitcoin is probably the most secure money there is, but it is still in
+its infancy. Things _could_ go bad with Bitcoin, for example:
+
+* You lose your private keys, the secret data needed to spend your
+  money.
+* Your private keys get stolen, or rather, copied by some bad guy.
+* The government in your location may try to crack down on bitcoin
+  users by imprisonment or other means of force.
+* The price of bitcoin can swing down dramatically due to rumors or
+  other social activity.
+* There may be software errors that can make Bitcoin insecure.
+* There may be weaknesses in the cryptography used by Bitcoin.
+
+While all of the above are _possible_, most them are unlikely. The
+list is somewhat ordered with the most likely at the top. Always weigh
+the risks before putting money on the line and select your security
+measures accordingly. This book will help you understand the risks and
+how to secure your money.
+
+===== Instant payments
+
+Bitcoin payments takes time to confirm. A typical payment will confirm
+within 20 minutes. The recipient will see the payment immediately, but
+he cannot trust the payment until it is confirmed by the Bitcoin
+network. This limitation will also be fixed by systems built on top of
+Bitcoin, for example the Lightning Network.
+
+The confirmation time of Bitcoin is nowhere near the confirmation
+times of VISA or MasterCard, where a merchant must wait for
+weeks footnote:[https://www.dalpay.com/en/support/chargebacks.html]
+before being almost sure that the transaction is not reversed.
 
 === The big picture
 
 You will encounter several concepts in Bitcoin as you read this
-book. Each chapter focuses on a specific commonly performed task, and
-we will explore the concepts behind that task as we stumble upon
-them. This section is to give you a mental model to carry with you,
-that we can refer to if needed.
+book. Each chapter focus on a commonly performed task, and we will
+explore the concepts behind that task as we stumble upon them. This
+section is to give you a mental model to carry with you, that we can
+refer to if needed.
 
 The Bitcoin network validates and confirms payments. The Bitcoin
 network is a network of computers running Bitcoin software. A payment
 starts with a user, Alice in our example, asking the Bitcoin network to
 move money from her to Bob.
 
+.Bitcoin payment overview
 image::{imagedir}/mental_model.jpg[{full-width}]
 
 Let us follow Alice's payment from Alice to Bob:
@@ -378,23 +427,20 @@ Let us follow Alice's payment from Alice to Bob:
 . The computers in the network check that Alice actually has the
 money to send and that she is authorized to send them.
 . Each computer update its own copy of the Bitcoin ledger with the
-new transaction information.
+new payment information.
 . The network notifies Bob that he has received 1 bitcoin.
 
 Note how Alice does not really _send_ 1 bitcoin to Bob, but asks the
 Bitcoin network to subtract 1 bitcoin from Alice's balance, and to add
 1 bitcoin to Bob's balance in the Bitcoin ledger. The Bitcoin ledger
 is a database that each computer in the Bitcoin network has a
-copy of. This ledger contains historic information about previous
-payments, and new payments are added to it every now and then. The
-computers in the Bitcoin network constantly try to keep this ledger up
-to date between each other.
+copy of.
 
-We will go through these steps a bit closer in the next four
-sections, one step per section.
+We will go through these steps a bit closer in the next four sections,
+one step per section.
 
-[id=overview]
-==== Transactions
+[id=overview-transactions]
+==== Step 1 - Transactions
 
 Step 1 of the process is when Alice asks the network to move 1 bitcoin
 to Bob. She asks by sending a Bitcoin _transaction_ to the Bitcoin
@@ -404,13 +450,10 @@ move the money. Let us start with a picture that visualizes the
 transaction.
 
 [id=bitcoin_payment]
-.Bitcoin payment
+.A Bitcoin transaction
 image::{imagedir}/transaction_mailbox.jpg[{half-width}]
 
-[NOTE maybe ditch this mailbox analogy, it's not perfect and may
-actually confuse more than help]
-
-The Bitcoin _transaction_, or payment, can be regarded as transferring
+The Bitcoin _transaction_, can be regarded as transferring
 money from one locked mailbox to another. Yes, we are talking about
 _physical_ mailboxes for this analogy. Only the owner of the key to a
 mailbox will be able to pull money out of that mailbox, but anyone is
@@ -426,19 +469,19 @@ data specifying
 * what mailbox to move the money to (560).
 * a _digital signature_
 
-The digital signature corresponds to Alice opening mailbox 321 with her
-key to pull out a bill. Only she can pull out a bill from
-mailbox 321. Likewise, only she can create the digital signature.
+The digital signature corresponds to Alice _opening mailbox 321 with
+her key_. Only she can open mailbox 321. Likewise, only she can create
+the digital signature.
 
 Alice sends this transaction to one or more _Bitcoin nodes_, computers
-in the Bitcoin network. This is [REFERENCE step 1 in The Big Picture]
-where Alice asks the network to move money.
+in the Bitcoin network. This is the moment where Alice asks the
+network to move money in step 1.
 
-==== The Bitcoin network
+==== Step 2 - The Bitcoin network
 
 Alice have already sent a transaction to a number of Bitcoin nodes. In
 step 2 of the process, each node checks that the transaction is
-valid. They do that by consulting their copy of the ledger, to see if
+valid. They do that by consulting their copy of the ledger, to check if
 
 * mailbox 321 contains the money she wants to spend.
 * she has successfully unlocked the mailbox.
@@ -447,27 +490,31 @@ Each node doing these checks are part of the Bitcoin network. Nodes
 connect to some other nodes and together they form a network, the
 Bitcoin network.
 
-[id=bitcoin-network]
+[id=overview-bitcoin-network]
 .The Bitcoin network
 image::{imagedir}/bitcoin_network.jpg[{half-width}]
 
 If all checks pass, a node will forward the transaction to the nodes
 it is connected to in the Bitcoin network. Alice's transaction would
-shortly have travelled the whole network while being validated by each
+shortly have traveled the whole network while being validated by each
 node along the way.
 
-==== The blockchain
+==== Step 3 - The blockchain
 
 In step 3 each node updates its local copy of the ledger with the
-information in Alices transaction. The ledger is called _the
-blockchain_. The name will be explained in later chapters. It is not
-as straight forward as it may seem to update the blockchain. Alice's
-transaction is not the only transaction that goes on. There are
-possibly thousands of transactions in-flight at the same time in the
-Bitcoin network. If all nodes would just update their copy of the
-blockchain as they receive transactions the copies would not remain
-copies for long. The transactions may come in different order on
-different nodes:
+information in Alice's transaction. The ledger is called _the
+blockchain_ for reasons explained later. The blockchain contains
+historic information about previous payments, and new payments are
+added to it every now and then. The computers in the Bitcoin network
+constantly try to keep this ledger up to date between each other.
+
+It is not as straight forward as it may seem to update the blockchain
+with Alice's transaction. Alice's transaction is not the only
+transaction that goes on. There are possibly thousands of transactions
+in-flight at the same time in the Bitcoin network. If all nodes would
+just update their copy of the blockchain as they receive transactions
+the copies would not remain copies for long. The transactions may come
+in different order on different nodes:
 
 [id=transaction-ordering]
 .Transactions unordered
@@ -476,39 +523,19 @@ image::{imagedir}/transaction_ordering.jpg[{half-width}]
 To coordinate the ordering of transactions, one node takes the lead
 saying "I want to add these 3 transactions to the blockchain in the
 order A, C, B!" to all its network neighbors. This message is sent out
-by the leader on the network, just as Alice's transaction was by
-Alice, until all nodes has received it. As nodes see this message they
-update their copy of the blockchain according to that message.
+on the network by that leader, just as Alice's transaction was by
+Alice.
 
-Not all nodes want to take the lead, but some of them do. We call them
-_miners_. Imagine if all miners tried to take the lead at the same
-time. Chaos would emerge where hundereds of computers simultaneously
-say "I want to add these XYZ transactions to the blockchain in this
-specific order". Nodes receiving all those messages would not know
-which of them to use.
-
-[id=block-race]
-.Chaos among miners
-image::{imagedir}/block_race.jpg[{half-width}]
-
-To avoid this chaos, miners are required to perform work before taking
-the lead. This means that taking the lead is not as easy as just
-shouting on the network, the miner must first perform hard work to
-solve a mathematical problem by trial-and-error. The work is so hard
-that it takes about 10 minutes before _any miner_ on the whole network
-can send out their message. The result of this is that the miners
-becomes much less chatty, and usually only one sends out their message
-at a time.
-
-[id=block-race-solution]
-.Solving the chaos
+[id=transaction-ordering]
+.Transactions ordered
 image::{imagedir}/block_race_solution.jpg[{half-width}]
 
-Now, since the chaos is solved, nodes can follow the only leader and
-update their copies of the blockchain with the transactions sent from
-the leader. Alice's transaction is one of them. It's time to notify Bob!
+As nodes see this message they update their copy of the blockchain
+according to the message. Alice's transaction was one of the
+transactions in the block message and it is now part of the
+blockchain. It's time to notify Bob!
 
-==== Wallets
+==== Step 4 - Wallets
 
 Bob and Alice are users of the Bitcoin network, and they need some
 computer program to interact with the network. Such a program is
@@ -516,7 +543,7 @@ called a _Bitcoin wallet_. There are several different Bitcoin wallets
 for several different devices, like mobile phones and desktop
 computers.
 
-In step 4 of the payment process, all nodes in the network have
+Before step 4 of the payment process, the nodes in the network have
 updated their local copy of the blockchain. Now the network needs to
 notify Bob that he has received one bitcoin.
 
@@ -533,8 +560,8 @@ message to Bob that he just received one bitcoin.
 As noted at the start of this section, Alice also use a wallet. Her
 wallet will also be notified of her own transaction, but there's one
 more very important thing that her wallet does. It holds her keys
-for her. The keys, as discussed in secion [REFERENCE to Transactions
-section] are used to create digital signatures and those keys need to
-be stored securely so that only Alice can use them. Bob also has keys
-to mailbox 560 in his wallet so that he can spend the money he just
-received from Alice.
+for her. The keys, as discussed in section <<overview-transaction>> are
+used to create digital signatures and those keys need to be stored
+securely so that only Alice can use them. Bob also has keys to mailbox
+560 in his wallet so that he can spend the money he just received from
+Alice.

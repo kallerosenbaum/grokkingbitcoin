@@ -18,8 +18,8 @@ ln -sr ${sourcedir}/images ${outputdir}
 ln -sr ${sourcedir}/style ${outputdir}
 
 ## AAMakePDF must be run from the AAMakePDF dir
-ln -sr ${MAKEPDF} ${AAMAKEPDFDIR}
-cp ${buildtooldir}/document.docbook45.erb ${TEMPLATEDIR}
+#ln -sr ${MAKEPDF} ${AAMAKEPDFDIR}
+#cp ${buildtooldir}/document.docbook45.erb ${TEMPLATEDIR}
 for file in ${sourcedir}/grokking-bitcoin.adoc; do
         basename=`echo $file | sed 's/.*\/\([^\/]*\)\.adoc/\1/'`
 	# This will generate a docbook xml file from the input
