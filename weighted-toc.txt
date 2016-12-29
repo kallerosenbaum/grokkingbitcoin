@@ -57,7 +57,7 @@ Depends 2
 	3.6.2 Blocks contains transactions
 	3.6.2.1 Describe what "commit to" means
 	3.6.3 Blocks are the heartbeat of Bitcoin
-*	3.6.4 Integrity through cryptographic hashes
+	3.6.4 Integrity through cryptographic hashes
 	3.6.4.1 Transaction hash
 	3.6.4.2 Merkle tree
 	3.6.4.3 Block header hash
