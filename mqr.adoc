@@ -46,18 +46,18 @@ result in true or false depending on if the transaction is valid
 or not. She will not learn exactly the format of a transaction
 detailed enough to understand the mechanics of Bitcoin.
 
+* Obtain and store bitcoins.
+
 * Send and receive payments.
 
-* Trustlessly monitor the Bitcoin network.
+* Accept bitcoin as payment for goods and services.
+
+* Use Bitcoin without trusting anyone else (run a "full Bitcoin node").
+
+* Setup a mining rig.
 
 * Secure your company's funds using multisignature transactions.
 
-* Transfer money internationally using Bitcoin to reduce fees.
-
-* Send and receive microtransactions of a dollar, or even tiny
-  fractions of cents.
-
-* Participate in flame wars on Reddit. Or not.
+* Send and receive microtransactions with fractions of cents.
 
 * Make your mind up on wether you trust Bitcoin or not.
-
