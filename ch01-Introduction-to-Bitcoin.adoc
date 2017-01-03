@@ -71,11 +71,12 @@ Trader:: A short term speculator performing trading on an exchange.
 Bank:: Not really a Bitcoin actor but it is nevertheless part of the
 ecosystem since many actors use Banks in their Bitcoin activity.
 
-The Bitcoin network consists of thousands of computers that we call
-nodes. Some of the nodes in the network are called Miners because they
-"mine" new bitcoins with their computing power. Most nodes are
-non-miners. They provide connectivity to the actors outside of the
-network, like shoppers and exchanges.
+The Bitcoin network's job is to process Bitcoin payments. The network
+consists of thousands of computers that we call nodes. Some of the
+nodes in the network are called Miners because they "mine" new
+bitcoins with their computing power. Most nodes are non-miners. They
+provide connectivity to the actors outside of the network, ordinary
+users like shoppers and exchanges.
 
 === Problems with money today
 
@@ -411,6 +412,19 @@ transactions. There are however very promising emerging technology,
 called the Lightning Network, that is built on top of Bitcoin that
 allows for instantaneous micropayments of fractions of a cent.
 
+===== Instant payments
+
+Bitcoin payments takes time to confirm. A typical payment will confirm
+within 20 minutes. The recipient will see the payment immediately, but
+he cannot trust the payment until it is confirmed by the Bitcoin
+network. This limitation will also be fixed by systems built on top of
+Bitcoin, for example the Lightning Network.
+
+The confirmation time of Bitcoin is nowhere near the confirmation
+times of VISA or MasterCard, where a merchant must wait for
+weeks footnote:[https://www.dalpay.com/en/support/chargebacks.html]
+before being almost sure that the transaction is not reversed.
+
 ===== Savings you can not afford to lose
 
 Bitcoin is probably the most secure money there is, but it is still in
@@ -432,26 +446,11 @@ the risks before putting money on the line and select your security
 measures accordingly. This book will help you understand the risks and
 how to secure your money.
 
-===== Instant payments
-
-Bitcoin payments takes time to confirm. A typical payment will confirm
-within 20 minutes. The recipient will see the payment immediately, but
-he cannot trust the payment until it is confirmed by the Bitcoin
-network. This limitation will also be fixed by systems built on top of
-Bitcoin, for example the Lightning Network.
-
-The confirmation time of Bitcoin is nowhere near the confirmation
-times of VISA or MasterCard, where a merchant must wait for
-weeks footnote:[https://www.dalpay.com/en/support/chargebacks.html]
-before being almost sure that the transaction is not reversed.
-
 === The big picture
 
 You will encounter several concepts in Bitcoin as you read this
 book. Each chapter focus on a commonly performed task, and we will
-explore the concepts behind that task as we stumble upon them. This
-section is to give you a mental model to carry with you, that we can
-refer to if needed.
+explore the concepts behind that task as we stumble upon them.
 
 The Bitcoin network validates and confirms payments. The Bitcoin
 network is a network of computers running Bitcoin software. A payment
