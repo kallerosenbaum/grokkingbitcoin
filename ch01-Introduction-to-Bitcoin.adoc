@@ -545,7 +545,7 @@ information in Alice's transaction. The ledger is called _the
 blockchain_ for reasons explained later. The blockchain contains
 historic information about previous payments, and new payments are
 added to it every now and then. The computers in the Bitcoin network
-constantly try to keep this ledger up to date between each other.
+constantly try to keep this ledger up to date with each other.
 
 It is not as straight forward as it may seem to update the blockchain
 with Alice's transaction. Alice's transaction is not the only
@@ -561,18 +561,18 @@ image::{imagedir}/transaction_ordering.jpg[{half-width}]
 
 To coordinate the ordering of transactions, one node takes the lead
 saying "I want to add these 3 transactions to the blockchain in the
-order A, C, B!" to all its network neighbors. This message is sent out
-on the network by that leader, just as Alice's transaction was by
-Alice.
+order A, C, B!". This message is sent out on the network by that
+leader, just as Alice's transaction was by Alice.
 
 [id=transaction-ordering]
 .Transactions ordered
-image::{imagedir}/block_race_solution.jpg[{half-width}]
+image::{imagedir}/transactions_ordered.jpg[{half-width}]
 
 As nodes see this message they update their copy of the blockchain
-according to the message. Alice's transaction was one of the
-transactions in the block message and it is now part of the
-blockchain. It's time to notify Bob!
+according to the message and passes the message on to its
+neighbors. Alice's transaction was one of the transactions in the
+leader's message and it is now part of the blockchain. It's time to
+notify Bob!
 
 [id=overview-wallets]
 ==== Step 4 - Wallets
@@ -600,8 +600,8 @@ message to Bob that he just received one bitcoin.
 As noted at the start of this section, Alice also use a wallet. Her
 wallet will also be notified of her own transaction, but there's one
 more very important thing that her wallet does. It holds her keys
-for her. The keys, as discussed in section <<overview-transaction>> are
-used to create digital signatures and those keys need to be stored
-securely so that only Alice can use them. Bob also has a key to mailbox
-560 in his wallet so that he can spend the money he just received from
-Alice.
+for her. The keys, as discussed in section <<overview-transaction>>,
+are used to create digital signatures and those keys need to be stored
+securely so that only Alice can use them. Bob also has a key to
+mailbox 560 in his wallet so that he can spend the money he just
+received from Alice.
