@@ -30,10 +30,11 @@ some other trusted third party. It resembles traditional bank notes
 and coins in that way, but it is purely electronic and used over the
 Internet. The Bitcoin currency is not tied to any specific _fiat
 currency_ like the US dollar or the Chinese Renminbi; It has free
-floating exchange rates against all fiat currencies. No government or
-company is controlling Bitcoin. Instead, thousands of computers around
-the globe collectively keep the system working day and night, seven
-days a week.
+floating exchange rates against all fiat currencies. You can buy and
+sell bitcoins for fiat currencies on one of several exchanges. No
+government or company is controlling Bitcoin. Instead, thousands of
+computers around the globe collectively keep the system working day
+and night, seven days a week. 
 
 Satoshi Nakamoto, a pseudonym whose identity is unknown, published a
 scientific paper on an e-mail list for cryptography related
@@ -44,41 +45,77 @@ vital parts of Bitcoin. Later, in January 2009, Nakamoto published the
 first software program to implement the described system. Bitcoin
 didn't get much attention then, apart from within a very limited set
 of cryptography experts. But gradually, as the system proved itself to
-be working, more people got interested in it. Today, in 2017, several
-millions of people are aware of Bitcoin and thousands of professionals
-are working on Bitcoin related technology.
+be working, more people got interested in it.
+
+Today, in 2017, several millions of people are aware of Bitcoin,
+hundreds of thousands people are actively using Bitcoin and thousands
+of professionals are working on developing Bitcoin related
+technology. Bitcoin is primarily used for payments, savings and
+speculation today. It removes friction in online payments, especially
+internationally, and allows for anyone to use or participate in the
+Bitcoin network without special permission from a bank or similar
+institution.
+
+The Bitcoin ecosystem consists of several actors. These are the most common
+types of actors:
+
+image::{imagedir}/actors.jpg[]
+
+Saver:: Saves bitcoin for future use.
+Shopper:: A person buying goods and services for bitcoin.
+Merchant:: For example a restaurant accepting bitcoin payments.
+Worker:: Someone getting her salary in bitcoin.
+Exchange:: A commercial or private service people can use to exchange
+their local currency to and from bitcoin.
+Trader:: A short term speculator performing trading on an exchange.
+Bank:: Not really a Bitcoin actor but it is nevertheless part of the
+ecosystem since many actors use Banks in their Bitcoin activity.
+
+The Bitcoin network consists of thousands of computers that we call
+nodes. Some of the nodes in the network are called Miners because they
+"mine" new bitcoins with their computing power. Most nodes are
+non-miners. They provide connectivity to the actors outside of the
+network, like shoppers and exchanges.
 
 === Problems with money today
 
 Bitcoin would not be this widespread if it didn't solve real problems
 for real people. Bitcoin solves several problems with the traditional
-financial system. Let us look some commonly discussed problem areas
-for now.
+financial system. Let us look some commonly discussed problem areas.
 
 ==== Inflation
 
-The money supply in fiat currencies is sometimes used as a tool for
-governments to extract value from its population to pay for expenses
-like national debt or warfare. In some countries people are too aware
-of this as they see their life savings diminish under so called
+Inflation means that the purchasing power of a currency decreases.
+
+.Inflation
+image::{imagedir}/inflation.jpg[{half-width}]
+
+Most currencies are subject to inflation. Some more than others. For
+example the Zimbabwean dollar that during 2007-2008 inflated nearly
+10^23^%, peaking at 80 billion percent per month during a few months
+in 2008. That is an average daily inflation rate of nearly
+100%. Prices roughly doubled every day.
+
+Extreme cases of inflation like this are called
 hyperinflation. Hyperinflation is usually initially driven by a rapid
 increase in the money supply. An increasing money supply will most
 likely lead to a depreciation of the currency. This in turn pushes
 people to exchange their local currency for goods or currencies that
 better holds value, which further drives the value of the currency
-down.
+down. This can sprial down to extremes like in Zimbabwe. The result is
+devastating for people as they see their life savings diminish to
+virtually nothing.
 
-.Inflation
-image::{imagedir}/inflation.jpg[{half-width}]
+The increase in money supply is sometimes used as a tool for
+governments to extract value from its population to pay for expenses
+like national debt, warfare or wellfare. If this tool is over-used,
+the risk of hyperinflation is apparent.
 
-An example of hyperinflation from recent time is the Zimbabwean dollar
-that during 2007-2008 inflated nearly 10^23^%, peaking at 80 billion
-percent per month during a few months in 2008. That is a daily
-inflation rate of nearly 100%. This is one of the most extreme cases
-of inflation throughout history, but still today some countries suffer
-from very high inflation. One of them is Venezuela where its currency,
-the bolívar as of writing faces a 480% inflation during 2016 and 2017
-is forecast to suffer from 1640% inflation.
+Zimbabwe is one of the most extreme cases of inflation throughout
+history, but still today some countries suffer from very high
+inflation. One of them is Venezuela where its currency, the bolívar as
+of writing faces a 480% inflation during 2016 and 2017 is forecast to
+suffer from 1640% inflation.
 
 ==== Borders
 
@@ -117,7 +154,8 @@ good job.
 
 As noted in the previous section, not all people have access to bank
 accounts. People with bank accounts and banking services like online
-payments or loans are very privileged. About 38% footnote:[http://datatopics.worldbank.org/financialinclusion/] of the
+payments or loans are very privileged. About 38%
+footnote:[http://datatopics.worldbank.org/financialinclusion/] of the
 world population don't have a bank account at all, according to the
 World Bank. The numbers are improving but still a vast amount of
 people are stuck in a cash-only environment. If these people want to
@@ -170,7 +208,7 @@ rescue program in 2013.
 === The Bitcoin approach
 
 Bitcoin offers a fundamentally different model than traditional
-financial institutions. Let's explore the major differences one
+financial institutions. Let us explore the major differences one
 by one.
 
 ==== Decentralized
@@ -200,20 +238,22 @@ system that can be exploited to censor payments, deny users service or
 seize funds.
 
 The decentralization is also a way to make it nearly impossible to
-change the rules of the currency. For example the money supply of
-Bitcoin is limited to 21,000,000 bitcoins, and that limit is nearly
-impossible to change because of decentralization.
+change the rules of the currency without broad consensus. If a node or
+a group of nodes does not obey the rules they will be ignored by the
+rest. For example, one rule is that the money supply of Bitcoin is
+limited to 21,000,000 bitcoins, and that limit is nearly impossible to
+change due to decentralization.
 
 [id=limited_supply]
 ==== Limited supply
 
-A hard promise of Bitcoin is that its monetary supply will not exceed
-21 million bitcoins. People can be sure that if they own one bitcoin,
+A hard promise of Bitcoin is that its money supply will not exceed 21
+million bitcoins. People can be sure that if they own one bitcoin,
 they know that they will _always_ own at least one 21 millionth of the
 total supply of bitcoins. This feature is not found in any fiat
-currencies, where decisions on the supply is made every so often by a
-company or a state. Bitcoin is very resistant to inflation because
-there is no way to increase the money supply at will.
+currency, where decisions on the supply is made every so often by a
+company or a state. Bitcoin is very resistant to high inflation
+because there is no way to increase the money supply at will.
 
 The money supply of Bitcoin is actually not fixed today. It is
 increasing, at a diminishing rate, according to a _predetermined_
@@ -222,8 +262,9 @@ schedule and will eventually stop increasing around year 2140.
 .The supply of bitcoins over time
 image::{imagedir}/money_supply.jpg[{half-width}]
 
-As of writing, the current yearly increase in the money supply is
-about 4%, but it is decreasing towards zero over time.
+As of writing, the money supply is about 16 million bitcoins and the
+current yearly increase in the money supply is about 4%, but the
+increase is decreasing towards zero over time.
 
 ==== Borderless
 
@@ -244,16 +285,15 @@ reversing the transfer without the recipient's consent.
 
 === How is Bitcoin used?
 
-So far we have touched on payments as a common use case for
-Bitcoin. This section will mention some other of the most common use
-cases that we see today. It is hard to predict what use cases we will
-see in the future. Predicting Bitcoin's future is like predicting in
-1995 what the Internet will be used for in 20 years. Let us stick to
-what we know now.
+So far we have touched on a few common use cases for Bitcoin. This
+section will dig deeper into those use cases and a few others. It is
+hard to predict what use cases we will see in the future. Predicting
+Bitcoin's future is like predicting in 1995 what the Internet will be
+used for in 20 years. Let us stick to what we know now.
 
 ==== Savings
 
-One interesting feature of bitcoin is that your money is kept safe by
+One interesting feature of Bitcoin is that your money is kept safe by
 storing a set of _private keys_. Private keys are the secret pieces of
 information that you will need when you want to spend your money. You
 chose how those private keys are stored. You can write them on paper,
@@ -535,6 +575,7 @@ according to the message. Alice's transaction was one of the
 transactions in the block message and it is now part of the
 blockchain. It's time to notify Bob!
 
+[id=overview-wallets]
 ==== Step 4 - Wallets
 
 Bob and Alice are users of the Bitcoin network, and they need some
@@ -562,6 +603,6 @@ wallet will also be notified of her own transaction, but there's one
 more very important thing that her wallet does. It holds her keys
 for her. The keys, as discussed in section <<overview-transaction>> are
 used to create digital signatures and those keys need to be stored
-securely so that only Alice can use them. Bob also has keys to mailbox
+securely so that only Alice can use them. Bob also has a key to mailbox
 560 in his wallet so that he can spend the money he just received from
 Alice.
