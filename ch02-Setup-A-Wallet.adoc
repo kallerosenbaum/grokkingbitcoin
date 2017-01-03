@@ -1,10 +1,384 @@
 == Setup a wallet
+:imagedir: {baseimagedir}/ch02
 
 This chapter covers
 
-* getting to know Bitcoin
-* the problems solved by Bitcoin
-* getting the big picture
+* installing a Bitcoin wallet
+* understainding the contents of a wallet
+* securing your wallet
 
-NOTE short version of MQR
+Now that the introduction is out of the way, let us get more
+hands-on. We will walk you through the installation of a Bitcoin
+wallet and explain some fundamental concepts that are important for
+wallets. Not only for wallets but for the whole Bitcoin system. 
 
+We will not explore how a wallet communicates with the Bitcoin
+network in this chapter. That will be covered in sections [REFERENCE
+to chapter 3 and 4]. The main objective of this chapter is to teach
+you how the wallet manages your secret keys and how addresses are
+generated from those keys.
+
+=== What is a wallet?
+
+In section <<overview-wallets>> we noted that a wallet stores its
+user's secret keys. Now we will look deeper into how that is done. At
+it's very core, a Bitcoin wallet is a container for private keys. The
+private keys are what Bitcoin users need in order to spend their
+money. Anyone that can get their hands on the keys will be able to
+spend the money. A wallet will help the user keep the keys safe from
+prying eyes.
+
+=== Install a wallet
+
+To help you get a feel for what a wallet is, we will start by getting
+a wallet installed on your device.
+
+==== Select a wallet
+
+There are several different wallet applications for a lot of
+platforms, like Android phones, iPads, Linux computers and Windows
+computers. The following table lists a good option for each major
+mobile platform:
+
+.Bitcoin wallet software for different platforms
+|===
+| Wallet name | Platforms
+
+| Copay | Most platforms, including Windows Phone
+
+| Mycelium | Android, iOS
+
+| breadwallet | Android, iOS
+
+//Should probably add specific app for desktops, to show that there
+// are such options.
+|===
+
+While all these options are good for beginners, there are several
+others on each platform. If you want to delve further into the
+plethora of options, please visit http://bitcoin.org to find a wallet
+that suits you.
+
+I will use Copay througout this book. You are free to try any of the
+wallet application, but they might differ a bit from Copay, which can
+make it harder to follow the steps in this book. I chose Copay
+primarily because it is available on all major platforms, so that you
+can easily follow the examples no matter what platform you use. To
+make it as easy as possible for you, I recommend that you use Copay as
+well.
+
+The instructions in this book will only use Copay. If you chose to use
+another wallet, you may have to adjust my steps. The main steps are
+usually the same on different wallets, but they may differ in how they
+look and what security features they have. If you try one of the other
+wallets and later change your mind, don't worry. You can install Copay
+later and move your money to the Copay wallet instead.
+
+==== Install your wallet
+
+If you are on any of the popular mobile platforms, you should be able
+to install the app right from where apps are installed on your
+platform. Search for "copay" and make sure that the vendor is "BitPay,
+Inc". If you are on a desktop computer, please go to https://copay.io/
+to download a wallet for your operating system.
+
+==== Start your wallet
+
+Once you have installed your wallet, either on your mobile device or
+on a desktop computer, you are ready to start the application. On your
+mobile device, start by hitting the icon for Copay. If you use a
+desktop computer, follow the intructions on the web site.
+
+When the wallet starts you will be presented with the "Terms of
+Use". Read them if you want and then click on "I AGREE, GET
+STARTED". Shortly after, you will be presented with a screen showing
+the balance of your newly created wallet:
+
+.Start screen of your wallet.
+image::{imagedir}/startscreen.png[{half-width}]
+
+There's not much to see here. You have 0 _bits_. This brings us to the
+world of Bitcoin units. 1 bitcoin is worth around 1000 USD, which
+makes it an impractical unit for smaller amounts, for example 1 USD
+equals about 0.001 bitcoin. Different units have emerged throughout
+the Bitcoin community over time to overcome this issue:
+
+// TODO insert symbols
+|===
+| Unit | Symbol | In bitcion | Comment
+| 1 bitcoin |   | 1 | This is the first unit used.
+| 1 bitcent | | 0.01 | Rarely used, but should make sense to people used
+  to dollars and cents.
+| 1 millibit | | 0.001 | Commonly used by wallet applications
+| 1 bit, 1 microbit | | 0.000001 | Default unit of Copay
+| 1 satoshi | | 0.00000001 | The smallest fraction possible today,
+  named after the creator of Bitcoin, Satoshi Nakamoto.
+|===
+
+The default unit of Copay is bits, which is 0.00001 bitcoin. If you
+prefer bitcion instead, you can change the unit in Copay under
+Menu->SETTINGS->Unit and select BTC.
+
+I would like to congratulate you for your new wallet now, but there's
+one more very important thing left to do before opening the
+chamagne. Backup.
+
+=== Backup your wallet
+
+Before doing anything at all with your wallet, you should do a proper
+backup. In fact, Copay will not let you do anything before making a
+backup. A wallet is just another software application on your phone or
+computer, and the application's data may get stolen, lost or corrupted
+at any time. There is no third party in Bitcoin, like with Google or a
+Bank, that you can go to to recover lost funds. If you lose your
+wallet data, you lose your bitcoins. Forever. Think of your bitcoins
+as cash in a physical wallet.
+
+Luckily, backing up a Bitcoin wallet is usually a smooth process. You
+need
+
+* your wallet application
+* a pen
+* a paper
+
+Now is the time for you to grab the above needed items. When you are
+back, please continue reading.
+
+Start your wallet application and click on the litte gear in the upper
+right corner.
+
+.Backup options is found here.
+image::{imagedir}/settings.png[{half-width}]
+
+Click on "Backup". Your wallet will display twelve english
+words. Use your pen to write those twelve words down on your paper. Do
+not take a screenshot. Screenshots are saved on your phone or even on
+on-line storage like Google Drive or Apple's iCloud.
+
+.Your 12 words phrase.
+image::{imagedir}/backup.png[{half-width}]
+
+.Backup your 12 words phrase.
+image::{imagedir}/writing_mnemonic.jpg[{half-width}]
+
+The words you have written on your paper is your backup. You can
+recover all your funds at any time in the future using that
+paper. Anyone else who gets access to the paper will also be able to
+do it. Just like the wallet, the backup should be thought of as cash.
+
+You have now created your backup. It's time to verify that your backup
+is OK. Click "CONTINUE" in your wallet application. Your twelve words
+are displayed in alphabetic order. Click on them in the order you
+wrote them down and click "CONTINUE".
+
+.Verify your 12 words backup phrase.
+image::{imagedir}/verify_backup.png[{half-width}]
+
+You will be congratulated by the
+application. Click "FINISH".
+
+Now, take the paper and store it in a safe place. When the paper is
+stored safely, it is time for me to congratulate you to your newly
+installed and backed up wallet!
+
+.Contratulations!
+image::{imagedir}/congratulations.jpg[{half-width}]
+
+=== Generate a Bitcion address
+
+In [REFERENCE chapter 1 wallets], Alice paid 1 bitcoin to Bob, but she
+didn't pay to the _person_ Bob, she paid to mailbox 560. Mailbox 560
+is an analogy for a _Bitcoin address_. To make the example more
+concrete, Bob has a Bitcoin address that look like this:
+
+ [ACTUAL BITCOIN ADDRESS]
+
+That address is generated by Bob's wallet and it is what Alice is
+actually paying to. Before Alice can create her transaction to send
+money to Bob, she needs this address from Bob.
+
+[IMAGE of "Hey, Alice! I want 1 bitcoin from you, my bitcoin address
+is, ACTUAL BITCOIN ADDRESS]
+
+There are several ways for Alice to get the address. She could request
+it via email or traditional mail, or she could get it from Bob's home
+page on the Internet. In the example above, Bob gave her his address
+at the same time as he requests money from Alice.
+
+In order to receive money you need a Bitcoin address to give to the
+payer. Your Bitcoin wallet will help you create one.
+
+=== Bitcoin addresses
+
+A Bitcoin address looks like a random string of digits and letters,
+but it is actually not. To really understand what a Bitcoin address is
+and how it is created, we need to dive into some fundamental concepts
+of Bitcoin. Please don't feel put off by the fancy words in the
+headers of the coming two sections. They are just words cryptographers
+use to look cool. We will walk you through them slowly and
+carefully. After this section you will have enough understanding of
+the fundamental concepts in Bitcoin to understand big parts of the
+rest of this book, so please take the time to fully understand
+this. If you don't get it on the first read, try again. If you still
+don't get it, don't worry. Get a good night's sleep and revisit this
+section tomorrow.
+
+==== Public-key cryptography
+
+===== Cryptography
+
+Cryptography is a collective term for a number of techniques to make
+secret messages unreadable by all but the intended readers.
+
+[IMAGE of sender, recipient and father-in-law. Father-in-law see only
+garbled letters, recipient see the message clearly.]
+
+A very simple, and highly insecure, cryptography scheme is to rotate
+the alphabet a certain number of steps.
+
+.Messages rotated 6 steps
+[On the side: "a"->"g", "hello"->"nkrru"]
+
+If a lover, Ken, wants to send the message "Will you marry me?" to his
+partner, Barbie, but he do not want anyone else to read the
+message. He can _encrypt_ the message according to the rotation
+scheme:
+
+.Encrypted message readable only by the loving partner
+[IMAGE Airplane with banderoll "ROTATION:Xjmm zpv nfssz nf?"]
+
+This message is seen by everyone who cares to look up into
+the sky. Only Alice, who knows his partners weird way of
+communicating, can unscramble this message into something readable. No
+one else can understand the message. This crypto works because the
+sender and the recipient has agreed on a scheme and a secret number,
+6, beforehand at the breakfast table. Barbie needs to know:
+
+* that the rotation scheme is used
+* the number of steps to rotate, 6
+
+In this example the number 6 is the secret key. It is what keeps the
+message encrypted. If you don't know the key, you don't know how many
+steps to rotate the alphabet to unscramble the message. This key is
+trivially cracked by trying all possible 25 keys, one key for each
+way to rotate the alphabet at least one step.
+
+The partners share the secret key, 6, which they have agreed upon in a
+secure manner at breakfast.
+
+===== Public and Private keys
+
+Sometimes you don't have the privilige of communicating securely
+beforehand to agree on a key. When you visit a secure web site for the
+first time, for example when you sign up for an account on a service
+you have not used before, you haven't already exchanged a key. How do
+you agree on a secret key when you have no way to communicate that key
+securely? If you send it in clear text ("6") to the web server, any
+intermediary computer on the Internet may read the key and use it to
+decrypt your subsequent encrypted messages.
+
+Public-key cryptography is a partial solution to this problem. The
+main ingredients of public-key cryptography is a _pair of keys_, a
+public key and a private key. The public and private keys have a very
+special relationship; What is encrypted by the public key can only be
+decrypted with the private key.
+
+[Image of message encrypted with public key and decrypted by the
+private key]
+
+Let's say that Barbie from our previous example haven't agreed on a
+shared secret with Ken. But she has done something clever a while
+back; She has created a key pair and published her public key on
+Facebook, Twitter, her blog and on the billboard at home. Ken is well
+aware of Barbie's public key. He can use that public key to encrypt a
+message to Barbie:
+
+[Airplane with message Barbie: "Barbie: 3nk345n45t40tj3"]
+
+The whole town will see this message, but it doesn't mean anything to
+any of them. Barbie, on the other hand, will recognize her name, and
+realize that this is an encrypted message. She will try to decrypt the
+message using her private key.
+
+[Barbie decrypts the message. Output "Will you marry me?"]
+
+The decryption is successful and she can read the message clearly.
+
+Ken have now encrypted a message using Barbie's public key, displayed
+the encrypted message in public and Barbie, who is the only one with
+the correct private key, could decrypt and read the message.
+
+The reverse is also true; what is encrypted by the private key can
+only be decrypted by the public key.
+
+[Image of message encrypted with public key]
+
+This reverse relationship have an interesting property: I
+
+
+The private key is a huge random number. It is huge because it must be
+extremely unlikely that someone succeeds in guessing the number. The
+public key is _derived_ from the private key. If you know the private
+key you can easily calculate the public key.
+
+There are several ways to derive a 
+
+
+
+Suppose
+that the partners had not agreed on a secret key at breakfast, but
+that she has published her public key on her facebook page, on
+twitter, and on several other places.
+
+[Good morning dear! What is your public key? - Well, it is 3k2op1, darling]
+
+The public key is not secret, but it can be used to encrypt messages
+that only the owner of the private key can decrypt. Later that day
+he displays a public message like this:
+
+[Airplane with "To 3k2op1: 3nk345n45t40tj3"] Replace with real crypto
+
+
+
+You
+cannot encrypt the key before sending it, because the web site would
+not be able to decrypt it.
+
+
+Of couse no one is using this scheme, because it is easy to crack. 
+
+Public-key cryptography is a widely used category of cryptography
+techniques. In that
+
+
+==== Cryptographic hashes
+
+==== Address creation process
+
+===== Overview
+
+===== Create a private key
+
+===== Extract the public key
+
+===== Hash it
+
+===== Add version and checksum
+
+===== Base58 encode it
+
+=== Protect your keys!
+
+
+==== Why do I need a backup?
+
+==== Encrypting your backup
+
+A typical wallet is a software program that stores private keys for
+its user as well as creating, sending and receiving transactions.
+
+
+
+A wallet is where users of the Bitcoin system store their private
+keys. In section <<overview-transactions>>, Alice used a key to open
+her mailbox to pull out a bill. That key is Alice's private key.

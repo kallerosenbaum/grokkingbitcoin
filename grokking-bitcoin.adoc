@@ -24,4 +24,4 @@ endif::[]
 
 include::ch01-Introduction-to-Bitcoin.adoc[]
 
-//include::ch02-Setup-A-Wallet.adoc[]
+include::ch02-Setup-A-Wallet.adoc[]
