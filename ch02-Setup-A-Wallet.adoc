@@ -184,7 +184,82 @@ installed and backed up wallet!
 .Contratulations!
 image::{imagedir}/congratulations.jpg[{half-width}]
 
-=== Generate a Bitcion address
+<<<
+=== Generate a Bitcoin address
+
+The next step after setting up and backup up your wallet is to create a Bitcoin adress... Blablabla
+
+[CONCRETE EXAMPLE] Bob is about to get some bitcoins from Alice in our
+example from chapter 1. To receive the money he needs to create a
+Bitcoin address to give to Alice.
+
+(Christina and Bert, does the concrete example benefit from using 2nd person or is 3rd person Ok as in my concrete example? Should I leave Alice and Bob and switch to "you and your employer instead"?)
+
+=== Bitcoin addresses
+
+==== Address creation process
+
+===== Overview
+
+.Bitcoin address creation process. The process goes through three phases: 1) Create a private-public key pair, 2) Hash the public key, and 3) Encode the public key hash into a manageable and error resistant format. The encoding part is reversable, you can move from the Bitcoin address after step 3 to the hash value at step 2.
+image::{imagedir}/mental_model_address_creation.png[{full-width}]
+
+(Christina and Bert: Is this too hard-working? I can certainly
+simplify it quite a bit and sort out the details in later zoomed in
+versions of the diagram)
+
+Bla bla bla steps 1, 2 and 3 bla bla bla.
+
+===== Create a keypair
+
+Step 1. Blablabl
+
+.Step 1 of the Bitcoin address creation process. First a huge random number, the private key, is created, then R is transformed by an irreversible function into a public key.
+image::{imagedir}/public_key_cryptography.png[{full-width}]
+
+Blablabla I have to at least give a clue here on the relation between public and private keys. Possibly a diagram like the following could be handy, or maybe that's too much information at this stage?
+
+.The private and public keys have a very special relationship. Messages encrypted with the private key is only decryptable by the public key, and vice versa, messages encrypted with the public key is only decryptable by the private key.
+image::{imagedir}/encrypt_with_public_key.png[{full-width}]
+
+(Christina and Bert, Bitcoin does not actually use the keypair until
+it's time to sign a transaction in chapter 4, so how deep should I go
+here on the properties of public and private keys? In chapter 2 we can
+just explain that the public key is used to verify signatures made
+with the private key. We will explore this further in chapter 4 "JIT".)
+
+===== Hash the public key
+
+Step 2 blablabla
+
+.Step 2 of the Bitcoin address creation process. A cryptographic hash is a huge number generated from its input. Different inputs generate different outputs with very high probability. It is extremely hard to find two different inputs with the same outputs.
+image::{imagedir}/cryptographic_hashing.png[{full-width}]
+
+===== Encode the Bitcoin address
+
+Step 3 blablabla
+
+.Step 3 of the Bitcoin address creation process. The hash of the public key is decorated with a version number and a checksum. Then the decorated hash is encoded with a Base58 to produce the final Bitcoin address.
+image::{imagedir}/address_encoding.png[{full-width}]
+
+==== Public-key cryptography
+
+(Christina and Bert, maybe we should move this section to chapter 4
+instead where this tech is actually used. The only thing we do in the
+address creation process with regards to public-key cryptography is to
+generate a keypair. I think it will fall out more naturally
+chapter 4. )
+
+===== Cryptography
+
+===== Public and Private keys
+
+==== Cryptographic hashes
+
+This section is actually very "JIT" because cryptographic hases are heavily used during the Bitcoin address creation process. Examples and diagrams to follow...
+
+<<<
+=== Generate a Bitcoin address
 
 In [REFERENCE chapter 1 wallets], Alice paid 1 bitcoin to Bob, but she
 didn't pay to the _person_ Bob, she paid to mailbox 560. Mailbox 560
@@ -209,6 +284,29 @@ In order to receive money you need a Bitcoin address to give to the
 payer. Your Bitcoin wallet will help you create one.
 
 === Bitcoin addresses
+
+[CONCRETE EXAMPLE] Let us say that you want to receive bitcoins from
+your employer, you need to create a Bitcoin address to give to your
+employer.
+
+==== Address creation process
+
+===== Overview
+
+[HARD WORKING DIAGRAM OF THE ADDRESS CREATION PROCESS]
+
+===== Create a private key
+
+
+
+===== Extract the public key
+
+===== Hash it
+
+===== Add version and checksum
+
+===== Base58 encode it
+
 
 A Bitcoin address looks like a random string of digits and letters,
 but it is actually not. To really understand what a Bitcoin address is
@@ -353,19 +451,6 @@ techniques. In that
 
 ==== Cryptographic hashes
 
-==== Address creation process
-
-===== Overview
-
-===== Create a private key
-
-===== Extract the public key
-
-===== Hash it
-
-===== Add version and checksum
-
-===== Base58 encode it
 
 === Protect your keys!
 
