@@ -12,14 +12,17 @@
 ifdef::backend-html5[]
 :full-width: width='100%'
 :half-width: width='50%'
+:quart-width: width='25%'
 endif::[]
 ifdef::backend-pdf[]
 :full-width: pdfwidth='100%'
 :half-width: pdfwidth='50%'
+:quart-width: pdfwidth='25%'
 endif::[]
 ifdef::backend-docbook45[]
 :full-width: scaledwidth='100%'
 :half-width: scaledwidth='50%'
+:quart-width: scaledwidth='25%'
 endif::[]
 
 include::ch01-Introduction-to-Bitcoin.adoc[]

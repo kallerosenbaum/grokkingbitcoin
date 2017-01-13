@@ -4,7 +4,7 @@
 This chapter covers
 
 * installing a Bitcoin wallet
-* understainding the contents of a wallet
+* understainding Bitcoin addresses
 * securing your wallet
 
 Now that the introduction is out of the way, let us get more
@@ -12,26 +12,31 @@ hands-on. We will walk you through the installation of a Bitcoin
 wallet and explain some fundamental concepts that are important for
 wallets. Not only for wallets but for the whole Bitcoin system. 
 
-We will not explore how a wallet communicates with the Bitcoin
-network in this chapter. That will be covered in sections [REFERENCE
-to chapter 3 and 4]. The main objective of this chapter is to teach
-you how the wallet manages your secret keys and how addresses are
-generated from those keys.
+The main objective of this chapter is to teach you how the wallet
+manages your private keys and how addresses are generated from those
+private keys.
 
 === What is a wallet?
 
 In section <<overview-wallets>> we noted that a wallet stores its
-user's secret keys. Now we will look deeper into how that is done. At
+user's private keys. Now we will look deeper into how that is done. At
 it's very core, a Bitcoin wallet is a container for private keys. The
 private keys are what Bitcoin users need in order to spend their
-money. Anyone that can get their hands on the keys will be able to
-spend the money. A wallet will help the user keep the keys safe from
-prying eyes.
+money. Anyone that can get their hands on the private keys will be
+able to spend the money. A wallet will help the user keep the private
+keys safe from prying eyes as well as protect them from loss.
 
 === Install a wallet
 
 To help you get a feel for what a wallet is, we will start by getting
-a wallet installed on your device.
+a wallet installed on your device. There are a few steps involved in
+installing a wallet:
+
+. Select your wallet application
+. Install the wallet application
+. Start the wallet
+. Backup your wallet
+. Secure the private keys
 
 ==== Select a wallet
 
@@ -184,49 +189,163 @@ installed and backed up wallet!
 .Contratulations!
 image::{imagedir}/congratulations.jpg[{half-width}]
 
-<<<
 === Generate a Bitcoin address
 
-The next step after setting up and backup up your wallet is to create a Bitcoin adress... Blablabla
+The next step after setting up and backup up your wallet is to create
+a Bitcoin address.
 
-[CONCRETE EXAMPLE] Bob is about to get some bitcoins from Alice in our
-example from chapter 1. To receive the money he needs to create a
-Bitcoin address to give to Alice.
+You are probably already familiar with email addresses. You can think
+of Bitcoin addresses in the same way as email addresses. If you want
+to send an email to your friend, you need your friend's email
+address. If you want to send bitcoins to your friend, you need your
+friend's Bitcoin address.
 
-(Christina and Bert, does the concrete example benefit from using 2nd person or is 3rd person Ok as in my concrete example? Should I leave Alice and Bob and switch to "you and your employer instead"?)
+We will let your wallet create an address for you and in the next
+section we will explore what the wallet software actually did to
+generate the address. Your wallet will automatically create addresses
+for you when you need them. In fact, your first address is already
+generated, you just haven't seen it yet. Click on "Receive" in the
+lower left corner of your screen in the Copay app.
+
+.Get an address in your wallet app by clicking on the "Receive" tab.
+image::{imagedir}/generate_address.png[{quart-width}]
+
+.Your first Bitcoin address
+image::{imagedir}/new_address.png[{quart-width}]
+
+What you see on this screen is your Bitcoin address. It is displayed
+in two ways: As plain text and as a QR code. A QR code is a way to
+display text so that machines can easily scan it. Most mobile wallets
+are able to scan QR codes of Bitcoin addresses to make payments.
+
+The Bitcoin address in this example is
+
+    1BZRcHHYE56JcX1wvGvoFuAA638Ye3zcUQ
+
+Your Bitcoin address from your wallet will look different from the
+above and the length of the address may differ slightly. An address
+like this is what Bob needs to send to Alice in order to receive money
+from her.
 
 === Bitcoin addresses
 
+This section will go deep on what a Bitcoin address is and how it is
+created. The Bitcoin address creation process is complex and some new
+pretty hard topics will be introduced, but we will take it slow. I
+recommend you to carefully read and understand this section, because
+the topics you will learn here is vital for the rest of this book. If
+you do not get it, please try again. If you still have a hard time
+understanding, you should go to the movies and revisit this section
+tomorrow.
+
+Bob want’s to receive bitcoins from Alice in our example from chapter
+1, so he needs to create a Bitcoin address to give to Alice.
+
 ==== Address creation process
 
+The Bitcoin address creation process involves a number of technical topics:
+
+Public-key cryptography:: A key-pair of public and private keys is
+created which is used later when signing and validating
+transactions. The public and private keys are blablabla.
+
+Cryptographic hash function:: This is a family of algorithms that
+takes any data as input and outptus a fixed length huge number. You
+cannot from the output number figure out what the input data was.
+
+Base58 encoding:: This is a way to translate a series of bytes, into a
+series of letters and digits, which appropriate for printing and
+reading.
+
+These topics will be covered after the overview section.
+
 ===== Overview
+
+Let us start with a big diagrom of the whole process and then break it
+down.
 
 .Bitcoin address creation process. The process goes through three phases: 1) Create a private-public key pair, 2) Hash the public key, and 3) Encode the public key hash into a manageable and error resistant format. The encoding part is reversable, you can move from the Bitcoin address after step 3 to the hash value at step 2.
 image::{imagedir}/mental_model_address_creation.png[{full-width}]
 
-(Christina and Bert: Is this too hard-working? I can certainly
-simplify it quite a bit and sort out the details in later zoomed in
-versions of the diagram)
+This diagram shows that the process is divided in three major
+part.
 
-Bla bla bla steps 1, 2 and 3 bla bla bla.
+The first part, Public-key cryptography is used to generate a key-pair
+of a private and a public key. Public-key cryptography in Bitcoin is
+used for signing and verifying Bitcoin transactions. The private key
+is used to digitally sign a transaction and the public key is used to
+validate the signature. You can easily derive the public key from the
+private key through the Public key derivation function, but you cannot
+derive the private key from the public key.
+
+The second part, cryptographic hashing, is a way to get a fixed length
+"fingerprint" of the public key. The hashing is done in two steps, but
+both steps do the same thing, transform the input into a fixed length
+number. The first transforms into a 256 bit number and the second into
+a 160 bit number. As with public and private keys, the input of a
+cyptographic hash algorithm cannot be derived from the output.
+
+In the third part we add some data to the hashing output and encoded
+it with Base58. We set add a version number, 0, of the address format
+and a checksum. The checksum is used to prevent sending money to a
+non-existing Bitcoin address due to bad spelling or transfer issues
+when sending the address. The versioned and checksummed hash is
+encoded with Base58.
+
+Let us now dig deeper into theese three steps in order of appearance.
 
 ===== Create a keypair
 
-Step 1. Blablabl
-
-.Step 1 of the Bitcoin address creation process. First a huge random number, the private key, is created, then R is transformed by an irreversible function into a public key.
+:cap: Step 1 of the Bitcoin address creation process. First a huge \
+random number, the private key, is created. The private key is then \
+transformed by a cryptographic function into a public key.
+.{cap}
 image::{imagedir}/public_key_cryptography.png[{full-width}]
 
-Blablabla I have to at least give a clue here on the relation between public and private keys. Possibly a diagram like the following could be handy, or maybe that's too much information at this stage?
+The outcome of step 1 is a private key and its derived public key. The
+public and private keys have a very special relationship. The private
+key is used in Bitcoin for making digital signatures. The digital
+signature is then verified using the public key.
 
-.The private and public keys have a very special relationship. Messages encrypted with the private key is only decryptable by the public key, and vice versa, messages encrypted with the public key is only decryptable by the private key.
-image::{imagedir}/encrypt_with_public_key.png[{full-width}]
+Let us say that it's Wednesday afternoon and Bob wants to send the
+message
 
-(Christina and Bert, Bitcoin does not actually use the keypair until
-it's time to sign a transaction in chapter 4, so how deep should I go
-here on the properties of public and private keys? In chapter 2 we can
-just explain that the public key is used to verify signatures made
-with the private key. We will explore this further in chapter 4 "JIT".)
+ Alice, I love you. /Bob
+
+to Alice. But he fears that someone else might also send messages to
+Alice in Bob's name. Not nice. How can Bob send the message so that
+Alice can be sure that the message is actually from Bob?
+
+Alice and Bob knows about public-key cryptography. This morning, Alice
+and Bob met up at a café for breakfast before Alice went to
+work. During breakfast Bob gave Alice his public key. Alice now knows
+that this public key belongs to Bob. She also knows that only Bob have
+access to the private key.
+
+Now, it's Wednesdey afternoon and Alice is working. Bob decides to
+send his message to Alice.
+
+.Bob signs his message with his private key and sends the message, his public key and the signature to Alice who verifies it with the public key she knows belongs to Bob.
+image::{imagedir}/sign_message.png[{full-width}]
+
+On the left side Bob is using his private key that only he has
+access to. He uses it to digitally sign the message "Alice, I
+love you. /Bob". He then writes the message, his public key and his
+newly created signature in an email and sends it to Alice.
+
+Alice reads the message, but she is very concerned with security, so
+she wants to make sure this message is actually from Bob. So she takes
+the public key she knows belongs to Bob, the one she got at breakfast,
+and compares it to the public key in the message. They match. Now
+using the message, the public key and the signature she can verify
+that only Bob could have created this signature.
+
+We will get back and look more closely at digital signatures in
+[REFERENCE chapter 4]. For now we can just conclude that Bob's wallet
+have created a cryptographic key pair that can be used to sign and
+verify stuff. The wallet have stored the private key for
+later use. The public key is passed on to the next step in the Bitcoin
+address creation proccess.
 
 ===== Hash the public key
 
@@ -256,204 +375,11 @@ chapter 4. )
 
 ==== Cryptographic hashes
 
-This section is actually very "JIT" because cryptographic hases are heavily used during the Bitcoin address creation process. Examples and diagrams to follow...
+This section is actually very "JIT" because cryptographic hases are heavily uqsed during the Bitcoin address creation process. Examples and diagrams to follow.
 
-<<<
-=== Generate a Bitcoin address
-
-In [REFERENCE chapter 1 wallets], Alice paid 1 bitcoin to Bob, but she
-didn't pay to the _person_ Bob, she paid to mailbox 560. Mailbox 560
-is an analogy for a _Bitcoin address_. To make the example more
-concrete, Bob has a Bitcoin address that look like this:
-
- [ACTUAL BITCOIN ADDRESS]
-
-That address is generated by Bob's wallet and it is what Alice is
-actually paying to. Before Alice can create her transaction to send
-money to Bob, she needs this address from Bob.
-
-[IMAGE of "Hey, Alice! I want 1 bitcoin from you, my bitcoin address
-is, ACTUAL BITCOIN ADDRESS]
-
-There are several ways for Alice to get the address. She could request
-it via email or traditional mail, or she could get it from Bob's home
-page on the Internet. In the example above, Bob gave her his address
-at the same time as he requests money from Alice.
-
-In order to receive money you need a Bitcoin address to give to the
-payer. Your Bitcoin wallet will help you create one.
-
-=== Bitcoin addresses
-
-[CONCRETE EXAMPLE] Let us say that you want to receive bitcoins from
-your employer, you need to create a Bitcoin address to give to your
-employer.
-
-==== Address creation process
-
-===== Overview
-
-[HARD WORKING DIAGRAM OF THE ADDRESS CREATION PROCESS]
-
-===== Create a private key
-
-
-
-===== Extract the public key
-
-===== Hash it
-
-===== Add version and checksum
-
-===== Base58 encode it
-
-
-A Bitcoin address looks like a random string of digits and letters,
-but it is actually not. To really understand what a Bitcoin address is
-and how it is created, we need to dive into some fundamental concepts
-of Bitcoin. Please don't feel put off by the fancy words in the
-headers of the coming two sections. They are just words cryptographers
-use to look cool. We will walk you through them slowly and
-carefully. After this section you will have enough understanding of
-the fundamental concepts in Bitcoin to understand big parts of the
-rest of this book, so please take the time to fully understand
-this. If you don't get it on the first read, try again. If you still
-don't get it, don't worry. Get a good night's sleep and revisit this
-section tomorrow.
-
-==== Public-key cryptography
-
-===== Cryptography
-
-Cryptography is a collective term for a number of techniques to make
-secret messages unreadable by all but the intended readers.
-
-[IMAGE of sender, recipient and father-in-law. Father-in-law see only
-garbled letters, recipient see the message clearly.]
-
-A very simple, and highly insecure, cryptography scheme is to rotate
-the alphabet a certain number of steps.
-
-.Messages rotated 6 steps
-[On the side: "a"->"g", "hello"->"nkrru"]
-
-If a lover, Ken, wants to send the message "Will you marry me?" to his
-partner, Barbie, but he do not want anyone else to read the
-message. He can _encrypt_ the message according to the rotation
-scheme:
-
-.Encrypted message readable only by the loving partner
-[IMAGE Airplane with banderoll "ROTATION:Xjmm zpv nfssz nf?"]
-
-This message is seen by everyone who cares to look up into
-the sky. Only Alice, who knows his partners weird way of
-communicating, can unscramble this message into something readable. No
-one else can understand the message. This crypto works because the
-sender and the recipient has agreed on a scheme and a secret number,
-6, beforehand at the breakfast table. Barbie needs to know:
-
-* that the rotation scheme is used
-* the number of steps to rotate, 6
-
-In this example the number 6 is the secret key. It is what keeps the
-message encrypted. If you don't know the key, you don't know how many
-steps to rotate the alphabet to unscramble the message. This key is
-trivially cracked by trying all possible 25 keys, one key for each
-way to rotate the alphabet at least one step.
-
-The partners share the secret key, 6, which they have agreed upon in a
-secure manner at breakfast.
-
-===== Public and Private keys
-
-Sometimes you don't have the privilige of communicating securely
-beforehand to agree on a key. When you visit a secure web site for the
-first time, for example when you sign up for an account on a service
-you have not used before, you haven't already exchanged a key. How do
-you agree on a secret key when you have no way to communicate that key
-securely? If you send it in clear text ("6") to the web server, any
-intermediary computer on the Internet may read the key and use it to
-decrypt your subsequent encrypted messages.
-
-Public-key cryptography is a partial solution to this problem. The
-main ingredients of public-key cryptography is a _pair of keys_, a
-public key and a private key. The public and private keys have a very
-special relationship; What is encrypted by the public key can only be
-decrypted with the private key.
-
-[Image of message encrypted with public key and decrypted by the
-private key]
-
-Let's say that Barbie from our previous example haven't agreed on a
-shared secret with Ken. But she has done something clever a while
-back; She has created a key pair and published her public key on
-Facebook, Twitter, her blog and on the billboard at home. Ken is well
-aware of Barbie's public key. He can use that public key to encrypt a
-message to Barbie:
-
-[Airplane with message Barbie: "Barbie: 3nk345n45t40tj3"]
-
-The whole town will see this message, but it doesn't mean anything to
-any of them. Barbie, on the other hand, will recognize her name, and
-realize that this is an encrypted message. She will try to decrypt the
-message using her private key.
-
-[Barbie decrypts the message. Output "Will you marry me?"]
-
-The decryption is successful and she can read the message clearly.
-
-Ken have now encrypted a message using Barbie's public key, displayed
-the encrypted message in public and Barbie, who is the only one with
-the correct private key, could decrypt and read the message.
-
-The reverse is also true; what is encrypted by the private key can
-only be decrypted by the public key.
-
-[Image of message encrypted with public key]
-
-This reverse relationship have an interesting property: I
-
-
-The private key is a huge random number. It is huge because it must be
-extremely unlikely that someone succeeds in guessing the number. The
-public key is _derived_ from the private key. If you know the private
-key you can easily calculate the public key.
-
-There are several ways to derive a 
-
-
-
-Suppose
-that the partners had not agreed on a secret key at breakfast, but
-that she has published her public key on her facebook page, on
-twitter, and on several other places.
-
-[Good morning dear! What is your public key? - Well, it is 3k2op1, darling]
-
-The public key is not secret, but it can be used to encrypt messages
-that only the owner of the private key can decrypt. Later that day
-he displays a public message like this:
-
-[Airplane with "To 3k2op1: 3nk345n45t40tj3"] Replace with real crypto
-
-
-
-You
-cannot encrypt the key before sending it, because the web site would
-not be able to decrypt it.
-
-
-Of couse no one is using this scheme, because it is easy to crack. 
-
-Public-key cryptography is a widely used category of cryptography
-techniques. In that
-
-
-==== Cryptographic hashes
-
+But on a second thought, it would be more JIT in section <<hash-the-public-key>>
 
 === Protect your keys!
-
 
 ==== Why do I need a backup?
 
