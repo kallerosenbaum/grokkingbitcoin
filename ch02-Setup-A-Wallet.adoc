@@ -227,7 +227,7 @@ above and the length of the address may differ slightly. An address
 like this is what Bob needs to send to Alice in order to receive money
 from her.
 
-=== Bitcoin addresses
+=== Bitcoin address creation process
 
 This section will go deep on what a Bitcoin address is and how it is
 created. The Bitcoin address creation process is complex and some new
@@ -241,13 +241,11 @@ tomorrow.
 Bob want’s to receive bitcoins from Alice in our example from chapter
 1, so he needs to create a Bitcoin address to give to Alice.
 
-==== Address creation process
-
 The Bitcoin address creation process involves a number of technical topics:
 
 Public-key cryptography:: A key-pair of public and private keys is
 created which is used later when signing and validating
-transactions. The public and private keys are blablabla.
+transactions.
 
 Cryptographic hash function:: This is a family of algorithms that
 takes any data as input and outptus a fixed length huge number. You
@@ -259,7 +257,7 @@ reading.
 
 These topics will be covered after the overview section.
 
-===== Overview
+==== Overview
 
 Let us start with a big diagrom of the whole process and then break it
 down.
@@ -294,7 +292,7 @@ encoded with Base58.
 
 Let us now dig deeper into theese three steps in order of appearance.
 
-===== Create a keypair
+==== Create a keypair
 
 :cap: Step 1 of the Bitcoin address creation process. First a huge \
 random number, the private key, is created. The private key is then \
@@ -304,7 +302,7 @@ image::{imagedir}/public_key_cryptography.png[{full-width}]
 
 The outcome of step 1 is a private key and its derived public key. The
 public and private keys have a very special relationship. The private
-key is used in Bitcoin for making digital signatures. The digital
+key is used in Bitcoin for making _digital signatures_. The digital
 signature is then verified using the public key.
 
 Let us say that it's Wednesday afternoon and Bob wants to send the
@@ -319,10 +317,10 @@ Alice can be sure that the message is actually from Bob?
 Alice and Bob knows about public-key cryptography. This morning, Alice
 and Bob met up at a café for breakfast before Alice went to
 work. During breakfast Bob gave Alice his public key. Alice now knows
-that this public key belongs to Bob. She also knows that only Bob have
+that this public key belongs to Bob. She also knows that _only_ Bob have
 access to the private key.
 
-Now, it's Wednesdey afternoon and Alice is working. Bob decides to
+Now, it is Wednesdey afternoon and Alice is working. Bob decides to
 send his message to Alice.
 
 .Bob signs his message with his private key and sends the message, his public key and the signature to Alice who verifies it with the public key she knows belongs to Bob.
@@ -335,10 +333,10 @@ newly created signature in an email and sends it to Alice.
 
 Alice reads the message, but she is very concerned with security, so
 she wants to make sure this message is actually from Bob. So she takes
-the public key she knows belongs to Bob, the one she got at breakfast,
-and compares it to the public key in the message. They match. Now
-using the message, the public key and the signature she can verify
-that only Bob could have created this signature.
+the public key that she knows belongs to Bob, the one she got at
+breakfast, and compares it to the public key in the message. They
+match. Now using the message, the public key and the signature she can
+verify that only Bob could have created this signature.
 
 We will get back and look more closely at digital signatures in
 [REFERENCE chapter 4]. For now we can just conclude that Bob's wallet
@@ -347,19 +345,112 @@ verify stuff. The wallet have stored the private key for
 later use. The public key is passed on to the next step in the Bitcoin
 address creation proccess.
 
-===== Hash the public key
+==== Hash the public key
 
-Step 2 blablabla
+Bob's wallet have created a private and a public key in step 1 of the
+Bitcoin address creation process. His wallet will now take the public
+key and transform it using a process called cryptographic hashing.
 
 .Step 2 of the Bitcoin address creation process. A cryptographic hash is a huge number generated from its input. Different inputs generate different outputs with very high probability. It is extremely hard to find two different inputs with the same outputs.
+image::{imagedir}/hash_the_public_key.png[{full-width}]
+
+Two different types of cryptographic hashing will take place. The
+public key will first be run through SHA256, which will output a huge
+number. The result will further be run through RIPEMD160. Both of
+these hashing algorithms have the same principal charasteristics:
+
+. The same input will always produce the same output.
+. Slightly different inputs will produce very different outputs.
+. The output is always of the same fixed size. For SHA256 it is 256
+  bits, or 32 bytes.
+. Trial-and-error is the most efficient known way to find an input
+that gives a certain output. _Preimage resistance_.
+
+.A cryptgraphic hash function have some interesting properties: 1. Same input always gives the same output. 2. Different inputs give different outputs. 3. Output has fixed size.
 image::{imagedir}/cryptographic_hashing.png[{full-width}]
 
-===== Encode the Bitcoin address
+A cryptographic hash can be thought of as a fingerprint. A person will
+produce same fingerprint of her left thumb every time, but it is
+extremely hard to find another person with the same fingerprint on
+his/her left thumb.
+
+The public key is hashed because we don't want to expose our public
+key by giving someone a Bitcoin address. At least not yet. If the
+public key is exposed and someone finds a weakness in the public-key
+cryptography used, they might find a way to derive the private key
+from the public key. But if we only expose a hashed version of the
+public key, there must be very serious weaknesses in all three of our
+public-key cryptography, SHA256 and in RIPEMD160 at the same time in
+order to have a chance at figuring out the private keys.
+
+The first hashing algorithm, SHA256, will output a number of 256
+bits. And the second algorithm, RIPEMD160, will output a number of 160
+bits. RIPEMD160 is used for two reason:
+
+* The shorter output of RIPEMD160 will result in a shorter, more
+  manageable, Bitcoin address.
+* If either of RIPEMD160 or SHA256 turns out to be weak, meaning
+  property 4 doesn't hold, then the other algorithm will keep the
+  public key safe.
+
+The fourth property of cryptographic hash functions, _preimage
+resistance_, is what makes it a _cryptographic_ hash function and this
+needs a bit more elaboration.
+
+===== Preimage resistance
+
+Suppose that you want to find an input to SHA256 that results in the
+same output as "Hello!".
+
+There is no way to change the input just a little bit so that the
+function "won't notice". It will notice and output a totally different
+number. Every output looks random, but they are not actually
+random. They are calculated from the input, and every time you use the
+same input, the same output will be produced. The only way to find an
+input, other than "Hello!", that gives the output
+"334d016f755cd6dc58c53a86e183882f8ec14f52fb05345887c8a5edd42c87b7" is
+to try different inputs one by one and check if it produces this
+output.
+
+Let's try.
+
+.Finding an input with the same output as "Hello!". Nearly impossible.
+[%autowidth]
+|===
+| Input | Output | Success? 
+| Hello1! | 82642dd9e405f3f4265e2ca3c4c440e8c204f26a1b6f35fdf1ca2a642e366e64  | nope 
+| Hello2! | 493cb8b9dcb11590fe2fa72efd0d5f2fa70beda31ad0e5e8a76caa5f83ba14f8  | nope
+| Hello3! | 90488e861be3a5b762f40d4d2f1f2f7338f3f76a100ce3e4996dde8164530bae  | nope 
+| Hello4! | 86bc15b47d6886637a2e2083ea2f0405c6c8693cad9d1dc4864755ffe1ae748d  | nope 
+| ... | ... | nope
+| Hello9997! | 243358aaea3d234c09467ef449986bde25b462f5c72d50d655cb28987228646f  | nope 
+| Hello9998! | cf0bc6de6fd0aea26e1c68212710eea49ec6e913a7be0748e48cddcee6b0caa4  | nope 
+| Hello9999! | df82680f143cb292f46c4d0414b816c926d0fb659884c28df1dab01bef9bc235  | nope 
+| Hello10000! | 466a7662d9c183e52eeab8e9a261749d61bafa500101ef2aeed52315ce77859c  | nope 
+|===
+
+As you can see, we are not very successful. Let us think about how
+much time it would take for a typical high-end desktop computer to
+solve the puzzle. It can calculate about 60 million hashes per second
+and the expected number of tries to find a solution is 2^256^. Result?
+2^256^/(60*10^6^)s=1.9*10^69^s=6*10^61^ years, about
+
+ 60000000000000000000000000000000000000000000000000000000000000 years
+
+I think we can stop trying, don't you? I don't think buying a
+faster computer will help either.
+
+This preimage resistance is extremely important in Bitcoin. Most of
+its security relies on this property.
+
+==== Encode the Bitcoin address
 
 Step 3 blablabla
 
 .Step 3 of the Bitcoin address creation process. The hash of the public key is decorated with a version number and a checksum. Then the decorated hash is encoded with a Base58 to produce the final Bitcoin address.
 image::{imagedir}/address_encoding.png[{full-width}]
+
+=== REMOVE
 
 ==== Public-key cryptography
 
