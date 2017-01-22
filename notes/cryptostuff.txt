@@ -52,3 +52,24 @@ electrum signmessage -v -w ~/.electrum/wallets/grokking_bitcoin_test \
     19g6oo8foQF5jfqK9gH2bLkFNwgCenRBPD \
     "Alice, I will marry you! /Bob"
 
+### Decode an address
+# Base58 decode
+echo 19g6oo8foQF5jfqL9gH2bLkFNwgCenRBPD | base58 -d | xxd -p
+005f2613791b36f667fdb8ec0e60f65a5b5f0e04d30c3c1e60
+
+# Get the versioned public key hash
+echo 19g6oo8foQF5jfqL9gH2bLkFNwgCenRBPD | base58 -d | head -c 21 | xxd -p
+005f2613791b36f667fdb8ec0e60f65a5b5f0e04d3
+
+# Get the checksum
+echo 19g6oo8foQF5jfqL9gH2bLkFNwgCenRBPD | base58 -d | tail -c 4 | xxd -p
+0c3c1e60
+
+# Calculate the checksum from public key hash
+echo 19g6oo8foQF5jfqL9gH2bLkFNwgCenRBPD | base58 -d | head -c 21 \
+        | openssl dgst -sha256 -binary | openssl dgst -sha256 -binary | head -c 4 | xxd -p
+
+
+
+
+

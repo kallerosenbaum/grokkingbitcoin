@@ -4,7 +4,7 @@
 This chapter covers
 
 * installing a Bitcoin wallet
-* understainding Bitcoin addresses
+* understanding Bitcoin addresses
 * securing your wallet
 
 Now that the introduction is out of the way, let us get more
@@ -36,7 +36,6 @@ installing a wallet:
 . Install the wallet application
 . Start the wallet
 . Backup your wallet
-. Secure the private keys
 
 ==== Select a wallet
 
@@ -64,8 +63,8 @@ others on each platform. If you want to delve further into the
 plethora of options, please visit http://bitcoin.org to find a wallet
 that suits you.
 
-I will use Copay througout this book. You are free to try any of the
-wallet application, but they might differ a bit from Copay, which can
+I will use Copay throughout this book. You are free to try any of the
+wallet applications, but they might differ a bit from Copay, which can
 make it harder to follow the steps in this book. I chose Copay
 primarily because it is available on all major platforms, so that you
 can easily follow the examples no matter what platform you use. To
@@ -81,18 +80,24 @@ later and move your money to the Copay wallet instead.
 
 ==== Install your wallet
 
+// TYPESETTER: This image should go to the right of the paragraph.
+// Works in HTML, not in PDF.
+image::{imagedir}/copay_logo.png[200,200,float="right",align="right"]
+
 If you are on any of the popular mobile platforms, you should be able
 to install the app right from where apps are installed on your
 platform. Search for "copay" and make sure that the vendor is "BitPay,
-Inc". If you are on a desktop computer, please go to https://copay.io/
-to download a wallet for your operating system.
+Inc". The logotype of Copay is on the right. If you are on a desktop
+computer, please go to https://copay.io/ to download a wallet for your
+operating system.
 
 ==== Start your wallet
 
 Once you have installed your wallet, either on your mobile device or
 on a desktop computer, you are ready to start the application. On your
 mobile device, start by hitting the icon for Copay. If you use a
-desktop computer, follow the intructions on the web site.
+desktop computer, follow the instructions on the web site
+https://copay.io/.
 
 When the wallet starts you will be presented with the "Terms of
 Use". Read them if you want and then click on "I AGREE, GET
@@ -100,33 +105,33 @@ STARTED". Shortly after, you will be presented with a screen showing
 the balance of your newly created wallet:
 
 .Start screen of your wallet.
-image::{imagedir}/startscreen.png[{half-width}]
+image::{imagedir}/startscreen.png[{quart-width}]
 
 There's not much to see here. You have 0 _bits_. This brings us to the
-world of Bitcoin units. 1 bitcoin is worth around 1000 USD, which
-makes it an impractical unit for smaller amounts, for example 1 USD
-equals about 0.001 bitcoin. Different units have emerged throughout
-the Bitcoin community over time to overcome this issue:
+world of Bitcoin units. One bitcoin is, as of writing, worth around 1000
+USD, which makes bitcoin an impractical unit for smaller amounts, for
+example a soda would cost about 0.001 bitcoin. Different units have emerged
+throughout the Bitcoin community over time to overcome this issue:
 
-// TODO insert symbols
+[%autowidth]
 |===
-| Unit | Symbol | In bitcion | Comment
-| 1 bitcoin |   | 1 | This is the first unit used.
-| 1 bitcent | | 0.01 | Rarely used, but should make sense to people used
+| Unit | Symbol | In bitcoin | Comment
+| 1 bitcoin | BTC XBT | 1 | This is the most used unit.
+| 1 bitcent | cBTC | 0.01 | Rarely used, but should make sense to people used
   to dollars and cents.
-| 1 millibit | | 0.001 | Commonly used by wallet applications
-| 1 bit, 1 microbit | | 0.000001 | Default unit of Copay
-| 1 satoshi | | 0.00000001 | The smallest fraction possible today,
+| 1 millibit | mBTC | 0.001 | Commonly used by wallet applications
+| 1 bit, 1 microbitcoin | μBTC bit | 0.000001 | Default unit of Copay
+| 1 satoshi | sat | 0.00000001 | The smallest fraction possible today,
   named after the creator of Bitcoin, Satoshi Nakamoto.
 |===
 
 The default unit of Copay is bits, which is 0.00001 bitcoin. If you
-prefer bitcion instead, you can change the unit in Copay under
+prefer bitcoin instead, you can change the unit in Copay under
 Menu->SETTINGS->Unit and select BTC.
 
 I would like to congratulate you for your new wallet now, but there's
 one more very important thing left to do before opening the
-chamagne. Backup.
+champagne. Backup.
 
 === Backup your wallet
 
@@ -149,22 +154,22 @@ need
 Now is the time for you to grab the above needed items. When you are
 back, please continue reading.
 
-Start your wallet application and click on the litte gear in the upper
+Start your wallet application and click on the little gear in the upper
 right corner.
 
 .Backup options is found here.
-image::{imagedir}/settings.png[{half-width}]
+image::{imagedir}/settings.png[{quart-width}]
 
-Click on "Backup". Your wallet will display twelve english
+Click on "Backup". Your wallet will display twelve English
 words. Use your pen to write those twelve words down on your paper. Do
-not take a screenshot. Screenshots are saved on your phone or even on
+not take a screen shot. Screen shots are saved on your phone or even on
 on-line storage like Google Drive or Apple's iCloud.
 
 .Your 12 words phrase.
-image::{imagedir}/backup.png[{half-width}]
+image::{imagedir}/backup.png[{quart-width}]
 
 .Backup your 12 words phrase.
-image::{imagedir}/writing_mnemonic.jpg[{half-width}]
+image::{imagedir}/writing_mnemonic.jpg[{quart-width}]
 
 The words you have written on your paper is your backup. You can
 recover all your funds at any time in the future using that
@@ -177,7 +182,7 @@ are displayed in alphabetic order. Click on them in the order you
 wrote them down and click "CONTINUE".
 
 .Verify your 12 words backup phrase.
-image::{imagedir}/verify_backup.png[{half-width}]
+image::{imagedir}/verify_backup.png[{quart-width}]
 
 You will be congratulated by the
 application. Click "FINISH".
@@ -186,12 +191,12 @@ Now, take the paper and store it in a safe place. When the paper is
 stored safely, it is time for me to congratulate you to your newly
 installed and backed up wallet!
 
-.Contratulations!
-image::{imagedir}/congratulations.jpg[{half-width}]
+.Congratulations!
+image::{imagedir}/congratulations.jpg[{quart-width}]
 
 === Generate a Bitcoin address
 
-The next step after setting up and backup up your wallet is to create
+The next step after setting up and backing up your wallet is to create
 a Bitcoin address.
 
 You are probably already familiar with email addresses. You can think
@@ -207,11 +212,12 @@ for you when you need them. In fact, your first address is already
 generated, you just haven't seen it yet. Click on "Receive" in the
 lower left corner of your screen in the Copay app.
 
-.Get an address in your wallet app by clicking on the "Receive" tab.
-image::{imagedir}/generate_address.png[{quart-width}]
+//TYPESETTER these two images should preferably appear next to
+//each other horizontally. Clicking on the "Receive" tab will result in
+//the display of the new address.
+//image::{imagedir}/generate_address.png[{quart-width},align="left",float="left"]
 
-.Your first Bitcoin address
-image::{imagedir}/new_address.png[{quart-width}]
+image::{imagedir}/generate_and_display_new_address.png[{quart-width}]
 
 What you see on this screen is your Bitcoin address. It is displayed
 in two ways: As plain text and as a QR code. A QR code is a way to
@@ -227,7 +233,7 @@ above and the length of the address may differ slightly. An address
 like this is what Bob needs to send to Alice in order to receive money
 from her.
 
-=== Bitcoin address creation process
+=== The Bitcoin address creation process
 
 This section will go deep on what a Bitcoin address is and how it is
 created. The Bitcoin address creation process is complex and some new
@@ -241,58 +247,57 @@ tomorrow.
 Bob want’s to receive bitcoins from Alice in our example from chapter
 1, so he needs to create a Bitcoin address to give to Alice.
 
-The Bitcoin address creation process involves a number of technical topics:
-
-Public-key cryptography:: A key-pair of public and private keys is
-created which is used later when signing and validating
-transactions.
-
-Cryptographic hash function:: This is a family of algorithms that
-takes any data as input and outptus a fixed length huge number. You
-cannot from the output number figure out what the input data was.
-
-Base58 encoding:: This is a way to translate a series of bytes, into a
-series of letters and digits, which appropriate for printing and
-reading.
-
-These topics will be covered after the overview section.
-
 ==== Overview
 
-Let us start with a big diagrom of the whole process and then break it
+The Bitcoin address creation process involves a number of technical
+topics. These topics will be covered after this overview section, but
+here is a brief intro to the topics.
+
+Public-key cryptography:: A technique using key pairs, a pair of a
+private key and a public key, to digitally sign and verify digital
+information. During the Bitcoin address creation process a key pair
+will be generated, but no signing will take place.
+
+Cryptographic hash function:: This is a family of algorithms that
+takes any data as input and outputs a fixed length huge number.
+
+Base58 encoding:: This is a way to translate a series of bytes into a
+series of letters and digits, suitable for humans to read.
+
+Let us start with a big diagram of the whole process and then break it
 down.
 
-.Bitcoin address creation process. The process goes through three phases: 1) Create a private-public key pair, 2) Hash the public key, and 3) Encode the public key hash into a manageable and error resistant format. The encoding part is reversable, you can move from the Bitcoin address after step 3 to the hash value at step 2.
+.Bitcoin address creation process. The process goes through three phases: 1) Create a private-public key pair, 2) Hash the public key, and 3) Encode the public key hash into a manageable and error resistant format. The encoding part is reversible, you can move from the Bitcoin address after step 3 to the hash value at step 2.
 image::{imagedir}/mental_model_address_creation.png[{full-width}]
 
-This diagram shows that the process is divided in three major
-part.
-
-The first part, Public-key cryptography is used to generate a key-pair
-of a private and a public key. Public-key cryptography in Bitcoin is
-used for signing and verifying Bitcoin transactions. The private key
-is used to digitally sign a transaction and the public key is used to
-validate the signature. You can easily derive the public key from the
+The process is divided into three major parts. The first part,
+Public-key cryptography, is used to generate a key pair of a private
+key and a public key. Public-key cryptography is used in Bitcoin for
+signing transactions and verify those signatures. The private key is
+used to digitally sign a transaction and the public key is used to
+verify the signature. You can easily derive the public key from the
 private key through the Public key derivation function, but you cannot
-derive the private key from the public key.
+derive the private key from the public key. This property is known as
+a one-way function.
 
 The second part, cryptographic hashing, is a way to get a fixed length
 "fingerprint" of the public key. The hashing is done in two steps, but
-both steps do the same thing, transform the input into a fixed length
-number. The first transforms into a 256 bit number and the second into
-a 160 bit number. As with public and private keys, the input of a
-cyptographic hash algorithm cannot be derived from the output.
+both steps conceptually do the same thing, transform the input into a
+fixed length number. The first transforms the public key into a 256
+bit number and the second transforms this 256 bit number into a 160
+bit number. As with public key derivation, cryptographic hash
+functions are also one-way functions.
 
-In the third part we add some data to the hashing output and encoded
-it with Base58. We set add a version number, 0, of the address format
-and a checksum. The checksum is used to prevent sending money to a
-non-existing Bitcoin address due to bad spelling or transfer issues
-when sending the address. The versioned and checksummed hash is
-encoded with Base58.
+In the third part we add some meta data to the hashing output and
+encode it with base58. We add a version number of the address format,
+`00`, and a checksum. The checksum is used to prevent sending money to
+a non-existing Bitcoin address due to bad spelling or transfer issues
+when sending the address. The versioned and checksummed hash is finally
+encoded with base58 to make it human readable.
 
-Let us now dig deeper into theese three steps in order of appearance.
+Let us now dig deeper into these three steps in order of appearance.
 
-==== Create a keypair
+==== Create a key pair
 
 :cap: Step 1 of the Bitcoin address creation process. First a huge \
 random number, the private key, is created. The private key is then \
@@ -300,10 +305,35 @@ transformed by a cryptographic function into a public key.
 .{cap}
 image::{imagedir}/public_key_cryptography.png[{full-width}]
 
-The outcome of step 1 is a private key and its derived public key. The
-public and private keys have a very special relationship. The private
-key is used in Bitcoin for making _digital signatures_. The digital
-signature is then verified using the public key.
+The key pair is created by first generating a huge random number. This
+can be done with a random number generator. A random number generator
+is usually provided to applications, for example your wallet, by the
+operating system. Its only purpose is to output bytes of random
+data. We ask the random number generator for 32 bytes of random
+data. This random data is our private key. A private key must not be
+shared with any other person. I break that rule in this example, by
+disclosing the private key, but I know that I am not going to use it
+to store my money.
+
+When you backed up your Bitcoin wallet, you wrote down 12 words on a
+piece of paper. That is known as your wallet's random seed. When your
+wallet created your first Bitcoin address, it did not directly use the
+random number generator, but it was derived from the random seed. This
+is a technique used by most modern wallet applications. That process
+is not included in this chapter, because it unnecessarily adds to the
+complexity. The process works just as fine, and is more easily
+explained, by directly using a random number generator. The random
+seed technique, called _hierarchical deterministic wallets_ will be
+covered in [REFERENCE to chapter 5].
+
+The private key is used as input to the public key derivation
+function. It is a one-way function that will output another huge
+number called the public key. The public key and private key have a
+very special relationship. The private key is used in Bitcoin for
+making _digital signatures_ and the public key is used to verify
+those signatures.
+
+===== Digital signature example
 
 Let us say that it's Wednesday afternoon and Bob wants to send the
 message
@@ -314,36 +344,40 @@ to Alice. But he fears that someone else might also send messages to
 Alice in Bob's name. Not nice. How can Bob send the message so that
 Alice can be sure that the message is actually from Bob?
 
-Alice and Bob knows about public-key cryptography. This morning, Alice
-and Bob met up at a café for breakfast before Alice went to
-work. During breakfast Bob gave Alice his public key. Alice now knows
-that this public key belongs to Bob. She also knows that _only_ Bob have
-access to the private key.
+Alice and Bob knows about public-key cryptography. Earlier this
+morning, Alice and Bob met up at a cafe for breakfast before Alice
+went to work. During breakfast Bob gave Alice his public key. Alice
+now knows that this public key belongs to Bob. She also knows that
+_only_ Bob have access to the private key.
 
-Now, it is Wednesdey afternoon and Alice is working. Bob decides to
+Now, it is Wednesday afternoon and Alice is working. Bob decides to
 send his message to Alice.
 
 .Bob signs his message with his private key and sends the message, his public key and the signature to Alice who verifies it with the public key she knows belongs to Bob.
 image::{imagedir}/sign_message.png[{full-width}]
 
-On the left side Bob is using his private key that only he has
-access to. He uses it to digitally sign the message "Alice, I
-love you. /Bob". He then writes the message, his public key and his
-newly created signature in an email and sends it to Alice.
+On the left side of the picture, Bob is using his private key that
+only he has access to. He uses it to digitally sign the message
+"Alice, I love you. /Bob". He then puts the message, his public key
+and his newly created signature in an email and sends it to Alice.
 
-Alice reads the message, but she is very concerned with security, so
+Alice reads the message, but she is very concerned with security and
 she wants to make sure this message is actually from Bob. So she takes
 the public key that she knows belongs to Bob, the one she got at
 breakfast, and compares it to the public key in the message. They
-match. Now using the message, the public key and the signature she can
+match. Using the message, the public key and the signature she can now
 verify that only Bob could have created this signature.
 
-We will get back and look more closely at digital signatures in
-[REFERENCE chapter 4]. For now we can just conclude that Bob's wallet
-have created a cryptographic key pair that can be used to sign and
-verify stuff. The wallet have stored the private key for
-later use. The public key is passed on to the next step in the Bitcoin
-address creation proccess.
+The signature function takes the data to sign as input. In this
+example it is the text "Alice, I love you. /Bob", but it could be
+anything. When Alice verifies the signature she must input the exact
+message as Bob was signing, otherwise the verification will fail.
+
+We will look more closely at digital signatures in [REFERENCE chapter
+4]. For now we can just conclude that Bob's wallet have created a
+cryptographic key pair that can be used to sign and verify stuff. The
+wallet have stored the private key for later use. The public key is
+passed on to the next step in the Bitcoin address creation process.
 
 ==== Hash the public key
 
@@ -357,22 +391,27 @@ image::{imagedir}/hash_the_public_key.png[{full-width}]
 Two different types of cryptographic hashing will take place. The
 public key will first be run through SHA256, which will output a huge
 number. The result will further be run through RIPEMD160. Both of
-these hashing algorithms have the same principal charasteristics:
+these hashing algorithms have the same principal characteristics:
 
 . The same input will always produce the same output.
 . Slightly different inputs will produce very different outputs.
 . The output is always of the same fixed size. For SHA256 it is 256
   bits, or 32 bytes.
-. Trial-and-error is the most efficient known way to find an input
-that gives a certain output. _Preimage resistance_.
+. It is a one-way function. Trial-and-error is the most efficient
+known way to find an input that gives a certain output. This is known
+as _Preimage resistance_.
 
-.A cryptgraphic hash function have some interesting properties: 1. Same input always gives the same output. 2. Different inputs give different outputs. 3. Output has fixed size.
+.A cryptographic hash function have some interesting properties: 1. Same input always gives the same output. 2. Different inputs give different outputs. 3. Output has fixed size.
 image::{imagedir}/cryptographic_hashing.png[{full-width}]
 
-A cryptographic hash can be thought of as a fingerprint. A person will
-produce same fingerprint of her left thumb every time, but it is
-extremely hard to find another person with the same fingerprint on
-his/her left thumb.
+You can think of a cryptographic hash as a fingerprint. A person will
+produce the same fingerprint of her left thumb every time, but it is
+extremely hard to find another person with the same left thumb
+fingerprint. The fingerprint does not disclose any information about
+the person other than her left thumb fingerprint. You cannot know what
+math skills she has or how tall she is by looking at her
+fingerprint. It is the same with hash functions, you cannot know
+anything about the input by looking at the output.
 
 The public key is hashed because we don't want to expose our public
 key by giving someone a Bitcoin address. At least not yet. If the
@@ -408,9 +447,9 @@ number. Every output looks random, but they are not actually
 random. They are calculated from the input, and every time you use the
 same input, the same output will be produced. The only way to find an
 input, other than "Hello!", that gives the output
-"334d016f755cd6dc58c53a86e183882f8ec14f52fb05345887c8a5edd42c87b7" is
-to try different inputs one by one and check if it produces this
-output.
+"334d016f755cd6dc58c53a86e183882f8ec14f52fb05345887c8a5edd42c87b7", as
+in [REFERENCE figure 25], is to try different inputs one by one and
+check if it produces this output.
 
 Let's try.
 
@@ -430,57 +469,143 @@ Let's try.
 |===
 
 As you can see, we are not very successful. Let us think about how
-much time it would take for a typical high-end desktop computer to
-solve the puzzle. It can calculate about 60 million hashes per second
-and the expected number of tries to find a solution is 2^256^. Result?
-2^256^/(60*10^6^)s=1.9*10^69^s=6*10^61^ years, about
+much time it would take for a typical desktop computer to find such
+an input. It can calculate about 60 million hashes per second and the
+expected number of tries needed to find a solution is 2^256^. The
+result is 2^256^ s / (60*10^6^) = 1.9*10^69^ s = 6*10^61^ years, or about
 
  60000000000000000000000000000000000000000000000000000000000000 years
 
-I think we can stop trying, don't you? I don't think buying a
-faster computer will help either.
+I think we can stop trying, don't you? I don't think buying a faster
+computer will help either. Even if we had 1 trillion computers and ran
+them concurrently it would take about 6*10^49^ years.
 
 This preimage resistance is extremely important in Bitcoin. Most of
 its security relies on this property.
 
 ==== Encode the Bitcoin address
 
-Step 3 blablabla
+Now that the cryptographic hashing is done, we have come to the last
+part, step 3, of the Bitcoin address creation process. Bob's wallet will
+encode the hash in a certain way to make it recognizable by the
+Bitcoin network and to make typing errors detectable. 
 
-.Step 3 of the Bitcoin address creation process. The hash of the public key is decorated with a version number and a checksum. Then the decorated hash is encoded with a Base58 to produce the final Bitcoin address.
+.Step 3 of the Bitcoin address creation process. The hash of the public key is decorated with a version number and a checksum. Then the decorated hash is encoded with base58 to produce the final Bitcoin address.
 image::{imagedir}/address_encoding.png[{full-width}]
 
-=== REMOVE
+The first thing that happens is that `00` is added at the beginning of
+the public key hash. This is a version number of the Bitcoin address
+format. The version is used for future upgrades of the Bitcoin
+system. There are other versions as well, but "00" is the most
+common one.
 
-==== Public-key cryptography
+This versioned hash is then hashed twice through SHA256, then we take
+the first four bytes, `12181e60`, and append them at the end of the
+versioned hash. These four bytes functions as a checksum that protects
+us from almost all typing errors.
 
-(Christina and Bert, maybe we should move this section to chapter 4
-instead where this tech is actually used. The only thing we do in the
-address creation process with regards to public-key cryptography is to
-generate a keypair. I think it will fall out more naturally
-chapter 4. )
+The versioned and checksummed public key hash is now 25 bytes:
 
-===== Cryptography
+ 005f2613791b36f667fdb8e95608b55e3df4c5f9eb12181e60
 
-===== Public and Private keys
+We have displayed all data in this example _hex encoded_, meaning that
+every byte is written as two hexadecimal digits, 0-f, 0 means zero and
+f means 15. In reality the data is just a sequence of 25 bytes, each
+with value 0-255. The last step in the address encoding phase is to
+make those 25 bytes readable and writable by humans. It would require 50
+characters to hex encode the data. We can do better than that.
 
-==== Cryptographic hashes
+Base58 encoding is an encoding scheme that uses printable characters
+and avoids confusion over characters that look similar in print, `l` and
+`I`, and `0` and `O`.
 
-This section is actually very "JIT" because cryptographic hases are heavily uqsed during the Bitcoin address creation process. Examples and diagrams to follow.
+Let us encode the following 25 bytes from the picture above using the
+base58 scheme.
 
-But on a second thought, it would be more JIT in section <<hash-the-public-key>>
+ 005f2613791b36f667fdb8e95608b55e3df4c5f9eb12181e60
 
-=== Protect your keys!
+The result is a newly created Bitcoin address consisting of the
+following 34 characters
 
-==== Why do I need a backup?
+ 19g6oo8foQF5jfqK9gH2bLkFNwgCenRBPD
 
-==== Encrypting your backup
+This is a shorter string than the hex encoded one but we have not
+lost any information. It is shorter because every character carries
+more information. Instead of 16 different possible values per
+character as in hex code, we have 58 different possible values per
+character in base58. The characters used by base58 are
 
-A typical wallet is a software program that stores private keys for
-its user as well as creating, sending and receiving transactions.
+ 123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz
 
+They consist of all digits, capital letters and lower case letters
+except `0`, `O`, `I` and `l`. These four characters are removed
+because they can look very similar in certain fonts. Note that the
+Bitcoin address starts with an `1`. That is a result of the version
+prefix `00` that we added first in this step. This means that all
+Bitcoin addresses with version `00` will start with an `1`. You can
+distinguish between different Bitcoin address versions by looking at
+the first character of the Bitcoin address.
 
+All processes in step 3 are reversible. You can calculate the public
+key hash from the Bitcoin address.
 
-A wallet is where users of the Bitcoin system store their private
-keys. In section <<overview-transactions>>, Alice used a key to open
-her mailbox to pull out a bill. That key is Alice's private key.
+We noted above that the checksum protects us from typing errors. Let's
+say that Bob gives this address to Alice who enters the address in her
+wallet application. Suppose all goes well without typing
+errors. Alice's wallet will check the address as follows:
+
+image::{imagedir}/decode_good_address.png[]
+
+The process takes the provided address and decodes it from base58
+encoding to a sequence of 25 bytes. The last 4 bytes is supposedly the
+checksum, so let's verify that. Remove the checksum and run the
+remaining 21 bytes through the checksum just as in the address
+encoding phase. Then compare the result with the provided
+checksum. They match, which means that the address is good. Very well.
+
+But let's assume that Bob made a typing error when he sent the address
+to Alice. He wrote `L` instead of `K` which results in this bad
+address instead:
+
+[subs=+quotes]
+ 19g6oo8foQF5jfq**L**9gH2bLkFNwgCenRBPD
+
+When Alice wants to pay Bob using this bad Bitcoin address, her wallet
+will check the address as follows:
+
+image::{imagedir}/decode_bad_address.png[]
+
+The base58 decoding will output a different sequence of 25 bytes as in
+the correct address decoding which will produce a different calculated
+checksum than the provided checksum. Since the checksums do not match,
+the wallet will refuse to send money to that address. Alice will be
+warned by the wallet and she will ask Bob to check his address and
+send a valid one instead. If checksumming was not used in Bitcoin
+people would mistakenly send money into an address that no-one have
+the private key for. The money would be lost forever.
+
+==== Summary
+
+Bob have set up his wallet and created a Bitcoin address using the
+Bitcoin address creation process.
+
+.Summary of the Bitcoin address creation process
+image::{imagedir}/address_creation_summary.png[{quart-width}]
+
+His wallet generated a key pair, a private key and a public key. The
+private key is kept secret by the wallet. It will be used later to
+sign transactions. The public key is passed to the hashing phase where
+it is hashed into a 20 bytes number, the public key hash. This hash is
+decorated with a version and a checksum. Finally, the decorated public
+key hash is encoded using base58 into a human-readable string
+`19g6oo8foQF5jfqK9gH2bLkFNwgCenRBPD` which is the final result. Bob
+now has a brand new Bitcoin address that he can give to Alice.
+
+So far, your wallet have not yet had to connect to any service outside
+of the wallet. No user account have been created on any web server.
+You did not ask anyone for permission. No communication at all has
+occurred with any internet servers to setup your wallet and create
+your Bitcoin address. This feature is part of the decentralized
+architecture of Bitcoin. You could say that your Bitcoin address is
+your account, but it is created and managed locally on your mobile
+phone.
