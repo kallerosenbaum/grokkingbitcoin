@@ -28,3 +28,5 @@ endif::[]
 include::ch01-Introduction-to-Bitcoin.adoc[]
 
 include::ch02-Setup-A-Wallet.adoc[]
+
+include::ch03-receive-bitcoins.adoc[]

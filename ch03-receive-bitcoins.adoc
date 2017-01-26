@@ -1,0 +1,47 @@
+== Receive bitcoins
+:imagedir: {baseimagedir}/ch03
+
+This chapter covers
+
+* receiving bitcoins
+* understanding the peer-to-peer network
+* the structure of the blockchain
+
+
+Now that the introduction is out of the way, let us get more
+hands-on. We will walk you through the installation of a Bitcoin
+wallet and explain some fundamental concepts that are important for
+wallets. Not only for wallets but for the whole Bitcoin system. 
+
+The main objective of this chapter is to teach you how the wallet
+manages your private keys and how addresses are generated from those
+private keys.
+
+```
+p2p network:
+
+Concrete example
+
+Now that Bob have sent his Bitcoin address to Alice, Alice will create
+a Bitcoin transaction. She will send that transaction on the Bitcoin
+peer-to-peer network. Let's follow that transaction's jorney.
+
+Diagram 1: Network of computers, and Alices wallet connected to 3 of
+them. Bob's wallet is connected to 2. Alice's wallet sends the
+transaction to all three.
+
+2: The three computers validate the transaction and passes it on to
+its neighbors.
+
+3: Finally one of the nodes Bob is connected to will receive the
+transactions. It will pass the transaction to Bob's wallet.
+
+
+```
+
+```
+The blockchain part I
+
+
+```
+
