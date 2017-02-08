@@ -1,0 +1,53 @@
+digraph {	
+	ch [label="Cryptographic hashes"];
+	pkc [label="Public-key cryptography"];
+	base58 [label="Base58"];
+	adr [label="Bitcoin addresses"];
+	script [label="Script"]
+	ms [label="Multisig"]
+	sw [label="SegWit"]
+	pc [label="Payment channel"];
+	ln [label="Lightning network"];
+	wallet [label="Wallet"];
+#	subgraph cluster_ch02 {
+		adr -> {ch;pkc;base58};
+		ch; pkc;base58
+#		label="Ch 2";
+#	}
+#	subgraph cluster_ch03 {
+		tx [label="Transactions"];
+		ds [label="Digital signatures"];		 
+#		label="Ch 3";
+#	}
+#	subgraph cluster_ch04 {
+		p2p [label="p2p network"];
+		bc [label="The blockchain"]
+		mrk [label="Merkle tree"];
+#		label="Ch 4";
+#	}
+#	subgraph cluster_ch05 {
+		hd [label="HD wallets"];			
+#		label="Ch 5";
+#	}
+#	subgraph cluster_ch06 {
+		fn [label="Full node"];		
+#		label="Ch 6";
+#	}
+#	subgraph cluster_ch07 {
+#		label="Ch 7";		 
+		pow [label="PoW/mining"];
+#	}
+	ds -> {ch;pkc}
+	tx -> {adr;ds}
+	mrk -> ch
+	bc -> {mrk;tx}
+	script -> {tx}
+	hd -> wallet
+	pow -> bc 
+	fn -> {pow,p2p}
+	ms -> {wallet;script}
+	sw -> {ms;bc;script}
+	wallet -> {tx;p2p}
+	pc -> script
+	ln -> pc
+}

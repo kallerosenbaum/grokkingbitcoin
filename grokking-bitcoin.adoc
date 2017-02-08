@@ -11,16 +11,19 @@
 
 ifdef::backend-html5[]
 :full-width: width='100%'
+:big-width: width='75%',align='center'
 :half-width: width='50%'
 :quart-width: width='25%'
 endif::[]
 ifdef::backend-pdf[]
 :full-width: pdfwidth='100%'
+:big-width: pdfwidth='75%',align='center'
 :half-width: pdfwidth='50%'
 :quart-width: pdfwidth='25%'
 endif::[]
 ifdef::backend-docbook45[]
 :full-width: scaledwidth='100%'
+:big-width: scaledwidth='75%',align='center'
 :half-width: scaledwidth='50%'
 :quart-width: scaledwidth='25%'
 endif::[]
@@ -30,3 +33,84 @@ include::ch01-Introduction-to-Bitcoin.adoc[]
 include::ch02-Setup-A-Wallet.adoc[]
 
 include::ch03-receive-bitcoins.adoc[]
+
+
+== System evolution
+
+=== Hashing
+
+Teach cryptographic hashes outside the context of the cookie sheet.
+
+=== Starting point
+
+One row per tx. Lisa central authority. A row is
+
+ <From> <To> <Amount>
+
+=== Digital signatures
+
+Lisa don't recognize everyone anymore. She demands that everybody signs their transfers.
+
+=== Addresses
+
+People start to get concerned about privacy. Everybody can see exactly
+how much cookies other people are eating. Lisa is also beginning to
+hate to keep the table of public keys up-to-date.
+
+They start using public keys instead of their names in the cookie
+sheet. Lisa no longer have to keep the public key table. Good.
+
+This works well, but there is one more problem: People sometimes make
+typing errors when they type the public keys, both their own public
+key and the public key of the recipient.
+
+They find a good way to hash the public key, and versioning it. They
+also add a checksum to it and base58 encode it. Everyone can verify
+the checksum on the notes.
+
+Note now that no one needs to add his/her public key to Lisa
+beforehand. People just hand their address to the payer, and the payer
+pays to the address. This means that users can create as many
+addresses as they want, and nobody is able to tell what addresses
+belongs to John.
+
+=== Transactions
+
+Another good thing this address scheme brings is that a coworker can
+create multiple addresses. Let's say that John have two private keys,
+and thus two addresses. It does not have to be public knowledge what
+addresses belongs to John.
+
+There are currently two pressing issues:
+
+* Lisa is getting tired of calculating the balance before approving a
+  transaction. The ledger is growing and each check becomes more time
+  consuming as new payments are added.
+
+* John can't spend all his money from both his addresses in a single
+  payment. He needs to make two payments.
+
+Lisa changes the model from row-based to inputs-outputs. Every
+transaction (row) is now on the following format:
+
+ Input0 (txHash, Index, Sig)	    Output0 (val, addr)
+ Input1	(txHash, Index, Sig)	    OutputM (val, addr)
+ InputN (txHash, Index, Sig)
+
+For every transaction made the input txHash must be in the UTXO set.
+
+=== Wallets
+
+Users have been writing their transactions on paper for too
+long now. They are fed up with it. They need some computer program
+that they can use to keep track of their private keys and addresses as
+well as creating transactions and sending them to Lisa.
+
+Someone develops an app that does this and sends the transactions via
+email to Lisa.
+
+=== Lisa can now replace herself with a computer program.
+
+Lisa have other things to do than taking care of Cookie Token transfers. To save time she writes a computer program that fetches the transactions from email, verifies them, and appends them to the cookie sheet.
+
+=== Lisa is no longer needed.
