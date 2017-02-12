@@ -236,95 +236,107 @@ from her.
 <<<
 === Cryptographic hashing
 
-* why? who cares?
-* concrete to abstract
-* diagram first
-* 3+1
-* COIK
-* 3 brain resources
+Cryptographic hashes are used all over the place in Bitcoin. Trying to
+learn Bitcoin without knowing what cryptographic hashes are, is like
+learning chemistry without knowing what an atom is.
 
-This is an awesome, yet-to-be-written, section describing what
-cryptographic hash functions are and how they work. Especially one-way
-functions will be covered. Hashes and another type of one-way function
-are needed when learning about digital signatures.
-
-
-Bob's wallet have created a private and a public key in step 1 of the
-Bitcoin address creation process. His wallet will now take the public
-key and transform it using a process called cryptographic hashing.
-
-.Step 2 of the Bitcoin address creation process. A cryptographic hash is a huge number generated from its input. Different inputs generate different outputs with very high probability. It is extremely hard to find two different inputs with the same outputs.
-image::{imagedir}/hash_the_public_key.png[{full-width}]
-
-Two different types of cryptographic hashing will take place. The
-public key will first be run through SHA256, which will output a huge
-number. The result will further be run through RIPEMD160. Both of
-these hashing algorithms have the same principal characteristics:
-
-. The same input will always produce the same output.
-. Slightly different inputs will produce very different outputs.
-. The output is always of the same fixed size. For SHA256 it is 256
-  bits, or 32 bytes.
-. It is a one-way function. Trial-and-error is the most efficient
-known way to find an input that gives a certain output. This is known
-as _Preimage resistance_.
-
-.A cryptographic hash function have some interesting properties: 1. Same input always gives the same output. 2. Different inputs give different outputs. 3. Output has fixed size.
-image::{imagedir}/cryptographic_hashing.png[{full-width}]
+A cryptographic hash function is a function that takes any digital
+input data and produces a fixed-length output. The function will
+output the exact same value each time the same input is used. But it
+will output a totally different value when even the slightest
+variation of the input is used.
 
 You can think of a cryptographic hash as a fingerprint. A person will
-produce the same fingerprint of her left thumb every time, but it is
-extremely hard to find another person with the same left thumb
-fingerprint. The fingerprint does not disclose any information about
-the person other than her left thumb fingerprint. You cannot know what
-math skills she has or how tall she is by looking at her
-fingerprint. It is the same with hash functions, you cannot know
-anything about the input by looking at the output.
+produce the same fingerprint of her left thumb every time it is taken,
+but it is extremely hard to find another person with the same left
+thumb fingerprint. The fingerprint does not disclose any information
+about the person other than her left thumb fingerprint. You cannot
+know what math skills she has or the what eye color she has by looking
+at her fingerprint.
 
-The public key is hashed because we don't want to expose our public
-key by giving someone a Bitcoin address. At least not yet. If the
-public key is exposed and someone finds a weakness in the public-key
-cryptography used, they might find a way to derive the private key
-from the public key. But if we only expose a hashed version of the
-public key, there must be very serious weaknesses in all three of our
-public-key cryptography, SHA256 and in RIPEMD160 at the same time in
-order to have a chance at figuring out the private keys.
+Suppose that you want to receive a file from your friend via email,
+but you suspect that the file may be accidentaly corrupted during
+transfer. How would you and your friend make sure that the file you
+receive is exactly the same as the file sent by your friend?
 
-The first hashing algorithm, SHA256, will output a number of 256
-bits. And the second algorithm, RIPEMD160, will output a number of 160
-bits. RIPEMD160 is used for two reason:
+You can solve it by using a cryptographic hash function.
 
-* The shorter output of RIPEMD160 will result in a shorter, more
-  manageable, Bitcoin address.
-* If either of RIPEMD160 or SHA256 turns out to be weak, meaning
-  property 4 doesn't hold, then the other algorithm will keep the
-  public key safe.
+.Checking file integrity. Your friend calculates the cryptographic hash of a file and sends the file and the hash to you. You calculate the cryptographc hash of the received file and compare it to the hash provided by your friend.
+image::{imagedir}/email-file-hash.png[{big-width}]
 
-The fourth property of cryptographic hash functions, _preimage
-resistance_, is what makes it a _cryptographic_ hash function and this
-needs a bit more elaboration.
+Your friend composes an email to you. He attaches the file to the
+email, but he also calculates the cryptographic hash, the digital
+fingerprint, of the file. That hash is written down in the body of the
+email.
 
-==== Preimage resistance
+When you receive this email, you save the file to your computer and
+calculate the hash of that file. If the result is the same as the hash
+in the email, you know for sure that the file is not accidentally
+corrupted.
+
+Let us have a look at what properties you can expect from a
+cryptographic hash function. We will illustrate the properties using
+the SHA256 algorithm, because it is the one that Bitcoin uses the
+most. There are several different cryptographic hash functions, but
+they all provide the same basic features:
+
+.A cryptographic hash function, SHA256, in action. The input "Hello!" will give you the same output every time, but the slightly modified input "Hello" will give you a totally different output.
+image::{imagedir}/cryptographic_hashing.png[{big-width}]
+
+The output of a cryptographic hash function is often referred to as a
+_hash_ or a _digest_. I will use the term hash here, but either is
+equally valid.
+
+. The same input will always produce the same hash.
+. Slightly different inputs will produce very different hashes.
+. The hash is always of the same fixed size. For SHA256 it is 256
+  bits, that is 32 bytes.
+. It is a one-way function. Trial-and-error is the most efficient
+known way to find an input that gives a certain hash.
+
+The first three properties are illustrated in the diagram above. The
+fourth property of cryptographic hash functions is what makes it a
+_cryptographic_ hash function and this needs a bit more elaboration.
+
+There are some variations to the fouth property, all of which are
+desirable for cryptographic hash functions:
+
+Collision resistance:: It's very hard to find two inputs that give _the same_ hash.
+Preimage resistance:: It's very hard to find an input that gives _a certain_ hash.
+Second-preimage resistance:: It's very hard to find an input that
+gives _the same hash as a certain other input_.
+
+.Different desirable properties for cryptographic hash functions. For collision resistance, X can be anything, it does not matter as long as the two inputs give the same output.
+image::{imagedir}/hash-properties.png[{big-width}]
+
+The term "very hard" in this context means astronomically hard. It is
+silly to even try. We will have a look at second-preimage resistance
+as an example of what "very hard" means, but a similar example can be
+made for any of the three variants.
+
+==== Illustration of "very hard"
 
 Suppose that you want to find an input to SHA256 that results in the
-same output as "Hello!".
+same hash as "Hello!":
+
+ 334d016f755cd6dc58c53a86e183882f8ec14f52fb05345887c8a5edd42c87b7
 
 There is no way to change the input just a little bit so that the
 function "won't notice". It will notice and output a totally different
-number. Every output looks random, but they are not actually
-random. They are calculated from the input, and every time you use the
-same input, the same output will be produced. The only way to find an
-input, other than "Hello!", that gives the output
-"334d016f755cd6dc58c53a86e183882f8ec14f52fb05345887c8a5edd42c87b7", as
-in [REFERENCE figure 25], is to try different inputs one by one and
-check if it produces this output.
+hash. Every hash looks random, but they are not actually random, since
+they are calculated from the input, and every time you use the same
+input, the same hash will be produced. The only way to find an input,
+other than "Hello!", that gives the hash
+"334d016f755cd6dc58c53a86e183882f8ec14f52fb05345887c8a5edd42c87b7" is
+to try different inputs one by one and check if it produces the
+desired hash.
 
 Let's try.
 
-.Finding an input with the same output as "Hello!". Nearly impossible.
+.Finding an input with the same hash as "Hello!". Nearly impossible.
 [%autowidth]
 |===
-| Input | Output | Success? 
+| Input | Hash | Success? 
 | Hello1! | 82642dd9e405f3f4265e2ca3c4c440e8c204f26a1b6f35fdf1ca2a642e366e64  | nope 
 | Hello2! | 493cb8b9dcb11590fe2fa72efd0d5f2fa70beda31ad0e5e8a76caa5f83ba14f8  | nope
 | Hello3! | 90488e861be3a5b762f40d4d2f1f2f7338f3f76a100ce3e4996dde8164530bae  | nope 
@@ -337,10 +349,11 @@ Let's try.
 |===
 
 As you can see, we are not very successful. Let us think about how
-much time it would take for a typical desktop computer to find such
-an input. It can calculate about 60 million hashes per second and the
+much time it would take for a typical desktop computer to find such an
+input. It can calculate about 60 million hashes per second and the
 expected number of tries needed to find a solution is 2^256^. The
-result is 2^256^ s / (60*10^6^) = 1.9*10^69^ s = 6*10^61^ years, or about
+result is 2^256^ / (60*10^6^) s = 1.9*10^69^ s = 6*10^61^ years, or
+about
 
  60000000000000000000000000000000000000000000000000000000000000 years
 
@@ -348,24 +361,34 @@ I think we can stop trying, don't you? I don't think buying a faster
 computer will help either. Even if we had 1 trillion computers and ran
 them concurrently it would take about 6*10^49^ years.
 
-This preimage resistance is extremely important in Bitcoin. Most of
-its security relies on this property.
+Preimage resistance, second-preimage resistance and collision
+resistance are extremely important in Bitcoin. Most of its security
+relies on these properties.
+
+Exercise: Does the file transfer example protect against malicious
+modifications during transfer? Suppose that someone with access to
+your email service provider can tamper with the email while in
+transit, could she modify the email in any way so that you accept a
+modified file without noticing? If so, how could you and your friend
+prevent that?
 
 <<<
 
 === The cookie sheet
 
 Suppose that there is a café in the office where you work. You and
-your coworkers use an online spreadsheet to keep track of "cookie
+your coworkers use a spreadsheet to keep track of "cookie
 tokens", CT. Cookie tokens can be exchanged for cookies in the café.
 
 .The cookie sheet have a column for the sender, a column for the recipient and a column for the amount of Cookie Tokens transferred. New cookie token transfers are appended at the end of the cookie sheet.
 image::{imagedir}/cookie-sheet-basic.png[{half-width}]
 
-This spreadsheet is read-only for everyone except one lady, Lisa. Lisa
-is very trustworthy. Everybody trusts her. She has full access to do
-whatever she likes with the spreadsheet. You and all the others can
-only view the spreadsheet on a web page.
+This spreadsheet is stored on Lisa's computer. The spreadsheet is
+shared read-only for everybody on the office network to open and
+watch, except Lisa. Lisa is very trustworthy. Everybody
+trusts her. She has full access to do whatever she likes with the
+spreadsheet. You and all the others can only view the spreadsheet by
+opening it in read-only mode.
 
 Whenever Alice wants a cookie, she asks Lisa, who sits right next to
 the café, to transfer 10 tokens from her to the café. Lisa knows who

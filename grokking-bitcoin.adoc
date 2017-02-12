@@ -34,6 +34,12 @@ include::ch02-Setup-A-Wallet.adoc[]
 
 include::ch03-receive-bitcoins.adoc[]
 
+//* why? who cares?
+//* concrete to abstract
+//* diagram first
+//* 3+1
+//* COIK
+//* 3 brain resources
 
 == System evolution
 
@@ -62,7 +68,8 @@ sheet. Lisa no longer have to keep the public key table. Good.
 
 This works well, but there is one more problem: People sometimes make
 typing errors when they type the public keys, both their own public
-key and the public key of the recipient.
+key and the public key of the recipient. Also people complain about
+having to type the public keys as 64 charachter hex strings when paying.
 
 They find a good way to hash the public key, and versioning it. They
 also add a checksum to it and base58 encode it. Everyone can verify
@@ -76,19 +83,23 @@ belongs to John.
 
 === Transactions
 
-Another good thing this address scheme brings is that a coworker can
-create multiple addresses. Let's say that John have two private keys,
-and thus two addresses. It does not have to be public knowledge what
-addresses belongs to John.
+Another interesting thing this address scheme brings is that a
+coworker can create multiple addresses. Let's say that John have two
+private keys, and thus two addresses with 5 CT each. It does not have
+to be public knowledge what addresses belongs to John.
 
-There are currently two pressing issues:
+There are currently three issues:
 
 * Lisa is getting tired of calculating the balance before approving a
   transaction. The ledger is growing and each check becomes more time
   consuming as new payments are added.
 
 * John can't spend all his money from both his addresses in a single
-  payment. He needs to make two payments.
+  payment. He needs to make two separate payments to spend his CTs.
+
+* Since the company has grown and people don't know Lisa that well,
+  trust in her begins to fade. Some people fear that Lisa can steal CT
+  from anyone in the cookie sheet.
 
 Lisa changes the model from row-based to inputs-outputs. Every
 transaction (row) is now on the following format:
@@ -97,20 +108,223 @@ transaction (row) is now on the following format:
  Input1	(txHash, Index, Sig)	    OutputM (val, addr)
  InputN (txHash, Index, Sig)
 
-For every transaction made the input txHash must be in the UTXO set.
+For every transaction made the input txHash must be in the
+UTXO set. Lisa keeps track of the UTXO set.
+
+One very interesting outcome of this is that all the signatures are
+public inside the cookie sheet. This means that everyone can validate
+the cookie sheet. Not only can people not cheat Lisa, but Lisa cannot
+steal money from anyone.
+
 
 === Wallets
 
-Users have been writing their transactions on paper for too
-long now. They are fed up with it. They need some computer program
+Users have been writing their transactions on paper or in emails for
+too long now. They are fed up with it. They need some computer program
 that they can use to keep track of their private keys and addresses as
 well as creating transactions and sending them to Lisa.
 
 Someone develops an app that does this and sends the transactions via
-email to Lisa.
+email to Lisa. The app
+
+* Reads QR codes of addresses
+* Keeps track of incoming payments, listens to the cookie sheet web page.
+* Keeps track of the private keys and addresses
+* Constructs transactions and sends them to Lisa.
+
+Everybody starts using this awesome app.
 
 === Lisa can now replace herself with a computer program.
 
-Lisa have other things to do than taking care of Cookie Token transfers. To save time she writes a computer program that fetches the transactions from email, verifies them, and appends them to the cookie sheet.
+Lisa have other things to do than taking care of Cookie Token
+transfers. To save time she writes a computer program that fetches the
+transactions from email, verifies them, and appends them to the cookie
+sheet.
 
-=== Lisa is no longer needed.
+This is what a miner is doing.
+
+=== People mistrust Lisa, creates a blockchain
+
+Some people don't know Lisa very well, and they start questioning her
+credibility as a trusted central authority. They are afraid that she's
+letting workers pay her to remove transactions from the cookie sheet
+to "undo" payments. A worker buys a cookie from the café and later
+asks lisa to remove the transaction. Of course, Lisa would not do
+that, but only the suspicion from a coworker makes the coworker
+refrain from using the cookie sheet.
+
+She could still deny transfers if she wants to, and she can replace a
+transaction with another valid transaction in the cookie sheet (double
+spend).
+
+The suspicious coworkers have an idea. What if Lisa sends out a block
+of the latest transactions every 10 minutes via email to
+blocks@company.com. This block contains a hash of all the transactions
+in the block and also the hash of the previous block.
+
+The suspicious workers build a program they call a "node" that reads
+those blocks from email and stores them locally. The blocks form a
+blockchain.
+
+The suspicious workers can use their internal blockchain to calculate
+how much money each address, including their own, has.
+
+More and more coworkers and the café starts using this node software
+because they get a guarantee that the data is not tampered with. Lisa
+may tamper with data after she has send out the block, but she can't
+tamper with the data on other nodes.
+
+They can download the blockchain from any nodes, as long as they
+validate the last block hash with the latest email on
+blocks@company.com.
+
+Also, Lisa and the coworkers decide that they can throw out the
+spreadsheet and only use the blockchain from now on. So Lisa sets up a
+node of her own. She modifies her computer program to collect the last
+10 minutes worth of transactions into a block and publishes it.
+
+=== Lisa needs company
+
+Lisa's computer breaks.
+
+Lisa and the café think that it would be good to have some sort of
+resilience if Lisa's computer is shut off or is infected by a virus or
+something. If her computer breaks, the café will run out of
+business. Also, some other people who just started at the company are
+a bit suspicious to Lisa, because they don't know her very well. She
+can censor payments. Lisa thinks that the Company should not encourage
+cookie eating. She starts censoring the Company's txs.
+
+It turns out that many people thinks Ali is also a very
+trustworthy guy. They trust him just as much, if not more, as they
+trust Lisa. But the trust is not total for either one of them. Some
+mistrust Lisa and some mistrust Ali.
+
+Ali is asked to become a trusted validator too. He accepts and sets up
+a node on his computer and downloads the blockchain from other nodes
+and the email server. He sets up Lisas software on his computer too.
+
+Now, when people want to send CT transactions, they email both Lisa
+and John.
+
+Both Lisa and John will validate and update their
+respective block chain but...
+
+Problem:
+
+Who of Lisa and John sends a message to blocks@company.com? Lisa, Ali
+or Both?
+
+Possible solutions:
+
+* They take every other --> What if one is down?
+* They both send every 10 minutes. What if they contain different sets/ordering of transactions? What block should nodes select?
+
+They decide to let chance decide. They modify their computer programs
+to pick a random number between 1 and 20 every minute. If they draw a
+1, they must immediately publish the contents they want in a new block
+to blocks@company.com otherwise they don't and check if the other node
+drops an email to blocks@company.com. If so, it is downloaded,
+verified and added to the blockchain.
+
+The expected time before any one publishes a block is 10 minutes, but
+it may vary. Show the poisson distribution?
+
+What if both draw a 1 at the same minute? No worries, both will
+publish their respective blocks. All nodes will download both versions
+and keep both forks alive. Lisa will build off of her block and Ali
+will build off of his block. The next block to be published decides
+what fork is the winner.
+
+=== Ellen also joins
+
+Now they are three people running Lisa's software. But now the block
+rate increases.
+
+* Adjust random interval to 1-30 instead of 1-20.
+
+=== Lisa rewrites history
+
+Lisa disagree with company policy to reward workers with CT. CT can be
+used to buy cookies. Cookies are not good for you. So she decides to
+remove som transactions from the last 10 blocks of cookie fiest. She
+can bypass her random number generation stuff and generate 11 blocks
+with all transactions but the ones she doen't agree with.
+
+Everyone know that it was Lisa who posted this email with the hostile
+takeover.
+
+* Solved by PoW
+
+Lisa may continue to run her operation. She can't simply create 10
+blocks anymore.
+
+=== PoW nodes costs money
+
+Now it costs money to operate a payment processing node.
+
+* Reward PoW, 50 CT per block.
+* Reward halved every 210000 blocks
+* Max 210000000 CT.
+* Reward is collected in a coinbase transaction.
+
+In the scenario, the company probably pays the electricity bills. How
+do we attach a cost to Lisa, Ali and Ellen instead? 
+
+=== blocks@company.com is not needed anymore
+
+There are now quite a few nodes at the company. Every node needs to
+check blocks@company.com for new blocks every 5 seconds. When a block
+is published it needs to be downloaded from this single mail server to
+every node at the same time. Nodes may have to wait very long before
+the full block is downloaded. Another problem is that this email
+server is a single point of failure.
+
+The email server was needed before to limit who can publish
+blocks. But now that anyone with enough computing resources can
+publish blocks, the email-server is just a risk. If the email-server
+breaks, the whole system stops.
+
+Solution:
+
+Connect the nodes/miners in a p2p network. Blocks are now published in this network. Wallets and nodes adapt to listen for blocks on the network instead of blocks@company.com.
+
+=== Others wants to become miners
+
+* Anyone who wants to can join.
+
+Problem:
+
+Transactions are only visible to the Lisa, Ellen and Ali until they
+are included in a mined block. New miners will not receive
+transactions.
+
+Solution:
+
+Use the p2p network to send out transactions.
+
+Now, email is not used at all anymore. The last centralized pieces of
+the cookie sheet has been removed. This beast now has a life of
+its own.
+
+=== Cookie Tokens are good. People use it for all sorts of stuff
+
+* Paying off small debts
+* Paying at the lunch restaurant
+
+=== Wallets download too much data
+
+Casual users, buyers of cookies in the Cafe for example, use the
+wallet app developed earlier. This wallet listens to other nodes for
+new blocks. When a new block propagates the network the wallet
+downloads it and checks for transactions belonging to the wallet. The
+phone is on a limited data plan, so it stops working after 2 weeks of
+usage.
+
+Instead, just download the chain of block headers and submit a bloom
+filter to nodes it is listening to to get notifications on tx of
+interest.
+
+* Merkle tree
+* SPV proof
+* 
