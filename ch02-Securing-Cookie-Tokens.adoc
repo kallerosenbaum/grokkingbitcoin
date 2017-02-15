@@ -1,0 +1,607 @@
+== Securing Cookie Tokens
+:imagedir: {baseimagedir}/ch02
+
+This chapter covers
+
+* Understanding cryptographic hashes
+* Creating a simple money system, Cookie Tokens
+* Authenticating Cookie Token payments using digital signatures
+* Keeping your secret codes secret
+
+The only fundamental technical skill you need in order to start
+learning Bitcoin is cryptographic hashes. Cryptographic hashes are so
+important to Bitcoin that you really need to understand them before
+starting to learn anything else. The first section of this chapter
+will teach you what you need to know about cryptographic hashes.
+
+We will follow the section on cryptographic hashes by setting the
+stage for the rest of this book. We will describe a very simple
+payment system that we will improve upon using Bitcoin
+technologies. By the end of this book the simple system will have
+evolved into what we call Bitcoin.
+
+This chapter will solve the problem of the imposter, someone claiming
+to be someone else and paying money from that someone's account. We
+solve it by introducing digital signatures to the simple system.
+
+=== Cryptographic hashing
+
+Cryptographic hashes are used all over the place in Bitcoin. Trying to
+learn Bitcoin without knowing what cryptographic hashes are, is like
+learning chemistry without knowing what an atom is.
+
+You can think of a cryptographic hash as a fingerprint. A person will
+produce the same fingerprint of her left thumb every time it is taken,
+but it is extremely hard to find another person with the same left
+thumb fingerprint. The fingerprint does not disclose any information
+about the person other than her left thumb fingerprint. You cannot
+know what math skills she has or what eye color she has by looking at
+her fingerprint.
+
+Suppose that you want to receive a file from your friend via email,
+but you suspect that the file may be accidentaly corrupted during
+transfer. How would you and your friend make sure that the file you
+receive is exactly the same as the file sent by your friend?
+
+You can solve it by using a cryptographic hash function.
+
+.Checking file integrity. Your friend calculates the cryptographic hash of a file and sends the file and the hash to you. You calculate the cryptographc hash of the received file and compare it to the hash provided by your friend.
+image::{imagedir}/email-file-hash.png[{big-width}]
+
+Your friend composes an email to you. He attaches the file to the
+email, but he also calculates the cryptographic hash, the digital
+fingerprint, of the file. That hash is written down in the body of the
+email.
+
+When you receive this email, you save the file to your computer and
+calculate the hash of that file. If the result is the same as the hash
+in the email, you know for sure that the file is not accidentally
+corrupted.
+
+A cryptographic hash function is a function that takes any digital
+input data and produces a fixed-length output. The function will
+output the exact same value each time the same input is used. But it
+will output a totally different value when even the slightest
+variation of the input is used.
+
+Let us have a look at what properties you can expect from a
+cryptographic hash function. We will illustrate the properties using
+the SHA256 (Secure Hash Algorith) algorithm, because it is the one
+that Bitcoin uses the most. There are several different cryptographic
+hash functions, but they all provide the same basic features:
+
+.A cryptographic hash function, SHA256, in action. The input "Hello!" will give you the same output every time, but the slightly modified input "Hello" will give you a totally different output.
+image::{imagedir}/cryptographic_hashing.png[{big-width}]
+
+The output of a cryptographic hash function is often referred to as a
+_hash_ or a _digest_. I will use the term hash here, but either is
+equally valid.
+
+. The same input will always produce the same hash.
+. Slightly different inputs will produce very different hashes.
+. The hash is always of the same fixed size. For SHA256 it is 256
+  bits, that is 32 bytes.
+. It is a one-way function. Trial-and-error is the most efficient
+known way to find an input that gives a certain hash.
+
+The first three properties are illustrated in the diagram above. The
+fourth property of cryptographic hash functions is what makes it a
+_cryptographic_ hash function and this needs a bit more elaboration.
+
+There are some variations to the fouth property, all of which are
+desirable for cryptographic hash functions:
+
+Collision resistance:: It's very hard to find two inputs that give _the same_ hash.
+Preimage resistance:: It's very hard to find an input that gives _a certain_ hash.
+Second-preimage resistance:: It's very hard to find an input that
+gives _the same hash as a certain other input_.
+
+.Different desirable properties for cryptographic hash functions. For collision resistance, X can be anything, it does not matter as long as the two inputs give the same output.
+image::{imagedir}/hash-properties.png[{big-width}]
+
+The term "very hard" in this context means astronomically hard. It is
+silly to even try. We will have a look at second-preimage resistance
+as an example of what "very hard" means, but a similar example can be
+made for any of the three variants.
+
+==== Illustration of "very hard"
+
+Suppose that you want to find an input to SHA256 that results in the
+same hash as "Hello!":
+
+ 334d016f755cd6dc58c53a86e183882f8ec14f52fb05345887c8a5edd42c87b7
+
+There is no way to change the input just a little bit so that the
+function "won't notice". It will notice and output a totally different
+hash. Every hash looks random, but they are not actually random, since
+they are calculated from the input, and every time you use the same
+input, the same hash will be produced. The only way to find an input,
+other than "Hello!", that gives the hash
+"334d016f755cd6dc58c53a86e183882f8ec14f52fb05345887c8a5edd42c87b7" is
+to try different inputs one by one and check if it produces the
+desired hash.
+
+Let's try.
+
+.Finding an input with the same hash as "Hello!". Nearly impossible.
+[%autowidth]
+|===
+| Input | Hash | Success? 
+| Hello1! | 82642dd9e405f3f4265e2ca3c4c440e8c204f26a1b6f35fdf1ca2a642e366e64  | nope 
+| Hello2! | 493cb8b9dcb11590fe2fa72efd0d5f2fa70beda31ad0e5e8a76caa5f83ba14f8  | nope
+| Hello3! | 90488e861be3a5b762f40d4d2f1f2f7338f3f76a100ce3e4996dde8164530bae  | nope 
+| Hello4! | 86bc15b47d6886637a2e2083ea2f0405c6c8693cad9d1dc4864755ffe1ae748d  | nope 
+| ... | ... | nope
+| Hello9997! | 243358aaea3d234c09467ef449986bde25b462f5c72d50d655cb28987228646f  | nope 
+| Hello9998! | cf0bc6de6fd0aea26e1c68212710eea49ec6e913a7be0748e48cddcee6b0caa4  | nope 
+| Hello9999! | df82680f143cb292f46c4d0414b816c926d0fb659884c28df1dab01bef9bc235  | nope 
+| Hello10000! | 466a7662d9c183e52eeab8e9a261749d61bafa500101ef2aeed52315ce77859c  | nope 
+|===
+
+As you can see, we are not very successful. Let us think about how
+much time it would take for a typical desktop computer to find such an
+input. It can calculate about 60 million hashes per second and the
+expected number of tries needed to find a solution is 2^255^. The
+result is 2^255^ / (60*10^6^) s ≈ 10^68^ s ≈ 3*10^61^ years, or
+about
+
+ 30000000000000000000000000000000000000000000000000000000000000 years
+
+I think we can stop trying, don't you? I don't think buying a faster
+computer will help either. Even if we had 1 trillion computers and ran
+them concurrently it would take about 3*10^49^ years.
+
+Preimage resistance, second-preimage resistance and collision
+resistance are extremely important in Bitcoin. Most of its security
+relies on these properties.
+
+==== Exercise
+
+Does the file transfer example protect against malicious
+modifications during transfer? Suppose that someone with access to
+your email service provider can tamper with the email while in
+transit, could she modify the email in any way so that you accept a
+modified file without noticing? If so, how could you and your friend
+prevent that?
+
+=== The cookie sheet
+
+Suppose that there is a café in the office where you work. You and
+your coworkers use a spreadsheet to keep track of "cookie
+tokens", CT. Cookie tokens can be exchanged for cookies in the café.
+
+.The cookie sheet have a column for the sender, a column for the recipient and a column for the amount of Cookie Tokens transferred. New cookie token transfers are appended at the end of the cookie sheet.
+image::{imagedir}/cookie-sheet-basic.png[{half-width}]
+
+This spreadsheet is stored on Lisa's computer. The spreadsheet is
+shared read-only for everybody on the office network to open and
+watch, except Lisa. Lisa is very trustworthy. Everybody
+trusts her. She has full access to do whatever she likes with the
+spreadsheet. You and all the others can only view the spreadsheet by
+opening it in read-only mode.
+
+Whenever Alice wants a cookie, she asks Lisa, who sits right next to
+the café, to transfer 10 tokens from her to the café. Lisa knows who
+Alice is and can verify in the cookie sheet that she owns enough cookie
+tokens. She will go through all rows in the cookie sheet and sum all
+the amounts with Alice's name in the "To" column and subtract all the
+amounts with Alice's name in the "From" column. Here is the complete
+list of transfers involving Alice:
+
+.Lisa calculates Alices's balance. The sum of her received CT is 100 and the sum of her widthdrawn CT is 30. Alice's balance is 70 CT.
+image::{imagedir}/johns-transfers-in-cookie-sheet.png[{half-width}]
+
+Lisa calculates that Alice has 70 CT. That is enough for Alice to pay 10
+CT to the café. She edits the cookie sheet by adding a row at the end:
+
+image::{imagedir}/john-buys-cookie.png[{half-width}]
+
+The café sees this new row in the cookie sheet and hands over a cookie
+to Alice.
+
+When you run out of cookie tokens, you can buy tokens for dollars from
+someone who has an exessive amount of cookie tokens, possibly Anne or
+the Cafe, at a price you both agree on. Lisa will then add a row to
+the cookie sheet accordingly. Lisa have promised never to remove or
+change anything in the cookie sheet, just add to it. What happens in
+the cookie sheet, stays in the cookie sheet! This cookie sheet system
+works quite well and everybody eats a helthy amount of cookies.
+
+=== Digital signatures
+
+The company is doing well and grows rapidly. After a while Lisa has a
+hard time recognizing everyone. She notices that some people are not
+honest. For example Malory says that she is Anne, to trick Lisa into
+moving cookie tokens from Anne to the cafe, instead of from Malory to
+the cafe.
+
+Things are getting out of hand, so Lisa thinks out a great plan. She
+is going to require everybody to _digitally sign_ their cookie token
+transfers, by writing a message and a _digital signature_ on a piece of
+paper or in an email.
+
+A digital signature is a digital equivalent of a hand written
+signature. The difference is that a hand written signature is tied to
+a person, while a digital signature is tied to a random number called
+a private key. A digital signature is much harder to forge than a hand
+written signature.
+
+Digital signatures have been around for decades. You probably already
+use digital signatures every day without knowing it. For example, when
+you login to your online bank, your web browser will verify that the
+web site's authenticity is signed by an authority, with a private key,
+that your web browser trusts. If so, you will see a comforting padlock
+in the address bar of your browser.
+
+There is a new guy at the office, John. The company gave him some CT
+as a welcome gift when he started. Now John wants to make use of those
+Cookie Tokens. He needs to digitally sign a cookie token
+transfer. This is what he has to do:
+
+.The digital signature process. 1. John creates a keypair and gives the public key to Lisa. 2. John signs a message with the private key. 3. Lisa verifies that the message is signed with the private key belonging to the public key she got from John.
+[[generate-key-pair]]
+image::{imagedir}/generate-key-pair.png[{big-width}]
+
+There are three phases in this process.
+
+. John prepares by generating a key pair. The private key is kept
+secret by John, and the public key is handed over to Lisa. This is a
+one-time setup step.
+. John wants a cookie. He writes a message and signs it with his
+private key. He gives the message and the digital signature to Lisa.
+. Lisa verifies the signature of the message using Johns public key
+and updates the cookie sheet.
+
+==== Preparation: John generates a key pair
+
+The signing and validation process is based on a pair of a private key
+and a public key. John needs a private key in order to sign something
+and Lisa will need John's public key in order to verify John's
+signatures. John needs to prepare for this by creating a key pair. The
+key pair is created by first generating a private key and then
+calculate the public key from that private key.
+
+.John creates a key pair. The private key is a huge random number and the public key is derived from that random number. The private key is stored on his hard drive and the public key is handed to Lisa.
+image::{imagedir}/create-keypair.png[{big-width}]
+
+John will use a random number generator to generate a huge, 256 bit,
+random number. This random number is now John's private key. The
+private key is then transformed into a public key using a public key
+derivation function. The public key derivation function is a one-way
+function, just as the cryptographic hash functions discussed
+earlier. You can not derive the private key from the public key. The
+security of digital signatures relies heavily on this feature.
+
+How the public key derivation function works exactly is beyond my
+knowledge. Luckily, you do not have to be a cryptography expert to
+understand how digital signatures works from a user perspective. The
+private and public keys are thought of as a pair because they have a
+very strong relationship; The public key can be used to encrypt
+messages that only the private key can decrypt. It also works the
+other way around, the private key can encrypt messages that can only
+be decrypted by the public key.
+
+.Encrypting and decrypting with the public and private keys. Left: Encrypt with the public key and decrypt with the private key. Right: Encrypt with the private key and decrypt with the public key.
+image::{imagedir}/enc-dec-public-private.png[{big-width}]
+
+Encryption is used to make messages unreadable to parties that don't
+hold the proper decryption keys. In the left example, only John would
+be able to read the encrypted message because he is the only one with
+access to his private key. In the right side example, Lisa can decrypt
+the message because she has the public key belonging to Johns
+private key. It is not good practice to use the private key to encrypt
+messages because the public key is, you guessed it, public. When john
+hands his public key to Lisa, someone might overhear the conversation,
+or Lisa might leave her table with public keys open on her computer
+screen. And that's okay. The public key is not secret in any way. That
+is why it is a bad idea to encrypt with the private key and expect the
+message to be secure.
+
+To illustrate the relationship between the private and the public
+keys, imagine a drawer with a lock. The lock has three states: Left
+(locked), Up (unlocked), and Right (locked). There are two keys to
+this lock, one key can only turn the lock to the right, clockwise, and
+the other key can only turn the lock to the left, counterclockwise.
+
+image::{imagedir}/locked-box.jpg[{quart-width}]
+
+Let's assume that John selects the right-only key to be his
+private key. The left-only key is then his public key. He could chose
+either one of them to be the private key, it does not matter. He makes
+several copies of the public key and hands them out to Lisa, Ellen and
+a bunch of other people. He keeps the private key to himself in his
+pocket.
+
+Ellen can now encrypt a secret message to John. She writes a note with
+the secret message
+
+ Hey, your zipper is down
+
+and puts it in the drawer, closes the drawer and locks it with her
+copy of the public key. The public key only turns to the left, so when
+she is done the lock is in its leftmost position. The drawer is now
+locked. To open the drawer you need a key that can turn the lock to
+the right. Only John's private key can do that. None of the copies of
+the public key will help, because they can only turn to the left.
+
+John, who is the only one with the private key, can now use his
+private key, that only turns right, to unlock the drawer and read the
+secret message. He is confident that the message has not been read by
+anyone else during its time in the drawer, because he has had his
+private key in his pocket all the time. He gently turns around and
+zips up.
+
+==== John signs his payment
+
+The previous example was an illustration of the encryption feature of
+public and private keys. But while John was able to read the secret
+message from Ellen, he could not tell _who_ wrote the message. Anyone
+with a copy of the public key could have done that.
+
+But this drawer has another great feature. It can be used by John to
+write a message that anyone with the public key can read and be
+absolutely sure that it was John who wrote the message. This is an
+example of a digital signature.
+
+Say that John wants to send the message
+
+ Lisa, please move 10CT to Cafe. /John
+
+to Lisa. He gave Lisa his public key, that only turns left, in the
+previous section. John writes the message on a note and puts it in the
+drawer. He closes the drawer and locks it with his private key, that
+only turns right. When he is done, the drawer is locked in the
+rightmost position. Everyone knows how this drawer works, so everyone
+is aware that only the private key can lock the drawer in this way,
+because only the private key can turn the lock to the right.
+
+Lisa can now use her copy of the public key to unlock the drawer by
+turing it left one step to the upright, unlocked, position. She takes
+out the note and reads it. She knows for sure that John put this
+message in the box, because he is the only person with the
+private key. Lisa can now trust that the message is from John and move
+10 cookie tokens from him to the café.
+
+Let's leave the drawer analogy and have a close look at how the
+signing really happens.
+
+.John digitally signs the transfer of 10 CT to the café. The message to Lisa is first hashed and then encrypted with John's private key. The note to Lisa contains both the message in clear text and the signature.
+image::{imagedir}/signing-details.png[{big-width}]
+
+The message that John wants to sign is "Lisa, please move 10CT to
+Cafe. /John". The signing function will hash this message with SHA256
+whose output is a 256 bit number. This hash value is then encrypted
+with John's private key. The result is a string that looks like
+garbage:
+
+ INxAs7oFDr80ywy4bt5uYPIv/09fJMW+04U3sJUfgV39
+ A2k8BKzoFRHBXm8AJeQwnroNb7qagg9QMj7Vp2wcl+c=
+
+This is the signature. If John would have used another private key or
+a slightly different message as input, the signature would have looked
+completely different. For example, using the input message "Lisa,
+please move 10CT to Malory. /John" would render this signature:
+
+ IBkECIzYrfw6pEEdAUbDpD32rq481j6h5a7UrEYG6BBz
+ dmZmsFAtT+cvXTZbpwC76/gMES9DCcS5ArjhCDjwbq8= 
+
+This is not even remotely similar to the previous signature. This is
+good to know for John, as he knows that his signature cannot be used
+for other messages than his intended message.
+
+The last thing that John does is to compose a note to Lisa and give it
+to her.
+
+==== Lisa verifies the signature
+
+Lisa does not recognize John. She looks at the note and sees that the
+note claims to be from John, so she looks up John in her table of
+public keys.
+
+.Lisa uses the message (1), the signature (2) and John's public key (3) to verify that the message is actually signed with John's private key.
+image::{imagedir}/verify-signature.png[{big-width}]
+
+The purpose of Lisa's actions in this picture is to determine that the
+cookie token transfer was signed by the private key it claims to be
+signed with. The message says it is from John. She did receive Johns
+public key the other day and she put the public key in her table of
+public keys. The things she has at hand is
+
+. The message "Lisa, please move 10CT to Cafe. /John"
+. The Signature `INxAs7oFDr8...`
+. Johns public key that she just looked up in her table
+
+If the signature is correct, it should be the hash of the message
+encrypted with Johns private key. So if Lisa decrypts the signature
+(2) with John's _public_ key (3), the result should be the same hash.
+
+Lisa takes the signature (2) and decrypts it with the public key (3)
+she looked up in her table of public keys. The decryption outputs a
+big number. If this number is equal to the hash of the message (1), it
+proves that John's private key was used to sign the message. Lisa
+takes the message (1), exactly as written, and hashes that message
+just like John did when he created the signature. This message hash is
+then compared with the decrypted signature. The message hash and the
+decrypted signature match.
+
+Lisa can now be sure that no one is trying to fool her. She updates
+the cookie sheet with John's transfer:
+
+.Lisa have added a row for John's cookie token transfer after verifying the signature of John's message.
+image::{imagedir}/cookie-sheet-basic-johns-transfer.png[{half-width}]
+
+==== Exercises
+
+. If John didn't end his message with "/John", would Lisa be able to
+determine who to withdraw money from? 
+
+. What would Malory need in order to steal cookie tokens from John?
+
+. Are the names in the cookie sheet really needed anymore? Could they
+be replaced by something else without breaking the security of the
+system? If that is possible, suggest how a typical payment can look? 
+
+==== Summary
+
+Lisa have solved the problem with people claiming to be someone else
+when they make a payments. She requires all payers to digitally sign
+the Cookie Token transfers. Every user of the Cookie Sheet needs to
+have a private key and a public key. Lisa keeps track of which public
+key belongs to whom. A payment must from now on be written on a piece
+of paper or in an email to Lisa, and the message must be digitally
+signed with the person's private key. Lisa can then verify the
+signature to make sure she is not being fooled.
+
+image::{imagedir}/digital-signature-summary.png[{big-width}]
+
+The gist of this is that as long as John keeps his private key to
+himself, no one will be able to spend his money.
+
+Everybody still trust Lisa to not change the cookie sheet in any way
+except when executing signed Cookie Token transfers. If Lisa wanted to
+she could steal anyones Cookie Tokens by just adding a transfer to the
+cookie sheet. But she wouldn't do that, or would she?
+
+=== Private key security
+
+John is in control of his cookie tokens because he owns the
+private key. No one but John can use Johns cookie tokens because he is
+the only one with access to his private key. If his private key is
+stolen, he can lose any and all of his cookie tokens.
+
+One morning when John came to the office, he took his laptop from his
+desk and went straight to the café to buy his two morning cookies. He
+opened his laptop to write a message to Lisa.
+
+ Good monrning Lisa! please move 20 CT to Cafe. /John
+ Signature:
+ H5gvXce9zFnEzCk+AnnMd49FBYg/LGcdmqWNgt3Og7mA
+ MpVKhrpGbFjU6r3G7eTHyWnV/GwdIjs9fmJUwHoAuyg=
+
+He sent an email with the message and a signature to Lisa, as
+usual. But the café didn't hand him any cookies. The guy behind the
+desk said that he hasn't seen any incoming payment of 20 CT yet. Lisa
+is usually very quick in verifying and executing transfers.
+
+John opens the cookie sheet and searches for "John". This is what he sees:
+
+.Someone stole money from John. Who is Melissa and how was this possible? John did not sign any such transfer.
+image::{imagedir}/cookie-sheet-john-pwned.png[{half-width}]
+
+John steps into Lisa's office asking for an explanation. She answers
+him that she got a message signed with Johns private key asking her to
+send money to this new coworker, Melissa. She even shows him the
+message and signature. Of course there is no Melissa at the office,
+which has grown rapidly lately. Lisa don't care about names anymore,
+only public keys and signatures.
+
+The explanation to all this is that someone has
+
+. managed to copy Johns private key. John's laptop has been on his
+  desk all night long. Anyone could have taken out the hard drive from
+  the laptop to search for his private key.
+. created a new key pair and sent the new public key to Lisa:
+
+ Hi Lisa. My name is Melissa, and I'm new here.
+ My public key is
+ 02c5d2dd24ad71f89bfd99b9c2132f796fa746596a06f5a33c53c9d762e37d9008
+
+. sent a signed message to Lisa
+
+ Hi Lisa, please move 90 CT to Melissa. Thanks, John
+ Signature:
+ IPSq8z0IyCVZNZNMIgrOz5CNRRtRO+A8Tc3j9og4pWbA
+ H/zT22dQEhSaFSwOXNp0lOyE34d1+4e30R86qzEbJIw=
+
+Lisa would validate the transfer in step 3 and conclude that it is
+valid and execute the transfer. John asks Lisa to revert the,
+according to him, fraudulent transfer. But lisa refuses to do
+that. She thinks the transfer is perfectly valid. If John let someone
+see his private key, that's his problem, not Lisa's. That's part of
+why she's so trusted within the company, she keeps her promises.
+
+John creates a new key pair and ask lisa to add his new public key
+under the name John2.
+
+How can John secure his new private key and still have it readily
+available when he wants a cookie? John is pretty sure that he will not
+have more than 1000 cookie tokens.
+
+The security of the cookie sheet has shifted from a system where Lisa
+knows everyone's face to one where Lisa knows everyone's
+public key. In a sense, the security could actually be worse now,
+because it might be easier for Malory to steal John's private key than
+it is for her to trick Lisa into thinking Malory is John. That depends
+on how John protects his private key. If he stores it in clear text in
+a shared folder on the company's intranet, anyone can easily copy his
+private key and use that to steal Johns cookie tokens. But if John
+stores the private key in an encrypted file, protected by a strong
+password, on his own laptop's hard drive, it's a lot harder to get a
+copy of his key, because you must
+
+. get access to Johns hard drive
+. know John's password
+
+An important thing to note is that the security of John's private key
+is totally up to him. No one is going to be able to restore John's
+private key if he loses it. And Lisa sure is not going to reverse
+"fraudulent" transfers just because John is sloppy with security. If
+John thinks that he will never have more than 50 CT on his private
+key, he might not be very concerned with security. But the café who
+manages about 10000 cookie tokens might be very concerned. John and
+the café probably need different strategies for storing their private
+keys.
+
+There is a trade-off between security and convenience. You can for
+example keep your private key encrypted on an off-line laptop in a
+bank safe-deposit box. When you want to buy a cookie you need to go to
+the bank, take out the laptop from your safe-deposit box, decrypt the
+private key with your password, and use the private key to digitally
+sign a message to Lisa. Write down the message and signature on a
+note, put back the laptop into the safe-deposit box and bring the note
+back to the office. Very secure, and very inconvenient. On the other
+hand, you can store your private key in clear text on your mobile
+phone. Then you have the key at your fingertips and can sign a message
+within seconds from when the urge for a cookie starts to
+nudge you. Very unsecure and very convenient.
+
+Some of the different tradeoffs are
+
+.Security considerations against attackers
+image::{imagedir}/private-key-security.png[{half-width}]
+
+Online vs offline:: On-line means that the private key is stored on a
+device with network access, like your mobile phone or general purpose
+laptop. Off-line means that the private key is stored on a piece of
+paper, or a computer without any network access. On-line storage is
+risky because remote security exploits or malicious software on your
+computer, like computer viruses, may send the private key to someone
+without you noticing. If the device is off-line, no one can take the
+private key without physical access to the device.
+
+Clear text vs encrypted:: If the private key is stored in clear text
+in a file on the hard drive of your computer, anyone with access to
+your computer, either remotely over a computer network, or physically,
+can make a copy of the private key. That includes any viruses that
+your computer may be victim to. You can avoid many of these attacks by
+encrypting your private key with a password that only you know. Any
+attacker would then need both access to your harddrive and your secret
+password to copy the key.
+
+Whole key vs Splitted key:: Usually people store their entire private
+key on a single computer. That's convenient, you only need one
+computer to spend your Cookie Tokens. An attacker need to get access
+to your hard drive in order to steal the private key. But if your
+private key is splitted into three parts, and you store the three
+parts separately on three different computers, then the attacker must
+get access to the hard drives of three computers. That's much harder
+because she must know what three computers to attack and also
+successfully attack them. Making a payment in this setup is a real
+hassle, but very secure.
+
+Any combination of the above methods can be used to store your
+keys. But as a rule of thumb, the higher the security against
+attackers, the higher the risk of you accidentaly losing access to
+your key. For example, if you store the private key encrypted on your
+hard drive, you risk both losing your key due to computer failure and
+losing it by forgetting your password.

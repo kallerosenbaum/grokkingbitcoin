@@ -71,5 +71,16 @@ echo 19g6oo8foQF5jfqL9gH2bLkFNwgCenRBPD | base58 -d | head -c 21 \
 
 
 
+Generate 10 keypairs and output "privkey pubkey"
 
-
+for i in `seq 10`; do
+openssl ecparam -name secp256k1 -genkey > privtemp.pem
+privhex=`openssl ec -in privtemp.pem -outform DER 2>/dev/null |tail -c +8|head -c 32|xxd -p -c 32`
+ucpubhex=`openssl ec -in privtemp.pem -pubout -outform DER 2>/dev/null|tail -c 65|xxd -p -c 65`
+lastbyte=`echo ${ucpubhex:128}|tr [a-f] [A-F]` 
+lastbyte=`echo "ibase=16; $lastbyte" | bc`
+prefix=`if [ $((lastbyte % 2)) == 0 ] ; then echo "02"; else echo "03"; fi`
+pubhex=$prefix${ucpubhex:2:64}
+echo $privhex 
+echo $pubhex
+done
