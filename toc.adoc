@@ -1,0 +1,262 @@
+= Grokking Bitcoin
+:doctype: book
+:sectnums:
+:toc:
+:toclevels: 4
+
+== Introduction to Bitcoin
+=== What is Bitcoin?
+=== Problems with money today
+==== Inflation
+==== Borders
+==== Segregation
+==== Privacy issues
+=== The Bitcoin approach
+==== Decentralized
+==== Limited supply
+==== Borderless
+=== How is Bitcoin used?
+==== Savings
+==== Speculation
+==== Non-currency uses
+===== Ownership
+===== Proof of existence
+==== How is Bitcoin valued?
+==== When not to use Bitcoin
+===== Tiny payments
+===== Instant payments
+===== Savings you can not afford to lose
+=== The big picture
+==== Step 1 - Transactions
+==== Step 2 - The Bitcoin network
+==== Step 3 - The blockchain
+==== Step 4 - Wallets
+
+== Digital signatures - Securing Cookie Tokens
+=== Cryptographic hashing
+==== Illustration of "very hard"
+==== Exercise
+=== The cookie token spreadsheet
+=== Digital signatures
+==== Preparation: John generates a key pair
+==== John signs his payment
+==== Lisa verifies the signature
+==== Exercises
+==== Summary
+=== Private key security
+==== Against attackers
+==== Against yourself
+==== Exercise
+
+== CT addresses - Resolving privacy issues
+=== Cookie eating habits undisclosed
+==== Replace names with public keys
+==== Interesting side effects
+=== Shortening the public key
+==== Hash public key to 20 bytes
+==== Interesting side effects
+=== Expensive typing errors
+==== Add version and checksum
+==== Use compact encoding
+=== Summary of the address creation process
+=== Bitcoin addresses
+=== Privacy problem with reused addresses
+==== Single-use addresses
+=== Exercises
+
+== Wallets - Fixing key chaos and manual work
+=== Single-use keys require automation
+==== Automate address creation
+==== Manage key storage
+==== Easy transfer of CT addresses
+=== Automate messages to Lisa
+==== The wallet will automatically email Lisa
+=== The wallet gets adopted
+==== CT becomes easier to use than dollar bills
+==== Multiple wallet implementations
+=== Backup hell
+==== Needs to backup every new private key
+==== Security decreases
+=== Hierarchical deterministic wallets
+==== Seed
+==== Generate a tree of keys from the seed
+==== Backup the seed once
+==== Independent public part of the tree
+=== Exercises
+
+== Transactions - Reducing trust in Lisa
+=== Problems
+==== Lisa hates calculating balances
+==== Can't spend small balances
+==== Only Lisa can verify signatures
+==== Fading trust in Lisa, she can steal money
+=== Solutions
+==== Standard transaction format
+==== Change
+==== Place signatures in transactions
+=== Unspent transaction outputs
+=== Lisa automates her work
+=== Exercises
+
+== The blockchain - Further reducing trust in Lisa
+=== Lisa rewrites history
+=== Coworkers propose a blockchain
+==== Lisa publish blocks every 10 minutes
+==== The blocks are cryptographically chained
+==== Nodes - Independent validators
+===== Keeps their own copy of the blockchain
+==== The blockchain becomes more trusted than the spreadsheet.
+=== The spreadsheet is obsolete
+=== Exercises
+
+== Cloning Lisa - Spreading risks
+=== Lisa censors payments
+=== Lisa's computer breaks
+==== People can't buy cookies
+==== Lisa gets a new computer
+===== Downloads blockchain
+===== Operation resumes
+=== Avoiding future catastophes
+==== Ali also becomes trusted payment processor.
+==== Who publish blocks?
+===== Let chance deside
+==== Block race
+===== Longest chain wins
+===== Losing payment processor adjusts
+===== Stale blocks
+=== Ellen also joins
+==== Increased block rate
+=== Exercises
+
+== Proof-of-work - Avoiding double spends
+=== Reemerged problems
+==== Lisa can rewrite history again
+==== Lisa double spends her CT
+=== The Byzantine generals' problem
+=== Proof-of-work replaces random numbers
+==== Hash the blockheader
+==== Most proof-of-work chain wins
+=== Case study: Rewriting history
+==== Diminishing probability of success
+=== Exercises
+
+== Block rewards - Incentivize work
+=== Problems
+==== Electricity bill sky rockets
+==== More cookie tokens needed
+=== Solution
+==== Company refuses to pay for security
+==== Reward nodes running PoW at home
+===== The coinbase transaction
+==== Reasonable supply curve - 21M target
+=== More problems
+==== Miners create empty blocks
+==== Transactions get stuck by miners
+=== Solution
+==== Transaction fees
+=== Exercise
+
+== Difficulty adjustments - Allowing more participants
+=== Ali beefs up his hashpower
+=== Lisa beefs up her hashpower
+=== Block rate increases
+==== Increased chance of stale blocks
+==== Moving target
+=== Adjust difficulty every 2016th block
+==== Block rate stabalizes
+==== Opens up for more participants
+=== Exercise
+
+== Peer-to-peer network - Ditching email
+=== Email server breaks
+==== Nodes cannot get new blocks
+==== Users cannot verify payments
+=== More problems with the email server
+==== Bandwidth bottleneck
+==== PoW authenticates, not email server logins
+=== Faiza designs a peer-to-peer network
+==== Nodes, miners and wallets interconnect
+==== Transactions and blocks in the network
+=== Anyone can mine now
+==== Faiza, Mia and Rick starts mining
+==== Network hashpower sky-rockets
+=== System is now truly decentralized
+=== Transaction life-cycle
+=== Exercises
+
+== Merkle trees - Reducing data use
+=== John's mobile data plan depletes
+==== All blocks downloaded
+=== Download only blocks concerning John
+==== By giving up privacy
+==== By bloom filters
+=== Download only transactions concerning John
+==== Prove block contrains transaction
+==== Merkle tree
+==== Merkle path
+=== Privacy issues with Bloom filters
+=== Pruning
+=== Exercises
+
+== Script - Transactions on steroids
+=== John's daughter wants cookie
+=== Wanted features
+==== Lock CT 24 hours
+==== Pay with secret
+==== Anyone can spend
+==== Attach arbitrary data
+==== Multi-signature
+=== Scripts got you covered - if correct
+=== Pay to script-hash - Move cost of script to payee
+=== LockTime and nSequence
+=== Segregated Witness
+==== Ellen spends unconfirmed transaction
+==== Transaction malleability
+==== Space savings
+==== Implicitly changes transaction id
+
+== Adoption craze - Let's just call it Bitcoin, shall we?
+=== No barrier to entry
+=== Cafe starts serving bypassers in the street
+==== Sells bitcoins to anyone
+==== Accepts bitcoins from anyone
+=== Employees exchange Bitcoin at a party
+=== Non-employee starts mining
+==== Buys coffé at café
+==== Sells Bitcoin on the street
+=== Speculators buys bitcoin
+==== Long term speculators
+==== Short term speculators
+=== A free-speech non-profit gets choked
+==== Only way to receive donations is Bitcoin
+==== Manages to continue operations
+=== Some employees want part of their salary in Bitcoin
+=== Consultant accept Bitcoin as payment
+=== Exchanges
+=== Traders
+
+== Update - Fixing bugs and adding features
+=== Add script to transactions
+==== Hard fork - Split network
+==== Typical case - catastrophic bug
+=== Add segregated witness
+==== Soft fork - Upgrade mercifully
+==== Typical case - new feature
+==== Standardized procedure for soft fork
+
+== Genesis - How it all began
+=== The paper
+=== The software
+=== The genesis block
+=== The first transaction
+=== The first price point
+
+== How-to - Getting started with Bitcoin
+=== Install a wallet
+==== Chose a wallet
+==== Optionally encrypt the wallet
+==== Backup the wallet
+=== Get bitcoins
+==== Watch the transaction confirm
+=== Send bitcoins
+=== Create a multi-signature wallet
