@@ -7,7 +7,7 @@ computer science topic. But she needs to have an abstract
 understanding on some basic areas.
 
 Network communication (3):: A basic understanding of how computers
-communicate with eachother. No knowledge about how the communication
+communicate with each other. No knowledge about how the communication
 works or anything about the physical structure of a computer network
 is needed. Just an abstract understanding of how each computer have an
 address and that messages can be sent between the computers.
@@ -34,31 +34,33 @@ will then send back a web page that is displayed in your web browser.
 
 == Takeaways
 
-This book should be enough to get the reader started on most tasks
-involving Bitcoin. Besides just performing the tasks below she will
-also understand on a deep, but still abstract, level what is actually
-going on under the hood. She will also understand why the technologies
-used are needed. For example, she will understand that computers in
-the Bitcoin network compete for rewards by consuming electricity to
-produce a proof-of-work, and that one reason for using proof-of-work
-is that no one should be able to rewrite history.
+After reading this book, the reader will understand on a deep, but
+still abstract, level what is going on under the hood of Bitcoin. She
+will also understand why the technologies used are needed. For
+example, she will understand that computers in the Bitcoin network
+compete for rewards, by consuming electricity to produce a
+proof-of-work, and that one reason for using proof-of-work is that no
+one should be able to rewrite history.
 
-The main focus will be on understanding the Bitcoin system, but some
-chapters will be dedicated to teaching the reader how to actually do
-stuff like sending and receiveing bitcoins, or how to store your
-bitcoins safely and privately.
+The main focus will be on technically understanding the Bitcoin
+system, but some chapters will be dedicated to teaching the reader how
+to actually do stuff like sending and receiveing bitcoins, or how to
+store your bitcoins safely.
 
-* Obtain and store bitcoins.
+Some of the takeaways from this book will
 
-* Send and receive payments.
+* understand on a deep level how Bitcoin works
 
-* Accept bitcoin as payment for goods and services.
+* be able to decide whether you trust Bitcoin (or not)
 
-* Use Bitcoin without trusting anyone else (run a "full Bitcoin node").
+* be able to validate use cases and come up with your own use cases
 
-* Secure your company's funds using multisignature transactions.
+* help others understand and use Bitcoin
 
-* Make your mind up on wether you trust Bitcoin or not.
+* debunk myths, there are plenty.
 
-* Participate in technical Bitcoin discussions within your company or
-  among friends.
+* join the conversation on future developments in Bitcoin
+
+* obtain and store bitcoins
+
+* send and receive bitcoins
