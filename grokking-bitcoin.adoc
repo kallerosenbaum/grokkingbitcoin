@@ -32,7 +32,7 @@ include::ch01-Introduction-to-Bitcoin.adoc[]
 
 include::ch02-Securing-Cookie-Tokens.adoc[]
 
-//include::ch03-receive-bitcoins.adoc[]
+include::ch03-receive-bitcoins.adoc[]
 
 //* why? who cares?
 //* concrete to abstract

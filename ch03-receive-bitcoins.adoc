@@ -1,429 +1,100 @@
-== Receive bitcoins
+== Resolving privacy issues
 :imagedir: {baseimagedir}/ch03
-
-
-
 
 This chapter covers
 
-* receiving bitcoins
-* understanding the peer-to-peer network
-* the structure of the blockchain
+* The privacy problem of the cookie sheet
+* Fixing the privacy issues
+* Creating Cookie Sheet addresses
 
+'''
+Problems:
 
-Now that the introduction is out of the way, let us get more
-hands-on. We will walk you through the installation of a Bitcoin
-wallet and explain some fundamental concepts that are important for
-wallets. Not only for wallets but for the whole Bitcoin system. 
+* Everyone can see everybody's cookie eating habits
 
-The main objective of this chapter is to teach you how the wallet
-manages your private keys and how addresses are generated from those
-private keys.
+Solution1:
 
-```
-p2p network:
+Pay to public keys instead of names, include your pubKey when paying.
 
-Concrete example
+Benefits:
 
-Now that Bob have sent his Bitcoin address to Alice, Alice will create
-a Bitcoin transaction. She will send that transaction on the Bitcoin
-peer-to-peer network. Let's follow that transaction's jorney.
+* Lisa can ditch public key table
+* Cookie habits are obfuscated
+* Anyone can create an account without asking Lisa.
+* Anyone can have multiple accounts
 
-Diagram 1: Network of computers, and Alices wallet connected to 3 of
-them. Bob's wallet is connected to 2. Alice's wallet sends the
-transaction to all three.
+'''
+Problems:
 
-2: The three computers validate the transaction and passes it on to
-its neighbors.
+* You must write 66 hex digits for the payee
 
-3: Finally one of the nodes Bob is connected to will receive the
-transactions. It will pass the transaction to Bob's wallet.
+Solution2:
 
+Hash the public key ripemd160(sha256(pubKey)) and use the hash instead
+of pubKey in cookie sheet.
 
-```
+Benefits:
 
-```
-The blockchain part I
+* Shorter strings (now 40 hex characters)
+* Improved security on FIRST payment. P2PKH instead of P2PK
 
+'''
+Problems:
 
-```
+* People make typing mistakes
+* People still thinks 40 characters are too long
+* We are tired of making huge changes everywhere when the address
+  format changes.
 
-<<<
+Solution3:
 
-=== Digtal signatures in Bitcoin
+Add a version and a checksum to the pubKeyHash and base58 encode it.
 
-Bitcoin uses digital signatures to authenticate transfers of bitcoins
-from a Bitcoin address. 
+Benefits:
 
+* Future changes to the address format can be made less intrusively
+* People will check their checksum before sending the pubKeyHash
+* The address is only about 34 characters now.
 
+'''
+Problems:
 
-==== Public and private keys
+* If the Ellen buys some cookie tokens from Hassan, then Hassan knows
+  Ellens CT address, and pubkeyhash. He can then see all financial
+  activity on that address and the address simply becomes a pseudonym
+  for Ellen. If Mehmet know Ellen has that pseudonym, he knows
+  everything about Ellens cookie habits. So we still have a privacy issue.
 
-==== Digital signatures
+* Solution4:
 
+People use uniqe CT addresses for all transactions.
 
-Bob loves Alice
 
-* Create a keypair
-* Encrypt with private key, decrypt with public key
-* Encrypt with public key, decrypt with private key
-* Sign
+People start to get concerned about privacy. Everybody can see exactly
+how much cookies other people are eating. Lisa is also beginning to
+hate to keep the table of public keys up-to-date. Another issue they
+see is that the café cannot know who of two customers just paid
+10 CT. It could be any one of them since the café don't know the names
+of all coworkers.
 
-Signs a message that Alice verifies
+They start using public keys instead of their names in the cookie
+sheet. Lisa no longer have to keep the public key table. Good.
 
+This works well, but there is one more problem: People sometimes make
+typing errors when they type the public keys, both their own public
+key and the public key of the recipient. Also people complain about
+having to type the public keys as 64 charachter hex strings when paying.
 
+They find a good way to hash the public key, and versioning it. They
+also add a checksum to it and base58 encode it. Everyone can verify
+the checksum on the notes.
 
+Note now that no one needs to add his/her public key to Lisa
+beforehand. People just hand their address to the payer, and the payer
+pays to the address. This means that users can create as many
+addresses as they want, and nobody is able to tell what addresses
+belongs to John.
 
-Alice sends a paymet to Bob. Bob then sends money to Charlie. He signs
-with the private key from the address she gave to Alice.
-
-=== The Bitcoin address creation process
-
-This section will go deep on what a Bitcoin address is and how it is
-created. The Bitcoin address creation process is complex and some new
-pretty hard topics will be introduced, but we will take it slow. I
-recommend you to carefully read and understand this section, because
-the topics you will learn here is vital for the rest of this book. If
-you do not get it, please try again. If you still have a hard time
-understanding, you should go to the movies and revisit this section
-tomorrow.
-
-Bob want’s to receive bitcoins from Alice in our example from chapter
-1, so he needs to create a Bitcoin address to give to Alice.
-
-==== Overview
-
-The Bitcoin address creation process involves a number of technical
-topics. These topics will be covered after this overview section, but
-here is a brief intro to the topics.
-
-Public-key cryptography:: A technique using key pairs, a pair of a
-private key and a public key, to digitally sign and verify digital
-information. During the Bitcoin address creation process a key pair
-will be generated, but no signing will take place.
-
-Cryptographic hash function:: This is a family of algorithms that
-takes any data as input and outputs a fixed length huge number.
-
-Base58 encoding:: This is a way to translate a series of bytes into a
-series of letters and digits, suitable for humans to read.
-
-Let us start with a big diagram of the whole process and then break it
-down.
-
-.Bitcoin address creation process. The process goes through three phases: 1) Create a private-public key pair, 2) Hash the public key, and 3) Encode the public key hash into a manageable and error resistant format. The encoding part is reversible, you can move from the Bitcoin address after step 3 to the hash value at step 2.
-image::{imagedir}/mental_model_address_creation.png[{full-width}]
-
-The process is divided into three major parts. The first part,
-Public-key cryptography, is used to generate a key pair of a private
-key and a public key. Public-key cryptography is used in Bitcoin for
-signing transactions and verify those signatures. The private key is
-used to digitally sign a transaction and the public key is used to
-verify the signature. You can easily derive the public key from the
-private key through the Public key derivation function, but you cannot
-derive the private key from the public key. This property is known as
-a one-way function.
-
-The second part, cryptographic hashing, is a way to get a fixed length
-"fingerprint" of the public key. The hashing is done in two steps, but
-both steps conceptually do the same thing, transform the input into a
-fixed length number. The first transforms the public key into a 256
-bit number and the second transforms this 256 bit number into a 160
-bit number. As with public key derivation, cryptographic hash
-functions are also one-way functions.
-
-In the third part we add some meta data to the hashing output and
-encode it with base58. We add a version number of the address format,
-`00`, and a checksum. The checksum is used to prevent sending money to
-a non-existing Bitcoin address due to bad spelling or transfer issues
-when sending the address. The versioned and checksummed hash is finally
-encoded with base58 to make it human readable.
-
-Let us now dig deeper into these three steps in order of appearance.
-
-==== Create a key pair
-
-:cap: Step 1 of the Bitcoin address creation process. First a huge \
-random number, the private key, is created. The private key is then \
-transformed by a cryptographic function into a public key.
-.{cap}
-image::{imagedir}/public_key_cryptography.png[{full-width}]
-
-The key pair is created by first generating a huge random number. This
-can be done with a random number generator. A random number generator
-is usually provided to applications, for example your wallet, by the
-operating system. Its only purpose is to output bytes of random
-data. We ask the random number generator for 32 bytes of random
-data. This random data is our private key. A private key must not be
-shared with any other person. I break that rule in this example, by
-disclosing the private key, but I know that I am not going to use it
-to store my money.
-
-When you backed up your Bitcoin wallet, you wrote down 12 words on a
-piece of paper. That is known as your wallet's random seed. When your
-wallet created your first Bitcoin address, it did not directly use the
-random number generator, but it was derived from the random seed. This
-is a technique used by most modern wallet applications. That process
-is not included in this chapter, because it unnecessarily adds to the
-complexity. The process works just as fine, and is more easily
-explained, by directly using a random number generator. The random
-seed technique, called _hierarchical deterministic wallets_ will be
-covered in [REFERENCE to chapter 5].
-
-The private key is used as input to the public key derivation
-function. It is a one-way function that will output another huge
-number called the public key. The public key and private key have a
-very special relationship. The private key is used in Bitcoin for
-making _digital signatures_ and the public key is used to verify
-those signatures.
-
-===== Digital signature example
-
-Let us say that it's Wednesday afternoon and Bob wants to send the
-message
-
- Alice, I love you. /Bob
-
-to Alice. But he fears that someone else might also send messages to
-Alice in Bob's name. Not nice. How can Bob send the message so that
-Alice can be sure that the message is actually from Bob?
-
-Alice and Bob knows about public-key cryptography. Earlier this
-morning, Alice and Bob met up at a cafe for breakfast before Alice
-went to work. During breakfast Bob gave Alice his public key. Alice
-now knows that this public key belongs to Bob. She also knows that
-_only_ Bob have access to the private key.
-
-Now, it is Wednesday afternoon and Alice is working. Bob decides to
-send his message to Alice.
-
-.Bob signs his message with his private key and sends the message, his public key and the signature to Alice who verifies it with the public key she knows belongs to Bob.
-image::{imagedir}/sign_message.png[{full-width}]
-
-On the left side of the picture, Bob is using his private key that
-only he has access to. He uses it to digitally sign the message
-"Alice, I love you. /Bob". He then puts the message, his public key
-and his newly created signature in an email and sends it to Alice.
-
-Alice reads the message, but she is very concerned with security and
-she wants to make sure this message is actually from Bob. So she takes
-the public key that she knows belongs to Bob, the one she got at
-breakfast, and compares it to the public key in the message. They
-match. Using the message, the public key and the signature she can now
-verify that only Bob could have created this signature.
-
-The signature function takes the data to sign as input. In this
-example it is the text "Alice, I love you. /Bob", but it could be
-anything. When Alice verifies the signature she must input the exact
-message as Bob was signing, otherwise the verification will fail.
-
-We will look more closely at digital signatures in [REFERENCE chapter
-4]. For now we can just conclude that Bob's wallet have created a
-cryptographic key pair that can be used to sign and verify stuff. The
-wallet have stored the private key for later use. The public key is
-passed on to the next step in the Bitcoin address creation process.
-
-==== Hash the public key
-
-Bob's wallet have created a private and a public key in step 1 of the
-Bitcoin address creation process. His wallet will now take the public
-key and transform it using a process called cryptographic hashing.
-
-.Step 2 of the Bitcoin address creation process. A cryptographic hash is a huge number generated from its input. Different inputs generate different outputs with very high probability. It is extremely hard to find two different inputs with the same outputs.
-image::{imagedir}/hash_the_public_key.png[{full-width}]
-
-Two different types of cryptographic hashing will take place. The
-public key will first be run through SHA256, which will output a huge
-number. The result will further be run through RIPEMD160. Both of
-these hashing algorithms have the same principal characteristics:
-
-. The same input will always produce the same output.
-. Slightly different inputs will produce very different outputs.
-. The output is always of the same fixed size. For SHA256 it is 256
-  bits, or 32 bytes.
-. It is a one-way function. Trial-and-error is the most efficient
-known way to find an input that gives a certain output. This is known
-as _Preimage resistance_.
-
-.A cryptographic hash function have some interesting properties: 1. Same input always gives the same output. 2. Different inputs give different outputs. 3. Output has fixed size.
-image::{imagedir}/cryptographic_hashing.png[{full-width}]
-
-You can think of a cryptographic hash as a fingerprint. A person will
-produce the same fingerprint of her left thumb every time, but it is
-extremely hard to find another person with the same left thumb
-fingerprint. The fingerprint does not disclose any information about
-the person other than her left thumb fingerprint. You cannot know what
-math skills she has or how tall she is by looking at her
-fingerprint. It is the same with hash functions, you cannot know
-anything about the input by looking at the output.
-
-The public key is hashed because we don't want to expose our public
-key by giving someone a Bitcoin address. At least not yet. If the
-public key is exposed and someone finds a weakness in the public-key
-cryptography used, they might find a way to derive the private key
-from the public key. But if we only expose a hashed version of the
-public key, there must be very serious weaknesses in all three of our
-public-key cryptography, SHA256 and in RIPEMD160 at the same time in
-order to have a chance at figuring out the private keys.
-
-The first hashing algorithm, SHA256, will output a number of 256
-bits. And the second algorithm, RIPEMD160, will output a number of 160
-bits. RIPEMD160 is used for two reason:
-
-* The shorter output of RIPEMD160 will result in a shorter, more
-  manageable, Bitcoin address.
-* If either of RIPEMD160 or SHA256 turns out to be weak, meaning
-  property 4 doesn't hold, then the other algorithm will keep the
-  public key safe.
-
-The fourth property of cryptographic hash functions, _preimage
-resistance_, is what makes it a _cryptographic_ hash function and this
-needs a bit more elaboration.
-
-===== Preimage resistance
-
-Suppose that you want to find an input to SHA256 that results in the
-same output as "Hello!".
-
-There is no way to change the input just a little bit so that the
-function "won't notice". It will notice and output a totally different
-number. Every output looks random, but they are not actually
-random. They are calculated from the input, and every time you use the
-same input, the same output will be produced. The only way to find an
-input, other than "Hello!", that gives the output
-"334d016f755cd6dc58c53a86e183882f8ec14f52fb05345887c8a5edd42c87b7", as
-in [REFERENCE figure 25], is to try different inputs one by one and
-check if it produces this output.
-
-Let's try.
-
-.Finding an input with the same output as "Hello!". Nearly impossible.
-[%autowidth]
-|===
-| Input | Output | Success? 
-| Hello1! | 82642dd9e405f3f4265e2ca3c4c440e8c204f26a1b6f35fdf1ca2a642e366e64  | nope 
-| Hello2! | 493cb8b9dcb11590fe2fa72efd0d5f2fa70beda31ad0e5e8a76caa5f83ba14f8  | nope
-| Hello3! | 90488e861be3a5b762f40d4d2f1f2f7338f3f76a100ce3e4996dde8164530bae  | nope 
-| Hello4! | 86bc15b47d6886637a2e2083ea2f0405c6c8693cad9d1dc4864755ffe1ae748d  | nope 
-| ... | ... | nope
-| Hello9997! | 243358aaea3d234c09467ef449986bde25b462f5c72d50d655cb28987228646f  | nope 
-| Hello9998! | cf0bc6de6fd0aea26e1c68212710eea49ec6e913a7be0748e48cddcee6b0caa4  | nope 
-| Hello9999! | df82680f143cb292f46c4d0414b816c926d0fb659884c28df1dab01bef9bc235  | nope 
-| Hello10000! | 466a7662d9c183e52eeab8e9a261749d61bafa500101ef2aeed52315ce77859c  | nope 
-|===
-
-As you can see, we are not very successful. Let us think about how
-much time it would take for a typical desktop computer to find such
-an input. It can calculate about 60 million hashes per second and the
-expected number of tries needed to find a solution is 2^256^. The
-result is 2^256^ s / (60*10^6^) = 1.9*10^69^ s = 6*10^61^ years, or about
-
- 60000000000000000000000000000000000000000000000000000000000000 years
-
-I think we can stop trying, don't you? I don't think buying a faster
-computer will help either. Even if we had 1 trillion computers and ran
-them concurrently it would take about 6*10^49^ years.
-
-This preimage resistance is extremely important in Bitcoin. Most of
-its security relies on this property.
-
-==== Encode the Bitcoin address
-
-Now that the cryptographic hashing is done, we have come to the last
-part, step 3, of the Bitcoin address creation process. Bob's wallet will
-encode the hash in a certain way to make it recognizable by the
-Bitcoin network and to make typing errors detectable. 
-
-.Step 3 of the Bitcoin address creation process. The hash of the public key is decorated with a version number and a checksum. Then the decorated hash is encoded with base58 to produce the final Bitcoin address.
-image::{imagedir}/address_encoding.png[{full-width}]
-
-The first thing that happens is that `00` is added at the beginning of
-the public key hash. This is a version number of the Bitcoin address
-format. The version is used for future upgrades of the Bitcoin
-system. There are other versions as well, but "00" is the most
-common one.
-
-This versioned hash is then hashed twice through SHA256, then we take
-the first four bytes, `12181e60`, and append them at the end of the
-versioned hash. These four bytes functions as a checksum that protects
-us from almost all typing errors.
-
-The versioned and checksummed public key hash is now 25 bytes:
-
- 005f2613791b36f667fdb8e95608b55e3df4c5f9eb12181e60
-
-We have displayed all data in this example _hex encoded_, meaning that
-every byte is written as two hexadecimal digits, 0-f, 0 means zero and
-f means 15. In reality the data is just a sequence of 25 bytes, each
-with value 0-255. The last step in the address encoding phase is to
-make those 25 bytes readable and writable by humans. It would require 50
-characters to hex encode the data. We can do better than that.
-
-Base58 encoding is an encoding scheme that uses printable characters
-and avoids confusion over characters that look similar in print, `l` and
-`I`, and `0` and `O`.
-
-Let us encode the following 25 bytes from the picture above using the
-base58 scheme.
-
- 005f2613791b36f667fdb8e95608b55e3df4c5f9eb12181e60
-
-The result is a newly created Bitcoin address consisting of the
-following 34 characters
-
- 19g6oo8foQF5jfqK9gH2bLkFNwgCenRBPD
-
-This is a shorter string than the hex encoded one but we have not
-lost any information. It is shorter because every character carries
-more information. Instead of 16 different possible values per
-character as in hex code, we have 58 different possible values per
-character in base58. The characters used by base58 are
-
- 123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz
-
-They consist of all digits, capital letters and lower case letters
-except `0`, `O`, `I` and `l`. These four characters are removed
-because they can look very similar in certain fonts. Note that the
-Bitcoin address starts with an `1`. That is a result of the version
-prefix `00` that we added first in this step. This means that all
-Bitcoin addresses with version `00` will start with an `1`. You can
-distinguish between different Bitcoin address versions by looking at
-the first character of the Bitcoin address.
-
-All processes in step 3 are reversible. You can calculate the public
-key hash from the Bitcoin address.
-
-We noted above that the checksum protects us from typing errors. Let's
-say that Bob gives this address to Alice who enters the address in her
-wallet application. Suppose all goes well without typing
-errors. Alice's wallet will check the address as follows:
-
-image::{imagedir}/decode_good_address.png[]
-
-The process takes the provided address and decodes it from base58
-encoding to a sequence of 25 bytes. The last 4 bytes is supposedly the
-checksum, so let's verify that. Remove the checksum and run the
-remaining 21 bytes through the checksum just as in the address
-encoding phase. Then compare the result with the provided
-checksum. They match, which means that the address is good. Very well.
-
-But let's assume that Bob made a typing error when he sent the address
-to Alice. He wrote `L` instead of `K` which results in this bad
-address instead:
-
-[subs=+quotes]
- 19g6oo8foQF5jfq**L**9gH2bLkFNwgCenRBPD
-
-When Alice wants to pay Bob using this bad Bitcoin address, her wallet
-will check the address as follows:
-
-image::{imagedir}/decode_bad_address.png[]
-
-The base58 decoding will output a different sequence of 25 bytes as in
-the correct address decoding which will produce a different calculated
-checksum than the provided checksum. Since the checksums do not match,
-the wallet will refuse to send money to that address. Alice will be
-warned by the wallet and she will ask Bob to check his address and
-send a valid one instead. If checksumming was not used in Bitcoin
-people would mistakenly send money into an address that no-one have
-the private key for. The money would be lost forever.
+The café can now create a unique address for every purchase. That way
+he knows exactly who pays, because only one customer has received a
+certain address.

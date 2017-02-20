@@ -50,13 +50,30 @@ new public key /John2". He needs to call himself John2 from now on,
 otherwise Lisa can't distinguish between John's first key and Johns
 second key.
 
+=== Private key backup
+
+Suppose that John loses his private key. His laptop broke and took
+John's private key with it.
+
+The security measures he took when he encrypted his private key only
+helps against bad people trying to steal John's cookie tokens. But now
+he lost his private key due to a computer failure. He wasn't protected against
+
+* broken computer
+* computer stolen
+* Lost password
+
+We will help John backup his private key on a paper that he locks away
+in a safe at home.
+
 === Addresses
 
 People start to get concerned about privacy. Everybody can see exactly
 how much cookies other people are eating. Lisa is also beginning to
 hate to keep the table of public keys up-to-date. Another issue they
 see is that the café cannot know who of two customers just paid
-10 CT. It could be any one of them.
+10 CT. It could be any one of them since the café don't know the names
+of all coworkers.
 
 They start using public keys instead of their names in the cookie
 sheet. Lisa no longer have to keep the public key table. Good.
@@ -80,21 +97,24 @@ The café can now create a unique address for every purchase. That way
 he knows exactly who pays, because only one customer has received a
 certain address.
 
-=== Private key backup
+=== Wallets
 
-Suppose that John loses his private key. His laptop broke and took
-John's private key with it.
+Users have been writing their transactions on paper or in emails for
+too long now. They are fed up with it. They need some computer program
+that they can use to keep track of their private keys and addresses as
+well as creating transactions and sending them to Lisa. Since they use
+single-use addresses, they also need a convenient way to transfer an
+address from the payee to the payer.
 
-The security measures he took when he encrypted his private key only
-helps against bad people trying to steal John's cookie tokens. But now
-he lost his private key due to a computer failure. He wasn't protected against
+Someone develops an app that does this and sends the transactions via
+email to Lisa. The app
 
-* broken computer
-* computer stolen
-* Lost password
+* Reads QR codes of addresses
+* Keeps track of incoming payments, listens to the cookie sheet web page.
+* Keeps track of the private keys and addresses
+* Constructs transactions and sends them to Lisa.
 
-We will help John backup his private key on a paper that he locks away
-in a safe at home.
+Everybody starts using this awesome app.
 
 === Transactions
 
@@ -130,24 +150,6 @@ One very interesting outcome of this is that all the signatures are
 public inside the cookie sheet. This means that everyone can validate
 the cookie sheet. Not only can people not cheat Lisa, but Lisa cannot
 steal money from anyone.
-
-
-=== Wallets
-
-Users have been writing their transactions on paper or in emails for
-too long now. They are fed up with it. They need some computer program
-that they can use to keep track of their private keys and addresses as
-well as creating transactions and sending them to Lisa.
-
-Someone develops an app that does this and sends the transactions via
-email to Lisa. The app
-
-* Reads QR codes of addresses
-* Keeps track of incoming payments, listens to the cookie sheet web page.
-* Keeps track of the private keys and addresses
-* Constructs transactions and sends them to Lisa.
-
-Everybody starts using this awesome app.
 
 === Lisa can now replace herself with a computer program.
 
@@ -258,11 +260,14 @@ rate increases.
 
 * Adjust random interval to 1-30 instead of 1-20.
 
+Exercise: Did we just re-introduce a problem? Can Lisa rewrite history
+again?
+
 === Lisa rewrites history
 
 Lisa disagree with company policy to reward workers with CT. CT can be
 used to buy cookies. Cookies are not good for you. So she decides to
-remove som transactions from the last 10 blocks of cookie fiest. She
+remove some transactions from the last 10 blocks of cookie fiest. She
 can bypass her random number generation stuff and generate 11 blocks
 with all transactions but the ones she doen't agree with.
 
@@ -275,6 +280,17 @@ Lisa may continue to run her operation. She can't simply create 10
 blocks anymore.
 
 === PoW nodes costs money
+
+The company notices that the electricity bill has increased since PoW
+got introduced. They don't want to pay for the security of the
+network. But they all agree that running a PoW node is a valuable
+service to the network, since it provides security. No one can double
+spend.
+
+PoW is good, but company don't want to pay for it. They come up with a
+new scheme. Lisa, Ali and Ellen can run their proof-of-work from home,
+and as compensation, they get to create 50 new CT to themselves with
+every block.
 
 Now it costs money to operate a payment processing node.
 

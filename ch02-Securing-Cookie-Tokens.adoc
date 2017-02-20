@@ -226,12 +226,14 @@ a person, while a digital signature is tied to a random number called
 a private key. A digital signature is much harder to forge than a hand
 written signature.
 
+image::{imagedir}/web-browser-padlock.png[{quart-width}]
+
 Digital signatures have been around for decades. You probably already
 use digital signatures every day without knowing it. For example, when
-you login to your online bank, your web browser will verify that the
-web site's authenticity is signed by an authority, with a private key,
-that your web browser trusts. If so, you will see a comforting padlock
-in the address bar of your browser.
+you login to your online bank, you see a comforting padlock in the
+address bar of your web browser. That padlock means that the web
+browser has verified a digital signature to make sure that the web
+site is actually the web site you think it is.
 
 There is a new guy at the office, John. The company gave him some CT
 as a welcome gift when he started. Now John wants to make use of those
