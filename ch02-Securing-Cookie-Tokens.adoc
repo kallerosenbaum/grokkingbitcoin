@@ -1,4 +1,4 @@
-== Securing Cookie Tokens
+== Digital signatures - Securing Cookie Tokens
 :imagedir: {baseimagedir}/ch02
 
 This chapter covers
@@ -189,12 +189,12 @@ amounts with Alice's name in the "From" column. Here is the complete
 list of transfers involving Alice:
 
 .Lisa calculates Alices's balance. The sum of her received CT is 100 and the sum of her widthdrawn CT is 30. Alice's balance is 70 CT.
-image::{imagedir}/johns-transfers-in-cookie-sheet.png[{half-width}]
+image::{imagedir}/alices-transfers-in-cookie-sheet.png[{half-width}]
 
 Lisa calculates that Alice has 70 CT. That is enough for Alice to pay 10
-CT to the café. She edits the cookie sheet by adding a row at the end:
+CT to the café. She appends a row at the end:
 
-image::{imagedir}/john-buys-cookie.png[{half-width}]
+image::{imagedir}/alice-buys-cookie.png[{half-width}]
 
 The café sees this new row in the cookie sheet and hands over a cookie
 to Alice.
