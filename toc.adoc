@@ -2,7 +2,7 @@
 :doctype: book
 :sectnums:
 :toc:
-:toclevels: 4
+:toclevels: 3
 
 == Introduction to Bitcoin
 === What is Bitcoin?
