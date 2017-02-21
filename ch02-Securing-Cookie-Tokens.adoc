@@ -1,11 +1,11 @@
-== Digital signatures - Securing Cookie Tokens
+== Digital signatures - Securing cookie tokens
 :imagedir: {baseimagedir}/ch02
 
 This chapter covers
 
 * Understanding cryptographic hashes
 * Creating a simple money system, Cookie Tokens
-* Authenticating Cookie Token payments using digital signatures
+* Authenticating cookie token payments using digital signatures
 * Keeping your secret codes secret
 
 The only fundamental technical skill you need in order to start
@@ -164,13 +164,13 @@ transit, could she modify the email in any way so that you accept a
 modified file without noticing? If so, how could you and your friend
 prevent that?
 
-=== The cookie sheet
+=== The cookie token spreadsheet
 
 Suppose that there is a café in the office where you work. You and
 your coworkers use a spreadsheet to keep track of "cookie
 tokens", CT. Cookie tokens can be exchanged for cookies in the café.
 
-.The cookie sheet have a column for the sender, a column for the recipient and a column for the amount of Cookie Tokens transferred. New cookie token transfers are appended at the end of the cookie sheet.
+.The spreadsheet have a column for the sender, a column for the recipient and a column for the amount of cookie tokens transferred. New cookie token transfers are appended at the end of the spreadsheet.
 image::{imagedir}/cookie-sheet-basic.png[{half-width}]
 
 This spreadsheet is stored on Lisa's computer. The spreadsheet is
@@ -182,8 +182,8 @@ opening it in read-only mode.
 
 Whenever Alice wants a cookie, she asks Lisa, who sits right next to
 the café, to transfer 10 tokens from her to the café. Lisa knows who
-Alice is and can verify in the cookie sheet that she owns enough cookie
-tokens. She will go through all rows in the cookie sheet and sum all
+Alice is and can verify in the spreadsheet that she owns enough cookie
+tokens. She will go through all rows in the spreadsheet and sum all
 the amounts with Alice's name in the "To" column and subtract all the
 amounts with Alice's name in the "From" column. Here is the complete
 list of transfers involving Alice:
@@ -196,15 +196,15 @@ CT to the café. She appends a row at the end:
 
 image::{imagedir}/alice-buys-cookie.png[{half-width}]
 
-The café sees this new row in the cookie sheet and hands over a cookie
+The café sees this new row in the spreadsheet and hands over a cookie
 to Alice.
 
 When you run out of cookie tokens, you can buy tokens for dollars from
 someone who has an exessive amount of cookie tokens, possibly Anne or
 the Cafe, at a price you both agree on. Lisa will then add a row to
-the cookie sheet accordingly. Lisa have promised never to remove or
-change anything in the cookie sheet, just add to it. What happens in
-the cookie sheet, stays in the cookie sheet! This cookie sheet system
+the spreadsheet accordingly. Lisa have promised never to remove or
+change anything in the spreadsheet, just add to it. What happens in
+the spreadsheet, stays in the spreadsheet! This spreadsheet system
 works quite well and everybody eats a helthy amount of cookies.
 
 === Digital signatures
@@ -237,7 +237,7 @@ site is actually the web site you think it is.
 
 There is a new guy at the office, John. The company gave him some CT
 as a welcome gift when he started. Now John wants to make use of those
-Cookie Tokens. He needs to digitally sign a cookie token
+cookie tokens. He needs to digitally sign a cookie token
 transfer. This is what he has to do:
 
 .The digital signature process. 1. John creates a keypair and gives the public key to Lisa. 2. John signs a message with the private key. 3. Lisa verifies that the message is signed with the private key belonging to the public key she got from John.
@@ -252,7 +252,7 @@ one-time setup step.
 . John wants a cookie. He writes a message and signs it with his
 private key. He gives the message and the digital signature to Lisa.
 . Lisa verifies the signature of the message using Johns public key
-and updates the cookie sheet.
+and updates the spreadsheet.
 
 ==== Preparation: John generates a key pair
 
@@ -427,7 +427,7 @@ then compared with the decrypted signature. The message hash and the
 decrypted signature match.
 
 Lisa can now be sure that no one is trying to fool her. She updates
-the cookie sheet with John's transfer:
+the spreadsheet with John's transfer:
 
 .Lisa have added a row for John's cookie token transfer after verifying the signature of John's message.
 image::{imagedir}/cookie-sheet-basic-johns-transfer.png[{half-width}]
@@ -439,7 +439,7 @@ determine who to withdraw money from?
 
 . What would Malory need in order to steal cookie tokens from John?
 
-. Are the names in the cookie sheet really needed anymore? Could they
+. Are the names in the spreadsheet really needed anymore? Could they
 be replaced by something else without breaking the security of the
 system? If that is possible, suggest how a typical payment can look? 
 
@@ -447,7 +447,7 @@ system? If that is possible, suggest how a typical payment can look?
 
 Lisa have solved the problem with people claiming to be someone else
 when they make a payments. She requires all payers to digitally sign
-the Cookie Token transfers. Every user of the Cookie Sheet needs to
+the cookie token transfers. Every user of the spreadsheet needs to
 have a private key and a public key. Lisa keeps track of which public
 key belongs to whom. A payment must from now on be written on a piece
 of paper or in an email to Lisa, and the message must be digitally
@@ -459,10 +459,10 @@ image::{imagedir}/digital-signature-summary.png[{big-width}]
 The gist of this is that as long as John keeps his private key to
 himself, no one will be able to spend his money.
 
-Everybody still trust Lisa to not change the cookie sheet in any way
-except when executing signed Cookie Token transfers. If Lisa wanted to
-she could steal anyones Cookie Tokens by just adding a transfer to the
-cookie sheet. But she wouldn't do that, or would she?
+Everybody still trust Lisa to not change the spreadsheet in any way
+except when executing signed cookie token transfers. If Lisa wanted to
+she could steal anyones cookie tokens by just adding a transfer to the
+spreadsheet. But she wouldn't do that, or would she?
 
 === Private key security
 
@@ -485,7 +485,7 @@ usual. But the café didn't hand him any cookies. The guy behind the
 desk said that he hasn't seen any incoming payment of 20 CT yet. Lisa
 is usually very quick in verifying and executing transfers.
 
-John opens the cookie sheet and searches for "John". This is what he sees:
+John opens the spreadsheet and searches for "John". This is what he sees:
 
 .Someone stole money from John. Who is Melissa and how was this possible? John did not sign any such transfer.
 image::{imagedir}/cookie-sheet-john-pwned.png[{half-width}]
@@ -529,7 +529,7 @@ How can John secure his new private key and still have it readily
 available when he wants a cookie? John is pretty sure that he will not
 have more than 1000 cookie tokens.
 
-The security of the cookie sheet has shifted from a system where Lisa
+The security of the spreadsheet has shifted from a system where Lisa
 knows everyone's face to one where Lisa knows everyone's
 public key. In a sense, the security could actually be worse now,
 because it might be easier for Malory to steal John's private key than
@@ -592,7 +592,7 @@ password to copy the key.
 
 Whole key vs Splitted key:: Usually people store their entire private
 key on a single computer. That's convenient, you only need one
-computer to spend your Cookie Tokens. An attacker need to get access
+computer to spend your cookie tokens. An attacker need to get access
 to your hard drive in order to steal the private key. But if your
 private key is splitted into three parts, and you store the three
 parts separately on three different computers, then the attacker must
