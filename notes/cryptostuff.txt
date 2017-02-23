@@ -84,3 +84,11 @@ pubhex=$prefix${ucpubhex:2:64}
 echo $privhex 
 echo $pubhex
 done
+
+# Convert hex to decimal
+echo "ibase=16; `echo 1a |tr [a-f] [A-F]`"|bc
+
+
+# Convert hex to binary digits
+echo "dee6a5d375827436ee4b47a930160457901dce84ff0fac58bf79ab0edb479561" \
+| xxd -r -p | xxd -ps -b -c 256

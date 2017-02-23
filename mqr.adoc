@@ -47,13 +47,13 @@ system, but some chapters will be dedicated to teaching the reader how
 to actually do stuff like sending and receiveing bitcoins, or how to
 store your bitcoins safely.
 
-Some of the takeaways from this book will
+You will be able to
 
 * understand on a deep level how Bitcoin works
 
-* be able to decide whether you trust Bitcoin (or not)
+* decide whether you trust Bitcoin (or not)
 
-* be able to validate use cases and come up with your own use cases
+* validate use cases and come up with your own use cases
 
 * help others understand and use Bitcoin
 

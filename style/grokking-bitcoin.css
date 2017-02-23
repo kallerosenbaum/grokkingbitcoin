@@ -1,0 +1,6 @@
+@import url("asciidoctor.css");
+
+.sidebarblock {
+    width: 40%;
+    float: right;
+}

@@ -7,6 +7,7 @@
 :toclevels: 4
 :baseimagedir: images
 //:stylesheet: asciidoctor.css
+:stylesheet: grokking-bitcoin.css
 :stem:
 
 ifdef::backend-html5[]
@@ -32,7 +33,7 @@ include::ch01-Introduction-to-Bitcoin.adoc[]
 
 include::ch02-Securing-Cookie-Tokens.adoc[]
 
-include::ch03-receive-bitcoins.adoc[]
+include::ch03-ct-addresses.adoc[]
 
 //* why? who cares?
 //* concrete to abstract

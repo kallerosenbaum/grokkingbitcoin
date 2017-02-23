@@ -1,6 +1,5 @@
 == Digital signatures - Securing cookie tokens
 :imagedir: {baseimagedir}/ch02
-
 This chapter covers
 
 * Understanding cryptographic hashes
@@ -37,6 +36,76 @@ thumb fingerprint. The fingerprint does not disclose any information
 about the person other than her left thumb fingerprint. You cannot
 know what math skills she has or what eye color she has by looking at
 her fingerprint.
+
+We call a fingerprint of a file a cryptographic hash. To create a
+cryptographic hash of a file, you send the file into a computer
+program called a cryptographic hash function.
+
+.Creating a cryptographic hash of a cat picture. Input is the cat picture and output is a big number of 32 bytes.
+image::{imagedir}/hashing-a-cat.png[{half-width}]
+
+****
+Bits? Bytes? Hex?
+
+One _bit_ is the smallest unit in a computer. It can take two
+different values, either 0 or 1. Like a light bulb, it can be either
+on or off. A byte is eight bits, that together can take 256 different
+values, for example
+|===
+| bits | may represent
+
+| 00000000 | 0
+| 00000011 | 3
+| 11111111 | 255
+|===
+
+We often use hexadecimal encoding when we display big numbers in this
+book. Each byte is printed as two characters, each in
+the range 0-9 and a-f. For example:
+
+|===
+|Hex |Decimal
+
+| 8 | 8
+| a | 10
+| f | 15
+| 10 | 16
+| 1f | 31
+| ff | 255
+|===
+****
+
+The hash in the picture is a 256 bit number. It means that to store
+the number in a file, the file will be 32 bytes big.
+
+The hash of the cat picture looks differently depending on how you
+encode it
+....
+Hex encoding:
+dee6a5d375827436ee4b47a930160457901dce84ff0fac58bf79ab0edb479561
+
+Decimal encoding:
+100820971699455337599445756594616218286352867489159691431327414234281190856033 
+
+Binary encoding (individual bits):
+110111101110011010100101110100110111010110000010011101000011011011101110
+010010110100011110101001001100000001011000000100010101111001000000011101
+110011101000010011111111000011111010110001011000101111110111100110101011
+0000111011011011010001111001010101100001
+....
+{2ndcol} place table next to above paragraph
+****
+****
+
+
+Hash means something that is chopped into small pieces or mixed up. It
+is actually a very good description of what a cryptographic hash
+function does. It takes the cat picture and performs a mathematical
+calculation on it. Out comes a big number that does not remotely look
+like a cat. The number is big, but it only requires 32 bytes of
+storage which is tiny compared to the size of the cat picture.
+
+
 
 Suppose that you want to receive a file from your friend via email,
 but you suspect that the file may be accidentaly corrupted during

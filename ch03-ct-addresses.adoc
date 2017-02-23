@@ -1,0 +1,98 @@
+== CT addresses - Resolving privacy issues
+:imagedir: {baseimagedir}/ch03
+
+This chapter covers
+
+* Basic privacy
+* Replacing names with public keys
+* Replacing public keys with hashes
+* Encoding hashes into addresses
+
+After this chapter, the spreadsheet will have gotten rid of personal
+names and replaced them with something we call cookie token
+addresses. This is useful to Lisa, because she don't have to keep her
+table of public keys up-to-date. But also because coworkers now use
+cookie token addresses that don't contain any personal
+information. This makes it harder for others to extract information
+from the spreadsheet on how much cookies a certain coworker eats.
+
+=== Cookie eating habits undisclosed
+
+Alice and many other coworkers have a health insurance at Acme
+Insurances. They have "persuaded" John to hand over a copy of the
+spreadsheet to them. Acme figure that they can adjust premiums or hold
+workers' cookie eating habits against them in an eventual insurance
+dispute.
+
+image::{imagedir}/privacy-issues-names.png[{half-width}]
+
+Another disturbing fact with the spreadsheet is that every coworker
+can easily look up other coworkers' balances, as well as cookie eating
+habits.
+
+How can Lisa and her coworkers get away from these shortcomigs? How
+can they get rid of the names in the spreadsheet?
+
+=== Replace names with public keys
+
+.Replacing the names with public keys. The spreadsheet is now much more unreadable, which is good from a privacy perspective.
+image::{imagedir}/replace-names-with-public-keys.png[{big-width}]
+
+A typical payment would look like this:
+
+image::{imagedir}/payment-with-pubkey.png[{quart-width}]
+
+==== Interesting side effects
+
+* Lisa can ditch public key table
+* Anyone can create an account without asking Lisa.
+* Anyone can create multiple accounts
+
+=== Shortening the public key
+
+Too long keys
+
+==== Hash public key to 20 bytes
+
+image::{imagedir}/hash-public-key.png[{big-width}]
+
+==== Interesting side effects
+
+* Address is harder to hack before first payment
+
+=== Expensive typing errors
+
+* People make typing mistakes
+* People still thinks 40 characters are too long
+* We are tired of making huge changes everywhere when the address
+  format changes.
+
+image::{imagedir}/expensive-typing-error.png[{big-width}]
+
+==== Add version and checksum
+
+image::{imagedir}/version-and-checksum.png[{big-width}]
+
+==== Use compact encoding
+
+image::{imagedir}/base58-encode.png[{big-width}]
+
+=== Summary of the address creation process
+
+image::{imagedir}/address-creation-process.png[{big-width}]
+
+=== Bitcoin addresses
+
+Historically public keys were encoded differently, requiring 65 bytes
+instead of 33. This made the rationale behind the hashing more clear.
+
+=== Privacy problem with reused addresses
+
+==== Single-use addresses
+
+=== Exercises
+
+. 
+
+
+REMEMBER: Explain how cookie tokens are first created! I suggest that we use Bitcoin's model where Alice gets 50 CT every 10 minutes. Let's be generous, 7200 CT per day.
