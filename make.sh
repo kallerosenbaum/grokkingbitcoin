@@ -32,4 +32,4 @@ for file in ${sourcedir}/grokking-bitcoin.adoc; do
 	# generate a pdf from that temp file.
 #	${AAMAKEPDFDIR}/makepdf.sh ${outputdir}/$basename.xml ${outputdir}/$basename.pdf
 done
-rm ${scriptdir}/'c:\sw\text.txt'
+#rm ${scriptdir}/'c:\sw\text.txt'

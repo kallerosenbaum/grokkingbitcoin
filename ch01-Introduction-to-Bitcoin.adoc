@@ -59,7 +59,7 @@ institution.
 The Bitcoin ecosystem consists of several actors. These are the most common
 types of actors:
 
-image::{imagedir}/actors.jpg[]
+image::{imagedir}/actors.jpg[{big-width}]
 
 Saver:: Saves bitcoin for future use.
 Shopper:: A person buying goods and services for bitcoin.
@@ -132,9 +132,7 @@ investigated this, 1000 SEK was worth 5305 Philippine Pesos (PHP) or
 | Send from | Receive to | Received by recipient | Fees | Fees %
 
 | Bank | Bank | 5109 PHP | 265 PHP | 4.9%
-
 | Bank | Cash | 4810 PHP | 564 PHP | 10.5%
-
 | Credit card | Cash | 4498 PHP | 876 PHP | 16.3%
 |===
 

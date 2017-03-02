@@ -1,6 +1,20 @@
 @import url("asciidoctor.css");
 
+p,.literalblock,.imageblock>.title {
+    width: 75%;
+}
+
 .sidebarblock {
-    width: 40%;
+    width: 25%;
     float: right;
 }
+
+.sidebarblock p {
+    width: 100%;
+}
+
+.tableblock {
+    font-size: small;
+}
+
+

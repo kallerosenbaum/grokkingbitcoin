@@ -6,24 +6,24 @@
 :toc:
 :toclevels: 4
 :baseimagedir: images
-//:stylesheet: asciidoctor.css
 :stylesheet: grokking-bitcoin.css
 :stem:
 
 ifdef::backend-html5[]
-:full-width: width='100%'
-:big-width: width='75%',align='center'
+:full-width: width='70%'
+:big-width: width='75%'
 :half-width: width='50%'
 :quart-width: width='25%'
+:thumb: width='20%'
 endif::[]
 ifdef::backend-pdf[]
-:full-width: pdfwidth='100%'
+:full-width: pdfwidth='70%'
 :big-width: pdfwidth='75%',align='center'
 :half-width: pdfwidth='50%'
 :quart-width: pdfwidth='25%'
 endif::[]
 ifdef::backend-docbook45[]
-:full-width: scaledwidth='100%'
+:full-width: scaledwidth='70%'
 :big-width: scaledwidth='75%',align='center'
 :half-width: scaledwidth='50%'
 :quart-width: scaledwidth='25%'
