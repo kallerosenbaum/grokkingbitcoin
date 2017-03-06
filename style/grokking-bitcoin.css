@@ -9,7 +9,7 @@ p,.literalblock,.imageblock>.title {
     float: right;
 }
 
-.sidebarblock p {
+.sidebarblock p,.sidebarblock .literalblock {
     width: 100%;
 }
 

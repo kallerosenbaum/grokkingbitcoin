@@ -2,26 +2,73 @@
 :imagedir: {baseimagedir}/ch02
 This chapter covers
 
-* Understanding cryptographic hashes
 * Creating a simple money system, Cookie Tokens
-* Authenticating cookie token payments using digital signatures
+* Understanding cryptographic hashes
+* Authenticating payments using digital signatures
 * Keeping your secret codes secret
+
+We will start the chapter by setting the stage for the rest of this
+book. We will describe a very simple payment system that we will
+improve upon using Bitcoin technologies. By the end of this book the
+simple system will have evolved into what we call Bitcoin.
 
 The only fundamental technical skill you need in order to start
 learning Bitcoin is cryptographic hashes. Cryptographic hashes are so
 important to Bitcoin that you really need to understand them before
-starting to learn anything else. The first section of this chapter
+starting to learn anything else. The second section of this chapter
 will teach you what you need to know about cryptographic hashes.
 
-We will follow the section on cryptographic hashes by setting the
-stage for the rest of this book. We will describe a very simple
-payment system that we will improve upon using Bitcoin
-technologies. By the end of this book the simple system will have
-evolved into what we call Bitcoin.
+The rest of the chapter will solve the problem of the imposter,
+someone claiming to be someone else and paying money from that
+someone's account. We solve that by introducing digital signatures to
+the simple system.
 
-This chapter will solve the problem of the imposter, someone claiming
-to be someone else and paying money from that someone's account. We
-solve it by introducing digital signatures to the simple system.
+=== The cookie token spreadsheet
+
+Suppose that there is a café in the office where you work. You and
+your coworkers use a spreadsheet to keep track of "cookie
+tokens", CT. Cookie tokens can be exchanged for cookies in the café.
+
+.The spreadsheet have a column for the sender, a column for the recipient and a column for the amount of cookie tokens transferred. New cookie token transfers are appended at the end of the spreadsheet.
+image::{imagedir}/cookie-sheet-basic.png[{half-width}]
+
+This spreadsheet is stored on Lisa's computer. The spreadsheet is
+shared read-only for everybody on the office network to open and
+watch, except Lisa. Lisa is very trustworthy. Everybody
+trusts her. She has full access to do whatever she likes with the
+spreadsheet. You and all the others can only view the spreadsheet by
+opening it in read-only mode.
+
+Whenever Alice wants a cookie, she asks Lisa, who sits right next to
+the café, to transfer 10 tokens from her to the café. Lisa knows who
+Alice is and can verify in the spreadsheet that she owns enough cookie
+tokens. She will search for 'Alice' in the spreadsheet and sum all the
+amounts with Alice's name in the "To" column and subtract all the
+amounts with Alice's name in the "From" column. Here is the complete
+list of transfers, there are three, involving Alice:
+
+.Lisa calculates Alices's balance. The sum of her received CT is 100 and the sum of her widthdrawn CT is 30. Alice's balance is 70 CT.
+image::{imagedir}/alices-transfers-in-cookie-sheet.png[{half-width}]
+
+Lisa calculates that Alice has 70 CT. That is enough for Alice to pay 10
+CT to the café. She appends a row at the end:
+
+image::{imagedir}/alice-buys-cookie.png[{half-width}]
+
+The café sees this new row in the spreadsheet and hands over a cookie
+to Alice.
+
+When you run out of cookie tokens, you can buy tokens for dollars from
+someone who has an exessive amount of cookie tokens, possibly Anne or
+the Cafe, at a price you both agree on. Lisa will then add a row to
+the spreadsheet accordingly. Lisa have promised never to remove or
+change anything in the spreadsheet, just add to it. What happens in
+the spreadsheet, stays in the spreadsheet! This spreadsheet system
+works quite well and everybody eats a helthy amount of cookies.
+
+This spreadsheet is our starting point for learning how Bitcoin
+works. We will add a lot of fancy stuff to it. The end result of this
+jorney will be Bitcoin itself.
 
 [id=cryptographic_hashing]
 === Cryptographic hashing
@@ -292,65 +339,7 @@ image::{imagedir}/simplistic-hash-algorithm-exercise.png[]
 
 . Our simplistic hash function from secion <<cryptographic_hashing>> is not  a _cryptographic_ hash function. Which of the four properties of a cryptographic hash function is it lacking?
 
-=== The cookie token spreadsheet
-
-Suppose that there is a café in the office where you work. You and
-your coworkers use a spreadsheet to keep track of "cookie
-tokens", CT. Cookie tokens can be exchanged for cookies in the café.
-
-.The spreadsheet have a column for the sender, a column for the recipient and a column for the amount of cookie tokens transferred. New cookie token transfers are appended at the end of the spreadsheet.
-image::{imagedir}/cookie-sheet-basic.png[{half-width}]
-
-This spreadsheet is stored on Lisa's computer. The spreadsheet is
-shared read-only for everybody on the office network to open and
-watch, except Lisa. Lisa is very trustworthy. Everybody
-trusts her. She has full access to do whatever she likes with the
-spreadsheet. You and all the others can only view the spreadsheet by
-opening it in read-only mode.
-
-Whenever Alice wants a cookie, she asks Lisa, who sits right next to
-the café, to transfer 10 tokens from her to the café. Lisa knows who
-Alice is and can verify in the spreadsheet that she owns enough cookie
-tokens. She will search for 'Alice' in the spreadsheet and sum all the
-amounts with Alice's name in the "To" column and subtract all the
-amounts with Alice's name in the "From" column. Here is the complete
-list of transfers, there are three, involving Alice:
-
-.Lisa calculates Alices's balance. The sum of her received CT is 100 and the sum of her widthdrawn CT is 30. Alice's balance is 70 CT.
-image::{imagedir}/alices-transfers-in-cookie-sheet.png[{half-width}]
-
-Lisa calculates that Alice has 70 CT. That is enough for Alice to pay 10
-CT to the café. She appends a row at the end:
-
-image::{imagedir}/alice-buys-cookie.png[{half-width}]
-
-The café sees this new row in the spreadsheet and hands over a cookie
-to Alice.
-
-When you run out of cookie tokens, you can buy tokens for dollars from
-someone who has an exessive amount of cookie tokens, possibly Anne or
-the Cafe, at a price you both agree on. Lisa will then add a row to
-the spreadsheet accordingly. Lisa have promised never to remove or
-change anything in the spreadsheet, just add to it. What happens in
-the spreadsheet, stays in the spreadsheet! This spreadsheet system
-works quite well and everybody eats a helthy amount of cookies.
-
-This spreadsheet is our starting point for learning how Bitcoin
-works. We will add a lot of fancy stuff to it. The end result of this
-jorney will be Bitcoin itself.
-
 === Digital signatures
-
-The company is doing well and grows rapidly. After a while Lisa has a
-hard time recognizing everyone. She notices that some people are not
-honest. For example Malory says that she is Anne, to trick Lisa into
-moving cookie tokens from Anne to the cafe, instead of from Malory to
-the cafe.
-
-Things are getting out of hand, so Lisa thinks out a great plan. She
-is going to require everybody to _digitally sign_ their cookie token
-transfers, by writing a message and a _digital signature_ on a piece of
-paper or in an email.
 
 A digital signature is a digital equivalent of a hand written
 signature. The difference is that a hand written signature is tied to
@@ -358,33 +347,26 @@ a person, while a digital signature is tied to a random number called
 a private key. A digital signature is much harder to forge than a hand
 written signature.
 
-.Familiar padlock
-****
-image::{imagedir}/web-browser-padlock.png[]
-****
+.A digital signature is the digital equivalent of a hand written signature.
+image::{imagedir}/hand-written-vs-digital-signature.png[]
 
-Digital signatures have been around for decades. You probably already
-use digital signatures every day without knowing it. For example, when
-you login to your online bank, you see a comforting padlock in the
-address bar of your web browser. That padlock means that the web
-browser has verified a digital signature to make sure that the web
-site is actually the web site you think it is.
+==== Improving cookie token security
 
-To create a digital signature, you need
+It's time to move back to our cookie token spreadsheet. The company is
+doing well and grows rapidly. After a while Lisa has a hard time
+recognizing everyone. She notices that some people are not honest. For
+example Malory says that she is Anne, to trick Lisa into moving cookie
+tokens from Anne to the cafe, instead of from Malory to the cafe.
 
-1. A message to sign, for example `Lisa, please move 10CT to Cafe. /Alice`
-2. A private key, which is a huge random number.
+Things are getting out of hand, so Lisa thinks out a great plan. She
+is going to require everybody to _digitally sign_ their cookie token
+transfers, by writing a message and a _digital signature_ on a piece of
+paper or in an email.
 
-To verify a digital signature, you need
-
-1. The message that was signed, for example `Lisa, please move 10CT to Cafe. /Alice`
-2. The public key that is generated from the private key
-3. The signature
-
-There is a new guy at the office, John. The company gave him some CT
-as a welcome gift when he started. Now John wants to make use of those
-cookie tokens. He needs to digitally sign a cookie token
-transfer. This is what he has to do:
+Suppose that there is a new guy at the office, John. The company has
+given him some CT as a welcome gift when he started. Now John wants to
+buy a cookie in the café for 10 CT. He needs to digitally sign a
+cookie token transfer. This is what he has to do:
 
 .The digital signature process. 1. John creates a keypair and gives the public key to Lisa. 2. John signs a message with the private key. 3. Lisa verifies that the message is signed with the private key belonging to the public key she got from John.
 [[generate-key-pair]]
@@ -441,9 +423,11 @@ private key. It is not good practice to use the private key to encrypt
 messages because the public key is, you guessed it, public. When john
 hands his public key to Lisa, someone might overhear the conversation,
 or Lisa might leave her table with public keys open on her computer
-screen. And that's okay. The public key is not secret in any way. That
-is why it is a bad idea to encrypt with the private key and expect the
-message to be secure.
+screen. And that's okay. The public key is not secret. That is why it
+is a bad idea to encrypt with the private key and expect the message
+to be secret.
+
+===== Locked drawer example
 
 To illustrate the relationship between the private and the public
 keys, imagine a drawer with a lock. The lock has three states: Left
@@ -465,6 +449,14 @@ the secret message
 
  Hey, your zipper is down
 
+.Encrypting
+****
+.Locked by Ellen
+image::{imagedir}/locked-box-left.jpg[]
+.Unlocked by John only
+image::{imagedir}/locked-box-up.jpg[]
+****
+
 and puts it in the drawer, closes the drawer and locks it with her
 copy of the public key. The public key only turns to the left, so when
 she is done the lock is in its leftmost position. The drawer is now
@@ -479,17 +471,23 @@ anyone else during its time in the drawer, because he has had his
 private key in his pocket all the time. He gently turns around and
 zips up.
 
-==== John signs his payment
-
-The previous example was an illustration of the encryption feature of
-public and private keys. But while John was able to read the secret
-message from Ellen, he could not tell _who_ wrote the message. Anyone
-with a copy of the public key could have done that.
+The above was an illustration of the encryption feature of public and
+private keys. But while John was able to read the secret message from
+Ellen, he could not tell _who_ wrote the message. Anyone with a copy
+of the public key could have done that.
 
 But this drawer has another great feature. It can be used by John to
 write a message that anyone with the public key can read and be
 absolutely sure that it was John who wrote the message. This is an
 example of a digital signature.
+
+.Signing
+****
+.Locked by John only
+image::{imagedir}/locked-box-right.jpg[]
+.Unlocked by Ellen
+image::{imagedir}/locked-box-up.jpg[]
+****
 
 Say that John wants to send the message
 
@@ -510,8 +508,9 @@ message in the box, because he is the only person with the
 private key. Lisa can now trust that the message is from John and move
 10 cookie tokens from him to the café.
 
-Let's leave the drawer analogy and have a close look at how the
-signing really happens.
+==== John signs his payment
+
+Let's have a close look at how the signing really happens.
 
 .John digitally signs the transfer of 10 CT to the café. The message to Lisa is first hashed and then encrypted with John's private key. The note to Lisa contains both the message in clear text and the signature.
 image::{imagedir}/signing-details.png[{big-width}]
@@ -533,9 +532,14 @@ please move 10CT to Malory. /John" would render this signature:
  IBkECIzYrfw6pEEdAUbDpD32rq481j6h5a7UrEYG6BBz
  dmZmsFAtT+cvXTZbpwC76/gMES9DCcS5ArjhCDjwbq8= 
 
-This is not even remotely similar to the previous signature. This is
-good to know for John, as he knows that his signature cannot be used
-for other messages than his intended message.
+This is not even remotely similar to the previous signature. Can you
+tell why the signature is completely different? This is good to know
+for John, as he knows that his signature cannot be used for other
+messages than his intended message.
+
+****
+image::{imagedir}/note-to-lisa.png[]
+****
 
 The last thing that John does is to compose a note to Lisa and give it
 to her.
@@ -559,9 +563,14 @@ public keys. The things she has at hand is
 . The Signature `INxAs7oFDr8...`
 . Johns public key that she just looked up in her table
 
-If the signature is correct, it should be the hash of the message
-encrypted with Johns private key. So if Lisa decrypts the signature
-(2) with John's _public_ key (3), the result should be the same hash.
+.A signature is an encrytped hash
+****
+image::{imagedir}/2ndcol-encrypted-hash.png[]
+****
+
+John encrypted the hash of the message with his private key. This
+encrypted hash is the signature. So if Lisa decrypts the signature (2)
+with John's _public_ key (3), the result should be the same hash.
 
 Lisa takes the signature (2) and decrypts it with the public key (3)
 she looked up in her table of public keys. The decryption outputs a
@@ -585,6 +594,12 @@ determine who to withdraw money from?
 
 . What would Malory need in order to steal cookie tokens from John?
 
+. Recall the example when you wanted to send your favourite cat
+picture to Fred? Now that you know about digital signatures, how you
+can ensure that the cat picture is not maliciously modified without using a second channel like text messages?
++
+image::{imagedir}/email-file-hash.png[{half-width}]
++
 . Are the names in the spreadsheet really needed anymore? Could they
 be replaced by something else without breaking the security of the
 system? If that is possible, suggest how a typical payment can look? 

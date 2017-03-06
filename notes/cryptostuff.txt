@@ -70,7 +70,6 @@ echo 19g6oo8foQF5jfqL9gH2bLkFNwgCenRBPD | base58 -d | head -c 21 \
         | openssl dgst -sha256 -binary | openssl dgst -sha256 -binary | head -c 4 | xxd -p
 
 
-
 Generate 10 keypairs and output "privkey pubkey"
 
 for i in `seq 10`; do
@@ -92,3 +91,14 @@ echo "ibase=16; `echo 1a |tr [a-f] [A-F]`"|bc
 # Convert hex to binary digits
 echo "dee6a5d375827436ee4b47a930160457901dce84ff0fac58bf79ab0edb479561" \
 | xxd -r -p | xxd -ps -b -c 256
+
+# Convert raw private key to .pem
+cd keyconversion
+node encoder.js 098dfe2e4d1ca96da810e7de1dbbf945e5b529650b8cae2a59d045c98c8c96c9
+-----BEGIN EC PRIVATE KEY-----
+MHQCAQEEIAmN/i5NHKltqBDn3h27+UXltSllC4yuKlnQRcmMjJbJoAcGBSuBBAAK
+oUQDQgAEVUGhOFGjdCSJ/d3u8hvhPBq7heBTIiwNvzcDuiGNwfMnBZZ67BzFEYyS
+DIPQuoFC3OHutNjtUxwVLI/4Xy2LMw==
+-----END EC PRIVATE KEY-----
+
+
