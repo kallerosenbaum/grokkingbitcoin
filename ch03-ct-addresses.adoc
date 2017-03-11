@@ -10,11 +10,11 @@ This chapter covers
 
 After this chapter, the spreadsheet will have gotten rid of personal
 names and replaced them with something we call cookie token
-addresses. This is useful to Lisa, because she don't have to keep her
-table of public keys up-to-date. But also because coworkers now use
-cookie token addresses that don't contain any personal
-information. This makes it harder for others to extract information
-from the spreadsheet on how much cookies a certain coworker eats.
+addresses. This is useful to Lisa, because she don't have to maintain
+a table of public keys. But also because coworkers now use cookie
+token addresses that don't contain any personal information. This
+makes it harder for others to extract information from the spreadsheet
+on how much cookies a certain coworker eats.
 
 === Cookie eating habits undisclosed
 
@@ -24,6 +24,7 @@ spreadsheet to them. Acme figure that they can adjust premiums or hold
 workers' cookie eating habits against them in an eventual insurance
 dispute.
 
+.Acme Insurances keeps an eye on Chloe's cookie eating habits.
 image::{imagedir}/privacy-issues-names.png[{half-width}]
 
 Another disturbing fact with the spreadsheet is that every coworker
@@ -36,11 +37,11 @@ can they get rid of the names in the spreadsheet?
 === Replace names with public keys
 
 .Replacing the names with public keys. The spreadsheet is now much more unreadable, which is good from a privacy perspective.
-image::{imagedir}/replace-names-with-public-keys.png[{big-width}]
+image::{imagedir}/replace-names-with-public-keys.svg[{big-width}]
 
 A typical payment would look like this:
 
-image::{imagedir}/payment-with-pubkey.png[{quart-width}]
+image::{imagedir}/payment-with-pubkey.svg[{half-width}]
 
 ==== Interesting side effects
 
@@ -48,38 +49,83 @@ image::{imagedir}/payment-with-pubkey.png[{quart-width}]
 * Anyone can create an account without asking Lisa.
 * Anyone can create multiple accounts
 
-=== Shortening the public key
+Another new coworker, Faiza, starts. The company wants send her 100 CT
+from the company as a welcome gift. Faiza needs to create a keypair.
 
-Too long keys
+image::{imagedir}/payment-process-pubkey.svg[{big-width}]
+
+=== Obfuscate the public key
+
+We rely on digital signatures to secure our cookie tokens. With all
+public keys in the spreadsheet, imagine what could happen if a
+weakness in the digital signature algorithm is discovered that makes
+it possible to reverse the public key derivation function. This would
+mean that you can calculate the private key from the public key.
+
+image::{imagedir}/reverse-pubkey-derivation.svg[{half-width}]
+
+In the unlikely event that the digital signature algorithm we use to
+secure the cookie tokens turns out to be not as strong as we thought. 
 
 ==== Hash public key to 20 bytes
 
-image::{imagedir}/hash-public-key.png[{big-width}]
+image::{imagedir}/hash-public-key.svg[{big-width}]
+
+image::{imagedir}/replace-public-keys-with-hashes.svg[{half-width}]
+
+.Old style payment
+****
+image::{imagedir}/pay-to-pubkey-note.svg[]
+****
+
+A typical payment would now look like this:
+
+image::{imagedir}/payment-with-pubkey-hash.svg[{big-width}]
 
 ==== Interesting side effects
 
-* Address is harder to hack before first payment
+* Shorter address
 
-=== Expensive typing errors
+=== Avoiding expensive typing errors
 
 * People make typing mistakes
 * People still thinks 40 characters are too long
 * We are tired of making huge changes everywhere when the address
   format changes.
 
-image::{imagedir}/expensive-typing-error.png[{big-width}]
+Café has a sign with its address and John types it into his mobile phone, but makes a spelling mistake.
 
-==== Add version and checksum
+image::{imagedir}/payment-to-bad-pubkey-hash.svg[{big-width}]
 
-image::{imagedir}/version-and-checksum.png[{big-width}]
+Who can claim those 10 CT? Someone needs to generate a private key with a pubkey that hashes to 87e3d1692022a7744bf2406a963c656c8393b1cc. We've learned in chapter 2 that this is very hard, which is crypto-lingo for impossible.
 
-==== Use compact encoding
+==== Base58check encoding
 
-image::{imagedir}/base58-encode.png[{big-width}]
+.Checksum
+****
+image::{imagedir}/checksum.svg[]
+****
+image::{imagedir}/address-encoding.svg[{big-width}]
+
+==== Add a checksum to prevent typing errors
+
+
+==== Use a compact encoding
+
+image::{imagedir}/base58.svg[{big-width}]
+
+image::{imagedir}/address-decoding.svg[{big-width}]
+
+image::{imagedir}/payment-with-address.svg[{half-width}]
+
+Imagine if John would have made a typing error while giving his
+address to Faiza. Where in the process would the process fail to
+process the payment?
 
 === Summary of the address creation process
 
-image::{imagedir}/address-creation-process.png[{big-width}]
+image::{imagedir}/address-creation-summary.svg[{big-width}]
+
 
 === Bitcoin addresses
 
@@ -95,4 +141,6 @@ instead of 33. This made the rationale behind the hashing more clear.
 . 
 
 
-REMEMBER: Explain how cookie tokens are first created! I suggest that we use Bitcoin's model where Alice gets 50 CT every 10 minutes. Let's be generous, 7200 CT per day.
+REMEMBER: Explain how cookie tokens are first created! I suggest that
+we use Bitcoin's model where Alice gets 50 CT every 10 minutes. Let's
+be generous, 7200 CT per day.

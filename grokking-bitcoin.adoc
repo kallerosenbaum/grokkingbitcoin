@@ -29,9 +29,9 @@ ifdef::backend-docbook45[]
 :quart-width: scaledwidth='25%'
 endif::[]
 
-include::ch01-Introduction-to-Bitcoin.adoc[]
+//include::ch01-Introduction-to-Bitcoin.adoc[]
 
-include::ch02-Securing-Cookie-Tokens.adoc[]
+//include::ch02-Securing-Cookie-Tokens.adoc[]
 
 include::ch03-ct-addresses.adoc[]
 
