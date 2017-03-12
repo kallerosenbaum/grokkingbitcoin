@@ -145,7 +145,7 @@ work. Please take a moment to think about what Acme Insurances can
 figure out from the spreadsheet now. At the end of this chapter we
 will discuss more about how to further improve privacy.
 
-=== Harden the security of the public key
+=== Harden the security of the private key
 
 We rely on digital signatures to secure our cookie tokens. With all
 public keys in the spreadsheet, imagine what could happen if a
@@ -445,7 +445,7 @@ Base58 encoded data like John's address can be decoded back to the
 original input of the base58 encoding. I will leave that as en
 excersise for the interested reader.
 
-===== Base58check decoding
+==== Base58check decoding
 
 ****
 image::{imagedir}/base58check-encoding-simple.svg[]
