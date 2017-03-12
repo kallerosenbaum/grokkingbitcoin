@@ -1,1 +1,22 @@
-Chapter2: Explain that dSHA256 is used as digest, not SHA256.
+¤ Chapter2: Explain that dSHA256 is used as digest, not SHA256.
+
+¤ Chapter2: Make the changes on hashing section suggested by Christina and Bert
+
+¤ Chapter3:
+=== Bitcoin addresses
+
+Bitcoin uses the exact same kind of addresses as we use in our
+spreadsheet. But historically public keys were encoded differently in
+Bitcoin, requiring 65 bytes instead of 33. John's public key would
+have looked like this:
+
+ 045541a13851a3742489fdddeef21be13c1abb85e053222c0dbf3703ba218dc1f
+ 32705967aec1cc5118c920c83d0ba8142dce1eeb4d8ed531c152c8ff85f2d8b33
+
+This made the rationale behind the hashing of the public keys more
+clear. There was a stronger incentive to shorten the public keys.
+
+
+¤ Explain how cookie tokens are first created! I suggest that
+we use Bitcoin's model where Alice gets 50 CT every 10 minutes. Let's
+be generous, 7200 CT per day.

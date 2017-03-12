@@ -153,10 +153,20 @@ weakness in the cryptoghraphy system is discovered that makes it
 possible to reverse the public key derivation function. This would
 mean that you can calculate the private key from the public key.
 
+.Reversing the public key derivation function. You would be able to determine the private key from the public key.
 image::{imagedir}/reverse-pubkey-derivation.svg[{half-width}]
 
 This would make the system highly insecure, as anyone could now take
 anyone else's money.
+
+In reality, if a weakness is discovered, it doesn't neccesarily mean
+that one can easily figure out the private key from a public key. It
+more likely will just make it less hard to guess the private key by
+some order of magnitude. For example it would require trial-and-error
+with on average 2^127^ guesses instead of 2^255^. That is a very
+serious weakaning of the private key security, but it would still be
+very hard to find a satisfying private key by doing 2^127^ trials, but
+it might not be totally infeasible.
 
 ==== Hash public key to 20 bytes
 
@@ -470,13 +480,14 @@ image::{imagedir}/address-creation-summary.svg[{big-width}]
 
 Thanks to this
 
-* Lisa can ditch her public key table
-* anyone can create an address without asking Lisa or anyone else
-* anyone can create multiple addresses
+* Lisa can ditch her public key table.
+* anyone can create an address without asking Lisa or anyone else.
+* anyone can create multiple addresses.
 
-Faiza's payment makes sure no typing errors happens by base58check decoding the address before signing the message.
+Faiza makes sure no typing errors happens by base58check decoding
+the address before signing the message.
 
-.Faiza makes the payment to John
+.Faiza makes the payment to John and makes sure the address is valid
 image::{imagedir}/payment-with-address.svg[{half-width}]
 
 === Back to privacy
@@ -506,22 +517,8 @@ create a brand new cookie token address the next time he will accept
 cookie tokens from Faiza.
 
 This will make it harder for Acme to extract information from the
-cookie token spreadsheet.
-
-BELOW IS NOT FINISHED.
-
-=== Bitcoin addresses
-
-Historically public keys were encoded differently, requiring 65 bytes
-instead of 33. This made the rationale behind the hashing more clear.
-
-=== Privacy problem with reused addresses
-
-==== Single-use addresses
+cookie token spreadsheet. They will not be able to tell which payments
+originate from the same person.
 
 === Exercises
 
-
-REMEMBER: Explain how cookie tokens are first created! I suggest that
-we use Bitcoin's model where Alice gets 50 CT every 10 minutes. Let's
-be generous, 7200 CT per day.
