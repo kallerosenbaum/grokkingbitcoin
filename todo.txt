@@ -1,0 +1,1 @@
+Chapter2: Explain that dSHA256 is used as digest, not SHA256.

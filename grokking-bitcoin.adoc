@@ -30,8 +30,9 @@ ifdef::backend-docbook45[]
 endif::[]
 
 //include::ch01-Introduction-to-Bitcoin.adoc[]
+== Chapter 1
 
-//include::ch02-Securing-Cookie-Tokens.adoc[]
+include::ch02-Securing-Cookie-Tokens.adoc[]
 
 include::ch03-ct-addresses.adoc[]
 

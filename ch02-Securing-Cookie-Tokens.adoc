@@ -347,9 +347,6 @@ a person, while a digital signature is tied to a random number called
 a private key. A digital signature is much harder to forge than a hand
 written signature.
 
-.A digital signature is the digital equivalent of a hand written signature.
-image::{imagedir}/hand-written-vs-digital-signature.png[]
-
 ==== Improving cookie token security
 
 It's time to move back to our cookie token spreadsheet. The company is

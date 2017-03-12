@@ -5,8 +5,9 @@ p,.literalblock,.imageblock>.title {
 }
 
 .sidebarblock {
-    width: 25%;
+    width: 24%;
     float: right;
+    padding: 0.25em;   	      
 }
 
 .sidebarblock p,.sidebarblock .literalblock {
@@ -16,5 +17,3 @@ p,.literalblock,.imageblock>.title {
 .tableblock {
     font-size: small;
 }
-
-
