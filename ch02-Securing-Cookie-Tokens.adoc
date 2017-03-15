@@ -48,7 +48,7 @@ amounts with Alice's name in the "From" column. Here is the complete
 list of transfers, there are three, involving Alice:
 
 .Lisa calculates Alices's balance. The sum of her received CT is 100 and the sum of her widthdrawn CT is 30. Alice's balance is 70 CT.
-image::{imagedir}/alices-transfers-in-cookie-sheet.png[{half-width}]
+image::{imagedir}/alices-transfers-in-cookie-sheet.png[{big-width}]
 
 Lisa calculates that Alice has 70 CT. That is enough for Alice to pay 10
 CT to the café. She appends a row at the end:
@@ -114,7 +114,7 @@ image::{imagedir}/bits-bytes-hex.png[]
 ****
 
 .Creating a cryptographic hash of a cat picture. Input is the cat picture and output is a big number of 32 bytes.
-image::{imagedir}/hashing-a-cat.png[]
+image::{imagedir}/hashing-a-cat.svg[{big-width}]
 
 The hash in the picture is a 256 bit number. It means that to store
 the number in a file, the file will be 32 bytes big, which is tiny
@@ -130,7 +130,7 @@ cat picture just a tiny bit and run that cat picture through the
 cryptographic hash function:
 
 .hashing a modified cat picture. Can you spot the difference? The cryptographic hash function certainly did.
-image::{imagedir}/hashing-a-modified-cat.png[]
+image::{imagedir}/hashing-a-modified-cat.svg[{big-width}]
 
 This hash turns out completely different than the first hash. Let's
 compare them:
@@ -141,10 +141,37 @@ New hash: d2ca4f53c825730186db9ea585075f96cd6df1bfd4fb7c687a23b912b2b39bf6
 ....
 
 See how that tiny change to the cat picture made a huge difference in
-the hash value? How does that work? The real answer is very complex,
-so we will not go there. But to help you understand the operation of a
-cryptographic hash function, we will create a very simplistic
-cryptographic hash function. Well, it is not really cryptographic, we will come to that later. Let's just call it a hash function for now.
+the hash value?
+
+==== Why are cryptographic hash functions useful?
+
+Cryptographic hash functions can be used to detect changes in
+data. Suppose that you want to send your favorite cat picture to your
+friend Fred via email, but you suspect that the picture may be
+accidentaly corrupted during transfer. How would you and Fred make
+sure that the picture Fred receives is exactly the same as the one you
+send?
+
+.Checking file integrity. You calculate the cryptographic hash of the cat picture and send the picture and the hash to Fred. Fred calculates the cryptographc hash of the received file and compares it to the hash provided by you in the email.
+image::{imagedir}/email-file-hash.png[{big-width}]
+
+You compose an email to Fred and attach the cat picture to the
+email. But you also calculate the cryptographic hash, the digital
+fingerprint, of the cat picture. That hash is written down in the body
+of the email.
+
+When Fred receives this email, he saves the cat picture in a file on
+his computer and calculates the hash of that file. If the result is
+the same as the hash in the email, Fred knows for sure that the file is
+not accidentally corrupted.
+
+==== How does a cryptographic hash function work?
+
+The real answer is very complex, so we will not go there. But to help
+you understand the operation of a cryptographic hash function, we will
+create a very simplistic cryptographic hash function. Well, it is not
+really cryptographic, we will come to that later. Let's just call it a
+hash function for now.
 
 .Modulo
 ****
@@ -173,28 +200,6 @@ different possible outputs of this simple hash function. With real
 cryptographic hash functions, as the one we used to hash the cat
 picture, the chance is unimaginably small. We will soon get a glimpse
 of that probability.
-
-==== Why are cryptographic hash functions useful?
-
-Cryptographic hash functions can be used to detect changes in
-data. Suppose that you want to send your favorite cat picture to your
-friend Fred via email, but you suspect that the picture may be
-accidentaly corrupted during transfer. How would you and Fred make
-sure that the picture Fred receives is exactly the same as the one you
-send?
-
-.Checking file integrity. You calculate the cryptographic hash of the cat picture and send the picture and the hash to Fred. Fred calculates the cryptographc hash of the received file and compares it to the hash provided by you in the email.
-image::{imagedir}/email-file-hash.png[{big-width}]
-
-You compose an email to Fred and attach the cat picture to the
-email. But you also calculate the cryptographic hash, the digital
-fingerprint, of the cat picture. That hash is written down in the body
-of the email.
-
-When Fred receives this email, he saves the cat picture in a file on
-his computer and calculates the hash of that file. If the result is
-the same as the hash in the email, Fred knows for sure that the file is
-not accidentally corrupted.
 
 ==== Properties of a cryptogrphic hash function
 
