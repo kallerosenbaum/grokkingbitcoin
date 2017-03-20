@@ -329,6 +329,28 @@ image::{imagedir}/cryptographic_hashing.png[{full-width}]
 It is astronomically hard to find an input that will result in a
 specific output. You have to repeatedly guess different inputs.
 
+===== Our toolbox
+
+.Toolbox
+****
+image::{imagedir}/toolbox-cryptographic-hash-function.svg[]
+****
+
+We will disuss several important topics throughout this book. When you
+have learned about a specific topic, like cryptographic hash
+functions, we will put a new tool into our toolbox for later use.
+
+Our first tool to put into the toolbox is the cryptographic hash function.
+
+.Our first tool. The cryptographic hash function is represented by a paper shredder, and the cryptographic hash is represented by a pile of paper stripes.
+image::{imagedir}/tool-cryptographic-hash-function.svg[{big-width}]
+
+From now on we will use the paper shredder to represent a
+cryptographic hash function. A pile of paper stripes will represent a
+cryptographic hash. The text on the shredder tells what kind of
+cryptographic hash function we use. You will learn about a few more
+different cryptographic hash later in the book as we need them.
+
 ==== Exercises
 
 . Does the cat picture transfer example protect against malicious
@@ -446,6 +468,8 @@ several copies of the public key and hands them out to Lisa, Ellen and
 a bunch of other people. He keeps the private key to himself in his
 pocket.
 
+====== Encrypt and decrypt
+
 Ellen can now encrypt a secret message to John. She writes a note with
 the secret message
 
@@ -472,6 +496,8 @@ secret message. He is confident that the message has not been read by
 anyone else during its time in the drawer, because he has had his
 private key in his pocket all the time. He gently turns around and
 zips up.
+
+====== Sign and verify
 
 The above was an illustration of the encryption feature of public and
 private keys. But while John was able to read the secret message from
@@ -515,7 +541,7 @@ private key. Lisa can now trust that the message is from John and move
 Let's have a close look at how the signing really happens.
 
 .John digitally signs the transfer of 10 CT to the café. The message to Lisa is first hashed and then encrypted with John's private key. The note to Lisa contains both the message in clear text and the signature.
-image::{imagedir}/signing-details.png[{big-width}]
+image::{imagedir}/signing-details.svg[{big-width}]
 
 The message that John wants to sign is "Lisa, please move 10CT to
 Cafe. /John". The signing function will hash this message with SHA256
@@ -553,7 +579,7 @@ note claims to be from John, so she looks up John in her table of
 public keys.
 
 .Lisa uses the message (1), the signature (2) and John's public key (3) to verify that the message is actually signed with John's private key.
-image::{imagedir}/verify-signature.png[{big-width}]
+image::{imagedir}/verify-signature.svg[{big-width}]
 
 The purpose of Lisa's actions in this picture is to determine that the
 cookie token transfer was signed by the private key it claims to be
@@ -567,7 +593,7 @@ public keys. The things she has at hand is
 
 .A signature is an encrytped hash
 ****
-image::{imagedir}/2ndcol-encrypted-hash.png[]
+image::{imagedir}/2ndcol-encrypted-hash.svg[]
 ****
 
 John encrypted the hash of the message with his private key. This
@@ -587,7 +613,7 @@ Lisa can now be sure that no one is trying to fool her. She updates
 the spreadsheet with John's transfer:
 
 .Lisa have added a row for John's cookie token transfer after verifying the signature of John's message.
-image::{imagedir}/cookie-sheet-basic-johns-transfer.png[{half-width}]
+image::{imagedir}/cookie-sheet-basic-johns-transfer.svg[{half-width}]
 
 ==== Exercises
 
@@ -624,8 +650,28 @@ himself, no one will be able to spend his money.
 
 Everybody still trust Lisa to not change the spreadsheet in any way
 except when executing signed cookie token transfers. If Lisa wanted to
-she could steal anyones cookie tokens by just adding a transfer to the
+she could steal anyone's cookie tokens by just adding a transfer to the
 spreadsheet. But she wouldn't do that, or would she?
+
+===== New tools in our toolbox
+
+.Toolbox
+****
+image::{imagedir}/toolbox-signatures.svg[]
+****
+
+We have three new tools that we will put in our toolbox for
+later use. Let's put them in the toolbox.
+
+The first tool we add is key pair generation.
+
+image::{imagedir}/tool-key-generation.svg[{quart-width}]
+
+The second and third tools to add are digital signing and verification.
+
+image::{imagedir}/tool-signing.svg[{quart-width}]
+
+
 
 === Private key security
 
