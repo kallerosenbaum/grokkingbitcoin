@@ -1,5 +1,9 @@
 @import url("asciidoctor.css");
-
+/*
+pre,code {
+    font-family:Courier New;
+}
+*/
 p,.literalblock,.imageblock>.title {
     width: 75%;
 }

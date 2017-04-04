@@ -1,3 +1,4 @@
+[id=ch02]
 == Digital signatures - Securing cookie tokens
 :imagedir: {baseimagedir}/ch02
 This chapter covers
@@ -60,7 +61,7 @@ to Alice.
 
 When you run out of cookie tokens, you can buy tokens for dollars from
 someone who has an exessive amount of cookie tokens, possibly Anne or
-the Cafe, at a price you both agree on. Lisa will then add a row to
+the cafe, at a price you both agree on. Lisa will then add a row to
 the spreadsheet accordingly. Lisa have promised never to remove or
 change anything in the spreadsheet, just add to it. What happens in
 the spreadsheet, stays in the spreadsheet! This spreadsheet system

@@ -29,12 +29,16 @@ ifdef::backend-docbook45[]
 :quart-width: scaledwidth='25%'
 endif::[]
 
-//include::ch01-Introduction-to-Bitcoin.adoc[]
-== Chapter 1
+include::ch01-Introduction-to-Bitcoin.adoc[]
+//== Chapter 1
 
 include::ch02-Securing-Cookie-Tokens.adoc[]
+//== Chapter 2
 
 include::ch03-ct-addresses.adoc[]
+//== Chapter 3
+
+include::ch04-wallets.adoc[]
 
 //* why? who cares?
 //* concrete to abstract

@@ -522,3 +522,7 @@ originate from the same person.
 
 === Exercises
 
+1. Imagine that John wants a cookie from the café. He has two
+addresses, one with balance 5 cookie tokens and another with 8 cookie
+tokens. His total balance is 13 CT so he should afford to pay 10 CT
+for a cookie, right. How can he pay 10 CT to the café?

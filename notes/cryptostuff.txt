@@ -104,5 +104,9 @@ DIPQuoFC3OHutNjtUxwVLI/4Xy2LMw==
 
 # base58 division
 x=2333040184766738101355977925681426545668075806022526574176
-while [ "$x" != "0" ]; do echo "$x / 58" | bc; echo "$x % 58"|bc; x=`echo "$x / 58" |bc`; done
+while [ "$x" != "0" ]; do \
+	printf "`echo "$x / 58" | bc` "; \
+	printf "`echo "$x % 58" | bc`\n"; \
+        x=`echo "$x / 58" |bc`; \
+done
 
