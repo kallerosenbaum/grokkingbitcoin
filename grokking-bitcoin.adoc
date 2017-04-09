@@ -6,6 +6,7 @@
 :toc:
 :toclevels: 4
 :baseimagedir: images
+:commonimagedir: {baseimagedir}/common
 :stylesheet: grokking-bitcoin.css
 :stem:
 
@@ -15,6 +16,7 @@ ifdef::backend-html5[]
 :half-width: width='50%'
 :quart-width: width='25%'
 :thumb: width='20%'
+:btc: image:{commonimagedir}/btc-sans.png[BTC,role="btc"]
 endif::[]
 ifdef::backend-pdf[]
 :full-width: pdfwidth='70%'

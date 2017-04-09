@@ -4,12 +4,12 @@
 This chapter covers
 
 * getting to know Bitcoin
-* solving problems with Bitcoin
-* getting the big picture
+* following a Bitcoin payment
+* problems solved by Bitcoin
 
 This book will hopefully teach you enough about Bitcoin so that you
 can make informed decisions on how you can use Bitcoin to improve your
-private life or your business. My hope is that you also will learn
+private life or your business. My hope is that you will learn
 enough to make up your own mind whether you trust Bitcoin or not,
 hopefully the former. In order to get you off the ground, I'm going to
 assume that you know roughly what the following terms mean:
@@ -24,17 +24,27 @@ up or just go ahead anyway, I think you'll manage.
 
 === What is Bitcoin?
 
+[.inbitcoin]
+.Bitcoin or bitcoin?
+****
+The system is named Bitcoin with capital B. The currency unit is
+called bitcoin with lowercase b. A commonly used symbol for bitcoin is {btc}.
+****
+
 Bitcoin is an electronic cash system. It allows for people or
-computers to move value between each other without using a bank or
-some other trusted third party. It resembles traditional bank notes
-and coins in that way, but it is purely electronic and used over the
-Internet. The Bitcoin currency is not tied to any specific _fiat
-currency_ like the US dollar or the Chinese Renminbi; It has free
-floating exchange rates against all fiat currencies. You can buy and
-sell bitcoins for fiat currencies on one of several exchanges. No
-government or company is controlling Bitcoin. Instead, thousands of
-computers around the globe collectively keep the system working day
-and night, seven days a week. 
+computers to move bitcoins, the currency of Bitcoin, between each
+other without using a bank or some other trusted third party. It
+resembles traditional bank notes and coins in that way, but it is
+purely electronic and used over the Internet. The Bitcoin currency is
+not tied to any specific _fiat currency_ like the US dollar or the
+Chinese Renminbi; It has free floating exchange rates against all fiat
+currencies. You can buy and sell bitcoins for fiat currencies on
+several exchanges. No government or company is controlling
+Bitcoin. Instead, thousands of computers around the globe, the Bitcoin
+network, collectively keep the system working day and night, seven
+days a week. You don't need to register or sign up anywhere to use
+Bitcoin, you just need a computer program, like a mobile app to
+use it.
 
 Satoshi Nakamoto, a pseudonym whose identity is unknown, published a
 scientific paper on an e-mail list for cryptography related
@@ -47,12 +57,18 @@ didn't get much attention then, apart from within a very limited set
 of cryptography experts. But gradually, as the system proved itself to
 be working, more people got interested in it.
 
+[.inbitcoin]
+.The Bitcoin network
+****
+image::{imagedir}/bitcoin-network.svg[]
+****
+
 Today, in 2017, several millions of people are aware of Bitcoin,
 hundreds of thousands people are actively using Bitcoin and thousands
 of professionals are working on developing Bitcoin related
 technology. Bitcoin is primarily used for payments, savings and
 speculation today. It removes friction in online payments, especially
-internationally, and allows for anyone to use or participate in the
+internationally, and it allows for anyone to use or participate in the
 Bitcoin network without special permission from a bank or similar
 institution.
 
@@ -61,15 +77,22 @@ types of actors:
 
 image::{imagedir}/actors.jpg[{big-width}]
 
+[.inbitcoin]
+.Bitcoin doesn't care
+****
+The Bitcoin network doesn't distinguish between actors. The actors are
+just using Bitcoin in different ways.
+****
+
 Saver:: Saves bitcoin for future use.
 Shopper:: A person buying goods and services for bitcoin.
 Merchant:: For example a restaurant accepting bitcoin payments.
 Worker:: Someone getting her salary in bitcoin.
-Exchange:: A commercial or private service people can use to exchange
-their local currency to and from bitcoin.
+Exchange:: A commercial service people can use to exchange their local
+currency to and from bitcoin.
 Trader:: A short term speculator performing trading on an exchange.
 Bank:: Not really a Bitcoin actor but it is nevertheless part of the
-ecosystem since many actors use Banks in their Bitcoin activity.
+ecosystem since many actors use banks in their Bitcoin activity.
 
 The Bitcoin network's job is to process Bitcoin payments. The network
 consists of thousands of computers that we call nodes. Some of the
@@ -91,6 +114,19 @@ Inflation means that the purchasing power of a currency decreases.
 .Inflation
 image::{imagedir}/inflation.jpg[{half-width}]
 
+.Some hyperinflations in modern time
+****
+|===
+|Country | Year | Worst monthly inflation [%]
+
+|Venezuela | 2016-2017 | 120
+|Zimbawe | 2007-2008 | 4.19*10^16^
+|Yugoslavia | 1992-1994 | 313*10^6^
+|Peru | 1990 | 397
+|Ukraine | 1992-1994 | 285
+|===
+****
+
 Most currencies are subject to inflation. Some more than others. For
 example the Zimbabwean dollar that during 2007-2008 inflated nearly
 10^23^%, peaking at 80 billion percent per month during a few months
@@ -99,18 +135,18 @@ in 2008. That is an average daily inflation rate of nearly
 
 Extreme cases of inflation like this are called
 hyperinflation. Hyperinflation is usually initially driven by a rapid
-increase in the money supply. An increasing money supply will most
-likely lead to a depreciation of the currency. This in turn pushes
-people to exchange their local currency for goods or currencies that
-better holds value, which further drives the value of the currency
-down. This can sprial down to extremes like in Zimbabwe. The result is
-devastating for people as they see their life savings diminish to
-virtually nothing.
+increase in the money supply. The increase in money supply is
+sometimes used as a tool for governments to extract value from its
+population to pay for expenses like national debt, warfare or
+wellfare. If this tool is over-used, the risk of hyperinflation is
+apparent.
 
-The increase in money supply is sometimes used as a tool for
-governments to extract value from its population to pay for expenses
-like national debt, warfare or wellfare. If this tool is over-used,
-the risk of hyperinflation is apparent.
+An increasing money supply will most likely lead to a depreciation of
+the currency. This in turn pushes people to exchange their local
+currency for goods or currencies that better holds value, which
+further drives the value of the currency down. This can sprial down to
+extremes like in Zimbabwe. The result is devastating for people as
+they see their life savings diminish to virtually nothing.
 
 Zimbabwe is one of the most extreme cases of inflation throughout
 history, but still today some countries suffer from very high
