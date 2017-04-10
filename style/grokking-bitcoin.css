@@ -1,13 +1,17 @@
 @import url("asciidoctor.css");
-
 /*
-pre,code {
-    font-family:Courier New;
-}
-*/
-p,.literalblock,.imageblock>.title {
+div {
     width: 75%;
 }
+*/
+
+div>p,.literalblock,.imageblock>.title,div>.tableblock,.dlist,.olist,.ulist {
+    width: 75%;
+}
+/*
+.sect1 div,.sect2 div,sect3 div,sect4 div,sect5 div {
+    width: 75%;
+}*/
 
 .sidebarblock {
     width: 24%;
@@ -15,20 +19,35 @@ p,.literalblock,.imageblock>.title {
     padding: 0.25em;   	      
 }
 
-.inbitcoin:before {
-    content:url(images/bitcoinLogoThumb.png);   
+.sidebarblock .tableblock {
+    font-size: small;        
+}
+
+.gbfaq:before,.gbinfo:before,.inbitcoin:before {
     float: right;
     position: relative;
     top: -10px;
     right: -10px;
 }
+	   
+.gbfaq:before {
+    content:url(images/question-mark-thumb.png);   
+}
+
+.gbinfo:before {
+    content:url(images/light-bulb-thumb.png);   
+}
+
+.inbitcoin:before {
+    content:url(images/bitcoinLogoThumb.png);   
+}
+
+.inbitcoin>.content>.title,.gbinfo>.content>.title,.gbfaq>.content>.title {
+    text-align: left;
+}
 
 .sidebarblock p,.sidebarblock .literalblock {
     width: 100%;
-}
-
-.tableblock {
-    font-size: small;
 }
 
 .btc img {
@@ -36,4 +55,9 @@ p,.literalblock,.imageblock>.title {
     position:relative;
 /*    top:0.17em;*/
     cursor:text;
+}
+
+.smallheight img {
+    max-height: 2em;
+    width: auto;
 }

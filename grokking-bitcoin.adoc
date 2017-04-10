@@ -15,6 +15,7 @@ ifdef::backend-html5[]
 :big-width: width='75%'
 :half-width: width='50%'
 :quart-width: width='25%'
+:tiny-height: height='10'
 :thumb: width='20%'
 :btc: image:{commonimagedir}/btc-sans.png[BTC,role="btc"]
 endif::[]
@@ -42,6 +43,11 @@ include::ch03-ct-addresses.adoc[]
 
 include::ch04-wallets.adoc[]
 
+[id=ch05]
+== Transactions - Reducing trust in Lisa
+
+[id=ch06]
+== The blockchain - Further reducing trust in Lisa
 //* why? who cares?
 //* concrete to abstract
 //* diagram first
