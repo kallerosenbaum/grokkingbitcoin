@@ -313,6 +313,16 @@ notify Bob that he has received one bitcoin.
 .Bob's wallet have asked a node to notify the wallet upon activity in mailbox 560. Alice pays to box 560, and the node has just written the transaction to the blockchain, so it notifies Bob's wallet.
 image::{imagedir}/notify-bob.svg[{half-width}]
 
+[.inbitcoin]
+.Wallet duties
+****
+A typical Bitcoin wallet will
+
+ - [x] Hold keys
+ - [x] Watch incoming bitcoins
+ - [x] Send bitcoins
+****
+
 Bob's wallet is connected to some of the nodes in the Bitcoin
 network. When a transaction concerning Bob is added to the blockchain,
 the nodes that Bob's wallet is connected to will notify Bob's
