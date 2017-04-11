@@ -22,8 +22,15 @@ write than public key hashes
 
 === Cookie eating habits undisclosed
 
+.Acme Insurances
+****
+A highly unethical insurance company that will make serious attempts
+at spying on you and your family habits in order to "adjust" your
+premium.
+****
+
 Alice and many other coworkers have a health insurance at Acme
-Insurances. They have "persuaded" John to hand over a copy of the
+Insurances. Acme have "persuaded" John to hand over a copy of the
 spreadsheet to them. Acme figure that they can adjust premiums or hold
 workers' cookie eating habits against them in an eventual insurance
 dispute.
@@ -40,6 +47,10 @@ problems. Otherwise they will stop using the spreadsheet.
 
 === Replace names with public keys
 
+****
+image:{imagedir}/lisa-pukes.svg[]
+****
+
 Lisa has kept the table of names and public keys updated at all times
 since they started using the spreadsheet. She is sick of it, so she
 comes up with an idea that will benefit both Lisa and all coworkers.
@@ -51,22 +62,22 @@ public keys.
 image::{imagedir}/replace-names-with-public-keys.svg[{big-width}]
 
 It is now hard to see how many cookies Chloe has eaten without knowing
-her public key. If this spreadsheet is given to Acme Insurances they
-will be able to see what payments the different public keys have
+her public key. If this new spreadsheet is given to Acme Insurances
+they will be able to see what payments the different public keys have
 made. They will see both sender public key and recipient public key of
 each payment.
 
 Lisa can now delete her cumbersome table of names and pubic keys. But
-when she does that, users can no longer use their names when they make
+when she does that, users can no longer use names when they make
 payments. They must instead use the public key of the sender and
-recipient.
+the public key of the recipient.
 
 .Old style
 ****
 image::{imagedir}/pay-to-name-note.svg[]
 ****
 
-.A payment using public keys instead of names.
+.New style payment using public keys instead of names.
 image::{imagedir}/payment-with-pubkey.svg[{half-width}]
 
 The note to lisa contains a few vital parts
@@ -88,31 +99,32 @@ Faiza. The company wants to send her 100 CT as a welcome gift. How
 can the company send 100 CT to Faiza?
 
 The company needs a public key to send the 100 CT to. Since Faiza
-haven't used the spreadsheet yet, she needs to create a public key and
-give it to the company. Now that Lisa don't have the table of names
-and public keys, there's no point in giving the public key to Lisa any
-more. She don't need it.
+haven't used cookie tokens yet, she needs to create a public key and
+give it to the company.
 
 .Faiza creates her public key and gives it to the company. The company creates a payment with Faiza's public key as the recipient.
 image::{imagedir}/payment-process-pubkey.svg[{big-width}]
 
 Faiza creates a private and a public key. This is done in exactly the
 same way as in <<_improving_cookie_token_security,chapter 2>>, but the
-public key is not handed over to Lisa. It is handed to the one who wants to pay her cookie tokens, the company.
+public key is not handed over to Lisa. Now that Lisa don't have the
+table of names and public keys, there's no point in giving the public
+key to Lisa any more. She don't need it. Instead, Faize hands the
+public key to the one who wants to pay her cookie tokens, the company.
 
-The company creates a message that asks Lisa to more 100 CT from
-
- 037e944a7b778d190c05b59325c58eed069205148fa0a2998273af0ffe36de9496
-
-to
-
- 029a726cf74e24d366ce96534e7b078c798272e096a0f57a7e8358f52dad8f436d
+The company creates a message that asks Lisa to move 100 CT from `037e944a...36de9496` to `029a726c...ad8f436d`.
 
 The company digitally signs the message and gives it to Lisa. Lisa uses
 
 * the message
 * the sender's public key
 * the signature
+
+[.inbitcoin]
+.In Bitcoin
+****
+Lisa is performing the duties that the Bitcoin network is doing with Bitcoin payments.
+****
 
 to verify that the message is signed with the private key belonging to
 the sender's public key. She also verifies that the sender's public
@@ -123,7 +135,7 @@ key and calculates the balance.
 Lisa has never seen the recipient's public key before, but she doesn't
 care. She only cares that the sender has the money to spend and that
 the message is correctly signed. She will just write into the
-spreadsheet whatever the message asks her to write.
+spreadsheet's recipient column whatever the message asks her to write.
 
 ****
 image::{imagedir}/faizas-new-ct.svg[]
@@ -136,14 +148,20 @@ saves Lisa a lot of work.
 
 Let's summarize what we have done so far:
 
+[.gbminiex]
+.What can Acme do?
+****
+Please take a moment to think about what Acme Insurances can
+figure out from the spreadsheet now. What information can they get if they figure out the sender or recipien of _one_ single payment.
+****
+
 * We have replaced names with public keys in the spreadsheet.
 * Lisa has thrown away the table of names and public keys.
 * The payment is made with public keys as sender and recipient instead of names.
 
 These actions have improved privacy as well as simplified Lisa's
-work. Please take a moment to think about what Acme Insurances can
-figure out from the spreadsheet now. At the end of this chapter we
-will discuss more about how to further improve privacy.
+work. At the end of this chapter we will discuss more about how to
+further improve privacy.
 
 === Harden the security of the private key
 
@@ -165,17 +183,17 @@ more likely will just make it less hard to guess the private key by
 some order of magnitude. For example it would require trial-and-error
 with on average 2^127^ guesses instead of 2^255^. That is a very
 serious weakaning of the private key security, but it would still be
-very hard to find a satisfying private key by doing 2^127^ trials, but
-it might not be totally infeasible.
+very hard to find a private key by doing 2^127^ trials, but it might
+not be totally infeasible.
 
 ==== Hash public key to 20 bytes
 
 There are some really security oriented people at the company. They
 have figured out a way to protect us from the above catastrophic
 scenario. They suggest that we replace each public key in the cookie
-token spreadsheet with a cryptographic hash. Not just from a single
-cryptographic hash function, but from two very different cryptographic
-hash functions:
+token spreadsheet with a cryptographic hash of the public key. Not
+from a single cryptographic hash function, but from two different
+cryptographic hash functions:
 
 .Replace the public keys with the RIPEMD160 hash of the SHA256 hash of the public key.
 image::{imagedir}/hash-public-key.svg[{big-width}]
@@ -183,11 +201,11 @@ image::{imagedir}/hash-public-key.svg[{big-width}]
 The public key is first hashed with SHA256, as we are familiar with
 from the previous chapter. The result of that cryptographic hash
 function is then hashed with RIPEMD160, a cryptographic hash function
-that outputs a 160 bit (20 byte) number. We call this hash the _public
-key hash_.
+that outputs a 160 bit (20 byte) number. We call this final hash the
+_public key hash_.
 
 All public keys in the spreadsheet are replaced by their respective
-public key hash.
+public key hashes.
 
 image::{imagedir}/replace-public-keys-with-hashes.svg[{half-width}]
 
@@ -202,24 +220,24 @@ CT from the company. Suppose that John wants to buy a cookie.
 .John buys a cookie. The sender is still a public key, but the recipient is a public key hash instead of a public key. Lisa needs to create the public key hash from the public key in order to verify the balance and execute the payment.
 image::{imagedir}/payment-with-pubkey-hash.svg[{big-width}]
 
-First, the message to Lisa is changed. John must put the café's public
-key hash as the recipient. The sender is still a public key. Can you
-tell why John needs to provide his public key, and not his public key
-hash, as the sender in the message?
+First, the message to Lisa is changed a little bit. John must put the
+café's public key _hash_ as the recipient. The sender is still a
+public key. Can you tell why John needs to provide his public key, and
+not his public key hash, as the sender in the message?
 
 Second, Lisa must create the public key hash from the sender's public
-key in order to check the sender's balance. Why does she have to do
-that?
+key in order to check the sender's balance.
 
 .Pre-image resistance
 ****
 image::{imagedir}/pre-image-resistance.svg[]
 ****
 
-How is this protecting us from the catastrophic scenario where the
-private key is not secure any more? I will explain in the next
-paragraph, but I think you might be able to answer this yourself. Use
-the hint in the margin. If not, please read ahead.
+How are public key hashes protecting us from the catastrophic scenario
+where the private key is not secure any more? I will explain in the
+next paragraph, but I think you might be able to answer this
+yourself. Use the hint in the margin. If not, don't worry, please read
+ahead.
 
 An attacker wanting to steal money from the café would need to reverse
 three very different one-way functions. She would need to
@@ -234,59 +252,76 @@ the catastrophic scenario that started this idea is tiny. The
 probability that all three of these technologies are weak is
 exponentially tinier. Let's just say we're safe, shall we?
 
+[.gbfaq]
+.Have privacy improved?
+****
+No.
+****
+
 Now that we've stengthened the security of our cookie token
 spreadsheet, let's think about privacy again. Has this improved
-privacy in any way? Is it harder for Acme Insurances to figure out
-information about who's paying who now compared to when we used public
-keys in the spreadsheet? The answer is no. There is a 1-to-1
-correspondance between the public keys and the public key
-hashes. Using public key hashes does not hide personal information
-more than using plain public keys.
+privacy? Is it harder for Acme Insurances to figure out information
+about who's paying who now compared to when we used public keys in the
+spreadsheet? The answer is no. There is a 1-to-1 correspondance
+between the public keys and the public key hashes. Using public key
+hashes does not hide personal information more than using plain public
+keys.
+
+[.inbitcoin]
+.P2PKH
+****
+Most payments in Bitcoin are made with a public key has as the
+recipient. But there are other types of payments as well.
+****
 
 The choice of RIPEMD160 as the last cryptographic hash function is not
 just a random choice by the security consious coworkers. They
 deliberatly chose one that would output slightly shorter values,
 because they will be easier to write and take less space in the
-spreadsheet. Compare the output from SHA256 with the output from
-RIPEMD160:
+spreadsheet while still providing enough security. Compare the output
+from SHA256 with the output from RIPEMD160:
 
  SHA256:
  85ae273f0aa730eddf2285d3f3ab071eb29caba1e428db90e6dfbd71b8e1e918
  RIPEMD160:
  5f2613791b36f667fdb8e95608b55e3df4c5f9eb
 
-Isn't that nicer? They figured that it's long enough to keep it
-secure, and short enough for people to write. It's a trade-off between
-security and convenience, as is very often the case.
+It's a trade-off between security and convenience, as is very often
+the case. From now on we will denote the public key hash as PKH.
 
 === Avoiding expensive typing errors
 
 When Lisa verifies a payment before executing it, she doesn't care who
 the recipient is or if it's even an existing recipient. She will just
-put whatever the payee asks her into the recipient column of the
-spreadsheet. She cannot even know if a recipient is valid or not
-because she no longer get everyone's public keys.
+put into the recipient column of the spreadsheet whatever the payer
+asks her to. She cannot even know if a recipient is valid or not
+because she no longer knows everyone's public keys.
 
 This is convenient for Lisa, but it can cause people to lose money if
 they are not very careful. Imagine once again that John wants to buy a
 cookie. This time he's not careful enough when writing the message.
 
+.John makes a typo on the recipient in the note to Lisa. What now?
 image::{imagedir}/payment-to-bad-pubkey-hash.svg[{big-width}]
 
-He makes a typing error on the recipient. The last character is `d`
-when it should have been a `c`. What happens now?
+He makes a typing error on the recipient public key hash. The last
+character is `d` when it should have been a `c`. What happens now?
+
+[.gbinfo]
+.Any recipient goes
+****
+There is no "wrong" recipient PKH. Lisa adds any recipient as long as
+the signature is valid. She could validate that the length of the PKH
+is 20 bytes if she wants to, but it depends on her mood. Don't rely
+on it.
+****
 
 John doesn't notice the error and happily signs the message and send
 the note to Lisa. Lisa verifies the signature, which verifies fine,
 and calculates the public key hash of the sender. She doesn't care
 about the recipient. She inserts a new row in the spreadsheet paying
-from
-
- 5f2613791b36f667fdb8e95608b55e3df4c5f9eb
-
-to
-
- 87e3d1692022a7744bf2406a963c656c8393b1cd
+from `5f2613791b36f667fdb8e95608b55e3df4c5f9eb` to
+`87e3d1692022a7744bf2406a963c656c8393b1cd`.
 
 Then she consideres herself done, moving on to other interesting
 tasks. The café owner who is searching for his public key hash
@@ -297,7 +332,11 @@ refuses. John takes a close look at the spreadsheet and searches for
 his public key hash. He find the one he just made and now realizes his
 spelling mistake.
 
-John has sent money to a public key hash for which there is no known
+****
+image:{imagedir}/pkh-pre-image-resistance.svg[]
+****
+
+John has sent money to a "public key hash" for which there is no known
 private key. No one is ever going to be able to spend those 10 CT, not
 the café, not John, nobody. John has just digitally burned 10 CT.
 
@@ -313,48 +352,61 @@ someone else's funds to be burned.
 The security oriented people discuss this problem and comes up with an
 idea of Cookie Token Addresses. A cookie token address is a public key
 hash endcoded in a certain way so that typing errors will be detected
-if they occurr. At the same time they will make the cookie token
-addresses even shorter to write.
+if they occur. At the same time they will make the recipient even
+shorter to write for the user.
 
-==== Base58check encoding
+==== Base58check
 
 Suppose that Faiza feels sorry for John and wants make use of her 100
 CT by giving John 20 CT, 10 CT to recover his funds, plus 10 CT extra
 to make poor John stop crying.
 
+[.inbitcoin]
+.Bitcoin addresses
+****
+Cookie token addresses are exactly as the most common verion of
+Bitcoin addresses. There are however other types of Bitcoin addresses.
+****
+
 She doesn't want to make the same mistake as John did, so she asks
 John for his cookie token address. John creates it by endoding his
-public key hash with a function called base58check:
+public key hash with a function called _base58check_:
 
 .Overview of the base58check encoding which transforms a public key hash into a cookie token address
-image::{imagedir}/base58check-encoding-simple.svg[{half-width}]
+image::{imagedir}/base58check-encoding-simple.svg[{quart-width}]
 
-The result is John's cookie token address:
-
- 19g6oo8foQF5jfqK9gH2bLkFNwgCenRBPD
-
-John hands this address to Faiza who then makes a payment as follows:
+The result is John's cookie token address
+`19g6oo8foQF5jfqK9gH2bLkFNwgCenRBPD`. John hands this address to Faiza
+who then makes a payment as follows:
 
 .Faiza makes a payment to John's cookie token address. She decodes the address into a public key hash, while verifying that the address is not misspelled.
 image::{imagedir}/payment-with-address.svg[{half-width}]
 
-The payment process is changed for the payer, but for Lisa nothing is
-changed. Faiza will base58check _decode_ John's address into a public
+[.gbfaq]
+.Who uses CT addresses?
+****
+Cookie token addresses are only used by users to safely transmit PKH
+between each other. Lisa never handles them.
+****
+
+The payment process is changed for the payer, but nothing is changed
+for Lisa. Faiza will base58check _decode_ John's address into a public
 key hash. The decoding will make sure that there were no typing errors
 made in the address. How that is done will be covered in the next few
 diagrams. The note to Lisa is exactly the same as before. The cookie
 token address is only used by users. It's not part of Lisa's
 validation process or the spreadsheet in any way.
 
-Let's see what this mysterious base58check encoding and decoding is working.
+===== Base58check encoding
+
+****
+image::{imagedir}/base58check-encode-decode-1.svg[]
+****
+
+Let's see how this mysterious base58check encoding and decoding is working.
 
 .Base58check encoding John's public key hash. A version is added to the hash, and then a checksum is created and appended to the versioned hash. Last, the checksummed, versioned hash is base58 encoded.
 image::{imagedir}/address-encoding.svg[{big-width}]
-
-.Checksum
-****
-image::{imagedir}/checksum.svg[]
-****
 
 The first thing that happens is that a version is added before the
 public key hash. The group of people who came up with the idea of
@@ -362,21 +414,24 @@ cookie token addresses wanted to make future upgrades to the address
 format easy. Right now there is just one version of cookie token
 addresses. That version is a single 0 byte.
 
-Then to detect typing errors, a checksum is added. A checksum is
-calculated from the data it should protect. In this case it should
-protect the versioned public key hash. To create a checksum,
-base58check hashes the versioned public key hash with double
-SHA256. This means that it is first hashed with SHA256 and the
-resulting hash is hashed again with SHA256. We take the first four
-bytes of the second hash and let those four bytes be our
-checksum. This checksum is then appended to the versioned public key
-hash. We will see soon how this checksum protects us from typing
-errors. Stay patient!
+.Checksum
+****
+image::{imagedir}/checksum.svg[]
+****
+
+To detect typing errors, a checksum is added. A checksum is calculated
+from versioned public key hash. To create a checksum, base58check
+hashes the versioned public key hash with double SHA256. This means
+that it is first hashed with SHA256 and the resulting hash is hashed
+again with SHA256. We take the first four bytes of the second hash and
+let those four bytes be our checksum. This checksum is then appended
+to the versioned public key hash. We will see soon how this checksum
+protects us from typing errors. Stay patient!
 
 We started with a public key hash of 20 byte (40 hex characters). But
 now that we have added a version and a checksum, we have 25 bytes (50
-hex characters). To make up for this we will encode the 25 bytes in a
-more compact way than hexadecimal encoding.
+hex characters). To make up for this increase, we will encode the 25
+bytes in a more compact way than hexadecimal encoding.
 
 ===== Use a compact encoding
 
@@ -394,18 +449,20 @@ digits. Base64 uses the following alphabet:
 
 The character `A` represent the bits `000000` and the character `/`
 represents `111111`. This is a very nice, easy and compact way to
-represent data with human readable text. You have already seen base64
-encoded data several times in this book, but I was too lazy to explain
-what it was. Can you say where?
+represent data with human readable characters. You have already seen
+base64 encoded data several times in this book, but I was too lazy to
+explain what it was. Can you say where?
 
-But base64 doesn't quite fit the bill for us. We need an encoding that
-minimizes the risk of typing errors, not just detects them when they
-happen. We also need a format that can be easily copy-and-pasted by
-users, meaning no special characters, like `+` and `/` should be
-allowed because they will prevent you from marking the whole data by
-double-clicking it. Notice also how some characters look very similar
-in some fonts, lI (minor L, capital I), 0O (zero and capital
-Oh). Those characters should also not be allowed.
+But base64 doesn't quite fit the bill for cookie token addresses. We
+need an encoding that minimizes the risk of making typing errors, not
+just detects them when they happen. Notice how some characters look
+very similar in some fonts, lI (minor L, capital I), 0O (zero and
+capital Oh). We also need a format that can be easily copy-and-pasted
+by users, meaning that special characters, like `+` and `/` should not
+be allowed because they will prevent you from marking the whole data
+by double-clicking it. If we remove those 6 charachters we reduce the
+possibility of typing errors. But now we only have 58 characters left,
+so we need another type of encoding.
 
 .Base58 encoding and decoding
 ****
@@ -418,7 +475,7 @@ the alphabet is the 58 characters
  123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz
 
 If you feel put off by this low level base58 mumbo jumbo, you can skip
-to [REFERENCE] and just accept that base58 is a way to encode and
+to <<base58check-decoding>> and just accept that base58 is a way to encode and
 decode data. For the rest of you, please continue. It's fun.
 
 In base64, each character represents exactly 6 bits which makes it
@@ -426,12 +483,19 @@ straight forward to encode and decode data. But with base58 each
 character represents slightly less than 6 bits, but more than 5
 bits. We need to encode data differently.
 
-Now let's get back to our example where John creates his address. He
-has just added a version and a checksum. Now it's time to encode the
-25 bytes into an address.
+Let's get back to our example where John creates his address. He has
+just added a version and a checksum. Now it's time to encode the 25
+bytes into an address.
 
 .Encoding John's versioned and checksummed public key hash with base58. The essential part is where you divide the number by 58 and keep the remainders. The remainders are then mapped one by one in the lookup table.
 image::{imagedir}/base58.svg[{big-width}]
+
+[.inbitcoin]
+.Addresses start with `1`
+****
+All Bitcoin addresses of version 0 start with a `1`. This is because
+the version byte is `0` which is encoded by the character `1`.
+****
 
 The overall strategy of base58 is to treat the data as a huge number
 that we divide by 58 over and over until the quotient is 0 and keep
@@ -439,16 +503,18 @@ the remainders of every division. Each remainder is looked up in the
 lookup table and a `1` is appended last for each leading zero byte in
 the input. The string is finally reversed and the result is John's
 cookie token address. We can note that all cookie token addresses, not
-just John's will start with a `1`. Can you figure out why?
+just John's will start with a `1`. Can you figure out why? If not,
+check the margin.
 
 Base58 encoded data like John's address can be decoded back to the
 original input of the base58 encoding. I will leave that as en
 excersise for the interested reader.
 
+[id=base58check-decoding]
 ==== Base58check decoding
 
 ****
-image::{imagedir}/base58check-encoding-simple.svg[]
+image::{imagedir}/base58check-encode-decode-2.svg[]
 ****
 
 John has just created his cookie token address by base58check encoding
@@ -459,7 +525,16 @@ about base58check encoding is that the process can be reversed so that
 you can get the public key hash from the address while at the same
 time checking for typing errors.
 
+.Base58chack decoding is basically done by reversing the base58check encoding. Typing errors are detected when the checksums don't match.
 image::{imagedir}/address-decoding.svg[{big-width}]
+
+[.gbfaq]
+.How safe is the checksum
+****
+The checksum is 4 bytes, which corresponds to 2^32^≈4.3 billion
+values. The chance is 1 in 4.3 billion that base58check fails to
+detect a typing error. It's pretty safe.
+****
 
 Faiza takes John's cookie token address and base58 decodes it. The
 checksum is removed and the remaining part, the versioned public key
@@ -475,14 +550,25 @@ the way, the address got corrupted.
 Let's put the pieces together and have a look at the whole process
 again.
 
-.John creates his cookie token address. He creates a key pair and his public key is hashed into a public key hash. His public key hash is checksummed and base58 encoded into a cookie token address.
+****
+image::{imagedir}/address-creation-abstract.svg[]
+****
+
+.John creates his cookie token address. He creates a key pair and his public key is hashed into a public key hash. His public key hash is base58check encoded into a cookie token address.
 image::{imagedir}/address-creation-summary.svg[{big-width}]
 
-Thanks to this
+.Release notes
+****
+*Cookie Tokens 2.1*
 
-* Lisa can ditch her public key table.
-* anyone can create an address without asking Lisa or anyone else.
-* anyone can create multiple addresses.
+|===
+| Feature | Technology
+
+| *safe from typing errors* | *CT addresses*
+| *privacy improvements* | *PKH in spreadsheet*
+| Secure payments | Digital signatures
+|===
+****
 
 Faiza makes sure no typing errors happens by base58check decoding
 the address before signing the message.
@@ -490,15 +576,34 @@ the address before signing the message.
 .Faiza makes the payment to John and makes sure the address is valid
 image::{imagedir}/payment-with-address.svg[{half-width}]
 
+.Toolbox
+****
+image::{imagedir}/toolbox.svg[]
+****
+
+Thanks to PKH and cookie token addresses
+
+* Lisa can ditch her public key table.
+* anyone can create an address without asking Lisa or anyone else.
+* anyone can create multiple addresses.
+
+We add PKH and addresses to our toolbox for later use.
+
 === Back to privacy
 
 While privacy has improved, the spreadsheet still reveals some
-information that Acme Insurances finds useful. For example, they could
-probably figure out that the café has the public key hash
+information that Acme Insurances finds useful.
 
- 87e3d1692022a7744bf2406a963c656c8393b1cc
+[.inbitcoin]
+.Forensics
+****
+This technique is often used in Bitcoin during crime investigations
+for example.
+****
 
-because there are a lot of 10CT payment to that public key. From that
+For example, they could probably figure out that the café has the
+public key hash `87e3d1692022a7744bf2406a963c656c8393b1cc` because
+there are a lot of 10CT payment to that public key hash. From that
 they will be able to see what public key hashes are making the most
 10CT payments to that public key hash. Let's say that Acme talks to
 Faiza and asks her for information about her recent payments. She has
@@ -506,15 +611,24 @@ only made one payment so far, the one to John. Faiza, unknowing of why
 Acme asks questions, discloses to Acme that the transaction is for
 John.
 
+.Dear John
+****
+It has come to our attention that you live an unhealthy life. We have
+therefore promoted you to a higher risk category. Congratulations.
+
+Sincerely, +
+Acme Insurances
+****
+
 A week later, John receives a letter from Acme, politely informing him
-that he is now promoted to a higher risk category, and his premium has
-been adjusted accordingly.
+that he is now promoted to a higher risk category, and his insurance
+premium has been adjusted accordingly.
 
 There are obviously still privacy issues to deal with. Luckily, as
 noted above, users can create as many addresses they like. For example
-the café could create a unique address for every payment. And John can
-create a brand new cookie token address the next time he will accept
-cookie tokens from Faiza.
+the café could create a unique address for every incoming payment. And
+John can create a brand new cookie token address the next time he will
+accept cookie tokens from Faiza.
 
 This will make it harder for Acme to extract information from the
 cookie token spreadsheet. They will not be able to tell which payments
