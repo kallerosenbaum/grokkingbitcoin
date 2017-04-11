@@ -5,6 +5,10 @@ div {
 }
 */
 
+.sect2 {
+    page-break-after: always;
+}
+
 div>p,.literalblock,.imageblock>.title,div>.tableblock,.dlist,.olist,.ulist {
     width: 75%;
 }
@@ -16,11 +20,8 @@ div>p,.literalblock,.imageblock>.title,div>.tableblock,.dlist,.olist,.ulist {
 .sidebarblock {
     width: 24%;
     float: right;
-    padding: 0.25em;   	      
-}
-
-.sidebarblock .tableblock {
-    font-size: small;        
+    padding: 0.25em;
+    font-size: small;
 }
 
 .gbfaq:before,.gbinfo:before,.inbitcoin:before {

@@ -20,15 +20,24 @@ starting to learn anything else. The second section of this chapter
 will teach you what you need to know about cryptographic hashes.
 
 The rest of the chapter will solve the problem of the imposter,
-someone claiming to be someone else and paying money from that
-someone's account. We solve that by introducing digital signatures to
-the simple system.
+someone claiming to be someone else to pay money from that someone's
+account. We solve that by introducing digital signatures to the simple
+system.
 
 === The cookie token spreadsheet
 
 Suppose that there is a café in the office where you work. You and
 your coworkers use a spreadsheet to keep track of "cookie
 tokens", CT. Cookie tokens can be exchanged for cookies in the café.
+
+[.inbitcoin]
+.Bitcoin, the currency
+****
+A cookie token correspond to a bitcoin, the currency unit of
+Bitcoin. Bitcoin got its first price point 2010 when someone bought
+two pizzas for 10000 BTC. That money would get you 500000 pizzas
+today.
+****
 
 .The spreadsheet have a column for the sender, a column for the recipient and a column for the amount of cookie tokens transferred. New cookie token transfers are appended at the end of the spreadsheet.
 image::{imagedir}/cookie-sheet-basic.png[{half-width}]
@@ -46,33 +55,46 @@ Alice is and can verify in the spreadsheet that she owns enough cookie
 tokens. She will search for 'Alice' in the spreadsheet and sum all the
 amounts with Alice's name in the "To" column and subtract all the
 amounts with Alice's name in the "From" column. Here is the complete
-list of transfers, there are three, involving Alice:
+search result, there are three transfers, involving Alice:
 
 .Lisa calculates Alices's balance. The sum of her received CT is 100 and the sum of her widthdrawn CT is 30. Alice's balance is 70 CT.
 image::{imagedir}/alices-transfers-in-cookie-sheet.png[{big-width}]
 
 Lisa calculates that Alice has 70 CT. That is enough for Alice to pay 10
-CT to the café. She appends a row at the end:
+CT to the café. She appends a row at the end of the spreadsheet:
 
 image::{imagedir}/alice-buys-cookie.png[{half-width}]
 
 The café sees this new row in the spreadsheet and hands over a cookie
 to Alice.
 
+[.gbinfo]
+.Earn them
+****
+You may also get cookie tokens as part of your salary.
+****
+
 When you run out of cookie tokens, you can buy tokens for dollars from
 someone who has an exessive amount of cookie tokens, possibly Anne or
-the cafe, at a price you both agree on. Lisa will then add a row to
-the spreadsheet accordingly. Lisa have promised never to remove or
-change anything in the spreadsheet, just add to it. What happens in
-the spreadsheet, stays in the spreadsheet! This spreadsheet system
-works quite well and everybody eats a helthy amount of cookies.
+the cafe, at a price you both agree on. Lisa will then add a row to the
+spreadsheet accordingly. Lisa have promised never to remove or change
+anything in the spreadsheet, just add to it. What happens in the
+spreadsheet, stays in the spreadsheet! This spreadsheet system works
+quite well and everybody eats a helthy amount of cookies.
+
+.Release notes
+****
+*Cookie Tokens 1.0*
+
+Simple payment system that relies on Lisa knowing everyone.
+****
 
 This spreadsheet is our starting point for learning how Bitcoin
 works. We will add a lot of fancy stuff to it. The end result of this
 jorney will be Bitcoin itself.
 
 [id=cryptographic_hashing]
-=== Cryptographic hashing
+=== Cryptographic hashes
 
 // Fingerprint analogy
 // A CHF is computer program
@@ -98,10 +120,11 @@ her fingerprint.
 
 A fingerprint of a file is called a cryptographic hash. To create a
 cryptographic hash of a file, you send the file into a computer
-program called a cryptographic hash function. Suppose that you want to
+program called a _cryptographic hash function_. Suppose that you want to
 create a cryptographic hash, a fingerprint, of your favorite cat
 picture.
 
+[.gbinfo]
 .Bits? Bytes? Hex?
 ****
 A _bit_ is the smallest unit in a computer. It can take two different
@@ -109,25 +132,27 @@ values, 0 or 1. Like a light bulb, it can be either on or off. A
 _byte_ is eight bits, that together can take 256 different values. We
 often use _hexadecimal_, or _hex_, encoding when we display numbers in
 this book. Each byte is printed as two hex digits each in the range
-0-f.
+0-f where a=10 and f=15.
 
-image::{imagedir}/bits-bytes-hex.png[]
+image::{imagedir}/bits-bytes-hex.svg[]
 ****
 
 .Creating a cryptographic hash of a cat picture. Input is the cat picture and output is a big number of 32 bytes.
 image::{imagedir}/hashing-a-cat.svg[{big-width}]
 
-The hash in the picture is a 256 bit number. It means that to store
-the number in a file, the file will be 32 bytes big, which is tiny
-compared to the size of the 1.21 Megabytes cat picture.
+The hash in the picture is a 256 bit number. 256 bits equals 32
+bytes. It means that to store the number in a file, the file will be
+32 bytes big, which is tiny compared to the size of the 1.21 Megabytes
+cat picture.
 
 The word "hash" means something that is chopped into small pieces or
 mixed up. It is actually a very good description of what a
 cryptographic hash function does. It takes the cat picture and
 performs a mathematical calculation on it. Out comes a big number that
 does not remotely look like a cat. You cannot "reconstruct" the cat
-picture from just the hash. Let's see what happens when you change the
-cat picture just a tiny bit and run that cat picture through the
+picture from just the hash, a cryptographic hash function is a
+_one-way function_. Let's see what happens when you change the cat
+picture just a tiny bit and run that cat picture through the same
 cryptographic hash function:
 
 .hashing a modified cat picture. Can you spot the difference? The cryptographic hash function certainly did.
@@ -146,12 +171,19 @@ the hash value?
 
 ==== Why are cryptographic hash functions useful?
 
-Cryptographic hash functions can be used to detect changes in
-data. Suppose that you want to send your favorite cat picture to your
-friend Fred via email, but you suspect that the picture may be
-accidentaly corrupted during transfer. How would you and Fred make
-sure that the picture Fred receives is exactly the same as the one you
-send?
+Cryptographic hash functions can be used as an integrity check, to
+detect changes in data. Suppose that you want to send your favorite
+cat picture to your friend Fred via email, but you suspect that the
+picture may be accidentaly corrupted during transfer. How would you
+and Fred make sure that the picture Fred receives is exactly the same
+as the one you send?
+
+[.gbfaq]
+.What about malicious modifications?
+****
+You don't care about malicious modifications at this stage, we'll talk
+about that later.
+****
 
 .Checking file integrity. You calculate the cryptographic hash of the cat picture and send the picture and the hash to Fred. Fred calculates the cryptographc hash of the received file and compares it to the hash provided by you in the email.
 image::{imagedir}/email-file-hash.png[{big-width}]
@@ -159,7 +191,8 @@ image::{imagedir}/email-file-hash.png[{big-width}]
 You compose an email to Fred and attach the cat picture to the
 email. But you also calculate the cryptographic hash, the digital
 fingerprint, of the cat picture. That hash is written down in the body
-of the email.
+of the email. The cryptographic hash function is standard software and
+available on both your computer and Fred's computer.
 
 When Fred receives this email, he saves the cat picture in a file on
 his computer and calculates the hash of that file. If the result is
@@ -176,17 +209,22 @@ hash function for now.
 
 .Modulo
 ****
-Modulo means to wrap around when a calculation reaches a certain value. For example
+Modulo means to wrap around when a calculation reaches a certain
+value. For example:
 
- 0 mod 256  =0
- 255 mod 256=255
- 256 mod 256=0
- 257 mod 256=1
+ 0   mod 256 = 0
+ 255 mod 256 = 255
+ 256 mod 256 = 0
+ 257 mod 256 = 1
+
+`257 mod 256` is the remainder of the integer division `257/256`: `257 =
+1*256 + 1`. The remainder is `1`.
 ****
 
 Suppose that you want to hash a file containing the six bytes `a1 02
 12 6b c6 7d`. You want the hash to be a one byte number, 8 bits. We
-can construct a hash function using addition and wrap around to 0 when the result of an addition reaches 256 or above:
+can construct a hash function using _addition modulo 256_, which means
+to wrap around to 0 when the result of an addition reaches 256:
 
 .Simplictic hash function using bytewise addition modulo 256.
 image::{imagedir}/simplistic-hash-algorithm.png[{half-width}]
@@ -226,6 +264,10 @@ Some cryptographic hash functions are not considered cryptographically secure an
 | SHA-1 | 160 | No
 | MD5 | 128 | No
 |===
+
+We most often use double SHA256 in Bitcoin:
+
+image::{imagedir}/2ndcol-double-sha256.svg[]
 ****
 
 Let us have a look at what properties you can expect from a
@@ -251,8 +293,8 @@ _cryptographic_ hash function and this needs a bit more
 elaboration. There are some variations to the fouth property, all of
 which are desirable for cryptographic hash functions:
 
-.Different desirable properties for cryptographic hash functions. For collision resistance, X can be anything, it does not matter as long as the two inputs give the same output.
-image::{imagedir}/hash-properties.png[{big-width}]
+.Different desirable properties for cryptographic hash functions. For collision resistance, X can be anything, as long as the two inputs give the same output X.
+image::{imagedir}/hash-properties.svg[{big-width}]
 
 Collision resistance:: It's very hard to find two inputs that give _the same_ hash.
 Preimage resistance:: It's very hard to find an input that gives _a certain_ hash.
@@ -265,6 +307,11 @@ The term "very hard" in this context means astronomically hard. It is
 silly to even try. We will have a look at second-preimage resistance
 as an example of what "very hard" means, but a similar example can be
 made for any of the three variants.
+
+.Second preimage resistance
+****
+image::{imagedir}/2ndcol-second-preimage.svg[[]
+****
 
 Suppose that you want to find an input to SHA256 that results in the
 same hash as `Hello!`:
@@ -282,20 +329,27 @@ desired hash.
 Let's try.
 
 .Finding an input with the same hash as "Hello!". Nearly impossible.
-//[%autowidth]
+[%autowidth,options="header"]
 |===
 | Input | Hash | Success?
-
-| Hello1! | 82642dd9e405f3f4265e2ca3c4c440e8c204f26a1b6f35fdf1ca2a642e366e64  | nope 
-| Hello2! | 493cb8b9dcb11590fe2fa72efd0d5f2fa70beda31ad0e5e8a76caa5f83ba14f8  | nope
-| Hello3! | 90488e861be3a5b762f40d4d2f1f2f7338f3f76a100ce3e4996dde8164530bae  | nope 
-| ... | ... | nope
-| Hello9998! | cf0bc6de6fd0aea26e1c68212710eea49ec6e913a7be0748e48cddcee6b0caa4  | nope 
-| Hello9999! | df82680f143cb292f46c4d0414b816c926d0fb659884c28df1dab01bef9bc235  | nope 
-| Hello10000! | 466a7662d9c183e52eeab8e9a261749d61bafa500101ef2aeed52315ce77859c  | nope
-| image:{imagedir}/grumpy-cat-drawing.jpg[{thumb}] | dee6a5d375827436ee4b47a930160457901dce84ff0fac58bf79ab0edb479561 | nope
-| My entire music collection | a5bcb2d99eb650d4756d200045fc50bf5529758c93dc0e75a5ac9c249c143f7a | nope
+| `Hello1!` | `82642dd9...2e366e64` | nope 
+| `Hello2!` | `493cb8b9...83ba14f8` | nope
+| `Hello3!` | `90488e86...64530bae` | nope 
+| `...` | `...` | nope, nope, ..., nope
+| `Hello9998!` | `cf0bc6de...e6b0caa4` | nope 
+| `Hello9999!` | `df82680f...ef9bc235` | nope 
+| `Hello10000!` | `466a7662...ce77859c` | nope
+| image:{imagedir}/grumpy-cat-drawing.jpg[{thumb}] | `dee6a5d3...db479561` | nope
+| My entire music collection | `a5bcb2d9...9c143f7a` | nope
 |===
+
+[.gbfaq]
+.How big is 2^256^?
+****
+2^256^ is about 3*10^77^ which is almost the number of atoms in the
+universe. To find a preimage to SHA256 is like picking an atom in the
+universe and hope it's the correct one.
+****
 
 As you can see, we are not very successful. Let us think about how
 much time it would take for a typical desktop computer to find such an
@@ -318,7 +372,7 @@ relies on these properties.
 
 .Can't figure out input
 ****
-image::{imagedir}/preimage-resistance.png[]
+image::{imagedir}/preimage-resistance.svg[]
 ****
 
 A cryptographic hash function is a computer program that takes any
@@ -328,7 +382,8 @@ on that input.
 image::{imagedir}/cryptographic_hashing.png[{full-width}]
 
 It is astronomically hard to find an input that will result in a
-specific output. You have to repeatedly guess different inputs.
+specific output. This is why we call it a one-way function. You have
+to repeatedly guess different inputs.
 
 ===== Our toolbox
 
@@ -344,28 +399,38 @@ functions, we will put a new tool into our toolbox for later use.
 Our first tool to put into the toolbox is the cryptographic hash function.
 
 .Our first tool. The cryptographic hash function is represented by a paper shredder, and the cryptographic hash is represented by a pile of paper stripes.
-image::{imagedir}/tool-cryptographic-hash-function.svg[{big-width}]
+image::{imagedir}/tool-cryptographic-hash-function.svg[{half-width}]
 
 From now on we will use the paper shredder to represent a
 cryptographic hash function. A pile of paper stripes will represent a
 cryptographic hash. The text on the shredder tells what kind of
-cryptographic hash function we use. You will learn about a few more
-different cryptographic hash later in the book as we need them.
+cryptographic hash function we use. You will learn about a few other
+cryptographic hash functions later in the book as we need them.
 
 ==== Exercises
 
-. Does the cat picture transfer example protect against malicious
-modifications during transfer? Suppose that someone with access to
-your email service provider can tamper with the email while in
-transit, could she modify the email in any way so that you accept a
-modified file without noticing? If so, how could you and your friend
-prevent that?
-+
 ****
-image::{imagedir}/simplistic-hash-algorithm-exercise.png[]
+image:{imagedir}/2ndcol-cat-email-to-fred.svg[]
 ****
 
-. Our simplistic hash function from secion <<cryptographic_hashing>> is not  a _cryptographic_ hash function. Which of the four properties of a cryptographic hash function is it lacking?
+. Does the cat picture transfer example protect against malicious
+modifications during transfer? Suppose that someone with access to
+your or Fred's email service provider can tamper with the email while
+in transit, could she modify the email in any way so that Fred accepts
+a modified file without noticing? If so, how could you and your friend
+prevent that?
++
+
+. Our simplistic hash function from the section <<cryptographic_hashing>>
+is not a _cryptographic_ hash function. Which two of the four properties
+of a cryptographic hash function is it lacking?
++
+image::{imagedir}/simplistic-hash-algorithm-exercise.png[{half-width}]
+
+. The paper shredded in our toolbox is not a perfect analogy. Can you
+tell why? What properties of a cryptographic hash function does the
+shredder lack? Short on better analogies, we will stick to using the
+shredder to denote a cryptographic hash function.
 
 === Digital signatures
 
