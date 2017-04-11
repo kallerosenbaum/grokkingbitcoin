@@ -434,6 +434,10 @@ shredder to denote a cryptographic hash function.
 
 === Digital signatures
 
+****
+image::{imagedir}/2ndcol-physical-vs-digital-signature.svg[]
+****
+
 A digital signature is a digital equivalent of a hand written
 signature. The difference is that a hand written signature is tied to
 a person, while a digital signature is tied to a random number called
@@ -448,6 +452,10 @@ recognizing everyone. She notices that some people are not honest. For
 example Malory says that she is Anne, to trick Lisa into moving cookie
 tokens from Anne to the cafe, instead of from Malory to the cafe.
 
+****
+image:{imagedir}/note-to-lisa.svg[]
+****
+
 Things are getting out of hand, so Lisa thinks out a great plan. She
 is going to require everybody to _digitally sign_ their cookie token
 transfers, by writing a message and a _digital signature_ on a piece of
@@ -460,9 +468,17 @@ cookie token transfer. This is what he has to do:
 
 .The digital signature process. 1. John creates a keypair and gives the public key to Lisa. 2. John signs a message with the private key. 3. Lisa verifies that the message is signed with the private key belonging to the public key she got from John.
 [[generate-key-pair]]
-image::{imagedir}/generate-key-pair.png[{big-width}]
+image::{imagedir}/generate-key-pair.svg[{big-width}]
 
 There are three phases in this process.
+
+[.gbinfo]
+.Key pair reuse
+****
+A key pair is created once. The same private key can be used several
+times to digitally sign stuff. We will see later why this is not
+always a good idea for privacy reasons.
+****
 
 . John prepares by generating a key pair. The private key is kept
 secret by John, and the public key is handed over to Lisa. This is a
@@ -475,14 +491,19 @@ and updates the spreadsheet.
 ==== Preparation: John generates a key pair
 
 The signing and validation process is based on a pair of a private key
-and a public key. John needs a private key in order to sign something
+and a public key. John needs a private key in order to sign payments
 and Lisa will need John's public key in order to verify John's
 signatures. John needs to prepare for this by creating a key pair. The
 key pair is created by first generating a private key and then
 calculate the public key from that private key.
 
-.John creates a key pair. The private key is a huge random number and the public key is derived from that random number. The private key is stored on his hard drive and the public key is handed to Lisa.
+.John creates a key pair. The private key is a huge random number and the public key is derived from that random number. John stores his private key on his hard drive and the public key is handed to Lisa.
 image::{imagedir}/create-keypair.png[{big-width}]
+
+.One-way
+****
+image:{imagedir}/2ndcol-key-derivation-one-way.svg[]
+****
 
 John will use a random number generator to generate a huge, 256 bit,
 random number. This random number is now John's private key. The
@@ -492,11 +513,12 @@ function, just as the cryptographic hash functions discussed
 earlier. You can not derive the private key from the public key. The
 security of digital signatures relies heavily on this feature.
 
-How the public key derivation function works exactly is beyond my
-knowledge. Luckily, you do not have to be a cryptography expert to
-understand how digital signatures works from a user perspective. The
-private and public keys are thought of as a pair because they have a
-very strong relationship; The public key can be used to encrypt
+How the public key derivation function works is a hard topic covered
+in <<ch04>>. Luckily, you do not have to be a cryptography expert to
+understand how digital signatures works from a user's perspective.
+
+The private and public keys are thought of as a pair because they have
+a very strong relationship; The public key can be used to encrypt
 messages that only the private key can decrypt. It also works the
 other way around, the private key can encrypt messages that can only
 be decrypted by the public key.
@@ -632,7 +654,7 @@ for John, as he knows that his signature cannot be used for other
 messages than his intended message.
 
 ****
-image::{imagedir}/note-to-lisa.png[]
+image::{imagedir}/note-to-lisa.svg[]
 ****
 
 The last thing that John does is to compose a note to Lisa and give it
