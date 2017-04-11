@@ -523,31 +523,44 @@ messages that only the private key can decrypt. It also works the
 other way around, the private key can encrypt messages that can only
 be decrypted by the public key.
 
+[id=enc-dec-public-private]
 .Encrypting and decrypting with the public and private keys. Left: Encrypt with the public key and decrypt with the private key. Right: Encrypt with the private key and decrypt with the public key.
-image::{imagedir}/enc-dec-public-private.png[{big-width}]
+image::{imagedir}/enc-dec-public-private.svg[{half-width}]
+
+[.gbinfo]
+****
+We will use the right side to make digital signatures. We will not use
+the left side at all in this book.
+****
 
 Encryption is used to make messages unreadable to parties that don't
 hold the proper decryption keys. In the left example, only John would
 be able to read the encrypted message because he is the only one with
 access to his private key. In the right side example, Lisa can decrypt
 the message because she has the public key belonging to Johns
-private key. It is not good practice to use the private key to encrypt
-messages because the public key is, you guessed it, public. When john
-hands his public key to Lisa, someone might overhear the conversation,
-or Lisa might leave her table with public keys open on her computer
-screen. And that's okay. The public key is not secret. That is why it
-is a bad idea to encrypt with the private key and expect the message
-to be secret.
+private key. This is used to make digital signatures. It is not good
+practice to use the private key to encrypt messages, like in the right
+side of the diagram, because the public key is, well, public. When
+john hands his public key to Lisa, someone might overhear the
+conversation, or Lisa might leave her table with public keys open on
+her computer screen. And that's okay. The public key is not
+secret. That is why it is a bad idea to encrypt with the private key
+and expect the message to be secret. We will not talk much more about
+the left side in this book, because the Cookie Token system or Bitcoin
+doesn't use it. But the next section will shed a little more light on
+the properties of the key pair.
 
 ===== Locked drawer example
+
+****
+image::{imagedir}/locked-box.jpg[]
+****
 
 To illustrate the relationship between the private and the public
 keys, imagine a drawer with a lock. The lock has three states: Left
 (locked), Up (unlocked), and Right (locked). There are two keys to
 this lock, one key can only turn the lock to the right, clockwise, and
 the other key can only turn the lock to the left, counterclockwise.
-
-image::{imagedir}/locked-box.jpg[{quart-width}]
 
 Let's assume that John selects the right-only key to be his
 private key. The left-only key is then his public key. He could chose
@@ -563,11 +576,11 @@ the secret message
 
  Hey, your zipper is down
 
-.Encrypting
+.Encrypt/decrypt
 ****
-.Locked by Ellen
+.Ellen encrypts with public key
 image::{imagedir}/locked-box-left.jpg[]
-.Unlocked by John only
+.John decrypts with private key
 image::{imagedir}/locked-box-up.jpg[]
 ****
 
@@ -585,6 +598,11 @@ anyone else during its time in the drawer, because he has had his
 private key in his pocket all the time. He gently turns around and
 zips up.
 
+We have just witnessed the left side process of <<enc-dec-public-private,Figure 23>>:
+
+.Ellen encrypts a message that only John can read.
+image::{imagedir}/encrypt-decrypt.svg[{quart-width}]
+
 ====== Sign and verify
 
 The above was an illustration of the encryption feature of public and
@@ -597,11 +615,11 @@ write a message that anyone with the public key can read and be
 absolutely sure that it was John who wrote the message. This is an
 example of a digital signature.
 
-.Signing
+.Sign/verify
 ****
-.Locked by John only
+.Signed by John
 image::{imagedir}/locked-box-right.jpg[]
-.Unlocked by Ellen
+.Verified by Ellen
 image::{imagedir}/locked-box-up.jpg[]
 ****
 
@@ -609,8 +627,9 @@ Say that John wants to send the message
 
  Lisa, please move 10CT to Cafe. /John
 
-to Lisa. He gave Lisa his public key, that only turns left, in the
-previous section. John writes the message on a note and puts it in the
+to Lisa. John gave Lisa his public key, that only turns left, in the
+previous section, so Lisa knows that this public key belongs to Johns
+private key. John writes the message on a note and puts it in the
 drawer. He closes the drawer and locks it with his private key, that
 only turns right. When he is done, the drawer is locked in the
 rightmost position. Everyone knows how this drawer works, so everyone
@@ -624,12 +643,24 @@ message in the box, because he is the only person with the
 private key. Lisa can now trust that the message is from John and move
 10 cookie tokens from him to the café.
 
+The signing process use the right side of the diagram in <<enc-dec-public-private,Figure 23>>:
+
+.John signs with his private key and Lisa verifies with Johns public key. She now knows for sure that John wrote this message.
+image::{imagedir}/sign-verify.svg[{quart-width}]
+
 ==== John signs his payment
 
 Let's have a close look at how the signing really happens.
 
 .John digitally signs the transfer of 10 CT to the café. The message to Lisa is first hashed and then encrypted with John's private key. The note to Lisa contains both the message in clear text and the signature.
 image::{imagedir}/signing-details.svg[{big-width}]
+
+[.inbitcoin]
+.Signatures in Bitcoin
+****
+Bitcoin use this type of signature for most Bitcoin payments
+today. But it is not the only way to authenticate a payment.
+****
 
 The message that John wants to sign is "Lisa, please move 10CT to
 Cafe. /John". The signing function will hash this message with SHA256
@@ -643,15 +674,22 @@ garbage:
 This is the signature. If John would have used another private key or
 a slightly different message as input, the signature would have looked
 completely different. For example, using the input message "Lisa,
-please move 10CT to Malory. /John" would render this signature:
+please move 10CT to Malory. /John" would generate this signature:
+
+[.gbminiex]
+.Why different?
+****
+Can you tell why the signature looks completely different. Use the
+diagram above.
+****
 
  IBkECIzYrfw6pEEdAUbDpD32rq481j6h5a7UrEYG6BBz
  dmZmsFAtT+cvXTZbpwC76/gMES9DCcS5ArjhCDjwbq8= 
 
-This is not even remotely similar to the previous signature. Can you
-tell why the signature is completely different? This is good to know
-for John, as he knows that his signature cannot be used for other
-messages than his intended message.
+This is not even remotely similar to the previous signature. This is
+good to know for John, as he knows that his signature cannot be used
+for other messages than his intended message. We will talk more on
+that in the next section where Lisa verifies the signature.
 
 ****
 image::{imagedir}/note-to-lisa.svg[]
@@ -671,7 +709,7 @@ image::{imagedir}/verify-signature.svg[{big-width}]
 
 The purpose of Lisa's actions in this picture is to determine that the
 cookie token transfer was signed by the private key it claims to be
-signed with. The message says it is from John. She did receive Johns
+signed with. The message _says_ it is from John. She did receive Johns
 public key the other day and she put the public key in her table of
 public keys. The things she has at hand is
 
@@ -684,7 +722,7 @@ public keys. The things she has at hand is
 image::{imagedir}/2ndcol-encrypted-hash.svg[]
 ****
 
-John encrypted the hash of the message with his private key. This
+John encrypted the hash of the message with his _private_ key. This
 encrypted hash is the signature. So if Lisa decrypts the signature (2)
 with John's _public_ key (3), the result should be the same hash.
 
@@ -703,24 +741,22 @@ the spreadsheet with John's transfer:
 .Lisa have added a row for John's cookie token transfer after verifying the signature of John's message.
 image::{imagedir}/cookie-sheet-basic-johns-transfer.svg[{half-width}]
 
-==== Exercises
-
-. If John didn't end his message with "/John", would Lisa be able to
-determine who to withdraw money from? 
-
-. What would Malory need in order to steal cookie tokens from John?
-
-. Recall the example when you wanted to send your favourite cat
-picture to Fred? Now that you know about digital signatures, how you
-can ensure that the cat picture is not maliciously modified without using a second channel like text messages?
-+
-image::{imagedir}/email-file-hash.png[{half-width}]
-+
-. Are the names in the spreadsheet really needed anymore? Could they
-be replaced by something else without breaking the security of the
-system? If that is possible, suggest how a typical payment can look? 
-
 ==== Summary
+
+.Release notes
+****
+*Cookie Tokens 2.0*
+
+|===
+| Feature | Technology
+
+| Secure payments | Digital signatures
+|===
+
+1.0
+
+Simple payment system that relies on Lisa knowing everyone.
+****
 
 Lisa have solved the problem with people claiming to be someone else
 when they make a payments. She requires all payers to digitally sign
@@ -749,17 +785,33 @@ image::{imagedir}/toolbox-signatures.svg[]
 ****
 
 We have three new tools that we will put in our toolbox for
-later use. Let's put them in the toolbox.
-
-The first tool we add is key pair generation.
+later use. The first tool we add is key pair generation.
 
 image::{imagedir}/tool-key-generation.svg[{quart-width}]
 
 The second and third tools to add are digital signing and verification.
 
-image::{imagedir}/tool-signing.svg[{quart-width}]
+.The tools used for signing and verification.
+image::{imagedir}/tool-signing.svg[{half-width}]
 
+==== Exercises
 
+. If John didn't end his message with "/John", would Lisa be able to
+determine who to withdraw money from? 
+
+. What would Malory need in order to steal cookie tokens from John?
+
+. Recall the example when you wanted to send your favourite cat
+picture to Fred. Now that you know about digital signatures, how can
+you ensure that the cat picture is not maliciously modified without
+using a second channel like text messages? Assume you already created
+a key pair and that you have give the public key to Fred.
++
+image::{imagedir}/email-file-hash.png[{half-width}]
++
+. Are the names in the spreadsheet really needed anymore? Could they
+be replaced by something else? If that is possible, suggest how a
+typical payment can look?
 
 === Private key security
 
@@ -812,12 +864,12 @@ The explanation to all this is that someone has
  IPSq8z0IyCVZNZNMIgrOz5CNRRtRO+A8Tc3j9og4pWbA
  H/zT22dQEhSaFSwOXNp0lOyE34d1+4e30R86qzEbJIw=
 
-Lisa would validate the transfer in step 3 and conclude that it is
-valid and execute the transfer. John asks Lisa to revert the,
-according to him, fraudulent transfer. But lisa refuses to do
-that. She thinks the transfer is perfectly valid. If John let someone
-see his private key, that's his problem, not Lisa's. That's part of
-why she's so trusted within the company, she keeps her promises.
+Lisa validated the transfer in step 3 and concluded that it is valid
+and executed the transfer. John asks Lisa to revert the, according to
+him, fraudulent transfer. But Lisa refuses to do that. She thinks the
+transfer is perfectly valid. If John let someone see his private key,
+that's his problem, not Lisa's. That's part of why she's so trusted
+within the company, she keeps her promises.
 
 John creates a new key pair and ask lisa to add his new public key
 under the name John2.
@@ -826,13 +878,23 @@ How can John secure his new private key and still have it readily
 available when he wants a cookie? John is pretty sure that he will not
 have more than 1000 cookie tokens.
 
+[.gbinfo]
+.You are responsible
+****
+You have the full responsibility for the security of your private keys.
+****
+
 The security of the spreadsheet has shifted from a system where Lisa
 knows everyone's face to one where Lisa knows everyone's
 public key. In a sense, the security could actually be worse now,
 because it might be easier for Malory to steal John's private key than
 it is for her to trick Lisa into thinking Malory is John. That depends
-on how John protects his private key. If he stores it in clear text in
-a shared folder on the company's intranet, anyone can easily copy his
+on how John protects his private key. An important thing to note is
+that the security of John's private key is totally up to him. No one
+is going to be able to restore John's private key if he loses it. And
+Lisa sure is not going to reverse "fraudulent" transfers just because
+John is sloppy with security. If he stores it in clear text in a
+shared folder on the company's intranet, anyone can easily copy his
 private key and use that to steal Johns cookie tokens. But if John
 stores the private key in an encrypted file, protected by a strong
 password, on his own laptop's hard drive, it's a lot harder to get a
@@ -841,11 +903,7 @@ copy of his key, because you must
 . get access to Johns hard drive
 . know John's password
 
-An important thing to note is that the security of John's private key
-is totally up to him. No one is going to be able to restore John's
-private key if he loses it. And Lisa sure is not going to reverse
-"fraudulent" transfers just because John is sloppy with security. If
-John thinks that he will never have more than 50 CT on his private
+If John thinks that he will never have more than 50 CT on his private
 key, he might not be very concerned with security. But the café who
 manages about 10000 cookie tokens might be very concerned. John and
 the café probably need different strategies for storing their private
@@ -858,15 +916,16 @@ the bank, take out the laptop from your safe-deposit box, decrypt the
 private key with your password, and use the private key to digitally
 sign a message to Lisa. Write down the message and signature on a
 note, put back the laptop into the safe-deposit box and bring the note
-back to the office. Very secure, and very inconvenient. On the other
-hand, you can store your private key in clear text on your mobile
-phone. Then you have the key at your fingertips and can sign a message
-within seconds from when the urge for a cookie starts to
-nudge you. Very unsecure and very convenient.
+back to the office. Very secure, and very inconvenient.
+
+On the other hand, you can store your private key in clear text on
+your mobile phone. Then you have the key at your fingertips and can
+sign a message within seconds from when the urge for a cookie starts
+to nudge you. Very insecure and very convenient.
 
 Some of the different tradeoffs are
 
-.Security considerations against attackers
+.Security considerations against attackers. Note how the more secure options are also more inconvenient.
 image::{imagedir}/private-key-security.png[{half-width}]
 
 Online vs offline:: On-line means that the private key is stored on a
@@ -902,5 +961,7 @@ Any combination of the above methods can be used to store your
 keys. But as a rule of thumb, the higher the security against
 attackers, the higher the risk of you accidentaly losing access to
 your key. For example, if you store the private key encrypted on your
-hard drive, you risk both losing your key due to computer failure and
-losing it by forgetting your password.
+hard drive, you risk losing your key due to both computer failure and
+forgetting your password. So in this sense, the more secure you store
+your keys, the less secure it is.
+

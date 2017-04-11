@@ -24,7 +24,7 @@ div>p,.literalblock,.imageblock>.title,div>.tableblock,.dlist,.olist,.ulist {
     font-size: small;
 }
 
-.gbfaq:before,.gbinfo:before,.inbitcoin:before {
+.gbfaq:before,.gbinfo:before,.inbitcoin:before,.gbminiex:before {
     float: right;
     position: relative;
     top: -10px;
@@ -32,18 +32,22 @@ div>p,.literalblock,.imageblock>.title,div>.tableblock,.dlist,.olist,.ulist {
 }
 	   
 .gbfaq:before {
-    content:url(images/question-mark-thumb.png);   
+    content:url(images/q-a-thumb.png);   
 }
 
 .gbinfo:before {
     content:url(images/light-bulb-thumb.png);   
 }
 
+.gbminiex:before {
+    content:url(images/question-mark-thumb.png);   
+}
+
 .inbitcoin:before {
     content:url(images/bitcoinLogoThumb.png);   
 }
 
-.inbitcoin>.content>.title,.gbinfo>.content>.title,.gbfaq>.content>.title {
+.inbitcoin>.content>.title,.gbinfo>.content>.title,.gbfaq>.content>.title,.gbminiex>.content>.title {
     text-align: left;
 }
 
