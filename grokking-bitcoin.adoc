@@ -9,6 +9,7 @@
 :commonimagedir: {baseimagedir}/common
 :stylesheet: grokking-bitcoin.css
 :stem:
+:gbimage: iamge::[imagedir}/
 
 ifdef::backend-html5[]
 :full-width: width='70%'
@@ -37,6 +38,7 @@ include::ch01-Introduction-to-Bitcoin.adoc[]
 
 include::ch02-Securing-Cookie-Tokens.adoc[]
 //== Chapter 2
+
 
 include::ch03-ct-addresses.adoc[]
 //== Chapter 3

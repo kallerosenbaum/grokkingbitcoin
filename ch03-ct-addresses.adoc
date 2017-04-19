@@ -658,3 +658,18 @@ certain payment by looking at just the spreadsheet?
 1. Suppose that everybody always used unique addresses for all
 payments. What information could Acme use to roughly identify the
 cafe's addresses?
+
+=== Recap
+
+In this chapter you leared that
+
+* Privacy is important for you, not just for criminals.
+* Using public key hashes instead of personal names as recipient for
+  payments is important for privacy and more secure against fraud.
+* Encoding a PKH as a Bitcoin address, or cookie token address,
+  reduces the risk of sending money into void. The checksum in the
+  address will prevent that.
+* Only users care about Bitcoin addresses. The Bitcoin network, or
+  Lisa, deals with plain public key hashes.
+* You can have as many Bitcoin addresses as you like. Using multiple
+  addresses, preferably one per received payment, improves your privacy.

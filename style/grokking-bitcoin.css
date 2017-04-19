@@ -1,9 +1,4 @@
 @import url("asciidoctor.css");
-/*
-div {
-    width: 75%;
-}
-*/
 
 .sect2 {
     page-break-after: always;
@@ -12,10 +7,6 @@ div {
 div>p,.literalblock,.imageblock>.title,div>.tableblock,.dlist,.olist,.ulist {
     width: 75%;
 }
-/*
-.sect1 div,.sect2 div,sect3 div,sect4 div,sect5 div {
-    width: 75%;
-}*/
 
 .sidebarblock {
     width: 24%;

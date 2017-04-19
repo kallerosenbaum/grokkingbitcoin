@@ -240,7 +240,7 @@ cryptographic hash functions, as the one we used to hash the cat
 picture, the chance is unimaginably small. We will soon get a glimpse
 of that probability.
 
-==== Properties of a cryptogrphic hash function
+==== Properties of a cryptographic hash function
 
 A cryptographic hash function is a function that takes any digital
 input data and produces a fixed-length output. In the example with the
@@ -964,4 +964,26 @@ your key. For example, if you store the private key encrypted on your
 hard drive, you risk losing your key due to both computer failure and
 forgetting your password. So in this sense, the more secure you store
 your keys, the less secure it is.
+
+=== Recap
+
+In this chapter you leared that
+
+* You can use cryptographic hash functions to detect changes in a file
+  or in a message.
+* You can't make up a preimage of a cryptographic hash. A preimage is
+  an input that has a certain known output.
+* Digital signatures are useful to prove the authenticity of a
+  payment. Only the rightful owner of bitcoins may spend them.
+* A verifier of a digital signature does not have to know _who_ made
+  the signature. She just have to know that the signature was made
+  with the private key the signature claims to be signed with.
+* To receive bitcoins or cookie tokens, you need a private key, that
+  you create yourself in private. You derive the public key from the
+  private key.
+* There are several strategies to store private keys ranging from
+  unencrypted on your mobile phone to splitted and encrypted across
+  several safe deposit boxes.
+* General rule of thumb: The more secure against theft, the easier to
+  accidetaly lose the keys.
 

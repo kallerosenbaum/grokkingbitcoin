@@ -897,3 +897,18 @@ use SheCoin? Think of it as starting a new internet, that you call
 Internet2. People on Internet2 will not be able to use services on the
 regular Internet, so why would anyone use Internet2. We call it the
 network effect; People tend to go where other people are.
+
+=== Recap
+
+In this chapter you leared that
+
+* Bitcoin is a global, borderless money system open for anyone with an
+  internet connection to participate in.
+* Bitcoin is used by many different actors, like savers, merchants,
+  traders.
+* A network of computers, the Bitcoin network, validate and keep
+  records of all payments.
+* A transaction goes through four steps: Send transaction, validate
+  transaction, add transaction to blockchain, notify recipient wallet.
+* It solves problems with inflation, borders, segregation and privacy
+  by providing limited supply, decentralization and borderlessness.

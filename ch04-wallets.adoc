@@ -879,21 +879,49 @@ This is also the reason why public keys are 33 bytes and not 32
 bytes. It's a 256 bit number, the x-coordinate, prefixed by a byte
 specifying the odd/even property.
 
- [OUT OF TIME]
+=== Back to extended public key derivation
 
+.Extended public key derivation
+****
+image::{imagedir}/2ndcol-derive-child-xpub.svg[]
+****
 
-=== Summary
+We have seen how an ordinary public key is derived from a private key
+through public key multiplication. But how can the multiplication of
+the parent public key with the left half hash become the child public
+key?
 
-We have created a mobile wallet app for users that monitor the
-spreadsheet for changes regarding their public keys. The wallet is a
-hierachical deterministic wallet that generates a tree of keys from a
-random seed. The users backup their keys by writing the random seed in
-the form of 12 english words on a piece of paper and lock it up
-safely.
+We can convince ourselves that it works by looking at both normal public key derivation and child public key derivation side by side:
+
+.Comparing extended public key derivation with normal public key derivation. A normal public key is the start point G multiplied by a private key. A child public key is the parent public key multiplied by the left half hash.
+image::{imagedir}/derive-pubkey-and-child-xpub.svg[{quart-width}]
+
+See the child public key as a normal public key derivation but with a
+different starting point. The starting point is the parent public key
+instead of G. And instead of multiplying the parent public key with a
+private key we multiply it by the left half hash that were calculated
+from the extended public key.
+
+=== Summary of HD wallets
+
+Let's look back at what we have learned over the last couple of
+sections.
+
+image::{imagedir}/summary-hd-wallet.svg[{big-width}]
+
+The wallet generates a tree of keys from a random seed. The users
+backup their keys by writing the random seed in the form of 12 english
+words on a piece of paper and lock it up safely.
 
 The café starts to accept cookie tokens for its online shop. It only
 puts the extended public key for the "online sales" account on the web
 server. The private keys are kept safe in the cafe's wallet.
+
+There are three important key derivation functions:
+
+image::{imagedir}/summary-key-derivation.svg[{big-width}]
+
+
 
 === Exercises
 
@@ -908,3 +936,25 @@ on each key. Say that the cafe wants to pay 60CT to the company. How
 can they accomplish that?
 
 2. Suppose that
+
+=== Recap
+
+In this chapter you leared that
+
+* You usually use a mobile app, called a wallet, to send and receive
+  payments.
+* The wallet is responsible for creating and storing your keys, scan
+  or show payment details, send payments, show your balance and backup
+  your keys.
+* Backup is hard to do right. Password protected backups suffer from
+  problems with forgotten passwords, technology improvements, humans
+  suck as random number generators.
+* With hierarchical deterministic wallets, you backup your random seed
+  and store that seed in a safe.
+* The seed can be encoded using a mnemonic sentence, which makes it
+  easier for you to write down the seed.
+* HD wallets generate all private keys from its seed and organize them
+  in a tree structure.
+* The tree or any branch of the tree of public keys can be generated
+  from the an extended public key only. This is very useful for
+  insecure environments like web servers.
