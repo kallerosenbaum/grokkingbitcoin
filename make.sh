@@ -25,7 +25,10 @@ for file in ${sourcedir}/grokking-bitcoin.adoc; do
 	# This will generate a docbook xml file from the input
 #	cat $file | asciidoctor -T ${TEMPLATEDIR} -b docbook45 - > ${outputdir}/${basename}.xml
 #	cat $file | asciidoctor -b docbook5 - > ${outputdir}/${basename}.xml
+
 	cat $file | asciidoctor -b html5 - > ${outputdir}/${basename}.html
+	asciidoctor -r ./hacks/multipage-html5-converter.rb -b multipage_html5 --destination-dir=$outputdir $file 
+
 #	cat $file | asciidoctor -r asciidoctor-pdf -b pdf - > ${outputdir}/${basename}.pdf
 
 	# This will create a .temp.xml file from the input .xml and

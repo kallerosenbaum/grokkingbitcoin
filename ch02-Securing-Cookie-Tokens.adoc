@@ -26,9 +26,9 @@ system.
 
 === The cookie token spreadsheet
 
-Suppose that there is a café in the office where you work. You and
+Suppose that there is a cafe in the office where you work. You and
 your coworkers use a spreadsheet to keep track of "cookie
-tokens", CT. Cookie tokens can be exchanged for cookies in the café.
+tokens", CT. Cookie tokens can be exchanged for cookies in the cafe.
 
 [.inbitcoin]
 .Bitcoin, the currency
@@ -50,22 +50,22 @@ spreadsheet. You and all the others can only view the spreadsheet by
 opening it in read-only mode.
 
 Whenever Alice wants a cookie, she asks Lisa, who sits right next to
-the café, to transfer 10 tokens from her to the café. Lisa knows who
+the cafe, to transfer 10 tokens from her to the cafe. Lisa knows who
 Alice is and can verify in the spreadsheet that she owns enough cookie
 tokens. She will search for 'Alice' in the spreadsheet and sum all the
 amounts with Alice's name in the "To" column and subtract all the
 amounts with Alice's name in the "From" column. Here is the complete
 search result, there are three transfers, involving Alice:
 
-.Lisa calculates Alices's balance. The sum of her received CT is 100 and the sum of her widthdrawn CT is 30. Alice's balance is 70 CT.
+.Lisa calculates Alice's balance. The sum of her received CT is 100 and the sum of her withdrawn CT is 30. Alice's balance is 70 CT.
 image::{imagedir}/alices-transfers-in-cookie-sheet.png[{big-width}]
 
 Lisa calculates that Alice has 70 CT. That is enough for Alice to pay 10
-CT to the café. She appends a row at the end of the spreadsheet:
+CT to the cafe. She appends a row at the end of the spreadsheet:
 
 image::{imagedir}/alice-buys-cookie.png[{half-width}]
 
-The café sees this new row in the spreadsheet and hands over a cookie
+The cafe sees this new row in the spreadsheet and hands over a cookie
 to Alice.
 
 [.gbinfo]
@@ -75,12 +75,12 @@ You may also get cookie tokens as part of your salary.
 ****
 
 When you run out of cookie tokens, you can buy tokens for dollars from
-someone who has an exessive amount of cookie tokens, possibly Anne or
+someone who has an excessive amount of cookie tokens, possibly Anne or
 the cafe, at a price you both agree on. Lisa will then add a row to the
 spreadsheet accordingly. Lisa have promised never to remove or change
 anything in the spreadsheet, just add to it. What happens in the
 spreadsheet, stays in the spreadsheet! This spreadsheet system works
-quite well and everybody eats a helthy amount of cookies.
+quite well and everybody eats a healthy amount of cookies.
 
 .Release notes
 ****
@@ -91,7 +91,7 @@ Simple payment system that relies on Lisa knowing everyone.
 
 This spreadsheet is our starting point for learning how Bitcoin
 works. We will add a lot of fancy stuff to it. The end result of this
-jorney will be Bitcoin itself.
+journey will be Bitcoin itself.
 
 [id=cryptographic_hashing]
 === Cryptographic hashes
@@ -174,7 +174,7 @@ the hash value?
 Cryptographic hash functions can be used as an integrity check, to
 detect changes in data. Suppose that you want to send your favorite
 cat picture to your friend Fred via email, but you suspect that the
-picture may be accidentaly corrupted during transfer. How would you
+picture may be accidentally corrupted during transfer. How would you
 and Fred make sure that the picture Fred receives is exactly the same
 as the one you send?
 
@@ -185,7 +185,7 @@ You don't care about malicious modifications at this stage, we'll talk
 about that later.
 ****
 
-.Checking file integrity. You calculate the cryptographic hash of the cat picture and send the picture and the hash to Fred. Fred calculates the cryptographc hash of the received file and compares it to the hash provided by you in the email.
+.Checking file integrity. You calculate the cryptographic hash of the cat picture and send the picture and the hash to Fred. Fred calculates the cryptographic hash of the received file and compares it to the hash provided by you in the email.
 image::{imagedir}/email-file-hash.png[{big-width}]
 
 You compose an email to Fred and attach the cat picture to the
@@ -226,14 +226,14 @@ Suppose that you want to hash a file containing the six bytes `a1 02
 can construct a hash function using _addition modulo 256_, which means
 to wrap around to 0 when the result of an addition reaches 256:
 
-.Simplictic hash function using bytewise addition modulo 256.
+.Simplistic hash function using byte-wise addition modulo 256.
 image::{imagedir}/simplistic-hash-algorithm.png[{half-width}]
 
 The result is the decimal number 112. What does 112 say about the
 original input `a1 02 12 6b c6 7d`? Not much. 112 looks just as random
 as any other single byte number.
 
-If you change the input, the hash will change, eventhough there is a
+If you change the input, the hash will change, even though there is a
 chance that the hash will remain 122. After all, there are just 256
 different possible outputs of this simple hash function. With real
 cryptographic hash functions, as the one we used to hash the cat
@@ -256,7 +256,7 @@ is equally valid.
 ****
 Some cryptographic hash functions are not considered cryptographically secure any more.
 |===
-| Name | Bits | Ok?
+| Name | Bits | OK?
 
 | SHA256 | 256 | Yes
 | SHA512 | 512 | Yes
@@ -290,7 +290,7 @@ image::{imagedir}/cryptographic_hashing.png[{full-width}]
 The first three properties are illustrated in the diagram above. The
 fourth property of cryptographic hash functions is what makes it a
 _cryptographic_ hash function and this needs a bit more
-elaboration. There are some variations to the fouth property, all of
+elaboration. There are some variations to the fourth property, all of
 which are desirable for cryptographic hash functions:
 
 .Different desirable properties for cryptographic hash functions. For collision resistance, X can be anything, as long as the two inputs give the same output X.
@@ -392,7 +392,7 @@ to repeatedly guess different inputs.
 image::{imagedir}/toolbox-cryptographic-hash-function.svg[]
 ****
 
-We will disuss several important topics throughout this book. When you
+We will discuss several important topics throughout this book. When you
 have learned about a specific topic, like cryptographic hash
 functions, we will put a new tool into our toolbox for later use.
 
@@ -463,7 +463,7 @@ paper or in an email.
 
 Suppose that there is a new guy at the office, John. The company has
 given him some CT as a welcome gift when he started. Now John wants to
-buy a cookie in the café for 10 CT. He needs to digitally sign a
+buy a cookie in the cafe for 10 CT. He needs to digitally sign a
 cookie token transfer. This is what he has to do:
 
 .The digital signature process. 1. John creates a keypair and gives the public key to Lisa. 2. John signs a message with the private key. 3. Lisa verifies that the message is signed with the private key belonging to the public key she got from John.
@@ -637,11 +637,11 @@ is aware that only the private key can lock the drawer in this way,
 because only the private key can turn the lock to the right.
 
 Lisa can now use her copy of the public key to unlock the drawer by
-turing it left one step to the upright, unlocked, position. She takes
+turning it left one step to the upright, unlocked, position. She takes
 out the note and reads it. She knows for sure that John put this
 message in the box, because he is the only person with the
 private key. Lisa can now trust that the message is from John and move
-10 cookie tokens from him to the café.
+10 cookie tokens from him to the cafe.
 
 The signing process use the right side of the diagram in <<enc-dec-public-private,Figure 23>>:
 
@@ -652,7 +652,7 @@ image::{imagedir}/sign-verify.svg[{quart-width}]
 
 Let's have a close look at how the signing really happens.
 
-.John digitally signs the transfer of 10 CT to the café. The message to Lisa is first hashed and then encrypted with John's private key. The note to Lisa contains both the message in clear text and the signature.
+.John digitally signs the transfer of 10 CT to the cafe. The message to Lisa is first hashed and then encrypted with John's private key. The note to Lisa contains both the message in clear text and the signature.
 image::{imagedir}/signing-details.svg[{big-width}]
 
 [.inbitcoin]
@@ -717,7 +717,7 @@ public keys. The things she has at hand is
 . The Signature `INxAs7oFDr8...`
 . Johns public key that she just looked up in her table
 
-.A signature is an encrytped hash
+.A signature is an encrypted hash
 ****
 image::{imagedir}/2ndcol-encrypted-hash.svg[]
 ****
@@ -801,7 +801,7 @@ determine who to withdraw money from?
 
 . What would Malory need in order to steal cookie tokens from John?
 
-. Recall the example when you wanted to send your favourite cat
+. Recall the example when you wanted to send your favorite cat
 picture to Fred. Now that you know about digital signatures, how can
 you ensure that the cat picture is not maliciously modified without
 using a second channel like text messages? Assume you already created
@@ -821,16 +821,16 @@ the only one with access to his private key. If his private key is
 stolen, he can lose any and all of his cookie tokens.
 
 One morning when John came to the office, he took his laptop from his
-desk and went straight to the café to buy his two morning cookies. He
+desk and went straight to the cafe to buy his two morning cookies. He
 opened his laptop to write a message to Lisa.
 
- Good monrning Lisa! please move 20 CT to Cafe. /John
+ Good morning Lisa! please move 20 CT to Cafe. /John
  Signature:
  H5gvXce9zFnEzCk+AnnMd49FBYg/LGcdmqWNgt3Og7mA
  MpVKhrpGbFjU6r3G7eTHyWnV/GwdIjs9fmJUwHoAuyg=
 
 He sent an email with the message and a signature to Lisa, as
-usual. But the café didn't hand him any cookies. The guy behind the
+usual. But the cafe didn't hand him any cookies. The guy behind the
 desk said that he hasn't seen any incoming payment of 20 CT yet. Lisa
 is usually very quick in verifying and executing transfers.
 
@@ -871,7 +871,7 @@ transfer is perfectly valid. If John let someone see his private key,
 that's his problem, not Lisa's. That's part of why she's so trusted
 within the company, she keeps her promises.
 
-John creates a new key pair and ask lisa to add his new public key
+John creates a new key pair and ask Lisa to add his new public key
 under the name John2.
 
 How can John secure his new private key and still have it readily
@@ -904,9 +904,9 @@ copy of his key, because you must
 . know John's password
 
 If John thinks that he will never have more than 50 CT on his private
-key, he might not be very concerned with security. But the café who
+key, he might not be very concerned with security. But the cafe who
 manages about 10000 cookie tokens might be very concerned. John and
-the café probably need different strategies for storing their private
+the cafe probably need different strategies for storing their private
 keys.
 
 There is a trade-off between security and convenience. You can for
@@ -923,7 +923,7 @@ your mobile phone. Then you have the key at your fingertips and can
 sign a message within seconds from when the urge for a cookie starts
 to nudge you. Very insecure and very convenient.
 
-Some of the different tradeoffs are
+Some of the different trade-offs are
 
 .Security considerations against attackers. Note how the more secure options are also more inconvenient.
 image::{imagedir}/private-key-security.png[{half-width}]
@@ -943,7 +943,7 @@ your computer, either remotely over a computer network, or physically,
 can make a copy of the private key. That includes any viruses that
 your computer may be victim to. You can avoid many of these attacks by
 encrypting your private key with a password that only you know. Any
-attacker would then need both access to your harddrive and your secret
+attacker would then need both access to your hard-drive and your secret
 password to copy the key.
 
 Whole key vs Splitted key:: Usually people store their entire private
@@ -959,7 +959,7 @@ hassle, but very secure.
 
 Any combination of the above methods can be used to store your
 keys. But as a rule of thumb, the higher the security against
-attackers, the higher the risk of you accidentaly losing access to
+attackers, the higher the risk of you accidentally losing access to
 your key. For example, if you store the private key encrypted on your
 hard drive, you risk losing your key due to both computer failure and
 forgetting your password. So in this sense, the more secure you store
@@ -967,7 +967,7 @@ your keys, the less secure it is.
 
 === Recap
 
-In this chapter you leared that
+In this chapter you learned that
 
 * You can use cryptographic hash functions to detect changes in a file
   or in a message.
@@ -985,5 +985,5 @@ In this chapter you leared that
   unencrypted on your mobile phone to splitted and encrypted across
   several safe deposit boxes.
 * General rule of thumb: The more secure against theft, the easier to
-  accidetaly lose the keys.
+  accidentally lose the keys.
 

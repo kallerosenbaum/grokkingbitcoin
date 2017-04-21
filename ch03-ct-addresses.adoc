@@ -1,3 +1,4 @@
+[id=ch03]
 == CT addresses - Resolving privacy issues
 :imagedir: {baseimagedir}/ch03
 
