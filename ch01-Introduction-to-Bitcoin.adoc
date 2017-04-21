@@ -28,7 +28,8 @@ up or just go ahead anyway, I think you'll manage.
 .Bitcoin or bitcoin?
 ****
 The system is named Bitcoin with capital B. The currency unit is
-called bitcoin with lowercase b. A commonly used symbol for bitcoin is {btc}.
+called bitcoin with lowercase b. Commonly used symbols for bitcoin are
+{btc}, BTC and XBT. We will mostly use BTC in this book.
 ****
 
 Bitcoin is an electronic cash system. It allows for people or
@@ -75,7 +76,8 @@ institution.
 The Bitcoin ecosystem consists of several actors. These are the most common
 types of actors:
 
-image::{imagedir}/actors.jpg[{big-width}]
+.The Bitcoin network and some different actors who use the network.
+image::{imagedir}/actors.svg[{big-width}]
 
 [.inbitcoin]
 .Bitcoin doesn't care
@@ -91,15 +93,12 @@ Worker:: Someone getting her salary in bitcoin.
 Exchange:: A commercial service people can use to exchange their local
 currency to and from bitcoin.
 Trader:: A short term speculator performing trading on an exchange.
-Bank:: Not really a Bitcoin actor but it is nevertheless part of the
-ecosystem since many actors use banks in their Bitcoin activity.
 
 The Bitcoin network's job is to process Bitcoin payments. The network
-consists of thousands of computers that we call nodes. Some of the
-nodes in the network are called Miners because they "mine" new
-bitcoins with their computing power. Most nodes are non-miners. They
-provide connectivity to the actors outside of the network, ordinary
-users like shoppers and exchanges.
+consists of thousands of computers that we call nodes. Any of the
+actors can participate actively in the Bitcoin network by running
+their own Bitcoin node. You must run your own node if you don't want
+to trust others to provide you with correct financial information.
 
 === The big picture
 
@@ -141,6 +140,7 @@ one step per section.
 [id=overview-transactions]
 ==== Step 1 - Transactions
 
+[.gbinfo]
 .Transaction
 ****
 A transaction is a payment. Sometimes we also say transfer. We will
@@ -149,9 +149,9 @@ use the terms interchangeably.
 
 Step 1 of the process is when Alice asks the network to move 1 bitcoin
 to Bob. She asks by sending a Bitcoin _transaction_ to the Bitcoin
-network. The transaction contains instructions on how to move the
-money in the ledger and a proof that Alice actually is authorized to
-move the money. Let us start with an analogy.
+network. The transaction contains information on how the money moves
+and a proof that Alice actually is authorized to move the money. Let
+us start with an analogy.
 
 [id=bitcoin_payment]
 .A Bitcoin transaction
@@ -160,20 +160,20 @@ image::{imagedir}/transaction_mailbox.jpg[{half-width}]
 [.gbinfo]
 .Public and Private keys
 ****
-Alice mailbox key is her _private key_. The number on her mailbox is
+Alice's mailbox key is her _private key_. The number on her mailbox is
 her _public key_. Chapter 2 and 4 are your friends here.
 ****
 
-The Bitcoin _transaction_, can be regarded as transferring
-money from one locked mailbox to another. Yes, we are talking about
-_physical_ mailboxes for this analogy. Only the owner of the key to a
-mailbox will be able to pull money out of that mailbox, but anyone is
-able to put money into the mailbox through the slot. Alice, the owner
-of the key to mailbox 321 in the picture, will withdraw 1 BTC from
-mailbox 321 and deposit the bitcoin into mailbox 560, Bob's
-mailbox. She is the only one who can do that because only she has the
-key to mailbox 321. In digital form, this transaction is a piece of
-data specifying
+The Bitcoin _transaction_, can be regarded as transferring money from
+one locked mailbox to another. Yes, we are talking about _physical_
+mailboxes for this analogy. Only the owner of the key to a mailbox
+will be able to pull money out of that mailbox, but anyone is able to
+put money into the mailbox through the slot. Alice, the owner of the
+key to mailbox 321 in the picture, will withdraw 1 BTC from mailbox
+321 and deposit the bitcoin into mailbox 560, Bob's mailbox. She is
+the only one who can do that because only she has the key to
+mailbox 321. In digital form, this transaction is a piece of data
+specifying
 
 * the mailbox to withdraw from (321)
 * the amount to withdraw (1 BTC)
@@ -259,7 +259,7 @@ the copies would not remain copies for long. The transactions may come
 in different order on different nodes:
 
 [id=transaction-ordering]
-.Transactions arrives in different order at different nodes. If they would all write the tranasactions to the blockchain, the different nodes' blockchains would differ.
+.Transactions arrives in different order at different nodes. If they would all write the transactions to the blockchain, the different nodes' blockchains would differ.
 image::{imagedir}/transactions-unordered.svg[{half-width}]
 
 [.gbfaq]
@@ -361,19 +361,6 @@ example the Zimbabwean dollar that during 2007-2008 inflated nearly
 in 2008. That is an average daily inflation rate of nearly
 100%. Prices roughly doubled every day.
 
-.Some hyperinflations in modern time
-****
-|===
-|Country | Year | Worst monthly inflation [%]
-
-|Venezuela | 2016-2017 | 120
-|Zimbawe | 2007-2008 | 4.19*10^16^
-|Yugoslavia | 1992-1994 | 313*10^6^
-|Peru | 1990 | 397
-|Ukraine | 1992-1994 | 285
-|===
-****
-
 Extreme cases of inflation like this are called
 hyperinflation. Hyperinflation is usually initially driven by a rapid
 increase in the money supply. Government sometimes increase in money
@@ -384,9 +371,20 @@ over-used, the risk of hyperinflation is apparent.
 An increasing money supply will most likely lead to a depreciation of
 the currency. This in turn pushes people to exchange their local
 currency for goods or currencies that better holds value, which
-further drives the value of the currency down. This can sprial down to
+further drives the value of the currency down. This can spiral down to
 extremes like in Zimbabwe. The result is devastating for people as
 they see their life savings diminish to virtually nothing.
+
+.Some hyperinflations in modern time.
+|===
+|Country | Year | Worst monthly inflation [%]
+
+|Zimbabwe | 2007-2008 | 4.19*10^16^
+|Yugoslavia | 1992-1994 | 313*10^6^
+|Peru | 1990 | 397
+|Ukraine | 1992-1994 | 285
+|Venezuela | 2016-2017 | 120
+|===
 
 Zimbabwe is one of the most extreme cases of inflation throughout
 history, but still today some countries suffer from very high
@@ -441,7 +439,7 @@ world population don't have a bank account at all, according to the
 World Bank. The numbers are improving but still a vast amount of
 people are stuck in a cash-only environment. If these people want to
 receive money from a family member abroad, they will receive 5% less,
-due to higher remitance fees, than if they had a bank account.
+due to higher remittance fees, than if they had a bank account.
 
 Without a bank account and basic bank services like online payments,
 people can not expand their businesses outside of their local
@@ -580,7 +578,7 @@ increasing, at a diminishing rate, according to a _predetermined_
 schedule and will eventually stop increasing around year 2140.
 
 .The supply of bitcoins over time
-image::{imagedir}/money_supply.jpg[{half-width}]
+image::{imagedir}/money-supply.svg[{half-width}]
 
 As of writing, the money supply is about 16.5 million bitcoins and the
 current yearly increase in the money supply is about 4%, but the
@@ -603,7 +601,7 @@ means that anyone with an Internet connection can send money to other
 people across the world.
 
 .Bitcoin is borderless
-image::{imagedir}/borderless.jpg[{half-width}]
+image::{imagedir}/borderless.svg[{big-width}]
 
 There is no difference between sending a bitcoin to someone in the
 same room or sending it to someone on another continent. The
@@ -631,11 +629,11 @@ borderlessness and security of Bitcoin makes it ideal for online
 payments for goods and services.
 
 Instead of sending your debit card details to the merchant, and _hope_
-that the merchant will widthdraw as much as you agreed on. You also
+that the merchant will withdraw as much as you agreed on. You also
 _hope_ that the merchant handles your debit card details with great
 care. They probably store the details in a database. Think about that;
 For every debit card purchase you make, your card details will be
-stored in that merchant's databse. It is quite likely that _one_ the
+stored in that merchant's database. It is quite likely that _one_ the
 merchants' database gets hacked and your card details are stolen. The
 more merchants that stores your details, the higher the risk.
 
@@ -736,7 +734,7 @@ anyone can calculate from that document. It is nearly impossible to
 create a different document with the same fingerprint. This
 fingerprint can be attached to a payment. It is irrelevant where the
 money goes; The important thing is that the fingerprint is recorded in
-the Bitcoin system. You "anchor" the document in the Bitcoin ledger.
+the Bitcoin blockchain. You "anchor" the document in the blockchain.
 
 Bitcoin payments are public records, so anyone can validate that the
 document existed before the time of the payment by taking the
@@ -761,7 +759,7 @@ Venezuela where the government try to hinder the Bitcoin market, the
 supply will be low. But the demand is high, because people want to
 escape from their hyperinflating currency. These factors drives the
 Bitcoin price up in that market compared to for example the US and
-european markets where people can trade more freely.
+European markets where people can trade more freely.
 
 ==== When not to use Bitcoin
 
@@ -837,8 +835,8 @@ how to secure your money.
 
 This book will cover Bitcoin. But there are several other so-called
 cryptocurrencies, and new ones pop up all the time. Cryptocurrencies
-other than Bitcoin are ofter referred to as _altcoins_, alternative
-coins. I will list a few popular altcoins along with their purpose and
+other than Bitcoin are often referred to as _alt-coins_, alternative
+coins. I will list a few popular alt-coins along with their purpose and
 so-called market capitalization, market cap. The market cap is the
 product of the money supply, number of coins, and the current market
 price per coin. Note that the market cap will most likely have changed
@@ -874,24 +872,24 @@ Bitcoin's position relative to the other cryptocurrencies.
 
 I encourage you to look up these cryptocurrencies as they all provide
 interesting new features beyond Bitcoin. There are hundreds of other
-altcoins. Some altcoins, for example the ones above, provide some
+alt-coins. Some alt-coins, for example the ones above, provide some
 unique features that are not available in Bitcoin, and some provide
-little to nothing innovative. Anyone can create an altcoin by taking
-any existing altcoin software and modify it to her needs.
+little to nothing innovative. Anyone can create an alt-coin by taking
+any existing cryptocurrency software and modify it to her needs.
 
 .Network effect
 ****
 image::{imagedir}/network-effect.svg[]
 ****
 
-Let's say that Sheila wants to start an altcoin, SheCoin. She takes
+Let's say that Sheila wants to start an alt-coin, SheCoin. She takes
 the Bitcoin software and changes the money supply to 11000000, instead
 of Bitcoin's 21000000, coins and starts. When SheCoin is started she
-will be very lonely, because no one else is using her altcoin. If she
+will be very lonely, because no one else is using her alt-coin. If she
 wants SheCoin to have some real value, she has got to convince other
-people to start using her altcoin. If she's not providing anything
+people to start using her alt-coin. If she's not providing anything
 innovative, she's going to have a hard time getting other people
-onboard, since they are pretty happy with what Bitcoin is already
+on-board, since they are pretty happy with what Bitcoin is already
 providing. Besides, everybody else is using Bitcoin, so why would you
 use SheCoin? Think of it as starting a new internet, that you call
 Internet2. People on Internet2 will not be able to use services on the
@@ -900,15 +898,21 @@ network effect; People tend to go where other people are.
 
 === Recap
 
-In this chapter you leared that
+In this chapter you learned that
 
-* Bitcoin is a global, borderless money system open for anyone with an
-  internet connection to participate in.
+* Bitcoin is global, borderless money, that anyone with an internet
+  connection can use.
 * Bitcoin is used by many different actors, like savers, merchants,
-  traders.
+  traders for many different purposes like payments, remittances and
+  savings.
 * A network of computers, the Bitcoin network, validate and keep
   records of all payments.
 * A transaction goes through four steps: Send transaction, validate
   transaction, add transaction to blockchain, notify recipient wallet.
 * It solves problems with inflation, borders, segregation and privacy
   by providing limited supply, decentralization and borderlessness.
+* There are several alternative cryptocurrencies apart from Bitcoin,
+  for example Ethereum, Zcash and Namecoin.
+* A (crypto)currency needs to have enough users and activity to be
+  useful. It's called network effect.
+  
