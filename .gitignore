@@ -6,3 +6,14 @@ chapter-tips.adoc
 *.html
 *.xml
 
+
+*.pem
+*.dat
+notes/test.txt
+syncweb.sh
+checklist.txt
+clipboard.adoc
+graph.png
+graph_original.png
+notes/keyconversion/node_modules/
+notes/keyconversion/signature.sign
