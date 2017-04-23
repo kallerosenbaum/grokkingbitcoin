@@ -15,26 +15,30 @@ div>p,.literalblock,.imageblock>.title,div>.tableblock,.dlist,.olist,.ulist {
     font-size: small;
 }
 
-.gbfaq:before,.gbinfo:before,.inbitcoin:before,.gbminiex:before {
+.gbnew img {
+    width:50px;
+}
+
+.gbfaq::before,.gbinfo::before,.inbitcoin::before,.gbminiex::before {
     float: right;
     position: relative;
     top: -10px;
     right: -10px;
 }
-	   
-.gbfaq:before {
+
+.gbfaq::before {
     content:url(images/q-a-thumb.png);   
 }
 
-.gbinfo:before {
+.gbinfo::before {
     content:url(images/light-bulb-thumb.png);   
 }
 
-.gbminiex:before {
+.gbminiex::before {
     content:url(images/question-mark-thumb.png);   
 }
 
-.inbitcoin:before {
+.inbitcoin::before {
     content:url(images/bitcoinLogoThumb.png);   
 }
 

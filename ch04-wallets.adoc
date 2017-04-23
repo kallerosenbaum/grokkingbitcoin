@@ -922,6 +922,33 @@ There are three important key derivation functions:
 
 image::{imagedir}/summary-key-derivation.svg[{big-width}]
 
+[%autowidth,options="header"]
+.Release notes, cookie tokens 2.1
+|===
+|Version|Feature|How
+
+.3+|image:{commonimagedir}/new.png[role="gbnew"]*4.0*
+|It is now easy to make payments and create new addresses.
+|Mobile app "Wallet"
+|Simplify backups
+|HD wallets are generated from a seed. Only the seed needs to be backed up.
+|Create addresses in unsecure environments
+|HD wallets lets you 
+
+.2+|3.0
+|Safe from expensive typing errors
+|Cookie token addresses
+|Privacy improvements
+|PKH is stored in spreadsheet instead of personal names.
+
+|2.0
+|Secure payments
+|Digital signatures solves the problem with the imposter
+
+|1.0
+|Simple payment system
+|Relies on Lisa being very trustworthy and knowing everyone's face
+|===
 
 
 === Exercises
@@ -951,11 +978,11 @@ In this chapter you leared that
   problems with forgotten passwords, technology improvements, humans
   suck as random number generators.
 * With hierarchical deterministic wallets, you backup your random seed
-  and store that seed in a safe.
+  and store that seed in a safe place.
 * The seed can be encoded using a mnemonic sentence, which makes it
   easier for you to write down the seed.
 * HD wallets generate all private keys from its seed and organize them
   in a tree structure.
-* The tree or any branch of the tree of public keys can be generated
+* The tree, or any branch of the tree, of public keys can be generated
   from the an extended public key only. This is very useful for
   insecure environments like web servers.

@@ -9,13 +9,12 @@
 :commonimagedir: {baseimagedir}/common
 :stylesheet: grokking-bitcoin.css
 :stem:
-:gbimage: iamge::[imagedir}/
 
 :full-width: width='70%'
 :big-width: width='75%'
 :half-width: width='50%'
 :quart-width: width='25%'
-:tiny-height: height='10'
+:tiny-height: height='10%'
 :thumb: width='20%'
 :btc: image:{commonimagedir}/btc-sans.png[BTC,role="btc"]
 

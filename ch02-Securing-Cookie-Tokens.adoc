@@ -82,16 +82,23 @@ anything in the spreadsheet, just add to it. What happens in the
 spreadsheet, stays in the spreadsheet! This spreadsheet system works
 quite well and everybody eats a healthy amount of cookies.
 
-.Release notes
-****
-*Cookie Tokens 1.0*
+This is our starting point for learning how Bitcoin works. We call
+this version 1.0 of the cookie token spreadsheet system:
 
-Simple payment system that relies on Lisa knowing everyone.
-****
+[%autowidth,options="header"]
+.Release notes, cookie tokens 1.0
+|===
+|Version|Feature|How
 
-This spreadsheet is our starting point for learning how Bitcoin
-works. We will add a lot of fancy stuff to it. The end result of this
-journey will be Bitcoin itself.
+|1.0
+|Simple payment system
+|Relies on Lisa being very trustworthy and knowing everyone's face
+|===
+
+We will add a lot of fancy stuff to this system and a new version will
+be released in every chapter. For example, at the end of this chapter
+we will release version 2.0 that solves the problem of the
+imposter. Every chapter will take us closer to the end result, Bitcoin.
 
 [id=cryptographic_hashing]
 === Cryptographic hashes
@@ -216,9 +223,10 @@ value. For example:
  255 mod 256 = 255
  256 mod 256 = 0
  257 mod 256 = 1
+ 258 mod 256 = 2
 
-`257 mod 256` is the remainder of the integer division `257/256`: `257 =
-1*256 + 1`. The remainder is `1`.
+`258 mod 256` is the remainder of the integer division `258/256`: `258 =
+1*256 + 2`. The remainder is `2`.
 ****
 
 Suppose that you want to hash a file containing the six bytes `a1 02
@@ -260,16 +268,11 @@ Some cryptographic hash functions are not considered cryptographically secure an
 
 | SHA256 | 256 | Yes
 | SHA512 | 512 | Yes
-| RIPEMD160 | 160 | Yes
+| RIPEMD 160 | 160 | Yes
 | SHA-1 | 160 | No
 | MD5 | 128 | No
 |===
-
-We most often use double SHA256 in Bitcoin:
-
-image::{imagedir}/2ndcol-double-sha256.svg[]
 ****
-
 Let us have a look at what properties you can expect from a
 cryptographic hash function. We will illustrate the properties using
 the SHA256 (Secure Hash Algorithm with 256 bit output) algorithm,
@@ -286,6 +289,14 @@ certain hash.
 
 .A cryptographic hash function, SHA256, in action. The input "Hello!" will give you the same output every time, but the slightly modified input "Hello" will give you a totally different output.
 image::{imagedir}/cryptographic_hashing.png[{full-width}]
+
+[.inbitcoin]
+.Double SHA256
+****
+We most often use double SHA256 in Bitcoin:
+
+image::{imagedir}/2ndcol-double-sha256.svg[]
+****
 
 The first three properties are illustrated in the diagram above. The
 fourth property of cryptographic hash functions is what makes it a
@@ -329,7 +340,7 @@ desired hash.
 Let's try.
 
 .Finding an input with the same hash as "Hello!". Nearly impossible.
-[%autowidth,options="header"]
+[options="header,nowrap",cols="1l,3m,3m"]
 |===
 | Input | Hash | Success?
 | `Hello1!` | `82642dd9...2e366e64` | nope 
@@ -409,17 +420,28 @@ cryptographic hash functions later in the book as we need them.
 
 ==== Exercises
 
+===== Warm up
+
+. How many bits is the output of SHA256?
+. How many bytes is the output of SHA256?
+. What is needed to calculate the cryptographic hash of the text "`hash me`"?
+. What is decimal and binary representations of the hexadecimal data `a109`?
+. Can you modify the text "`cat`" so that the modified text gets the
+same cryptographic hash as "`cat`"?
+
+===== Dig in
+
 ****
 image:{imagedir}/2ndcol-cat-email-to-fred.svg[]
 ****
 
+[start=6]
 . Does the cat picture transfer example protect against malicious
-modifications during transfer? Suppose that someone with access to
-your or Fred's email service provider can tamper with the email while
+modifications during transfer? Suppose that someone has access to your
+or Fred's email service provider and can tamper with the email while
 in transit, could she modify the email in any way so that Fred accepts
 a modified file without noticing? If so, how could you and your friend
 prevent that?
-+
 
 . Our simplistic hash function from the section <<cryptographic_hashing>>
 is not a _cryptographic_ hash function. Which two of the four properties
@@ -514,7 +536,7 @@ earlier. You can not derive the private key from the public key. The
 security of digital signatures relies heavily on this feature.
 
 How the public key derivation function works is a hard topic covered
-in <<ch04>>. Luckily, you do not have to be a cryptography expert to
+in <<ch04,chapter 4>>. Luckily, you do not have to be a cryptography expert to
 understand how digital signatures works from a user's perspective.
 
 The private and public keys are thought of as a pair because they have
@@ -550,17 +572,17 @@ the left side in this book, because the Cookie Token system or Bitcoin
 doesn't use it. But the next section will shed a little more light on
 the properties of the key pair.
 
-===== Locked drawer example
-
-****
-image::{imagedir}/locked-box.jpg[]
-****
+===== Locked box example
 
 To illustrate the relationship between the private and the public
-keys, imagine a drawer with a lock. The lock has three states: Left
-(locked), Up (unlocked), and Right (locked). There are two keys to
-this lock, one key can only turn the lock to the right, clockwise, and
-the other key can only turn the lock to the left, counterclockwise.
+keys, imagine a box with a lock. The lock has three states: Left
+(locked), Up (unlocked), and Right (locked).
+
+image::{imagedir}/locked-box-overview.svg[{half-width}]
+
+There are two keys to this lock, one key can only turn the lock to the
+right, clockwise, and the other key can only turn the lock to the
+left, counterclockwise.
 
 Let's assume that John selects the right-only key to be his
 private key. The left-only key is then his public key. He could chose
@@ -579,29 +601,29 @@ the secret message
 .Encrypt/decrypt
 ****
 .Ellen encrypts with public key
-image::{imagedir}/locked-box-left.jpg[]
+image::{imagedir}/locked-box-locked-left.svg[]
 .John decrypts with private key
-image::{imagedir}/locked-box-up.jpg[]
+image::{imagedir}/locked-box-unlocked-private.svg[]
 ****
 
-and puts it in the drawer, closes the drawer and locks it with her
-copy of the public key. The public key only turns to the left, so when
-she is done the lock is in its leftmost position. The drawer is now
-locked. To open the drawer you need a key that can turn the lock to
-the right. Only John's private key can do that. None of the copies of
-the public key will help, because they can only turn to the left.
+and puts it in the box, closes the box and locks it with her copy of
+the public key. The public key only turns to the left, so when she is
+done the lock is in its leftmost position. The box is now locked. To
+open the box you need a key that can turn the lock to the right. Only
+John's private key can do that. None of the copies of the public key
+will help, because they can only turn to the left.
 
 John, who is the only one with the private key, can now use his
-private key, that only turns right, to unlock the drawer and read the
+private key, that only turns right, to unlock the box and read the
 secret message. He is confident that the message has not been read by
-anyone else during its time in the drawer, because he has had his
-private key in his pocket all the time. He gently turns around and
-zips up.
+anyone else during its time in the box, because he has had his private
+key in his pocket all the time. He gently turns around and zips up.
 
-We have just witnessed the left side process of <<enc-dec-public-private,Figure 23>>:
+We have just witnessed the left side process of
+<<enc-dec-public-private>>:
 
 .Ellen encrypts a message that only John can read.
-image::{imagedir}/encrypt-decrypt.svg[{quart-width}]
+image::{imagedir}/encrypt-decrypt.svg[{half-width}]
 
 ====== Sign and verify
 
@@ -610,7 +632,7 @@ private keys. But while John was able to read the secret message from
 Ellen, he could not tell _who_ wrote the message. Anyone with a copy
 of the public key could have done that.
 
-But this drawer has another great feature. It can be used by John to
+But this box has another great feature. It can be used by John to
 write a message that anyone with the public key can read and be
 absolutely sure that it was John who wrote the message. This is an
 example of a digital signature.
@@ -618,9 +640,9 @@ example of a digital signature.
 .Sign/verify
 ****
 .Signed by John
-image::{imagedir}/locked-box-right.jpg[]
+image::{imagedir}/locked-box-locked-right.svg[]
 .Verified by Ellen
-image::{imagedir}/locked-box-up.jpg[]
+image::{imagedir}/locked-box-unlocked-public.svg[]
 ****
 
 Say that John wants to send the message
@@ -630,23 +652,24 @@ Say that John wants to send the message
 to Lisa. John gave Lisa his public key, that only turns left, in the
 previous section, so Lisa knows that this public key belongs to Johns
 private key. John writes the message on a note and puts it in the
-drawer. He closes the drawer and locks it with his private key, that
-only turns right. When he is done, the drawer is locked in the
-rightmost position. Everyone knows how this drawer works, so everyone
-is aware that only the private key can lock the drawer in this way,
-because only the private key can turn the lock to the right.
+box. He closes the box and locks it with his private key, that only
+turns right. When he is done, the box is locked in the rightmost
+position. Everyone knows how this box works, so everyone is aware that
+only the private key can lock the box in this way, because only the
+private key can turn the lock to the right.
 
-Lisa can now use her copy of the public key to unlock the drawer by
+Lisa can now use her copy of the public key to unlock the box by
 turning it left one step to the upright, unlocked, position. She takes
 out the note and reads it. She knows for sure that John put this
 message in the box, because he is the only person with the
 private key. Lisa can now trust that the message is from John and move
 10 cookie tokens from him to the cafe.
 
-The signing process use the right side of the diagram in <<enc-dec-public-private,Figure 23>>:
+The signing process use the right side of the diagram in
+<<enc-dec-public-private>>:
 
 .John signs with his private key and Lisa verifies with Johns public key. She now knows for sure that John wrote this message.
-image::{imagedir}/sign-verify.svg[{quart-width}]
+image::{imagedir}/sign-verify.svg[{half-width}]
 
 ==== John signs his payment
 
@@ -679,8 +702,9 @@ please move 10CT to Malory. /John" would generate this signature:
 [.gbminiex]
 .Why different?
 ****
+//REF
 Can you tell why the signature looks completely different. Use the
-diagram above.
+figure above.
 ****
 
  IBkECIzYrfw6pEEdAUbDpD32rq481j6h5a7UrEYG6BBz
@@ -743,23 +767,8 @@ image::{imagedir}/cookie-sheet-basic-johns-transfer.svg[{half-width}]
 
 ==== Summary
 
-.Release notes
-****
-*Cookie Tokens 2.0*
-
-|===
-| Feature | Technology
-
-| Secure payments | Digital signatures
-|===
-
-1.0
-
-Simple payment system that relies on Lisa knowing everyone.
-****
-
-Lisa have solved the problem with people claiming to be someone else
-when they make a payments. She requires all payers to digitally sign
+Lisa has solved the problem with people claiming to be someone else
+when they make a payment. She requires all payers to digitally sign
 the cookie token transfers. Every user of the spreadsheet needs to
 have a private key and a public key. Lisa keeps track of which public
 key belongs to whom. A payment must from now on be written on a piece
@@ -771,6 +780,22 @@ image::{imagedir}/digital-signature-summary.png[{big-width}]
 
 The gist of this is that as long as John keeps his private key to
 himself, no one will be able to spend his money.
+
+It's time to release version 2.0 of the cookie tokens.
+
+[%autowidth,options="header"]
+.Release notes, cookie tokens 2.0
+|===
+|Version|Feature|How
+
+|image:{commonimagedir}/new.png[role="gbnew"]*2.0*
+|Secure payments
+|Digital signatures solves the problem with the imposter
+
+|1.0
+|Simple payment system
+|Relies on Lisa being very trustworthy and knowing everyone's face
+|===
 
 Everybody still trust Lisa to not change the spreadsheet in any way
 except when executing signed cookie token transfers. If Lisa wanted to
@@ -785,21 +810,25 @@ image::{imagedir}/toolbox-signatures.svg[]
 ****
 
 We have three new tools that we will put in our toolbox for
-later use. The first tool we add is key pair generation.
-
-image::{imagedir}/tool-key-generation.svg[{quart-width}]
-
-The second and third tools to add are digital signing and verification.
+later use: Key pair generation, digital signing, the signature and the verification.
 
 .The tools used for signing and verification.
 image::{imagedir}/tool-signing.svg[{half-width}]
 
+The second and third tools to add are digital signing and verification.
+
 ==== Exercises
 
-. If John didn't end his message with "/John", would Lisa be able to
-determine who to withdraw money from? 
+===== Warm up
 
+. How is the private key of a key-pair created?
+. What key is used to sign a message?
+. The signing process hashes the message to sign. Why?
+. If John didn't end his message with "/John", would Lisa be able to
+determine who to withdraw money from?  
 . What would Malory need in order to steal cookie tokens from John?
+
+===== Dig in
 
 . Recall the example when you wanted to send your favorite cat
 picture to Fred. Now that you know about digital signatures, how can
@@ -816,7 +845,7 @@ typical payment can look?
 === Private key security
 
 John is in control of his cookie tokens because he owns the
-private key. No one but John can use Johns cookie tokens because he is
+private key. No one but John can use John's cookie tokens because he is
 the only one with access to his private key. If his private key is
 stolen, he can lose any and all of his cookie tokens.
 
@@ -826,8 +855,8 @@ opened his laptop to write a message to Lisa.
 
  Good morning Lisa! please move 20 CT to Cafe. /John
  Signature:
- H5gvXce9zFnEzCk+AnnMd49FBYg/LGcdmqWNgt3Og7mA
- MpVKhrpGbFjU6r3G7eTHyWnV/GwdIjs9fmJUwHoAuyg=
+ H1CdE34cRuJDsHo5VnpvKqllC5JrMJ1jWcUjL2VjPbsj
+ X6pi/up07q/gWxStb1biGU2fjcKpT4DIxlNd2da9x0o=
 
 He sent an email with the message and a signature to Lisa, as
 usual. But the cafe didn't hand him any cookies. The guy behind the
@@ -876,7 +905,7 @@ under the name John2.
 
 How can John secure his new private key and still have it readily
 available when he wants a cookie? John is pretty sure that he will not
-have more than 1000 cookie tokens.
+have more than 1000 cookie tokens on that key.
 
 [.gbinfo]
 .You are responsible
@@ -943,8 +972,8 @@ your computer, either remotely over a computer network, or physically,
 can make a copy of the private key. That includes any viruses that
 your computer may be victim to. You can avoid many of these attacks by
 encrypting your private key with a password that only you know. Any
-attacker would then need both access to your hard-drive and your secret
-password to copy the key.
+attacker would then need both read access to your hard-drive and your
+secret password to copy the key.
 
 Whole key vs Splitted key:: Usually people store their entire private
 key on a single computer. That's convenient, you only need one
@@ -986,4 +1015,3 @@ In this chapter you learned that
   several safe deposit boxes.
 * General rule of thumb: The more secure against theft, the easier to
   accidentally lose the keys.
-
