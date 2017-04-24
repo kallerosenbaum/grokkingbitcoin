@@ -124,7 +124,8 @@ The company digitally signs the message and gives it to Lisa. Lisa uses
 [.inbitcoin]
 .In Bitcoin
 ****
-Lisa is performing the duties that the Bitcoin network is doing with Bitcoin payments.
+Lisa is performing the same duties with cookie token payments as the
+Bitcoin network is doing with Bitcoin payments.
 ****
 
 to verify that the message is signed with the private key belonging to
@@ -152,13 +153,15 @@ Let's summarize what we have done so far:
 [.gbminiex]
 .What can Acme do?
 ****
-Please take a moment to think about what Acme Insurances can
-figure out from the spreadsheet now. What information can they get if they figure out the sender or recipien of _one_ single payment.
+Please take a moment to think about what Acme Insurances can figure
+out from the spreadsheet now. What information can they get if they
+figure out the sender or recipient of _one_ single payment?
 ****
 
 * We have replaced names with public keys in the spreadsheet.
 * Lisa has thrown away the table of names and public keys.
-* The payment is made with public keys as sender and recipient instead of names.
+* The payment is made with public keys as sender and recipient instead
+  of names.
 
 These actions have improved privacy as well as simplified Lisa's
 work. At the end of this chapter we will discuss more about how to
@@ -178,14 +181,14 @@ image::{imagedir}/reverse-pubkey-derivation.svg[{half-width}]
 This would make the system highly insecure, as anyone could now take
 anyone else's money.
 
-In reality, if a weakness is discovered, it doesn't neccesarily mean
-that one can easily figure out the private key from a public key. It
-more likely will just make it less hard to guess the private key by
-some order of magnitude. For example it would require trial-and-error
-with on average 2^127^ guesses instead of 2^255^. That is a very
-serious weakaning of the private key security, but it would still be
-very hard to find a private key by doing 2^127^ trials, but it might
-not be totally infeasible.
+In reality, if a weakness is discovered, it probably doesn't mean that
+one can easily figure out the private key from a public key. It more
+likely will just make it less hard to guess the private key by some
+order of magnitude. For example it would require trial-and-error with
+on average 2^127^ guesses instead of 2^255^. That is a very serious
+weakaning of the private key security, but it would still be very hard
+to find a private key by doing 2^127^ trials, but it might not be
+totally infeasible.
 
 ==== Hash public key to 20 bytes
 
@@ -241,10 +244,10 @@ yourself. Use the hint in the margin. If not, don't worry, please read
 ahead.
 
 An attacker wanting to steal money from the café would need to reverse
-three very different one-way functions. She would need to
+two very different one-way functions. She would need to
 
-1. pre-image attack RIPEMD160, this means reverse it.
-2. pre-image attack SHA256
+1. pre-image attack the SHA256 + RIPEMD160 cryptographic hash
+function, this means find a public key that has the cafe's public key hash.
 3. reverse the public key derivation function
 
 To do this she would need to find major weaknesses in all three of
