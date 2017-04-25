@@ -266,16 +266,17 @@ Now that we've stengthened the security of our cookie token
 spreadsheet, let's think about privacy again. Has this improved
 privacy? Is it harder for Acme Insurances to figure out information
 about who's paying who now compared to when we used public keys in the
-spreadsheet? The answer is no. There is a 1-to-1 correspondance
-between the public keys and the public key hashes. Using public key
-hashes does not hide personal information more than using plain public
-keys.
+spreadsheet? The answer is no. There is practically a 1-to-1
+correspondance between the public keys and the public key
+hashes. Using public key hashes does not hide personal information
+more than using plain public keys.
 
 [.inbitcoin]
 .P2PKH
 ****
-Most payments in Bitcoin are made with a public key has as the
-recipient. But there are other types of payments as well.
+Most payments in Bitcoin are made with a public key hash as the
+recipient. This type is often called pay-to-public-key-hash, or
+P2PKH. But there are other types of payments as well.
 ****
 
 The choice of RIPEMD160 as the last cryptographic hash function is not
@@ -368,7 +369,7 @@ to make poor John stop crying.
 [.inbitcoin]
 .Bitcoin addresses
 ****
-Cookie token addresses are exactly as the most common verion of
+Cookie token addresses are exactly as the most common version of
 Bitcoin addresses. There are however other types of Bitcoin addresses.
 ****
 
@@ -389,8 +390,8 @@ image::{imagedir}/payment-with-address.svg[{half-width}]
 [.gbfaq]
 .Who uses CT addresses?
 ****
-Cookie token addresses are only used by users to safely transmit PKH
-between each other. Lisa never handles them.
+Cookie token addresses are only used between users to safely transmit
+a PKH. Lisa never sees them.
 ****
 
 The payment process is changed for the payer, but nothing is changed
@@ -491,6 +492,7 @@ Let's get back to our example where John creates his address. He has
 just added a version and a checksum. Now it's time to encode the 25
 bytes into an address.
 
+[id=base58-encoding]
 .Encoding John's versioned and checksummed public key hash with base58. The essential part is where you divide the number by 58 and keep the remainders. The remainders are then mapped one by one in the lookup table.
 image::{imagedir}/base58.svg[{big-width}]
 
@@ -547,51 +549,8 @@ checksum and the just removed checksum must match. Otherwise some
 typing error has occurred. If a typing error has occurred, Faiza would
 not create the message. She would verify that she entered the address
 correctly and that John gave her the correct address. Somewhere along
-the way, the address got corrupted.
-
-=== Summary of the address creation process
-
-Let's put the pieces together and have a look at the whole process
-again.
-
-****
-image::{imagedir}/address-creation-abstract.svg[]
-****
-
-.John creates his cookie token address. He creates a key pair and his public key is hashed into a public key hash. His public key hash is base58check encoded into a cookie token address.
-image::{imagedir}/address-creation-summary.svg[{big-width}]
-
-.Release notes
-****
-*Cookie Tokens 2.1*
-
-|===
-| Feature | Technology
-
-| *safe from typing errors* | *CT addresses*
-| *privacy improvements* | *PKH in spreadsheet*
-| Secure payments | Digital signatures
-|===
-****
-
-Faiza makes sure no typing errors happens by base58check decoding
-the address before signing the message.
-
-.Faiza makes the payment to John and makes sure the address is valid
-image::{imagedir}/payment-with-address.svg[{half-width}]
-
-.Toolbox
-****
-image::{imagedir}/toolbox.svg[]
-****
-
-Thanks to PKH and cookie token addresses
-
-* Lisa can ditch her public key table.
-* anyone can create an address without asking Lisa or anyone else.
-* anyone can create multiple addresses.
-
-We add PKH and addresses to our toolbox for later use.
+the way, she knows the address got corrupted before sending anything
+to Lisa.
 
 === Back to privacy
 
@@ -601,8 +560,8 @@ information that Acme Insurances finds useful.
 [.inbitcoin]
 .Forensics
 ****
-This technique is often used in Bitcoin during crime investigations
-for example.
+This technique is often used in Bitcoin, for example during crime
+investigations.
 ****
 
 For example, they could probably figure out that the café has the
@@ -615,7 +574,7 @@ only made one payment so far, the one to John. Faiza, unknowing of why
 Acme asks questions, discloses to Acme that the transaction is for
 John.
 
-.Dear John
+.Dear John,
 ****
 It has come to our attention that you live an unhealthy life. We have
 therefore promoted you to a higher risk category. Congratulations.
@@ -638,13 +597,80 @@ This will make it harder for Acme to extract information from the
 cookie token spreadsheet. They will not be able to tell which payments
 originate from the same person.
 
+=== Summary of the address creation process
+
+Let's put the pieces together and have a look at the whole process
+again.
+
+****
+image::{imagedir}/address-creation-abstract.svg[]
+****
+
+.John creates his cookie token address. He creates a key pair and his public key is hashed into a public key hash. His public key hash is base58check encoded into a cookie token address.
+image::{imagedir}/address-creation-summary.svg[{big-width}]
+
+Faiza makes sure no typing errors happens by base58check decoding
+the address before signing the message.
+
+.Faiza makes the payment to John and makes sure the address is valid
+image::{imagedir}/payment-with-address-summary.svg[{half-width}]
+
+.Toolbox
+****
+image::{imagedir}/toolbox.svg[]
+****
+
+Thanks to PKH and cookie token addresses, Lisa can ditch her table of
+public keys. We add PKH and addresses to our toolbox for later use and
+release a new version, 3.0, of the cookie token system.
+
+[%autowidth,options="header"]
+.Release notes, cookie tokens 3.0
+|===
+|Version|Feature|How
+
+.2+|image:{commonimagedir}/new.png[role="gbnew"]*3.0*
+|Safe from expensive typing errors
+|Cookie token addresses
+|Privacy improvements
+|PKH, instead of personal names, is stored in spreadsheet.
+
+|2.0
+|Secure payments
+|Digital signatures solves the problem with the imposter
+
+|1.0
+|Simple payment system
+|Relies on Lisa being very trustworthy and knowing everyone's face
+|===
+
+
 === Exercises
+
+==== Warm up
+
+. The public key hash (PKH) is only 160 bits? We made it shorter by
+using RIPEMD160. Why do we want it shorter? There are two good
+reasons.
+. If the recipient PKH is misspelled in the note to lisa, when will
+that be discovered?
+. Can you convince Lisa to reverse payments?
+. Base58check encoding is used to create a cookie token (Bitcoin)
+address from a PKH. Can you reverse that process to create a PKH from
+an address.
+. When is base58check decoding used, and by whom?
+. Base58 encode the two bytes 0041. Use the diagram in
+<<base58-encoding,Figure 48>>. Skip this exercise if you didn't read
+the section on base58 encoding.
+. What in an address makes it safe from typing errors?
+
+==== Dig in
 
 .John's money
 ****
 image::{imagedir}/exercise-johns-money.svg[]
 ****
-
+[start=8]
 1. Imagine that John wants a cookie from the café. He has two
 addresses, one with balance 5 cookie tokens and another with 8 cookie
 tokens. His total balance is 13 CT so he should afford to pay 10 CT
@@ -663,9 +689,22 @@ certain payment by looking at just the spreadsheet?
 payments. What information could Acme use to roughly identify the
 cafe's addresses?
 
+****
+image::{imagedir}/address-creation-exercise.svg[]
+****
+
+[start=12]
+1. Suppose that there was a serious flaw in the public key derivation,
+so that anyone can calculate the private key from a public key. What
+prevents a bad guy from stealing your money?
+
+1. Suppose that there was a serious flaw in RIPEMD160 so that anyone
+can easily figure out an SHA256 hash to derive the PKH from. It is not
+pre-image resistant. What prevents a bad guy from stealing your money?
+
 === Recap
 
-In this chapter you leared that
+In this chapter you learned that
 
 * Privacy is important for you, not just for criminals.
 * Using public key hashes instead of personal names as recipient for
@@ -673,6 +712,8 @@ In this chapter you leared that
 * Encoding a PKH as a Bitcoin address, or cookie token address,
   reduces the risk of sending money into void. The checksum in the
   address will prevent that.
+* Anyone can create multiple addresses without asking Lisa or anyone
+  else for permission. This improves users' privacy.
 * Only users care about Bitcoin addresses. The Bitcoin network, or
   Lisa, deals with plain public key hashes.
 * You can have as many Bitcoin addresses as you like. Using multiple

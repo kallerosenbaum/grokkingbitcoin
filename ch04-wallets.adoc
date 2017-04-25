@@ -923,7 +923,7 @@ There are three important key derivation functions:
 image::{imagedir}/summary-key-derivation.svg[{big-width}]
 
 [%autowidth,options="header"]
-.Release notes, cookie tokens 2.1
+.Release notes, cookie tokens 4.0
 |===
 |Version|Feature|How
 
