@@ -81,7 +81,7 @@ image::{imagedir}/pay-to-name-note.svg[]
 .New style payment using public keys instead of names.
 image::{imagedir}/payment-with-pubkey.svg[{half-width}]
 
-The note to lisa contains a few vital parts
+The note to Lisa contains a few vital parts
 
 * a message containing
 ** amount
@@ -110,7 +110,7 @@ Faiza creates a private and a public key. This is done in exactly the
 same way as in <<_improving_cookie_token_security,chapter 2>>, but the
 public key is not handed over to Lisa. Now that Lisa don't have the
 table of names and public keys, there's no point in giving the public
-key to Lisa any more. She don't need it. Instead, Faize hands the
+key to Lisa any more. She don't need it. Instead, Faiza hands the
 public key to the one who wants to pay her cookie tokens, the company.
 
 The company creates a message that asks Lisa to move 100 CT from `037e944a...36de9496` to `029a726c...ad8f436d`.
@@ -167,37 +167,26 @@ These actions have improved privacy as well as simplified Lisa's
 work. At the end of this chapter we will discuss more about how to
 further improve privacy.
 
-=== Harden the security of the private key
+=== Shorten the public key
 
-We rely on digital signatures to secure our cookie tokens. With all
-public keys in the spreadsheet, imagine what could happen if a
-weakness in the cryptoghraphy system is discovered that makes it
-possible to reverse the public key derivation function. This would
-mean that you can calculate the private key from the public key.
-
-.Reversing the public key derivation function. You would be able to determine the private key from the public key.
-image::{imagedir}/reverse-pubkey-derivation.svg[{half-width}]
-
-This would make the system highly insecure, as anyone could now take
-anyone else's money.
-
-In reality, if a weakness is discovered, it probably doesn't mean that
-one can easily figure out the private key from a public key. It more
-likely will just make it less hard to guess the private key by some
-order of magnitude. For example it would require trial-and-error with
-on average 2^127^ guesses instead of 2^255^. That is a very serious
-weakaning of the private key security, but it would still be very hard
-to find a private key by doing 2^127^ trials, but it might not be
-totally infeasible.
+Privacy was improved by using public keys in the spreadsheet, but they
+do take up a lot of space, compared to the names. The name "john"
+takes 4 bytes in the spreadsheet, while a public key takes 33
+bytes. Keeping the spreadsheet as small as possible is important,
+because a smaller spreadsheet means faster downloading for coworkers
+wanting to check their balance and it takes less space on Lisa's hard
+drive.
 
 ==== Hash public key to 20 bytes
 
-There are some really security oriented people at the company. They
-have figured out a way to protect us from the above catastrophic
-scenario. They suggest that we replace each public key in the cookie
-token spreadsheet with a cryptographic hash of the public key. Not
-from a single cryptographic hash function, but from two different
-cryptographic hash functions:
+Some developers thinks that we can replace the 33 byte public keys
+with something shorter while still preserving enough security. They
+suggest that we replace each public key in the cookie token
+spreadsheet with a cryptographic hash of the public key. This is to
+shorten the senders and recipients of the spreadsheet, but also to
+protect user's money if a flaw in the public key derivation function
+is found. The hashing is not made with a single cryptographic hash
+function, but from two different cryptographic hash functions:
 
 .Replace the public keys with the RIPEMD160 hash of the SHA256 hash of the public key.
 image::{imagedir}/hash-public-key.svg[{big-width}]
@@ -224,53 +213,6 @@ CT from the company. Suppose that John wants to buy a cookie.
 .John buys a cookie. The sender is still a public key, but the recipient is a public key hash instead of a public key. Lisa needs to create the public key hash from the public key in order to verify the balance and execute the payment.
 image::{imagedir}/payment-with-pubkey-hash.svg[{big-width}]
 
-First, the message to Lisa is changed a little bit. John must put the
-café's public key _hash_ as the recipient. The sender is still a
-public key. Can you tell why John needs to provide his public key, and
-not his public key hash, as the sender in the message?
-
-Second, Lisa must create the public key hash from the sender's public
-key in order to check the sender's balance.
-
-.Pre-image resistance
-****
-image::{imagedir}/pre-image-resistance.svg[]
-****
-
-How are public key hashes protecting us from the catastrophic scenario
-where the private key is not secure any more? I will explain in the
-next paragraph, but I think you might be able to answer this
-yourself. Use the hint in the margin. If not, don't worry, please read
-ahead.
-
-An attacker wanting to steal money from the café would need to reverse
-two very different one-way functions. She would need to
-
-1. pre-image attack the SHA256 + RIPEMD160 cryptographic hash
-function, this means find a public key that has the cafe's public key hash.
-3. reverse the public key derivation function
-
-To do this she would need to find major weaknesses in all three of
-these technologies, which is highly unlikely. Just the probability of
-the catastrophic scenario that started this idea is tiny. The
-probability that all three of these technologies are weak is
-exponentially tinier. Let's just say we're safe, shall we?
-
-[.gbfaq]
-.Have privacy improved?
-****
-No.
-****
-
-Now that we've stengthened the security of our cookie token
-spreadsheet, let's think about privacy again. Has this improved
-privacy? Is it harder for Acme Insurances to figure out information
-about who's paying who now compared to when we used public keys in the
-spreadsheet? The answer is no. There is practically a 1-to-1
-correspondance between the public keys and the public key
-hashes. Using public key hashes does not hide personal information
-more than using plain public keys.
-
 [.inbitcoin]
 .P2PKH
 ****
@@ -279,20 +221,81 @@ recipient. This type is often called pay-to-public-key-hash, or
 P2PKH. But there are other types of payments as well.
 ****
 
-The choice of RIPEMD160 as the last cryptographic hash function is not
-just a random choice by the security consious coworkers. They
-deliberatly chose one that would output slightly shorter values,
-because they will be easier to write and take less space in the
-spreadsheet while still providing enough security. Compare the output
-from SHA256 with the output from RIPEMD160:
+First, the message to Lisa is changed a little bit. John must put the
+cafe's public key _hash_ as the recipient. The sender is still a
+public key. Can you tell why John needs to provide his public key, and
+not his public key hash, as the sender in the message?
+
+Second, since the spreadsheet now contains public key hashes, Lisa
+must calculate the public key hash from the sender's public key in order
+to check the sender's balance.
+
+==== Why SHA256 and RIPEMD160?
+
+The choice of RIPEMD160 as the last cryptographic hash function is a
+deliberate choice to make the public key hashes shorter. Compare the
+output from SHA256 with the output from RIPEMD160:
 
  SHA256:
  85ae273f0aa730eddf2285d3f3ab071eb29caba1e428db90e6dfbd71b8e1e918
  RIPEMD160:
  5f2613791b36f667fdb8e95608b55e3df4c5f9eb
 
-It's a trade-off between security and convenience, as is very often
-the case. From now on we will denote the public key hash as PKH.
+It's a well-balanced trade-off between security and size. From now on
+we will denote the public key hash as PKH.
+
+But why have two different cryptographic hash functions? In Bitcoin we
+don't really know why this exact scheme was chosen, because Satoshi
+Nakamoto, the inventor of Bitcoin, have stopped corresponding with the
+Bitcoin community. We can only speculate on why it was chosen. Instead
+let us discuss some properties of this scheme.
+
+If any one of the hash functions are not pre-image resistant the other
+still is. This means that if you can _calculate_ an input that gives a
+certain PKH output, you still need to pre-image attack SHA256 (with
+about 2^255^ guesses) in order to find the public key.
+
+****
+image::{imagedir}/flawed-sha256.svg[]
+****
+
+On the other hand, if it turns out that any of the two cryptographic
+hash functions' output set is smaller than anticipated, then the
+security of the whole chain of hash functions suffers. To make it more
+clear, pretend that it turns out that SHA256 only have 100 different
+possible output values. Then you can steal money from anyone by trying
+different random private keys and calculate the corresponding public
+key hash. If the PKH matches your target, you can steal the money. On
+average you would only have to test 50 different private keys in order
+to steal from one PKH. This property actually gives us the worst of
+both worlds, meaning that if any of the two functions are weak, then
+the whole chain is weak. The probability that any of these functions
+have such a flaw is very small. If there is any such flaw it is
+believed that the reduction in the output set is not significant
+enough to danger the security. Remember, we have yet to find one single
+collision in any of these cryptographic hash functions.
+
+Another thing to note is that the two cryptographic hash functions are
+developed by very different organizations. RIPEMD160 is developed by a
+European university in open collaboration with a broad community of
+cryptographers. SHA256 was developed by the United States National
+Security Agency, the NSA. Both are considered secure and both have
+been subject to scrutiny from a large number of people.
+
+[.gbfaq]
+.Have privacy improved?
+****
+No.
+****
+
+Now that we've strengthened the security of our cookie token
+spreadsheet, let's think about privacy again. Has this improved
+privacy? Is it harder for Acme Insurances to figure out information
+about who's paying who now compared to when we used public keys in the
+spreadsheet? The answer is no. There is practically a 1-to-1
+correspondence between the public keys and the public key
+hashes. Using public key hashes does not hide personal information
+more than using plain public keys.
 
 === Avoiding expensive typing errors
 
@@ -328,11 +331,11 @@ about the recipient. She inserts a new row in the spreadsheet paying
 from `5f2613791b36f667fdb8e95608b55e3df4c5f9eb` to
 `87e3d1692022a7744bf2406a963c656c8393b1cd`.
 
-Then she consideres herself done, moving on to other interesting
-tasks. The café owner who is searching for his public key hash
+Then she considers herself done, moving on to other interesting
+tasks. The cafe owner who is searching for his public key hash
 in the spreadsheet will not see any incoming payment. John
-stands at the counter in the café yelling at the café owner that he
-DID send money, now GIVE ME THE FREAKIN' COOKIE. The café owner
+stands at the counter in the cafe yelling at the cafe owner that he
+DID send money, now GIVE ME THE FREAKIN' COOKIE. The cafe owner
 refuses. John takes a close look at the spreadsheet and searches for
 his public key hash. He find the one he just made and now realizes his
 spelling mistake.
@@ -343,20 +346,20 @@ image:{imagedir}/pkh-pre-image-resistance.svg[]
 
 John has sent money to a "public key hash" for which there is no known
 private key. No one is ever going to be able to spend those 10 CT, not
-the café, not John, nobody. John has just digitally burned 10 CT.
+the cafe, not John, nobody. John has just digitally burned 10 CT.
 
 Unfortunately, this will probably happen again and again in the future
 if nothing is done to prevent it. The problem can happen anywhere from
 when the cafe owner reads his own public key hash to give to John, to
 when John writes his message before signing it. You could argue that
 Lisa could also make this mistake when she updates the spreadsheet,
-but she's so thourough that it will _never_ happen. She's just too
+but she's so thorough that it will _never_ happen. She's just too
 good at what she's doing for that to happen. Lisa will never cause
 someone else's funds to be burned.
 
 The security oriented people discuss this problem and comes up with an
 idea of Cookie Token Addresses. A cookie token address is a public key
-hash endcoded in a certain way so that typing errors will be detected
+hash encoded in a certain way so that typing errors will be detected
 if they occur. At the same time they will make the recipient even
 shorter to write for the user.
 
@@ -374,7 +377,7 @@ Bitcoin addresses. There are however other types of Bitcoin addresses.
 ****
 
 She doesn't want to make the same mistake as John did, so she asks
-John for his cookie token address. John creates it by endoding his
+John for his cookie token address. John creates it by encoding his
 public key hash with a function called _base58check_:
 
 .Overview of the base58check encoding which transforms a public key hash into a cookie token address
@@ -441,7 +444,7 @@ bytes in a more compact way than hexadecimal encoding.
 ===== Use a compact encoding
 
 Hex encoding is a very inefficient way to represent bytes of data. It
-requires two characters for each byte. We only use 16 differect
+requires two characters for each byte. We only use 16 different
 characters, where each character represent 4 bits, 0000 to 1111.
 
 What if we could use more different characters to represent
@@ -465,7 +468,7 @@ very similar in some fonts, lI (minor L, capital I), 0O (zero and
 capital Oh). We also need a format that can be easily copy-and-pasted
 by users, meaning that special characters, like `+` and `/` should not
 be allowed because they will prevent you from marking the whole data
-by double-clicking it. If we remove those 6 charachters we reduce the
+by double-clicking it. If we remove those 6 characters we reduce the
 possibility of typing errors. But now we only have 58 characters left,
 so we need another type of encoding.
 
@@ -514,7 +517,7 @@ check the margin.
 
 Base58 encoded data like John's address can be decoded back to the
 original input of the base58 encoding. I will leave that as en
-excersise for the interested reader.
+exercise for the interested reader.
 
 [id=base58check-decoding]
 ==== Base58check decoding
@@ -531,7 +534,7 @@ about base58check encoding is that the process can be reversed so that
 you can get the public key hash from the address while at the same
 time checking for typing errors.
 
-.Base58chack decoding is basically done by reversing the base58check encoding. Typing errors are detected when the checksums don't match.
+.Base58check decoding is basically done by reversing the base58check encoding. Typing errors are detected when the checksums don't match.
 image::{imagedir}/address-decoding.svg[{big-width}]
 
 [.gbfaq]
@@ -564,7 +567,7 @@ This technique is often used in Bitcoin, for example during crime
 investigations.
 ****
 
-For example, they could probably figure out that the café has the
+For example, they could probably figure out that the cafe has the
 public key hash `87e3d1692022a7744bf2406a963c656c8393b1cc` because
 there are a lot of 10CT payment to that public key hash. From that
 they will be able to see what public key hashes are making the most
@@ -589,13 +592,13 @@ premium has been adjusted accordingly.
 
 There are obviously still privacy issues to deal with. Luckily, as
 noted above, users can create as many addresses they like. For example
-the café could create a unique address for every incoming payment. And
+the cafe could create a unique address for every incoming payment. And
 John can create a brand new cookie token address the next time he will
 accept cookie tokens from Faiza.
 
 This will make it harder for Acme to extract information from the
 cookie token spreadsheet. They will not be able to tell which payments
-originate from the same person.
+belong to the same person.
 
 === Summary of the address creation process
 
@@ -652,7 +655,7 @@ release a new version, 3.0, of the cookie token system.
 . The public key hash (PKH) is only 160 bits? We made it shorter by
 using RIPEMD160. Why do we want it shorter? There are two good
 reasons.
-. If the recipient PKH is misspelled in the note to lisa, when will
+. If the recipient PKH is misspelled in the note to Lisa, when will
 that be discovered?
 . Can you convince Lisa to reverse payments?
 . Base58check encoding is used to create a cookie token (Bitcoin)
@@ -671,10 +674,10 @@ the section on base58 encoding.
 image::{imagedir}/exercise-johns-money.svg[]
 ****
 [start=8]
-1. Imagine that John wants a cookie from the café. He has two
+1. Imagine that John wants a cookie from the cafe. He has two
 addresses, one with balance 5 cookie tokens and another with 8 cookie
 tokens. His total balance is 13 CT so he should afford to pay 10 CT
-for a cookie. How would he pay 10 CT to the café?
+for a cookie. How would he pay 10 CT to the cafe?
 
 1. Is it possible to deduce what addresses were involved in a certain
 payment by looking at just the spreadsheet?
