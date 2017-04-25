@@ -283,7 +283,7 @@ Security Agency, the NSA. Both are considered secure and both have
 been subject to scrutiny from a large number of people.
 
 [.gbfaq]
-.Have privacy improved?
+.Has privacy improved?
 ****
 No.
 ****
