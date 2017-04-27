@@ -51,13 +51,12 @@ use it.
 Satoshi Nakamoto, a pseudonym whose identity is unknown, published a
 scientific paper on an e-mail list for cryptography related
 discussions in October 2008. The title of the paper was "Bitcoin: A
-Peer-to-Peer Electronic Cash
-System"footnote:[https://bitcoin.org/bitcoin.pdf] and it described the
-vital parts of Bitcoin. Later, in January 2009, Nakamoto published the
-first software program to implement the described system. Bitcoin
-didn't get much attention then, apart from within a very limited set
-of cryptography experts. But gradually, as the system proved itself to
-be working, more people got interested in it.
+Peer-to-Peer Electronic Cash System", see <<web-bitcoin-paper>>, and it
+described the vital parts of Bitcoin. Later, in January 2009, Nakamoto
+published the first software program to implement the described
+system. Bitcoin didn't get much attention then, apart from within a
+very limited set of cryptography experts. But gradually, as the system
+proved itself to be working, more people got interested in it.
 
 [.inbitcoin]
 .The Bitcoin network
@@ -434,13 +433,13 @@ good job.
 
 As noted in the previous section, not all people have access to bank
 accounts. People with bank accounts and banking services like online
-payments or loans are very privileged. About 38%
-footnote:[http://datatopics.worldbank.org/financialinclusion/] of the
-world population don't have a bank account at all, according to the
-World Bank. The numbers are improving but still a vast amount of
-people are stuck in a cash-only environment. If these people want to
-receive money from a family member abroad, they will receive 5% less,
-due to higher remittance fees, than if they had a bank account.
+payments or loans are very privileged. About 38% of the world
+population don't have a bank account at all, according to the World
+Bank, see <<web-financial-inclusion>>. The numbers are improving but
+still a vast amount of people are stuck in a cash-only environment. If
+these people want to receive money from a family member abroad, they
+will receive 5% less, due to higher remittance fees, than if they had
+a bank account.
 
 Without a bank account and basic bank services like online payments,
 people can not expand their businesses outside of their local
@@ -497,14 +496,12 @@ your political view.
 
 We have seen lots of examples where these abilities are misused to
 disable someones ability to transact. For example, the non-profit
-organization WikiLeaks was put under a
-blockade footnote:[https://en.wikipedia.org/wiki/Reception_of_WikiLeaks#Response_from_the_financial_industry]
-in 2010, where all donations through traditional channels were blocked
-after pressure from the US government on the major payment
-networks, like Visa and MasterCard. We have also seen how Cyprus
-seized footnote:[https://www.bloomberg.com/news/articles/2013-07-30/cyprus-sets-levy-on-bank-of-cyprus-uninsured-depositors-at-47-5-]
-47.5% of all bank deposits exceeding 100,000€ as part of a financial
-rescue program in 2013.
+organization WikiLeaks was put under a blockade in 2010, see
+<<web-wikileaks-blockade>>, where all donations through traditional
+channels were blocked after pressure from the US government on the
+major payment networks, like Visa and MasterCard. We have also seen
+how Cyprus seized 47.5% [<<web-cyprus-seizure>>] of all bank deposits exceeding 100,000€ as
+part of a financial rescue program in 2013.
 
 === The Bitcoin approach
 
@@ -799,7 +796,7 @@ Bitcoin, for example the Lightning Network.
 
 The confirmation time of Bitcoin is nowhere near the confirmation
 times of VISA or MasterCard, where a merchant must wait for weeks
-footnote:[https://www.dalpay.com/en/support/chargebacks.html] before
+[<<web-chargebacks>>] before
 being sure that the transaction is not reversed. Merchants usually
 take on some risk to avoid having their customers wait weeks before
 delivering the goods or service. Bitcoin cuts this waiting period

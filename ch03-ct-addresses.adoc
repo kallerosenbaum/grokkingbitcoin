@@ -674,21 +674,21 @@ the section on base58 encoding.
 image::{imagedir}/exercise-johns-money.svg[]
 ****
 [start=8]
-1. Imagine that John wants a cookie from the cafe. He has two
+. Imagine that John wants a cookie from the cafe. He has two
 addresses, one with balance 5 cookie tokens and another with 8 cookie
 tokens. His total balance is 13 CT so he should afford to pay 10 CT
 for a cookie. How would he pay 10 CT to the cafe?
 
-1. Is it possible to deduce what addresses were involved in a certain
+. Is it possible to deduce what addresses were involved in a certain
 payment by looking at just the spreadsheet?
 +
 [{half-width}]
 image::{imagedir}/exercise-deduce-address-or-pubkey.svg[]
 
-1. Is it possible to deduce what public keys were involved in a
+. Is it possible to deduce what public keys were involved in a
 certain payment by looking at just the spreadsheet?
 
-1. Suppose that everybody always used unique addresses for all
+. Suppose that everybody always used unique addresses for all
 payments. What information could Acme use to roughly identify the
 cafe's addresses?
 
@@ -697,11 +697,11 @@ image::{imagedir}/address-creation-exercise.svg[]
 ****
 
 [start=12]
-1. Suppose that there was a serious flaw in the public key derivation,
+. Suppose that there was a serious flaw in the public key derivation,
 so that anyone can calculate the private key from a public key. What
 prevents a bad guy from stealing your money?
 
-1. Suppose that there was a serious flaw in RIPEMD160 so that anyone
+. Suppose that there was a serious flaw in RIPEMD160 so that anyone
 can easily figure out an SHA256 hash to derive the PKH from. It is not
 pre-image resistant. What prevents a bad guy from stealing your money?
 
