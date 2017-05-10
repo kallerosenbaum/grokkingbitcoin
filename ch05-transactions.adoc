@@ -741,8 +741,7 @@ Instead, let's introduce a new address format for p2sh, which we call
 pay-to-script-hash-address. This format is very similar to normal
 cookie token addresses.
 
-.Create a p2sh address. The difference from normal addresses is the
-version which is 5 for p2sh addresses instead of 0.
+.Create a p2sh address. The difference from normal addresses is the version which is 5 for p2sh addresses instead of 0.
 image::{imagedir}/p2sh-address-encoding.svg[{big-width}]
 
 This process is the same as for (pay-to-public-key-hash) p2pkh
