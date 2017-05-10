@@ -102,6 +102,7 @@
 === Lisa rewrites history
 === Coworkers propose a blockchain
 ==== Lisa publish blocks every 10 minutes
+==== Coinbase transaction
 ==== The blocks are cryptographically chained
 ==== Nodes - Independent validators
 ===== Keeps their own copy of the blockchain

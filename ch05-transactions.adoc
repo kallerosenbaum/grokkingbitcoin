@@ -1,0 +1,834 @@
+[[ch05,Chapter 5]]
+== Transactions - Reducing trust in Lisa
+:imagedir: {baseimagedir}/ch05
+
+This chapter covers
+
+* Bitcoin, or cookie token, transactions
+* Making the payments verifiable by anyone
+* Fancy payment types
+
+The payments so far has some serious problems. The worst of them is
+that Lisa can steal, which worries some new people. They are hesitant
+to use the system if they know Lisa can steal from them.
+
+The main focus of this chapter will be on transactions. Transactions,
+which replace our old "Note to Lisa", are pieces of data that
+formailzes how users send their payments to Lisa, so that Lisa can
+automate her work. The transactions will be stored as-is in the
+spreadsheet instead of the "To", "From", "Amount CT" scheme we
+currently use. This makes it impossible for Lisa to steal other
+peoples money, because anyone can now verify all payments in the
+spreadsheet.
+
+After this chapter the system will have changed a lot: How wallets
+make payments, how Lisa verifies payments, and how payments are
+stored. And most important, everyone will be able to verify payments
+in the spreadsheet.
+
+=== Problems
+
+Lisa is performing valuable work. She makes sure no one cheats. She
+does that by verifying digital signatures and checking the balance of
+the PKH before confirming a payment. To confirm a payment means that
+she appends it to the cookie token spreadsheet.
+
+There are a number of problems with this approach:
+
+* Lisa is getting tired of calculating the balance before approving a
+  payment. The ledger is growing and each check becomes more time
+  consuming as new payments are added.
+
+* If you have two keys with 5 cookie tokens each, you need to make two
+  separate payments to pay for a cookie. This lays unneccesary burden
+  on the sender as well as Lisa. It also bloats the spreadsheet with
+  excessive rows.
+
+* Since the company has grown and some people don't know Lisa very
+  well, trust in her begins to fade. Some people fear that Lisa will
+  steal CT from them in the spreadsheet. Only Lisa verifies
+  signatures, so she _could_ increase the "Amount CT" column of a
+  payment to her or add a row with a false payment from, say John, to
+  Lisa. No one would notice, and if they notice there are no proofs of
+  fraud. It doesn't matter that Lisa is the most trustworthy human on
+  earth. If people don't know that, they are going to assume that Lisa is
+  as greedy as everyone else.
+
+.Bad stuff Lisa *could* do. She wouldn't, but she could.
+image::{imagedir}/lisa-could-steal.svg[{half-width}]
+
+[.inbitcoin]
+.Minimize trust
+****
+Minimizing trust between people is what Bitcoin is all about. This is
+one step closer to a trustless system, where everyone can verify
+everything.
+****
+
+Lisa hates that people distrust her. She knows there's not much she
+can do to change the coworkers trust in her. An interesting
+alternative is to _minimize the trust needed_. She concludes that the
+best way to do that is to make everything super-transparent so that
+everyone can verify payments. At the same time she will improve how to
+verify that people don't spend money they don't have and how to spend
+from multiple addresses at the same time. She invents the cookie token
+_transaction_ to solve the three problems outlined above.
+
+=== Pay using a transaction
+
+Transactions will replace both how the user's wallets send payments to
+Lisa and what is stored in the spreadsheet. It will not change how
+wallets behave from a user's perspective, the wallet app will look
+exactly the same.
+
+[.gbinfo]
+.PKH~x~ and @~x~
+****
+Public key hashses and addresses can be converted back and
+forth. Therefore we may use @~x~ and PKH~x~ interchangeably and let
+the context represent what they mean. As a general rule of thumb,
+wallets and humans deal with addresses, while transactions, Lisa, and
+the spreadsheet deal with public key hashes.
+****
+
+Suppose that John wants to buy a cookie in the cafe. The cookie costs
+10 CT, but John only has two addresses with money on them, one with 8
+CT, @~1~, and one with 5 CT, @~2~.
+
+John will not make a "Note to Lisa" as he has done so many times
+before. The wallet software now uses _transactions_, so his wallet
+will create a _transaction_ instead. The purpose of the transaction is
+to pay 10 CT to the Cafe's address @~C~.
+
+.The payment process is the same for users, but very different for Lisa and the spreadsheet.
+image::{imagedir}/wallet-payment-process-transactions.svg[{half-width}]
+
+John scans the cafe's payment URI and his wallet creates a transaction
+and asks John to accept it. He clicks OK, and the wallet signs the
+transaction with two different private keys, one for @~1~ and one
+key for @~2~. John's wallet then sends the signed transaction as an
+attachment in an otherwise empty email to Lisa.
+
+Lisa verifies the transaction by checking that the money it spends
+exists, that they are not already spent, and that the two signatures
+are valid. If all checks pass, Lisa adds it to the spreadsheet.
+
+=== Create the transaction
+
+Let's dive in and have a closer look at what John's transaction
+contains.
+
+.John's wallet prepares to pay 10 CT for a cookie. He uses both his keys with funds to cover the cost. He pays himself the change of 3 CT to a fresh address. The transaction is not yet signed.
+image::{imagedir}/transaction.svg[{big-width}]
+
+A transaction id (txid) of a transaction is the double SHA256,
+dSHA256, hash of the transaction. We will frequently use the term
+transaction id (txid). It is called a transaction _id_ because this
+hash is often used to refer to the transaction, as in the case with
+inputs in the picture above.
+
+[.gbinfo]
+.This is a simplification
+****
+The outputs and inputs is a bit more advanced that just specifying a
+PKH in an output. In reality the output contains a tiny computer
+program that will verify the signature in the input trying to spend
+this output. We will talk more about that later.
+****
+
+John has created a new transaction. The new transaction has two
+_inputs_ and two _outputs_. Outputs specify where the money goes and
+inputs specify what outputs of previous transactions to spend. A
+transaction output contains an amount and a public key hash, PKH. In
+John's transaction there are two outputs, index 0 paying 10 CT to
+PKH~C~, the Cafe, for the cookie, and index 1 that pays 3 CT back to
+one of John's own keys, PKH~3~. We call this _change_ because it
+resembles traditional change where you pay $75 with a $100 bill and
+get $25 back as change: John pays with 13 CT and gets 3 CT back to his
+change address PKH~3~. Change is needed because you cannot partly
+spend a transaction output. You either spend it completely, or you
+don't spend it.
+
+The inputs specify what transaction outputs to spend. John has two
+unspent transaction outputs, one with 8 CT and one with 5 CT. The
+unspent outputs belongs to two different previous transactions,
+transaction 1 and transaction 2 that once payed money to John. Now
+John wants to spend these unspent transaction outputs. His first
+input, with index 0, contains
+
+* the txid of transaction 1
+* the index, 1, of the output in transaction 1 to spend.
+
+His second input, with index 1, contains
+
+* the txid of transaction 2
+* the index, 0, of the output in transaction 2 to spend.
+
+[.inbitcoin]
+.Transaction fee
+****
+Normally you need to pay a transaction fee in order for the Bitcoin
+network to process your transaction.
+****
+
+For a transaction to be valid, the sum of the amounts of the inputs
+must be greater than or equal to the sum of the output amounts. The
+difference, if any, is called a transaction fee, which we will discuss
+in later chapters. For now, John pays no transaction fee, so his
+output sum matches the input sum exactly.
+
+The transaction is created but not signed yet. Anyone could have
+created this transaction because it is based completely on public
+information. The inputs just refer to transactions in the spreadsheet
+and indexes within those transactions. But only John will be able to
+sign this transaction because only he has the private keys
+corresponding to PKH~1~ and PKH~2~.
+
+=== Sign the transaction
+
+John clicks OK in his wallet to approve the siginig of the
+transaction. The wallet now needs to make two signatures, one
+signature for PKH~1~ and one signature for PKH~2~. This is because
+John must prove that he has both the private key for PKH~1~ and the
+private key for PKH~2~.
+
+.John's wallet signs the transaction. Each input gets its own signature. The public key is also needed in the inputs because anyone should be able to verify the signature.
+image::{imagedir}/sign-transaction.svg[{big-width}]
+
+Each of the inputs needs to be signed individually. For example, the
+private key corresponding to PKH~1~ must be used for input 0, because
+it spends money addressed to PKH~1~. Similarly, the private key
+corresponding to PKH~2~ must be used for the signature in input 1,
+because it spends money addressed to PKH~2~.
+
+Both signatures are cover the whole transaction, but with no signature
+data. You sign the transaction without any signatures in it. You can
+not put a signature in input 0 and _then_ sign for input 1. This is
+because verification becomes hard if the person verifying don't know
+in what order the signatures were made. If you make _all_ signatures
+from a cleaned transaction, then it doesn't matter in what order the
+signatures were made.
+
+When all signatures have been made, they are added to the
+transaction. But there's still one piece missing. How can someone, for
+example the Cafe, verifying the transaction know what public key to
+use for verification of a signature? The cafe can only see the PKH in
+the spent outputs and the signatures in the spending inputs. They
+cannot get the public key from the PKH, because cryptographic hashes
+are one-way functions, remember? John's wallet must explicitly add the
+corresponding public key to the input. The signature in input 0 that
+spends money from PKH~1~ needs to be verified with the public key that
+PKH~1~ was generated from. Similarly, input 1 gets the public key
+corresponding to PKH~2~.
+
+=== Lisa verifies the transaction
+
+The transaction is ready to be sent to Lisa. It is sent to Lisa as an
+attachment in an email. Lisa picks up the transaction and verifies that
+
+* the transaction spends outputs of transactions that actually exist
+  in the spreadsheet
+* the total value of the transaction outputs doesn't exceed the total
+  value of the transaction inputs.
+* the signatures are correct
+* the spent outputs are not already spent by some other transaction in
+  the spreadsheet.
+
+Note that Lisa don't have to calculate the balance of the
+PKH anymore, but she needs to check that the spent output exist and
+that it's not already spent.
+
+How does she check that an output of a transaction is unspent? Doesn't
+she have to search through the speadsheet to look for transactions
+that spend this output? Yes she does. That seems about as cumbersome
+as searching through the spreadsheet to calculate balances. Don't
+worry, Lisa has a plan for that.
+
+==== Unspent transaction output set (UTXO set)
+
+[.inbitcoin]
+.UTXO set
+****
+All nodes in the Bitcoin network maintain a private UTXO set to speed
+up verification of transactions.
+****
+
+To make the spent checks easier she creates a new, private,
+spreadsheet that she calls the _unspent transaction output set_ (UTXO
+set). It is a set of _unspent transaction outputs_ (UTXOs) that she
+keeps updated while verifying transactions.
+
+[.gbinfo]
+.Double spend
+****
+Double spend means to spend the same output twice. Lisa can easily
+prevent others from double spending by consulting her UTXO set.
+****
+
+Before Lisa adds John's transaction to the spreadsheet she makes sure
+that all outputs that the transaction spends are in the UTXO set. If
+not, it means that John is trying to spend money that are already
+spent. We usually refer to this as double spending.
+
+.Lisa verifies that John spends money that are not already spent.
+image::{imagedir}/utxo-set.svg[{half-width}]
+
+For each input in John's transaction, she looks up the txid and the
+output index in her UTXO set. If she doesn't find it, John's
+transaction is invalid because it tries to double spend the output. If
+no double spend attempt was detected, Lisa can add the transaction to
+the spreadsheet.
+
+.Lisa adds the transaction to the spreadsheet and removes the spent outputs from the UTXO set.
+image::{imagedir}/utxo-set-update.svg[{half-width}]
+
+[.gbinfo]
+.UTXO set can be rebuilt
+****
+The UTXO set is built from the transactions in the spreadsheet
+only. It can be recreated at any time and notably by anyone with read
+access to the spreadsheet.
+****
+
+When she adds the transaction to the spreadsheet, she must remove the
+spent outputs from the UTXO set and add the outputs of John's
+transaction to the UTXO set.
+
+Lisa keeps this UTXO set up-to-date at all times by updating it like
+above for every incoming transaction. But we should note that if she
+loses the UTXO set, she can recreate it from the spreadsheet by
+starting with an empty UTXO set and re-apply all transactions in the
+spreadsheet to the UTXO set one by one.
+
+It's not only Lisa who can create a UTXO set. Now, anyone with access
+to the spreadsheet can do the same. This is going to be important in
+later chapters when we replace Lisa with multiple persons doing
+Lisa's job. It's also important for people just wanting to verify the
+spreadsheet to convince themselves that the information in it is
+correct.
+
+==== Script
+
+I haven't been totally honest about what a transaction contains. An
+output of a transaction does not just contain a PKH. Instead, it
+contains part of a small computer program. This part is called
+scriptPubKey. The input that spends the output contains the other part
+of this program. This part, the signature and the public key in this
+case, is called scriptSig.
+
+.The scriptSig is the first part of a program. The scriptPubKey in the spent output is the second part. If the complete program returns `true`, then the payment is authorized to spend the output.
+image::{imagedir}/script.svg[{big-width}]
+
+[.gbinfo]
+.Odd names
+****
+The naming of scriptSig and scriptPubKey can seem a little odd because
+the scriptPubKey doesn't contain a public key, but the scriptSig
+does. In the early times of Bitcoin, the scriptPubKey contained an
+actual public key (not a PKH), while the scriptSig contained a
+signature only (and no public key). It resembled the system we had
+when the names in the spreadsheet were replaced by public keys, before
+we introduced PKH.
+****
+
+This tiny program contains the instructions to Lisa on how to verify
+that the spending transaction is authorized. Suppose that Lisa want's
+to verify input 0 of John's transaction.
+
+She will run this program, either manually, or using some software
+that knows how to run these types of programs. She runs the program
+from top to bottom. A _stack_ is used to keep track of intermediare
+calculation results. The stack is like a pile of stuff. You can add
+stuff on top of the stack and you can take stuff off from the top of
+the stack. To access stuff below the top item, you have to first take
+out all the item on top of it.
+
+Let's start
+
+image:{imagedir}/execute-script-1.svg[{third-width}]
+image:{imagedir}/execute-script-2.svg[{third-width}]
+
+The first (top) item in the program is a signature. A signature is
+just data. When we encounter ordinary data, we will put it on the
+stack. Lisa puts the signature on the previously empty stack. Then she
+encounters a public key which is also just data. She puts that on the
+stack as well. The stack now contains a signature and a public key,
+with the public key being on top.
+
+image:{imagedir}/execute-script-3.svg[{third-width}]
+image:{imagedir}/execute-script-4.svg[{third-width}]
+image:{imagedir}/execute-script-5.svg[{third-width}]
+
+The next item in the program is `OP_DUP`. This is not just data, this
+is an operator. An operator makes calculations based on items on the
+stack, and in some cases the transaction being verified. This specific
+operator is simple, it means "Copy the top item on the stack (but
+keep it on the stack) and put the copy on top". Lisa follows orders and copies the public key on the stack. Now we have two public keys and a signature on the stack.
+
+The next item is also an operator, `OP_HASH160`. This means "Take the
+top item off the stack and hash it using SHA256+RIPEMD160 and put the
+result on the stack.". Cool, Lisa takes the top public key from the
+stack and hashes it and puts the resulting PKH on top of the
+stack. This happens to be John's PKH~1~ because it was John's public
+key that was hashed.
+
+The next item is just data. It's PKH~1~, which is the rightful
+recipient of the 8 CT. Data is just put on top of the stack, so Lisa
+puts PKH~1~ on the stack.
+
+image:{imagedir}/execute-script-6.svg[{third-width}]
+image:{imagedir}/execute-script-7.svg[{third-width}]
+image:{imagedir}/execute-script-8.svg[{third-width}]
+
+Next up is another operator, `OP_EQUALVERIFY`. This means "Take the
+two top items from the stack and compare them. If they are equal,
+continue to next program instruction, else quit the program with an
+error. In either case. don't put anything back on the stack". Lisa
+takes the two PKH items from the top of the stack and verifies that
+they are equal. They are equal, which means that the public key John
+has provided in his transaction matches the PKH that was set as
+recipient in the output.
+
+The last operator, `OP_CHECKSIG`, means "Verify that the top public
+key on the stack and the signature that's next on the stack correctly
+signs the transaction. Put `true` or `false` on top of the stack
+depending on the verification outcome". Lisa takes John's transaction
+and cleans out all the scriptSig from all inputs. She uses the top two
+items from the stack, which is John's public key and his signature, to
+verify that the signature signs the cleaned transaction. When John
+signed this transaction, he signed the transaction without any
+signature data in the inputs. This is why Lisa must first clean out
+the scriptSig data from the transaction before verifying the
+signature. The signature was good, so Lisa puts `true`, meaning "OK",
+back on the stack.
+
+Look, the program is empty! There is nothing left to do. After running
+a program, the top item on the stack reveals whether the spending of
+the output is authorized. If `true`, "OK", then it means that the
+spending is authorized. If `false`, meaning "not OK", then the
+transaction must be declined. Lisa looks at the top item on the stack,
+and there is an "OK". Lisa now knows that John's input with index 0 is
+good.
+
+image::{imagedir}/script-ok.svg[{half-width}]
+
+[.inbitcoin]
+.Operators
+****
+There are a lot of useful operators that can be used to create all
+kinds of fancy programs. Check out <<web-op-codes>> for a complete list.
+****
+
+The scriptPubKey part of the program stipulates exactly what the
+spending transaction needs to provide to spend the output. The only
+way to spend an output is to provide a scriptSig that makes the
+program finish with an "OK" on top of the stack. In the example above,
+the only acceptable scriptSig is a valid signature followed by the
+public key corresponding to the PKH in the scriptPubKey.
+
+We have already mentioned that "pay to PKH" is not the only way
+to pay. You can write any program in the scriptPubKey. For example,
+you can write a scriptPubKey that ends with "OK" only if the scriptSig
+provide the prime factors of some huge number. Or a program that ends
+with "OK" only if the scriptSig contains the SHA256 preimage of a
+hash. Consider this example:
+
+ OP_SHA256
+ 334d016f755cd6dc58c53a86e183882f8ec14f52fb05345887c8a5edd42c87b7
+ OP_EQUAL
+
+This will let anyone who knows an input to SHA256 that result in the
+hash `334d016f...d42c87b7` to spend the output. We happen to know from
+<<ch02>> that the text "Hello!" will give this specific
+output. Suppose that your scriptSig is
+
+ Hello!
+
+Run the whole program, in your head or using pencil and paper, to
+convince yourself that it works, and that all scriptSigs that doesn't
+give the specific hash fails.
+
+=== Anyone verifies the transaction
+
+Now that John's transaction is stored in the spreadsheet exactly as he
+created it, anyone with read access to the spreadsheet can
+verify it. Anyone can create a private UTXO set and work through all
+transactions and end up with the exact same UTXO set as Lisa. This
+means that anyone can make the same checks as Lisa does, but they
+still cannot make changes to the spreadsheet. They can verify that
+Lisa is doing her job.
+
+Lisa can no longer steal someone else's money because that would make
+the spreadsheet invalid. For example suppose that she tried to change
+the output value of a payment to her from 10 to 30 CT. 
+
+.Lisa cannot steal someone else's money anymore. The signatures will become invalid and disclose her immoral act.
+image::{imagedir}/lisa-steals-from-transaction.svg[{half-width}]
+
+Now, since Lisa have changed the contents of a transaction, the
+signatures of that transaction will no longer be valid. Anyone with
+access to the spreadsheet will be able to notice this because
+everything is super-transparant in the spreadsheet.
+
+But there are still bad things Lisa can do:
+
+* She can refuse to process certain transactions.
+* She can delay the processing of certain transactions.
+* She can double spend her own money. She can pay for a cookie in the
+  cafe and when the cafe has given her the cookie, she can delete her
+  transaction from the spreadsheet and spend the same money again.
+
+=== Lock time and sequence numbers
+
+We still haven't covered all the contents of a transaction. There are
+two pieces of information missing in the transactions: Lock time and
+sequence numbers.
+
+image::{imagedir}/sequence-number-lock-time.svg[{quart-width}]
+
+Lock time:: A point in time that must have passed before it's allowed
+to add the transaction to the spreadsheet. You can either set a point
+in time or a specific block in the blockchain, which we will discuss
+in later chapters. If Lock time is 0, it means that it is always
+allowed to be added to the spreadsheet.
+
+Sequence number:: A four byte number on each input. For most
+transactions this should be set to its maximum value `ffffffff`.
+
+We include this sparse information here just for completeness. These
+features will be discussed in later chapters, when we have learned
+about the blockchain.
+
+=== Fancy payment types
+
+.Pay to hash
+****
+ OP_SHA256
+ 334d...87b7
+ OP_EQUAL
+****
+
+John's transaction spends a p2pkh (pay-to-public-key-hash) output. But
+as noted earlier other types of payments are possible. For example,
+pay-to-hash, discussed previously where you pay to a SHA256 hash. To
+Spend that output you need to provide the preimage of the hash.
+
+In p2pkh, the recipient generates a cookie token address that is
+handed over to the sender. The sender then makes a payment to that
+address.
+
+==== Multiple signatures
+
+But what if the recipient would like her money secured by something
+other than a single private key? Suppose that Faiza, Ellen and John
+wants to reaise money from their coworkers for charity.
+
+****
+image::{imagedir}/flyer-p2pkh-address.svg[]
+****
+
+They could use a normal p2pkh address that their supporters donate
+cookie tokens to. They can let, say, Faiza have control over the
+private key, so only she can spend the funds. There are a few problems
+with this approach:
+
+. If Faiza dies, the money might be lost forever. Ellen and John will
+not be able to recover the funds.
+. If Faiza is sloppy with backup, the money might get lost. Again,
+Ellen and John will not be able to recover the funds.
+. If Faiza is sloppy with her private key security, the money might
+get stolen.
+. If Faiza might run away with the money.
+
+There seems to be a lot of risks with this setup, but what if Faiza
+gives the private key to her two charity partners? Then all partners
+can spend the money. That will solve 1 and 2, but problem 3 and 4
+would be three times worse, because now any of the three partners may
+be sloppy with private key security or run away with the money.
+
+The organization consists of three people. It would be better if the
+three persons could share the responsibility and the power over the
+money somehow. Thanks to the Script programming language, this can be
+accomplished.
+
+They can create one private key each and demand that two of the three keys
+must sign the transaction.
+
+.Multisignature setup between Faiza, Ellen and John. Two of the three keys are needed to spend money.
+image::{imagedir}/multisig-transaction.svg[{half-width}]
+
+This brings some good properties to their charity fund raising account:
+
+* If one of the three keys is stolen, the thief cannot steal the
+money.
+* If one of the three keys is lost due to sloppy backups or death,
+then the other two keys are enough to spend the money.
+* No single person of the three partners can single handedly run away
+  with the money.
+
+Let's have a look at how a program, scriptSig + scriptPubKey, that
+enforces the 2-of-3 rule looks:
+
+[.inbitcoin]
+.Bug
+****
+There is a bug in Bitcoin software that causes `OP_CHECKMULTISIG` to
+need an extra dummy item first in the scriptSig. This bug cannot "just
+be fixed", because that would cause old spendings of this type to
+appear invalid.
+****
+
+.A program that enforces 2 signatures out of 3 possible keys. The secret sauce is OP_CHECKMULTISIG.
+image::{imagedir}/multisig-program.svg[{quart-width}]
+
+The `OP_CHECKMULTISIG` operator instructs Lisa to verify that the two
+signatures in the scriptSig are made with the keys in the
+scriptPubKey.
+
+Coworkers that want to contribute cookie tokens need to write the
+scriptPubKey above into their transaction outputs. There are a few problems
+with this:
+
+* The coworkers' wallets only knows how to make p2pkh
+  transactions. The wallets need to be modified to understand
+  multi-signature outputs and to include a user interface to make this
+  kind of output understandable to users.
+* Senders usually don't need to know how the money is protected. They
+  don't care if it's multi-signature, p2pkh, or anything else, they
+  just want to pay.
+* As mentioned earlier, transactions need to pay a fee to get
+  processed (more on this in later chapters). This fee depends on how
+  big, in bytes, the transaction is. A big scriptPubKey causes the
+  sender to pay a higher fee. That's not fair, because it's the
+  recipient that wants to use this fancy expensive feature. It should
+  be payed for by the recipient, not the sender.
+
+All this can be fixed with a small change to the script handling. Some
+developers invent something called pay-to-script-hash, p2sh.
+
+==== Pay to script hash (p2sh)
+
+We have previously discussed how p2pkh hides the public key to the
+sender. Instead the sender gets a hash of the public key to pay to.
+
+Pay to script hash (p2sh) takes that idea even further, it hides the
+script program itself. Instead of sending a complicated, and big,
+script part to the sender, you send the hash of the script to the
+sender. The sender then makes a payment to that hash, and leave it up
+to the recipient to provide the script later when the recipient wants
+to spend the money.
+
+Suppose, still, that Faiza, Ellen and John wants to raise money for
+charity and they want a multi-signature setup to protect their money
+and share the responsibility of and power over the money.
+
+.Overview of pay-to-script-hash. The scriptPubKey is very simple. The scriptSig is special, because it contains a data item that contains program.
+image::{imagedir}/p2sh-overview.svg[{big-width}]
+
+[.inbitcoin]
+.BIP16
+****
+This type of payment was introduced 2012 in BIP16. It could be
+introduced smoothly; Old software would allow these transactions
+because running the program would leave the top stack item with "OK".
+****
+
+The developers made this forward compatible, meaning that old software
+would still work with this new transaction mechanism. Let's pretend
+the Cafe runs old software to verify this transaction in the
+spreadsheet.
+
+image:{imagedir}/execute-p2sh-old-client-1.svg[{third-width}]
+image:{imagedir}/execute-p2sh-old-client-2.svg[{third-width}]
+image:{imagedir}/execute-p2sh-old-client-3.svg[{third-width}]
+image:{imagedir}/execute-p2sh-old-client-4.svg[{third-width}]
+image:{imagedir}/execute-p2sh-old-client-5.svg[{third-width}]
+
+The program is finished and the top item on the stack is `true`, or
+"OK". This means that the payment is valid according to this old
+software.
+
+You may recognize the scriptPubKey from our example earlier when you
+can pay money to a preimage of a hash. That's what happened here too,
+but with a different cryptographic hash function. The old software
+interpret this program as a payment to a hash. Whoever can show a
+premiage to this hash gets the money.
+
+Now suppose that the Cafe just upgraded their software and wants to
+verify this transaction again. Let's see how that happens.
+
+The new software looks at the scriptPubKey to determine if this
+transaction is spending a p2sh output. It looks for the pattern
+
+ OP_HASH160
+ 20 byte hash
+ OP_EQUAL
+
+If the scriptPubKey has this exact pattern, which it does, then it
+knows it is dealing with a p2sh payment. This makes the behaviour of
+the program different. First, the exact same five steps as above are
+performed, but with the difference that the stack is saved away after
+step 2. Let's call this the "saved stack". If those five steps results
+in "OK", then the stack is replaced by the saved stack and the top
+item, the redeemScript, is taken off the stack.
+
+image:{imagedir}/execute-p2sh-new-client-1.svg[{third-width}]
+image:{imagedir}/execute-p2sh-new-client-2.svg[{third-width}]
+
+This redeemScript is a data item that contains a program as previously
+described. This program is now entered into the program area and
+begins to execute.
+
+image:{imagedir}/execute-p2sh-new-client-3.svg[{third-width}]
+image:{imagedir}/execute-p2sh-new-client-4.svg[{third-width}]
+
+It executes as if it was an old style payment. The top 5 data items in
+the program are put on the stack and then the only operator,
+`OP_CHECKMULTISIG` is run. `OP_CHECKMULTISIG` takes a number, 3 in
+this case from the stack, then it expects that number number of public
+keys from the stack followed by another number. This second number
+dictates how many signatures are needed to spend the money. In this
+case it is 2. Then the expected number, 2, signatures are taken from
+the stack followed by a dummy item mentioned earlier. We don't use the
+dummy item. The `OP_CHECKMULTISIG` uses all this information to
+determine if enough signatures are made and verifies those
+signatures. If everything is OK, it puts "OK" back on the stack. This
+is where the program ends. Since the top item on the stack is "OK",
+the spending of the output is authorized.
+
+==== Pay to script hash addresses
+
+Let's say that Faiza, Ellen and John have created their 2-of-3
+multisignature setup. They want people to pay to the hash of this script:
+
+ 2
+ 022f52f2868dfc7ba9f17d2ee3ea2669f1fea7aea3df6d0cb7e31ea1df284bdaec
+ 023d01ba1b7a1a2b84fc0f45a8a3a36cc7440500f99c797f084f966444db7baeee
+ 02b0c907f0876485798fc1a8e15e9ddabae0858b49236ab3b1330f2cbadf854ee8
+ 3
+ OP_CHECKMULTISIG
+
+The script is encoded as
+
+ 52
+ 21022f52f2868dfc7ba9f17d2ee3ea2669f1fea7aea3df6d0cb7e31ea1df284bdaec
+ 21023d01ba1b7a1a2b84fc0f45a8a3a36cc7440500f99c797f084f966444db7baeee
+ 2102b0c907f0876485798fc1a8e15e9ddabae0858b49236ab3b1330f2cbadf854ee8
+ 53
+ ae
+
+And the SHA256+RIPEMD160 hash of this script is
+
+ 04e214163b3b927c3d2058171dd66ff6780f8708
+
+How do Faiza, Ellen and John ask people to pay them? They want to
+print flyers to hand out to all coworkers. What do they print on the
+flyers so that coworkers can pay to their script hash? They _could_
+print the script hash as-is and inform them that this is a hash of a
+redeemScript, but then they would expose coworkers to unneccesary
+risks of typing errors, just as with normal payments as discussed in
+<<ch03>>. If they base58check encode the script hash just as in
+<<ch03>>, that would generate an address
+
+ 1SpXyWt143RceMvcHidnZSVfEuZRMmEMZ
+
+If this address were to be put on flyers, how would the coworkers know
+that this is a p2sh payment? They can't know. Their wallets would make
+a payment to a public key hash that doesn't have a corresponding
+private key. That's throwing the money in the ocean.
+
+Instead, let's introduce a new address format for p2sh, which we call
+pay-to-script-hash-address. This format is very similar to normal
+cookie token addresses.
+
+.Create a p2sh address. The difference from normal addresses is the
+version which is 5 for p2sh addresses instead of 0.
+image::{imagedir}/p2sh-address-encoding.svg[{big-width}]
+
+This process is the same as for (pay-to-public-key-hash) p2pkh
+addresses. The only difference is that the version is changed from
+`00` to `05`. Because of this change and the way the base58 works,
+using integer division by 58 successively, the last remainder will
+always be 2. This last remainder will translate to `3` in the
+character lookup table of base58.
+
+Faiza, Ellen and John can now print
+`328qTX1KYxMohp4MjPPEDBoRomCGwrB2ag` on their flyer.
+
+When a coworker scans this flyer's QR code, their wallet will
+recognize the address as a p2sh address because it starts with a
+`3`. The wallet will base58check decode the address and create a
+proper p2sh output:
+
+ OP_HASH160
+ 04e214163b3b927c3d2058171dd66ff6780f8708
+ OP_EQUAL
+
+The payment process is exactly the same from this point forward.
+
+=== Segregated Witness
+
+If we wouldn't do this check, then anyone
+would be able to spend the 8 CT by just a
+
+
+We will go through the details of how this Script program works. but if you don't want to go into the details of how Script works, you can jump to
+
+These computer programs takes some input from the input of the
+spending transaction and the output is `true` or `false`.
+
+exercise: Create a scriptPubKey that allows anyone to spend the output.
+
+
+
+I will use John's address 13M8cySrSuKbEwexXh1tUYcrBeK2yaEveF with PKH
+19beee8da8550a466fd0e184d1ecf33a1ad6056f
+Signed message: "Alice, I will marry you! /Bob"
+Signature:
+2009f883cf23a16068ef7b6ef1745637484b702e9bb6157c4e5da10ac604d7fb685b5856555a651badf961e662e979f44aeb69bf2860395a7f2be65409585f4511
+Public key 
+023f80d192325fea5e5ea1b5d8df6dc639f2e24cd010cfd022999448b52496e2bd
+
+"asm":   "304402202a8e9378520a6cab8b48be1189e9e5c55e16bd8df63fbf73fe2b12f10dd90f6a02205fb79d9ad7a7ed5e590f906eaae905eae11e3617c30e1c8007fba1b34f6c98df[ALL] 02ba81bf36951789f01e569d688892f07190344d4e3b8f605ac215d78e0b485e20",
+"hex": "47
+304402202a8e9378520a6cab8b48be1189e9e5c55e16bd8df63fbf73fe2b12f10dd90f6a02205fb79d9ad7a7ed5e590f906eaae905eae11e3617c30e1c8007fba1b34f6c98df01 2102ba81bf36951789f01e569d688892f07190344d4e3b8f605ac215d78e0b485e20"
+
+47=71 in decimal
+71*2 characters is 142 characters:
+304402202a8e9378520a6cab8b48be1189e9e5c55e16bd8df63fbf73fe2b12f10dd90f6a02205fb79d9ad7a7ed5e590f906eaae905eae11e3617c30e1c8007fba1b34f6c98df01
+
+
+
+
+304402202a8e9378520a6cab8b48be1189e9e5c55e16bd8df63fbf73fe2b12f10dd90f6a02205fb79d9ad7a7ed5e590f906eaae905eae11e3617c30e1c8007fba1b34f6c98df01
+
+02ba81bf36951789f01e569d688892f07190344d4e3b8f605ac215d78e0b485e20
+
+Lisa double spends her own money.
+
+public key is now visible in the spreadsheet. Now what's the point of public key hashes, they no longer provide security, since the public keys are now public? ==> 
+
+The $100 bill in Johns case is 
+
+
+Previous transactions are specified using the txid, as shown in
+the diagram.
+
+For
+example, John's transaction's first input refers to a transaction
+using
+
+
+For every transaction made the input txHash must be in the
+UTXO set. Lisa keeps track of the UTXO set.
+
+One very interesting outcome of this is that all the signatures are
+public inside the cookie sheet. This means that everyone can validate
+the cookie sheet. Not only can people not cheat Lisa, but Lisa cannot
+steal money from anyone.
+
+Where does all the money in the cookie sheet come from?
+
+
+=== Lisa automates her work
+=== Exercises

@@ -1,13 +1,12 @@
-[id=ch04]
+[[ch04,Chapter 4]]
 == Wallets - Reducing key chaos and backup issues
 :imagedir: {baseimagedir}/ch04
 
 This chapter covers
 
-* Managing keys automatically
 * Automating payments
-* Using QR codes to scan payment details
-* Generate keys 
+* Generate new keys with hierarchical deterministic wallet
+* Making backups _really_ simple and secure
 
 .Then and now
 ****
@@ -25,9 +24,11 @@ of the common tasks users want to perform. The wallet will create new
 addresses, store the private keys, simplify how addresses are
 transferred between users and automate the payment process.
 
-The developers also introduce a new way to generate keys so that
-backups becomes simpler. You only need to to backup a single random
-number, called a seed, once and for all.
+The developers also introduce a new way to generate keys, called
+hierarchical deterministic wallets, so that backups becomes dead simple;
+You only need to to backup a single random number, called a seed, once
+and for all. This topic will take a really deep dive into how private
+and public keys are created.
 
 === First Wallet version
 
@@ -1065,10 +1066,6 @@ Let's have a release party! Cookie tokens 4.0, fresh from the lab!
 |2.0
 |Secure payments
 |Digital signatures solves the problem with the imposter
-
-|1.0
-|Simple payment system
-|Relies on Lisa being very trustworthy and knowing everyone's face
 |===
 
 

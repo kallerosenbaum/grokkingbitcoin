@@ -42,6 +42,16 @@ cat ripemd160.dat | openssl dgst -sha256 -binary | openssl dgst -sha256 -binary 
 cat ripemd160.dat checksum.dat | base58
 
 
+# All in one go:
+export pubhex
+export pkhhex=`printf $pubhex| xxd -r -p|openssl dgst -sha256 -binary| openssl rmd160`
+export vpkhhex=00$pkhhex
+export checksumhex=`printf $vpkhhex|xxd -r -p|openssl dgst -sha256 -binary | openssl dgst -sha256 -binary | head -c 4 | xxd -p`
+export address=`printf $vpkhhex$checksumhex|xxd -r -p|base58`
+echo $address
+
+
+
 #Encrypt a message with the public key:
 electrum encrypt -w ~/.electrum/wallets/grokking_bitcoin_test \
     035541a13851a3742489fdddeef21be13c1abb85e053222c0dbf3703ba218dc1f3 \

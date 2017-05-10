@@ -1,4 +1,4 @@
-[id=ch03]
+[[ch03,Chapter 3]]
 == CT addresses - Resolving privacy issues
 :imagedir: {baseimagedir}/ch03
 
@@ -250,9 +250,9 @@ Nakamoto, the inventor of Bitcoin, have stopped corresponding with the
 Bitcoin community. We can only speculate on why it was chosen. Instead
 let us discuss some properties of this scheme.
 
-If any one of the hash functions are not pre-image resistant the other
+If any one of the hash functions are not preimage resistant the other
 still is. This means that if you can _calculate_ an input that gives a
-certain PKH output, you still need to pre-image attack SHA256 (with
+certain PKH output, you still need to preimage attack SHA256 (with
 about 2^255^ guesses) in order to find the public key.
 
 ****
@@ -642,9 +642,11 @@ release a new version, 3.0, of the cookie token system.
 |Secure payments
 |Digital signatures solves the problem with the imposter
 
-|1.0
+.2+|1.0
 |Simple payment system
 |Relies on Lisa being very trustworthy and knowing everyone's face
+|Finite money supply
+|7200 New CT rewarded to Lisa daily, halves every four years.
 |===
 
 
@@ -703,7 +705,7 @@ prevents a bad guy from stealing your money?
 
 . Suppose that there was a serious flaw in RIPEMD160 so that anyone
 can easily figure out an SHA256 hash to derive the PKH from. It is not
-pre-image resistant. What prevents a bad guy from stealing your money?
+preimage resistant. What prevents a bad guy from stealing your money?
 
 === Recap
 

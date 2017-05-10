@@ -28,8 +28,6 @@ function web-resource {
 	echo "[[web-$1,$label]]"
 	echo "$label:: {resource-url}/$1"
 }
-export -f web-resource
-
 
 while read -r line
 do

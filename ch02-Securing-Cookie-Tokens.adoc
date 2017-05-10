@@ -1,4 +1,4 @@
-[id=ch02]
+[[ch02,Chapter 2]]
 == Digital signatures - Securing cookie tokens
 :imagedir: {baseimagedir}/ch02
 This chapter covers
@@ -79,20 +79,54 @@ someone who has an excessive amount of cookie tokens, possibly Anne or
 the cafe, at a price you both agree on. Lisa will then add a row to the
 spreadsheet accordingly. Lisa have promised never to remove or change
 anything in the spreadsheet, just add to it. What happens in the
-spreadsheet, stays in the spreadsheet! This spreadsheet system works
-quite well and everybody eats a healthy amount of cookies.
+spreadsheet, stays in the spreadsheet!
 
-This is our starting point for learning how Bitcoin works. We call
-this version 1.0 of the cookie token spreadsheet system:
+[.inbitcoin]
+.Money supply curve
+****
+Bitcoin use the same schedule for issuance as the cookie token
+spreadsheet. All new bitcoins are created as rewards to the nodes
+securing the Bitcoin ledger, the blockchain, just as Lisa is rewarded
+for securing the cookie token spreadsheet.
+
+image::{imagedir}/2ndcol-money-supply.svg[]
+****
+
+Lisa, who is performing valuable work to secure this money system, is
+rewarded with 7200 newly minted cookie tokens per day. Every day, she
+adds a new row to the spreadsheet, that creates 7200 new CT with Lisa
+as the recipient.
+
+image::{imagedir}/lisa-is-rewarded.svg[{half-width}]
+
+This is how all the cookie tokens in the spreadsheet are created. The
+very first row in the spreadsheed is a reward row like the one above
+that creates the very first 7200 CT ever. The plan is that Lisa is
+rewarded 7200 cookie tokens per day during the first four years, and
+then the reward is halved to 3600 CT/day for the next four years, and
+so on until the reward is 0 CT/day. Let's not worry, for now, about
+what happens when the reward approaches 0, that's far in the
+future. We will discuss that in later chapters. This reward halving
+makes the total money supply, the total amount of CT in circulation,
+approach 21000000 CT, but it will never exceed 21000000. What Lisa
+does with the new cookie tokens she earned is up to her. She can buy
+cookies or sell the cookie tokens. She can also save them for later.
+
+The spreadsheet system works quite well and everybody eats a healthy
+amount of cookies. This is our starting point for learning how
+Bitcoin works. We call this version 1.0 of the cookie token
+spreadsheet system:
 
 [%autowidth,options="header"]
 .Release notes, cookie tokens 1.0
 |===
 |Version|Feature|How
 
-|1.0
+.2+|image:{commonimagedir}/new.png[role="gbnew"]*1.0*
 |Simple payment system
 |Relies on Lisa being very trustworthy and knowing everyone's face
+|Finite money supply
+|7200 New CT rewarded to Lisa daily, halves every four years.
 |===
 
 We will add a lot of fancy stuff to this system and a new version will
@@ -162,7 +196,7 @@ _one-way function_. Let's see what happens when you change the cat
 picture just a tiny bit and run that cat picture through the same
 cryptographic hash function:
 
-.hashing a modified cat picture. Can you spot the difference? The cryptographic hash function certainly did.
+.Hashing a modified cat picture. Can you spot the difference? The cryptographic hash function certainly did.
 image::{imagedir}/hashing-a-modified-cat.svg[{big-width}]
 
 This hash turns out completely different than the first hash. Let's
@@ -792,9 +826,11 @@ It's time to release version 2.0 of the cookie tokens.
 |Secure payments
 |Digital signatures solves the problem with the imposter
 
-|1.0
+.2+|1.0
 |Simple payment system
 |Relies on Lisa being very trustworthy and knowing everyone's face
+|Finite money supply
+|7200 New CT rewarded to Lisa daily, halves every four years.
 |===
 
 Everybody still trust Lisa to not change the spreadsheet in any way
@@ -821,6 +857,10 @@ The second and third tools to add are digital signing and verification.
 
 ===== Warm up
 
+. Lisa is rewarded 7200 CT per day for her work. Why won't the money
+supply increase infinitely over time? Why don't we have 7200*10000=72
+million CT after 10000 days?
+. How can coworkers detect if Lisa rewards herself too much or too often?
 . How is the private key of a key-pair created?
 . What key is used to sign a message?
 . The signing process hashes the message to sign. Why?
@@ -998,6 +1038,8 @@ your keys, the less secure it is.
 
 In this chapter you learned that
 
+* Bitcoins are created as rewards to nodes securing the blockchain.
+* The reward halves every four years to limit the money supply.
 * You can use cryptographic hash functions to detect changes in a file
   or in a message.
 * You can't make up a preimage of a cryptographic hash. A preimage is
