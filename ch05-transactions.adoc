@@ -101,7 +101,7 @@ will create a _transaction_ instead. The purpose of the transaction is
 to pay 10 CT to the Cafe's address @~C~.
 
 .The payment process is the same for users, but very different for Lisa and the spreadsheet.
-image::{imagedir}/wallet-payment-process-transactions.svg[{half-width}]
+image::{imagedir}/wallet-payment-process-transactions.svg[{big-width}]
 
 John scans the cafe's payment URI and his wallet creates a transaction
 and asks John to accept it. He clicks OK, and the wallet signs the
@@ -374,13 +374,16 @@ stack and hashes it and puts the resulting PKH on top of the
 stack. This happens to be John's PKH~1~ because it was John's public
 key that was hashed.
 
+image:{imagedir}/execute-script-6.svg[{third-width}]
+image:{imagedir}/execute-script-7.svg[{third-width}]
+
+image:{imagedir}/execute-script-8.svg[{third-width}]
+image:{imagedir}/execute-script-9.svg[{third-width}]
+image:{imagedir}/execute-script-10.svg[{third-width}]
+
 The next item is just data. It's PKH~1~, which is the rightful
 recipient of the 8 CT. Data is just put on top of the stack, so Lisa
 puts PKH~1~ on the stack.
-
-image:{imagedir}/execute-script-6.svg[{third-width}]
-image:{imagedir}/execute-script-7.svg[{third-width}]
-image:{imagedir}/execute-script-8.svg[{third-width}]
 
 Next up is another operator, `OP_EQUALVERIFY`. This means "Take the
 two top items from the stack and compare them. If they are equal,
@@ -590,21 +593,22 @@ follows:
 
 image:{imagedir}/execute-multisig-1.svg[{third-width}]
 image:{imagedir}/execute-multisig-2.svg[{third-width}]
-image:{imagedir}/execute-multisig-3.svg[{third-width}]
 
+image:{imagedir}/execute-multisig-3.svg[{third-width}]
+image:{imagedir}/execute-multisig-4.svg[{third-width}]
 
 The top 8 data items in the program are put on the stack and then the
 only operator, `OP_CHECKMULTISIG` is run. `OP_CHECKMULTISIG` takes a
-number, 3 in this case from the stack, then it expects that number
-number of public keys from the stack followed by another number. This
-second number dictates how many signatures are needed to spend the
-money. In this case it is 2. Then the expected number, 2, signatures
-are taken from the stack followed by a dummy item mentioned
-earlier. We don't use the dummy item. The `OP_CHECKMULTISIG` uses all
-this information to determine if enough signatures are made and
-verifies those signatures. If everything is OK, it puts "OK" back on
-the stack. This is where the program ends. Since the top item on the
-stack is "OK", the spending of the output is authorized.
+number, 3 in this case, from the stack, then it expects that number of
+public keys from the stack followed by another number. This second
+number dictates how many signatures are needed to spend the money. In
+this case it is 2. Then the expected number of signatures are taken
+from the stack followed by a dummy item mentioned earlier. We don't
+use the dummy item. The `OP_CHECKMULTISIG` uses all this information
+and the transaction itself to determine if enough signatures are made
+and verifies those signatures. If everything is OK, it puts "OK" back
+on the stack. This is where the program ends. Since the top item on
+the stack is "OK", the spending of the output is authorized.
 
 ****
 image::{imagedir}/flyer-scriptpubkey.svg[]
@@ -689,6 +693,8 @@ image:{imagedir}/execute-p2sh-old-client-2.svg[{third-width}]
 image:{imagedir}/execute-p2sh-old-client-3.svg[{third-width}]
 image:{imagedir}/execute-p2sh-old-client-4.svg[{third-width}]
 image:{imagedir}/execute-p2sh-old-client-5.svg[{third-width}]
+image:{imagedir}/execute-p2sh-old-client-6.svg[{third-width}]
+image:{imagedir}/execute-p2sh-old-client-7.svg[{third-width}]
 
 The program is finished and the top item on the stack is `true`, or
 "OK". This means that the payment is valid according to this old
@@ -722,13 +728,13 @@ transaction is spending a p2sh output. It looks for the pattern
  20 byte hash
  OP_EQUAL
 
-If the scriptPubKey has this exact pattern, which it does, then it
-knows it is dealing with a p2sh payment. This makes the behaviour of
-the program different. First, the exact same five steps as above are
-performed, but with the difference that the stack is saved away after
-step 2. Let's call this the "saved stack". If those five steps results
-in "OK", then the stack is replaced by the saved stack and the top
-item, the redeemScript, is taken off the stack.
+If the scriptPubKey has this exact pattern, the p2sh pattern, the
+program will be treated differently. First, the exact same five steps
+as the old software above are performed, but with the difference that
+the stack is saved away after step 2. Let's call this the "saved
+stack". If those five steps results in "OK", then the stack is
+replaced by the saved stack and the top item, the redeemScript, is
+taken off the stack.
 
 image:{imagedir}/execute-p2sh-new-client-1.svg[{third-width}]
 image:{imagedir}/execute-p2sh-new-client-2.svg[{third-width}]
@@ -739,13 +745,14 @@ begins to execute.
 
 image:{imagedir}/execute-p2sh-new-client-3.svg[{third-width}]
 image:{imagedir}/execute-p2sh-new-client-4.svg[{third-width}]
+image:{imagedir}/execute-p2sh-new-client-5.svg[{third-width}]
 
 It executes from now on as if it was an old style payment.
 
 ==== Pay to script hash addresses
 
-Let's say that Faiza, Ellen and John have created their 2-of-3
-multisignature setup. They want people to pay to the hash of this script:
+Faiza, Ellen and John have created their 2-of-3 multisignature
+redeemScript:
 
  2
  022f52f2868dfc7ba9f17d2ee3ea2669f1fea7aea3df6d0cb7e31ea1df284bdaec
@@ -754,37 +761,36 @@ multisignature setup. They want people to pay to the hash of this script:
  3
  OP_CHECKMULTISIG
 
-The script is encoded as
-
- 52
- 21022f52f2868dfc7ba9f17d2ee3ea2669f1fea7aea3df6d0cb7e31ea1df284bdaec
- 21023d01ba1b7a1a2b84fc0f45a8a3a36cc7440500f99c797f084f966444db7baeee
- 2102b0c907f0876485798fc1a8e15e9ddabae0858b49236ab3b1330f2cbadf854ee8
- 53
- ae
-
-And the SHA256+RIPEMD160 hash of this script is
+Now they want people to pay to the SHA256+RIPEMD160 hash of this
+script:
 
  04e214163b3b927c3d2058171dd66ff6780f8708
 
+****
+image::{imagedir}/flyer-pay-to-what.svg[]
+****
+
 How do Faiza, Ellen and John ask people to pay them? They want to
 print flyers to hand out to all coworkers. What do they print on the
-flyers so that coworkers can pay to their script hash? They _could_
-print the script hash as-is and inform them that this is a hash of a
+flyers so that coworkers can pay to their script hash? Let's look at
+their options:
+
+* Print the script hash as-is and inform them that this is a hash of a
 redeemScript, but then they would expose coworkers to unneccesary
 risks of typing errors, just as with normal payments as discussed in
-<<ch03>>. If they base58check encode the script hash just as in
-<<ch03>>, that would generate an address
+<<ch03>>.
+* Base58check encode the script hash just as in <<ch03>>, that would
+generate an address like `1SpXyWt143RceMvcHidnZSVfEuZRMmEMZ`. If this
+address was printed on the flyers, they would also need to inform the
+users that they must create a p2sh output instead of a normal
+pay-to-public-key-hash (p2pkh). If the donor erroneously makes a p2pkh
+payment using this address, the money cannot be spend by anyone,
+because there is no private key corresponding to this "public key
+hash".
 
- 1SpXyWt143RceMvcHidnZSVfEuZRMmEMZ
-
-If this address were to be put on flyers, how would the coworkers know
-that this is a p2sh payment? They can't know. Their wallets would make
-a payment to a public key hash that doesn't have a corresponding
-private key. That's throwing the money in the ocean.
-
-Instead, let's introduce a new address format for p2sh, which we call
-pay-to-script-hash-address. This format is very similar to normal
+Neither of the above options seems safe or practical. Instead, let's
+introduce a new address format for p2sh, which we call a
+pay-to-script-hash address. This format is very similar to normal
 cookie token addresses.
 
 .Create a p2sh address. The difference from normal addresses is the version which is 5 for p2sh addresses instead of 0.
@@ -794,11 +800,20 @@ This process is the same as for (pay-to-public-key-hash) p2pkh
 addresses. The only difference is that the version is changed from
 `00` to `05`. Because of this change and the way the base58 works,
 using integer division by 58 successively, the last remainder will
-always be 2. This last remainder will translate to `3` in the
+always be 2. For the interested reader, we provide the base58 encoding
+of the versioned and checksummed script hash.
+
+image::{imagedir}/base58-encode-p2sh.svg[{big-width}]
+
+This last remainder will translate to `3` in the
 character lookup table of base58.
 
+****
+image::{imagedir}/flyer-p2sh-address.svg[]
+****
+
 Faiza, Ellen and John can now print
-`328qTX1KYxMohp4MjPPEDBoRomCGwrB2ag` on their flyer.
+ `328qTX1KYxMohp4MjPPEDBoRomCGwrB2ag` on their flyer.
 
 When a coworker scans this flyer's QR code, their wallet will
 recognize the address as a p2sh address because it starts with a
@@ -809,48 +824,15 @@ proper p2sh output:
  04e214163b3b927c3d2058171dd66ff6780f8708
  OP_EQUAL
 
-The payment process is exactly the same from this point forward.
+=== Lisa automates her work
 
-=== Segregated Witness
+=== Summary
 
-If we wouldn't do this check, then anyone
-would be able to spend the 8 CT by just a
-
-
-We will go through the details of how this Script program works. but if you don't want to go into the details of how Script works, you can jump to
-
-These computer programs takes some input from the input of the
-spending transaction and the output is `true` or `false`.
+=== Exercises
 
 exercise: Create a scriptPubKey that allows anyone to spend the output.
 
-
-
-Lisa double spends her own money.
-
 public key is now visible in the spreadsheet. Now what's the point of public key hashes, they no longer provide security, since the public keys are now public? ==> 
 
-The $100 bill in Johns case is 
+=== Recap
 
-
-Previous transactions are specified using the txid, as shown in
-the diagram.
-
-For
-example, John's transaction's first input refers to a transaction
-using
-
-
-For every transaction made the input txHash must be in the
-UTXO set. Lisa keeps track of the UTXO set.
-
-One very interesting outcome of this is that all the signatures are
-public inside the cookie sheet. This means that everyone can validate
-the cookie sheet. Not only can people not cheat Lisa, but Lisa cannot
-steal money from anyone.
-
-Where does all the money in the cookie sheet come from?
-
-
-=== Lisa automates her work
-=== Exercises
