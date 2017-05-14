@@ -1,19 +1,37 @@
 @import url("asciidoctor.css");
 
+@page {
+    size: 7.375 9.25;
+    margin: 1in;
+}
+
 .sect2 {
     page-break-after: always;
 }
 
+body {
+    font-size: 13px;    
+}
+
 div>p,.literalblock,.imageblock>.title,div>.tableblock,.dlist,.olist,.ulist {
     width: 75%;
+/*    font-size: 0.9rem;*/
+}
+
+.imageblock>.title {
+    font-size: 0.9em;
 }
 
 .sidebarblock {
     width: 24%;
     float: right;
     padding: 0.25em;
-    font-size: small;
-    margin-bottom: 0.25em;    
+    margin-bottom: 0.25em;
+    page-break-inside: avoid
+}
+
+.sidebarblock p {
+    font-size: 0.9em;
 }
 
 .gbnew img {

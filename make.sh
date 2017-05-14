@@ -15,7 +15,7 @@ done
 
 file=$outputdir/grokking-bitcoin.adoc
 cat $file | asciidoctor -b html5 - > ${outputdir}/grokking-bitcoin.html
-cat $file | asciidoctor-epub3 -D ${outputdir} ${outputdir}/grokking-bitcoin.adoc
+#cat $file | asciidoctor-epub3 -D ${outputdir} ${outputdir}/grokking-bitcoin.adoc
 #asciidoctor -r ./hacks/multipage-html5-converter.rb -b multipage_html5 --destination-dir=$outputdir $file 
 
 

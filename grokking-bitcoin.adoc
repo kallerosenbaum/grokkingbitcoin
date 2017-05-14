@@ -29,8 +29,8 @@ include::ch04-wallets.adoc[]
 
 include::ch05-transactions.adoc[]
 
-[id=ch06]
-== The blockchain - Further reducing trust in Lisa
+//[id=ch06]
+//== The blockchain - Further reducing trust in Lisa
 //* why? who cares?
 //* concrete to abstract
 //* diagram first

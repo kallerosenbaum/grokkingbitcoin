@@ -362,8 +362,10 @@ image:{imagedir}/execute-script-5.svg[{third-width}]
 The next item in the program is `OP_DUP`. This is not just data, this
 is an operator. An operator makes calculations based on items on the
 stack, and in some cases the transaction being verified. This specific
-operator is simple, it means "Copy the top item on the stack (but
-keep it on the stack) and put the copy on top". Lisa follows orders and copies the public key on the stack. Now we have two public keys and a signature on the stack.
+operator is simple, it means "Copy the top item on the stack (but keep
+it on the stack) and put the copy on top". Lisa follows orders and
+copies the public key on the stack. Now we have two public keys and a
+signature on the stack.
 
 The next item is also an operator, `OP_HASH160`. This means "Take the
 top item off the stack and hash it using SHA256+RIPEMD160 and put the
@@ -583,9 +585,32 @@ image::{imagedir}/multisig-program.svg[{quart-width}]
 
 The `OP_CHECKMULTISIG` operator instructs Lisa to verify that the two
 signatures in the scriptSig are made with the keys in the
-scriptPubKey.
+scriptPubKey. Lisa follows the instructions and runs the program as
+follows:
 
-Coworkers that want to contribute cookie tokens need to write the
+image:{imagedir}/execute-multisig-1.svg[{third-width}]
+image:{imagedir}/execute-multisig-2.svg[{third-width}]
+image:{imagedir}/execute-multisig-3.svg[{third-width}]
+
+
+The top 8 data items in the program are put on the stack and then the
+only operator, `OP_CHECKMULTISIG` is run. `OP_CHECKMULTISIG` takes a
+number, 3 in this case from the stack, then it expects that number
+number of public keys from the stack followed by another number. This
+second number dictates how many signatures are needed to spend the
+money. In this case it is 2. Then the expected number, 2, signatures
+are taken from the stack followed by a dummy item mentioned
+earlier. We don't use the dummy item. The `OP_CHECKMULTISIG` uses all
+this information to determine if enough signatures are made and
+verifies those signatures. If everything is OK, it puts "OK" back on
+the stack. This is where the program ends. Since the top item on the
+stack is "OK", the spending of the output is authorized.
+
+****
+image::{imagedir}/flyer-scriptpubkey.svg[]
+****
+
+Coworkers that want to donate cookie tokens need to write the
 scriptPubKey above into their transaction outputs. There are a few problems
 with this:
 
@@ -594,7 +619,7 @@ with this:
   multi-signature outputs and to include a user interface to make this
   kind of output understandable to users.
 * Senders usually don't need to know how the money is protected. They
-  don't care if it's multi-signature, p2pkh, or anything else, they
+  don't care if it's multi-signature, p2pkh, or anything else. They
   just want to pay.
 * As mentioned earlier, transactions need to pay a fee to get
   processed (more on this in later chapters). This fee depends on how
@@ -603,8 +628,9 @@ with this:
   recipient that wants to use this fancy expensive feature. It should
   be payed for by the recipient, not the sender.
 
-All this can be fixed with a small change to the script handling. Some
-developers invent something called pay-to-script-hash, p2sh.
+All this can be fixed with a small change to how the programs
+are run. Some developers invent something called pay-to-script-hash,
+p2sh.
 
 ==== Pay to script hash (p2sh)
 
@@ -612,8 +638,8 @@ We have previously discussed how p2pkh hides the public key to the
 sender. Instead the sender gets a hash of the public key to pay to.
 
 Pay to script hash (p2sh) takes that idea even further, it hides the
-script program itself. Instead of sending a complicated, and big,
-script part to the sender, you send the hash of the script to the
+script program itself. Instead of giving a big, complicated script
+part to the sender, you give just the hash of the script to the
 sender. The sender then makes a payment to that hash, and leave it up
 to the recipient to provide the script later when the recipient wants
 to spend the money.
@@ -633,10 +659,30 @@ introduced smoothly; Old software would allow these transactions
 because running the program would leave the top stack item with "OK".
 ****
 
-The developers made this forward compatible, meaning that old software
-would still work with this new transaction mechanism. Let's pretend
-the Cafe runs old software to verify this transaction in the
-spreadsheet.
+You need new software in order to verify this transaction in full. We
+will talk about how this transaction is validated by new software in a
+moment. But first, let's see how old software would handle this
+transaction.
+
+===== Old software
+
+What if the person verifying the transaction hasn't upgraded their
+software to the bleeding edge version that support pay-to-script-hash
+payments? The developers made this forward compatible, meaning that
+old software will not reject these new transactions.
+
+[.gbfaq]
+.Why verify
+****
+The cafe is not involved in this transaction, wWhy would the cafe want
+to verify this transaction? One day, the money in the output of this
+transaction may end up at the cafe. The cafe wants to know that the
+money is good, so they want to verify all payments. Otherwise they can
+be fooled by Lisa, either deliberately or by accident.
+****
+
+Let's pretend the Cafe runs old software to verify this transaction in
+the spreadsheet.
 
 image:{imagedir}/execute-p2sh-old-client-1.svg[{third-width}]
 image:{imagedir}/execute-p2sh-old-client-2.svg[{third-width}]
@@ -648,11 +694,23 @@ The program is finished and the top item on the stack is `true`, or
 "OK". This means that the payment is valid according to this old
 software.
 
+[.gbinfo]
+.Lisa runs new software
+****
+It's important that Lisa runs the latest software. If Lisa would run
+old software she would only verify that the hash of the redeemScript
+matches the script hash in the scriptPubKey. She would not care about
+the contents of the redeemScript.
+****
+
 You may recognize the scriptPubKey from our example earlier when you
 can pay money to a preimage of a hash. That's what happened here too,
 but with a different cryptographic hash function. The old software
 interpret this program as a payment to a hash. Whoever can show a
-premiage to this hash gets the money.
+premiage of this hash gets the money. The actual multi-signature
+program contained in the redeemScript is never run.
+
+===== New software
 
 Now suppose that the Cafe just upgraded their software and wants to
 verify this transaction again. Let's see how that happens.
@@ -682,19 +740,7 @@ begins to execute.
 image:{imagedir}/execute-p2sh-new-client-3.svg[{third-width}]
 image:{imagedir}/execute-p2sh-new-client-4.svg[{third-width}]
 
-It executes as if it was an old style payment. The top 5 data items in
-the program are put on the stack and then the only operator,
-`OP_CHECKMULTISIG` is run. `OP_CHECKMULTISIG` takes a number, 3 in
-this case from the stack, then it expects that number number of public
-keys from the stack followed by another number. This second number
-dictates how many signatures are needed to spend the money. In this
-case it is 2. Then the expected number, 2, signatures are taken from
-the stack followed by a dummy item mentioned earlier. We don't use the
-dummy item. The `OP_CHECKMULTISIG` uses all this information to
-determine if enough signatures are made and verifies those
-signatures. If everything is OK, it puts "OK" back on the stack. This
-is where the program ends. Since the top item on the stack is "OK",
-the spending of the output is authorized.
+It executes from now on as if it was an old style payment.
 
 ==== Pay to script hash addresses
 
@@ -779,29 +825,6 @@ spending transaction and the output is `true` or `false`.
 exercise: Create a scriptPubKey that allows anyone to spend the output.
 
 
-
-I will use John's address 13M8cySrSuKbEwexXh1tUYcrBeK2yaEveF with PKH
-19beee8da8550a466fd0e184d1ecf33a1ad6056f
-Signed message: "Alice, I will marry you! /Bob"
-Signature:
-2009f883cf23a16068ef7b6ef1745637484b702e9bb6157c4e5da10ac604d7fb685b5856555a651badf961e662e979f44aeb69bf2860395a7f2be65409585f4511
-Public key 
-023f80d192325fea5e5ea1b5d8df6dc639f2e24cd010cfd022999448b52496e2bd
-
-"asm":   "304402202a8e9378520a6cab8b48be1189e9e5c55e16bd8df63fbf73fe2b12f10dd90f6a02205fb79d9ad7a7ed5e590f906eaae905eae11e3617c30e1c8007fba1b34f6c98df[ALL] 02ba81bf36951789f01e569d688892f07190344d4e3b8f605ac215d78e0b485e20",
-"hex": "47
-304402202a8e9378520a6cab8b48be1189e9e5c55e16bd8df63fbf73fe2b12f10dd90f6a02205fb79d9ad7a7ed5e590f906eaae905eae11e3617c30e1c8007fba1b34f6c98df01 2102ba81bf36951789f01e569d688892f07190344d4e3b8f605ac215d78e0b485e20"
-
-47=71 in decimal
-71*2 characters is 142 characters:
-304402202a8e9378520a6cab8b48be1189e9e5c55e16bd8df63fbf73fe2b12f10dd90f6a02205fb79d9ad7a7ed5e590f906eaae905eae11e3617c30e1c8007fba1b34f6c98df01
-
-
-
-
-304402202a8e9378520a6cab8b48be1189e9e5c55e16bd8df63fbf73fe2b12f10dd90f6a02205fb79d9ad7a7ed5e590f906eaae905eae11e3617c30e1c8007fba1b34f6c98df01
-
-02ba81bf36951789f01e569d688892f07190344d4e3b8f605ac215d78e0b485e20
 
 Lisa double spends her own money.
 
