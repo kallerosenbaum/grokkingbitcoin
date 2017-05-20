@@ -1,0 +1,96 @@
+Layout
+=======
+
+Thank you for purchasing the MEAP for Grokking Bitcoin. I sincerely
+hope that you will find this book valuable.
+
+Bitcoin is digital money. You can transfer bitcoins globally, quickly,
+cheaply. Bitcoin is a global network of computers that collectively
+keeps track of who owns what bitcoins. There is no central authority,
+like a central bank, that controls the issuance of money or verifies
+payments. All tasks performed by central authorities in traditional
+financial systems are instead performed by the Bitcoin network.
+
+Let's face it: Bitcoin is hard. But it is my firm belief that anyone
+with a technical interest can understand the basics of Bitcoin. If you
+know what a database, a computer program, and a computer network is,
+you should be able to follow most parts of this book. Some parts might
+be a bit too technical for you, but they are optional and I'll warn
+you ahead of those sections.
+
+The number one goal of this book is to give you enough understanding
+to decide for yourself whether you trust Bitcoin or not. If we reach
+that goal, it also means that you'll quickly understand more simple
+stuff not covered by this book, like how to install a Bitcoin wallet
+and what buttons to click to make payments. Understanding the hard
+stuff makes the simple stuff simple. The book is not intended as a
+tutorial on "how to use Bitcoin", but as a way to empower yourself
+with knowledge, to Grok.
+
+You can't write a book alone. You need feedback from many different
+people. I hope that you will not hesitate to give honest, and even
+frank, feedback in the forum. Where did you get stuck? Did you spot a
+factual error? Is the learning path awkward? Me and the good folks at
+Manning don't have the eyes of the intended reader, so without you we
+are fumbling in the dark.
+
+Thank you again for your interest in this book.
+Kalle Rosenbaum
+
+
+
+Thank you for joining the MEAP for Grokking Bitcoin!
+
+Let's face it: Bitcoin is hard.
+
+Grokking Bitcoin is intended to be the book I would have liked to read
+when I started with Bitcoin. The book goes deep, really deep
+sometimes, hopefully answering all your questions along the way.
+
+
+
+
+When I started learning about Bitcoin in 2013, there was no Bitcoin
+book. I had to browse through a jungle of scattered information on the
+web like forums, wikis and email-lists. Even source code for various
+Bitcoin software projects came to the rescue at times. That is not the
+ideal learning path.
+
+
+Bitcoin is a truly groundbreaking technology. It has the potential to
+completely disrupt our status-quo financial system.
+
+Let's face it: Bitcoin is hard.
+
+You don't have to be a geek to grok Bitcoin.
+
+
+When I started learning about Bitcoin in 2013, there was no Bitcoin
+book. I had to browse through a jungle of scattered information on the
+web like forums, wikis and email-lists. Even source code for various
+Bitcoin software projects came to the rescue at times.
+
+Grokking Bitcoin is intended to be the book I would have liked to read
+when I started with Bitcoin. The book goes deep, really deep
+sometimes, hopefully answering all your questions along the way.
+
+
+
+
+
+My hope is that your input will help us walk the last mile in making
+this book the go-to source for any Bitcoin beginner.
+
+
+The book will be released under an open source license at latest 3
+months after publication. The open source version will be raw source
+code and images for the book. While the open source version can be
+easily exported to html, it will not get the look and feel of a
+Manning Grokking book.
+
+
+Who is this book for?
+
+Takeaways?
+
+Thank you once again for your interest in this book.
