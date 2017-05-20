@@ -1,12 +1,11 @@
 [[ch03,Chapter 3]]
-== CT addresses - Resolving privacy issues
+== Addresses - Resolving privacy issues
 :imagedir: {baseimagedir}/ch03
 
 This chapter covers
 
 * Basic privacy
-* Replacing names with public keys
-* Replacing public keys with hashes
+* Replacing names with public key hashes
 * Encoding hashes into CT addresses
 
 After this chapter, the spreadsheet will have gotten rid of personal
@@ -17,9 +16,9 @@ from the spreadsheet on how much cookies a certain coworker eats. Lisa
 also finds this very useful, because she don't have to maintain a
 table of names and public keys.
 
-Coworkers also invent cookie token addresses which protects them from
-losing money due to typing errors. Cookie token address are shorter to
-write than public key hashes
+Coworkers invent cookie token addresses which protects them from
+losing money due to typing errors. Cookie token addresses are used by
+users to pay to each other, pretty much like an email address.
 
 === Cookie eating habits undisclosed
 
@@ -251,9 +250,12 @@ Bitcoin community. We can only speculate on why it was chosen. Instead
 let us discuss some properties of this scheme.
 
 If any one of the hash functions are not preimage resistant the other
-still is. This means that if you can _calculate_ an input that gives a
-certain PKH output, you still need to preimage attack SHA256 (with
-about 2^255^ guesses) in order to find the public key.
+still is. This means that if you can _calculate_ an input to RIPEMD160
+that gives a certain PKH output, you still need to preimage attack
+SHA256 (with about 2^255^ guesses) in order to find the
+public key. Likewise, if you can calculate an input to SHA256 that
+gives a certain output, you first need to preimage attack RIPEMD160
+before you can use that preimage to calculate the public key.
 
 ****
 image::{imagedir}/flawed-sha256.svg[]

@@ -48,7 +48,7 @@
 ==== Against yourself
 ==== Exercise
 
-== CT addresses - Resolving privacy issues
+== Addresses - Resolving privacy issues
 === Cookie eating habits undisclosed
 ==== Replace names with public keys
 ==== Interesting side effects

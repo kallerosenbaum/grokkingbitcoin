@@ -579,7 +579,7 @@ messages that only the private key can decrypt. It also works the
 other way around, the private key can encrypt messages that can only
 be decrypted by the public key.
 
-[[enc-dec-public-private,Figure {xrefnum}]]
+[[enc-dec-public-private]]
 .Encrypting and decrypting with the public and private keys. Left: Encrypt with the public key and decrypt with the private key. Right: Encrypt with the private key and decrypt with the public key.
 image::{imagedir}/enc-dec-public-private.svg[{half-width}]
 
