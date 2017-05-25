@@ -112,6 +112,23 @@ approach 21000000 CT, but it will never exceed 21000000. What Lisa
 does with the new cookie tokens she earned is up to her. She can buy
 cookies or sell the cookie tokens. She can also save them for later.
 
+Lisa basically performs the same work as miners in the Bitcoin
+network. She verifies payments and updates the ledger, the Bitcoin
+blockchain. Let's make it clear how the concepts in the spreadsheet
+corresponds to concepts in Bitcoin:
+
+.How key ingredients of the cookie token system and the Bitcoin system relates.
+|===
+| Cookie Tokens | Bitcoin | Covered in
+| 1 cookie token | 1 bitcoin | <<ch02>>
+| The spreadsheet | The blockchain | <<ch06>>
+| A row in the spreadsheet | A transaction | <<ch05>>
+| Lisa | A miner | <<ch07>>
+|===
+
+A few more concepts will be introduced in later chapters. We will
+update the above table as we go.
+
 The spreadsheet system works quite well and everybody eats a healthy
 amount of cookies. This is our starting point for learning how
 Bitcoin works. We call this version 1.0 of the cookie token
@@ -248,6 +265,7 @@ create a very simplistic cryptographic hash function. Well, it is not
 really cryptographic, we will come to that later. Let's just call it a
 hash function for now.
 
+[.gbinfo]
 .Modulo
 ****
 Modulo means to wrap around when a calculation reaches a certain
@@ -699,6 +717,12 @@ message in the box, because he is the only person with the
 private key. Lisa can now trust that the message is from John and move
 10 cookie tokens from him to the cafe.
 
+This is an analogy of digital signatures, and analogies are seldom
+perfect. It should be taken with a grain of salt, because the
+signature can only be verified by one person in this analogy. A real
+digital signature can be verified multiple times by multiple persons
+with a copy of the public key.
+
 The signing process use the right side of the diagram in
 <<enc-dec-public-private>>:
 
@@ -912,8 +936,9 @@ John steps into Lisa's office asking for an explanation. She answers
 him that she got a message signed with Johns private key asking her to
 send money to this new coworker, Melissa. She even shows him the
 message and signature. Of course there is no Melissa at the office,
-which has grown rapidly lately. Lisa don't care about names anymore,
-only public keys and signatures.
+eventhough a lot of new employees have started at the company
+lately. Lisa don't care about names anymore, only public keys and
+signatures.
 
 The explanation to all this is that someone has
 

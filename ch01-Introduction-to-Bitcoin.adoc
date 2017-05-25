@@ -293,8 +293,7 @@ rewards? No, it is very hard to take the lead. To take the lead, a
 node must solve a hard problem which takes time and electricity. It is
 so hard that most nodes in the network don't even try. The nodes that
 do try are called _miners_ because they mine new coins, similar to a
-gold miner digging for gold. This process is described in <<ch08>>,
-<<ch09>> and <<ch10>>.
+gold miner digging for gold. This process is described in <<ch07>>.
 
 [id=overview-wallets]
 ==== Step 4 - Wallets

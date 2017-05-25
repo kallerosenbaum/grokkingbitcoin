@@ -1,0 +1,25 @@
+Table of Contents
+
+1. Introduction to Bitcoin
+
+2. Digital signatures – Securing cookie tokens
+
+3. Addresses – Resolving privacy issues
+
+4. Wallets – Reducing key chaos and backup issues
+
+5. Transactions – Reducing trust in Lisa
+
+6. The blockchain – Further reducing trust in Lisa
+
+7. Proof of work - Avoiding flood of blocks
+
+8. Peer-to-peer network - Ditching email
+
+9. Transactions Revisited - Bells and whistles
+
+10. Segregated Witness - Fixing malleability and more
+
+11. Bitcoin updates - Safely introduce new stuff
+
+12. Genesis - How it all began

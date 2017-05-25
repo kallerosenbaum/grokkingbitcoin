@@ -674,7 +674,7 @@ image::{imagedir}/online-cookie-shop.svg[]
 
 Suppose that the cafe uses a hierarchical deterministic wallet. They
 want to start selling cookies on their web site and delivers the
-cookies to the coworker's cubical.
+cookies to the coworker's cubicle.
 
 The web server needs to be able to present a new cookie token address
 to every customer for privacy reasons, but where does it get the
@@ -713,20 +713,21 @@ code with the extended public key (xpub). You can create an xpub from
 an xprv, but you cannot create the xprv from the xpub. Can you see
 why?
 
-The cafe puts the xpub `M/1` on the the web server. By
-convention, we use capital `M` to denote an xpub and
-`m` to denote an xprv. `M/1` and `m/1` have the same
-chain code, but `M/1` doesn't have the private key. Using the master
-xpub you can create the whole xpub tree.
+The cafe puts the xpub `M/1` on the the web server. By convention, we
+use capital `M` to denote an xpub and `m` to denote an xprv. `M/1` and
+`m/1` have the same chain code, but `M/1` doesn't have the
+private key. You can create the whole xpub tree from the master xpub,
+which means that you can generate any and all addresses without the
+need for any private key. You can create addresses, but not spend
+money from those addresses.
 
 .Generating the tree of xpubs from the master xpub. The general pattern is the same as when generating xprvs, but the child derivation function differs.
 image::{imagedir}/hd-wallet-xpub-tree.svg[{half-width}]
 
 This looks exactly as when we generated the tree of extended private
 keys. The difference here is that we have no private keys at all. The
-xpubs are generated differently than the extended
-private keys. Please compare to the xprv derivation in
-the margin.
+xpubs are generated differently than the extended private keys. Please
+compare to the xprv derivation in the margin.
 
 .xprv derivation
 ****
@@ -736,10 +737,10 @@ image::{imagedir}/hd-wallet-derive-child-xprv.svg[]
 .Extended public key derivation. The private key addition from the xprv derivation is replaced by public key "multiplication". The multiplication here is not what you are used to.
 image::{imagedir}/hd-wallet-derive-child-xpub.svg[{half-width}]
 
-The resemblance of xprv derivation is
-staggering. Instead of adding the parent private key with the left
-part of the hash, we now "multiply" the parent _public_ key with the
-left part of the hash. Does this even work? Let's look even closer.
+The resemblance of xprv derivation is staggering. Instead of adding
+the parent private key with the left part of the hash, we now
+"multiply" the parent _public_ key with the left part of the
+hash. Does this even work? Let's look even closer.
 
 .Plus on the private side have a corresponding multiplication on the public side. Parent private key plus some value is the child private key. Parent public key multiplied by the same value is the child public key.
 image::{imagedir}/hd-addition.svg[{quart-width}]
@@ -765,12 +766,13 @@ back to when we derived a public key from a private key in
 <<ch02,chapter 2>>. We didn't really tell you _how_ the public key was
 derived. We will make an attempt here instead.
 
-A public key is a whole number solution to the equation
+A public key in Bitcoin is a whole number solution to the equation
 
 y^2^ = x^3^ + 7 mod (2^256^-4294966319)
 
-There are astronomically many such solutions, about 2^256^ of them. To simplify, we
-will illustrate the solutions to y^2^ = x^3^ + 7 mod 11 instead:
+There are astronomically many such solutions, about 2^256^ of them. To
+simplify, we will illustrate the solutions to y^2^ = x^3^ + 7 mod 11
+instead:
 
 [.inbitcoin]
 .Bitcoin use this curve

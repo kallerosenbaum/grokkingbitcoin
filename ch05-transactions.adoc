@@ -5,8 +5,8 @@
 This chapter covers
 
 * Bitcoin, or cookie token, transactions
-* Making the payments verifiable by anyone
-* Fancy payment types
+* Creating, confirming, verifying transactions
+* Programming money, fancy payment types
 
 The payments so far has some serious problems. The worst of them is
 that Lisa can steal, which worries some new people. They are hesitant
@@ -21,8 +21,14 @@ currently use. This makes it impossible for Lisa to steal other
 peoples money, because anyone can now verify all payments in the
 spreadsheet.
 
+We will go deep on transactions and explore how transactions are
+programmable, meaning that they are very flexible in what you can do
+with transactions. For example multisignature transactions that
+require two signatures out of three possible to secure money shared by
+multiple people.
+
 After this chapter the system will have changed a lot: How wallets
-make payments, how Lisa verifies payments, and how payments are
+create payments, how Lisa verifies payments, and how payments are
 stored. And most important, everyone will be able to verify payments
 in the spreadsheet.
 
@@ -46,13 +52,13 @@ There are a number of problems with this approach:
 
 * Since the company has grown and some people don't know Lisa very
   well, trust in her begins to fade. Some people fear that Lisa will
-  steal CT from them in the spreadsheet. Only Lisa verifies
+  steal CT from them in the spreadsheet. Only Lisa can verify
   signatures, so she _could_ increase the "Amount CT" column of a
   payment to her or add a row with a false payment from, say John, to
-  Lisa. No one would notice, and if they notice there are no proofs of
-  fraud. It doesn't matter that Lisa is the most trustworthy human on
-  earth. If people don't know that, they are going to assume that Lisa is
-  as greedy as everyone else.
+  Lisa. No one could prove Lisa has committed fraud. It doesn't matter
+  that Lisa is the most trustworthy human on earth. If people don't
+  know that, they are going to assume that Lisa is as greedy as
+  everyone else.
 
 .Bad stuff Lisa *could* do. She wouldn't, but she could.
 image::{imagedir}/lisa-could-steal.svg[{half-width}]
@@ -69,10 +75,10 @@ Lisa hates that people distrust her. She knows there's not much she
 can do to change the coworkers trust in her. An interesting
 alternative is to _minimize the trust needed_. She concludes that the
 best way to do that is to make everything super-transparent so that
-everyone can verify payments. At the same time she will improve how to
-verify that people don't spend money they don't have and how to spend
-from multiple addresses at the same time. She invents the cookie token
-_transaction_ to solve the three problems outlined above.
+everyone can verify payments. At the same time she will improve how
+she verifies that people don't spend money they don't have and how to
+spend from multiple addresses at the same time. She invents the cookie
+token _transaction_ to solve the three problems outlined above.
 
 === Pay using a transaction
 
@@ -109,11 +115,25 @@ transaction with two different private keys, one for @~1~ and one
 key for @~2~. John's wallet then sends the signed transaction as an
 attachment in an otherwise empty email to Lisa.
 
-Lisa verifies the transaction by checking that the money it spends
-exists, that they are not already spent, and that the two signatures
-are valid. If all checks pass, Lisa adds it to the spreadsheet.
+Lisa verifies that the money the transaction spends exists, that they are not
+already spent, and that the two signatures are valid. If all checks
+pass, Lisa confirms the transaction by adding it to the spreadsheet.
 
-=== Create the transaction
+Once the transaction hits the spreadsheet, anyone can make the same
+verification as Lisa did. They can verify that Lisa doesn't steal
+money from someone else.
+
+We will dig deeper into the three phases create, confirm, and verify
+in the next three subsections.
+
+==== Create the transaction
+
+****
+.John's transaction
+- [ ] *create (John)*
+- [ ] confirm (Lisa)
+- [ ] verify (anyone)
+****
 
 Let's dive in and have a closer look at what John's transaction
 contains.
@@ -189,7 +209,7 @@ and indexes within those transactions. But only John will be able to
 sign this transaction because only he has the private keys
 corresponding to PKH~1~ and PKH~2~.
 
-=== Sign the transaction
+===== Sign the transaction
 
 John clicks OK in his wallet to approve the signing of the
 transaction. The wallet now needs to make two signatures, one
@@ -226,7 +246,14 @@ spends money from PKH~1~ needs to be verified with the public key that
 PKH~1~ was generated from. Similarly, input 1 gets the public key
 corresponding to PKH~2~.
 
-=== Lisa verifies the transaction
+==== Lisa confirms the transaction
+
+****
+.John's transaction
+- [x] create (John)
+- [ ] *confirm (Lisa)*
+- [ ] verify (anyone)
+****
 
 The transaction is ready to be sent to Lisa. It is sent to Lisa as an
 attachment in an email. Lisa picks up the transaction and verifies that
@@ -249,7 +276,7 @@ that spend this output? Yes she does. That seems about as cumbersome
 as searching through the spreadsheet to calculate balances. Don't
 worry, Lisa has a plan for that.
 
-==== Unspent transaction output set (UTXO set)
+===== Unspent transaction output set (UTXO set)
 
 [.inbitcoin]
 .UTXO set
@@ -278,11 +305,17 @@ spent. We usually refer to this as double spending.
 .Lisa verifies that John spends money that are not already spent.
 image::{imagedir}/utxo-set.svg[{half-width}]
 
+[.gbinfo]
+.Confirm
+****
+To confirm a transaction is to verify it and add it to the spreadsheet.
+****
+
 For each input in John's transaction, she looks up the txid and the
 output index in her UTXO set. If she doesn't find it, John's
 transaction is invalid because it tries to double spend the output. If
-no double spend attempt was detected, Lisa can add the transaction to
-the spreadsheet.
+no double spend attempt was detected, Lisa adds the transaction to the
+spreadsheet. She has now _confirmed_ the transaction.
 
 .Lisa adds the transaction to the spreadsheet and removes the spent outputs from the UTXO set.
 image::{imagedir}/utxo-set-update.svg[{half-width}]
@@ -295,9 +328,9 @@ only. It can be recreated at any time and notably by anyone with read
 access to the spreadsheet.
 ****
 
-When she adds the transaction to the spreadsheet, she must remove the
-spent outputs from the UTXO set and add the outputs of John's
-transaction to the UTXO set.
+When she confirms the transaction, she must remove the spent outputs
+from the UTXO set and add the outputs of John's transaction to the
+UTXO set.
 
 Lisa keeps this UTXO set up-to-date at all times by updating it like
 above for every incoming transaction. But we should note that if she
@@ -312,7 +345,15 @@ Lisa's job. It's also important for people just wanting to verify the
 spreadsheet to convince themselves that the information in it is
 correct.
 
-=== Anyone verifies the transaction
+==== Anyone verifies the transaction
+
+
+****
+.John's transaction
+- [x] create (John)
+- [x] confirm (Lisa)
+- [ ] *verify (anyone)*
+****
 
 Now that John's transaction is stored in the spreadsheet exactly as he
 created it, anyone with read access to the spreadsheet can
@@ -334,15 +375,21 @@ signatures of that transaction will no longer be valid. Anyone with
 access to the spreadsheet will be able to notice this because
 everything is super-transparent in the spreadsheet.
 
+****
+.John's transaction
+- [x] create (John)
+- [x] confirm (Lisa)
+- [x] verify (anyone)
+****
+
 But there are still bad things Lisa can do:
 
-* She can refuse to process certain transactions.
-* She can delay the processing of certain transactions.
+* She can refuse to process or delay the processing of certain transactions.
 * She can double spend her own money. She can pay for a cookie in the
   cafe and when the cafe has given her the cookie, she can delete her
   transaction from the spreadsheet and spend the same money again.
 
-==== Security consequences of public signatures
+===== Security consequences of public signatures
 
 The good thing with public signatures is that anyone can verify all
 transactions. But there is a slight drawback. Remember in <<ch03>>
@@ -362,9 +409,8 @@ image::{imagedir}/input-reveals-pubkey.svg[{half-width}]
 [.gbinfo]
 .Don't reuse addresses
 ****
-Bitcoin addresses should not be reused. After spending an output, the
-security of that output's address is reduced to the security of the
-public key derivation function "only".
+Bitcoin addresses should not be reused. Address reuse degrades both
+security and privacy.
 ****
 
 The input contains the public key. But it only reveals the public key
@@ -377,41 +423,28 @@ While address reuse degrades the security of your private keys, it
 also degrades your privacy, as discussed in <<ch03>>. Suppose again
 that John would have other outputs to PKH~1~. If Acme insurances
 forces the cafe to reveal that it was John who bought the cookie, Acme
-would also know that all John's outputs to PKH~1~ belongs to him. This
-goes for change outputs too.
+would also know that all outputs to PKH~1~ belongs to John. This goes
+for change outputs too.
 
-Luckily, the wallets will automate key creation for you, so you never
-have to worry about key reuse.
-
-=== Lock time and sequence numbers
-
-We still haven't covered all the contents of a transaction. There are
-two pieces of information missing in the transactions: Lock time and
-sequence numbers.
-
-image::{imagedir}/sequence-number-lock-time.svg[{quart-width}]
-
-Lock time:: A point in time that must have passed before it's allowed
-to add the transaction to the spreadsheet. You can either set a point
-in time or a specific block in the blockchain, which we will discuss
-in later chapters. If Lock time is 0, it means that it is always
-allowed to be added to the spreadsheet.
-
-Sequence number:: A four byte number on each input. For most
-transactions this should be set to its maximum value `ffffffff`.
-
-We include this sparse information here just for completeness. These
-features will be discussed in later chapters, when we have learned
-about the blockchain.
+Luckily, the wallets will automate key creation for you, so you
+usually don't have to worry about key reuse.
 
 === Script
+
+****
+.Script
+- [ ] *normal*
+- [ ] multisig
+- [ ] pay-to-script-hash
+- [ ] p2sh addresses
+****
 
 I haven't been totally honest about what a transaction contains. An
 output of a transaction does not just contain a PKH. Instead, it
 contains part of a small computer program. This part is called
 scriptPubKey. The input that spends the output contains the other part
-of this program. This part, the signature and the public key in this
-case, is called scriptSig.
+of this program. This part, the signature and the public key John's
+transaction, is called scriptSig.
 
 .The scriptSig is the first part of a program. The scriptPubKey in the spent output is the second part. If the complete program returns `true`, then the payment is authorized to spend the output.
 image::{imagedir}/script.svg[{big-width}]
@@ -574,18 +607,26 @@ address.
 
 ==== Multiple signatures
 
+****
+.Script
+- [x] normal
+- [ ] *multisig*
+- [ ] pay-to-script-hash
+- [ ] p2sh addresses
+****
+
 But what if the recipient would like her money secured by something
 other than a single private key? Suppose that Faiza, Ellen and John
 wants to raise money from their coworkers for charity.
-
-****
-image::{imagedir}/flyer-p2pkh-address.svg[]
-****
 
 They could use a normal p2pkh address that their supporters donate
 cookie tokens to. They can let, say, Faiza have control over the
 private key, so only she can spend the funds. There are a few problems
 with this approach:
+
+****
+image::{imagedir}/flyer-p2pkh-address.svg[]
+****
 
 . If Faiza dies, the money might be lost forever. Ellen and John will
 not be able to recover the funds.
@@ -593,7 +634,7 @@ not be able to recover the funds.
 Ellen and John will not be able to recover the funds.
 . If Faiza is sloppy with her private key security, the money might
 get stolen.
-. If Faiza might run away with the money.
+. Faiza might run away with the money.
 
 There seems to be a lot of risks with this setup, but what if Faiza
 gives the private key to her two charity partners? Then all partners
@@ -688,8 +729,17 @@ p2sh.
 
 ==== Pay to script hash (p2sh)
 
+****
+.Script
+- [x] normal
+- [x] multisig
+- [ ] *pay-to-script-hash*
+- [ ] p2sh addresses
+****
+
 We have previously discussed how p2pkh hides the public key to the
-sender. Instead the sender gets a hash of the public key to pay to.
+sender. The sender gets a hash of the public key to pay to instead of
+the public key itself.
 
 Pay to script hash (p2sh) takes that idea even further, it hides the
 script program itself. Instead of giving a big, complicated script
@@ -729,13 +779,13 @@ old software will not reject these new transactions.
 .Why verify
 ****
 The cafe is not involved in this transaction, why would the cafe want
-to verify this transaction? One day, the money in the output of this
-transaction may end up at the cafe. The cafe wants to know that the
-money is good, so they want to verify all payments. Otherwise they can
-be fooled by Lisa, either deliberately or by accident.
+to verify this transaction? The cafe wants to know if Lisa is doing
+her job. It's in the cafe's interest to know if something fishy is
+going on. Also, the cafe keeps a UTXO set of its own, and must verify
+transactions in order to keep it up-to-date.
 ****
 
-Let's pretend the Cafe runs old software to verify this transaction in
+Let's pretend the cafe runs old software to verify this transaction in
 the spreadsheet.
 
 image:{imagedir}/execute-p2sh-old-client-1.svg[{third-width}]
@@ -779,12 +829,12 @@ transaction is spending a p2sh output. It looks for the pattern
  OP_EQUAL
 
 If the scriptPubKey has this exact pattern, the p2sh pattern, the
-program will be treated differently. First, the exact same five steps
+program will be treated differently. First, the exact same seven steps
 as the old software above are performed, but with the difference that
 the stack is saved away after step 2. Let's call this the "saved
-stack". If those five steps results in "OK", then the stack is
-replaced by the saved stack and the top item, the redeemScript, is
-taken off the stack.
+stack". If the seven steps result in "OK", then the stack is replaced
+by the saved stack and the top item, the redeemScript, is taken off
+the stack:
 
 image:{imagedir}/execute-p2sh-new-client-1.svg[{third-width}]
 image:{imagedir}/execute-p2sh-new-client-2.svg[{third-width}]
@@ -801,6 +851,14 @@ It executes from now on as if it was an old style payment.
 
 ==== Pay to script hash addresses
 
+****
+.Script
+- [x] normal
+- [x] multisig
+- [x] pay-to-script-hash
+- [ ] *p2sh addresses*
+****
+
 Faiza, Ellen and John have created their 2-of-3 multi-signature
 redeemScript:
 
@@ -811,8 +869,8 @@ redeemScript:
  3
  OP_CHECKMULTISIG
 
-Now they want people to pay to the SHA256+RIPEMD160 hash of this
-script:
+Now they want people to pay to the script hash, the SHA256+RIPEMD160
+hash, of the script:
 
  04e214163b3b927c3d2058171dd66ff6780f8708
 
@@ -827,8 +885,8 @@ their options:
 
 * Print the script hash as-is and inform them that this is a hash of a
 redeemScript, but then they would expose coworkers to unnecessary
-risks of typing errors, just as with normal payments as discussed in
-<<ch03>>.
+risks of typing errors, just as with payments to raw public key
+hashes, as discussed in <<ch03>>.
 * Base58check encode the script hash just as in <<ch03>>, that would
 generate an address like `1SpXyWt143RceMvcHidnZSVfEuZRMmEMZ`. If this
 address was printed on the flyers, they would also need to inform the
@@ -838,7 +896,7 @@ payment using this address, the money cannot be spend by anyone,
 because there is no private key corresponding to this "public key
 hash".
 
-Neither of the above options seems safe or practical. Instead, let's
+Neither of the above options seems safe nor practical. Instead, let's
 introduce a new address format for p2sh, which we call a
 pay-to-script-hash address. This format is very similar to normal
 cookie token addresses.
@@ -846,17 +904,19 @@ cookie token addresses.
 .Create a p2sh address. The difference from normal addresses is the version which is 5 for p2sh addresses instead of 0.
 image::{imagedir}/p2sh-address-encoding.svg[{big-width}]
 
-This process is the same as for (pay-to-public-key-hash) p2pkh
+This process is the same as for pay-to-public-key-hash, p2pkh,
 addresses. The only difference is that the version is changed from
 `00` to `05`. Because of this change and the way the base58 works,
 using integer division by 58 successively, the last remainder will
 always be 2. For the interested reader, we provide the base58 encoding
 of the versioned and checksummed script hash.
 
+.Encode a versioned and checksummed script hash with base58. The result will _always_ start with the character `3`.
 image::{imagedir}/base58-encode-p2sh.svg[{big-width}]
 
-This last remainder will translate to `3` in the
-character lookup table of base58.
+This last remainder will translate to `3` in the character lookup
+table of base58. This `3` character will become the first character
+when the reverse step is performed by the base58 process.
 
 ****
 image::{imagedir}/flyer-p2sh-address.svg[]
@@ -874,6 +934,43 @@ proper p2sh output:
  04e214163b3b927c3d2058171dd66ff6780f8708
  OP_EQUAL
 
+****
+.Script
+- [x] normal
+- [x] multisig
+- [x] pay-to-script-hash
+- [x] p2sh addresses
+****
+
+This concludes our sections on programmable transactions. We have
+learned that transactions can express a lot of different rules for how
+to spend money. Note that we cannot constrain where money goes, only
+what's needed in the input to spend the money. scriptPubKey make the
+rules for what's required in the scriptSig. Later in the book we will
+revisit transactions to talk about more fancy stuff you can do with
+transactions.
+
+=== Lock time and sequence numbers
+
+We still haven't covered all the contents of a transaction. There are
+two pieces of information missing in the transactions: Lock time and
+sequence numbers.
+
+image::{imagedir}/sequence-number-lock-time.svg[{quart-width}]
+
+Lock time:: A point in time that must have passed before it's allowed
+to add the transaction to the spreadsheet. You can either set a point
+in time or a specific block in the blockchain, which we will discuss
+in later chapters. If Lock time is 0, it means that it is always
+allowed to be added to the spreadsheet.
+
+Sequence number:: A four byte number on each input. For most
+transactions this should be set to its maximum value `ffffffff`.
+
+We include this sparse information here just for completeness. These
+features will be discussed in later chapters, when we have learned
+about the blockchain.
+
 === Rewards and coin creation
 
 ****
@@ -883,7 +980,7 @@ image::{imagedir}/lisa-is-rewarded.svg[]
 You might be wondering where all the cookie tokens comes from in the
 first place. Remember in <<ch02>> when we described how Lisa gets
 rewarded 7200 new cookie tokens every day? She would insert a new row
-in the cookie token every day paying 7200 new cookie tokens to
+in the spreadsheet every day paying 7200 new cookie tokens to
 herself.
 
 She still rewards herself 7200 cookie tokens per day, but in a
@@ -924,7 +1021,7 @@ a way for the author to make the cookie token story hold.
 
 All transactions can be traced back to one or more coinbase
 transactions by following the txid references in inputs of
-transactions. The transaction form a _transaction graph_. They are
+transactions. The transactions form a _transaction graph_. They are
 interconnected through the txids.
 
 .The transaction graph. All transactions descend from one or more coinbase transactions.
@@ -933,13 +1030,15 @@ image::{imagedir}/transaction-graph.svg[{big-width}]
 John's transaction stems from four different coinbase transactions. To
 verify John's transaction, you need to follow all txids from John's
 transaction and verify all the transactions along the way until you
-have reached the four coinbase transactions. The coinbase transactions
-must also be verified, so that there are exactly one coinbase per 24
-hours and each coinbase creates exactly 7200 new cookie tokens. This
-is what the UTXO set helps verifiers with. It keeps track of all
-already verified unspent transaction outputs so that the verifiers
-only have to follow the txids until it reaches an output that's in the
+have reached the four coinbase transactions. This is what the UTXO set
+helps verifiers with. The UTXO set keeps track of all already verified
+unspent transaction outputs. The verifiers only have to follow the
+txids (usually only one step) until it reaches an output that's in the
 UTXO set.
+
+The coinbase transactions must also be verified, so that there are
+exactly one coinbase per 24 hours and each coinbase creates exactly
+7200 new cookie tokens.
 
 === Lisa automates her work
 
@@ -1136,5 +1235,5 @@ do to avoid those drawbacks.
   transactions. Coinbase transactions are the only way in which money
   is created.
 
-* Money creation is verified by any coworkers, to make sure Lisa
+* Money creation is verified by any coworker, to make sure Lisa
   creates exactly as much as agreed. 7200 CT per day.
