@@ -1,2 +1,6 @@
 Ethereum logo https://www.ethereum.org/assets
 
+Acknowledgements:
+
+Jonathan Jogenfors for proofreading the crypto stuff
+Andreas Antonopoulos for helping out with open sourcing the book

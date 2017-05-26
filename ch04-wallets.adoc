@@ -546,7 +546,7 @@ Suppose that Rita's 128 bit (16 byte) seed is
 image::{imagedir}/backup-seed.svg[]
 ****
 
-It is a lot easier to write these 64 hex digits to a piece of paper
+It is a lot easier to write these 32 hex digits to a piece of paper
 than it would be to write her eight private keys. But the biggest win
 is that Rita can write this down once and lock it into a safe. As long
 as that paper is safe, her wallet is safe from accidental loss. She
@@ -673,7 +673,7 @@ image::{imagedir}/online-cookie-shop.svg[]
 ****
 
 Suppose that the cafe uses a hierarchical deterministic wallet. They
-want to start selling cookies on their web site and delivers the
+want to start selling cookies on their web site and deliver the
 cookies to the coworker's cubicle.
 
 The web server needs to be able to present a new cookie token address
@@ -747,14 +747,98 @@ image::{imagedir}/hd-addition.svg[{quart-width}]
 
 Normal addition is used for the private key. We add a 256 bit number
 to the parent private key to get the child private key. But to keep
-the result within 256 bit numbers, we use addition _modulo
-2^256^_.
+the result within 256 bit numbers, we use addition _modulo 2^256^_.
 
 The multiplication used to derive the child public key is not exactly
-what most people (including the author) are used to. We will try to
-explain it in simple terms, but if you think this is too much, you can skip the section on public key multiplication and jump to <<hardened-key-derivation>>.
+what most people (including the author) are used to. For now let's
+just say that the multiplication is a one-way function. You can't
+"divide" a public key by the left hash to get the private key. We will
+dig deeper into this at the end of this chapter.
 
-==== Public key multiplication
+[id=hardened-key-derivation]
+=== Hardened private key derivation
+
+The cafe's online business works well. People are ordering cookies
+like crazy! The online sales account grows with a new key pair for
+every order. The xpub for the online sales account sits on the web
+server and the xprv is only present in the cafe's wallet (and in a
+locked away mnemonic sentence).
+
+Suppose that the private key `m/1/1` that only contains 10 CT was
+stolen by Malory somehow. This may seem harmless because that private
+key has so little money in it. But it may be worse than that. If
+Malory has also managed to get the xpub for the online sales account
+from the web server, she can _calculate the online sales xprv_.
+
+.Malory has stolen the private key `m/1/1` from the cafe and the parent xpub from the web server. She can now steal all money in the online sales account.
+image::{imagedir}/steal-xprv.svg[{big-width}]
+
+Remember how the xprv derivation function used normal addition to
+calculate a child private key from a parent private key?
+
+ "m/1" + "left half hash of index 1" = "m/1/1"
+
+This can just as well be written as
+
+ "m/1" = "m/1/1" - "left half hash of index 1"
+ 
+Malory has everything she need to calculate the left half hash for any
+child index of `M/1` she pleases, but she don't know which index her
+stolen private key has so she starts testing with index 0:
+
+ "m/1/1" - "left half hash of index 0" = "a private key"
+
+She derives the public key from this private key and notices that it
+doesn't match "M/1", so `0` wasn't the correct index. She then tries index `1`:
+
+ "m/1/1" - "left half hash of index 1" = "another private key"
+
+This private key derives to the public key `M/1`. Bingo! She has now
+calculated the private key `m/1` for the online sales account. Since
+the xprv shares the chain code with the xpub she also has the xprv for
+`m/1` and she can calculate the whole private key tree for the online
+sales account. Malory steals all the money from the online sales
+account. Not good.
+
+Now think about what would happen if Malory had the master xpub. She
+could use the same technique to derive the master xprv from the master
+xpub and `m/1/1`. Can we do something to prevent such a catastrophic
+scenario? Yes, with _yet another key derivation function_! I'm sorry,
+but we need to get used to this. Nothing in Bitcoin is simple.
+Whatever pond you dip your toe into, it's always deeper than you
+think. This new key derivation function is called _hardened extended
+private key derivation_.
+
+Suppose that the cafe want to prevent a bad guy, for example Malory,
+from accessing the private keys of the counter sales account and the
+master xprv. The thief must be confined to the online sales account
+only. The cafe can then generate the online sales xprv differently:
+
+.Normal child xprv derivation
+****
+image::{imagedir}/2ndcol-derive-child-xprv.svg[]
+****
+
+.Derive a hardened child xprv for the online sales account. We use the parent private key as input to the hash function instead of the public key.
+image::{imagedir}/hd-wallet-derive-hardened-child-xprv.svg[{half-width}]
+
+The apostrophe in `m/1'` is not a typo. The apostrophe is used to
+denote hardened key derivation. The difference is that with hardened
+key derivation we hash the private key instead of the public key. This
+means that an attacker cannot do the "minus" trick anymore because the
+hash is derived from the parent private key. She cannot calculate the
+left half hash to subtract from the child private key because she
+doesn't have the parent private key. This also means that you cannot
+derive a hardened child xpub from a parent xpub. You must have the
+parent xprv to generate any children at all, public or private.
+
+=== Public key multiplication
+
+Let's dig deeper in to public key multiplication. Public key
+multiplication is used to derive public keys from private keys and
+derive child public keys from parent public keys. We will try to
+explain it in simple terms, but if you think this is too much, you can
+skip this section.
 
 .Normal public key derivation
 ****
@@ -889,7 +973,31 @@ key by point "division" (for example point (6, 6) "divided by" G). The
 only known way is to try different private keys and see if the public
 key is what you are looking for.
 
-=== Public key encoding
+==== xpub derivation
+
+.xpub derivation
+****
+image::{imagedir}/2ndcol-derive-child-xpub.svg[]
+****
+
+We have seen how an ordinary public key is derived from a private key
+through public key multiplication. But how can the multiplication of
+the parent public key with the left half hash become the child public
+key?
+
+We can convince ourselves that it works by looking at both normal
+public key derivation and child public key derivation side by side:
+
+.Comparing xpub derivation with normal public key derivation. A normal public key is the start point G multiplied by a private key. A child public key is the parent public key multiplied by the left half hash.
+image::{imagedir}/derive-pubkey-and-child-xpub.svg[{quart-width}]
+
+See the child public key as a normal public key derivation but with a
+different starting point. The starting point is the parent public key
+instead of G. And instead of multiplying the parent public key with a
+private key we multiply it by the left half hash that were calculated
+from the xpub.
+
+==== Public key encoding
 
 Do you remember how John's public key just looked just like a big number?
 
@@ -919,106 +1027,6 @@ This is also the reason why public keys are 33 bytes and not 32
 bytes. It's a 256 bit number, the x-coordinate, prefixed by a byte
 specifying the odd/even property.
 
-=== Back to xpub derivation
-
-.xpub derivation
-****
-image::{imagedir}/2ndcol-derive-child-xpub.svg[]
-****
-
-We have seen how an ordinary public key is derived from a private key
-through public key multiplication. But how can the multiplication of
-the parent public key with the left half hash become the child public
-key?
-
-We can convince ourselves that it works by looking at both normal
-public key derivation and child public key derivation side by side:
-
-.Comparing xpub derivation with normal public key derivation. A normal public key is the start point G multiplied by a private key. A child public key is the parent public key multiplied by the left half hash.
-image::{imagedir}/derive-pubkey-and-child-xpub.svg[{quart-width}]
-
-See the child public key as a normal public key derivation but with a
-different starting point. The starting point is the parent public key
-instead of G. And instead of multiplying the parent public key with a
-private key we multiply it by the left half hash that were calculated
-from the xpub.
-
-[id=hardened-key-derivation]
-=== Hardened private key derivation
-
-The cafe's online business works well. People are ordering cookies
-like crazy! The online sales account grows with a new key pair for
-every order. The xpub for the online sales account sits on the web
-server and the xprv is only present in the cafe's wallet (and in a
-locked away mnemonic sentence).
-
-Suppose that the private key `m/1/1` that only contains 10 CT was
-stolen by Malory somehow. This may seem harmless because that private
-key has so little money in it. But it may be worse than that. If
-Malory has also managed to get the xpub for the online sales account
-from the web server, she can _calculate the online sales xprv_.
-
-.Malory has stolen the private key `m/1/1` from the cafe and the parent xpub from the web server. She can now steal all money in the online sales account.
-image::{imagedir}/steal-xprv.svg[{big-width}]
-
-Remember how the xprv derivation function used normal addition to
-calculate a child private key from a parent private key?
-
- "m/1/1" = "m/1" + "left half hash of index 1"
-
-This can just as well be written as
-
- "m/1/1" - "left half hash of index 1" = "m/1"
- 
-Malory has everything she need to calculate the left half hash for any
-child index of `M/1` she pleases, but she don't know which index her
-stolen private key has so she starts testing with index 0:
-
- "m/1/1" - "left half hash of index 0" = "a private key"
-
-She derives the public key from this private key and notices that it
-doesn't match "M/1", so `0` wasn't the correct index. She then tries index `1`:
-
- "m/1/1" - "left half hash of index 1" = "another private key"
-
-This private key derives to the public key `M/1`. Bingo! She has now
-calculated the private key `m/1` for the online sales account. Since
-the xprv shares the chain code with the xpub she also has the xprv for
-`m/1` and she can calculate the whole private key tree for the online
-sales account. Malory steals all the money from the online sales
-account. Not good.
-
-Now think about what would happen if Malory had the master xpub. She
-could use the same technique to derive the master xprv from the master
-xpub and `m/1/1`. Can we do something to prevent such a catastrophic
-scenario? Yes, with _yet another key derivation function_! I'm sorry,
-but we need to get used to this. Nothing in Bitcoin is simple.
-Whatever pond you dip your toe into, it's always deeper than you
-think. This new key derivation function is called _hardened extended
-private key derivation_.
-
-Suppose that the cafe want to prevent a bad guy, for example Malory,
-from accessing the private keys of the counter sales account and the
-master xprv. The thief must be confined to the online sales account
-only. The cafe can then generate the online sales xprv differently:
-
-.Normal child xprv derivation
-****
-image::{imagedir}/2ndcol-derive-child-xprv.svg[]
-****
-
-.Derive a hardened child xprv for the online sales account. We use the parent private key as input to the hash function instead of the public key.
-image::{imagedir}/hd-wallet-derive-hardened-child-xprv.svg[{half-width}]
-
-The apostrophe in `m/1'` is not a typo. The apostrophe is used to
-denote hardened key derivation. The difference is that with hardened
-key derivation we hash the private key instead of the public key. This
-means that an attacker cannot do the "minus" trick anymore because the
-hash is derived from the parent private key. She cannot calculate the
-left half hash to subtract from the child private key because she
-doesn't have the parent private key. This also means that you cannot
-derive a hardened child xpub from a parent xpub. You must have the
-parent xprv to generate any children at all, public or private.
 
 === Summary of HD wallets
 
@@ -1038,8 +1046,9 @@ words on a piece of paper and lock it up safely.
 
 The cafe accepts cookie tokens on its online shop. It only puts the
 xpub for the "online sales" account, `M/1'`, on the web server. The
-private keys are kept in the cafe's wallet and never touches the web
-server.
+web server can now create as many addresses it needs to but without
+using any private keys. The private keys are kept in the cafe's wallet
+and never touches the web server.
 
 Let's have a release party! Cookie tokens 4.0, fresh from the lab!
 
