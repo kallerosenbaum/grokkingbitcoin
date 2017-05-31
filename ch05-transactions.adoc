@@ -226,7 +226,7 @@ it spends money addressed to PKH~1~. Similarly, the private key
 corresponding to PKH~2~ must be used for the signature in input 1,
 because it spends money addressed to PKH~2~.
 
-Both signatures are cover the whole transaction, but with no signature
+Both signatures cover the whole transaction, but with no signature
 data. You sign the transaction without any signatures in it. You can
 not put a signature in input 0 and _then_ sign for input 1. This is
 because verification becomes hard if the person verifying don't know

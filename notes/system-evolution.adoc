@@ -359,3 +359,13 @@ interest.
 * Merkle tree
 * SPV proof
 * 
+
+
+== Transactions revisited - Bells and whistles
+
+SIGHASH_*
+LockTime
+nseq
+OP_CLTV
+OP_CSV
+Payment channels

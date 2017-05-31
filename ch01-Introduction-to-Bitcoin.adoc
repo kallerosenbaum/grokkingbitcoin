@@ -33,20 +33,19 @@ called bitcoin with lowercase b. Commonly used symbols for bitcoin are
 {btc}, BTC and XBT. We will mostly use BTC in this book.
 ****
 
-Bitcoin is an electronic cash system. It allows for people or
-computers to move bitcoins, the currency of Bitcoin, between each
-other without using a bank or some other trusted third party. It
-resembles traditional bank notes and coins in that way, but it is
-purely electronic and used over the Internet. The Bitcoin currency is
-not tied to any specific _fiat currency_ like the US dollar or the
-Chinese Renminbi; It has free floating exchange rates against all fiat
-currencies. You can buy and sell bitcoins for fiat currencies on
-several exchanges. No government or company is controlling
-Bitcoin. Instead, thousands of computers around the globe, the Bitcoin
-network, collectively keep the system working day and night, seven
-days a week. You don't need to register or sign up anywhere to use
-Bitcoin, you just need a computer program, like a mobile app to
-use it.
+Bitcoin is an electronic cash system. It allows for people to move
+bitcoins, the currency of Bitcoin, between each other without using a
+bank or any other trusted third party. It resembles traditional bank
+notes and coins in that way, but it is purely electronic and used over
+the Internet. The Bitcoin currency is not tied to any specific _fiat
+currency_ like the US dollar or the Chinese Renminbi; It has free
+floating exchange rates against all fiat currencies. You can buy and
+sell bitcoins for fiat currencies on several exchanges. No government
+or company is controlling Bitcoin. Instead, thousands of computers
+around the globe, the Bitcoin network, collectively keep the system
+working day and night, seven days a week. You don't need to register
+or sign up anywhere to use Bitcoin, you just need a computer program,
+like a mobile app to use it.
 
 Satoshi Nakamoto, a pseudonym whose identity is unknown, published a
 scientific paper on an e-mail list for cryptography related
@@ -106,7 +105,7 @@ The Bitcoin network validates and confirms payments between Bitcoin
 users. The Bitcoin network is a network of computers running Bitcoin
 software.
 
-Suppose that Alice wants to make a Payment of 1 BTC to Bob. The
+Suppose that Alice wants to make a payment of 1 BTC to Bob. The
 payment starts with Alice asking the Bitcoin network to move money
 from her to Bob.
 
@@ -114,7 +113,7 @@ from her to Bob.
 .I thought Bitcoin was anonymous?
 ****
 Bitcoin doesn't use names or any other personal information, but we
-use names in this first illustration.
+use names in this first example for simplicity.
 ****
 
 .A Bitcoin payment. The payment is processed in 4 steps.
@@ -123,8 +122,8 @@ image::{imagedir}/payment-overview.svg[{full-width}]
 Let us follow Alice's payment from Alice to Bob:
 
 . Alice asks the Bitcoin network to move 1 bitcoin from her to Bob.
-. The computers in the network check that Alice actually has the
-money to send and that she is authorized to send them.
+. The computers in the network check that Alice actually has the money
+to spend and that she is authorized to spend them.
 . Each computer update its own copy of the Bitcoin ledger with the
 new payment information.
 . The network notifies Bob that he has received 1 bitcoin.
@@ -161,7 +160,7 @@ image::{imagedir}/transaction_mailbox.jpg[{half-width}]
 .Public and Private keys
 ****
 Alice's mailbox key is her _private key_. The number on her mailbox is
-her _public key_. Chapter 2 and 4 are your friends here.
+her _public key_. This is discussed in <<ch02>> and <<ch04>>.
 ****
 
 The Bitcoin _transaction_, can be regarded as transferring money from
@@ -175,15 +174,15 @@ the only one who can do that because only she has the key to
 mailbox 321. In digital form, this transaction is a piece of data
 specifying
 
-* the mailbox to withdraw from (321)
-* the amount to withdraw (1 BTC)
+* the mailbox to move the money from (321)
+* the amount to move (1 BTC)
 * what mailbox to move the money to (560).
 * a _digital signature_
 
 [.gbinfo]
 .Digital signatures
 ****
-We discuss digital signatures in-depth in chapter 2.
+We discuss digital signatures in-depth in <<ch02>>.
 ****
 
 The digital signature corresponds to Alice _opening mailbox 321 with
@@ -196,10 +195,10 @@ network to move money in step 1.
 
 ==== Step 2 - The Bitcoin network
 
-Alice have already sent a transaction to one or more Bitcoin nodes. In
-step 2 of the process, each node checks that the transaction is valid
-and if it is, pass it on to other nodes. They check validity by
-consulting their local copy of the ledger, and check that
+Alice have sent a transaction to one or more Bitcoin nodes. In step 2
+of the process, each node checks that the transaction is valid and if
+it is, pass it on to other nodes. They check validity by consulting
+their local copy of the ledger, and check that
 
 [.gbinfo]
 .Transparent mailboxes
@@ -213,7 +212,7 @@ mailboxes, but only the key holder can take out bitcoins from it.
   digital signature is valid.
 
 [id=overview-bitcoin-network]
-.The Bitcoin network. Alice sends her transaction to a node in the network. The node will validate the transaction and forward it to other peers. Eventually the transaction have reached all nodes in the network.
+.The Bitcoin network. Alice sends her transaction to a node in the network. The node will validate the transaction and forward it to other nodes. Eventually the transaction have reached all nodes in the network.
 image::{imagedir}/bitcoin-network.svg[{half-width}]
 
 [.inbitcoin]
@@ -239,8 +238,8 @@ next step.
 .The blockchain
 ****
 The names comes from how the ledger is structured. It uses blocks that
-are chained together in a way that modifications to the blockchain can
-be detected. More on that in <<ch06>>.
+are chained together in such a way that modifications to the
+blockchain can be detected. More on that in <<ch06>>.
 ****
 
 In step 3 nodes update their local copies of the Bitcoin ledger with
@@ -318,7 +317,7 @@ image::{imagedir}/notify-bob.svg[{half-width}]
 A typical Bitcoin wallet will
 
  - [x] Hold keys
- - [x] Watch incoming bitcoins
+ - [x] Watch incoming/outgoing bitcoins
  - [x] Send bitcoins
 ****
 
@@ -361,11 +360,11 @@ in 2008. That is an average daily inflation rate of nearly
 100%. Prices roughly doubled every day.
 
 Extreme cases of inflation like this are called
-hyperinflation. Hyperinflation is usually initially driven by a rapid
-increase in the money supply. Government sometimes increase in money
-supply as a tool to extract value from its population to pay for
-expenses like national debt, warfare or welfare. If this tool is
-over-used, the risk of hyperinflation is apparent.
+hyperinflation. Hyperinflation is usually driven by a rapid increase
+in the money supply. Government sometimes increase in money supply as
+a tool to extract value from its population to pay for expenses like
+national debt, warfare or welfare. If this tool is over-used, the risk
+of hyperinflation is apparent.
 
 An increasing money supply will most likely lead to a depreciation of
 the currency. This in turn pushes people to exchange their local
@@ -387,16 +386,16 @@ they see their life savings diminish to virtually nothing.
 
 Zimbabwe is one of the most extreme cases of inflation throughout
 history, but still today some countries suffer from very high
-inflation. One of them is Venezuela where its currency, the bolívar as
-of writing faces a 480% inflation during 2016 and 2017 is forecast to
-suffer from 1700% inflation.
+inflation. One of them is Venezuela where its currency, the bolívar
+experienced a 480% inflation during 2016 and 2017 is forecast to suffer
+from 1700% inflation.
 
 ==== Borders
 
-Moving value across borders using fiat currency is hard, expensive and
-sometimes even forbidden. If you want to send 1000 Swedish crowns
-(SEK) from Sweden to a person in the Philippines, you can use a
-service like Western Union for the transfer. At the time I
+Moving value across national borders using fiat currency is hard,
+expensive and sometimes even forbidden. If you want to send 1000
+Swedish crowns (SEK) from Sweden to a person in the Philippines, you
+can use a service like Western Union for the transfer. At the time I
 investigated this, 1000 SEK was worth 5305 Philippine Pesos (PHP) or
 109 US dollars.
 
@@ -422,7 +421,7 @@ convenient you want it.
 ****
 
 To contrast the above, moving fiat currency within the borders of a
-state is usually very convenient. For example, you can hand over cash
+nation state is usually very convenient. For example, you can hand over cash
 directly to the recipient, or transfer money using some mobile app
 made specifically for the currency. As long as you stay within one
 country and one currency, fiat currencies usually does a pretty
@@ -431,14 +430,14 @@ good job.
 ==== Segregation
 
 As noted in the previous section, not all people have access to bank
-accounts. People with bank accounts and banking services like online
-payments or loans are very privileged. About 38% of the world
-population don't have a bank account at all, according to the World
-Bank, see <<web-financial-inclusion>>. The numbers are improving but
-still a vast amount of people are stuck in a cash-only environment. If
-these people want to receive money from a family member abroad, they
-will receive 5% less, due to higher remittance fees, than if they had
-a bank account.
+accounts. People with bank accounts and access to banking services
+like online payments or loans are very privileged. About 38% of the
+world population don't have a bank account at all, according to the
+World Bank, see <<web-financial-inclusion>>. The numbers are improving
+but still a vast amount of people are stuck in a cash-only
+environment. If these people want to receive money from a family
+member abroad, they will receive 5-10% less, due to higher remittance
+fees, than if they had a bank account.
 
 Without a bank account and basic bank services like online payments,
 people can not expand their businesses outside of their local
@@ -478,12 +477,13 @@ several other problems with traditional money. States can easily
 * freeze funds
 * seize funds
 
-You might say, "I have nothing to hide, and the government need tools
-to fight crime". The problem is that you do not know what your
+You might say, "I have nothing to hide, and the government need these
+tools to fight crime". The problem is that you do not know what your
 government looks like in five years and how that government defines
 crime. New laws are just an election away. After next election, your
 government may pass a law that allows freezing funds of people with
-your political view.
+your political view. There are places in the world where this is
+already happening.
 
 .Problems
 ****
@@ -615,29 +615,6 @@ hard to predict what use cases we will see in the future. Predicting
 Bitcoin's future is like predicting in 1995 what the Internet will be
 used for in 20 years. Let us stick to what we know now.
 
-==== Shopping
-
-****
-image::{imagedir}/shopping-cart.png[]
-****
-
-The most obvious use case for Bitcoin is to use it for shopping. The
-borderlessness and security of Bitcoin makes it ideal for online
-payments for goods and services.
-
-Instead of sending your debit card details to the merchant, and _hope_
-that the merchant will withdraw as much as you agreed on. You also
-_hope_ that the merchant handles your debit card details with great
-care. They probably store the details in a database. Think about that;
-For every debit card purchase you make, your card details will be
-stored in that merchant's database. It is quite likely that _one_ the
-merchants' database gets hacked and your card details are stolen. The
-more merchants that stores your details, the higher the risk.
-
-With Bitcoin, you don't have that problem, because you don't send any
-sensitive information to the merchant, or anyone else. You send the
-amount of money that you agreed upon, and nothing more.
-
 ==== Savings
 
 ****
@@ -655,10 +632,60 @@ keys are also all that is needed to spend your money. Keep them safe.
 This makes savings an attractive use case for Bitcoin. A simple way to
 save is to create a private key and write it down on a piece of paper
 that you store in a safe. That piece of paper is now your savings
-account, that we call a wallet. You can start sending bitcoins to your
+account, your savings _wallet_. You can start sending bitcoins to your
 wallet. As long as your private key is kept safe, your money is
 safe. There are a lot of different saving schemes you can chose from
 to find the right balance between security and convenience.
+
+==== Cross-border payments
+
+As noted before, it is very expensive (say 15%) to move money from one
+country to another, especially if you move money to a poor country and
+the recipient don't have a bank account. It is becoming increasingly
+popular to use Bitcoin to circumvent this expensive and slow legacy
+system. It is usually cheaper to exchange SEK for bitcoins in Sweden,
+and transfer the bitcoins to your friend in the Phillipines. Your
+friend will then exchange the bitcoins locally for Philippine
+Pesos, PHP.
+
+There are also companies offering such services so that you simply pay
+SEK to the company and the company pays out PHP to your friend.
+
+image::{imagedir}/remittance-company.svg[{big-width}]
+
+You will not even know that Bitcoin is used under the hood. They will
+typically charge a few percent for the service, but it will still be
+cheaper than traditional remittance services.
+
+Of course, if the recipient can make good use of Bitcoin where he
+lives, there is no need for middle-men that takes a cut of the
+money. You would send bitcoins directly to your friend. This is what
+Bitcoin is all about. Exchanges and other such service companies are
+just bridges between the old legacy world and the new Bitcoin world.
+
+==== Shopping
+
+****
+image::{imagedir}/shopping-cart.png[]
+****
+
+The most obvious use case for Bitcoin is to use it for shopping. The
+borderlessness and security of Bitcoin makes it ideal for online
+payments for goods and services.
+
+In traditional online paymnets, you send your debit card details to
+the merchant, and _hope_ that the merchant will withdraw as much as
+you agreed on. You also _hope_ that the merchant handles your debit
+card details with great care. They probably store the details in a
+database. Think about that; For every debit card purchase you make,
+your card details will be stored in that merchant's database. It is
+quite likely that _one_ of the databases gets hacked and your card
+details are stolen. The more merchants that stores your details, the
+higher the risk.
+
+With Bitcoin, you don't have that problem, because you don't send any
+sensitive information to the merchant, or anyone else. _You transfer_ the
+amount of money that you agreed upon, and nothing more.
 
 ==== Speculation
 
@@ -684,7 +711,7 @@ a lottery than something to make a living off of.
 
 ==== Non-currency uses
 
-Bitcoin is electronic cash, but this form of cash have can be used for
+Bitcoin is electronic cash, but this form of cash can be used for
 other things beyond money. This section covers two common uses, but
 there are others including not yet invented uses.
 
@@ -713,8 +740,8 @@ manufacturer transferred ownership to.
 The new owner can sell the car to someone else and transfer ownership
 by sending the very same bitcoins she got from the manufacturer to the
 new owner's public key. The general public can follow the ownership of
-the car from the manufacturer through every owner up to the current
-owner.
+the car from the manufacturer through every owner's public key up to
+the current owner.
 
 ===== Proof of existence
 
@@ -726,7 +753,7 @@ certain point in time.
 image::{imagedir}/proof-of-existence.svg[]
 ****
 
-All digital documents have a "fingerprint", a cryptographic hash, that
+A digital document has a "fingerprint", a cryptographic hash, that
 anyone can calculate from that document. It is nearly impossible to
 create a different document with the same fingerprint. This
 fingerprint can be attached to a payment. It is irrelevant where the
@@ -736,7 +763,7 @@ the Bitcoin blockchain. You "anchor" the document in the blockchain.
 Bitcoin payments are public records, so anyone can validate that the
 document existed before the time of the payment by taking the
 fingerprint of the document and compare it to the fingerprint stored
-in the payment.
+in the blockchain.
 
 ==== How is Bitcoin valued?
 
@@ -783,7 +810,7 @@ Bitcoin transactions.
 
 There are however very promising emerging technologies, for example
 the Lightning Network, that is built on top of Bitcoin that allows for
-instantaneous micropayments of fractions of a cent.
+cheap, instantaneous micropayments of fractions of a cent.
 
 ===== Instant payments
 
@@ -818,15 +845,15 @@ You are in charge of the security of your money. Only you. Be careful!
 * The government in your location may try to crack down on Bitcoin
   users by imprisonment or other means of force.
 * The price of bitcoin can swing down dramatically due to rumors or
-  other social activity.
+  speculation.
 * There may be software bugs that can make Bitcoin insecure.
 * There may be weaknesses in the cryptography used by Bitcoin.
 
-While all of the above are _possible_, most them are unlikely. The
-list is somewhat ordered with the most likely at the top. Always weigh
-the risks before putting money on the line and select your security
-measures accordingly. This book will help you understand the risks and
-how to secure your money.
+While all of the above risks are _possible_, most of them are
+unlikely. The list is somewhat ordered with the most likely at
+the top. Always weigh the risks before putting money on the line and
+select your security measures accordingly. This book will help you
+understand the risks and how to secure your money.
 
 === Other cryptocurrencies
 
@@ -887,8 +914,8 @@ wants SheCoin to have some real value, she has got to convince other
 people to start using her alt-coin. If she's not providing anything
 innovative, she's going to have a hard time getting other people
 on-board, since they are pretty happy with what Bitcoin is already
-providing. Besides, everybody else is using Bitcoin, so why would you
-use SheCoin? Think of it as starting a new internet, that you call
+providing. Everybody else is using Bitcoin, so why would you use
+SheCoin? Think of it as starting a new internet, that you call
 Internet2. People on Internet2 will not be able to use services on the
 regular Internet, so why would anyone use Internet2. We call it the
 network effect; People tend to go where other people are.

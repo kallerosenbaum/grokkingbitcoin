@@ -40,7 +40,7 @@ today.
 ****
 
 .The spreadsheet have a column for the sender, a column for the recipient and a column for the amount of cookie tokens transferred. New cookie token transfers are appended at the end of the spreadsheet.
-image::{imagedir}/cookie-sheet-basic.png[{half-width}]
+image::{imagedir}/cookie-sheet-basic.svg[{half-width}]
 
 This spreadsheet is stored on Lisa's computer. The spreadsheet is
 shared read-only for everybody on the office network to open and
@@ -58,12 +58,12 @@ amounts with Alice's name in the "From" column. Here is the complete
 search result, there are three transfers, involving Alice:
 
 .Lisa calculates Alice's balance. The sum of her received CT is 100 and the sum of her withdrawn CT is 30. Alice's balance is 70 CT.
-image::{imagedir}/alices-transfers-in-cookie-sheet.png[{big-width}]
+image::{imagedir}/alices-transfers-in-cookie-sheet.svg[{big-width}]
 
 Lisa calculates that Alice has 70 CT. That is enough for Alice to pay 10
 CT to the cafe. She appends a row at the end of the spreadsheet:
 
-image::{imagedir}/alice-buys-cookie.png[{half-width}]
+image::{imagedir}/alice-buys-cookie.svg[{half-width}]
 
 The cafe sees this new row in the spreadsheet and hands over a cookie
 to Alice.
@@ -112,11 +112,15 @@ approach 21000000 CT, but it will never exceed 21000000. What Lisa
 does with the new cookie tokens she earned is up to her. She can buy
 cookies or sell the cookie tokens. She can also save them for later.
 
+The spreadsheet system works quite well and everybody eats a healthy
+amount of cookies.
+
 Lisa basically performs the same work as miners in the Bitcoin
 network. She verifies payments and updates the ledger, the Bitcoin
 blockchain. Let's make it clear how the concepts in the spreadsheet
 corresponds to concepts in Bitcoin:
 
+[%autowidth,options="header"]
 .How key ingredients of the cookie token system and the Bitcoin system relates.
 |===
 | Cookie Tokens | Bitcoin | Covered in
@@ -126,13 +130,12 @@ corresponds to concepts in Bitcoin:
 | Lisa | A miner | <<ch07>>
 |===
 
-A few more concepts will be introduced in later chapters. We will
-update the above table as we go.
-
-The spreadsheet system works quite well and everybody eats a healthy
-amount of cookies. This is our starting point for learning how
-Bitcoin works. We call this version 1.0 of the cookie token
-spreadsheet system:
+We will introduce a few more concepts in the cookie token system later
+as we go. The concepts in the cookie token system will gradually
+change as we learn new stuff and eventually turn into exactly what
+Bitcoin uses. This is our starting point for learning how Bitcoin
+works. We call this version 1.0 of the cookie token spreadsheet
+system:
 
 [%autowidth,options="header"]
 .Release notes, cookie tokens 1.0
@@ -148,8 +151,9 @@ spreadsheet system:
 
 We will add a lot of fancy stuff to this system and a new version will
 be released in every chapter. For example, at the end of this chapter
-we will release version 2.0 that solves the problem of the
-imposter. Every chapter will take us closer to the end result, Bitcoin.
+we will release version 2.0 that solves the problem of the imposter
+using digital signatures. Every chapter will take us closer to the end
+result, Bitcoin.
 
 [id=cryptographic_hashing]
 === Cryptographic hashes
@@ -244,7 +248,7 @@ about that later.
 ****
 
 .Checking file integrity. You calculate the cryptographic hash of the cat picture and send the picture and the hash to Fred. Fred calculates the cryptographic hash of the received file and compares it to the hash provided by you in the email.
-image::{imagedir}/email-file-hash.png[{big-width}]
+image::{imagedir}/email-file-hash.svg[{big-width}]
 
 You compose an email to Fred and attach the cat picture to the
 email. But you also calculate the cryptographic hash, the digital
@@ -287,7 +291,7 @@ can construct a hash function using _addition modulo 256_, which means
 to wrap around to 0 when the result of an addition reaches 256:
 
 .Simplistic hash function using byte-wise addition modulo 256.
-image::{imagedir}/simplistic-hash-algorithm.png[{half-width}]
+image::{imagedir}/simplistic-hash-algorithm.svg[{half-width}]
 
 The result is the decimal number 112. What does 112 say about the
 original input `a1 02 12 6b c6 7d`? Not much. 112 looks just as random
@@ -340,7 +344,7 @@ basic properties:
 certain hash.
 
 .A cryptographic hash function, SHA256, in action. The input "Hello!" will give you the same output every time, but the slightly modified input "Hello" will give you a totally different output.
-image::{imagedir}/cryptographic_hashing.png[{full-width}]
+image::{imagedir}/cryptographic_hashing.svg[{full-width}]
 
 [.inbitcoin]
 .Double SHA256
@@ -442,7 +446,7 @@ A cryptographic hash function is a computer program that takes any
 data as input and computes a big number, a cryptographic hash, based
 on that input.
 
-image::{imagedir}/cryptographic_hashing.png[{full-width}]
+image::{imagedir}/cryptographic_hashing.svg[{full-width}]
 
 It is astronomically hard to find an input that will result in a
 specific output. This is why we call it a one-way function. You have
@@ -499,7 +503,7 @@ prevent that?
 is not a _cryptographic_ hash function. Which two of the four properties
 of a cryptographic hash function is it lacking?
 +
-image::{imagedir}/simplistic-hash-algorithm-exercise.png[{half-width}]
+image::{imagedir}/simplistic-hash-algorithm-exercise.svg[{half-width}]
 
 . The paper shredded in our toolbox is not a perfect analogy. Can you
 tell why? What properties of a cryptographic hash function does the
@@ -572,7 +576,7 @@ key pair is created by first generating a private key and then
 calculate the public key from that private key.
 
 .John creates a key pair. The private key is a huge random number and the public key is derived from that random number. John stores his private key on his hard drive and the public key is handed to Lisa.
-image::{imagedir}/create-keypair.png[{big-width}]
+image::{imagedir}/create-keypair.svg[{big-width}]
 
 .One-way
 ****
@@ -834,7 +838,7 @@ of paper or in an email to Lisa, and the message must be digitally
 signed with the person's private key. Lisa can then verify the
 signature to make sure she is not being fooled.
 
-image::{imagedir}/digital-signature-summary.png[{big-width}]
+image::{imagedir}/digital-signature-summary.svg[{big-width}]
 
 The gist of this is that as long as John keeps his private key to
 himself, no one will be able to spend his money.
@@ -900,7 +904,7 @@ you ensure that the cat picture is not maliciously modified without
 using a second channel like text messages? Assume you already created
 a key pair and that you have give the public key to Fred.
 +
-image::{imagedir}/email-file-hash.png[{half-width}]
+image::{imagedir}/email-file-hash.svg[{half-width}]
 +
 . Are the names in the spreadsheet really needed anymore? Could they
 be replaced by something else? If that is possible, suggest how a
@@ -930,7 +934,7 @@ is usually very quick in verifying and executing transfers.
 John opens the spreadsheet and searches for "John". This is what he sees:
 
 .Someone stole money from John. Who is Melissa and how was this possible? John did not sign any such transfer.
-image::{imagedir}/cookie-sheet-john-pwned.png[{half-width}]
+image::{imagedir}/cookie-sheet-john-pwned.svg[{half-width}]
 
 John steps into Lisa's office asking for an explanation. She answers
 him that she got a message signed with Johns private key asking her to
@@ -1020,7 +1024,7 @@ to nudge you. Very insecure and very convenient.
 Some of the different trade-offs are
 
 .Security considerations against attackers. Note how the more secure options are also more inconvenient.
-image::{imagedir}/private-key-security.png[{half-width}]
+image::{imagedir}/private-key-security.svg[{half-width}]
 
 Online vs offline:: On-line means that the private key is stored on a
 device with network access, like your mobile phone or general purpose
