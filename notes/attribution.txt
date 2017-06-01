@@ -4,3 +4,6 @@ Acknowledgements:
 
 Jonathan Jogenfors for proofreading the crypto stuff
 Andreas Antonopoulos for helping out with open sourcing the book
+
+All reviewers for their valuable feedback.
+

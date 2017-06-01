@@ -293,12 +293,12 @@ to wrap around to 0 when the result of an addition reaches 256:
 .Simplistic hash function using byte-wise addition modulo 256.
 image::{imagedir}/simplistic-hash-algorithm.svg[{half-width}]
 
-The result is the decimal number 112. What does 112 say about the
-original input `a1 02 12 6b c6 7d`? Not much. 112 looks just as random
+The result is the decimal number 99. What does 99 say about the
+original input `a1 02 12 6b c6 7d`? Not much. 99 looks just as random
 as any other single byte number.
 
 If you change the input, the hash will change, even though there is a
-chance that the hash will remain 122. After all, there are just 256
+chance that the hash will remain 99. After all, there are just 256
 different possible outputs of this simple hash function. With real
 cryptographic hash functions, as the one we used to hash the cat
 picture, the chance is unimaginably small. We will soon get a glimpse
