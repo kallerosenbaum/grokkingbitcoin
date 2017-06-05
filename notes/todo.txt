@@ -1,41 +1,17 @@
-¤ General
-
-* Insert inline mini-exercises to assess skills
-
-¤ Chapter2:
-
-* Explain that dSHA256 is used as digest, not SHA256.
+Chapter 2:
 
 * Do you send the hash function with the email to Fred?
-
-* Explain that it's not malicious modifications we are talking about and where to get more info on that.
 
 * Be clear that sending the hash with the cat picture is an integrity check.
 
 * A bit more on hex, 256 bits and bytes
 
+* Internet2 is an actual project. See https://forums.manning.com/posts/list/40886.page
+
+
 ¤ Chapter3:
-=== Bitcoin addresses
-
-Bitcoin uses the exact same kind of addresses as we use in our
-spreadsheet. But historically public keys were encoded differently in
-Bitcoin, requiring 65 bytes instead of 33. John's public key would
-have looked like this:
-
- 045541a13851a3742489fdddeef21be13c1abb85e053222c0dbf3703ba218dc1f
- 32705967aec1cc5118c920c83d0ba8142dce1eeb4d8ed531c152c8ff85f2d8b33
-
-This made the rationale behind the hashing of the public keys more
-clear. There was a stronger incentive to shorten the public keys.
-
-
-¤ Explain how cookie tokens are first created! I suggest that
-we use Bitcoin's model where Alice gets 50 CT every 10 minutes. Let's
-be generous, 7200 CT per day.
 
 ¤ Find better metaphores for hashing, hashes, signing, verifying
-
-¤ Add info on value of Bitcoin. in 2010, 2 pizzas were bought for 10000 bitcoin. Today those 10000 bitcoins are worth about $10m.
 
 ¤ Compare to PayPal. You can send money over internet.
 

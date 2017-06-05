@@ -149,7 +149,17 @@ UTXO set. Lisa keeps track of the UTXO set.
 One very interesting outcome of this is that all the signatures are
 public inside the cookie sheet. This means that everyone can validate
 the cookie sheet. Not only can people not cheat Lisa, but Lisa cannot
-steal money from anyone.
+steal money from anyone. Anyone can create the UTXO set.
+
+Lisa can
+
+* Delete transactions. New coworkers would not notice, they simply download the spreadsheet and see that everythink is ok in it. If noticed by an old coworker, its words agains words, there is no proof that Lisa did reversed a transaction. 
+* Refuse to add transactions
+
+Lisa can't
+
+* Steal money. The spreadsheet would become invalid
+
 
 === Lisa can now replace herself with a computer program.
 
