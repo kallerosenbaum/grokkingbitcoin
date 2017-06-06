@@ -296,7 +296,7 @@ up verification of transactions.
 To make the unspent checks easier she creates a new, private,
 spreadsheet that she calls the _unspent transaction output set_ (UTXO
 set). It is a set of all _unspent transaction outputs_ (UTXOs). An
-unspend transaction output (UTXO) consists of a transaction id (txid)
+unspent transaction output (UTXO) consists of a transaction id (txid)
 and an index. She keeps the UTXO set updated while verifying
 transactions.
 
@@ -859,7 +859,7 @@ redeemScript:
  OP_CHECKMULTISIG
 
 Now they want people to pay to the SHA256+RIPEMD160 hash of the
-redeemScipt, specifically
+redeemScript, specifically
 
  04e214163b3b927c3d2058171dd66ff6780f8708
 
