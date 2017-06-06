@@ -1,3 +1,11 @@
+Generally:
+
+* What happens when validation fails? How are transactions refused if invalid? What happens?
+
+Chapter 1:
+
+* Internet2 is an actual project. See https://forums.manning.com/posts/list/40886.page
+
 Chapter 2:
 
 * Do you send the hash function with the email to Fred?
@@ -6,12 +14,13 @@ Chapter 2:
 
 * A bit more on hex, 256 bits and bytes
 
-* Internet2 is an actual project. See https://forums.manning.com/posts/list/40886.page
+* Signatures use dSHA256 not SHA256.
 
+* Explain why the locked box example isn't perfect.
 
-¤ Chapter3:
+Chapter3:
 
-¤ Find better metaphores for hashing, hashes, signing, verifying
+* Find better metaphores for hashing, hashes, signing, verifying
 
-¤ Compare to PayPal. You can send money over internet.
+* Compare to PayPal. You can send money over internet.
 

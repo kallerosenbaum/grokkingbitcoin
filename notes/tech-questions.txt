@@ -1,0 +1,12 @@
+Are p2sh BIP16 forwards compatible or backwards compatible (or something else)? Seems forwards compatible is the correct term.
+
+See reddit question on pubkey security and sha256+ripemd160
+https://www.reddit.com/r/Bitcoin/comments/677y1b/how_to_steal_coins_if_some_oneway_function_is/
+
+What digital signature weaknesses are plausible?
+https://www.reddit.com/r/Bitcoin/comments/5xuj5o/what_digital_signature_weaknesses_are_plausible/
+
+Why is the scriptPubKey copied to scriptSig prior to signing?
+---> No apparent reason according to bitcoinj.
+
+

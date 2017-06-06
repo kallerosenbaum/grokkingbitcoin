@@ -1,0 +1,5 @@
+#convert a bunch ov svg to png
+for file in *.svg; do inkscape -z -e `basename -s .svg $file`.png -w 1000 $file ; done;
+#same but setting full opacity
+for file in *.svg; do inkscape -z -y 1.0 -e `basename -s .svg $file`.png -w 1000 $file ; done;
+
