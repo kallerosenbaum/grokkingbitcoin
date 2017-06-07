@@ -19,15 +19,17 @@
 :thumb: width='20%'
 :btc: image:{commonimagedir}/btc-sans.png[BTC,role="btc"]
 
-include::ch01-Introduction-to-Bitcoin.adoc[]
+include::ch01-introduction-to-bitcoin.adoc[]
 
-include::ch02-Securing-Cookie-Tokens.adoc[]
+include::ch02-securing-cookie-tokens.adoc[]
 
-include::ch03-ct-addresses.adoc[]
+include::ch03-addresses.adoc[]
 
 include::ch04-wallets.adoc[]
 
 include::ch05-transactions.adoc[]
+
+include::ch06-the-blockchain.adoc[]
 
 //[id=ch06]
 //== The blockchain - Further reducing trust in Lisa
