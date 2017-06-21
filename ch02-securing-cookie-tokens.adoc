@@ -363,16 +363,18 @@ which are desirable for cryptographic hash functions:
 .Different desirable properties for cryptographic hash functions. For collision resistance, X can be anything, as long as the two inputs give the same output X.
 image::{imagedir}/hash-properties.svg[{big-width}]
 
-Collision resistance:: It's very hard to find two inputs that give _the same_ hash.
-Preimage resistance:: It's very hard to find an input that gives _a certain_ hash.
-Second-preimage resistance:: It's very hard to find an input that
-gives _the same hash as a certain other input_.
+Collision resistance:: It's hard to find two different inputs that
+give _the same_ hash.
+Preimage resistance:: It's hard to find an input that gives _a
+certain_ hash.
+Second-preimage resistance:: It's hard to find an input that gives
+_the same hash as a certain other input_.
 
-==== Illustration of "very hard"
+==== Illustration of "hard"
 
-The term "very hard" in this context means astronomically hard. It is
+The term "hard" in this context means astronomically hard. It is
 silly to even try. We will have a look at second-preimage resistance
-as an example of what "very hard" means, but a similar example can be
+as an example of what "hard" means, but a similar example can be
 made for any of the three variants.
 
 .Second preimage resistance

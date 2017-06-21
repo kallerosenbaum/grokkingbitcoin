@@ -1,0 +1,365 @@
+[[ch06,Chapter 6]]
+== The blockchain - Further reducing trust in Lisa
+:imagedir: {baseimagedir}/ch06
+
+This chapter covers
+
+* Securing the spreadsheet integrity
+* Proving that a transaction has been confirmed
+* Lightweight wallets
+
+In the previous chapter we introduced transactions that enabled anyone
+to verify all transactions in the spreadsheet. But there are still
+things verifiers cannot verify: That Lisa doesn't remove transactions
+and that she doesn't censor transactions. Censorship resistance will
+be handled in the next chapter. This chapter will make it impossible
+for lisa to remove transactions without also making it obvoius that
+she has tampered with it.
+
+Lisa does this by getting rid of the spreadsheet and replace it with a
+thing called the _blockchain_. The blockchain contains transactions
+and secures them from tampering by hashing and signing the contents in
+a clever way. This technique makes it easy to provide cryptographic
+proof of fraud if Lisa tries any dirty tricks.
+
+All verifiers keeps their own copies of the blockchain and they can
+now fully validate the blockchain and be sure that Lisa don't remove
+already confirmed transactions. It's been a while since we talked
+about normal users' wallets. We will introduce something called a
+lightweight wallet that will defer to someone else to verify
+transactions for them to save bandwidth and storage space.
+
+=== Lisa can delete transactions
+
+As noted several times before, Lisa can delete transactions. For
+example, Lisa buys a cookie from the cafe, eats it, and deletes the
+transaction. Of course, Lisa wouldn't do that because she's the most
+trustworthy person on earth, but all coworkers don't know that or
+don't believe in it.
+
+.Lisa buys a cookie and then reverts the transaction. She just stole a cookie from the cafe.
+image::{imagedir}/deleted-tx.svg[{big-width}]
+
+When the cafe eventually notices that the transaction has disappeared,
+they can't prove that Lisa's transaction was ever in the
+spreadsheet. And Lisa can't prove it was not there. This situation is
+troublesome. If word is against word, we are in for a long and costly
+dispute, possibly involving lawyers, police, Acme Insurances and
+private detectives.
+
+How can we make it possible to prove if a transaction was confirmed or
+not? We want a way for Lisa to publish the transactions and their
+ordering such that she can't tamper with them.
+
+=== Build the first blockchain
+
+Some developers suggest that we get rid of the cookie token
+spreadsheet and replace it with a blockchain. The blockchain stores
+transactions just like the spreadsheet did. But the blockchain also
+contains some other stuff to protect the integrity of the contained
+transactions.
+
+image::{imagedir}/blockchain.svg[{big-width}]
+
+The blockchain consists of blocks. Each block contains one or more
+transactions and a block header. The block header consists of
+
+* the hash of the previous block's header
+* the combined hash of the transactions in the block
+* a timestamp
+* Lisa's signature, covering this block header
+
+The hash of block header is used as an identifier for a block, just as
+a transaction hash, txid, is used as an identifier for a
+transaction. We will sometimes refer to the block header hash as
+block id.
+
+The leftmost part of the block header is the block id of the previous
+block in the block chain. This is why we call it a _chain_. The
+previous block header hashes form a chain of block headers.
+
+The combined hash of the transactions is the _merkle root_ of a
+_merkle tree_. We will talk about that in later sections of this
+chapter, but for now let's just say that they are hashed together into
+a single hash value that is written into the block header.
+
+Lisa creates a new block about every 10 minutes containing all recent
+unconfirmed transactions and writes it in a new file on a shared
+folder. Lisa has write access to this shared folder, and everyone else
+has read-only access. When she writes the block to the shared folder,
+she _confirms_ the transactions in that block.
+
+image::{imagedir}/block-files.svg[{big-width}]
+
+When Lisa creates a new block, she writes the current time into the
+timestamp field of the block header. The block creation timestamp is
+important to verifiers, so that they can verify that blocks are
+created at the expected pace, one every 10 minutes. Lisa cannot create
+one block per 10 minutes exactly, but the two week average should be 1
+block per 10 minutes.
+
+[.inbitcoin]
+****
+Bitcoin blocks are not signed this way. They are "signed" with
+proof-of-work described in <<ch07>>.
+****
+
+Before Lisa is finished with the block she must sign it using a
+private key. The corresponding public key must be made publicly
+available to all verifiers. It can be published on the company's
+intranet and on a billboard at the main entrance.
+
+image::{imagedir}/2ndcol-lisas-block-public-key.svg[{quart-width}]
+
+Note that a coworker cannot simply trust the note on the billboard,
+because it is easy for someone to replace the note with another false
+public key. Coworkers need to get the public key from different
+sources, like the billboard, the intranet and ask fellow workers. A
+single source is too easily manipulated by some bad guys. As we will
+see later, using private keys to sign blocks is not always a good idea
+for two reasons. Lisa's private key may be stolen or the sources
+containing Lisa's public key may be compromised. Both of the two
+scenarios has catastrophic consequences where the whole blockchain may be rewritten.
+
+The first transaction in each block is a coinbase transaction, but the
+coinbase transactions of the blocks create 50 cookie tokens per block
+instead of 7200 cookie tokens as was the case in <<ch05>>. The idea is
+that Lisa produces a new block every 10 minutes, which means that the
+rewards of 7200 CT per day are spread out over 144 blocks, since there
+are 144 10 minute intervals in 24 hours. 7200/144=50.
+
+==== How does this protect us from deletes?
+
+Suppose that Lisa wants to eat a cookie without paying for it. She
+creates a transaction and puts it in the block she's currently working
+on, block height 21. She creates the block header and signs it.
+
+image::{imagedir}/lisa-tries-to-fool-cafe.svg[{big-width}]
+
+The cafe watches the shared folder for incoming blocks. When Lisa
+writes the block file into the shared folder, the cafe will download
+the block and verify it. To verify a block involves verifying that
+
+* the previous block header is the expected, the block id of block 20
+  in this case.
+* all transactions in the block are valid. Same validation as in
+  <<ch05>>, preferably using a private UTXO set.
+* the hash of all transactions matches the combined transaction hash
+  (merkle root) in the block header.
+* the timestamp is greater than the timestamp of the previous block
+  and within reasonable limits.
+* the block header signature is valid. The signature is verified using
+  Lisa's public key obtained from the billboard or intranet.
+
+Lisa have paid for a cookie and the cafe have downloaded the block
+that contains Lisa's transaction and verified it. They give Lisa the
+cookie and she eats it. Yummy.
+
+Can Lisa undo this payment without being proven a fraud? She has to
+replace the first version of block 21 with another, changed version of
+block 21, to make her transaction disappear:
+
+.Lisa creates an alternative block at height 21 that doesn't contain her transaction.
+image::{imagedir}/change-block.svg[{quart-width}]
+
+The new version is like the old version but without Lisa's
+transactions. Because she tampers with the transactions in the block,
+she has to update the merkle root in the header with a merkle root
+that matches the new set of transactions in the block. When the header
+is changed, the signature is no longer valid and the header needs to
+be re-signed. To make the changed block available to verifiers, she
+needs to replace the old file block_21.dat on the shared folder with
+the new fraudulent block_21.dat.
+
+The cafe has already downloaded the first version of block 21. When
+Lisa replaces the block file, the cafe will discover that there's
+another version of the block in the shared folder.
+
+image::{imagedir}/different-block-version.svg[{half-width}]
+
+Now the cafe sees two different blocks at height 21, one that contains
+the payment of 10 CT to the cafe and one that doesn't. Both block are
+equally valid and none of the blocks are more "accurate" than the
+other from a verification perspective. But the good thing is that the
+cafe can prove that Lisa is playing dirty tricks because Lisa has
+signed two different versions of the block. The signatures are a
+perfect proof that Lisa cheated, and we no longer have a word against
+word situation.
+
+But what happens now? Since both blocks are equally valid, Lisa can
+either put back the original version of block 21 on the shared folder,
+or she can keep the second version of block 21 there. If she keeps the
+second version, she must pay 10 CT to the cafe, or get fired. She
+can either create a new transaction to pay with, or she can use the
+same transaction that she deleted from block 21.
+
+What if there were other block after block 21 when Lisa cheated?
+Suppose that block 22 and 23 were already created when Lisa wanted to
+delete her transaction.
+
+.Lisa needs to replace the block containing her transaction and all subsequent blocks.
+image::{imagedir}/replace-many-blocks.svg[{big-width}]
+
+Now she needs to replace three blocks: 21, 22 and 23. Changing
+anything in a block causes that block and all subsequent blocks to be
+invalid and they must all be replaced by valid blocks. This is because
+each block header contains a pointer to the previous block, in the
+form of a hash of the previous block's header, the block id.
+
+****
+image::{imagedir}/2ndcol-replace-many-blocks.svg[]
+****
+
+When all three blocks have changed, the corresponding block files in
+the shared folder must be replaced so that verifiers don't see Lisa's
+transactions. This is the moment where Lisa's changes will be noticed
+by verifiers, because most or all verifiers have already downloaded
+the previous blocks that Lisa replaces.
+
+==== Why use a block chain at all?
+
+The blockchain is a very complicated way to sign a bunch of
+transactions. Wouldn't it be much simpler if Lisa just signs all
+transactions every made in one big chunk every 10 minutes? That would
+accomplish the same goal. The problem with that approach is that as
+the number of transactions grow, the time it takes for Lisa to sign
+the whole set of transactions will increase. At some point, the
+signing will take too long to be practical. With the blockchain Lisa
+only have to sign the most recent, yet unconfirmed, set of
+transactions.
+
+The blockchain also provides some nice extra features that we will
+duscuss further on, for example the merkle tree.
+
+
+
+
+Her blocks contains a timestamp so that verifiers can verify that she
+don't create more than 50 CT per 10 minutes.
+Instead of adding transactions to the spreadsheet, she adds them to a block:
+
+image::{imagedir}/spreadsheet-blockchain-transition.svg[{big-width}]
+
+Publish block header every 10 minutes to blocks@company.com
+
+image::{imagedir}/block.svg[{big-width}]
+
+
+
+Why not publish more often than every 10 minutes? That would reduce
+the time you need to wait for confirmation. Explain that this is an
+intermediary step in transit to proof-of-work.
+
+image::{imagedir}/merkle-tree[{big-width}]
+
+
+
+
+If Lisa deletes a transaction, one can prove it was there by showing all transactions in the block.
+
+image::{imagedir}/deleted-tx-proven.svg[{big-width}]
+
+Verifiers know that as long as Lisa provides blocks consistent with previous blocks, their UTXO sets are OK.
+
+Once a transaction hits the blockchain, it's safe.
+
+
+Caused problem:
+
+Transactions will not be visible until a block is published. No one wants to wait 10 minutes for a cookie.
+
+We solve that be having users mail their transactions to tx@company.com. Then everyone can see all pending transactions.
+
+
+Remaining problem:
+
+Transactions are visible on tx@company.com, but Lisa might censor transactions.
+
+
+Remaining problem: Everybody need to trust the mail system. An email
+administrator can delete transactions and tamper with published blocks
+before they are published. But let's trust email for now.
+
+Pruning
+
+SPV wallets
+
+=== Lisa 
+
+
+
+
+=== 
+
+=== Lisa rewrites history
+=== Coworkers propose a blockchain
+==== Lisa publish blocks every 10 minutes
+==== Coinbase transaction
+==== The blocks are cryptographically chained
+==== Nodes - Independent validators
+===== Keeps their own copy of the blockchain
+==== The blockchain becomes more trusted than the spreadsheet.
+=== The spreadsheet is obsolete
+=== Exercises
+
+
+=== People mistrust Lisa, creates a blockchain
+
+Some people don't know Lisa very well, and they start questioning her
+credibility as a trusted central authority. They are afraid that she's
+letting workers pay her to remove transactions from the cookie sheet
+to "undo" payments. A worker buys a cookie from the café and later
+asks lisa to remove the transaction. Of course, Lisa would not do
+that, but only the suspicion from a coworker makes the coworker
+refrain from using the cookie sheet.
+
+She could still deny transfers if she wants to, and she can replace a
+transaction with another valid transaction in the cookie sheet (double
+spend).
+
+The suspicious coworkers have an idea. What if Lisa sends out a block
+of the latest transactions every 10 minutes via email to
+blocks@company.com. This block contains a hash of all the transactions
+in the block and also the hash of the previous block.
+
+The suspicious workers build a program they call a "node" that reads
+those blocks from email and stores them locally. The blocks form a
+blockchain.
+
+The suspicious workers can use their internal blockchain to calculate
+how much money each address, including their own, has.
+
+More and more coworkers and the café starts using this node software
+because they get a guarantee that the data is not tampered with. Lisa
+may tamper with data after she has send out the block, but she can't
+tamper with the data on other nodes.
+
+They can download the blockchain from any nodes, as long as they
+validate the last block hash with the latest email on
+blocks@company.com.
+
+Also, Lisa and the coworkers decide that they can throw out the
+spreadsheet and only use the blockchain from now on. So Lisa sets up a
+node of her own. She modifies her computer program to collect the last
+10 minutes worth of transactions into a block and publishes it.
+
+
+Next chapter:
+
+Let's make it censorship resistant. Two more coworkers, Tom and Lin,
+wants to Join and compete for the block rewards. They get also write
+access to the shared folder, but they can only remove files they
+created themselves. They also publish their public keys on a bulletin
+board and the company intranet.
+
+Who publishes next block? Chance! They each draw a number between 1
+and 30. If they draw a 1-10 they get to publish the next block. What
+if two wins? No worries, both publishes and the next block will break
+the tie.
+
+Lin can cheat in this competition. She will just pretend to have won
+the lottery every block and always publish the next block. This will
+give her a disproportionate part of the block rewards. It's hard to
+prove that she cheats until she's cheated for a long time. She could
+"get lucky" 10 times in a row.
+

@@ -6,6 +6,8 @@ Chapter 1:
 
 * Internet2 is an actual project. See https://forums.manning.com/posts/list/40886.page
 
+* Testament is a bad example, use for example patent instead.
+
 Chapter 2:
 
 * Do you send the hash function with the email to Fred?

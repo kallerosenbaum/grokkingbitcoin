@@ -9,4 +9,4 @@ https://www.reddit.com/r/Bitcoin/comments/5xuj5o/what_digital_signature_weakness
 Why is the scriptPubKey copied to scriptSig prior to signing?
 ---> No apparent reason according to bitcoinj.
 
-
+Why is nBits included in the block header? It can be calculated from chain of headers.
