@@ -106,8 +106,9 @@ users. The Bitcoin network is a network of computers running Bitcoin
 software.
 
 Suppose that Alice wants to make a payment of 1 BTC to Bob. The
-payment starts with Alice asking the Bitcoin network to move money
-from her to Bob.
+payment starts with Alice creating a transaction and sending it to the
+Bitcoin network. A transaction is instructions to the Bitcoin network
+on how to move the money.
 
 [.inbitcoin]
 .I thought Bitcoin was anonymous?
@@ -117,21 +118,24 @@ use names in this first example for simplicity.
 ****
 
 .A Bitcoin payment. The payment is processed in 4 steps.
-image::{imagedir}/payment-overview.svg[{full-width}]
+image::{imagedir}/payment-overview.svg[{big-width}]
 
-Let us follow Alice's payment from Alice to Bob:
+Let's follow Alice's payment from Alice to Bob:
 
-. Alice asks the Bitcoin network to move 1 bitcoin from her to Bob.
-. The computers in the network check that Alice actually has the money
-to spend and that she is authorized to spend them.
-. Each computer update its own copy of the Bitcoin ledger with the
+. Alice creates and signs a transaction that moves 1 bitcoin from her
+to Bob. She then sends it to the Bitcoin network.
+. The computers in the network, the Bitcoin nodes, check that Alice
+actually has the money to spend and that she is authorized to spend
+them.
+. Each computer updates its own copy of the Bitcoin blockchain with the
 new payment information.
 . The network notifies Bob that he has received 1 bitcoin.
 
 Note how Alice does not really _send_ 1 bitcoin to Bob, but asks the
 Bitcoin network to move 1 bitcoin from Alice to Bob in the Bitcoin
-ledger. The Bitcoin ledger is a database that each computer in the
-Bitcoin network has a copy of.
+blockchain. The Bitcoin blockchain is a database that each computer in
+the Bitcoin network has a copy of. Think of the blockchain as a ledger
+of all transactions ever made.
 
 We will go through these steps a bit closer in the next four sections,
 one step per section.
@@ -143,41 +147,23 @@ one step per section.
 .Transaction
 ****
 A transaction is a payment. Sometimes we also say transfer. We will
-use the terms interchangeably.
+use the terms interchangeably. We cover transactions in <<ch05>> and <<ch09>>.
 ****
 
 Step 1 of the process is when Alice asks the network to move 1 bitcoin
 to Bob. She asks by sending a Bitcoin _transaction_ to the Bitcoin
 network. The transaction contains information on how the money moves
-and a proof that Alice actually is authorized to move the money. Let
-us start with an analogy.
+and a proof that Alice actually is authorized to move the money.
 
 [id=bitcoin_payment]
-.A Bitcoin transaction
-image::{imagedir}/transaction_mailbox.jpg[{half-width}]
+.Step 1: Alice creates a transaction, signs it and sends it to one or more Bitcoin nodes in the Bitcoin network.
+image::{imagedir}/payment-overview-step-1.svg[{half-width}]
 
-[.gbinfo]
-.Public and Private keys
-****
-Alice's mailbox key is her _private key_. The number on her mailbox is
-her _public key_. This is discussed in <<ch02>> and <<ch04>>.
-****
+The Bitcoin _transaction_ is a piece of data specifying
 
-The Bitcoin _transaction_, can be regarded as transferring money from
-one locked mailbox to another. Yes, we are talking about _physical_
-mailboxes for this analogy. Only the owner of the key to a mailbox
-will be able to pull money out of that mailbox, but anyone is able to
-put money into the mailbox through the slot. Alice, the owner of the
-key to mailbox 321 in the picture, will withdraw 1 BTC from mailbox
-321 and deposit the bitcoin into mailbox 560, Bob's mailbox. She is
-the only one who can do that because only she has the key to
-mailbox 321. In digital form, this transaction is a piece of data
-specifying
-
-* the mailbox to move the money from (321)
-* the amount to move (1 BTC)
-* what mailbox to move the money to (560).
-* a _digital signature_
+* the amount to move (1 bitcoin)
+* the Bitcoin address to move the money to (Bob's Bitcoin address `15vwoaN74MBeF5nr2BH4DKqndEFjHA6MzT`)
+* a _digital signature_ (made with Alice's private key)
 
 [.gbinfo]
 .Digital signatures
@@ -185,13 +171,12 @@ specifying
 We discuss digital signatures in-depth in <<ch02>>.
 ****
 
-The digital signature corresponds to Alice _opening mailbox 321 with
-her key_. Only she can open mailbox 321, only she can create the
-digital signature.
+The digital signature proves that Alice approves the transaction. The
+digital signature is created with a huge secret number, called a
+_private key_, that only Alice knows.
 
 Alice sends this transaction to one or more _Bitcoin nodes_, computers
-in the Bitcoin network. This is the moment where Alice asks the
-network to move money in step 1.
+in the Bitcoin network.
 
 ==== Step 2 - The Bitcoin network
 
@@ -200,20 +185,12 @@ of the process, each node checks that the transaction is valid and if
 it is, pass it on to other nodes. They check validity by consulting
 their local copy of the ledger, and check that
 
-[.gbinfo]
-.Transparent mailboxes
-****
-The mailboxes are transparent. Anyone can see the contents of the
-mailboxes, but only the key holder can take out bitcoins from it.
-****
-
-* mailbox 321 contains the money she wants to spend.
-* Alice has successfully unlocked the mailbox, meaning that her
-  digital signature is valid.
+* the coins that Alice spends exist and that they are not already spent
+* Alice's digital signature is valid.
 
 [id=overview-bitcoin-network]
 .The Bitcoin network. Alice sends her transaction to a node in the network. The node will validate the transaction and forward it to other nodes. Eventually the transaction have reached all nodes in the network.
-image::{imagedir}/bitcoin-network.svg[{half-width}]
+image::{imagedir}/payment-overview-step-2.svg[{big-width}]
 
 [.inbitcoin]
 .Bad transactions
@@ -254,12 +231,12 @@ with Alice's transaction. Alice's transaction is not the only
 transaction that goes on. There are possibly thousands of transactions
 in-flight at the same time in the Bitcoin network. If all nodes would
 just update their copy of the blockchain as they receive transactions
-the copies would not remain copies for long. The transactions may come
-in different order on different nodes:
+the copies would not remain copies for long, because the transactions
+may come in different order on different nodes:
 
 [id=transaction-ordering]
 .Transactions arrives in different order at different nodes. If they would all write the transactions to the blockchain, the different nodes' blockchains would differ.
-image::{imagedir}/transactions-unordered.svg[{half-width}]
+image::{imagedir}/transactions-unordered.svg[{big-width}]
 
 [.gbfaq]
 .Why is ordering important?
@@ -270,13 +247,14 @@ easier with strict ordering.
 ****
 
 To coordinate the ordering of transactions, one node takes the lead
-saying "I want to add these 3 transactions to the blockchain in the
-order A, C, B!". This message is sent out on the network by that
-leader, in the same way as the transaction was sent by Alice.
+saying "I want to add these 2 transactions to the blockchain in the
+order B, A!". This message, known as a _block_, is sent out on the
+network by that leader, in the same way as the transaction was sent by
+Alice.
 
 [id=transaction-ordering]
-.One node takes the lead and tells the others what order to add the transaction in. The other nodes verify the message and update their blockchain copies accordingly.
-image::{imagedir}/transactions-ordered.svg[{half-width}]
+.One node takes the lead and tells the others what order to add the transactions in. The other nodes verify the message and update their blockchain copies accordingly.
+image::{imagedir}/payment-overview-step-3.svg[{big-width}]
 
 As nodes see this message they update their copy of the blockchain
 according to the message and passes the message on to its
@@ -285,7 +263,7 @@ leader's message and it is now part of the blockchain.
 
 Why would a node want to take the lead? It's because the node that
 takes the lead is rewarded with newly minted bitcoins and transaction
-fees payed by the transactions it includes in the message.
+fees payed by the transactions it includes in the block.
 
 But, wouldn't every node constantly take the lead to collect the
 rewards? No, it is very hard to take the lead. To take the lead, a
@@ -297,8 +275,8 @@ gold miner digging for gold. This process is described in <<ch07>>.
 [id=overview-wallets]
 ==== Step 4 - Wallets
 
-Bob and Alice are users of the Bitcoin network, and they need some
-computer program to interact with the network. Such a program is
+Bob and Alice are users of the Bitcoin network, and they both need
+some computer program to interact with the network. Such a program is
 called a _Bitcoin wallet_. There are several different Bitcoin wallets
 for several different devices, like mobile phones and desktop
 computers.
@@ -308,8 +286,8 @@ updated their local copy of the blockchain. Now the network needs to
 notify Bob that he has received one bitcoin.
 
 [id=wallet-connection]
-.Bob's wallet have asked a node to notify the wallet upon activity in mailbox 560. Alice pays to box 560, and the node has just written the transaction to the blockchain, so it notifies Bob's wallet.
-image::{imagedir}/notify-bob.svg[{half-width}]
+.Bob's wallet have asked a node to notify the wallet upon activity in his Bitcoin address. Alice pays to Bob's address, and the node has just written the transaction to the blockchain, so it notifies Bob's wallet.
+image::{imagedir}/payment-overview-step-4.svg[{big-width}]
 
 [.inbitcoin]
 .Wallet duties
@@ -329,11 +307,11 @@ received one bitcoin.
 
 As noted at the start of this section, Alice also use a wallet. Her
 wallet will also be notified of her own transaction, but there's one
-more very important thing that her wallet does. It holds her keys
-for her. The keys are used to create digital signatures and those keys
-needs to be stored securely so that only Alice can use them. Bob also
-has a key, to mailbox 560, in his wallet so that he can spend the
-money he just received from Alice.
+more very important thing that her wallet does. It holds her private
+keys for her. The keys are used to create digital signatures and those
+keys needs to be stored securely so that only Alice can use them. Bob
+also has a private key in his wallet so that he can spend the money he
+just received from Alice.
 
 === Problems with money today
 
