@@ -1,4 +1,4 @@
-[[ch01,Chapter 1]]
+[[ch01,chapter 1]]
 == Introduction to Bitcoin
 :imagedir: {baseimagedir}/ch01
 

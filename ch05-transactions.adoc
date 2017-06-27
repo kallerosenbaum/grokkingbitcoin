@@ -1,4 +1,4 @@
-[[ch05,Chapter 5]]
+[[ch05]]
 == Transactions - Reducing trust in Lisa
 :imagedir: {baseimagedir}/ch05
 
@@ -384,6 +384,7 @@ table that maps spreadsheet concepts to Bitcoin concepts:
 | The spreadsheet | The blockchain | <<ch06>>
 | A row in the spreadsheet | A transaction | <<ch05>> (Just covered)
 | Lisa | A miner | <<ch07>>
+| Lisa and her computer | The Bitcoin network | <<ch08>>
 | *A verifier* | *A full node* | <<ch06>> (new concept!)
 |===
 
@@ -604,6 +605,15 @@ scriptSigs that doesn't give the specific hash fails.
 
 === Fancy payment types
 
+This chapter covers most aspects of transactions. Look at this picture
+from <<ch01>> to recall how transactions a typical transaction is sent:
+
+.This chapter covers transactions. Right now we are exploring different ways to authenticate transactions.
+image::{imagedir}/periscope-transactions.svg[{half-width}]
+
+We have gone through the anatomy of the transaction and now we are
+discussing different ways to authenticate, "sign", transactions.
+
 .Pay to hash
 ****
  OP_SHA256
@@ -611,16 +621,18 @@ scriptSigs that doesn't give the specific hash fails.
  OP_EQUAL
 ****
 
-John's transaction spends a p2pkh (pay-to-public-key-hash) output. But
-as noted earlier other types of payments are possible. For example,
-pay-to-hash, discussed previously where you pay to a SHA256 hash. To
-spend that output you need to provide the preimage of the hash.
+John's transaction just spent a p2pkh (pay-to-public-key-hash)
+output. But as noted earlier, other types of payments are
+possible. For example, pay-to-hash, where you pay to a SHA256 hash. To
+spend that output you need to provide the preimage of the hash. We
+will explore some more interesting and useful ways to authenticate
+transactions.
+
+==== Multiple signatures
 
 In p2pkh, the recipient generates a cookie token address that is
 handed over to the sender. The sender then makes a payment to that
 address.
-
-==== Multiple signatures
 
 But what if the recipient would like her money secured by something
 other than a single private key? Suppose that Faiza, Ellen and John

@@ -1,4 +1,4 @@
-[[ch06,Chapter 6]]
+[[ch06,chapter 6]]
 == The blockchain - Further reducing trust in Lisa
 :imagedir: {baseimagedir}/ch06
 
@@ -18,16 +18,18 @@ she has tampered with it.
 
 Lisa does this by getting rid of the spreadsheet and replace it with a
 thing called the _blockchain_. The blockchain contains transactions
-and secures them from tampering by hashing and signing the contents in
-a clever way. This technique makes it easy to provide cryptographic
-proof of fraud if Lisa tries any dirty tricks.
+that are secured from tampering by hashing and signing the contents in
+a clever way and storing it in a place where she can't change or
+delete them. This technique makes it easy to provide cryptographic
+proof of fraud if Lisa tries any dirty tricks. All verifiers keeps
+their own copies of the blockchain and they can now fully validate the
+blockchain and be sure that Lisa don't remove already confirmed
+transactions.
 
-All verifiers keeps their own copies of the blockchain and they can
-now fully validate the blockchain and be sure that Lisa don't remove
-already confirmed transactions. It's been a while since we talked
-about normal users' wallets. We will introduce something called a
-lightweight wallet that will defer to someone else to verify
-transactions for them to save bandwidth and storage space.
+It's been a while since we talked about normal users' wallets. We will
+introduce something called a lightweight wallet that will defer the
+verification of transaction to someone else to save bandwidth and
+storage space.
 
 === Lisa can delete transactions
 
@@ -49,9 +51,21 @@ private detectives.
 
 How can we make it possible to prove if a transaction was confirmed or
 not? We want a way for Lisa to publish the transactions and their
-ordering such that she can't tamper with them.
+ordering such that she can't tamper with them. Can we make transaction
+data immutable?
 
 === Build the first blockchain
+
+The reason Lisa can delete transactions is that she has full access to
+modify the contents of the spreadsheet. As long as the spreadsheet is
+stored on Lisa's computer, where she is administrator, she can make
+any changes she wants at virtually no cost. What if we could prevent
+Lisa from changing transaction data after she has added it? We are
+going to try to pull that off with conventional systems, but we are
+going to fail. We will fail because it is impossible: However we store
+our data, someone is able to change it, either Lisa or some system
+administrator. Anyway, we are going to do our best to solve the
+problem.
 
 Some developers suggest that we get rid of the cookie token
 spreadsheet and replace it with a blockchain. The blockchain stores
@@ -75,7 +89,7 @@ transaction. We will sometimes refer to the block header hash as
 block id.
 
 The leftmost part of the block header is the block id of the previous
-block in the block chain. This is why we call it a _chain_. The
+block in the blockchain. This is why we call it a _chain_. The
 previous block header hashes form a chain of block headers.
 
 The combined hash of the transactions is the _merkle root_ of a
@@ -83,11 +97,21 @@ _merkle tree_. We will talk about that in later sections of this
 chapter, but for now let's just say that they are hashed together into
 a single hash value that is written into the block header.
 
+.Is this really immutable?
+****
+Lisa can't change the data, but we moved the write permission from
+Lisa to the system administrator that manages the shared folders at
+the company. We have just moved the problem. There's always _somebody_
+who has full access.
+****
+
 Lisa creates a new block about every 10 minutes containing all recent
 unconfirmed transactions and writes it in a new file on a shared
-folder. Lisa has write access to this shared folder, and everyone else
-has read-only access. When she writes the block to the shared folder,
-she _confirms_ the transactions in that block.
+folder. Everyone has permission to add new files to this shared
+folder, but no one, not even Lisa, can not modify or delete existing
+files. This is our naïve approach to making the data _immutable_. When
+Lisa writes the block to a file in the shared folder, she _confirms_
+the transactions in that block.
 
 image::{imagedir}/block-files.svg[{big-width}]
 
@@ -95,7 +119,7 @@ When Lisa creates a new block, she writes the current time into the
 timestamp field of the block header. The block creation timestamp is
 important to verifiers, so that they can verify that blocks are
 created at the expected pace, one every 10 minutes. Lisa cannot create
-one block per 10 minutes exactly, but the two week average should be 1
+one block per exactly 10 minutes, but the two week average should be 1
 block per 10 minutes.
 
 [.inbitcoin]
@@ -105,11 +129,17 @@ proof-of-work described in <<ch07>>.
 ****
 
 Before Lisa is finished with the block she must sign it using a
-private key. The corresponding public key must be made publicly
-available to all verifiers. It can be published on the company's
-intranet and on a billboard at the main entrance.
+private key known only to Lisa. The corresponding public key must be
+made publicly available to all verifiers. It can be published on the
+company's intranet and on a billboard at the main entrance. The
+signature is required because only Lisa should be able to add blocks
+to the blockchain (for now). Anyone else trying to create a block and
+write it to the shared folder will not be able to sign it correctly,
+because the don't have Lisa's private key.
 
-image::{imagedir}/2ndcol-lisas-block-public-key.svg[{quart-width}]
+****
+image::{imagedir}/2ndcol-lisas-block-public-key.svg[]
+****
 
 Note that a coworker cannot simply trust the note on the billboard,
 because it is easy for someone to replace the note with another false
@@ -118,8 +148,8 @@ sources, like the billboard, the intranet and ask fellow workers. A
 single source is too easily manipulated by some bad guys. As we will
 see later, using private keys to sign blocks is not always a good idea
 for two reasons. Lisa's private key may be stolen or the sources
-containing Lisa's public key may be compromised. Both of the two
-scenarios has catastrophic consequences where the whole blockchain may be rewritten.
+containing Lisa's public key may be compromised. We will talk about
+the possible consequences of this later.
 
 The first transaction in each block is a coinbase transaction, but the
 coinbase transactions of the blocks create 50 cookie tokens per block
@@ -155,26 +185,30 @@ Lisa have paid for a cookie and the cafe have downloaded the block
 that contains Lisa's transaction and verified it. They give Lisa the
 cookie and she eats it. Yummy.
 
-Can Lisa undo this payment without being proven a fraud? She has to
-replace the first version of block 21 with another, changed version of
-block 21, to make her transaction disappear:
+Can Lisa undo this payment without being proven a fraud? She cannot
+delete or modify block_21.dat she just published, because she doesn't
+have the needed access rights to do that. Her only option is to make
+another, changed version of block 21, that doesn't include her
+transaction and store it in a second file block_21.dat, on the shared
+folder alongside the original version.
 
 .Lisa creates an alternative block at height 21 that doesn't contain her transaction.
-image::{imagedir}/change-block.svg[{quart-width}]
+image::{imagedir}/change-block.svg[{half-width}]
 
 The new version is like the old version but without Lisa's
-transactions. Because she tampers with the transactions in the block,
+transaction. Because she tampers with the transactions in the block,
 she has to update the merkle root in the header with a merkle root
 that matches the new set of transactions in the block. When the header
 is changed, the signature is no longer valid and the header needs to
 be re-signed. To make the changed block available to verifiers, she
-needs to replace the old file block_21.dat on the shared folder with
-the new fraudulent block_21.dat.
+needs to add a new file block_21b.dat on the shared folder with the new
+fraudulent block.
 
 The cafe has already downloaded the first version of block 21. When
-Lisa replaces the block file, the cafe will discover that there's
-another version of the block in the shared folder.
+Lisa adds the new block file, the cafe will at some point, discover
+that there's another version of the block in the shared folder.
 
+.The cafe sees two versions of block 21. One with Lisa's transaction and one without.
 image::{imagedir}/different-block-version.svg[{half-width}]
 
 Now the cafe sees two different blocks at height 21, one that contains
@@ -184,80 +218,171 @@ other from a verification perspective. But the good thing is that the
 cafe can prove that Lisa is playing dirty tricks because Lisa has
 signed two different versions of the block. The signatures are a
 perfect proof that Lisa cheated, and we no longer have a word against
-word situation.
+word situation. Lisa would get fired or at least removed from her
+powerful position as a transaction processor.
 
-But what happens now? Since both blocks are equally valid, Lisa can
-either put back the original version of block 21 on the shared folder,
-or she can keep the second version of block 21 there. If she keeps the
-second version, she must pay 10 CT to the cafe, or get fired. She
-can either create a new transaction to pay with, or she can use the
-same transaction that she deleted from block 21.
-
-What if there were other block after block 21 when Lisa cheated?
+What if there were other blocks after block 21 when Lisa cheated?
 Suppose that block 22 and 23 were already created when Lisa wanted to
 delete her transaction.
 
-.Lisa needs to replace the block containing her transaction and all subsequent blocks.
+.Lisa needs to create alternative versions of the block containing her transaction and all subsequent blocks.
 image::{imagedir}/replace-many-blocks.svg[{big-width}]
-
-Now she needs to replace three blocks: 21, 22 and 23. Changing
-anything in a block causes that block and all subsequent blocks to be
-invalid and they must all be replaced by valid blocks. This is because
-each block header contains a pointer to the previous block, in the
-form of a hash of the previous block's header, the block id.
 
 ****
 image::{imagedir}/2ndcol-replace-many-blocks.svg[]
 ****
 
-When all three blocks have changed, the corresponding block files in
-the shared folder must be replaced so that verifiers don't see Lisa's
-transactions. This is the moment where Lisa's changes will be noticed
-by verifiers, because most or all verifiers have already downloaded
-the previous blocks that Lisa replaces.
+Now she needs to make three alternative blocks: 21, 22
+and 23. Changing anything in a block causes that block and all
+subsequent blocks to be invalid and they must all be replaced by valid
+blocks. This is because each block header contains a pointer to the
+previous block, in the form of a hash of the previous block's header,
+the block id. Three new alternative block files must be created in the
+shared folder. She would get caught in the same way as above.
 
-==== Why use a block chain at all?
+It seems the mission is accomplished, right? Lisa cannot delete any
+transactions without getting caught. We did however start this
+subsection with a disclaimer that we are just moving the problem. Lisa
+can collude with the system administrator to delete blocks from the
+shared folder and claim that the original block was never in the
+shared folder. Then we have word against word again. As long as
+there's a central point of control somewhere, that point of control
+can, and probably will, be exploited.
+
+We will continue to pretend that we have solved the problem with
+deleted transactions for now. This will be fixed for real in <<ch07>>
+and <<ch08>> when we replace Lisa's signatures with proof-of-work and
+replace the shared folder with a network of independent
+computers. Stay tuned.
+
+////
+Delete enabled:
+
+Lisa can still claim that the block was never on the shared
+folder. Just as she previously could claim that the transaction was
+never in the spreadsheet in ch05.
+
+Delete disabled:
+
+Lisa can't deny that block wss published on the shared folder, because it's actually there.
+
+How about this instead:
+
+Everyone has write access to the SF but only Lisa's signatures are
+valid at this point and you can't delete files from the SF.
+
+This would mean that as soon as anyone gets their hands on a
+Lisa-signed block, they can publish it and it is as good as any other
+block on the SF. Forks are persistent on the SF.
+
+Lisa can delete transactions from spreadsheet
+---> Introduce blockchain and add-only shared folder
+
+Lisa can create multiple blocks at same height
+---> Proof that she cheats
+
+Lisa can censor transactions
+---> Multiple Lisas drawing random numbers
+
+Actors can cheat with the random numbers
+---> Proof-of-work
+
+Admin of shared folder can delete/censor blocks (Lisa and Admin can collude)
+---> Peer-to-peer network
+////
+
+
+==== Why use a blockchain at all?
 
 The blockchain is a very complicated way to sign a bunch of
 transactions. Wouldn't it be much simpler if Lisa just signs all
-transactions every made in one big chunk every 10 minutes? That would
-accomplish the same goal. The problem with that approach is that as
-the number of transactions grow, the time it takes for Lisa to sign
-the whole set of transactions will increase. At some point, the
-signing will take too long to be practical. With the blockchain Lisa
-only have to sign the most recent, yet unconfirmed, set of
-transactions.
+transactions ever made in one big chunk every 10 minutes? That would
+accomplish the same goal. There are a number of problems with that approach:
+
+* As the number of transactions grows, the time it takes for Lisa to
+  sign the whole set of transactions will increase
+* The same goes for verifiers, the time it takes to verify a signature
+  increases with the number of transactions.
+* It's hard for verifiers to know what's new since last
+  signature. That information is valuable when maintaining the
+  UTXO set.
+
+By using the blockchain Lisa only have to sign the most recent, yet
+unconfirmed set of transactions while still, indirectly via the
+previous block id pointer, signing all historic transactions. The
+verifiers can easily see what's new since last block and update their
+UTXO sets accordingly.
 
 The blockchain also provides some nice extra features that we will
 duscuss further on, for example the merkle tree.
 
+=== Client types
+
+Two different kinds of user software, clients, have emerged throughout
+this book. Wallets and verifier software, _full nodes_.
+
+==== Full nodes
+
+Coworkers that want to verify the blockchain to make sure that they
+have valid financial information use software that downloads the whole
+blockchain and keeps a UTXO set up to date at all times. This software
+needs to run nearly all the time to stay up to date with newly
+produced blocks. We call this running software a _full node_. A full
+node knows about all transactions since block 0. The company and the
+cafe are typical users of full nodes. They don't have to trust
+someone else with providing them with financial information. They get
+their financial information directly from the blockchain themselves.
+
+==== Wallets
+
+In <<ch04>> we introduced a mobile app that coworkers can use to
+manage their private keys, as well as send and receive money. The
+wallet app has now been adapted to the new blockchain system.
+
+Since most wallet users are on a mobile data plan, they don't want to
+waste bandwidth on downloading all, for them uninteresting, block
+data. The overwhelming majority of the blocks will not contain any
+transactions concerning them, so it's a bit of a waste of bandwidth to
+download all blocks.
+
+The developers of the full node and the wallet developers cooperate to
+let wallets connect to full nodes over the internet and get block data
+from the full nodes in a way that doesn't require huge amounts of
+data. Wallets are allowed to connect to any full node and ask for the
+data they need. This is what we sketched out in <<ch01>>:
+
+.A Bitcoin wallet gets notified of an incoming payment by a full node.
+image::{imagedir}/periscope-lightweight-wallet.svg[{half-width}]
+
+Suppose that John wants to receive notifications from a full node only
+on transactions concerning his own wallet. He can now make a network connection to any of the full nodes at the office, for example the cafe's.
 
 
 
-Her blocks contains a timestamp so that verifiers can verify that she
-don't create more than 50 CT per 10 minutes.
-Instead of adding transactions to the spreadsheet, she adds them to a block:
-
-image::{imagedir}/spreadsheet-blockchain-transition.svg[{big-width}]
-
-Publish block header every 10 minutes to blocks@company.com
-
-image::{imagedir}/block.svg[{big-width}]
 
 
 
-Why not publish more often than every 10 minutes? That would reduce
-the time you need to wait for confirmation. Explain that this is an
-intermediary step in transit to proof-of-work.
+
+=== Merkle trees
+
+
+
+
+=== Nodes - Independent verifiers
+
+We have already mentioned _nodes_ in <<ch01>> and in <<ch05>>.
+
+
+
+
+
+
 
 image::{imagedir}/merkle-tree[{big-width}]
 
 
 
 
-If Lisa deletes a transaction, one can prove it was there by showing all transactions in the block.
-
-image::{imagedir}/deleted-tx-proven.svg[{big-width}]
 
 Verifiers know that as long as Lisa provides blocks consistent with previous blocks, their UTXO sets are OK.
 
@@ -284,43 +409,6 @@ Pruning
 
 SPV wallets
 
-=== Lisa 
-
-
-
-
-=== 
-
-=== Lisa rewrites history
-=== Coworkers propose a blockchain
-==== Lisa publish blocks every 10 minutes
-==== Coinbase transaction
-==== The blocks are cryptographically chained
-==== Nodes - Independent validators
-===== Keeps their own copy of the blockchain
-==== The blockchain becomes more trusted than the spreadsheet.
-=== The spreadsheet is obsolete
-=== Exercises
-
-
-=== People mistrust Lisa, creates a blockchain
-
-Some people don't know Lisa very well, and they start questioning her
-credibility as a trusted central authority. They are afraid that she's
-letting workers pay her to remove transactions from the cookie sheet
-to "undo" payments. A worker buys a cookie from the café and later
-asks lisa to remove the transaction. Of course, Lisa would not do
-that, but only the suspicion from a coworker makes the coworker
-refrain from using the cookie sheet.
-
-She could still deny transfers if she wants to, and she can replace a
-transaction with another valid transaction in the cookie sheet (double
-spend).
-
-The suspicious coworkers have an idea. What if Lisa sends out a block
-of the latest transactions every 10 minutes via email to
-blocks@company.com. This block contains a hash of all the transactions
-in the block and also the hash of the previous block.
 
 The suspicious workers build a program they call a "node" that reads
 those blocks from email and stores them locally. The blocks form a
@@ -343,23 +431,4 @@ spreadsheet and only use the blockchain from now on. So Lisa sets up a
 node of her own. She modifies her computer program to collect the last
 10 minutes worth of transactions into a block and publishes it.
 
-
-Next chapter:
-
-Let's make it censorship resistant. Two more coworkers, Tom and Lin,
-wants to Join and compete for the block rewards. They get also write
-access to the shared folder, but they can only remove files they
-created themselves. They also publish their public keys on a bulletin
-board and the company intranet.
-
-Who publishes next block? Chance! They each draw a number between 1
-and 30. If they draw a 1-10 they get to publish the next block. What
-if two wins? No worries, both publishes and the next block will break
-the tie.
-
-Lin can cheat in this competition. She will just pretend to have won
-the lottery every block and always publish the next block. This will
-give her a disproportionate part of the block rewards. It's hard to
-prove that she cheats until she's cheated for a long time. She could
-"get lucky" 10 times in a row.
 

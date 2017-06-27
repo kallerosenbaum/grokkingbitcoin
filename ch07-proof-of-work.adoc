@@ -1,0 +1,17 @@
+Let's make it censorship resistant. Two more coworkers, Tom and Lin,
+wants to Join and compete for the block rewards. They get also write
+access to the shared folder, but they can only remove files they
+created themselves. They also publish their public keys on a bulletin
+board and the company intranet.
+
+Who publishes next block? Chance! They each draw a number between 1
+and 30. If they draw a 1-10 they get to publish the next block. What
+if two wins? No worries, both publishes and the next block will break
+the tie.
+
+Lin can cheat in this competition. She will just pretend to have won
+the lottery every block and always publish the next block. This will
+give her a disproportionate part of the block rewards. It's hard to
+prove that she cheats until she's cheated for a long time. She could
+"get lucky" 10 times in a row.
+

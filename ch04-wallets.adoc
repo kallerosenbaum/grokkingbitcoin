@@ -1,4 +1,4 @@
-[[ch04,Chapter 4]]
+[[ch04,chapter 4]]
 == Wallets - Reducing key chaos and backup issues
 :imagedir: {baseimagedir}/ch04
 
@@ -532,11 +532,19 @@ wallet.
 
 === Back to backup
 
-Let's recall why we are here. We wanted to make backups easier and
-safer. What is the minimum that Rita needs to backup in order to
-restore all keys in her wallet, should she lose it? Right, the
-seed. As long as her seed is safe, she can always recreate all her
-keys.
+Let's recall why we are here. We want to create a wallet app that end
+users can use to transfer cookie tokens (bitcoins) between each other,
+as in this picture from <<ch01>>:
+
+.We are working on making a great wallet for users.
+image::{imagedir}/periscope-wallets.svg[{big-width}]
+
+Now, we want a safe and easy way to back up the private keys. We have
+created a hierarchical deterministic wallet to generate any number of
+private keys from a single seed. What is the minimum that Rita needs
+to backup in order to restore all keys in her wallet, should she lose
+it?  Right, the seed. As long as her seed is safe, she can always
+recreate all her keys.
 
 Suppose that Rita's 128 bit (16 byte) seed is
 

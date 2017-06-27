@@ -1,4 +1,4 @@
-[[ch03,Chapter 3]]
+[[ch03,chapter 3]]
 == Addresses - Resolving privacy issues
 :imagedir: {baseimagedir}/ch03
 
@@ -167,6 +167,16 @@ work. At the end of this chapter we will discuss more about how to
 further improve privacy.
 
 === Shorten the public key
+
+This whole chapter deals with Bitcoin addresses. To remind you where
+all this fits into Bitcoin, remember this diagram from <<ch01>>:
+
+.Bitcoin addresses.
+image::{imagedir}/periscope-digital-signatures-bitcoin-addresses.svg[{half-width}]
+
+We will end up with Bitcoin (cookie token) addresses towards the end
+of this chapter, but we need a few more steps towards our goal. Please
+be patient.
 
 Privacy was improved by using public keys in the spreadsheet, but they
 do take up a lot of space, compared to the names. The name "john"

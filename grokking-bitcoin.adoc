@@ -9,6 +9,9 @@
 :commonimagedir: {baseimagedir}/common
 :stylesheet: grokking-bitcoin.css
 :stem:
+:xrefstyle: short
+:chapter-label: chapter
+:section-label: section
 
 :full-width: width='70%'
 :big-width: width='75%'
@@ -19,6 +22,8 @@
 :thumb: width='20%'
 :btc: image:{commonimagedir}/btc-sans.png[BTC,role="btc"]
 
+///
+
 include::ch01-introduction-to-bitcoin.adoc[]
 
 include::ch02-securing-cookie-tokens.adoc[]
@@ -28,6 +33,8 @@ include::ch03-addresses.adoc[]
 include::ch04-wallets.adoc[]
 
 include::ch05-transactions.adoc[]
+
+///
 
 include::ch06-the-blockchain.adoc[]
 

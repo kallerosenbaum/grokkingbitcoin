@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#AD=asciidoctor
+AD=/home/kalle/hack/git/asciidoctor/bin/asciidoctor
 scriptdir=`dirname $0`
 sourcedir=${scriptdir}
 outputdir=${sourcedir}/build
@@ -14,7 +16,7 @@ for file in ${sourcedir}/*.adoc; do
 done
 
 file=$outputdir/grokking-bitcoin.adoc
-cat $file | asciidoctor -b html5 - > ${outputdir}/grokking-bitcoin.html
+cat $file | $AD -b html5 - > ${outputdir}/grokking-bitcoin.html
 #cat $file | asciidoctor-epub3 -D ${outputdir} ${outputdir}/grokking-bitcoin.adoc
 #asciidoctor -r ./hacks/multipage-html5-converter.rb -b multipage_html5 --destination-dir=$outputdir $file 
 

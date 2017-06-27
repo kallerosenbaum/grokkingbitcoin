@@ -1,4 +1,4 @@
-[[ch02,Chapter 2]]
+[[ch02,chapter 2]]
 == Digital signatures - Securing cookie tokens
 :imagedir: {baseimagedir}/ch02
 This chapter covers
@@ -128,6 +128,7 @@ corresponds to concepts in Bitcoin:
 | The spreadsheet | The blockchain | <<ch06>>
 | A row in the spreadsheet | A transaction | <<ch05>>
 | Lisa | A miner | <<ch07>>
+| Lisa and her computer | The Bitcoin network | <<ch08>>
 |===
 
 We will introduce a few more concepts in the cookie token system later
@@ -514,6 +515,12 @@ shredder to denote a cryptographic hash function.
 
 === Digital signatures
 
+This part of <<ch02>> explores how you can prove to someone that you
+approve a payment. To do that, we use _digital signatures_. Digital signatures were briefly mentioned in <<ch01>>, where Alices Bitcoin transaction of 1 bitcoin to Bob were signed by Alice using her private key.
+
+.Digital signatures in Bitcoin
+image::{imagedir}/periscope-digital-signatures.svg[{half-width}]
+
 ****
 image::{imagedir}/2ndcol-physical-vs-digital-signature.svg[]
 ****
@@ -557,7 +564,7 @@ There are three phases in this process.
 ****
 A key pair is created once. The same private key can be used several
 times to digitally sign stuff. We will see later why this is not
-always a good idea for privacy reasons.
+always a good idea for privacy and security reasons.
 ****
 
 . John prepares by generating a key pair. The private key is kept
