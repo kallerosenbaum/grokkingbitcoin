@@ -22,7 +22,7 @@
 :thumb: width='20%'
 :btc: image:{commonimagedir}/btc-sans.png[BTC,role="btc"]
 
-///
+////
 
 include::ch01-introduction-to-bitcoin.adoc[]
 
@@ -34,7 +34,7 @@ include::ch04-wallets.adoc[]
 
 include::ch05-transactions.adoc[]
 
-///
+////
 
 include::ch06-the-blockchain.adoc[]
 
