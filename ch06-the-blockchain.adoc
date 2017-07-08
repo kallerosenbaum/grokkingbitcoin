@@ -557,37 +557,129 @@ image::{imagedir}/bloom-filter-what-to-test.svg[{quart-width}]
 
 The node will test
 
-* the txid
-* all transaction output references
+* the txid of the transaction
+* all transaction output (TXO) references
 * all data items in scriptSigs
 * all data items of the outputs
 
-So for john's wallet to be notified of spends it needs to add either
-its public keys to the bloom filter or all its unspent transaction
+So for John's wallet to be notified of spends it needs to add either
+all its public keys to the bloom filter or all its unspent transaction
 output references.
 
 === Merkle trees
 
+Now that the full node has determined what transactions to send to the
+wallet it needs to send the new block header and all transactions that
+John's wallet might be interested in.
 
+From the block above, it has determined that transactions Tx~2~ and
+Tx~2~ need to be sent to the wallet. If the node sends the header and
+the two transactions, then John's wallet will not be able to verify
+that the transactions actually belong to the block. The merkle root
+depends on three transactions, Tx~1~, Tx~2~ and Tx~3~, but the wallet
+only gets Tx~2~ and Tx~3~ from the full node. It cannot recreate the
+merkle root in the block header. It needs more information to verify
+that the transactions are included in the block.
 
+First of all, remember that we want to save data traffic, so simply
+sending all transactions in the block is not good enough.
 
-=== Nodes - Independent verifiers
+==== Create the merkle root
 
-We have already mentioned _nodes_ in <<ch01>> and in <<ch05>>.
+It's time to reveal how Lisa creates the merkle root. Suppose that
+Lisa needs to create the block header above. She needs to make the
+combined hash of all transactions that we call the merkle root. The
+merkle root is calculated creating a hierarchy of hashes, a _merkle
+tree_.
 
+.Lisa creates a merkle root from the transactions in a block. The merkle root is then signed by Lisa to _commit to_ the transactions in the block.
+image::{imagedir}/merkle-tree.svg[{big-width}]
 
+The transactions are ordered in the same order as in the block. If the
+number of items is odd, the last item is duplicated and added last.
 
+Each item (transaction in this case) is hashed with double
+SHA256. This results in four hash values, of 256 bits each.
 
+The hash values are pair-wise _concatenated_, meaning that two hashes
+are merged by appending the second hash after the first hash. For
+example `abc` concatenated with `def` becomes `abcdef`.
 
+The four hash values have now become two concatenated values. Since
+two is an even number, we don't add any extra item at the end. If we
+would have three items we would have to copy the last item and put it
+last so that we get an even number. The two concatenated values are
+each hashed separately resulting in two 256 bit hashes.
 
+These two hash values are concatenated into a single 512 bit
+value. This value is hashed, witch results in the 256 bit merkle
+root. This merkle root is written into the block header.
 
-image::{imagedir}/merkle-tree[{big-width}]
+If any transaction is added, deleted or changed, the merkle root will
+change. This is a nice feature, because if Lisa signs this block
+header, she knows that no one can tamper with the transactions in it
+without making the signature invalid.
 
+==== Prove that a transaction is in a block
 
+The full node wants to send Tx~2~ and Tx~3~ to John's wallet, because
+it thinks those transactions might be interesting to John's wallet.
 
+How can the full node provide a proof to the wallet that Tx~2~ is
+included in the block? It can do so by providig a _merkle path_ that
+connects Tx~2~ to the merkle root in the block header.
 
+.The full node constructs a merkle path that connects Tx~2~ to the merkle root in the block header.
+image::{imagedir}/merkle-path.svg[{big-width}]
 
-Verifiers know that as long as Lisa provides blocks consistent with previous blocks, their UTXO sets are OK.
+The merkle path consists of the "branches" of the tree that is needed
+to combine with Tx~2~ to recreate the merkle root. A branch is an
+indication of if it's a left branch or a right branch and the hash
+value of that branch. In this example the full node needs to provide
+two branches, "Left A" and "Right B", where A and B are marked in the
+diagram above.
+
+The full node then needs to send the following items to the wallet:
+
+* The block header
+* The merkle path connecting the transaction to the merkle root:
+** Right B
+** Left A
+* The transaction, Tx~2~.
+
+To verify that the transaction is part of the block, the wallet starts
+with the last of these things, Tx~2~, and hashes it, it then combines
+that hash with the branch "Left A" of the merkle path.
+
+.The wallet generates an intermediary branch hash of the merkle tree using stuff received from the full node.
+image::{imagedir}/merkle-path-verify-a.svg[{half-width}]
+
+The "Left" parts tells the wallet that the hash A is to the right of
+the hash of Tx~2~, so that the wallet can combine the two branches in
+the correct order. To get to the next level towards the root, the
+wallet needs to hash the combined value. The new hash value is an
+intermediary branch of the merkle tree, because there are still items
+left in the in the merkle path. We have now used one item of the
+merkle path. It's time to use then next (and last) item, "Right B".
+
+image::{imagedir}/merkle-path-verify-b.svg[{half-width}]
+
+The word "Right" means that the hash in the merkle path is a right
+branch. The wallet knows that it needs to combine the result of the
+previous step with the "Right B" branch and hash that combination. The
+hash value is a merkle root, because there is no more items to use in
+the merkle path.
+
+Now the wallet only has to compare the calculated merkle root with the
+merkle root in the block header, the given merkle root, and verify
+that they are the same.
+
+.The wallet checks that the given and the calculated merkle roots match. If so, Tx~2~ is proven to belong to the block.
+image::{imagedir}/merkle-path-verify-compare-root.svg[{half-width}]
+
+If they are the same the full node has proven that Tx~2~ is part of
+the block.
+
 
 Once a transaction hits the blockchain, it's safe.
 
