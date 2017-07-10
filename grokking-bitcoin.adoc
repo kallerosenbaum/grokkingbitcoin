@@ -24,6 +24,8 @@
 
 ////
 
+////
+
 include::ch01-introduction-to-bitcoin.adoc[]
 
 include::ch02-securing-cookie-tokens.adoc[]
@@ -33,8 +35,6 @@ include::ch03-addresses.adoc[]
 include::ch04-wallets.adoc[]
 
 include::ch05-transactions.adoc[]
-
-////
 
 include::ch06-the-blockchain.adoc[]
 
