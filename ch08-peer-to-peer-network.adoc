@@ -1,0 +1,7 @@
+
+
+
+Issues to remember
+
+* Broadcasting transactions
+* mempool

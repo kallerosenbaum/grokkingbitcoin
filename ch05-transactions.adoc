@@ -1170,8 +1170,9 @@ same checks as Lisa did, because she added the transaction to the
 spreadsheet exactly as she received it. If Lisa makes changes to it,
 people will notice that the spreadsheet is no longer valid because it
 contains an invalid transaction. The only things that we cannot verify
-in the spreadsheet is if transactions are being censored or
-reversed. We simply have to trust Lisa with these two things for now.
+in the spreadsheet is if transactions are being censored (not added
+to the spreadsheet) or deleted. We simply have to trust Lisa with
+these two things for now.
 
 ****
 image::{imagedir}/toolbox.svg[]

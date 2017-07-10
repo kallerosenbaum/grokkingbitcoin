@@ -558,7 +558,7 @@ image::{imagedir}/bloom-filter-what-to-test.svg[{quart-width}]
 The node will test
 
 * the txid of the transaction
-* all transaction output (TXO) references
+* all transaction output (TXO) references in the inputs
 * all data items in scriptSigs
 * all data items of the outputs
 
@@ -566,6 +566,77 @@ So for John's wallet to be notified of spends it needs to add either
 all its public keys to the bloom filter or all its unspent transaction
 output references.
 
+==== Throttle privacy/data traffic
+
+As mentioned the purpose of the bloom filter is to enhance privacy for
+the user. The level of privacy can be controlled by tuning the ratio
+between the number of `1`s and the number `0`s in the bloom
+filter. The more `1`s in the bloom filter in relation to the bloom
+filter size, the more false positives. More false positives means that
+the full node will send more unrelated transactions to the wallet.
+
+Let's do some back-of-the-envelope calculations. Feel free to skip
+this part and jump to <<merkle-trees>>
+
+The bloom filter in the example above has 8 bits of which 3 are
+zeroes. A single hash function's output has the probability 5/8 to hit
+a 1. For a single test, the probability that all three hash functions
+hit a `1` is then (5/8)^3^. The probability that a single test is
+negative, any of the three hash functions doesn't point to a `1`, is
+then 1-(5/8)^3^. The full node will perform several tests on each
+transaction, typically 9 for a transaction with two inputs and two
+outputs. Check against the list of tests performed by the full node:
+
+* the txid of the transaction (1)
+* all transaction output (TXO) references in the inputs (2)
+* all data items in scriptSigs (public key and signature x 2 = 4)
+* all data items of the outputs (2)
+
+The probability that all 9 tests is negative is (1-(5/8)^3^)^9^≈
+0.08. This means that almost all, 92/100, transactions will be sent to
+the wallet. This shows that having only 3 zeroes of eight bits in the
+bloom filter will not help reduce the data very much.
+
+To get less false positives, John's wallet must use a larger bloom
+filter. so that the ratio (number of ones / bloom filter size)
+decreases.
+
+//latexmath:[\(K = k * G\)]
+
+Let's define some symbols:
+
+ t = the number of tests performed on a transactions (9)
+ p = the probability of the transaction being deemed uninteresting
+ r = the ratio of number of `1`s / bloom filter size
+
+Let's generalize the calculation above:
+
+ (1-r^3^)^t^=p => lg~10~(1-r^3^)=lg(p)/t =>
+ 1-r^3^=10^lg~10~(p)/t^ =>
+ r^3^ = 1 - 10^lg~10~(p)/t^ = 1 - (10^lg~10~(p)^)^1/t^ =>
+ r^3^ = 1 - p^1/t^ =>
+ r = ∛(1-p^1/t^)
+
+Let's say that we only want to get of 1/10 of all transactions (given that all
+transacions are like the transaction above with 2 inputs and 2
+outputs). How big do we have to make the bloom filter?
+
+ t = 9
+ p = 9/10
+ r = ∛(1-p^1/t^) = ∛(1-(9/10)^1/9^) ≈ 0.23
+
+[.inbitcoin]
+****
+The bloom filter size must be a multiple of 8 bits, so 26 bits is not
+allowed. We can round upwards to 32 bits.
+****
+
+This means that the bloom filter should be about 6/0.23 ≈ 26 bits in
+order to get only 1/10 of all transactions. Remember that these are
+very rough calculations based on somewhat false assumptions, but it
+should give you an idea on how big a bloom filter must be.
+
+[id=merkle-trees]
 === Merkle trees
 
 Now that the full node has determined what transactions to send to the
@@ -596,7 +667,9 @@ tree_.
 image::{imagedir}/merkle-tree.svg[{big-width}]
 
 The transactions are ordered in the same order as in the block. If the
-number of items is odd, the last item is duplicated and added last.
+number of items is odd, the last item is duplicated and added
+last. This item is not added to the block in any way, it's only
+dublicated temporarily for the merkle root calculation.
 
 Each item (transaction in this case) is hashed with double
 SHA256. This results in four hash values, of 256 bits each.
@@ -680,15 +753,143 @@ image::{imagedir}/merkle-path-verify-compare-root.svg[{half-width}]
 If they are the same the full node has proven that Tx~2~ is part of
 the block.
 
+The wallet has now received a chain of block headers and transactions
+relevant to the wallet, plus some unrelated transactions to obfuscate
+to the full node what addresses belong to the wallet.
 
-Once a transaction hits the blockchain, it's safe.
+==== Handle thousands of transactions in a block
+
+The block in the example above contained only three transactions. We
+didn't save much space sending the header, the merkle path and
+Tx~2~. We could just as well send just the block header and all three
+transactions as is. That would be much simpler. But let's check some
+rough numbers on how the merkle proofs compare in size to the full
+block as the number of thansactions grows.
+
+[%autowidth]
+.Size of merkle proofs compared to the block size for different block sizes
+|===
+| Number of tx in block | merkle path length | Block size  [bytes] | Merkle proof size [bytes]
+
+| 1 | 0 | 330 | 330
+| 2 | 1 | 580 | 362
+| 3 | 2 | 830 | 394
+| 4 | 2 | 1080 | 394
+| 5 | 3 | 1330 | 426
+| 6 | 3 | 1580 | 426
+| 7 | 3 | 1830 | 426
+| 8 | 3 | 2080 | 426
+| 9 | 4 | 2330 | 458
+| 10 | 4 | 2580 | 458
+| 100 | 7 | 25080 | 554
+| 1000 | 10 | 250080 | 650
+| 10000 | 14 | 2500080 | 778
+| 100000 | 17 | 25000080 | 874
+| 1000000 | 20 | 250000080 | 970
+|===
+
+[.inbitcoin]
+.Why 80 byte header?
+****
+Bitcoin's block header is always 80 bytes. The cookie token block headers are slightly bigger, because of the signature. In the next chapter we will fix our block header to match Bitcoin's exactly.
+****
+
+The table assumes that all tranactions are 250 bytes. The block size
+is calculated as 80 bytes block header plus number of transactions
+times 250. The merkle proof is calculated as 80 bytes block header plus merkle path length times 32 plus 250 bytes.
+
+The merkle proofs don't grow as fast as the total block size, because
+the merkle proof grows _logarithmically_ with the number of
+transactions, while the block size grows _linearly_ with the number of
+transactions.
+
+=== Summary
+
+This chapter has descibed the blockchain and how it enables full nodes
+to independently verify all transactions. The blockchain is a sequence
+of blocks that are interconnected through cryptographhic hashes
+
+.The blockchain connects the blocks by the previous block id value in the block headers. The transactions are committed to by the merkle root.
+image::{imagedir}/summary-blockchain.svg[{big-width}]
+
+The merkle root in the block header is the combined hash of all
+contained transactions. This hash is created by hashing transactions
+in a merkle tree structure. Transactions hashes are concatenated
+pair-wise and hashed agein to get one step closer to the root.
+
+.Transactions are hashed in a tree structure, merkle tree, and the root of the tree is the merkle root written in the block header. 
+image::{imagedir}/summary-merkle-tree.svg[{big-width}]
+
+A full node can prove to a lightweight wallet that a transaction is in
+a block by sending a block header and a merkle proof to the
+wallet. The merkle proof consists of the transaction and the merkle
+path. The merkle path is a series of hashes and whether the hash is a
+left hash or a right hash. The merkle path grows logarithmically with
+the number of transactions.
+
+For privacy reasons, wallets don't want just the transactions they are
+actually interested in. To obfuscate what addresses actually belongs
+to the wallet, it "subscribes" to more transactions than the ones that
+are actually interesting using bloom filters. It creates a bloom
+filter and sends it to the full node.
+
+.A wallet creates a bloom filter and sends it to a full node. The full node uses the bloom filter to determine which transactions to send.
+image::{imagedir}/summary-bloom-filter.svg[{half-width}]
+
+The full node hashes various stuff from the transactions, for example
+public key hashes in outputs, using the three hash functions. If all
+bits on those indices are `1` then it will send the transactions. If
+not, it will not send the transaction.
+
+==== New release - 6.0!
+
+[%autowidth,options="header"]
+.Release notes, cookie tokens 6.0
+|===
+|Version|Feature|How
+
+.2+|image:{commonimagedir}/new.png[role="gbnew"]*6.0*
+| Prevent Lisa from deleting transactions
+| Signed blocks in a blockchain
+
+| Fully validating nodes
+| Keeps a copy of the whole blockchain
+
+| Lightweight wallet saves data traffic
+| Bloom filters and merkle proofs
+
+.3+|5.0
+| Spend multiple "coins" in one payment
+| Multiple inputs in transactions
+
+| Anyone can verify the spreadsheet
+| Make the signatures publicly available in the transactions
+
+| Sender decides criteria for spending the money
+| Script programs inside transactions
+
+.3+|4.0
+|It is now easy to make payments and create new addresses.
+|Mobile app "Wallet"
+
+|Simplify backups
+|HD wallets are generated from a seed. Only the seed, 12-24 English
+ words, needs to be backed up.
+
+|Create addresses in insecure environments
+|HD wallets can generate trees of public keys without ever seeing any of the private keys
+|===
 
 
+////
 Caused problem:
 
-Transactions will not be visible until a block is published. No one wants to wait 10 minutes for a cookie.
+Transactions will not be visible until a block is published. No one
+wants to wait 10 minutes for a cookie. For now they cc the cafe on
+their email to Lisa.
 
-We solve that be having users mail their transactions to tx@company.com. Then everyone can see all pending transactions.
+We will solve that in <<ch08>> by having users broadcast their transactions
+to the network. Then everyone can see all pending transactions.
 
 
 Remaining problem:
@@ -696,34 +897,9 @@ Remaining problem:
 Transactions are visible on tx@company.com, but Lisa might censor transactions.
 
 
-Remaining problem: Everybody need to trust the mail system. An email
+Remaining problem: Everybody need to trust the shared folder. An email
 administrator can delete transactions and tamper with published blocks
 before they are published. But let's trust email for now.
 
 Pruning
-
-SPV wallets
-
-
-The suspicious workers build a program they call a "node" that reads
-those blocks from email and stores them locally. The blocks form a
-blockchain.
-
-The suspicious workers can use their internal blockchain to calculate
-how much money each address, including their own, has.
-
-More and more coworkers and the café starts using this node software
-because they get a guarantee that the data is not tampered with. Lisa
-may tamper with data after she has send out the block, but she can't
-tamper with the data on other nodes.
-
-They can download the blockchain from any nodes, as long as they
-validate the last block hash with the latest email on
-blocks@company.com.
-
-Also, Lisa and the coworkers decide that they can throw out the
-spreadsheet and only use the blockchain from now on. So Lisa sets up a
-node of her own. She modifies her computer program to collect the last
-10 minutes worth of transactions into a block and publishes it.
-
-
+////
