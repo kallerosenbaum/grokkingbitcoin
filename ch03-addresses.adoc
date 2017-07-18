@@ -1,4 +1,4 @@
-[[ch03,chapter 3]]
+[[ch03]]
 == Addresses - Resolving privacy issues
 :imagedir: {baseimagedir}/ch03
 

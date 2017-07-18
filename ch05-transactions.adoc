@@ -1127,7 +1127,7 @@ do, the cafe will notice because their transaction never confirms.
 When the cafe notices, they can not prove that John's transaction has
 ever been in the spreadsheet. Also, Lisa cannot prove that John's
 transaction never was in the spreadsheet. It's words against
-words. This problem will be solved in <<ch07>>.
+words. This problem will be solved in <<ch06>>.
 
 It's not obvious why Lisa would delete John's transaction. It would
 make more sense to Lisa to cheat with her own money instead. Let's say
@@ -1135,10 +1135,12 @@ that she buys a cookie in the cafe and when the cafe has seen the
 transactions from Lisa to the Cafe in the spreadsheet, they give a
 cookie to Lisa. Yummy. Then Lisa walks back to her desk and simply
 removes her transaction. Now she got a cookie _and_ got to keep the
-money. This will of course be noticed next time she tries to spend the
-same outputs again. But as with John's transaction, its word against
-word. Lisa can claim that the first transaction was never in the
-spreadsheet, and the cafe can claim it was. No one can prove anything.
+money. This will of course be noticed when the cafe tries to spend the
+output from the removed transaction, or the next time Lisa tries to
+double-spend the outputs spent by the removed trasansaction. But as
+with John's transaction, its word against word. Lisa can claim that
+the transaction was never in the spreadsheet, and the cafe can claim
+it was. No one can prove anything.
 
 === Summary
 

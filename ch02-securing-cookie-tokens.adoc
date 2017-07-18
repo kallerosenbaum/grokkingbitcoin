@@ -1,4 +1,4 @@
-[[ch02,chapter 2]]
+[[ch02]]
 == Digital signatures - Securing cookie tokens
 :imagedir: {baseimagedir}/ch02
 This chapter covers

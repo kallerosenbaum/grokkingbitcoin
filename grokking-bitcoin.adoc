@@ -8,7 +8,7 @@
 :baseimagedir: images
 :commonimagedir: {baseimagedir}/common
 :stylesheet: grokking-bitcoin.css
-:stem:
+:stem: latexmath
 :xrefstyle: short
 :chapter-label: chapter
 :section-label: section
@@ -24,7 +24,6 @@
 
 ////
 
-////
 
 include::ch01-introduction-to-bitcoin.adoc[]
 
@@ -35,8 +34,11 @@ include::ch03-addresses.adoc[]
 include::ch04-wallets.adoc[]
 
 include::ch05-transactions.adoc[]
+////
 
 include::ch06-the-blockchain.adoc[]
+
+include::ch07-proof-of-work.adoc[]
 
 //[id=ch06]
 //== The blockchain - Further reducing trust in Lisa

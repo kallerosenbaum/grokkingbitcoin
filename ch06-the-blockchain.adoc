@@ -1,36 +1,35 @@
-[[ch06,chapter 6]]
+[[ch06]]
 == The blockchain - Further reducing trust in Lisa
 :imagedir: {baseimagedir}/ch06
 
 This chapter covers
 
-* Securing the spreadsheet integrity
-* Proving that a transaction has been confirmed
-* Lightweight wallets
+* Securing the spreadsheet integrity (at least improving it)
+* Lightweight wallets (SPV wallet)
+* Reducing wallet bandwidth requirements
 
 In the previous chapter we introduced transactions that enabled anyone
 to verify all transactions in the spreadsheet. But there are still
 things verifiers cannot verify: That Lisa doesn't remove transactions
 and that she doesn't censor transactions. Censorship resistance will
 be handled in the next chapter. This chapter will make it impossible
-for lisa to remove transactions without also making it obvoius that
-she has tampered with it.
+for lisa to remove or replace transactions without also making it
+obvoius that she has tampered with transaction history.
 
 Lisa does this by getting rid of the spreadsheet and replace it with a
 thing called the _blockchain_. The blockchain contains transactions
-that are secured from tampering by hashing and signing the contents in
-a clever way and storing it in a place where she can't change or
-delete them. This technique makes it easy to provide cryptographic
-proof of fraud if Lisa tries any dirty tricks. All verifiers keeps
-their own copies of the blockchain and they can now fully validate the
-blockchain and be sure that Lisa don't remove already confirmed
-transactions.
+that are secured from tampering by hashing and signing the
+transactions in a clever way. This technique makes it easy to provide
+cryptographic proof of fraud if Lisa tries any dirty tricks. All
+verifiers keeps their own copies of the blockchain and they can now
+fully validate the blockchain to ensure that Lisa doesn't remove
+already confirmed transactions.
 
 It's been a while since we talked about normal users' wallets. We will
-introduce something called a lightweight wallet that will defer the
-verification of transaction to someone else, a full node, to save
-bandwidth and storage space. This is possible thanks to the
-blockchain.
+introduce something called a lightweight wallet, or SPV (simplified
+payment verification) wallet, that will defer the verification of
+transactions to someone else, a full node, to save bandwidth and
+storage space. This is possible thanks to the blockchain.
 
 === Lisa can delete transactions
 
@@ -52,21 +51,15 @@ private detectives.
 
 How can we make it possible to prove if a transaction was confirmed or
 not? We want a way for Lisa to publish the transactions and their
-ordering such that she can't tamper with them. Can we make transaction
-data immutable?
+ordering such that she can't tamper with them.
 
 === Build the first blockchain
 
-The reason Lisa can delete transactions is that she has full access to
-modify the contents of the spreadsheet. As long as the spreadsheet is
-stored on Lisa's computer, where she is administrator, she can make
-any changes she wants at virtually no cost. What if we could prevent
-Lisa from changing transaction data after she has added it? We are
-going to try to pull that off with conventional systems, but we are
-going to fail. We will fail because it is impossible: However we store
-our data, someone is able to change it, either Lisa or some system
-administrator. Anyway, we are going to do our best to solve the
-problem.
+The reason Lisa can delete transactions is that no one can verify that
+the list of all transactions has changed. Lisa can make any changes
+she wants at virtually no cost. What if we could prevent Lisa from
+changing transaction data, or make it provable that she has fiddled
+with history?
 
 Some developers suggest that we get rid of the cookie token
 spreadsheet and replace it with a blockchain. The blockchain stores
@@ -74,17 +67,23 @@ transactions just like the spreadsheet did. But the blockchain also
 contains some other stuff to protect the integrity of the contained
 transactions.
 
+.The blockchain is a chain of blocks. Each block points to the previous block through the block id. The first block is at height 0.
 image::{imagedir}/blockchain.svg[{big-width}]
 
 The blockchain consists of blocks. Each block contains one or more
 transactions and a block header. The block header consists of
 
-* the hash of the previous block's header
-* the combined hash of the transactions in the block
-* a timestamp
-* Lisa's signature, covering this block header
+* the double SHA256 hash of the previous block's header, previous block id
+* the combined hash of the transactions in the block, the _merkle root_
+* a timestamp, creation time of the block
+* Lisa's signature of the block header
 
-The hash of block header is used as an identifier for a block, just as
+.Block id
+****
+image::{imagedir}/2ndcol-block-id.svg[]
+****
+
+The hash of a block header is used as an identifier for the block, just as
 a transaction hash, txid, is used as an identifier for a
 transaction. We will sometimes refer to the block header hash as
 block id.
@@ -93,26 +92,20 @@ The leftmost part of the block header is the block id of the previous
 block in the blockchain. This is why we call it a _chain_. The
 previous block header hashes form a chain of block headers.
 
-The combined hash of the transactions is the _merkle root_ of a
-_merkle tree_. We will talk about that in later sections of this
-chapter, but for now let's just say that they are hashed together into
-a single hash value that is written into the block header.
+The second part from the left is the combined hash of the
+transactions. This is the _merkle root_ of a _merkle tree_. We will
+talk about that in later sections of this chapter, but for now let's
+just say that they are hashed together into a single hash value that
+is written into the block header. You can't change any transactions in
+the block without also changing the merkle root.
 
-.Is this really immutable?
-****
-Lisa can't change the data, but we moved the write permission from
-Lisa to the system administrator that manages the shared folders at
-the company. We have just moved the problem. There's always _somebody_
-who has full access.
-****
+==== Lisa builds a block
 
-Lisa creates a new block about every 10 minutes containing all recent
+Lisa creates a new block every 10 minutes containing all recent
 unconfirmed transactions and writes it in a new file on a shared
-folder. Everyone has permission to add new files to this shared
-folder, but no one, not even Lisa, can modify or delete existing
-files. This is our naïve approach to making the data _immutable_. When
-Lisa writes the block to a file in the shared folder, she _confirms_
-the transactions in that block.
+folder. Everyone has permission to read files from to this shared
+folder, but Lisa can write files. When Lisa writes the block to a file
+in the shared folder, she _confirms_ the transactions in that block.
 
 image::{imagedir}/block-files.svg[{big-width}]
 
@@ -121,7 +114,7 @@ timestamp field of the block header. The block creation timestamp is
 important to verifiers, so that they can verify that blocks are
 created at the expected pace, one every 10 minutes. Lisa cannot create
 one block per exactly 10 minutes, but the two week average should be 1
-block per 10 minutes.
+block per 10 minutes. This will be further discussed in <<ch07>>.
 
 [.inbitcoin]
 ****
@@ -130,34 +123,56 @@ proof-of-work described in <<ch07>>.
 ****
 
 Before Lisa is finished with the block she must sign it using a
-private key known only to Lisa. The corresponding public key must be
-made publicly available to all verifiers. It can be published on the
-company's intranet and on a billboard at the main entrance. The
-signature is required because only Lisa should be able to add blocks
-to the blockchain (for now). Anyone else trying to create a block and
-write it to the shared folder will not be able to sign it correctly,
-because they don't have Lisa's private key.
+private key known only to Lisa.
+
+.Lisa signs a block with her block signing private key. The public key is well known among the coworkers.
+image::{imagedir}/lisa-signs-block.svg[{half-width}]
+
+The corresponding public key must be made publicly available to all
+verifiers. It can be published on the company's intranet and on a
+billboard at the main entrance. The signature is required because only
+Lisa should be able to add blocks to the blockchain (for now). Anyone
+else trying to create a block and write it to the shared folder, for
+example the system administrator for the shared folder server, will
+not be able to sign it correctly, because they don't have Lisa's
+private key.
 
 ****
 image::{imagedir}/2ndcol-lisas-block-public-key.svg[]
 ****
 
-Note that a coworker cannot simply trust the note on the billboard,
-because it is easy for someone to replace the note with another false
+Using private keys to sign blocks is not always a good idea for two
+reasons:
+
+1. Lisa's private key can be stolen. If this happens the bad guy can
+create valid blocks and force the system administrator to write them
+to the shared folder, causing Lisa to be blamed for fraud.
+
+2. The sources containing Lisa's public key, for example the billboard
+or the intranet, may be compromised and the public keys replaced by
+the bad guy's public key. If this happens some verifiers will be
+tricked into accepting blocks signed by another key than Lisa's block
+signing key. The bad guy can fool some portion of the verifiers. A
+coworker shouldn't trust just the note on the billboard, because
+it is easy for someone to replace the note with another false
 public key. Coworkers need to get the public key from different
 sources, like the billboard, the intranet and ask fellow workers. A
-single source is too easily manipulated by bad guys. As we will see
-later, using private keys to sign blocks is not always a good idea for
-two reasons. Lisa's private key may be stolen or the sources
-containing Lisa's public key may be compromised. We will talk about
-the possible consequences of this later.
+single source is too easily manipulated by bad guys.
+
+[.inbitcoin]
+.Block rewards
+****
+The block reward is 50 bitcoins for each block during the first 4
+years. This reward will decrease by 50% every 210000 blocks (4 years).
+****
 
 The first transaction in each block is a coinbase transaction, but the
 coinbase transactions of the blocks create 50 cookie tokens per block
 instead of 7200 cookie tokens as was the case in <<ch05>>. The idea is
 that Lisa produces a new block every 10 minutes, which means that the
 rewards of 7200 CT per day are spread out over 144 blocks, since there
-are 144 10 minute intervals in 24 hours. 7200/144=50.
+are 144 intervals of 10 minutes in 24 hours, and 7200/144=50. We will
+talk more about block rewards in <<ch07>>.
 
 ==== How does this protect us from deletes?
 
@@ -174,10 +189,10 @@ the block and verify it. To verify a block involves verifying that
 
 * the previous block header is the expected, the block id of block 20
   in this case.
-* all transactions in the block are valid. Same validation as in
-  <<ch05>>, preferably using a private UTXO set.
-* the hash of all transactions matches the combined transaction hash
-  (merkle root) in the block header.
+* all transactions in the block are valid. The same validation as in
+  <<ch05>> is used, by using a private UTXO set.
+* the combined hash of all transactions matches the merkle root in the
+  block header.
 * the timestamp is greater than the timestamp of the previous block
   and within reasonable limits.
 * the block header signature is valid. The signature is verified using
@@ -187,18 +202,17 @@ Lisa have paid for a cookie and the cafe have downloaded the block
 that contains Lisa's transaction and verified it. They give Lisa the
 cookie and she eats it. Yummy.
 
-[.gbinfo]
+[.gbfaq]
+.Why not just delete block?
 ****
-This shared folder allows multiple files with the same name.
+If she deletes a block she must eventually replace it with another
+version of block 21 to not break the chain of blocks.
 ****
 
-Can Lisa undo this payment without being proven a fraud? She cannot
-delete or modify block_21.dat she just published, because she doesn't
-have the needed access rights to do that; She's only allowed to add
-new files, not delete or modify old files. Her only option is to make
-another, changed version of block 21, that doesn't include her
-transaction and store it in a second file block_21.dat, on the shared
-folder alongside the original version.
+Can Lisa undo this payment without being proven a fraud? Her only
+option is to make another, changed version of block 21, that doesn't
+include her transaction and overwrite the file block_21.dat on the
+shared folder with it.
 
 .Lisa creates an alternative block at height 21 that doesn't contain her transaction.
 image::{imagedir}/change-block.svg[{half-width}]
@@ -209,8 +223,8 @@ she has to update the merkle root in the header with a merkle root
 that matches the new set of transactions in the block. When the header
 is changed, the signature is no longer valid and the header needs to
 be re-signed. To make the changed block available to verifiers, she
-needs to add a new file `block_21.dat` on the shared folder with the new
-fraudulent block.
+needs to replace the file `block_21.dat` on the shared folder with the new
+fraudulent block file.
 
 The cafe has already downloaded the first version of block 21. When
 Lisa adds the new block file, the cafe will at some point, discover
@@ -223,11 +237,11 @@ Now the cafe sees two different blocks at height 21, one that contains
 the payment of 10 CT to the cafe and one that doesn't. Both blocks are
 equally valid and none of the blocks are more "accurate" than the
 other from a verification perspective. But the good thing is that the
-cafe can prove that Lisa is playing dirty tricks because Lisa has put
-two different, _signed_, versions of the block on the shared
-folder. The signatures prooves that Lisa cheated, and we no longer
-have a word against word situation. Lisa would get fired or at least
-get removed from her powerful position as a transaction processor.
+cafe can prove that Lisa is playing dirty tricks because Lisa has
+created two different, _signed_, versions of the block. The signatures
+proves that Lisa cheated, and we no longer have a word against word
+situation. Lisa would get fired or at least get removed from her
+powerful position as a transaction processor.
 
 What if there were other blocks after block 21 when Lisa cheated?
 Suppose that block 22 and 23 were already created when Lisa decided
@@ -244,24 +258,10 @@ Now she needs to make three alternative blocks: 21, 22
 and 23. Changing anything in a block causes that block and all
 subsequent blocks to be invalid and they must all be replaced by valid
 blocks. This is because each block header contains a pointer to the
-previous block, in the form of a hash of the previous block's header,
-the block id. Three new alternative block files must be created in the
-shared folder. But she would get caught in the same way as above.
-
-It seems the mission is accomplished, right? Lisa cannot delete any
-transactions without getting caught. We did however start this
-subsection with a disclaimer that we are just moving the problem. Lisa
-can collude with the system administrator to delete blocks from the
-shared folder and claim that the original block was never in the
-shared folder. Then we have word against word again. As long as
-there's a central point of control somewhere, that point of control
-can, and probably will, be exploited.
-
-We will continue to pretend that we have solved the problem with
-deleted transactions for now. This will be fixed for real in <<ch07>>
-and <<ch08>> when we replace Lisa's signatures with proof-of-work and
-replace the shared folder with a network of independent
-computers. Stay tuned.
+previous block, the previous block id, which will change if the
+previous block changes. Three new alternative block files must be
+created in the shared folder. Lisa would get caught in the same way as
+above.
 
 ////
 Delete enabled:
@@ -299,7 +299,6 @@ Admin of shared folder can delete/censor blocks (Lisa and Admin can collude)
 ---> Peer-to-peer network
 ////
 
-
 ==== Why use a blockchain at all?
 
 The blockchain is a very complicated way to sign a bunch of
@@ -307,7 +306,7 @@ transactions. Wouldn't it be much simpler if Lisa just signs all
 transactions ever made in one big chunk every 10 minutes? That would
 accomplish the same goal. There are a number of problems with that approach:
 
-* As the number of transactions grow, the time it takes for Lisa to
+* As the number of transactions grows, the time it takes for Lisa to
   sign the whole set of transactions will increase
 * The same goes for verifiers, the time it takes to verify a signature
   increases with the total number of transactions.
@@ -332,12 +331,7 @@ their UTXO sets accordingly. The news are right there in the block.
 The blockchain also provides some nice extra features that we will
 duscuss further on, for example the merkle tree.
 
-=== Client types
-
-Two different kinds of user software have emerged throughout this
-book. Wallets (lightweight clients) and verifier software, _full nodes_.
-
-==== Full nodes
+=== Lightweight wallets
 
 Coworkers that want to verify the blockchain to make sure that they
 have valid financial information use software that downloads the whole
@@ -348,9 +342,14 @@ node knows about all transactions since block 0, the _genesis
 block_. The company and the cafe are typical users of full nodes. They
 don't have to trust someone else with providing them with financial
 information. They get their financial information directly from the
-blockchain.
+blockchain. Anyone is free to run this software as they please.
 
-==== Wallets
+[.gbinfo]
+.Alternative names
+****
+A lightweight client is sometimes referred to as an SPV client or an
+SPV wallet. SPV means Simplified Payment Verification.
+****
 
 In <<ch04>> we introduced a mobile app that coworkers can use to
 manage their private keys, as well as send and receive money. The
@@ -360,14 +359,15 @@ Since most wallet users are on a mobile data plan, they don't want to
 waste bandwidth on downloading all, for them uninteresting, block
 data. The overwhelming majority of the blocks will not contain any
 transactions concerning them, so downloading them would only make
-their phones run out of data traffic but not provide any useful
+their phones run out of data traffic but not provide useful
 information to them.
 
 The developers of the full node and the wallet developers cooperate to
-let wallets connect to full nodes over the internet and get block data
-from the full nodes in a way that doesn't require huge amounts of
-data traffic. Wallets are allowed to connect to any full node and ask for the
-data they need. This is what we sketched out in <<ch01>>:
+let wallets connect to full nodes over the internet and get relevant
+block data from the full nodes in a way that doesn't require huge
+amounts of data traffic. Wallets are allowed to connect to any full
+node and ask for the data they need. This is what we sketched out in
+<<ch01>>:
 
 .A Bitcoin wallet gets notified of an incoming payment by a full node.
 image::{imagedir}/periscope-lightweight-wallet.svg[{half-width}]
@@ -378,14 +378,20 @@ addresses, @~a~ and @~b~. He can now make a network connection to any
 of the full nodes at the office, for example the cafe's. Then they
 start talking:
 
-.Information exchange between a lightweight wallet and a full node. The full node only sends transactions concerning the wallet.
+.Information exchange between a lightweight wallet and a full node. The full node sends all block headers and a fraction of the transactions to the wallet.
 image::{imagedir}/spv-node-exchange.svg[{big-width}]
 
-1. John's wallet asks the full node for all block headers since its
+[.inbitcoin]
+.BIP37
+****
+This process is described in full detail in BIP37, found at <<web-bips>>.
+****
+
+1. John's wallet asks the full node for all block headers since the wallet's
 last known block header and all transactions concerning John's addresses.
 
-2. The cafe's full node sends all requested block headers to the wallet and
-all transactions concerning John's addresses.
+2. The cafe's full node sends all requested block headers to the
+wallet and at least all transactions concerning John's addresses.
 
 In step 1, the wallet does not send the exact list of addresses in
 John's wallet. That would harm John's privacy, because the café would
@@ -401,27 +407,30 @@ have much to do with the blockchain, we still dedicate a subsection to
 bloom filters here because they are used heavily by lightweight
 wallets.
 
-In step 2, transactions are sent to John's wallet along with
-block headers, but the complete blocks are not sent (to save network
-traffic). John's wallet can't use just the transaction and the header
-to verify that the transaction is actually in the block. Something
-more is required, a _merkle path_ that proves that a transaction is
+In step 2, transactions are sent to John's wallet as well as block
+headers, but the complete blocks are not sent (to save network
+traffic). John's wallet can't use just a transaction and the header to
+verify that the transaction is actually in the block. Something more
+is required, a _merkle path_ that proves that a transaction is
 included in a block.
 
-As Lisa creates new blocks, the corresponding block headers are
-sent to the wallet together with all contained transactions concerning
-John's addresses in about the same way as above.
+The above two steps was performed as a syncronizing phase just after
+the wallet connected to the cafe's full node. After this, as Lisa
+creates new blocks and the cafe's full node picks them up, the
+corresponding block headers are sent to the wallet together with all
+transactions concerning John's addresses in about the same way as
+above.
 
 The next two subsections will discuss bloom filters and merkle trees
 respectively.
 
 === Bloom filters, obfuscate addresses
 
-Let's pick up the example with John's wallet again. John's wallet
-contains two addresses: @~a~ and @~b~, but John doesn't want to reveal
-to anyone that @~a~ and @~b~ belongs to the same wallet. He has good
-reasons to be weary, because he has heard rumours that Acme Insurances
-pays good money for such information in order to raise the premiums.
+John's wallet contains two addresses: @~a~ and @~b~, but John doesn't
+want to reveal to anyone that @~a~ and @~b~ belongs to the same
+wallet. He has good reasons to be weary, because he has heard rumours
+that Acme Insurances pays good money for such information in order to
+"adjust" the premiums, based on peoples cookie eating habits.
 
 ==== Create the bloom filter
 
@@ -448,16 +457,16 @@ The wallet creates the sequence of bits, and initializes them with
 zeroes all over. Then it will _add_ all John's public key hashes to
 the bloom filter, starting with @~a~.
 
-It runs @~a~ through the first of the three hash functions. That hash
-function results in the value `2`. This value is the index of a bit in
-the bloom filter. The bit at index 2 (the third from the left) is then
-set to `1`. Then @~a~ is run trough the second hash function that
-outputs `0`, and the corresponding bit (the first from the left) is
-set to `1`. Finally the third hash function outputs `6` and the bit at
-index 6 (7th from the left) is set to `1`.
+It runs @~a~, PKH~a~ really, through the first of the three hash
+functions. That hash function results in the value `2`. This value is
+the index of a bit in the bloom filter. The bit at index 2 (the third
+from the left) is then set to `1`. Then @~a~ is run trough the second
+hash function that outputs `0`, and the corresponding bit (the first
+from the left) is set to `1`. Finally the third hash function outputs
+`6` and the bit at index 6 (7th from the left) is set to `1`.
 
 Next up is @~b~. It is handled in the exact same way. The three hash
-functions outputs `5`, `0` adn `3`. Those three bits are all set
+functions outputs `5`, `0` and `3`. Those three bits are all set
 to 1. Note that bit 0 was already set by @~a~, so that bit is not
 modified.
 
@@ -465,12 +474,14 @@ The bloom filter is finished and ready to be sent to the full node.
 
 ==== Use the bloom filter
 
-The full node receives the bloom filter from the wallet and want to
+The full node receives the bloom filter from the wallet and wants to
 use it to filter transactions to send to the wallet.
 
-Suppose that the full node wants to send a block header and all
-relevant transactions in it to the wallet, how would the full node use
-the bloom filter to determine what transactions to send?
+Suppose that Lisa just published a new block to the shared folder and
+the full node has verified the block. The full node now wants to send
+the block header of the new block and all relevant transactions in it
+to the wallet. How would the full node use the bloom filter to
+determine what transactions to send?
 
 The block contains 3 transactions, Tx~1~, Tx~2~ and Tx~3~:
 
@@ -485,8 +496,8 @@ full node uses the bloom filter.
 image::{imagedir}/use-bloom-filter.svg[{big-width}]
 
 The full node tries to figure out what transactions to send to the
-wallet. If any public key hash of a transaction matches the filter the
-whole transaction might be interesting to the wallet, so the node
+wallet. If any public key hash of a transaction matches the filter,
+then the transaction might be interesting to the wallet, so the node
 should send that transaction.
 
 For each output in a transaction the node tests whether any public key
@@ -494,24 +505,25 @@ hash matches the filter. It starts with Tx~1~. Tx~1~ has a single
 output to PKH~V~. To test whether PKH~V~ matches the filter, it runs
 PKH~V~ through the exact same three hash functions as John's wallet
 did when the filter was created. The hash functions output the indices
-`5`, `4` and `0`. The bits at index `5` and `0` are both `1`, but the
-bit at index `4` is `0`. A zero bit means that PKH~V~ is definately
+`5`, `1` and `0`. The bits at index `5` and `0` are both `1`, but the
+bit at index `1` is `0`. A zero bit means that PKH~V~ is definately
 not interesting to John's wallet. If John's wallet was interested in
-PKH~V~, it whould have added it to the filter, thus setting bit `4` to
+PKH~V~, it whould have added it to the filter, thus setting bit `1` to
 `1`. Since PKH~V~ was the only public key hash in Tx~1~, it means that
-John's wallet is not interested in this transaction at all.
+John's wallet is not interested in this transaction.
 
 Next transaction is Tx~2~. It contains two public key hashes: PKH~b~
-and PKH~X~. The node will test each of these. It begins with
+and PKH~X~. The node will test each of these in turn. It begins with
 PKH~b~. Running this PKH through the hash functions gives the indices
 `5`, `0` and `3`. All those three bits have the value `1`. This means
 that the node cannot say for sure if the transaction is interesting to
 the wallet, but it cannot say that it's definately not
 interesting. There is no point in testing any further public key
 hashes in this transaction because we have already determined that it
-might be interesting. The node decides that Tx~2~ should be sent to the wallet.
+might be interesting. The node decides that Tx~2~ should be sent to
+the wallet.
 
-The last transaction have two outputs to PKH~Y~ and PKH~Z~. It starts
+The last transaction has two outputs to PKH~Y~ and PKH~Z~. It starts
 with PKH~Y~. That happens to point at `2`, `7` and `4`. Both bits `4`
 and `7` are `0`, which means that PKH~Y~ is definately not interesting
 to the wallet. Let's continue with the next, PKH~Z~. This results in
@@ -540,9 +552,10 @@ reasons:
   can have multiple wallet apps that generate addresses from the same
   seed. For example, do you remember in <<ch04>> how a wallet can be
   restored from a mnemonic sentence? That sentence can be used by
-  multiple wallet apps at the same time. John wants to make a payment
-  from one of the wallet apps and be notified of the payment in the
-  other wallet app.
+  multiple wallet apps at the same time. John might want to make a
+  payment from one of the wallet apps and be notified of the payment
+  in the other wallet app, so that John can monitor the total balance
+  in that app.
 
 * John wants to be notified when the transaction is confirmed. The
   wallet app may already have the transaction, but it is still marked
@@ -566,26 +579,33 @@ So for John's wallet to be notified of spends it needs to add either
 all its public keys to the bloom filter or all its unspent transaction
 output references.
 
-==== Throttle privacy/data traffic
+==== Throttle privacy and data traffic
 
-As mentioned the purpose of the bloom filter is to enhance privacy for
-the user. The level of privacy can be controlled by tuning the ratio
-between the number of `1`s and the number `0`s in the bloom
-filter. The more `1`s in the bloom filter in relation to the bloom
+****
+image::{imagedir}/2ndcol-bloom-filter-tradeoff.svg[]
+****
+
+The purpose of the bloom filter is to enhance privacy for the
+user. The level of privacy can be controlled by tuning the ratio
+between the number of `1`s in the bloom filter and the bloom filter
+size. The more `1`s in the bloom filter in relation to the bloom
 filter size, the more false positives. More false positives means that
-the full node will send more unrelated transactions to the wallet.
+the full node will send more unrelated transactions to the
+wallet. More unrelated transactions means more wasted data traffic,
+but also improves privacy.
 
 Let's do some back-of-the-envelope calculations. Feel free to skip
 this part and jump to <<merkle-trees>>
 
-The bloom filter in the example above has 8 bits of which 3 are
-zeroes. A single hash function's output has the probability 5/8 to hit
+The bloom filter in the example above has 8 bits of which 5 are
+ones. A single hash function's output has the probability 5/8 to hit
 a 1. For a single test, the probability that all three hash functions
 hit a `1` is then (5/8)^3^. The probability that a single test is
-negative, any of the three hash functions doesn't point to a `1`, is
+negative, at least one of the three hash functions point to a `0`, is
 then 1-(5/8)^3^. The full node will perform several tests on each
 transaction, typically 9 for a transaction with two inputs and two
-outputs. Check against the list of tests performed by the full node:
+outputs. Let's check against the list of tests performed by the full
+node:
 
 * the txid of the transaction (1)
 * all transaction output (TXO) references in the inputs (2)
@@ -601,29 +621,35 @@ To get less false positives, John's wallet must use a larger bloom
 filter. so that the ratio (number of ones / bloom filter size)
 decreases.
 
-//latexmath:[\(K = k * G\)]
-
 Let's define some symbols:
 
- t = the number of tests performed on a transactions (9)
- p = the probability of the transaction being deemed uninteresting
+ t = the number of tests performed on a transaction (9)
+ p = the probability of transaction being deemed uninteresting
  r = the ratio of number of `1`s / bloom filter size
 
 Let's generalize the calculation above:
 
- (1-r^3^)^t^=p => lg~10~(1-r^3^)=lg(p)/t =>
- 1-r^3^=10^lg~10~(p)/t^ =>
- r^3^ = 1 - 10^lg~10~(p)/t^ = 1 - (10^lg~10~(p)^)^1/t^ =>
- r^3^ = 1 - p^1/t^ =>
- r = ∛(1-p^1/t^)
+[stem] 
+++++
+(1-r^3)^t=p \Rightarrow lg_{10}(1-r^3)=\frac{lg_{10}(p)}{t}
+\Rightarrow 1-r^3 = 10^{ \frac{lg_{10}(p)}{t}} \\
+
+\Rightarrow r^3 = 1 - 10^{ \frac{lg_{10}(p)}{t}}
+= 1 - (10^{ lg_{10}(p) })^{\frac{1}{t}} = 1 - p^{\frac{1}{t}} \\
+
+\Rightarrow r=\sqrt[3]{1-p^{\frac{1}{t}}}
+++++
 
 Let's say that we only want to get of 1/10 of all transactions (given that all
-transacions are like the transaction above with 2 inputs and 2
+transactions are like the transaction above with 2 inputs and 2
 outputs). How big do we have to make the bloom filter?
 
- t = 9
- p = 9/10
- r = ∛(1-p^1/t^) = ∛(1-(9/10)^1/9^) ≈ 0.23
+[stem]
+++++
+t = 9, p = \frac{9}{10} \\
+r = \sqrt[3]{1-p^{\frac{1}{t}}}
+  = \sqrt[3]{1-(\frac{9}{10})^{\frac{1}{9}}} ≈ 0.23
+++++
 
 [.inbitcoin]
 ****
@@ -633,8 +659,12 @@ allowed. We can round upwards to 32 bits.
 
 This means that the bloom filter should be about 6/0.23 ≈ 26 bits in
 order to get only 1/10 of all transactions. Remember that these are
-very rough calculations based on somewhat false assumptions, but it
-should give you an idea on how big a bloom filter must be.
+very rough calculations based on somewhat false assumptions regarding
+the characteristics of transactions. We alse don't take into account
+that the number of ones in our example is not strictly 6, but can be
+anywhere from 3 to 6 since both John's addresses could have generated
+the same set of indices. But it should help you get an idea on how big
+a bloom filter must be.
 
 [id=merkle-trees]
 === Merkle trees
@@ -643,14 +673,17 @@ Now that the full node has determined what transactions to send to the
 wallet it needs to send the new block header and all transactions that
 John's wallet might be interested in.
 
+.The full node feeds the lightweight wallet with block headers and relevant transactions
+image::{imagedir}/spv-node-receive-merkle-block.svg[{big-width}]
+
 From the block above, it has determined that transactions Tx~2~ and
-Tx~2~ need to be sent to the wallet. If the node sends the header and
-the two transactions, then John's wallet will not be able to verify
-that the transactions actually belong to the block. The merkle root
-depends on three transactions, Tx~1~, Tx~2~ and Tx~3~, but the wallet
-only gets Tx~2~ and Tx~3~ from the full node. It cannot recreate the
-merkle root in the block header. It needs more information to verify
-that the transactions are included in the block.
+Tx~3~ need to be sent to the wallet. If the node sends only the header
+and the two transactions, then John's wallet will not be able to
+verify that the transactions actually belong to the block. The merkle
+root depends on three transactions, Tx~1~, Tx~2~ and Tx~3~, but the
+wallet only gets Tx~2~ and Tx~3~ from the full node. The wallet cannot
+recreate the merkle root in the block header. It needs more
+information to verify that the transactions are included in the block.
 
 First of all, remember that we want to save data traffic, so simply
 sending all transactions in the block is not good enough.
@@ -660,16 +693,16 @@ sending all transactions in the block is not good enough.
 It's time to reveal how Lisa creates the merkle root. Suppose that
 Lisa needs to create the block header above. She needs to make the
 combined hash of all transactions that we call the merkle root. The
-merkle root is calculated creating a hierarchy of hashes, a _merkle
-tree_.
+merkle root is calculated by creating a hierarchy of cryptographic
+hashes, a _merkle tree_.
 
-.Lisa creates a merkle root from the transactions in a block. The merkle root is then signed by Lisa to _commit to_ the transactions in the block.
+.Lisa creates a merkle root from the transactions in a block.
 image::{imagedir}/merkle-tree.svg[{big-width}]
 
 The transactions are ordered in the same order as in the block. If the
 number of items is odd, the last item is duplicated and added
-last. This item is not added to the block in any way, it's only
-dublicated temporarily for the merkle root calculation.
+last. This item is not added to the block, it's only duplicated
+temporarily for the merkle tree calculation.
 
 Each item (transaction in this case) is hashed with double
 SHA256. This results in four hash values, of 256 bits each.
@@ -677,6 +710,16 @@ SHA256. This results in four hash values, of 256 bits each.
 The hash values are pair-wise _concatenated_, meaning that two hashes
 are merged by appending the second hash after the first hash. For
 example `abc` concatenated with `def` becomes `abcdef`.
+
+[.inbitcoin]
+.Security vulnerability
+****
+There is a weakness in this scheme. The transactions Tx~1~, Tx~2~,
+Tx~3~ will have the same merkle root as the transactions Tx~1~, Tx~2~,
+Tx~3~, Tx~3~. The latter is of course not allowed because it is a
+double spend attempt, but it could cause serious issues anyway in
+older versions of the bitcoin core software.
+****
 
 The four hash values have now become two concatenated values. Since
 two is an even number, we don't add any extra item at the end. If we
@@ -689,9 +732,15 @@ value. This value is hashed, witch results in the 256 bit merkle
 root. This merkle root is written into the block header.
 
 If any transaction is added, deleted or changed, the merkle root will
-change. This is a nice feature, because if Lisa signs this block
-header, she knows that no one can tamper with the transactions in it
-without making the signature invalid.
+change.
+
+.A change in the transactions will cause a change in the merkle root, making the signature invalid.
+image::{imagedir}/mekle-tree-change.svg[{half-width}]
+
+This is nice, because if Lisa signs a block header, she knows that no
+one can tamper with the transactions in it without making the
+signature invalid. There is an annoying exception to this, see the
+note in the margin.
 
 ==== Prove that a transaction is in a block
 
@@ -705,12 +754,21 @@ connects Tx~2~ to the merkle root in the block header.
 .The full node constructs a merkle path that connects Tx~2~ to the merkle root in the block header.
 image::{imagedir}/merkle-path.svg[{big-width}]
 
-The merkle path consists of the "branches" of the tree that is needed
-to combine with Tx~2~ to recreate the merkle root. A branch is an
-indication of if it's a left branch or a right branch and the hash
-value of that branch. In this example the full node needs to provide
-two branches, "Left A" and "Right B", where A and B are marked in the
-diagram above.
+[.inbitcoin]
+****
+This is not exactly how it is done in Bitcoin. But this is close
+enough to grok what's happening. To see the exact algorithm, please
+read BIP37.
+****
+
+The merkle path consists of the path elements of the tree that is
+needed to connect Tx~2~ to the merkle root. A path element consists of
+
+* a hash value for a branch of the merkle tree
+* an indication of if it's a left or a right branch
+
+In this example the full node needs to provide two path elements,
+"Left A" and "Right B", where A and B are marked in the diagram above.
 
 The full node then needs to send the following items to the wallet:
 
@@ -721,29 +779,30 @@ The full node then needs to send the following items to the wallet:
 * The transaction, Tx~2~.
 
 To verify that the transaction is part of the block, the wallet starts
-with the last of these things, Tx~2~, and hashes it, it then combines
+with the last of these things, Tx~2~, and hashes it. It then combines
 that hash with the branch "Left A" of the merkle path.
 
-.The wallet generates an intermediary branch hash of the merkle tree using stuff received from the full node.
+.The wallet generates an intermediary branch of the merkle tree using stuff received from the full node.
 image::{imagedir}/merkle-path-verify-a.svg[{half-width}]
 
-The "Left" parts tells the wallet that the hash A is to the right of
-the hash of Tx~2~, so that the wallet can combine the two branches in
-the correct order. To get to the next level towards the root, the
-wallet needs to hash the combined value. The new hash value is an
+The "Left" part tells the wallet that the hash A is to the left of the
+hash of Tx~2~, so that the wallet can combine the two branches in the
+correct order. To get to the next level towards the root, the wallet
+needs to hash the combined value. The new hash value is an
 intermediary branch of the merkle tree, because there are still items
-left in the in the merkle path. We have now used one item of the
-merkle path. It's time to use then next (and last) item, "Right B".
+left in the in the merkle path. We have now used one path element of
+the merkle path. It's time to use then next (and last) element, "Right
+B".
 
 image::{imagedir}/merkle-path-verify-b.svg[{half-width}]
 
-The word "Right" means that the hash in the merkle path is a right
+The word "Right" means that the hash in the path element is a right
 branch. The wallet knows that it needs to combine the result of the
 previous step with the "Right B" branch and hash that combination. The
 hash value is a merkle root, because there is no more items to use in
 the merkle path.
 
-Now the wallet only has to compare the calculated merkle root with the
+Now the wallet has to compare the calculated merkle root with the
 merkle root in the block header, the given merkle root, and verify
 that they are the same.
 
@@ -880,6 +939,16 @@ not, it will not send the transaction.
 |HD wallets can generate trees of public keys without ever seeing any of the private keys
 |===
 
+Problems:
+
+* Stolen Lisa-key: Can steal rewards and/or "prove" that Lisa is a fraud
+* Lisa can censor transactions from entering the blockchain
+* Wallets can't verify transaction history, they trust full nodes to do that for them
+* Full nodes can censor transactions in the blockchain to wallets
+
+== Exercises
+
+1. The hash functions used to create the bloom filter is not _cryptographic_ hash function. Why not?
 
 ////
 Caused problem:

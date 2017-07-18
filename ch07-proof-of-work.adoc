@@ -1,3 +1,7 @@
+[[ch07]]
+== Proof of work
+
+
 Let's make it censorship resistant. Two more coworkers, Tom and Lin,
 wants to Join and compete for the block rewards. They get also write
 access to the shared folder, but they can only remove files they

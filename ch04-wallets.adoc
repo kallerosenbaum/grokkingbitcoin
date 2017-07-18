@@ -1,4 +1,4 @@
-[[ch04,chapter 4]]
+[[ch04]]
 == Wallets - Reducing key chaos and backup issues
 :imagedir: {baseimagedir}/ch04
 
