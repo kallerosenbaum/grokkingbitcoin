@@ -399,18 +399,18 @@ desired hash.
 Let's try.
 
 .Finding an input with the same hash as "Hello!". Nearly impossible.
-[options="header,nowrap",cols="1l,3m,3m"]
+[options="header,nowrap",cols="2l,3l,3m",subs=verbatim]
 |===
 | Input | Hash | Success?
-| `Hello1!` | `82642dd9...2e366e64` | nope 
-| `Hello2!` | `493cb8b9...83ba14f8` | nope
-| `Hello3!` | `90488e86...64530bae` | nope 
-| `...` | `...` | nope, nope, ..., nope
-| `Hello9998!` | `cf0bc6de...e6b0caa4` | nope 
-| `Hello9999!` | `df82680f...ef9bc235` | nope 
-| `Hello10000!` | `466a7662...ce77859c` | nope
-| image:{imagedir}/grumpy-cat-drawing.jpg[{thumb}] | `dee6a5d3...db479561` | nope
-| My entire music collection | `a5bcb2d9...9c143f7a` | nope
+| Hello1! | 82642dd9...2e366e64 | nope 
+| Hello2! | 493cb8b9...83ba14f8 | nope
+| Hello3! | 90488e86...64530bae | nope 
+| ... | ... | nope, nope, ..., nope
+| Hello9998! | cf0bc6de...e6b0caa4 | nope 
+| Hello9999! | df82680f...ef9bc235 | nope 
+| Hello10000! | 466a7662...ce77859c | nope
+a| image:{imagedir}/grumpy-cat-drawing.jpg[{thumb}] | dee6a5d3...db479561 | nope
+| My entire music collection | a5bcb2d9...9c143f7a | nope
 |===
 
 [.gbfaq]
@@ -907,6 +907,7 @@ determine who to withdraw money from?
 
 ===== Dig in
 
+[start=8]
 . Recall the example when you wanted to send your favorite cat
 picture to Fred. Now that you know about digital signatures, how can
 you ensure that the cat picture is not maliciously modified without

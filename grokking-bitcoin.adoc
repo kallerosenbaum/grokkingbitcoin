@@ -19,7 +19,7 @@
 :third-width: width='30%'
 :quart-width: width='25%'
 :tiny-height: height='10%'
-:thumb: width='20%'
+:thumb: width='40%'
 :btc: image:{commonimagedir}/btc-sans.png[BTC,role="btc"]
 
 ////
