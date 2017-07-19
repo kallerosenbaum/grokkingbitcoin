@@ -24,6 +24,7 @@
 
 ////
 
+////
 
 include::ch01-introduction-to-bitcoin.adoc[]
 
@@ -34,20 +35,10 @@ include::ch03-addresses.adoc[]
 include::ch04-wallets.adoc[]
 
 include::ch05-transactions.adoc[]
-////
 
 include::ch06-the-blockchain.adoc[]
 
 include::ch07-proof-of-work.adoc[]
-
-//[id=ch06]
-//== The blockchain - Further reducing trust in Lisa
-//* why? who cares?
-//* concrete to abstract
-//* diagram first
-//* 3+1
-//* COIK
-//* 3 brain resources
 
 :resource-url: http://manning.com/grokking-bitcoin/resources
 

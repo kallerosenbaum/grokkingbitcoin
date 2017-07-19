@@ -263,42 +263,6 @@ previous block changes. Three new alternative block files must be
 created in the shared folder. Lisa would get caught in the same way as
 above.
 
-////
-Delete enabled:
-
-Lisa can still claim that the block was never on the shared
-folder. Just as she previously could claim that the transaction was
-never in the spreadsheet in ch05.
-
-Delete disabled:
-
-Lisa can't deny that block wss published on the shared folder, because it's actually there.
-
-How about this instead:
-
-Everyone has write access to the SF but only Lisa's signatures are
-valid at this point and you can't delete files from the SF.
-
-This would mean that as soon as anyone gets their hands on a
-Lisa-signed block, they can publish it and it is as good as any other
-block on the SF. Forks are persistent on the SF.
-
-Lisa can delete transactions from spreadsheet
----> Introduce blockchain and add-only shared folder
-
-Lisa can create multiple blocks at same height
----> Proof that she cheats
-
-Lisa can censor transactions
----> Multiple Lisas drawing random numbers
-
-Actors can cheat with the random numbers
----> Proof-of-work
-
-Admin of shared folder can delete/censor blocks (Lisa and Admin can collude)
----> Peer-to-peer network
-////
-
 ==== Why use a blockchain at all?
 
 The blockchain is a very complicated way to sign a bunch of
@@ -424,7 +388,7 @@ above.
 The next two subsections will discuss bloom filters and merkle trees
 respectively.
 
-=== Bloom filters, obfuscate addresses
+==== Bloom filters, obfuscate addresses
 
 John's wallet contains two addresses: @~a~ and @~b~, but John doesn't
 want to reveal to anyone that @~a~ and @~b~ belongs to the same
@@ -432,7 +396,7 @@ wallet. He has good reasons to be weary, because he has heard rumours
 that Acme Insurances pays good money for such information in order to
 "adjust" the premiums, based on peoples cookie eating habits.
 
-==== Create the bloom filter
+===== Create the bloom filter
 
 To obfuscate what addresses belongs to John, his wallet will create a
 bloom filter to send to the full node:
@@ -472,7 +436,7 @@ modified.
 
 The bloom filter is finished and ready to be sent to the full node.
 
-==== Use the bloom filter
+===== Use the bloom filter
 
 The full node receives the bloom filter from the wallet and wants to
 use it to filter transactions to send to the wallet.
@@ -579,7 +543,7 @@ So for John's wallet to be notified of spends it needs to add either
 all its public keys to the bloom filter or all its unspent transaction
 output references.
 
-==== Throttle privacy and data traffic
+===== Throttle privacy and data traffic
 
 ****
 image::{imagedir}/2ndcol-bloom-filter-tradeoff.svg[]
@@ -667,7 +631,7 @@ the same set of indices. But it should help you get an idea on how big
 a bloom filter must be.
 
 [id=merkle-trees]
-=== Merkle trees
+==== Merkle trees
 
 Now that the full node has determined what transactions to send to the
 wallet it needs to send the new block header and all transactions that
@@ -688,7 +652,7 @@ information to verify that the transactions are included in the block.
 First of all, remember that we want to save data traffic, so simply
 sending all transactions in the block is not good enough.
 
-==== Create the merkle root
+===== Create the merkle root
 
 It's time to reveal how Lisa creates the merkle root. Suppose that
 Lisa needs to create the block header above. She needs to make the
@@ -742,7 +706,7 @@ one can tamper with the transactions in it without making the
 signature invalid. There is an annoying exception to this, see the
 note in the margin.
 
-==== Prove that a transaction is in a block
+===== Prove that a transaction is in a block
 
 The full node wants to send Tx~2~ and Tx~3~ to John's wallet, because
 it thinks those transactions might be interesting to John's wallet.
@@ -812,18 +776,23 @@ image::{imagedir}/merkle-path-verify-compare-root.svg[{half-width}]
 If they are the same the full node has proven that Tx~2~ is part of
 the block.
 
+But the full node wanted to send two transactions from this block, how
+would the merkle proof look with two transactions? Do we send multiple
+merkle proofs? No, we will leave this as an exercise at the end of
+this chapter.
+
 The wallet has now received a chain of block headers and transactions
 relevant to the wallet, plus some unrelated transactions to obfuscate
-to the full node what addresses belong to the wallet.
+to the full node what addresses belongs to the wallet.
 
-==== Handle thousands of transactions in a block
+===== Handle thousands of transactions in a block
 
 The block in the example above contained only three transactions. We
 didn't save much space sending the header, the merkle path and
 Tx~2~. We could just as well send just the block header and all three
 transactions as is. That would be much simpler. But let's check some
 rough numbers on how the merkle proofs compare in size to the full
-block as the number of thansactions grows.
+block as the number of transactions grows.
 
 [%autowidth]
 .Size of merkle proofs compared to the block size for different block sizes
@@ -834,17 +803,12 @@ block as the number of thansactions grows.
 | 2 | 1 | 580 | 362
 | 3 | 2 | 830 | 394
 | 4 | 2 | 1080 | 394
-| 5 | 3 | 1330 | 426
-| 6 | 3 | 1580 | 426
-| 7 | 3 | 1830 | 426
 | 8 | 3 | 2080 | 426
-| 9 | 4 | 2330 | 458
 | 10 | 4 | 2580 | 458
 | 100 | 7 | 25080 | 554
 | 1000 | 10 | 250080 | 650
 | 10000 | 14 | 2500080 | 778
 | 100000 | 17 | 25000080 | 874
-| 1000000 | 20 | 250000080 | 970
 |===
 
 [.inbitcoin]
@@ -860,21 +824,90 @@ times 250. The merkle proof is calculated as 80 bytes block header plus merkle p
 The merkle proofs don't grow as fast as the total block size, because
 the merkle proof grows _logarithmically_ with the number of
 transactions, while the block size grows _linearly_ with the number of
+transactions. For each new path element added, the size of the block
+roughly doubles in size.
+
+==== Security of lightweight wallets
+
+Lightweight wallets seems like a nice touch to the cookie token
+system. It certainly is, but users of lightweight wallets should be
+aware of what they are missing out on compared to the full nodes.
+
+Full nodes verify the full history of the blockchain and knows for
+sure that the money a transaction spends really exists and that the
+signatures are valid.
+
+A lightweight wallet knows the whole chain of block headers. It will
+verify that each block header is correctly signed by Lisa. When the
+wallet receives a transaction and a mekle proof, it can check that the
+transaction is contained in the block and that Lisa signed that
+block. But it cannot verify
+
+* the scriptSigs of the inputs. 
+* that the spent outputs exists.
+* that the spent outputs are not already spent.
+* that it receives all relevant transactions.
+
+The lightweight wallet needs to trust the full nodes to verify those
+things on behalf of the wallet. This means that a full node can lie to
+the wallet about all those things.
+
+The full node can hide relevant transactions to the wallet. This means
+that the wallet will not be notified about incoming or outgoing
 transactions.
+
+A lightweight wallet gives the responsibility of verification to the
+full node it is connected to. Suppose that Lisa produces an invalid
+block, for example a block that contains a transaction that spends an
+output that don't exist. When the full node receives this block it
+should verify the block and drop it, because it is invalid. But there
+might be occations when the full node, deliberately or accidentally,
+don't detect the error. Perhaps the cafe is in mascopy with Lisa to
+fool John, who knows? The cafe and Lisa can, at least temporarily,
+make John believe that he has received money that he didn't
+receive. We will discuss this further in <<ch08>>.
+
+There are at least two measures John can take to reduce the risk of
+being fooled by a full node:
+
+* Connect to multiple full nodes simultaneously. All full nodes that
+  John's wallet is connected to must take active part in the
+  conspiracy in order to fool John. Most lightweight wallets in
+  Bitcoin does this automatically.
+
+.John's wallet is connected to multiple full nodes. Hopefully they don't all collude to fool John.
+image::{imagedir}/connect-multiple-nodes.svg[{half-width}]
+
+[.inbitcoin]
+.Trusted node
+****
+Many Bitcoin wallets supports connecting to a trusted node. Ask the
+development team of your wallet software if unsure.
+****
+
+* Connect to a _trusted node_. A trusted node is a full node that John
+  runs himself on a computer somewhere that he controls. This way,
+  John can use a lightweight wallet on his mobile phone to save data
+  traffic while stll being sure that he receives correct information
+  from his full node.
+
+.John has setup a trusted node that his lightweight wallet connects to.
+image::{imagedir}/trusted-node.svg[{half-width}]
 
 === Summary
 
 This chapter has descibed the blockchain and how it enables full nodes
-to independently verify all transactions. The blockchain is a sequence
-of blocks that are interconnected through cryptographhic hashes
+to prove if Lisa tries to delete or change transactions. The
+blockchain is a sequence of blocks that are interconnected through
+cryptographhic hashes
 
-.The blockchain connects the blocks by the previous block id value in the block headers. The transactions are committed to by the merkle root.
+.The blockchain connects the blocks by the previous block id value in the block headers. The merkle root commits to the transactions in the block.
 image::{imagedir}/summary-blockchain.svg[{big-width}]
 
 The merkle root in the block header is the combined hash of all
 contained transactions. This hash is created by hashing transactions
-in a merkle tree structure. Transactions hashes are concatenated
-pair-wise and hashed agein to get one step closer to the root.
+in a merkle tree structure. Transaction hashes are concatenated
+pair-wise and hashed to get one level closer to the root.
 
 .Transactions are hashed in a tree structure, merkle tree, and the root of the tree is the merkle root written in the block header. 
 image::{imagedir}/summary-merkle-tree.svg[{big-width}]
@@ -895,19 +928,32 @@ filter and sends it to the full node.
 .A wallet creates a bloom filter and sends it to a full node. The full node uses the bloom filter to determine which transactions to send.
 image::{imagedir}/summary-bloom-filter.svg[{half-width}]
 
-The full node hashes various stuff from the transactions, for example
+The full node tests various stuff from the transactions, for example
 public key hashes in outputs, using the three hash functions. If all
 bits on those indices are `1` then it will send the transactions. If
 not, it will not send the transaction.
 
+This chapter has solved the issue with deleted and/or changed
+transactions. Lisa can't delete a transaction from the blockchain
+without being proven a fraud.
+
+Lisa can still censor transactions. She can refuse to include
+transactions being sent to her into the blockchain. She has ultimate
+power over what goes into the blockchain and what doesn't. In <<ch07>>
+we will make it much harder for a single actor like Lisa to make such
+decisions.
+
 ==== New release - 6.0!
+
+It's time again to release a new version of the cookie token
+system. Just look at those fancy new features:
 
 [%autowidth,options="header"]
 .Release notes, cookie tokens 6.0
 |===
 |Version|Feature|How
 
-.2+|image:{commonimagedir}/new.png[role="gbnew"]*6.0*
+.3+|image:{commonimagedir}/new.png[role="gbnew"]*6.0*
 | Prevent Lisa from deleting transactions
 | Signed blocks in a blockchain
 
@@ -939,36 +985,6 @@ not, it will not send the transaction.
 |HD wallets can generate trees of public keys without ever seeing any of the private keys
 |===
 
-Problems:
-
-* Stolen Lisa-key: Can steal rewards and/or "prove" that Lisa is a fraud
-* Lisa can censor transactions from entering the blockchain
-* Wallets can't verify transaction history, they trust full nodes to do that for them
-* Full nodes can censor transactions in the blockchain to wallets
-
-== Exercises
+=== Exercises
 
 1. The hash functions used to create the bloom filter is not _cryptographic_ hash function. Why not?
-
-////
-Caused problem:
-
-Transactions will not be visible until a block is published. No one
-wants to wait 10 minutes for a cookie. For now they cc the cafe on
-their email to Lisa.
-
-We will solve that in <<ch08>> by having users broadcast their transactions
-to the network. Then everyone can see all pending transactions.
-
-
-Remaining problem:
-
-Transactions are visible on tx@company.com, but Lisa might censor transactions.
-
-
-Remaining problem: Everybody need to trust the shared folder. An email
-administrator can delete transactions and tamper with published blocks
-before they are published. But let's trust email for now.
-
-Pruning
-////
