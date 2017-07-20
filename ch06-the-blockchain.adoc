@@ -987,4 +987,102 @@ system. Just look at those fancy new features:
 
 === Exercises
 
-1. The hash functions used to create the bloom filter is not _cryptographic_ hash function. Why not?
+==== Warm up
+
+1. How does a block refer to the previous block?
+
+2. What information does the merkle root commit to?
+
+****
+image::{imagedir}/2ndcol-ex-block-signature.svg[]
+****
+
+[start=3]
+3. What information does Lisa's block signature commit to?
+
+4. How is new cookie tokens (bitcoins) created?
+
+5. What transactions would match a bloom filter containing only ones (`1`)?
+
+****
+image::{imagedir}/2ndcol-ex-tx-tests.svg[]
+****
+
+[start=6]
+6. What stuff from a transaction is tested by the full node when
+determining whether to to send a transaction to the lightweight
+wallet?
+
+7. The hash functions used to create the bloom filter is not
+_cryptographic_ hash function. Why not?
+
+8. How many path elements do you need to construct a merkle proof for
+a transaction in the above block?
+
+==== Dig in
+
+[start=9]
+9. Draw the structure of a merkle tree of a block with 5 transactions.
++
+image::{imagedir}/ex-merkle-tree-five-tx.svg[{half-width}]
+
+10. Lisa signs all blocks with her block signing private key. The
+public key is make public through several sources like the intranet
+and the billboard. What are the two risks of using a single key like
+this?
+
+11. There are two places where a single person can censor transactions
+or blocks. Which two places?
+
+12. Suppose that Lisa replaces a block in the shared folder with a
+block where one transaction is replaced by another transaction
+spending the same money. She tries to pull off a double spend. Would
+this be detected by a full node that
+[loweralpha]
+ . hasn't downloaded the original block yet?
+ . has already downloaded the orignial block?
+ 
+13. Make a bloom filter of eight bits of the two addresses @~1~ and
+@~2~, where @~1~ hashes to the indices `6`, `1`, and `7` and @~2~
+hashes to `1`, `5` and `7`. Then suppose that a full node tests the following transaction against the bloom filter:
++
+image::{imagedir}/ex-bloom-filter-test-tx.svg[{half-width}]
++
+Would the full node send this transaction to the lightweight wallet?
+
+14. Recall the construction of the merkle proof in <<merkle-trees>>:
++
+image::{imagedir}/ex-merkle-proof-two-tx.svg[{big-width}]
+
+This merkle proof only proves one single transaction is in the
+block. But we really wanted to prove two transactions, Tx~2~ and
+Tx~3~. Please try to create such a proof, as small as possible. Assume
+that the lightweight wallet already knows that the total number of
+transactions in the block is 3, because in Bitcoin, it actually does.
+
+=== Recap
+
+In this chapter you learned that
+
+* Transactions are placed in blocks that are signed by Lisa to hold
+  her accountable if she tries to delete transactions.
+
+* Each block commits to the transactions in the block and all previous
+  blocks so that history can't be tampered with without re-signing the
+  fraudulent block and all subsequent blocks.
+
+* The transactions in a block are collectively hashed in a merkle tree
+  structure to create a merkle root that is written in the block
+  header. This makes it possible to create a lightweight wallet.
+
+* Lightweight wallets are used to save bandwith, but at the cost of
+  reduced security.
+
+* Lightweight wallets security is reduced because they cannot verify
+  fully a transaction and because the full node can hide transactions
+  from the wallet.
+
+* The security of a lightweight wallet can be improved by connecting
+  to multiple full nodes or a trusted node.
+
+* Lisa can still censor transactions.
