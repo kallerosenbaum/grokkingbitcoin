@@ -345,7 +345,7 @@ basic properties:
 certain hash.
 
 .A cryptographic hash function, SHA256, in action. The input "Hello!" will give you the same output every time, but the slightly modified input "Hello" will give you a totally different output.
-image::{imagedir}/cryptographic_hashing.svg[{full-width}]
+image::{imagedir}/cryptographic_hashing.svg[{big-width}]
 
 [.inbitcoin]
 .Double SHA256
@@ -449,7 +449,7 @@ A cryptographic hash function is a computer program that takes any
 data as input and computes a big number, a cryptographic hash, based
 on that input.
 
-image::{imagedir}/cryptographic_hashing.svg[{full-width}]
+image::{imagedir}/cryptographic_hashing.svg[{big-width}]
 
 It is astronomically hard to find an input that will result in a
 specific output. This is why we call it a one-way function. You have
@@ -1085,7 +1085,7 @@ In this chapter you learned that
   an input that has a certain known output.
 * Digital signatures are useful to prove the authenticity of a
   payment. Only the rightful owner of bitcoins may spend them.
-* A verifier of a digital signature does not have to know _who_ made
+* Someone verifying a digital signature does not have to know _who_ made
   the signature. She just have to know that the signature was made
   with the private key the signature claims to be signed with.
 * To receive bitcoins or cookie tokens, you need a private key, that

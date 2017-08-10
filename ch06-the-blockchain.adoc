@@ -18,7 +18,7 @@ obvoius that she has tampered with transaction history.
 
 Lisa does this by getting rid of the spreadsheet and replace it with a
 thing called the _blockchain_. The blockchain contains transactions
-that are secured from tampering by hashing and signing the
+that are secured from tampering by hashing and signing the set of
 transactions in a clever way. This technique makes it easy to provide
 cryptographic proof of fraud if Lisa tries any dirty tricks. All
 verifiers keeps their own copies of the blockchain and they can now
@@ -62,16 +62,43 @@ changing transaction data, or make it provable that she has fiddled
 with history?
 
 Some developers suggest that we get rid of the cookie token
-spreadsheet and replace it with a blockchain. The blockchain stores
-transactions just like the spreadsheet did. But the blockchain also
-contains some other stuff to protect the integrity of the contained
-transactions.
+spreadsheet and replace it with a blockchain.
 
-.The blockchain is a chain of blocks. Each block points to the previous block through the block id. The first block is at height 0.
+.A blockchain is a chain of blocks. The blocks contains transactions and each block references its predecessor.
+image::{imagedir}/blockchain-overview.svg[{big-width}]
+
+[.inbitcoin]
+****
+The Bitcoin blockchain contains hundreds of thousands of blocks. At
+the time of writing, the chain tip had height 479936.
+****
+
+The blockchain consists of blocks where each block references its
+previous block. Each block has an implicit _height_ that says how far
+it is from the first block. The first block has height 0, the second
+block has height 1, and so on. The _chain tip_, last block, of this
+blockchain is at height 7, meaning that the blockchain is just 8
+blocks long. Lisa's job is to repeatedly, every 10 minutes, put recent
+unconfirmed transactions in a new block and make the block available
+to everybody who's interested.
+
+The blockchain stores transactions just like the spreadsheet did. But
+the blocks also contain a _block header_ to protect the integrity of
+the contained transactions and the blockchain before it. Let's say
+that the blockchain above has grown to contain 21 blocks, so that the
+chain tip is at height 20. We will zoom in on the last few blocks of
+the blockchain.
+
+.Each block header protects the integrity of the contained transactions and the blockchain before the block.
 image::{imagedir}/blockchain.svg[{big-width}]
 
-The blockchain consists of blocks. Each block contains one or more
-transactions and a block header. The block header consists of
+.Block header
+****
+image::{imagedir}/block-header.svg[]
+****
+
+Each block contains one or more transactions and a block header. The
+block header consists of
 
 * the double SHA256 hash of the previous block's header, previous block id
 * the combined hash of the transactions in the block, the _merkle root_
@@ -98,6 +125,18 @@ talk about that in later sections of this chapter, but for now let's
 just say that they are hashed together into a single hash value that
 is written into the block header. You can't change any transactions in
 the block without also changing the merkle root.
+
+The third part from the left is the creation time for the block. This
+time is not exact, not even always increasing from block to
+block.
+
+The fourth part is Lisa's block signature. The digital signature in
+the block header introduces some problems, and we will fix those
+problems in <<ch07>> by replacing the digital signatures with
+something called proof-of-work. Lisa's signature is a "stamp of
+approval" from Lisa, that everyone can verify. Lisa's signature proves
+that she has once approved the block and that can be held against her
+if she tries to sheat. We will se how that works shortly.
 
 ==== Lisa builds a block
 
@@ -187,6 +226,8 @@ The cafe watches the shared folder for incoming blocks. When Lisa
 writes the block file into the shared folder, the cafe will download
 the block and verify it. To verify a block involves verifying that
 
+* the block header signature is valid. The signature is verified using
+  Lisa's public key obtained from the billboard or intranet.
 * the previous block header is the expected, the block id of block 20
   in this case.
 * all transactions in the block are valid. The same validation as in
@@ -195,8 +236,6 @@ the block and verify it. To verify a block involves verifying that
   block header.
 * the timestamp is greater than the timestamp of the previous block
   and within reasonable limits.
-* the block header signature is valid. The signature is verified using
-  Lisa's public key obtained from the billboard or intranet.
 
 Lisa have paid for a cookie and the cafe have downloaded the block
 that contains Lisa's transaction and verified it. They give Lisa the
@@ -330,17 +369,20 @@ The developers of the full node and the wallet developers cooperate to
 let wallets connect to full nodes over the internet and get relevant
 block data from the full nodes in a way that doesn't require huge
 amounts of data traffic. Wallets are allowed to connect to any full
-node and ask for the data they need. This is what we sketched out in
-<<ch01>>:
+node and ask for the data they need.
+
+For your orientation, this is part of what we sketched out in
+<<wallet-connection>> of <<overview-wallets>>, where Bob's wallet was
+notified of Alice's payment to Bob:
 
 .A Bitcoin wallet gets notified of an incoming payment by a full node.
 image::{imagedir}/periscope-lightweight-wallet.svg[{half-width}]
 
-Suppose that John wants to receive notifications from a full node only
-on transactions concerning his own wallet, that contains two
-addresses, @~a~ and @~b~. He can now make a network connection to any
-of the full nodes at the office, for example the cafe's. Then they
-start talking:
+Just like Bob, suppose that John wants to receive notifications from a
+full node only on transactions concerning his own wallet, that
+contains two addresses, @~a~ and @~b~. He can make a network
+connection to any of the full nodes at the office, for example the
+cafe's. Then the wallet and the full node start talking:
 
 .Information exchange between a lightweight wallet and a full node. The full node sends all block headers and a fraction of the transactions to the wallet.
 image::{imagedir}/spv-node-exchange.svg[{big-width}]
@@ -591,7 +633,7 @@ Let's define some symbols:
  p = the probability of transaction being deemed uninteresting
  r = the ratio of number of `1`s / bloom filter size
 
-Let's generalize the calculation above:
+We can generalize the calculation above:
 
 [stem] 
 ++++
