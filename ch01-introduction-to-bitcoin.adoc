@@ -180,7 +180,7 @@ in the Bitcoin network.
 
 ==== Step 2 - The Bitcoin network
 
-Alice have sent a transaction to one or more Bitcoin nodes. In step 2
+Alice has sent a transaction to one or more Bitcoin nodes. In step 2
 of the process, each node checks that the transaction is valid and if
 it is, pass it on to other nodes. They check validity by consulting
 their local copy of the ledger, and check that
@@ -884,18 +884,18 @@ any existing cryptocurrency software and modify it to her needs.
 image::{imagedir}/network-effect.svg[]
 ****
 
-Let's say that Sheila wants to start an alt-coin, SheCoin. She takes
-the Bitcoin software and changes the money supply to 11000000, instead
-of Bitcoin's 21000000, coins and starts. When SheCoin is started she
-will be very lonely, because no one else is using her alt-coin. If she
-wants SheCoin to have some real value, she has got to convince other
-people to start using her alt-coin. If she's not providing anything
-innovative, she's going to have a hard time getting other people
-on-board, since they are pretty happy with what Bitcoin is already
-providing. Everybody else is using Bitcoin, so why would you use
-SheCoin? Think of it as starting a new internet, that you call
-Internet2. People on Internet2 will not be able to use services on the
-regular Internet, so why would anyone use Internet2. We call it the
+Let's say that Sheila wants to start an alt-coin, Wowcoin. She takes
+the Bitcoin software and changes the max money supply to 11000000,
+instead of Bitcoin's 21000000, coins and starts. When Wowcoin is
+started she will be very lonely, because no one else is using her
+alt-coin. If she wants Wowcoin to have some real value, she has got to
+convince other people to start using her alt-coin. If she's not
+providing anything innovative, she's going to have a hard time getting
+other people on-board, since they are pretty happy with what Bitcoin
+is already providing. Everybody else is using Bitcoin, so why would
+you use Wowcoin? Think of it as starting a new internet, that you call
+Wownet. People on Wownet will not be able to use services on the
+regular Internet, so why would anyone use Wownet? We call it the
 network effect; People tend to go where other people are.
 
 === Recap
