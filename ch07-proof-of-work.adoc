@@ -1,5 +1,17 @@
+////
+
+Desired Blockchain+pow path:
+
+The blockchain datastructure - Signing transaction set
+
+Multiple participants - Fight censorship
+
+Proof-or-work - Avoid a flood of blocks
+
+////
+
 [[ch07]]
-== Proof of work - Avoiding flood of blocks
+== Proof of work - Allow multiple Lisas
 :imagedir: {baseimagedir}/ch07
 This chapter covers
 
@@ -29,12 +41,12 @@ to the miner producing a block with the transaction in it.
 
 This new proof-of-work system replaces the digital signatures. But
 digital signatures were introduced to make it hard for Lisa to delete
-transactions. Don't worry they proof-of-work system handles that too,
+transactions. Don't worry, they proof-of-work system handles that too,
 but in a slightly different way.
 
 At the end of this chapter we will discuss the incentives of
 miners. Why would they mine? Why wouldn't they delete transactions
-after being mined? What harm can a miner do if it controls the
+after being confirmed? What harm can a miner do if it controls the
 majority of the _hashpower_? There are a lot of interesting dynamics
 to discuss regarding miner incentives.
 
@@ -68,9 +80,9 @@ way so that they don't all produce conflicting blocks at the same
 height all the time?
 
 Suppose that the current block height is 103 and Tom and Qi have just
-published their block signing public keys on the bilboard and on the
-intranet. All wallets start sending transactions to all all three
-_miners_. Let's have a look at what happens.
+published their block signing public keys on the billboard and on the
+company's intranet. All wallets start sending transactions to all all
+three _miners_. Let's have a look at what happens.
 
 .Lisa, Tom and Qi create blocks just as Lisa does which results in block collisions at every height.
 image::{imagedir}/three-miners-collisions.svg[{big-width}]
@@ -94,25 +106,29 @@ Let's try another naïve approach:
 [.gbinfo]
 .Honest miners
 ****
-This approach is naïve because we assume that miners are drawing their random numbers without cheating.
+This approach is naïve because we assume that miners are drawing their
+random numbers without cheating.
 ****
 
-The miners all draw a random number between 0 and 999999 every
+The miners all draw a random number between 0 and 999999 each every
 second. If a miner happens to draw a number in the range 0-555 it will
 immediately create, sign and publish a block. The probability of
 drawing a lucky number on a single try is quite low, 556/1000000 or
-roughly 5 in 10000 tries. When this happens, chances are pretty low
-that any of the other two miners also drew a lucky number at the same
-time. This means that usually, only a single miner will produce the
-next block.
+roughly 1 in 1800 tries. The miners draw one number each second so
+each miner is expected to draw a lucky number every thirty
+minutes. The three miners together will then produce on average one
+block every 10 minutes. 
 
-The lucky number range has been carefully selected so that on average,
-the miners together will produce 1 block per 10 minutes. They save
-their blocks as <blockid>.dat so that multiple blocks at the same
-height are kept and are visible to all at all times.
+When a miner draws a lucky number, chances are pretty low that any of
+the other two miners also drew a lucky number at the same time. This
+means that usually, only a single miner will produce the next block.
 
 .Three miners builds blocks. Usually blocks are created one by one, but sometimes they will compete to become the next block.
 image::{imagedir}/three-miners-and-a-fork.svg[{full-width}]
+
+The miners save their blocks as <blockid>.dat in the shared folder so
+that multiple blocks at the same height are not overwriting each other
+and are kept visible to everyone.
 
 The system ticks on quite well, but once in a while two miners will
 draw a lucky number at the same time. They are not aware that another
@@ -164,13 +180,23 @@ longer than the other branch. She's better off abandoning her short
 branch and move over to the longer branch. Now everyone is working on
 the same branch again and the tie is resolved.
 
+[.gbinfo]
+****
+The UTXO set is build from a single chain. It cannot be built from multiple branches simultaneously. Full nodes have to chose which branch to follow.
+****
+
+Since Qi abandoned her branch, she also abandoned her block
+reward. Her block will never be part of the longest chain, so she will
+never be able to spend the block reward in her block. Only blocks on
+the longest chain will have an affect on the UTXO set.
+
 ===== Delayed resolution
 
 But what would happen if both Lisa and Qi happens to draw a lucky
-number on the exact same second. That would mean that both branches
-will be extended by one block each. We still don't know which one is
-the correct branch. Miners will again pick sides and try to exend
-their branch of choice.
+number on the same second. That would mean that both branches will be
+extended by one block each. We still don't know which one is the
+correct branch. Miners will again pick sides and try to exend their
+branch of choice.
 
 .Both Lisa and Qi draws a lucky number at the same time. The situation is not resolved yet.
 image::{imagedir}/chain-fork-of-depth-2.svg[{half-width}]
@@ -183,38 +209,89 @@ becomes longer than the other branch which is only two blocks long.
 image::{imagedir}/chain-fork-delayed-resolution.svg[{half-width}]
 
 Every miner will acknowledge that by switching to Tom's branch and
-move on from there. We finally have a winner branch of this fork.
+move on from there. We finally have a winner branch of this
+fork. Again, Qi happens to be the loser in this fight.
 
-===== forks of forks
+===== fork of fork
 
-Say that Tom and Lisa both draw a lucky number at the same time. Then
-they would both try to exend Tom's branch. The result will be a fork
-of the fork:
+Say instead that Tom and Lisa both draw a lucky number at the same
+time. Then they would both extend Tom's branch. The result will be a
+fork of the fork:
 
 .One of the branches experiences yet another fork. This new fork is resolved like the previous fork.
 image::{imagedir}/chain-fork-of-fork.svg[{half-width}]
 
-We now have three branches. Qi's branch is abandoned, because it is
-shorter than the two new branches: Lisa's branch and Tom's branch. Now
-we have a new competition that will get resolved in the same way as
-the first fork. It will be resolved immediately by the next block, or
-delayed by one or more further blocks on each branch, or a new fork
-will be introduced.
+We now have three branches. Qi's branch is probably abandoned, because
+it is shorter than the two new branches: Lisa's branch and Tom's
+branch. Now we have a new competition that will get resolved in the
+same way as the first fork. It will be resolved immediately by the
+next block, or delayed by one or more further blocks on each branch,
+or a new fork will be introduced on either of the two new branches.
 
-Eventually, one branch will win. The likelihood of two branches will
-remaining equally long for X blocks deminishes for increasing X:
+Eventually, one branch will win. The likelihood that two branches will
+remaining equally long for X blocks diminishes rapidly for increasing X.
+////
+N = Number of die
+S = number of sides on the dice (1800)
+
+P(chain forks on next block) =
+P(two or more die wins | some die wins) =
+P(two or more die wins)/P(some dice wins)
+
+P(two or more die wins) = 1 - ((S-1)/S)^N^ - 3*(1/S)*((S-1)/S)^N-1^
+P(some die wins) = 1-((S-1)/S)^N^
+P(two or more die wins)/P(some dice wins) =
+(1 - ((S-1)/S)^N^ - 3*(1/S)*((S-1)/S)^N-1^)/(1-((S-1)/S)^N^) =
+(1 - (1799/1800)^3^ - 3*(1/1800)*(1799/1800)^2^)/(1-(1799/1800)^3^)=0.00055565843
+
+Na = Number of branch A die
+Nb = Number of branch B die
+
+P(both branches are extended next time) =
+P(both branches are extended | some branch is extended)
+
+A = Both branches are extended
+B = Some branch is extended
+
+P(A) = P(branch A is extended)*P(branch B is extended)
+ = (1-((S-1)/S)^Na^) * (1-((S-1)/S)^Nb^)
+
+P(B) = 1-((S-1)/S)^Na+Nb^
+
+P(A|B) = P(A ∩ B) / P(B) = P(A) / P(B)
+ = (1-((S-1)/S)^Na^) * (1-((S-1)/S)^Nb^) / (1-((S-1)/S)^Na+Nb^) 
+
+Na = 1
+Nb = 2
+S = 1800
+
+P(A|B) = (1-((S-1)/S)^Na^) * (1-((S-1)/S)^Nb^) / (1-((S-1)/S)^Na+Nb^)
+ = (1-(1799/1800)) * (1-(1799/1800)^2^) / (1-(1799/1800)^3^)
+ = (1/1800)*(1-(1799/1800)^2^) / (1 - (1799/1800)^3^)
+ = 0.00037047327
+////
+[.inbitcoin]
+.Forks
+****
+Forks in bitcoin are a bit more probable than in this example, but still occurrs only about once per day.
+****
 
 |===
-| Branch length | Probability
+| Branch length | Probability | Happens about every
 
-| 1 | 0.0333
+| 1 | 5.6e-4 | two weeks
 
-| 2 | 0.0166666
+| 2 | 2.1e-7 | 90 years
+
+| 3 | 7.6e-11 | 250000 years
+
+| 4 | 2.8e-14 | 700000000 years
 |===
 
-A fork of branch length 1 is quite likely to happen, but branches of
-length 2 is very unlikely and length 3 will probably not happen during
-Lisa's lifetime, she's 45.
+A fork of branch length 1 is quite likely to happen, but a branch of
+length 2 will probably not happen during Lisa's lifetime, she's 45. No
+matter how long the forks are, eventually they will resolve with a
+winner.
 
 This seems like a nice scheme. But there are issues with it:
 
@@ -227,42 +304,18 @@ This seems like a nice scheme. But there are issues with it:
   but also more vulnerable to private key theft. A stolen private key
   will give the thief access to create blocks and collect rewards for
   herself.
-* For each new miner, the system will be more vulnerable to cheating
-  with lucky numbers.
+* For each new miner, the risk that someone cheats with lucky numbers
+  increases.
 
 Clearly, this system will not be able to increase the number of miners
-beyond a controlled highly trusted participants. We would get a flood
-of blocks as miners start cheating, but we can't prove that they are
-cheating. It's actually possible that they are just really, really
-lucky.
-
-The average time between blocks must be 10 minutes over a period of
-2016 blocks. 
-
-
-      N=number of nodes
-      B=Total number of blocks per two weeks (1209600 seconds)
-      K=B/N=number of blocks per node per two weeks
-      T=time between tries (1 second)
-
-      p=P(a try is success) "Bernoulli try"
-
-      Binomial förd:
-
-      p*(2weeks)/T=B/N
-      p=(B/N) * (T/2weeks)=(2016/3)*(1/1209600)=0.000555556
-
-      X=B(n,p) => 1209600*0.000555556=672
-
-0.000556 Each miner draws a number between 0 and 999999 every
-second. If the number is less than 556 (0-555) the may publish a block
-to the shared folder. 
-
-
+beyond a controlled group of highly trusted participants. We would get
+a flood of blocks as miners start cheating, but we can't prove that
+they are cheating. It's actually possible that they are just really,
+really lucky.
 
 === Force honest lucky numbers
-
-Let's go back to 1997. Dr Adam Back published a web page describing
+////
+Let's go back to 1997. Dr. Adam Back published a web page describing
 hashcash. Hashcash was a system to prevent email spam by forcing an
 email sender to do a certain amount of computing work and attach a
 proof of that work to the email in order to send the email to the
@@ -281,11 +334,177 @@ for each recipient.
 
 This concept can be used to force miners to draw honest
 numbers. Instead of drawing a random number each second and using a
-private key to sign blocks, miners compete to produce a proof-of-work
-to put in the block header.
+private key to sign blocks, miners compete to produce a
+_proof-of-work_ to put in the block header.
+////
+
+What if we could force the miners to not cheat with lucky numbers? It
+turns out that we can! We can make the miners perform huge amounts of
+computations with their computers and have them prove that they have
+performed the work. We can make them perform so much work that it
+takes each of the three miners about 30 minutes on average to produce
+a block, which will result in a 10 minute block interval, just as
+before.
+
+.Old style block
+****
+image::{imagedir}/2ndcol-old-style-block.svg[]
+****
+
+.The block signatures are replaced by proof-of-work.
+image::{imagedir}/proof-of-work-overview.svg[{big-width}]
+
+The trick is to replace the digital signatures in the block header
+with _proof of work_. Suppose that Qi just published a block and the
+cafe's full node wants to verify that it's valid. Besides verifying
+the usual stuff like transactions and the merkle root, the full node
+must verify that Qi provides a valid proof of work. The rule is that
+the proof of work is valid if the block header hash, block id, is less
+than or equal to the target:
+
+.The block id must be less than or equal to the target in the header. Otherwise the block is invalid.
+image::{imagedir}/valid-pow-example.svg[{half-width}]
+
+To determine if a block's proof of work is valid, we compare the 256
+bit block id to the 256 bit target written in the block header. In the
+diagram above we have
+////
+Max target:
+0x00ffff * 2**(8*(0x1d - 3)) = 0x00000000FFFF0000000000000000000000000000000000000000000000000000
+Example target:
+0x926eb9 * 2**(8*(0x1c - 3)) = 0x00000000926eb900000000000000000000000000000000000000000000000000
+Example hash:
+////
+
+
+ block id: 000000003c773b99fd08c5b4d18f539d98056cf72e0a50c1b57c9bc429136e24
+ target:   00000000926eb900000000000000000000000000000000000000000000000000
+
+In this example the block id starts with `000000003...` while the
+target starts with `000000009`. The block id is less than the target,
+which means that this block's proof of work is valid.
+
+The target is a number agreed upon by all full nodes and miners. This
+target will change every now and then according to some common
+rules. Such a change is called a _retarget_ and will be described
+later in this chapter. For now we can just regard it as a fixed number
+that must be set in the block header.
+
+==== Produce a valid proof of work
+
+To craete a new block, a miner must produce a valid proof of work for
+the block before the block is considered valid. To make a valid proof
+of work, the miner must create a block header hash that is less than
+or equal to the target in the block header.
+
+****
+[options="header"]
+|===
+| Input | Hash
+| Hello1! | 82642dd9...2e366e64
+| Hello2! | 493cb8b9...83ba14f8
+| Hello3! | 90488e86...64530bae
+| ... | ... 
+|===
+****
+
+A block id is a double SHA256 of the block header. As we learned in
+<<ch02>>, the only way to find a pre-image to a cryptographic hash
+function is to try different inputs over and over until we
+find one. The same goes here; the miner must try different block
+headers until she finds a block header that hashes to a hash value
+less than or equal to the target.
+
+Let's go back in time an look at how Qi created the block above. She
+created a block and set the target to `00000000926e…` and the nonce
+to `0`. Then she tests whether the proof-of-work is valid:
+
+.Qi tests if her block is valid by verifying the proof-of-work
+image::{imagedir}/create-pow-example-1.svg[{half-width}]
+
+She calculates the block id, by hashing her block header with double
+SHA-256. In this case the block id is `aa9c614e7f50…`. This number is
+bigger than the target:
+
+ block id: aa9c614e7f5064ef11eedc51856cc7bfcdf71a1f2d319e56d4cc65bda939be79
+ target:   00000000926eb900000000000000000000000000000000000000000000000000
+
+The rule is that the block id must be less than or equal to the target
+for the proof of work to be valid. She failed miserably.
+
+[.inbitcoin]
+.Nonce
+****
+The nonce is a 32 bit number, so there are "only" 2^32^=4294967296 possible different nonces to chose from.
+****
+
+This is where the nonce comes in. A nonce is just a silly number that
+doesn't mean anything. It can be set to any value. Qi initially set
+the nonce to `0`, but she could just as well have set it `123` or
+`92178237`. The nonce is used to make a change in the block that will
+affect the block id but without changing any real data like
+transactions or previous block id.
+
+Qi will now make a second attempt at making a valid proof of work. She
+increases the nonce from `0` to `1` and tests the validity again:
+
+.Qi increases the nonce and makes a second attempt at finding a valid proof of work. This also fails.
+image::{imagedir}/create-pow-example-2.svg[{half-width}]
+
+
+.Remember the cat?
+****
+image::{imagedir}/2ndcol-hashing-a-modified-cat.svg[]
+
+When the input changes the slightest, the output is completely different.
+****
+
+When Qi changes the block header by increasing the nonce, the block id
+will change. This is because any tiny change in the header will result
+in a completely different block id.
+
+The new block id is `863c9bea5fd8…`. This is also bigger than the
+target. Qi failed again. I'm sorry, but there is no way around
+this. Qi must try once more. She once again increases the nonce from
+`1` to `2` and tests again:
+
+.Qi's third attempt at finding a valid proof of work. Failed again.
+image::{imagedir}/create-pow-example-3.svg[{half-width}]
+
+The result is the same: Miserable failure. The block id was
+`005ce22db5aa…` this time, whick is still bigger than the target.
+
+She repeats this over and over. For example her 227299125th try:
+
+.Qi's try with nonce 227299124. Close but no cigar!
+image::{imagedir}/create-pow-example-4.svg[{half-width}]
+
+This was really close, but close doesn't help. She has to keep trying:
+
+.Qi keeps on working.
+image::{imagedir}/create-pow-example-5.svg[{half-width}]
+
+Until finally
+
+.The nonce 492781927 is a winner!
+image::{imagedir}/create-pow-example-6.svg[{half-width}]
+
+The nonce 492781927 results in a block id `0000000034d2…`. She compares this to the target:
+
+ block id: 0000000034d262bbde7c2e1db97c57222e69e48732ec11af2cd8819726c794e8
+ target:   00000000926eb900000000000000000000000000000000000000000000000000
+
+Wow, this block id is less than the target! 
+
+But how hard is it to find an input that hashes to a value
+
+So instead of drawing a random number every second, they hash their
+own block header over and over, as fast as they can, until they find a
+_small enough_ hash value. They change their block header slightly
+between each try so that the hash values change between the tries.
 
 Suppose that Tom wants to create a block. He builds the block with the
-transactions he wants to include and sets a _target threshold_ in the
+transactions he wants to include and sets a _target_ in the
 block header and starts working:
 
 .A miner, Tom, performs work in order to find a valid proof-of-work. The first try fails.
