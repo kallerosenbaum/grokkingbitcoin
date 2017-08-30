@@ -22,7 +22,8 @@
 :tiny-height: height='10%'
 :thumb: width='40%'
 :btc: image:{commonimagedir}/btc-sans.png[BTC,role="btc"]
-////
+
+/////
 include::ch01-introduction-to-bitcoin.adoc[]
 
 include::ch02-securing-cookie-tokens.adoc[]
@@ -32,33 +33,10 @@ include::ch03-addresses.adoc[]
 include::ch04-wallets.adoc[]
 
 include::ch05-transactions.adoc[]
-////
+
 include::ch06-the-blockchain.adoc[]
 
+/////
 include::ch07-proof-of-work.adoc[]
 
-:resource-url: http://manning.com/grokking-bitcoin/resources
-
-//bash web-resource bitcoin-paper
-// [https://bitcoin.org/bitcoin.pdf]
-
-//bash web-resource financial-inclusion
-// http://datatopics.worldbank.org/financialinclusion/
-
-//bash web-resource wikileaks-blockade
-//https://en.wikipedia.org/wiki/Reception_of_WikiLeaks#Response_from_the_financial_industry
-
-//bash web-resource cyprus-seizure
-//https://www.bloomberg.com/news/articles/2013-07-30/cyprus-sets-levy-on-bank-of-cyprus-uninsured-depositors-at-47-5-
-
-//bash web-resource chargebacks
-//https://www.dalpay.com/en/support/chargebacks.html
-
-//bash web-resource bips
-//https://github.com/bitcoin/bips.
-
-//bash web-resource elliptic-curve-calculator
-// https://cdn.rawgit.com/andreacorbellini/ecc/920b29a/interactive/modk-add.html
-
-//bash web-resource op-codes
-// https://en.bitcoin.it/wiki/Script
+//include::web-resources.adoc[]

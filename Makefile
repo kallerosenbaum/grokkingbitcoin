@@ -6,7 +6,7 @@ BUILDADOC=$(patsubst %.adoc,build/%.adoc,$(ADOC))
 .SUFFIXES: .adoc
 
 html: setup
-	cat $(OUTPUTDIR)/$(MAIN) | $(AD) -b html5 - > $(OUTPUTDIR)/grokking-bitcoin.html
+	$(AD) -b html5 $(OUTPUTDIR)/$(MAIN) > $(OUTPUTDIR)/grokking-bitcoin.html
 
 setup: builddir links $(BUILDADOC)
 

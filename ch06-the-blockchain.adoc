@@ -211,7 +211,7 @@ instead of 7200 cookie tokens as was the case in <<ch05>>. The idea is
 that Lisa produces a new block every 10 minutes, which means that the
 rewards of 7200 CT per day are spread out over 144 blocks, since there
 are 144 intervals of 10 minutes in 24 hours, and 7200/144=50. We will
-talk more about block rewards in <<ch07>>.
+talk more about block rewards and the coinbase in <<ch07>>.
 
 ==== How does this protect us from deletes?
 
@@ -1031,52 +1031,52 @@ system. Just look at those fancy new features:
 
 ==== Warm up
 
-1. How does a block refer to the previous block?
+. How does a block refer to the previous block?
 
-2. What information does the merkle root commit to?
+. What information does the merkle root commit to?
 
 ****
 image::{imagedir}/2ndcol-ex-block-signature.svg[]
 ****
 
 [start=3]
-3. What information does Lisa's block signature commit to?
+. What information does Lisa's block signature commit to?
 
-4. How is new cookie tokens (bitcoins) created?
+. How are new cookie tokens (or bitcoins) created?
 
-5. What transactions would match a bloom filter containing only ones (`1`)?
+. What transactions would match a bloom filter containing only ones (`1`)?
 
 ****
 image::{imagedir}/2ndcol-ex-tx-tests.svg[]
 ****
 
 [start=6]
-6. What stuff from a transaction is tested by the full node when
+. What stuff from a transaction is tested by the full node when
 determining whether to to send a transaction to the lightweight
 wallet?
 
-7. The hash functions used to create the bloom filter is not
+. The hash functions used to create the bloom filter is not
 _cryptographic_ hash function. Why not?
 
-8. How many path elements do you need to construct a merkle proof for
+. How many path elements do you need to construct a merkle proof for
 a transaction in the above block?
 
 ==== Dig in
 
 [start=9]
-9. Draw the structure of a merkle tree of a block with 5 transactions.
+. Draw the structure of a merkle tree of a block with 5 transactions.
 +
 image::{imagedir}/ex-merkle-tree-five-tx.svg[{half-width}]
 
-10. Lisa signs all blocks with her block signing private key. The
+. Lisa signs all blocks with her block signing private key. The
 public key is make public through several sources like the intranet
 and the billboard. What are the two risks of using a single key like
 this?
 
-11. There are two places where a single person can censor transactions
+. There are two places where a single person can censor transactions
 or blocks. Which two places?
 
-12. Suppose that Lisa replaces a block in the shared folder with a
+. Suppose that Lisa replaces a block in the shared folder with a
 block where one transaction is replaced by another transaction
 spending the same money. She tries to pull off a double spend. Would
 this be detected by a full node that
@@ -1084,7 +1084,7 @@ this be detected by a full node that
  . hasn't downloaded the original block yet?
  . has already downloaded the orignial block?
  
-13. Make a bloom filter of eight bits of the two addresses @~1~ and
+. Make a bloom filter of eight bits of the two addresses @~1~ and
 @~2~, where @~1~ hashes to the indices `6`, `1`, and `7` and @~2~
 hashes to `1`, `5` and `7`. Then suppose that a full node tests the following transaction against the bloom filter:
 +
@@ -1092,7 +1092,7 @@ image::{imagedir}/ex-bloom-filter-test-tx.svg[{half-width}]
 +
 Would the full node send this transaction to the lightweight wallet?
 
-14. Recall the construction of the merkle proof in <<merkle-trees>>:
+. Recall the construction of the merkle proof in <<merkle-trees>>:
 +
 image::{imagedir}/ex-merkle-proof-two-tx.svg[{big-width}]
 
