@@ -25,30 +25,31 @@ chapter will take that a step further and make the system _censorship
 resistant_, so that Lisa can't censor transactions.
 
 To make it censorship resistant we will replace the digital signatures
-by proof-of-work to allow for any number of Lisas, or _miners_. The
-miners will compete to find a valid proof-of-work to produce the next
-block. A proof-of-work is produced by calculating a huge amount of
-cryptographic hashes until you find a small enough hash. Wallets can
-now send their transactions to any or all of the miners to ensure that
-their transactions are being processed.
+by proof of work to allow for any number of Lisas, or _miners_. The
+miners will compete to find a valid proof of work to produce the next
+block. A proof of work is produced by calculating a huge amount of
+cryptographic hashes. Wallets can now send their transactions to any
+or all of the miners to ensure that their transactions are being
+processed.
 
-With the new proof-of-work system in place, miners want to make blocks
+With the new proof of work system in place, miners want to make blocks
 as small as possible to be able to upload them as quickly as possible
 to the shared folder. This incentivizes miners to exclude transactions
 which was exactly what we wanted to avoid. To give miners an incentive
 to include a transaction, the transaction may pay a _transaction fee_
 to the miner producing a block with the transaction in it.
 
-This new proof-of-work system replaces the digital signatures. But
+This new proof of work system replaces the digital signatures. But
 digital signatures were introduced to make it hard for Lisa to delete
-transactions. Don't worry, they proof-of-work system handles that too,
-but in a slightly different way.
+transactions. Don't worry, they proof of work system handles that too,
+but in a slightly different way. Instead of making it provable that
+Lisa cheats, we make it very hard and expesive to cheat.
 
-At the end of this chapter we will discuss the incentives of
-miners. Why would they mine? Why wouldn't they delete transactions
-after being confirmed? What harm can a miner do if it controls the
-majority of the _hashpower_? There are a lot of interesting dynamics
-to discuss regarding miner incentives.
+Throughout this chapter we will discuss the incentives of miners. Why
+would they mine? Why wouldn't they delete transactions after being
+confirmed? What harm can a miner do if it controls the majority of the
+_hashpower_? There are a lot of interesting dynamics to discuss
+regarding miner incentives.
 
 === Clone Lisa to get censorship resistance
 
@@ -174,7 +175,7 @@ image::{imagedir}/chain-fork-simple-resolution.svg[{half-width}]
 
 [.gbinfo]
 ****
-Later, when we introduce proof-of-work, we will follow the chain with
+Later, when we introduce proof of work, we will follow the chain with
 most accumulated work instead of just the longest chain.
 ****
 
@@ -339,7 +340,7 @@ before.
 image::{imagedir}/2ndcol-old-style-block.svg[]
 ****
 
-.The block signatures are replaced by proof-of-work.
+.The block signatures are replaced by proof of work.
 image::{imagedir}/proof-of-work-overview.svg[{big-width}]
 
 The trick is to replace the digital signatures in the block header
@@ -405,9 +406,9 @@ less than or equal to the target.
 
 Let's go back in time an look at how Qi created the block above. She
 created a block and set the target to `00000000926e…` and the nonce
-to `0`. Then she tests whether the proof-of-work is valid:
+to `0`. Then she tests whether the proof of work is valid:
 
-.Qi tests if her block is valid by verifying the proof-of-work
+.Qi tests if her block is valid by verifying the proof of work
 image::{imagedir}/create-pow-example-1.svg[{half-width}]
 
 She calculates the block id, by hashing her block header with double
@@ -522,7 +523,7 @@ number every 0.02 microsecond through cryptographic hashing. At the
 same time the lucky number limit, or target, is set to the 256 bit
 number `00000000926e…`=926eb9*2^200^ instead of just `556`.
 
-.Comparing the lycky number system with the proof of work system. They essentially work in the same way, but with proof of work we enforce miners to draw honest lucky numbers.
+.Comparing the lycky number system with the proof of work system.
 |===
 | Idea | target | possible values | draw every | average block time | Best chain in a fork
 
@@ -530,14 +531,33 @@ number `00000000926e…`=926eb9*2^200^ instead of just `556`.
 | Proof of work | 926eb9*2^200^ | `2^256^` | 0.02 microsecond | 10 minutes | Most work chain
 |===
 
+[.gbinfo]
+.Strongest chain
+****
+Strongest chain is the chain with the most accumulated proof of work.
+****
+
 A subtle but important difference is that with proof of work it is the
-chain with the *most accumulated work* that is considered the best
-branch to follow. In the lucky numbers case miners simply followed the
-longest chain.
+chain with the *most accumulated proof of work* that is considered the
+best branch to follow. In the lucky numbers case, miners simply
+followed the longest chain. The accumulated proof of work for a
+blockchain is calculated by calculating the _difficulty_ of each block
+in the chain as
 
-==== Miners have to move out
+image::{imagedir}/calculate-difficulty.svg[{quart-width}]
 
-The company thinks the proof-of-work system is nice and all, but they
+and add them all. The gist of this is that the higher the target of a block,
+the lower the difficulty of that block, and the lower the target, the
+higher the difficulty. So we sum the difficulties of all blocks to get
+the accumulated proof of work.
+
+From now on we will refer to the branch with most accumulated work as
+the _stongest branch_, or _strongest chain_. Another commonly used
+term is _best chain_.
+
+=== Miners have to move out
+
+The company thinks the proof of work system is nice and all, but they
 don't want to pay for the electricity needed to perform all this
 work. Since computers run on electricity, the more calculations the
 computer makes, the more electricity it needs.
@@ -614,8 +634,8 @@ image::{imagedir}/money-supply.png[]
 Do you remember the planned money supply curve from <<ch02>>? The plan
 was to issue half of the money supply, 10.5 million CT, during the
 first four years. Then during the next four years issue half of that,
-5.25 million CT, and so on until the reward is so small that it rounds
-to 0. This whole process would take about 131 years.
+5.25 million CT, and so on until the issuance rounds down to 0. This
+whole process would take about 131 years.
 
 Now since Lisa beefed up her mining and Rashid added his mining
 computer, the issuance is too fast. With this high block rate, it
@@ -637,7 +657,7 @@ forked off from the main chain.
 
 It would also be problematic from a security perspective, because if
 there are two branches with about 50% of the hashpower on each branch,
-the security of the individual branches are only halved.
+the security of the individual branches are cut in half.
 
 ==== What's fixed?
 
@@ -659,7 +679,8 @@ numbers" in an interesting way. Let's see what issues we have left:
 * [line-through]#For each new miner, the risk that someone cheats with
   lucky numbers increases.#
 
-There is only one problem left in the list. 
+There is only one problem left in the list. The next section will
+handle that problem.
 
 === Difficulty adjustments
 
@@ -1039,9 +1060,9 @@ We have put in place a system with multiple miners that each produce
 blocks independently of eachother. This is a massive gain in
 censorship resistance. All miners must collude to be able to hinder
 transactions from entering the blockchain. A single miner or a portion
-of the miners will only be able to make the transaction take longer to
+of the miners will only be able to make a transaction take longer to
 confirm, but eventually one of the non-censoring miners will find a
-block that contains the transactions.
+block that contains the transaction and publish its block.
 
 All good.
 
@@ -1143,33 +1164,48 @@ image::{imagedir}/lisa-collects-transaction-fees.svg[{big-width}]
 
 Lisa sums up all transaction fees from the transactions in her block
 and increases the coinbase output with that amount. The amount in the
-coinbase is the sum of the block reward, the 50 new cookie tokens
-created by this block, and all transaction fees from the transactions
-in the block.
+coinbase output, the block reward, is the sum of the block subsidy,
+the 50 new cookie tokens created by this block, and all transaction
+fees from the transactions in the block. Note that we have widened the
+term _block reward_ to include both the newly create money, the _block
+subsidy_, and the transaction fees.
 
-When the coinbase is ready she starts working to find a valid proof of
+When the block is setup correctly she starts working to find a valid proof of
 work for this block.
 
 ==== When block rewards are 0
 
-Transactions will play a big role for miners as
+As we discussed in <<ch02>>, the block subsidy will be halved about
+every four years. At some point, the block subsidy will not be big
+enough of its own to give miners incentive enough to mine. If the
+value of the block reward is smaller than the electricity bill, what's
+the point for the miner?
 
-* As block rewards diminish, they need to be replaced by something else
+Transaction fees will play a bigger and bigger role for miners as the
+block subsidy decreases. The typical miner wants the income from the
+mining to at least cover their electricity bill:
 
-=== Not yet covered
+.A miner must make at least enough money to pay for the electricity.
+image::{imagedir}/mining-economy.svg[{big-width}]
 
+Note that the _value_ of the block subsidy may not always
+decrease over time. Let's look at some examples:
 
-==== What can a powerful miner do?
+.Block subsidy may be halved, but the value of the block subsidy depends on the value of the cookie tokens.
+|===
+| Block subsidy | CT value in $ | Block subsidy in $
+| 50 | $0.10 | $5
+| 25 | $0.25 | $6.25
+|===
 
-* Double spend
-* Censor someone's transactions
+This shows that the block subsidy by itself isn't a measurement on the
+mining income. You have to look at the _value_ of the block subsidy
+and the _value_ of the transaction fees. One thing is for sure: When
+the subsidy is zero, the value of the subsidy is also zero. So at
+_some_ point the block subsidy is not incentive enough to mine.
 
-==== System grows
+When that happens, transaction fees will help give efficient miners
+revenue. If John wants his tranactions confirmed, he must pay a fee
+big enough so that one or more miners are willing to include his
+transaction. This is a free market for block space at play.
 
-* More miners compete for the new cookie tokens
-* Users starts to use the system more frequently
-
-Define _strongest chain_
-
-What happens to the transactions in the stale blocks? What happens to
-Lisa's block's transactions when she must update to a new chain tip?

@@ -106,7 +106,7 @@ rewarded 7200 cookie tokens per day during the first four years, and
 then the reward is halved to 3600 CT/day for the next four years, and
 so on until the reward is 0 CT/day. Let's not worry, for now, about
 what happens when the reward approaches 0, that's far in the
-future. We will discuss that in later chapters. This reward halving
+future. We will discuss that in <<ch07>>. This reward halving
 makes the total money supply, the total amount of CT in circulation,
 approach 21000000 CT, but it will never exceed 21000000. What Lisa
 does with the new cookie tokens she earned is up to her. She can buy

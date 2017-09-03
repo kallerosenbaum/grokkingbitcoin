@@ -23,7 +23,7 @@
 :thumb: width='40%'
 :btc: image:{commonimagedir}/btc-sans.png[BTC,role="btc"]
 
-/////
+////
 include::ch01-introduction-to-bitcoin.adoc[]
 
 include::ch02-securing-cookie-tokens.adoc[]
@@ -35,8 +35,8 @@ include::ch04-wallets.adoc[]
 include::ch05-transactions.adoc[]
 
 include::ch06-the-blockchain.adoc[]
+////
 
-/////
 include::ch07-proof-of-work.adoc[]
 
-//include::web-resources.adoc[]
+include::web-resources.adoc[]

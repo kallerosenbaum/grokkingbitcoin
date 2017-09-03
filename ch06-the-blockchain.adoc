@@ -201,8 +201,9 @@ single source is too easily manipulated by bad guys.
 [.inbitcoin]
 .Block rewards
 ****
-The block reward is 50 bitcoins for each block during the first 4
-years. This reward will decrease by 50% every 210000 blocks (4 years).
+In Bitcoin, the block reward covers more than just the newly created
+money. It also includes transaction fees discussed in <<ch07>>. The
+newly created money in a block is called the _block subsidy_.
 ****
 
 The first transaction in each block is a coinbase transaction, but the

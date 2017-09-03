@@ -990,7 +990,7 @@ the spreadsheet called a _coinbase transaction_.
 ****
 Rewards in Bitcoin are paid roughly every 10 minutes using coinbase
 transactions to the nodes securing the Bitcoin blockchain. This will
-be covered in later chapters.
+be covered in <<ch07>>.
 ****
 
 .Lisa rewards herself every day with a coinbase transaction.

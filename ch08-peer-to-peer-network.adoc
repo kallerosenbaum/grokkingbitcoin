@@ -4,4 +4,5 @@
 Issues to remember
 
 * Broadcasting transactions
-* mempool
+* mempool (update mempool during reorg and new blocks)
+
