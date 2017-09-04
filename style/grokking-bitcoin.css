@@ -13,7 +13,7 @@ body {
     font-size: 13px;    
 }
 
-div>p,.literalblock,.imageblock>.title,div>.tableblock,.dlist,.olist,.ulist {
+div>p,.literalblock,.imageblock>.title,div>.tableblock,.dlist,.olist,.ulist,.stemblock {
     width: 75%;
 /*    font-size: 0.9rem;*/
 }

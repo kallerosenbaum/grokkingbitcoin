@@ -51,7 +51,7 @@ confirmed? What harm can a miner do if it controls the majority of the
 _hashpower_? There are a lot of interesting dynamics to discuss
 regarding miner incentives.
 
-=== Clone Lisa to get censorship resistance
+=== Clone Lisa
 
 Lisa is a central authority that can censor any transactions she
 wants. Suppose that Lisa just read a book by a famous dietist, where
@@ -67,7 +67,7 @@ People wanting to pay for a cookie in the café will be denied service
 because their payments won't go through. What's worse, other
 transactions that don't have anything to do with cookies may get
 filtered out by Lisa as well, because she suspects that they are used
-to pay for cookies. Perhaps they happen to pay 10 CT to someone.
+to pay for cookies.
 
 ****
 image::{imagedir}/2ndcol-acme-forces-lisa.svg[]
@@ -81,20 +81,26 @@ huge losses for Acme.
 What if we could have several poeple like Lisa so that we don't rely
 on one single person being honest and available all the time. Suppose
 that we let Tom and Qi also start doing what Lisa is doing. If wallets
-would email all their transactions to all of the three _miners_,
-chances that a transaction is censored would decrease
-dramatically. But how would they procuce the blocks in a controlled
-way so that they don't all produce conflicting blocks at the same
-height all the time?
+would email all their transactions to all three of them, the risk that
+a transaction is censored would decrease dramatically. But how would
+they procuce the blocks in a controlled way so that they don't all
+produce conflicting blocks at the same height all the time?
 
-==== Block war
+==== Block collisions
+
+[.gbinfo]
+.Miner
+****
+A miner is someone creating blocks. Lisa is a miner, as well as Tom
+and Qi.
+****
 
 Suppose that the current block height is 103 and Tom and Qi have just
 published their block signing public keys on the billboard and on the
-company's intranet. All wallets start sending transactions to all all
-three _miners_. Let's have a look at what happens.
+company's intranet. All wallets start sending transactions to all
+three block producers, or _miners_. Let's have a look at what happens.
 
-.Lisa, Tom and Qi create blocks just as Lisa does which results in block collisions at every height. The block headers have been simplified for clarity.
+.Tom and Qi begins creating blocks just as Lisa does which results in block collisions. The block headers have been simplified for clarity.
 image::{imagedir}/three-miners-collisions.svg[{big-width}]
 
 If they all just do what Lisa did, they would produce a block every 10
@@ -115,28 +121,32 @@ system would halt.
 
 Let's try another naïve approach:
 
+****
+image::{imagedir}/2ndcol-draw-lucky-numbers.svg[]
+****
+
+The miners all draw a random number between 0 and 999999 each every
+second. If a miner happens to draw a number in the range 0-555 it will
+immediately sign and publish a block. The probability of drawing a
+lucky number on a single try is quite low, 556/1000000 or roughly 1 in
+1800 tries. The miners draw one number each second so each miner is
+expected to draw a lucky number every thirty minutes (1800 seconds) on
+average. The three miners together will then produce on average one
+block every 10 minutes.
+
+When a miner draws a lucky number, chances are pretty low that any of
+the other two miners also drew a lucky number at the same time. This
+means that usually, only a single miner will produce the next block.
+
+.Three miners build blocks. Usually blocks are created one by one, but sometimes they will compete to become the next block.
+image::{imagedir}/three-miners-and-a-fork.svg[{full-width}]
+
 [.gbinfo]
 .Honest miners
 ****
 This approach is naïve because we assume that miners are drawing their
 random numbers without cheating.
 ****
-
-The miners all draw a random number between 0 and 999999 each every
-second. If a miner happens to draw a number in the range 0-555 it will
-immediately create, sign and publish a block. The probability of
-drawing a lucky number on a single try is quite low, 556/1000000 or
-roughly 1 in 1800 tries. The miners draw one number each second so
-each miner is expected to draw a lucky number every thirty
-minutes. The three miners together will then produce on average one
-block every 10 minutes. 
-
-When a miner draws a lucky number, chances are pretty low that any of
-the other two miners also drew a lucky number at the same time. This
-means that usually, only a single miner will produce the next block.
-
-.Three miners builds blocks. Usually blocks are created one by one, but sometimes they will compete to become the next block.
-image::{imagedir}/three-miners-and-a-fork.svg[{full-width}]
 
 The miners save their blocks as <blockid>.dat in the shared folder so
 that multiple blocks at the same height are not overwriting each other
@@ -151,8 +161,8 @@ sought after block reward of 50 CT?
 
 We don't know that yet. It's up to the miners to decide which branch
 of the fork they want to extend with their own blocks. In the diagram
-above both Tom and Qi have created a block at height 106. This is how
-they probably would think:
+above, both Tom and Qi have created a block at height 106. This is how
+the different miners probably would think:
 
 Tom:: I will extend my own block, because if I win the next block I
 get rewards from two blocks.
@@ -161,9 +171,11 @@ get rewards from two blocks.
 Lisa:: I will extend any of the two blocks, I don't care which. I'll
 just pick the first one I successfully verified, Tom's block. The
 blocks might not have landed in the shared folder at exactly the same
-time, so it makes sense to exend the first one seen.
+time, so it makes sense to exend the first valid one seen.
 
-A number of outcomes are possible from this situation, given that
+When the miners have picked a block at height 106 to extend, they
+build a new block at height 107 and start drawing numbers again. A
+number of outcomes are possible from this situation, given that
 everyone is honest:
 
 ===== Immediate resolution
@@ -171,13 +183,7 @@ everyone is honest:
 In the simplest and most common case, exactly one miner is the first
 to draw a lucky number. This time it's Lisa who's lucky:
 
-image::{imagedir}/chain-fork-simple-resolution.svg[{half-width}]
-
-[.gbinfo]
-****
-Later, when we introduce proof of work, we will follow the chain with
-most accumulated work instead of just the longest chain.
-****
+image::{imagedir}/chain-fork-simple-resolution.svg[{big-width}]
 
 Lisa extended Tom's block, so the branch Tom and Lisa were working on
 just got one block longer. A general rule for this blockchain is that
@@ -218,7 +224,7 @@ the next block on his branch which now becomes three blocks long. It
 becomes longer than the other branch which is only two blocks long.
 
 .Tom is the next lucky miner and he gets to extend "his" branch which will now become the longest branch.
-image::{imagedir}/chain-fork-delayed-resolution.svg[{half-width}]
+image::{imagedir}/chain-fork-delayed-resolution.svg[{big-width}]
 
 Every miner will acknowledge that by switching to Tom's branch and
 move on from there. We finally have a winner branch of this
@@ -234,30 +240,35 @@ fork of the fork:
 image::{imagedir}/chain-fork-of-fork.svg[{half-width}]
 
 We now have three branches. Qi's branch is probably abandoned, because
-it is shorter than the two new branches: Lisa's branch and Tom's
+it is shorter than the two new branches; Lisa's branch and Tom's
 branch. Now we have a new competition that will get resolved in the
-same way as the first fork. It will be resolved immediately by the
-next block, or delayed by one or more further blocks on each branch,
-or a new fork will be introduced on either of the two new branches.
+same way as the first fork. It will be resolved by
 
-Eventually, one branch will win. The likelihood that two branches will
-remaining equally long for X blocks diminishes rapidly for increasing X.
+* immediately by the next block.
+* delayed by two simultaneous blocks, one on each branch.
+* a new fork will be introduced on either of the two new branches.
+
+==== Probability of forks
+
+Eventually, one branch of a fork will win. The likelihood that two
+branches of length X happens next diminishes rapidly for increasing X.
+
 ////
-N = Number of die
-S = number of sides on the dice (1800)
+N = Number of dice
+S = number of sides on the die (1800)
 
 P(chain forks on next block) =
-P(two or more die wins | some die wins) =
-P(two or more die wins)/P(some dice wins)
+P(two or more dice wins | some die wins) =
+P(two or more dice wins)/P(some die wins)
 
-P(two or more die wins) = 1 - ((S-1)/S)^N^ - 3*(1/S)*((S-1)/S)^N-1^
+P(two or more dice wins) = 1 - ((S-1)/S)^N^ - 3*(1/S)*((S-1)/S)^N-1^
 P(some die wins) = 1-((S-1)/S)^N^
-P(two or more die wins)/P(some dice wins) =
+P(two or more dice wins)/P(some die wins) =
 (1 - ((S-1)/S)^N^ - 3*(1/S)*((S-1)/S)^N-1^)/(1-((S-1)/S)^N^) =
 (1 - (1799/1800)^3^ - 3*(1/1800)*(1799/1800)^2^)/(1-(1799/1800)^3^)=0.00055565843
 
-Na = Number of branch A die
-Nb = Number of branch B die
+Na = Number of branch A dice
+Nb = Number of branch B dice
 
 P(both branches are extended next time) =
 P(both branches are extended | some branch is extended)
@@ -282,10 +293,16 @@ P(A|B) = (1-((S-1)/S)^Na^) * (1-((S-1)/S)^Nb^) / (1-((S-1)/S)^Na+Nb^)
  = (1/1800)*(1-(1799/1800)^2^) / (1 - (1799/1800)^3^)
  = 0.00037047327
 ////
-[.inbitcoin]
-.Forks
+
+[.gbinfo]
+.Scientific notation
 ****
-Forks in bitcoin are a bit more probable than in this example, but still occurrs only about once per day.
+5.6e-4 = 0.00056
+2.1e-7 = 0.00000021
+
+Xe-Y is shorthand for +
+X * 10^-Y^
+
 ****
 
 |===
@@ -300,6 +317,12 @@ Forks in bitcoin are a bit more probable than in this example, but still occurrs
 | 4 | 2.8e-14 | 700000000 years
 |===
 
+[.inbitcoin]
+.Forks
+****
+Forks in Bitcoin are a bit more probable than in this example, but still occurrs only about once per day.
+****
+
 A fork of branch length 1 is quite likely to happen, but a branch of
 length 2 will probably not happen during Lisa's lifetime, she's 45. No
 matter how long the forks are, eventually they will resolve with a
@@ -309,21 +332,46 @@ This seems like a nice scheme. But there are issues with it:
 
 * You can cheat with lucky numbers. You can't prove that you actually
   did draw an honest lucky number.
-* You can not just add new miners to the system. You need to lower the
-  lucky number threshold as more miners are added to keep the 10
-  minutes per block average.
 * For every new miner, the system becomes more censorship resistant,
   but also more vulnerable to private key theft. A stolen private key
   will give the thief access to create blocks and collect rewards for
   herself.
 * For each new miner, the risk that someone cheats with lucky numbers
   increases.
+* You can not just add new miners to the system. You need to lower the
+  lucky number threshold as more miners are added to keep the 10
+  minutes per block average, and the money issuance on at the desired
+  rate.
 
 Clearly, this system will not be able to increase the number of miners
 beyond a controlled group of highly trusted participants. We would get
 a flood of blocks as miners start cheating, but we can't prove that
 they are cheating. It's actually possible that they are just really,
 really lucky.
+
+==== Where were we?
+
+This chapter is about proof of work. We haven't introduced that term
+properly yet, but we will do that in the next section.
+
+In our overview of Bitcoin in <<_step_3_the_blockchain>>, we showed
+that one miner takes the lead and decides what goes into the next
+block. Bitcoin use _proof of work_ to decide who gets to take the
+lead.
+
+.Proof of work is how we select a leader without a leader.
+image::{imagedir}/periscope-proof-of-work.svg[{big-width}]
+
+Proof of work makes it possible to randomly select a leader among all
+miners without using a central authority. Pay close attention to this
+chapter, because this is the essence of Bitcoin. This is what makes
+Bitcoin truly _decentralized_. We want the system decentralized
+because that is what makes the system censorship resistant. If the
+system has a central authority, it means that transactions (and
+blocks) can be censored.
+
+Cloning Lisa was a first step towards decentralization, but it sucks,
+because we trust miners to draw honest lucky numbers.
 
 === Force honest lucky numbers
 
@@ -347,12 +395,25 @@ The trick is to replace the digital signatures in the block header
 with _proof of work_. Suppose that Qi just published a block and the
 cafe's full node wants to verify that it's valid. Besides verifying
 the usual stuff like transactions and the merkle root, the full node
-must verify that Qi provides a valid proof of work. The rule is that
-the proof of work is valid if the block header hash, block id, is less
-than or equal to the target:
+must verify that Qi's block includes a valid proof of work. The rule
+is that the proof of work is valid if the block header hash, block id,
+is less than or equal to the target:
 
 .The block id must be less than or equal to the target in the header. Otherwise the block is invalid.
 image::{imagedir}/valid-pow-example.svg[{half-width}]
+
+[.inbitcoin]
+.Target in Bitcoin
+****
+Target is written in the block header as 4 bytes, `ABCD`, and the 32
+byte target is calculated as `BCD` * 2^8*(`A`-3)^. It's `BCD` with
+`A-3` zero bytes after it. The target in Qi's block is written as
+`1c926eb9`, meaning `926eb9` with 25 zero bytes after (`1c-3`=`19`, hex
+code for 25).
+****
+
+The nonce in this block header is `492781982`. This value is selected
+by Qi. The next section will explain how that is selected.
 
 To determine if a block's proof of work is valid, we compare the 256
 bit block id to the 256 bit target written in the block header. In the
@@ -365,7 +426,6 @@ Example target:
 Example hash:
 ////
 
-
  block id: 000000003c773b99fd08c5b4d18f539d98056cf72e0a50c1b57c9bc429136e24
  target:   00000000926eb900000000000000000000000000000000000000000000000000
 
@@ -376,8 +436,8 @@ which means that this block's proof of work is valid.
 The target is a number agreed upon by all full nodes and miners. This
 target will change every now and then according to some common
 rules. Such a change is called a _retarget_ and will be described
-later in this chapter. For now we can just regard it as a fixed number
-that must be set in the block header.
+later in <<_difficulty_adjustments>>. For now we can just regard it as
+a fixed number that must be set in the block header.
 
 ==== Produce a valid proof of work
 
@@ -401,8 +461,8 @@ A block id is a double SHA256 of the block header. As we learned in
 <<ch02>>, the only way to find a pre-image to a cryptographic hash
 function is to try different inputs over and over until we
 find one. The same goes here; the miner must try different block
-headers until she finds a block header that hashes to a hash value
-less than or equal to the target.
+headers until she finds a block header that hashes to a value less
+than or equal to the target.
 
 Let's go back in time an look at how Qi created the block above. She
 created a block and set the target to `00000000926e…` and the nonce
@@ -475,42 +535,46 @@ image::{imagedir}/create-pow-example-5.svg[{half-width}]
 
 Until finally
 
-.The nonce 492781927 is a winner!
+.The nonce 492781982 is a winner!
 image::{imagedir}/create-pow-example-6.svg[{half-width}]
 
-The nonce 492781927 results in a block id `0000000034d2…`. She
+The nonce 492781982 results in a block id `000000003c77…`. She
 compares this to the target:
 
- block id: 0000000034d262bbde7c2e1db97c57222e69e48732ec11af2cd8819726c794e8
+ block id: 000000003c773b99fd08c5b4d18f539d98056cf72e0a50c1b57c9bc429136e24
  target:   00000000926eb900000000000000000000000000000000000000000000000000
 
 Wow, this block id is less than the target! Qi has finally found a
 nonce that results in a block id less than the target. Great, now she
 will publish the block to the shared folder.
 
+==== Why is this good?
+
 Anyone can pick the block up from the shared folder and verify that
 the rule is met; The block id is less than or equal to the agreed
 target. The verification of a block is now slightly different than
 before:
 
-* [line-through]#the block header signature is valid. The signature is verified using
-  Lisa's public key obtained from the billboard or intranet.#
-* *the target threshold is set to the agreed upon value.*
-* *the block header proof of work is valid. The proof of work is
-  verified by hashing the block header and verify that it's smaller
-  than the target threshold.*
-* the previous block header is the expected, the block id of block 20
-  in this case.
-* all transactions in the block are valid. The same validation as in
-  <<ch05>> is used, by using a private UTXO set.
-* the combined hash of all transactions matches the merkle root in the
-  block header.
-* the timestamp is greater than the timestamp of the previous block
-  and within reasonable limits.
+.Block verification has changed. The verifier doesn't need anything from outside the block anymore.
+image::{imagedir}/verify-block-then-and-now.svg[{big-width}]
 
-The only difference from verifying a digitally signed block is that
-the full node verifies that the block producer has provided a valid
-proof of work instead of a valid digital signature.
+[.gbinfo]
+.Blocks are self-contained
+****
+We don't need anything from outside the blockchain to verify the
+block. Can you smell the fragrence of self-empowerment?
+****
+
+The difference from verifying a digitally signed block is that the
+full node verifies that the block producer has provided a valid proof
+of work instead of a valid digital signature. Note that we now don't
+need anything other than the block itself to determine if the proof of
+work is valid. We used to need stuff from outside the blockchain, the
+miner's public key from the bulletin board. This is a major leap
+forward towards decentralization. There is no longer any central
+sources for public keys that can be manipulated.
+
+==== Comparing with lucky numbers
 
 The blockchain will grow in the same way as before, but the drawing of
 lucky numbers are replaced by hashing the block header.
@@ -518,16 +582,23 @@ lucky numbers are replaced by hashing the block header.
 .The blockchain works just as when lucky numbers were used.
 image::{imagedir}/three-miners-proof-of-work.svg[{full-width}]
 
-Instead of drawing a lucky number each second the miners draw a lucky
-number every 0.02 microsecond through cryptographic hashing. At the
-same time the lucky number limit, or target, is set to the 256 bit
+[.gbinfo]
+****
+0.02 microseconds is just an example of how long a "try" can take. It
+will vary from miner to miner. More on that in
+<<_miners_have_to_move_out>> and <<_difficulty_adjustments>>.
+****
+
+Instead of drawing a random number each second the miners draw a
+number about every 0.02 microsecond through cryptographic hashing. At
+the same time the lucky number limit, or target, is set to the 256 bit
 number `00000000926e…`=926eb9*2^200^ instead of just `556`.
 
-.Comparing the lycky number system with the proof of work system.
+.Comparing the lucky number system with the proof of work system.
 |===
 | Idea | target | possible values | draw every | average block time | Best chain in a fork
 
-| Lucky numbers | `556` | `1000000` | second | 10 minutes | Longest chain
+| Lucky numbers | `555` | `1000000` | second | 10 minutes | Longest chain
 | Proof of work | 926eb9*2^200^ | `2^256^` | 0.02 microsecond | 10 minutes | Most work chain
 |===
 
@@ -546,14 +617,49 @@ in the chain as
 
 image::{imagedir}/calculate-difficulty.svg[{quart-width}]
 
-and add them all. The gist of this is that the higher the target of a block,
-the lower the difficulty of that block, and the lower the target, the
-higher the difficulty. So we sum the difficulties of all blocks to get
-the accumulated proof of work.
+and add them all together. The gist of this is that the higher the target of a
+block, the lower the difficulty of that block, and the lower the
+target, the higher the difficulty. You can also think of it as the
+inverted probability of winning in one try. Compare this to the
+probability, p, of drawing a lucky number, where target was 555:
+
+[stem]
+++++
+p=\frac{555+1}{1000000}=\frac{556}{1000000} \\
+difficulty=\frac{1}{p}=\frac{1000000}{556}
+++++
+
+So we sum the difficulties of all blocks to get the accumulated proof
+of work.
 
 From now on we will refer to the branch with most accumulated work as
 the _stongest branch_, or _strongest chain_. Another commonly used
-term is _best chain_.
+term is _best chain_. The distinction between longest and strongest
+chain will become important in <<strength-length>> when we have
+introduced _difficulty adjustments_.
+
+==== What if we run out of nonces?
+
+The nonce is a 32 bit number. In case a miner has tried all 4294967296
+possible numbers without success, she has to do something else to
+change the block header. There are several options:
+
+.The block header can be changed in different ways
+image::{imagedir}/change-header.svg[{quart-width}]
+
+1. Change the timestamp slightly
+2. Add, remove or rearrange transactions in the block
+3. Change the coinbase transaction
+
+Once any of these changes has been made to the block, the header will
+have changed. Then the nonce can be reset to `0` and the miner can
+begin hashing again.
+
+Changing the timestamp is straight forward, just add a second to the
+timestamp and the header will be different. If one of the other two
+options are used, the merkle root will have to be recalculated because
+the transaction data is changed. When the merkle root has been
+updated, the header has changed, which was the goal.
 
 === Miners have to move out
 
@@ -571,41 +677,40 @@ currenctly traded at about 20¢. Each block gives a miner about $10
 worth of cookie tokens, which is not bad given that they produce about
 48 blocks each per day as it is now.
 
-Let's have a quick look at the _hashpower_ of our three miners:
+Let's have a quick look at the _hashrate_ of our three
+miners. Hashrate is a measurement of how many hashes (tries) you can
+perform per second:
 
 |===
-| Miner | Hashpower [Millions hashes/s] | Expected blocks per day
+| Miner | Hashrate [Million hashes/s] | Expected blocks per day
 
 | Lisa | 100 | 48
 | Tom | 100 | 48
 | Qi | 100 | 48
 
-| Total | 300 | 144 
+s| Total s| 300 s| 144 
 |===
 
 This system will produce about 144 blocks per day, which is one block
 per 10 minutes on average.
+
+==== More hashrate is added
 
 A very interesting aspect of this system is that _anyone_ can become a
 miner without asking anyone for permission. They can just setup a
 computer at home and start building blocks. Blocks are no longer tied
 to a person, but to an amount of computing work.
 
-===== Lisa adds hashpower
+Lisa adds to her hashrate:: Lisa finds this mining business at home
+lucrative. She decides to add another similar computer to her home,
+which effectively doubles her hashrate.
 
-Lisa finds this mining business at home lucrative. She decides to add
-another similar computer to her home, which effectively doubles her
-hashrate. Hashrate is a measure of how many hashes (tries) you can
-perform per second.
+Rashid becomes a miner:: Rashid also wants to join the mining
+business. He also sets up a computer at home that competes for new
+blocks. His computer is slightly faster than the competitors', so he
+expects to produce more blocks per day than for example Qi.
 
-===== Rashid becomes a miner
-
-Rashid also wants to join the mining business. He also sets up a
-computer at home that competes for new blocks. His computer is
-slightly faster than the competitors', so he expects to produce more
-blocks per day than for example Qi.
-
-After Lisa's and Rashid's added hashpower, the total hashpower in the
+After Lisa's and Rashid's added hashrate, the total hashrate in the
 cookie token system have increased significantly. Now we have
 
 |===
@@ -616,7 +721,7 @@ cookie token system have increased significantly. Now we have
 | Qi | 100 | 48
 | Rashid | 150 | 72
 
-| Total | 540 | 264
+s| Total s| 550 s| 264
 |===
 
 Look we are producing more blocks per day than we designed for! We
@@ -652,24 +757,21 @@ thousand people would start mining in their basements. It would
 increase the block rate by 1000 times. Each and every second several
 miners would find a valid proof of work and publish a block. We would
 get forks on almost every block height. This makes transactions in
-recent block less reliable, because the blocks can more easily become
+recent blocks less reliable, because the blocks can more easily become
 forked off from the main chain.
 
 It would also be problematic from a security perspective, because if
-there are two branches with about 50% of the hashpower on each branch,
-the security of the individual branches are cut in half.
+there are two branches with about 50% of the total hashrate on each
+branch, the security of the individual branches are cut in half. We
+will discuss blockchain security further in <<security>>.
 
 ==== What's fixed?
 
-We have fixed a hard problem. We are now forcing "honest lucky
-numbers" in an interesting way. Let's see what issues we have left:
+We have fixed the hard problem of forcing "honest lucky numbers" in an
+interesting way. Let's see what issues we have left:
 
 * [line-through]#You can cheat with lucky numbers. You can’t prove
   that you actually did draw an honest lucky number.#
-
-* You can not just add new miners to the system. You need to lower the
-  lucky number threshold as more miners are added to keep the 10
-  minutes per block average.
 
 * [line-through]#For every new miner, the system becomes more
   censorship resistant, but also more vulnerable to private key
@@ -679,23 +781,38 @@ numbers" in an interesting way. Let's see what issues we have left:
 * [line-through]#For each new miner, the risk that someone cheats with
   lucky numbers increases.#
 
-There is only one problem left in the list. The next section will
-handle that problem.
+* You can not just add new miners to the system. You need to lower the
+  lucky number threshold as more miners are added to keep the 10
+  minutes per block average, and the money issuance on at the desired
+  rate.
+
+There is only one problem left in the list. We will fix that in the
+next section.
 
 === Difficulty adjustments
 
-Now that we have added more miners and more hashpower to the system,
-the block rate has increased, because the miners collectively makes
-more tries per second than before, which will result in more blocks
-being produced per hour.
+Now that we have added more miners and more hashrate to the system,
+the block rate has increased. This is because the miners collectively
+makes more tries per second than before, which will result in more
+blocks being produced per hour.
+
+****
+image::{imagedir}/2ndcol-target-difficulty.svg[]
+****
 
 The target in the block header is agreed upon by everyone. But not
 because they had a meeting where they decided what target to use. The
 target is _calculated_ after every 2016 blocks. Remember that each
 block contains a coinbase transaction that creates 50 new cookie
 tokens. We want one block per 10 minutes on average, to keep the pace
-of newly minted cookie tokens at the desired rate. That means 2016
-blocks in about two weeks.
+of newly minted cookie tokens at the desired rate. That's 2016 blocks
+in about two weeks.
+
+.Retarget
+****
+If 2016 blocks took 13 days (less than 14 days), we need to decrease the target to make it
+harder to mine.
+****
 
 If the 2016 blocks took more than 2 weeks to produce, the target must
 be increased to increase the probability that a block header hash will
@@ -704,7 +821,18 @@ less than 2 weeks to produce, the target must be decreased to decrease
 the probability of meeting the target. The new target is calculated
 as
 
-   new threshold = old threshold * (time to produce last 2016 blocks / 2 weeks)
+[stem]
+++++
+new\ target=old\ target*\frac{time\ to\ produce\ last\ 2016\ blocks}{2\ weeks}
+++++
+
+[.inbitcoin]
+.Limit target changes
+****
+The target cannot change more than by a factor 4 or less than by a
+factor 1/4 to protect against certain double spend attacks against
+full nodes. The interested reader can read about it on <<web-target-change>>.
+****
 
 .Adjusting the target based on the last 2016 blocks. The goal is an average of 2016 blocks in two weeks.
 [%autowidth]
@@ -726,65 +854,26 @@ as
 | 0.25 weeks | 0.5/2=0.25x | This is really fast. We cannot change the
   target enough because of limits in target change. We must not
   decrease the target more than a factor 1/4.
-| 9 weeks | 8/2 | We must not increase the target more than a
+| 9 weeks | 8/2=4x | We must not increase the target more than a
   factor 4.
 |===
 
 The period of 2016 block on which the next target is calculated is
 called a _retarget period_. 
 
-[.inbitcoin]
-.Limit target changes
-****
-The target cannot change more than by a factor 4 or less than by a
-factor 1/4 to protect against certain double spend attacks against
-full nodes. The interested reader can read about it on <<web-target-change>>.
-****
-
-The factor must be in the interval between (and including) 1/4
-and 4.
-
-The proof of work contains a target and a nonce. The target is 4 bytes
-and it encodes a number which the block header hash must be less than
-or equal to. This number is encoded as 4 bytes, which means that we
-cannot express _all_ 256 bit number using these 32 bits. But We can
-express all orders of 256 magnitudes of the number. We leave gaps in
-the sequence of numbers, but we are not interested in the less
-significant parts of the numbers.
-
-The nonce is a 32 bit number. In case a miner has tried all 4294967296
-possible numbers without success, she has to do something else to
-change the block header. There are several options:
-
-.The block header can be changed in different ways
-image::{imagedir}/change-header.svg[{half-width}]
-
-1. Change the timestamp slightly
-2. Add, remove or rearrange transactions in the block
-3. Change the coinbase transaction
-
-Once any of these changes has been made to the block, the nonce can be
-reset to `0` and the miner can begin hashing again.
-
-Changing the timestamp is straight forward, just add a second to the
-timestamp and the header will be different. If one of the other two
-options are used, the merkle root will have to be recalculated because
-the transaction data is changed. When the merkle root has been
-updated, the header has changed, which was the goal.
-
 ==== Rules for timestamps
 
 [.gbinfo]
 ****
-Timestamps are also used by some bells and whistles of
+Timestamps are also used by some bells and whistles in
 transactions. More about that in <<ch09>>.
 ****
 
 The block header contains a timestamp. Timestamps are important
-because we want the system to automatically adjust the target
-threshold without human intervention so that we produce on average one
-block per 10 minutes. The block creation rate is important because we
-want a predictable issuance of new cookie tokens.
+because we want the system to automatically adjust the target without
+human intervention so that we produce on average one block per 10
+minutes. The block creation rate is important because we want a
+predictable issuance of new cookie tokens.
 
 The miner creating a block sets the timestamp to the current time
 before producing a proof of work. But since different full nodes run
@@ -811,8 +900,8 @@ block. This is not a problem as long as the timestamps don't differ
 too much. There are a few rules that the timestamp must obey. Suppose
 that the cafe's full node are about to verify Tom's block.
 
-* The timestamp must be strictly later than the median of the past 11
-  blocks' timestamps.
+* The timestamp must be strictly later than the median of the last 11 timstamps,
+  excluding Tom's block.
 * The timestamp must be at most two hours before or after the cafe's
   clock. This rule does not apply when verifying old blocks.
 
@@ -835,13 +924,63 @@ actual time. That would cause the next target to increase by a factor
 |===
 
 Did you see that last timestamp? That timestamp is 6 weeks later than
-the block was actually mined. Someone wants to manipulate the
-target. The next target would be 4 times bigger than the current
-target, making it 4 times easier to find a valid proof of work. This
-kind of misbehaviour is prohibited by the timestamp rules above. Since
-you can't lie more than two hours with your timestamp the next target
-cannot be manipulated more than marginally.
+the block was actually mined. This block will be rejected by all full
+nodes because it violates the timestamp rules. Someone wants to
+manipulate the target. The next target would be 4 times bigger than
+the current target, making it 4 times easier to find a valid proof of
+work. This kind of misbehaviour is prohibited by the timestamp rules
+above. Since you can't lie more than two hours with your timestamp the
+next target cannot be manipulated more than marginally.
 
+[strength-length]
+==== Chain strength vs chain length
+
+Let's get back to the discussion on chain strength and why it's
+important not to merely look at chain length. From an intuitive
+perspective it seems reasonable that the harder it is to rewrite the
+chain's history, the better, and therefore we should follow the
+strongest chain. But when do the strongest and longest chain actually
+differ?
+
+They can differ because of several reasons:
+
+1. Natural fork close before a retarget.
+2. Accidental forks due to incompatible software versions.
+3. Deliberate forks as an attack against the honest chain.
+
+We will only show option 1 here. You may need to thing about the other
+options in the excersises at the end of this chapter. Suppose that a
+natural fork occurs:
+
+.A natural fork with differing timestamps between the branches will cause one branch to become stronger than the other in case of a retarget.
+image::{imagedir}/strength-length.svg[{half-width}]
+
+.Timestamps
+****
+Timestamps must not differ more than 2 hours from the clock on the
+wall.
+****
+
+This is a very unlikely scenario, but we need to take it into account,
+because it probably will happen, at least in Bitcoin. A fork happens
+right before a retarget and the two blocks' timestamps differ by four
+hours which is the theoretical maximum. Next, two new blocks are
+produced at the same time, one on each branch. These new blocks have
+been retargeted based on different histories. The last timestamps in
+the respective retarget periods differ by four hours, which causes the
+new targets to be different. Recall the retarget formula:
+
+[stem]
+++++
+new\ target=old\ target*\frac{time\ to\ produce\ last\ 2016\ blocks}{2\ weeks}
+++++
+
+Since the targets are different, it means that the difficulty of the
+last block on each branch is different, which means that the chain
+strength differs, because the branches now have different accumulated
+proof of work.
+
+[[security]]
 === What harm can miners do?
 
 Before this chapter, we made sure that Lisa couldn't undo transactions
@@ -856,6 +995,8 @@ anymore. The blocks are anonymous, there's nothing that ties Lisa to a
 certain block. Doesn't that mean that she can double spend again?
 
 Well, if she's lucky.
+
+==== Successful double spend
 
 Suppose that Lisa just paid for a cookie in the cafe. While other
 miners try to add her honest transaction into a block and create a

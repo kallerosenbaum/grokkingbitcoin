@@ -29,11 +29,21 @@ function web-resource {
 	echo "$label:: {resource-url}/$1"
 }
 
-while read -r line
-do
+
+# Exact lines, no trimming
+while IFS= read -r line; do
 	if [[ "$line" == //bash* ]]; then
 		${line:7}
 	else 
-		echo "$line"
-	fi
+	    printf '%s\n' "$line"
+	fi	
 done < "$file"
+
+#while read -r line
+#do    
+#	if [[ "$line" == //bash* ]]; then
+#		${line:7}
+#	else 
+#		echo "$line"
+#	fi
+#done < "$file"

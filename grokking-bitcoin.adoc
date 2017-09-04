@@ -13,7 +13,6 @@
 :chapter-label: chapter
 :section-label: section
 
-
 :full-width: width='100%'
 :big-width: width='75%'
 :half-width: width='50%'
@@ -22,7 +21,6 @@
 :tiny-height: height='10%'
 :thumb: width='40%'
 :btc: image:{commonimagedir}/btc-sans.png[BTC,role="btc"]
-
 ////
 include::ch01-introduction-to-bitcoin.adoc[]
 
@@ -36,7 +34,6 @@ include::ch05-transactions.adoc[]
 
 include::ch06-the-blockchain.adoc[]
 ////
-
 include::ch07-proof-of-work.adoc[]
 
-include::web-resources.adoc[]
+//include::web-resources.adoc[]

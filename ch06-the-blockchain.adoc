@@ -169,7 +169,7 @@ image::{imagedir}/lisa-signs-block.svg[{half-width}]
 
 The corresponding public key must be made publicly available to all
 verifiers. It can be published on the company's intranet and on a
-billboard at the main entrance. The signature is required because only
+bulletin board at the main entrance. The signature is required because only
 Lisa should be able to add blocks to the blockchain (for now). Anyone
 else trying to create a block and write it to the shared folder, for
 example the system administrator for the shared folder server, will
@@ -187,15 +187,15 @@ reasons:
 create valid blocks and force the system administrator to write them
 to the shared folder, causing Lisa to be blamed for fraud.
 
-2. The sources containing Lisa's public key, for example the billboard
+2. The sources containing Lisa's public key, for example the bulletin board
 or the intranet, may be compromised and the public keys replaced by
 the bad guy's public key. If this happens some verifiers will be
 tricked into accepting blocks signed by another key than Lisa's block
 signing key. The bad guy can fool some portion of the verifiers. A
-coworker shouldn't trust just the note on the billboard, because
+coworker shouldn't trust just the note on the bulletin board, because
 it is easy for someone to replace the note with another false
 public key. Coworkers need to get the public key from different
-sources, like the billboard, the intranet and ask fellow workers. A
+sources, like the bulletin board, the intranet and ask fellow workers. A
 single source is too easily manipulated by bad guys.
 
 [.inbitcoin]
@@ -228,7 +228,7 @@ writes the block file into the shared folder, the cafe will download
 the block and verify it. To verify a block involves verifying that
 
 * the block header signature is valid. The signature is verified using
-  Lisa's public key obtained from the billboard or intranet.
+  Lisa's public key obtained from the bulletin board or intranet.
 * the previous block header is the expected, the block id of block 20
   in this case.
 * all transactions in the block are valid. The same validation as in
@@ -1071,7 +1071,7 @@ image::{imagedir}/ex-merkle-tree-five-tx.svg[{half-width}]
 
 . Lisa signs all blocks with her block signing private key. The
 public key is make public through several sources like the intranet
-and the billboard. What are the two risks of using a single key like
+and the bulletin board. What are the two risks of using a single key like
 this?
 
 . There are two places where a single person can censor transactions

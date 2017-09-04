@@ -224,10 +224,8 @@ image::{imagedir}/hashing-a-modified-cat.svg[{big-width}]
 This hash turns out completely different than the first hash. Let's
 compare them:
 
-....
-Old hash: dee6a5d375827436ee4b47a930160457901dce84ff0fac58bf79ab0edb479561
-New hash: d2ca4f53c825730186db9ea585075f96cd6df1bfd4fb7c687a23b912b2b39bf6
-....
+ Old hash: dee6a5d375827436ee4b47a930160457901dce84ff0fac58bf79ab0edb479561
+ New hash: d2ca4f53c825730186db9ea585075f96cd6df1bfd4fb7c687a23b912b2b39bf6
 
 See how that tiny change to the cat picture made a huge difference in
 the hash value?
