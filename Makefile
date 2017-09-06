@@ -5,9 +5,19 @@ OUTPUTDIR=build
 ADOC=$(wildcard *.adoc)
 BUILDADOC=$(patsubst %.adoc,build/%.adoc,$(ADOC))
 .SUFFIXES: .adoc
+FULLBOOK=-a chall
+ALLCHAPTERS=ch1 ch2 ch3 ch4 ch5 ch6 ch7 chweb
 
-html: setup
-	$(AD) -v -b html5 $(OUTPUTDIR)/$(MAIN) > $(OUTPUTDIR)/grokking-bitcoin.html
+all: full chunked
+
+full: setup
+#	$(AD) -v -b html5 $(OUTPUTDIR)/$(MAIN) > $(OUTPUTDIR)/grokking-bitcoin.html
+	$(AD) -v $(FULLBOOK) -b html5 $(OUTPUTDIR)/$(MAIN) -o $(OUTPUTDIR)/grokking-bitcoin.html
+
+chunked: $(ALLCHAPTERS)
+
+$(ALLCHAPTERS): ch% : setup
+	$(AD) -v -r ./hacks/sectnumoffset-treeprocessor.rb -a sectnumoffset=$$(($*-1)) -a ch$* -b html5 $(OUTPUTDIR)/$(MAIN) -o $(OUTPUTDIR)/grokking-bitcoin-$*.html
 
 setup: builddir links $(BUILDADOC)
 
