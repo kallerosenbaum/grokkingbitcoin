@@ -998,32 +998,45 @@ Well, if she's lucky.
 
 ==== Successful double spend
 
-Suppose that Lisa just paid for a cookie in the cafe. While other
-miners try to add her honest transaction into a block and create a
-valid proof of work, Lisa secretly puts a double spend transaction
-into her own block and starts working on that block.
+Suppose that Lisa is about to pay for a cookie in the cafe. But at the
+same time she pays she also prepares a double spend transaction:
 
-.Lisa pulls off a double spend attack - and succeeds in spite of her small hashpower.
+.Lisa creates two transactions that spend one common output.
+image::{imagedir}/double-spend-transaction.svg[{big-width}]
+
+C is the transaction to the cafe. L is Lisa's double spend transaction
+that she is going to snatch back her money with. Both these
+transactions are perfectly valid on their own, but both cannot be
+valid at the same time because they both spend a common output. An
+output can only be spent once.
+
+Lisa sends the honest payment, C, to the cafe. While other miners try
+to add her honest transaction into a block and create a valid proof of
+work, Lisa secretly puts the double spend transaction, L, into a
+secret block of her own and starts working on that block.
+
+.Lisa pulls off a double spend attack - and succeeds in spite of her small hashrate.
 image::{imagedir}/double-spend-attack-success.svg[{big-width}]
 
 Lisa's goal is to secretly find valid proof of work for her fraud
-branch that exceeds the proof of work of the honest chain. If she
-does, she publishes all blocks in her branch and all miners would
-switch over to her branch and start working to extend her branch
-instead. For simplicity let's assume this all happens without any
-retargets happening, we are in the middle of a retarget period. This
-means that all blocks have the same target (or difficulty), so we can
-strictly look at branch length instead of accumulated proof of work.
+branch, containing C, that exceeds the proof of work of the honest
+chain. If she succeeds, she publishes all blocks in her branch and all
+miners would switch over to her branch and start working to extend her
+branch instead. For simplicity let's assume this all happens without
+any retargets (difficulty adjustments) happening, we are in the middle
+of a retarget period. This means that all blocks have the same target
+(or difficulty), so we can strictly look at branch length instead of
+branch strength (accumulated proof of work).
 
-We have a bunch of miners trying to confirm Lisa's honest transaction
-while Lisa is working to find a valid proof of work for her double
-spend transaction. The cafe is waiting for a valid transaction before
+We have a bunch of miners trying to confirm Lisa's honest transaction,
+C, while Lisa is working to find a valid proof of work for her block with the double
+spend transaction, L. The cafe is waiting for a valid transaction before
 they hand out the cookie.
 
 [.inbitcoin]
 ****
 It's not strictly necessary for a miner to always mine on the first
-seen block. But the main Bitcoin software, Bitcoin Core, follows the
+seen block. But the most widely used Bitcoin software, Bitcoin Core, follows the
 first seen block.
 ****
 
@@ -1035,35 +1048,39 @@ publish her block yet, because it will not help her. Miners are
 already mining on the honest branch because that's where they first
 saw a block at this height.
 
-The combined hashpower of all miners on the honest chain is 340
+The combined hashrate of all miners on the honest chain is 350
 Mhash/s while Lisa only have 200 Mhash/s. This means that the honest
 chain should be able to find blocks more often than Lisa.
 
-But once in a while chance is agains odds, and Lisa gets a few lucky
-blocks in a row while the other miners get none. Lisa is lucky to find
-yet another block on her fraud branch. Now Lisa has two blocks on her
+But once in a while chance is agains odds. Lisa is lucky to find yet
+another block on her fraud branch. Now Lisa has two blocks on her
 branch while the honest branch is only one block long. Lisa has more
-total proof of work on her chain than the honest miners have. Lisa
-publishes the two blocks on her fraud branch to the shared folder.
+total proof of work on her chain than the honest miners have on their
+branch. Lisa publishes her two blocks to the shared folder.
 
 Other miners will see those two blocks and see that Lisa's branch has
-more proof of work and switch over to Lisas branch. The result of this
-is that the transaction to the cafe, marked C in the diagram above is
-effectively undone. It is no longer part of the chain with most proof
-of work. The cafe has lost the 10 CT it thought it had when they gave
-the cookie to Lisa.
+more proof of work than the honest branch and switch over to Lisas
+branch. Note that the miners that switch over to Lisa's branch cannot
+see that a crime is being committed, they will neutrally jump to the
+strongest technically valid chain.
+
+The result of this is that the transaction to the cafe, marked
+C in the diagram above is effectively undone. It is no longer part of
+the chain with most proof of work. The cafe has lost the 10 CT it
+thought it had when they gave the cookie to Lisa.
 
 From this point forward, new blocks will extend Lisa's branch and
 things will continue normally. The block with transaction C will
-remain a dead-end forever.
+become stale.
 
 ==== Protect agains double spend attacks
 
-Though the odds are against Lisa, she could still get lucky and
-succeed in a double spend attack. Trying to pull off a double spend of
-10 CT is not economically sound from Lisa's perspective. She's risks
-spending lots of electricity and having her own blocks stale if she
-doesn't succeed.
+Though the odds are against Lisa, she _could_ get lucky and succeed in
+a double spend attack. Trying to pull off a double spend of 10 CT is
+not economically feasible from Lisa's perspective. She risks spending
+lots of electricity and having her own blocks stale if she doesn't
+succeed. That would mean that she loses out on the rewards from those
+blocks.
 
 But what if she tried to double spend a larger amount than 10 CT? Say
 100000 CT?  Then it would be more worth it for Lisa to try to double
@@ -1072,70 +1089,78 @@ double spend attack. Then she would have a cafe and still have her
 100000 CT.
 
 The cafe owner is willing to sell the cafe for 100000 CT to Lisa. But
-the cafe is of course aware of double spend attacks. The cafe owner
-says to Lisa that for this high amount of money, he will give her the
-cafe after 6 confirmations.
+the cafe is of course aware of double spend attacks. Therefore, the
+cafe owner says to Lisa that for this high amount of money, he will
+give her the cafe after 6 confirmations.
 
 What does this mean? Lisa must pay the cafe owner 100000 CT and then
 wait until the transaction is included in a block and 5 more blocks
-has been built after that block.
+has been built after that block. Only then will the cafe owner hand
+over the cafe to Lisa.
 
-In order to pull off a double spend attack against the cafe, she must
-build an alternate branch in secret while the honest transaction is
-getting its 6 confirmations. This means that Lisa must be lucky for a
-longer amount of time than before.
+In order to pull off a double spend attack, Lisa must build an
+alternate branch in secret, just like in her previous attack, while
+the honest transaction is awaiting 6 confirmations. When the cafe has
+seen 6 confirmations and given the cafe to Lisa, she must at some
+point upload a stronger double spend branch to the shared folder. This
+means that Lisa must be lucky for a longer amount of time than before.
 
 Let's see how it goes:
 
 .Lisa tries to double spend a transaction with 6 confirmations. She fails.
 image::{imagedir}/double-spend-attack-fail.svg[{full-width}]
 
-The outcome is the expected. Lisa couldn't produce 7 blocks in the
-time it took the honest chain to produce 6 blocks.
+The outcome is the expected. Lisa couldn't produce more blocks than
+the honest chain in the long run. She gave up at 7-4.
 
 The sequence of events in this example is:
 
-1. Lisa starts mining on her secret branch containing her double spend
-transaction.
-2. Lisa pays 100000 CT for the cafe.
-3. Lisa finds the first block. It cointains her double spend transaction. She keeps extending her branch. Honest-Lisa: 0-1
-4. The honest miners finds a block and Lisa's transaction C (for the cafe) happened to be included in that block. 1-1
-5. The honest miners finds the next. 2-1
-6. Both the honest miners and Lisa finds a block at roughly the same time. 3-2
-7. Lisa finds a block. 3-3. She has a tie so far, but she doesn't have 7 blocks yet.
-8. The honest miners finds the next two blocks. 5-3.
-9. Lisa finds a block 5-4
-10. The honest miners finds the 6th block of the honest
-branch. 6-4. The cafe owner writes over the cafe to Lisa.
-11. Lisa does not have the 7 blocks she needs to take over the honest
-branch. She decides to give up.
+[%autowidth]
+|===
+| Event | Score (C - L) | Comment
+
+| 1, 2 | 0-0 | Lisa starts mining on her secret branch containing her
+double spend transaction. She also sends out a payment to the honest
+miners.
+| 3 | 0-1 | Lisa finds a block. If she published this block, the cafe
+  will notice the double spend attack and not give Lisa the cafe. She
+  keeps it secret.
+| 4 | 1-1 | The honest payment, C, gets its first confirmation. The
+  cafe will wait for 5 more blocks before deal.
+| 5, 6, 7, 8, 9 | 5-4 | Lisa keeps up ok, but she is one block behind
+  and must create 2 blocks more than the cafe to succeed.
+| 10 | 6-4 | The honest transaction has 6 confirmations. Lisa gets the
+  cafe. Deed of transfer signed. Lisa keeps trying to catch up.
+| 11 | 7-4 | Lisa thinks this sucks. The probability of creating four
+  blocks more than the cafe in the future is tiny.
+|===
 
 Lisa gave up for several reasons:
 
-1. She realizes that she doesn't have enough hashpower to catch up and
-surpass two blocks on the honest chain. At any moment the probability
-that Lisa finds the next block is 200/540=0.37. This means that the
-probability that the honest miners finds the next block is
-1-0.37=0.63. Blocks are going to be found much faster on the honest
+1. She realizes that she doesn't have enough hashrate to catch up and
+surpass three blocks on the honest chain. At any moment the
+probability that Lisa finds the next block is 200/550=0.36. This means
+that the probability that the honest miners finds the next block is
+1-0.36=0.64. Blocks are going to be found much faster on the honest
 chain.
 2. For each minute she keeps trying, her computer consumes electricity
 that costs money. If she doesn't succeed in her double spend attempt,
 the electricity cost will have been in vain.
 3. For each block she mines on her own chain, she will lose the block
-reward of 50 CT.
+reward of 50 CT if she fails.
 
 [.inbitcoin]
 .Confirmations
 ****
 6 confirmations has become some sort of rule of thumb in Bitcoin. If
 you have 6 confirmations, you can be pretty sure no one will double
-spend attack you. But note that the higher the value, the more
-economically feasible it is to make a double spend attempt.
+spend attack you. But note that the higher the transaction value, the
+more economically feasible it is to make a double spend attempt.
 ****
 
 The key here was that the café demanded 6 confirmations. The more
 confirmations needed, the harder it is for Lisa to build a stronger
-branch than the honest miners. She simply have to have more luck.
+branch than the honest miners. She needs to have more luck.
 
 When the cafe got their 6 confirmations, Lisa was two blocks
 behind. She would need to grow faster than the honest chain and become
@@ -1143,57 +1168,141 @@ one block longer than the honest chain. Her chances are pretty
 small. The more blocks she has to catch up with, the smaller the
 chances:
 
-.Probability that Lisa catches up for different deficits and hashpower. From Lisa's perspective.
-[cols="8*^"]
+.Probability that an attacker catches up. From the attacker's perspective.
+[id="probability-table",cols="8*^"]
 |===
-.2+h| Catch up blocks 7+h| probability she *ever* catches up if she has hashpower
-h|       1%     h| 5%       h| 10%     h| 19% (Tom) h| 37% (Lisa) h| 45% h| 50%
+.2+h| Catch up blocks (z) 7+h| Probability, q~z~, she *ever* catches up if she has q% of hashrate
+h|       1%     h| 5%       h| 10%     h| 18% (Tom) h| 36% (Lisa) h| 45% h| 50%
 
-|   1 | 0.010101 | 0.052632 | 0.111111 | 0.234568 | 0.587302 | 0.818182 | 1.000000 
-|   2 | 0.000102 | 0.002770 | 0.012346 | *0.055022* | 0.344923 | 0.669421 | 1.000000 
-|   3 |  1.0e-06 | 0.000146 | 0.001372 | *0.012906* | *0.202574* | 0.547708 | 1.000000 
-|   4 |  1.0e-08 |  7.7e-06 | 0.000152 | 0.003027 | 0.118972 | 0.448125 | 1.000000 
-|   5 |  1.1e-10 |  4.0e-07 | 0.000017 | 0.000710 | 0.069872 | 0.366648 | 1.000000 
-|   6 |  1.1e-12 |  2.1e-08 |  1.9e-06 | 0.000167 | 0.041036 | 0.299985 | 1.000000 
-|  10 |  1.1e-20 |  1.6e-13 |  2.9e-10 |  5.0e-07 | 0.004882 | 0.134431 | 1.000000 
-| 100 | 2.7e-200 | 1.3e-128 |  3.8e-96 |  1.1e-63 |  7.7e-24 |  1.9e-09 | 1.000000 
+|   1 | 0.010101 | 0.052632 | 0.111111 | 0.219512 | 0.562500 | 0.818182 | 1.000000 
+|   2 | 0.000102 | 0.002770 | 0.012346 | 0.048186 | 0.316406 | 0.669421 | 1.000000 
+|   3 |  1.0e-06 | 0.000146 | 0.001372 | *0.010577* | 0.177979 | 0.547708 | 1.000000 
+|   4 |  1.0e-08 |  7.7e-06 | 0.000152 | 0.002322 | *0.100113* | 0.448125 | 1.000000 
+|   5 |  1.1e-10 |  4.0e-07 | 0.000017 | 0.000510 | 0.056314 | 0.366648 | 1.000000 
+|   6 |  1.1e-12 |  2.1e-08 |  1.9e-06 | 0.000112 | 0.031676 | 0.299985 | 1.000000 
+|  10 |  1.1e-20 |  1.6e-13 |  2.9e-10 |  2.6e-07 | 0.003171 | 0.134431 | 1.000000 
+| 100 | 2.7e-200 | 1.3e-128 |  3.8e-96 |  1.4e-66 |  1.0e-25 |  1.9e-09 | 1.000000 
 |===
 
-The probability, p, is calculated as
+The probability, q~z~, is calculated as
 
 [stem] 
 ++++
-q=attacker's\ hashpower \\
-p=honest\ hashpower \\
+q=attacker's\ hashrate\ percentage \\
+p=honest\ hashpower\ percentage \\
 z=blocks\ to\ catch\ up \\
-p=(\frac{q}{p})^z
+q_{z}=
+\left\{
+\begin{array}{ll}
+1 & \mbox{if } p \leq q \\
+(\frac{q}{p})^z & \mbox{if } q \gt p \\
+\end{array}
+\right.
+
+
 ++++
 
-Look at the column for 37% hashpower, which is what Lisa has. When she
-is two blocks behind, she must try to get three blocks more than the
-honest miners in the future. This gives her a chance of about 0.20 to
+Look at the column for 36% hashpower, which is what Lisa has. When she
+is three blocks behind, she must try to get four blocks more than the
+honest miners in the future. This gives her a chance of about 0.10 to
 ever succeed in this double spend - if she is prepared to try
 indefinately. She probably doesn't want to keep trying forever, which
 gives her a sligtly smaller probability of succeeding.
 
-Imagine if Tom would be attempting a double spend instead of
-Lisa. He's only got half of Lisa's hash power, 100 Mhash/s.
+===== Tom tries to double spend too
 
-.Tom attempts to double spend with 19% hashpower and gives up. He's actually lucky finding two blocks in about the same time the honest miners finds three.
+Imagine if Tom would be attempting a double spend instead of
+Lisa. He's only got half of Lisa's hashrate, 100 Mhash/s.
+
+.Tom attempts to double spend with 18% hashpower and gives up. He's actually lucky finding two blocks in about the same time the honest miners finds three.
 image::{imagedir}/double-spend-attack-tom-fail.svg[{big-width}]
 
 Tom's chances are smaller than Lisa's. He's getting a bit lucky and
 finds two blocks early, but after falling 2 blocks behind the honest
 miners, he thinks his chances are too small and gives up. Having to
 produce three more blocks than the honest miners at a probability of
-about 0.013 is a terrible thought.
+about 0.011 (z=3) is a terrible thought.
 
 Tom is a smart guy and knows not to try this. He understands that he's
 far better off securing the blockchain along with everybody else and
 get his fair share of the rewards, than trying to defeat it. After
-all, with 19% of the hashpower he gets about a fifth of all block
+all, with 18% of the hashpower he gets almost a fifth of all block
 rewards. That's more than 50 CT per hour. After 2000 hours, or 12
-weeks, he would have made 100000 honest cookie tokens.
+weeks, he would have made 100000 honest cookie tokens, instead of
+trying to steal them.
+
+===== Tom and Lisa colludes to double spend
+
+Tom and Lisa have 300 Mhash/s together. They control more than 50%
+(54.5%) of the total hashrate.
+
+.Hashrate distribution. Two miners can collude to control a majority of the hashrate.
+image::{imagedir}/chart-hashrate-distribution-then.png[{half-width}]
+
+If they cooperate in a double spend attack and if they are willing to
+try indefinately, their chances are 100% to succeed, see
+<<probability-table>> above. If they are only willing to try for say
+50 blocks, the chances are still very close to 100%.
+
+This scary scenario means that Tom and Lisa can rewrite history at
+will.  They run faster than all the combined hashrate of the honest
+miners. They can create a fork from any block in the blockchain
+history and work their way up to the honest chain tip and
+surpass it. Then all miners will move over to Tom's and Lisa's
+branch. Note that they still cannot steal anyone's money in the
+blockchain, but they can make as many double spends they want.
+
+Let's play with the idea that Tom and Lisa starts double spending. For
+example, they buy the cafe and double spend the transactions, so that
+they end up with both the cafe and 100000 CT. Every now and then
+people will notice that the blockchain history is changed. 6
+confirmation transactions used to be very reliable, but now they can't
+be trusted anymore. What would happen to the cookie token value if the
+blockchain will become less reliable? And what happens to the value
+when people will hear about the double spending attacks going on.
+
+Panic! People don't want anything to do with this unreliable insecure
+cookie token system anymore. Many people will sell all their cookie
+tokens on the cookie token marketplace outside the cafe. The problem
+is that there are not many buyers. What happens with the dollar price
+of cookie tokens when the demand is low and supply is high? Price
+tanks.
+
+What happens when the price tanks? More panic! More people want to
+sell which leads to even bigger price drops.
+
+Tom's, Lisa's and all other miner's mining business is getting less
+profitable, because the value of their block rewards are so low that
+they can't sell their cookie tokens to get dollars to pay their
+electricity bill. They need to shut down their mining business because
+they mine at a net loss.
+
+Tom and Lisa should think twice before starting to attack the system,
+eventhough they can. Just the fact the there are two miners that
+together controls more than 50% of the total hashrate could be enough
+to trigger a price drop, because people get nervous about _mining
+centralization_, meaning that a few people controls a large portion of
+the total hashrate. They don't even have to attack the system to make
+cookie tokens less valuable.
+
+===== Mitigating miner centralization
+
+What can people do to counter Tom's and Lisa's power? They can start
+their own miners at home. Let's say that five more people join in the
+mining business, and each adds a computer with 150 Mhash/s. Now we
+have a whole new situation.
+
+.New hashrate distribution. It's much harder to get control over a majority of the hashrate.
+image::{imagedir}/chart-hashrate-distribution-now.png[{half-width}]
+
+The total hashrate increases from 550 Mhash/s to 1300 Mhash/s. The
+biggest miner, Lisa with 200 Mhash/s, now only has about 15% of the
+total hashrate. At least five miners must collude to control a
+majority of the hashrate.
+
+The incentives for people to start mining are strong. They have cookie
+tokens and they want the system strong to protect their money from
+panic price drops due to miner centralization.
 
 === Transaction fees
 
@@ -1215,17 +1324,18 @@ at the same time. Lisa's block is 200kB bytes and contains 400
 transactions, while Tom's block is 100kB and contains 200
 transactions. They both want their own block to become part of the
 strongest chain. They start uploading their respective blocks to the
-shared folder.
+shared folder at the exact same time.
 
-.Lisa and Tom compete to get Qi and the other miners to mine on top of their block. Tom wins this race because it was smaller.
+.Lisa and Tom compete to get Qi and the other miners to mine on top of their block. Tom wins this race because his block was smaller.
 image::{imagedir}/block-size-matters.svg[{big-width}]
 
 Tom's block is smaller than Lisa's. That means that Tom will upload
 his block to the shared folder faster than Lisa uploads her block. It
 will also be faster for Qi to download Tom's block than it will be to
-download Lisa's block. Finally, Qi has to verify Both blocks. A
-smaller block will typically be faster to verify than a big block, so
-Tom's block is also faster to verify than Lisas block.
+download Lisa's block. Finally, Qi has to verify a block she downloads
+before building upon it. A smaller block will typically be faster to
+verify than a big block, so Tom's block is also faster to verify than
+Lisas block.
 
 The result of this is that Qi will, at time T, select Tom's block as
 the current best chain tip and start mining on top of Tom's
@@ -1233,7 +1343,7 @@ block. Lisa's block doesn't exist for Qi at time T, because Qi has not
 verified it yet. She is still downloading Lisa's block from the shared
 folder.
 
-When Lisa's block finally is verified by Qi at time L, Qi has already
+When Lisa's block is finally verified by Qi at time L, Qi has already
 decided to go for Tom's block and Lisa's block will just be stored in
 case of future chain reorganizations.
 
@@ -1245,7 +1355,7 @@ competitiveness in the block race.
 
 This is where transaction fees come in. If the miner could get a
 little extra paid for each transaction it adds to its block, it would
-compensate for the lost competitiveness.
+compensate for the loss of competitiveness.
 
 People making payments are keen on having their transactions confirmed
 in the blockchain. Wouldn't it be great if John could reserve a little
@@ -1256,7 +1366,7 @@ competitiveness.
 If we just use the transactions a little differently, we can offer
 this feature. Let's say that John wants to buy a cookie. To give
 miners an incentive to include his transaction he decides to add a
-transaction fee. He constructs the transaction as follows:
+transaction fee. He constructs his transaction as follows:
 
 .John includes a transaction fee that the miner who mines a block with his transaction gets.
 image::{imagedir}/transaction-fee.svg[{big-width}]
@@ -1289,10 +1399,10 @@ per byte" she is interested in. John's transaction is about 400 bytes
 big and pays 0.5 CT in fee. That's 0.00125 CT/byte. This is a very
 simple calculation for Lisa to do, and she does the same for all
 transactions. If the fee per byte is above a certain threshold, she
-will include the transaction. She can of select transactions however
-she wants. For example, she can include her own transaction without
-any fee at all, or she can drop all transactions that pays for cookies
-no matter how high the fee is. And that's OK. There are several other
+will include the transaction. She can select transactions however she
+wants. For example, she can include her own transaction without any
+fee at all, or she can drop all transactions that pays for cookies no
+matter how high the fee is. And that's OK. There are several other
 miners that may have different strategies for selecting
 transactions. Most of them will probably make decisions based on fee
 per byte only.
@@ -1308,19 +1418,19 @@ and increases the coinbase output with that amount. The amount in the
 coinbase output, the block reward, is the sum of the block subsidy,
 the 50 new cookie tokens created by this block, and all transaction
 fees from the transactions in the block. Note that we have widened the
-term _block reward_ to include both the newly create money, the _block
-subsidy_, and the transaction fees.
+term _block reward_ to include both the _block subsidy_ (newly created
+money) and the transaction fees.
 
 When the block is setup correctly she starts working to find a valid proof of
 work for this block.
 
-==== When block rewards are 0
+==== When block subsidy is 0
 
 As we discussed in <<ch02>>, the block subsidy will be halved about
 every four years. At some point, the block subsidy will not be big
-enough of its own to give miners incentive enough to mine. If the
+enough on its own to give miners incentive enough to mine. If the
 value of the block reward is smaller than the electricity bill, what's
-the point for the miner?
+the point with mining?
 
 Transaction fees will play a bigger and bigger role for miners as the
 block subsidy decreases. The typical miner wants the income from the
@@ -1335,8 +1445,9 @@ decrease over time. Let's look at some examples:
 .Block subsidy may be halved, but the value of the block subsidy depends on the value of the cookie tokens.
 |===
 | Block subsidy | CT value in $ | Block subsidy in $
-| 50 | $0.10 | $5
-| 25 | $0.25 | $6.25
+
+| 50 CT | $0.10 | $5
+| 25 CT | $0.25 | $6.25
 |===
 
 This shows that the block subsidy by itself isn't a measurement on the

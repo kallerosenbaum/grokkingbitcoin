@@ -15,12 +15,13 @@ body {
 
 div>p,.literalblock,.imageblock>.title,div>.tableblock,.dlist,.olist,.ulist,.stemblock {
     width: 75%;
-/*    font-size: 0.9rem;*/
 }
+
 
 table.tableblock>caption.title {
     white-space: unset;
     max-width: unset;
+    font-size: 0.9em;    
 }
 
 .imageblock>.title {

@@ -4,7 +4,7 @@ class DoubleSpendSuccessProbability {
 
     public static void main(String[] args) throws Exception {
 
-	double[] qs = {0.01, 0.05, 0.1, 0.19, 0.37, 0.45, 0.5};
+	double[] qs = {0.01, 0.05, 0.1, 0.18, 0.36, 0.45, 0.5};
 	int[] zs = {1, 2, 3, 4, 5, 6, 10, 100};
 	for (int z : zs) {
 	   double[] zresults = new double[qs.length];
