@@ -1641,3 +1641,28 @@ decreases over time?
 
 * Why would a miner chose not to include a transaction that pays a
   very small (or no) transaction fee?
+
+=== Recap
+
+* We now have multiple miners to avoid a central authority that can
+  censor transactions.
+
+* Proof of work is used to select who gets to create a block.
+
+* Proof of work enables anyone to start mining without asking for
+  permission.
+
+* The target is automatically calibrated every 2016 blocks to keep the
+  money creation at the predetermined rate.
+
+* A transaction fee is used to give miners incentive to include the
+  transaction in its block.
+
+* The recipient of cookie tokens, or bitcoins, select how many
+  confirmations are needed, to prevent double spends.
+
+* Miners get as much block rewards they deserve. The more hashrate
+  they put into the system the more rewards they get.
+
+* The stronger a chain is, or the more accumulated proof of work it
+  has, the harder it is to rewrite that chain.
