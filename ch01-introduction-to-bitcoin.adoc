@@ -101,6 +101,17 @@ to trust others to provide you with correct financial information.
 
 === The big picture
 
+.The periscope
+****
+image::{commonimagedir}/periscope.gif[]
+****
+
+We will use the figures from this subsection every now and then
+throughout the book to help you with orientation. It's easy to lose
+track of the big picture and what the goal of the currect
+topic is. Look for the periscope picture and section headers like
+"Where were we?".
+
 The Bitcoin network validates and confirms payments between Bitcoin
 users. The Bitcoin network is a network of computers running Bitcoin
 software.
@@ -441,6 +452,7 @@ by a number of factors:
   views or people conducting certain businesses. People may also be
   denied service due to their ethnicity.
 
+[id=privacy-issues]
 ==== Privacy issues
 
 ****
@@ -486,6 +498,7 @@ Bitcoin offers a fundamentally different model than traditional
 financial institutions. Let us explore the major differences one
 by one.
 
+[id=decentralized]
 ==== Decentralized
 
 Instead of a central organization controlling the currency, like the

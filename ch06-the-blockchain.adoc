@@ -13,8 +13,8 @@ to verify all transactions in the spreadsheet. But there are still
 things verifiers cannot verify: That Lisa doesn't remove transactions
 and that she doesn't censor transactions. Censorship resistance will
 be handled in the next chapter. This chapter will make it impossible
-for lisa to remove or replace transactions without also making it
-obvoius that she has tampered with transaction history.
+for Lisa to remove or replace transactions without also making it
+obvious that she has tampered with transaction history.
 
 Lisa does this by getting rid of the spreadsheet and replace it with a
 thing called the _blockchain_. The blockchain contains transactions
@@ -136,7 +136,7 @@ problems in <<ch07>> by replacing the digital signatures with
 something called proof-of-work. Lisa's signature is a "stamp of
 approval" from Lisa, that everyone can verify. Lisa's signature proves
 that she has once approved the block and that can be held against her
-if she tries to sheat. We will se how that works shortly.
+if she tries to cheat. We will see how that works shortly.
 
 ==== Lisa builds a block
 
@@ -333,7 +333,7 @@ The verifiers can also easily see what's new since last block and update
 their UTXO sets accordingly. The news are right there in the block.
 
 The blockchain also provides some nice extra features that we will
-duscuss further on, for example the merkle tree.
+discuss further on, for example the merkle tree.
 
 === Lightweight wallets
 
@@ -401,7 +401,7 @@ last known block header and all transactions concerning John's addresses.
 wallet and at least all transactions concerning John's addresses.
 
 In step 1, the wallet does not send the exact list of addresses in
-John's wallet. That would harm John's privacy, because the café would
+John's wallet. That would harm John's privacy, because the cafe would
 then be aware of all Johns addresses and possibly sell the information
 to Acme Insurances. Not nice. John's wallet instead sends a filter to
 the full node. This filter is called a _bloom filter_. It is used by
@@ -421,7 +421,7 @@ verify that the transaction is actually in the block. Something more
 is required, a _merkle path_ that proves that a transaction is
 included in a block.
 
-The above two steps was performed as a syncronizing phase just after
+The above two steps was performed as a synchronizing phase just after
 the wallet connected to the cafe's full node. After this, as Lisa
 creates new blocks and the cafe's full node picks them up, the
 corresponding block headers are sent to the wallet together with all
@@ -435,7 +435,7 @@ respectively.
 
 John's wallet contains two addresses: @~a~ and @~b~, but John doesn't
 want to reveal to anyone that @~a~ and @~b~ belongs to the same
-wallet. He has good reasons to be weary, because he has heard rumours
+wallet. He has good reasons to be weary, because he has heard rumors
 that Acme Insurances pays good money for such information in order to
 "adjust" the premiums, based on peoples cookie eating habits.
 
@@ -513,9 +513,9 @@ output to PKH~V~. To test whether PKH~V~ matches the filter, it runs
 PKH~V~ through the exact same three hash functions as John's wallet
 did when the filter was created. The hash functions output the indices
 `5`, `1` and `0`. The bits at index `5` and `0` are both `1`, but the
-bit at index `1` is `0`. A zero bit means that PKH~V~ is definately
+bit at index `1` is `0`. A zero bit means that PKH~V~ is definitely
 not interesting to John's wallet. If John's wallet was interested in
-PKH~V~, it whould have added it to the filter, thus setting bit `1` to
+PKH~V~, it would have added it to the filter, thus setting bit `1` to
 `1`. Since PKH~V~ was the only public key hash in Tx~1~, it means that
 John's wallet is not interested in this transaction.
 
@@ -524,7 +524,7 @@ and PKH~X~. The node will test each of these in turn. It begins with
 PKH~b~. Running this PKH through the hash functions gives the indices
 `5`, `0` and `3`. All those three bits have the value `1`. This means
 that the node cannot say for sure if the transaction is interesting to
-the wallet, but it cannot say that it's definately not
+the wallet, but it cannot say that it's definitely not
 interesting. There is no point in testing any further public key
 hashes in this transaction because we have already determined that it
 might be interesting. The node decides that Tx~2~ should be sent to
@@ -532,7 +532,7 @@ the wallet.
 
 The last transaction has two outputs to PKH~Y~ and PKH~Z~. It starts
 with PKH~Y~. That happens to point at `2`, `7` and `4`. Both bits `4`
-and `7` are `0`, which means that PKH~Y~ is definately not interesting
+and `7` are `0`, which means that PKH~Y~ is definitely not interesting
 to the wallet. Let's continue with the next, PKH~Z~. This results in
 bits `2`, `3` and `0`. All three bits have the value `1`. This again
 means that Tx~3~ _might_ be interesting to the wallet, so the node
@@ -667,7 +667,7 @@ allowed. We can round upwards to 32 bits.
 This means that the bloom filter should be about 6/0.23 ≈ 26 bits in
 order to get only 1/10 of all transactions. Remember that these are
 very rough calculations based on somewhat false assumptions regarding
-the characteristics of transactions. We alse don't take into account
+the characteristics of transactions. We also don't take into account
 that the number of ones in our example is not strictly 6, but can be
 anywhere from 3 to 6 since both John's addresses could have generated
 the same set of indices. But it should help you get an idea on how big
@@ -755,7 +755,7 @@ The full node wants to send Tx~2~ and Tx~3~ to John's wallet, because
 it thinks those transactions might be interesting to John's wallet.
 
 How can the full node provide a proof to the wallet that Tx~2~ is
-included in the block? It can do so by providig a _merkle path_ that
+included in the block? It can do so by providing a _merkle path_ that
 connects Tx~2~ to the merkle root in the block header.
 
 .The full node constructs a merkle path that connects Tx~2~ to the merkle root in the block header.
@@ -860,7 +860,7 @@ block as the number of transactions grows.
 Bitcoin's block header is always 80 bytes. The cookie token block headers are slightly bigger, because of the signature. In the next chapter we will fix our block header to match Bitcoin's exactly.
 ****
 
-The table assumes that all tranactions are 250 bytes. The block size
+The table assumes that all transactions are 250 bytes. The block size
 is calculated as 80 bytes block header plus number of transactions
 times 250. The merkle proof is calculated as 80 bytes block header plus merkle path length times 32 plus 250 bytes.
 
@@ -882,7 +882,7 @@ signatures are valid.
 
 A lightweight wallet knows the whole chain of block headers. It will
 verify that each block header is correctly signed by Lisa. When the
-wallet receives a transaction and a mekle proof, it can check that the
+wallet receives a transaction and a merkle proof, it can check that the
 transaction is contained in the block and that Lisa signed that
 block. But it cannot verify
 
@@ -904,8 +904,8 @@ full node it is connected to. Suppose that Lisa produces an invalid
 block, for example a block that contains a transaction that spends an
 output that don't exist. When the full node receives this block it
 should verify the block and drop it, because it is invalid. But there
-might be occations when the full node, deliberately or accidentally,
-don't detect the error. Perhaps the cafe is in mascopy with Lisa to
+might be occasions when the full node, deliberately or accidentally,
+don't detect the error. Perhaps the cafe is in cahoots with Lisa to
 fool John, who knows? The cafe and Lisa can, at least temporarily,
 make John believe that he has received money that he didn't
 receive. We will discuss this further in <<ch08>>.
@@ -931,7 +931,7 @@ development team of your wallet software if unsure.
 * Connect to a _trusted node_. A trusted node is a full node that John
   runs himself on a computer somewhere that he controls. This way,
   John can use a lightweight wallet on his mobile phone to save data
-  traffic while stll being sure that he receives correct information
+  traffic while still being sure that he receives correct information
   from his full node.
 
 .John has setup a trusted node that his lightweight wallet connects to.
@@ -939,10 +939,10 @@ image::{imagedir}/trusted-node.svg[{half-width}]
 
 === Summary
 
-This chapter has descibed the blockchain and how it enables full nodes
+This chapter has described the blockchain and how it enables full nodes
 to prove if Lisa tries to delete or change transactions. The
 blockchain is a sequence of blocks that are interconnected through
-cryptographhic hashes
+cryptographic hashes
 
 .The blockchain connects the blocks by the previous block id value in the block headers. The merkle root commits to the transactions in the block.
 image::{imagedir}/summary-blockchain.svg[{big-width}]
@@ -1083,7 +1083,7 @@ spending the same money. She tries to pull off a double spend. Would
 this be detected by a full node that
 [loweralpha]
  . hasn't downloaded the original block yet?
- . has already downloaded the orignial block?
+ . has already downloaded the original block?
  
 . Make a bloom filter of eight bits of the two addresses @~1~ and
 @~2~, where @~1~ hashes to the indices `6`, `1`, and `7` and @~2~
@@ -1118,7 +1118,7 @@ In this chapter you learned that
   structure to create a merkle root that is written in the block
   header. This makes it possible to create a lightweight wallet.
 
-* Lightweight wallets are used to save bandwith, but at the cost of
+* Lightweight wallets are used to save bandwidth, but at the cost of
   reduced security.
 
 * Lightweight wallets security is reduced because they cannot verify

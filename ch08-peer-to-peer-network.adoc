@@ -1,8 +1,57 @@
+[[ch08]]
+== Peer to peer network - Ditch shared folder and email
 
+=== The shared folder
 
+The shared folder administrator is a central authority.
 
-Issues to remember
+Bandwidth bottleneck
 
-* Broadcasting transactions
-* mempool (update mempool during reorg and new blocks)
+=== Create a network
+
+What if the full nodes and miners could talk directly to eachother
+instead, passing blocks along between eachother.
+
+image::{imagedir}/basic-network.svg[]
+
+Blocks can no longer be stopped.
+
+=== Finding peers
+
+Bootstrapping the network?
+
+=== Wallets send transactions over the peer-to-peer network
+
+Wallets stop sending transactions via email to miners. They are
+transported across the network just like blocks are.
+
+==== Mempool
+
+Why do full nodes need a mempool? To avoid forwarding invalid
+transactions to flood the network.
+
+Full nodes and miners all keep unconfirmed transaction in the
+_mempool_, short for memory pool.
+
+Update mempool during reorg and new blocks
+
+==== Users can see pending transactions
+
+Trusting unconfirmed transactions is risky. Maybe its ok for a cookie.
+
+===
+
+=== Compact blocks
+
+=== 
+
+==== The transaction lifecycle
+
+==== System grows
+
+* More miners compete for the new cookie tokens
+* Users starts to use the system more frequently
+
+What happens to the transactions in the stale blocks? What happens to
+Lisa's block's transactions when she must update to a new chain tip?
 

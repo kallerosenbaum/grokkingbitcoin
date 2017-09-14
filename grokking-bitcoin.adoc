@@ -48,5 +48,9 @@ ifdef::ch7,chall[]
 include::ch07-proof-of-work.adoc[]
 endif::[]
 
+ifdef::ch8,chall[]
+include::ch08-peer-to-peer-network.adoc[]
+endif::[]
+
 ifdef::chweb,chall[]
 ifndef::chapter[include::web-resources.adoc[]]
