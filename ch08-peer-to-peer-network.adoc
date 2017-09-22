@@ -209,9 +209,9 @@ they communicate with each other. The wallets and the full nodes
 (including miners) all speak the same "language".
 
 John's wallet is connected to Tom's node with a TCP connection. He
-scans the payment URI from the cafe's wallet. John's wallet create and
-signs a transaction. You know the drill. Then it's time to send the
-transaction to Tom's node:
+scans the payment URI from the cafe's wallet. John's wallet creates
+and signs a transaction. You know the drill. Then it's time to send
+the transaction to Tom's node:
 
 .The transaction is sent to Tom's node using a TCP connection.
 image::{imagedir}/john-sends-tx.svg[{half-width}]
@@ -307,7 +307,7 @@ The cafe's full node has received the transaction and verified it. The
 cafe also has a lightweight wallet on a mobile phone that it uses to
 send and receive transactions. They are concerned with security, so
 they have configured their lightweight wallet to only connect to their
-own full node.
+own full node, their _trusted node_.
 
 .The cafe's lightweight wallet has a TCP connection to their own full node
 image::{imagedir}/cafe-connected-to-node.svg[{half-width}]
@@ -315,15 +315,13 @@ image::{imagedir}/cafe-connected-to-node.svg[{half-width}]
 This is a common setup that gives the cafe the full security of a full
 node combined with the flexibility and mobility of a lightweight
 wallet. We described this setup in
-<<_security_of_lightweight_wallets>>. But a lightweight wallet can
-connect to any node. For example, John's lightweight wallet is
-connected to Tom's node, but he doesn't know Tom.
+<<_security_of_lightweight_wallets>>.
 
 The Cafe's full node has just verified Johns transaction. Now it
 want's to inform its neighbors about this new transaction. It is
 connected to Lisa's node, Rashid's node and the cafe's lightweight
 wallet. The full node already knows that Lisa's and Rashid's nodes
-have this transaction si it doesn't send an `inv` to those two
+have this transaction so it doesn't send an `inv` to those two
 nodes. The full node does not know that the wallet has the
 transaction, but it will not simply send an `inv` message to the
 wallet.
@@ -376,17 +374,152 @@ image::{imagedir}/2ndcol-rashid-sends-inv.svg[]
 ****
 
 The transaction has reached all these miners during transaction
-propagation. Suppose that the transaction includes a nice transaction
-fee to that miners are willing to include it in the blocks they are
-currently trying to find a proof of work for.
+propagation. John's wallet used to send the transaction via email to
+all miners. Now he just sends it to any of the full nodes, and the
+transaction will propagate across the whole peer to peer
+network. Miners can now chose to include Johns transaction in their
+blocks they are mining. Suppose that the transaction includes a nice
+transaction fee so that some or all miners are willing to include it.
+
+.Rashid's block
+****
+image::{imagedir}/2ndcol-rashids-block-valid.svg[]
+****
+
+Let's say that Rashid is the next miner to find a valid proof of work
+for his block, which happens to contain John's transaction. Now Rashid
+wants to get his block to the other miners as quickly as possible to
+minimize the risk of some other miner getting its block out before
+Rashid's block.
+
+He creates an `inv` message and sends it to all her peers: Tom, Cafe
+and Qi. Rashid's peers will send back a `getdata` message, and Rashid will
+reply with the actual block. The message exchange between Rashid and
+Qi will look like this:
+
+.Rashid's node sends Rashid's block to Qi's node
+image::{imagedir}/block-rashid-qi.svg[{half-width}]
+
+The pattern looks familiar, but this time the `inv` message contains a
+block id instead of a transaction id. The actual block is sent in a
+`block` message containing the full block. It is often not neccesary
+to send all tansactions in the block because the recipient may already
+have most of them. We use that to speed up the transmission of the
+block using something called _compact blocks_. We will talk a bit
+about compact blocks towards the end of this chapter.
+
+****
+image::{imagedir}/2ndcol-rashid-sends-block.svg[]
+****
+
+Let's continue the block propagation throughout the peer to peer
+network. Rashid has sent his block to Tom, Cafe and Qi. Now, those
+three nodes will verify the block and, if valid, send out `inv`
+messages to all their peers that might not already have it. Qi and Tom
+happens to send their `inv` messages at the same time, so they are not
+aware that the other already has the block.
+
+.All but Lisa has the block. Tom, Cafe and Qi send `inv` messages.
+image::{imagedir}/tom-cafe-qi-sends-inv.svg[{half-width}]
+
+As you can see, Tom and Qi has sent an inv to one another. That's not
+a problem; since they both have the block, they will just ignore the
+`inv` received from peers. Lisa will request the block from one of her
+peers just like Qi requested the block from Rashid.
+
+==== Notify wallets
+
+Tom's node is connected to John's wallet so Tom sends an `inv` to
+John. Likewise, The cafe's full node sends an `inv` to the cafe's
+lightweight wallet. Tom's and the cafe's full nodes will not test the
+block against the bloom filters in any way. They will just send the
+`inv` unconditionally, but the lightweight wallets will not request
+the full blocks.
+
+As we recall from <<ch06>>, lightweight wallets don't download the
+full blocks. Most of the time John's wallet is only interested in the
+block headers so that they can verify the proof of work of the
+blockchain. However, every now and then there are transactions that
+are relevant to John's wallet in the blocks, and the wallet wants
+proof that those transactions are actually included in the block. In
+this particular block, Rashid's block, we have John's transaction as
+the third, and last, transaction of the block.
+
+.Tom sends a `merkleblock` containing a merkle proof that John's transaction is in the block.
+image::{imagedir}/john-requests-merkleblock.svg[{half-width}]
+
+John gets a block header, two transaction id:s, and merkle paths
+connecting those transaction id:s to the merkle root in the block
+header. The merkleblock message contains transaction id:s of the
+transactions that match John's bloom filter. It does not contain the
+whole transactions, because it is assumed that John's wallet already
+has them. If the wallet would lack them for some reason, it may fetch
+them from Tom's node using a single `getdata` message with the missing
+txids. This is how the `merkleblock` will look:
+
+.The merkleblock contains a block header, the number of transactions in the block, and a merkle proof
+image::{imagedir}/verify-merkle-proof.svg[{half-width}]
+
+John's wallet will verify that
+
+* the block header is correct and has a valid proof of work
+* the merkle root can be reconstructed using the number of
+  transactions (3) and the merkle proof.
+
+John's wallet is now sure that his transaction is contained in the new
+block. The wallet can display a message to John saying "Your
+transaction has 1 confirmation".
+
+The cafe's lightweight wallet will also be notified in the same way:
+
+.The cafe requests a `merkleblock` from their trusted full node
+image::{imagedir}/cafewallet-requests-merkleblock.svg[{half-width}]
+
+The café owner is security conscious. They want to be absolutely sure
+that their lightweight wallet is not fooled by some rouge full node,
+so they run their own full node on a computer that they control, a
+_trusted node_. They tell their lightweight wallet to connect to only
+their trusted node. This is almost as good as having a full node right
+on the mobile phone, but with far less expensive data traffic.
+
+The owner of the café feels comfortable handing over the cookie to
+John now. John eats his cookie. Deal is done.
+
+==== More confirmations
+
+As time passes, more blocks will be mined by the miners. Those blocks
+will all propagate the network and end up on all full nodes. The
+lightweight wallets will get `merkleblock` versions to save bandwidth.
+
+.As more blocks arrive, John's transaction becomes safer and safer
+image::{imagedir}/further-confirmations.svg[{big-width}]
+
+For each new block coming in, John's transaction will be buried under
+more and more proof of work. This makes John's transaction harder and
+harder to double spend. For each new block the transaction will get
+one more confirmation.
+
+=== Bootstrapping the network
+
+The above scenario assumed that all nodes involved were alredy
+connected to eachother. But how does a new node start? How would it
+find other nodes to connect to? How would it download the full
+blockchain from the genesis block, block 0, and up to the latest
+block? How does it know what the latest block is?
+
+Let's sort it out.
+
+Suppose that Selma wants to start her own full node. This is how it
+would typically happen:
+
+1. Selma downloads, verifies and starts the full node computer program
+2. The computer program connects to some nodes
+3. Selmas node downloads blocks from her peers
+4. Selmas node enters normal mode
 
 
 
-
-
-
-
-
+That way, they can be sure that the stuff
 
 . A node is listening for
 incoming connections
@@ -420,7 +553,9 @@ information on.
 
 ==== Version
 
-A lightweight wallet connects to a full node over the Internet. Once the connection is made, the lightweight wallet will send a version message to the full node. 
+A lightweight wallet connects to a full node over the Internet. Once
+the connection is made, the lightweight wallet will send a version
+message to the full node.
 
 ==== Inventory
 
