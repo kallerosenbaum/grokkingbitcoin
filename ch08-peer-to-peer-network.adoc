@@ -4,7 +4,8 @@
 This chapter covers
 
 * Removing last central authority, the shared folder
-* Wallets broadcasting transactions to reach all miners
+* Following a transaction in the peer to peer network
+* Leaving the silly cookie tokens
 * Bootstrapping the peer to peer network
 
 Let's talk about the elephant in the room. The shared folder. All
@@ -21,6 +22,12 @@ system, all wallets need to update their list of miners. Not cool. Now
 when we have this nice peer to peer network of nodes, wallets can use
 this network to broadcasst their transactions to all miners without
 knowing who or where they are.
+
+At this point we no longer need the cookie token system to help us
+understand Bitcoin. We will talk only about Bitcoin from now on. All
+major topics has been introduced with the help of the cookie token
+system, and there are practically no differences between the cookie
+token system and Bitcoin.
 
 When a node starts up for the first time, how does it find other nodes
 to connect to? How is the network bootstrapped? This is a hard problem
@@ -499,10 +506,19 @@ more and more proof of work. This makes John's transaction harder and
 harder to double spend. For each new block the transaction will get
 one more confirmation.
 
+=== Leaving the cookie token system behind
+
+I don't think the cookie token system will help us understand Bitcoin
+any more. It's time to let go of the cookie tokens and start talking
+solely about Bitcoin from now on. We have developed the cookie token
+system to a point where there are no differences from Bitcoin.
+
+image::{imagedir}/cookie-token-evolution.svg[{full-width}]
+
 === Bootstrapping the network
 
-The above scenario assumed that all nodes involved were alredy
-connected to eachother. But how does a new node start? How would it
+The above scenario assumed that all nodes involved were already
+connected to each other. But how does a new node start? How would it
 find other nodes to connect to? How would it download the full
 blockchain from the genesis block, block 0, and up to the latest
 block? How does it know what the latest block is?
@@ -512,10 +528,281 @@ Let's sort it out.
 Suppose that Selma wants to start her own full node. This is how it
 would typically happen:
 
+.Running a full node involves, dowloading and running, connect to other nodes, download old blocks and enter normal operation
+image::{imagedir}/running-a-full-node.svg[{big-width}]
+
 1. Selma downloads, verifies and starts the full node computer program
 2. The computer program connects to some nodes
 3. Selmas node downloads blocks from her peers
-4. Selmas node enters normal mode
+4. Selmas node enters normal mode of operation
+
+==== Step 1 - Run the software
+
+****
+image::{imagedir}/step-1-run-software.svg[]
+****
+
+Selma needs a computer program to run a full node. The most commonly
+used such program is _Bitcoin Core_. There are several others, for
+example libbitcoin, bcoin, Bitcoinj and btcd. We will only focus on
+Bitcoin Core, but you are encouraged to explore the others yourself.
+
+To download Bitcoin Core, Selma visits their main web page and find a
+link there. The problem is that Selma isn't sure that the program she
+downloads is actally the version that the developers behind Bitcoin
+Core released. Someone could have fooled Selma to download the program
+from bitconcore.org instead of bitcoincore.org, or someone might have
+hacked bitcoincore.org and replaced the downloadable files with
+alternative programs.
+
+The Bitcoin Core team therefore signs all released versions of their
+program with a private key, let's call it the Bitcoin Core key. They
+provide the signatures in a downloadable file, usually named
+`SHA256SUMS.asc`. This file contains the hash value of the released
+Bitcoin Core software and a signature that signs the contents of the
+`SHA256SUMS.asc` file:
+
+.The Bitcoin Core team signs the released program with their private key
+image::{imagedir}/core-signs-program.svg[{half-width}]
+
+Selma has downloaded both the program itself, in a file called
+`bitcoin-0.15.0.1-x86_64-linux-gnu.tar.gz` and the signature file
+called `SHA256SUMS.asc`. She can verify that the program is in fact
+signed by the private key corresponding to the public key in the
+signature file. But how can she know that this key is not bogus? How
+does she know that this key belongs to the Bitcoin Core team?
+
+This is a hard problem. Remember when Lisa used to sign blocks with
+her private key? How would the full nodes verify that the blocks are
+actually signed by Lisa? They used multiple sources to fetch Lisa's
+public key, for example the bulletin board at the entrance of the
+office, the company's intranet, and asking collegues. The same applies
+here. You can download the key from http://bitcoin.org, ask a friend
+you trust, and download the key from one of the many _key servers_ on
+the Internet. Usually you shouldn't trust a single source, but use at
+least two different sources. The key that currently is being used to
+sign Bitcoin Core releases is named
+
+ Wladimir J. van der Laan (Bitcoin Core binary release signing key) <laanwj@gmail.com>
+
+and has the _fingerprint_
+
+ 01EA 5486 DE18 A882 D4C2  6845 90C8 019E 36C2 E964
+
+Selma checks that the key used to sign the `SHA256SUMS.asc` file has
+the exact same fingerprint as the key she trusts to be from the
+Bitcoin Core team.
+
+Next she must verify that the program has the same hash-value as
+stated in `SHA256SUMS.asc`. It does match, which means that she can be
+sure that the software she is about to run is authentic.
+
+Selma starts the program on her computer.
+
+==== Step 2 - Connect to nodes
+
+****
+image::{imagedir}/step-2-connect.svg[]
+****
+
+When Selma's full node program starts, it is not connected to any
+other nodes. She's not part of the Bitcoin network yet. In this step
+the node will try to find peers to connect to.
+
+To connect to a peer, the full node needs the IP address and the TCP
+port for that peer, for example
+
+ IP: 142.12.233.96 port: 8333
+
+An IP number and port are often written as
+
+ 142.12.233.96:8333
+
+===== Finding initial peers
+
+Where does Selma's node find initial addresses of other peers? There are
+several sources available:
+
+.Selma's full node has three different types of sources to find initial peers
+image::{imagedir}/initial-peer-addresses.svg[{big-width}]
+
+1. Configure the full node with custom peer addresses. Selma can get
+an address and port by asking a friend who's running a full node.
+2. Use the, Domain Name System, DNS, to lookup initial peer addresses
+   to connect to.
+3. Use peer addresses "hard coded" in the full node program itself.
+
+It is very important that Selma's node doesn't initially connect to
+just a single node. If that single node is malicious, you have no way
+of knowing. If you connect to multiple nodes initially, you can verify
+that they all are consistent with each other. If not, one or more
+nodes are deliberately lying to you or they have themselvees been
+fooled.
+
+The last, third, option is used as a last resort. The preferred way to
+find initial node addresses is to look them up in the DNS system. DNS
+is a global name lookup system, used to lookup IP numbers from
+computer names. For example, when you visit https://bitcoin.org with
+your web browser, it will use DNS to lookup the IP number of the name
+bitcoin.org. The Bitcoin Core software does the same. The names to
+lookup are hard coded into Bitcoin Core, just like the hard coded IP
+addresses and ports. There are several DNS seeds coded into the
+software. A lookup of a DNS seed can return several IP addresses on
+each lookup and every new lookup may return a different set of IP
+addresses.
+
+Note from the picture above that the DNS lookups do not return a port
+number. The other two methods of finding initial peers usually include
+a port number. The DNS response can only return IP addresses, so the
+nodes on these IP addresses are assumed to listen on the default port
+that Bitcoin Core listens on is `8333`.
+
+===== Handshaking
+
+****
+image::{imagedir}/initial-connection-simple.svg[]
+****
+
+Suppose that Selmas node choses to connect to Qi's node and to
+`47.196.31.246:8333`. She sets up a TCP connection to each of the two
+nodes and sends an initial message to both of them on the new TCP
+connections. Let's look at how she talks to Qi's node.
+
+.Selma exchanges `version` message with Qi.
+image::{imagedir}/version-selma-qi.svg[{half-width}]
+
+The exchange, called a _handshake_, starts with Selma who sends a
+`version` message to Qi. The handshake is used to agree on a protocol
+version to use and tell each other what block heights they have. The
+`version` message contains a lot of information not shown in the
+figure, but the most essential stuff is there:
+
+Protocol version:: The version of the network protocol, or "language",
+that peers use to talk to each other. Selma and Qi will use version
+70012 because that's the highest version Qi will understand.
+User agent:: This is shown as Software "identification" in the figure
+because "User agent" is a bit cryptic. It is used to hint the other
+node what software you are running, but it can be anything.
+height:: This is the height of the tip of the best chain that the
+node has. This is used later in the synchronization step.
+
+Some other useful information of the `version` message is
+
+Services:: A list of features that this node supports. For example
+bloom filtering used by lightweight clients.
+My address:: The IP address and port of the node sending the `version`
+message. Without it Qi wouldn't know what address to connect to if she
+restarts and wants to reconnect to Selma's node.
+
+When Qi's node recieves Selma's `version` message, she will reply with
+her own `version` message. She will also send a `verack` message
+immediately after the `version` message. The `verack` doesn't contain
+any information, it is used to acknowledge to Selma that Qi has
+received the `version` message.
+
+As soon as Selma's node receives Qi's `version` message, she will
+reply with a `verack` message. The handshake is done. She does the
+same procedure with Rashid's node as well.
+
+===== Finding peers' peers
+
+When Selma's node is connected to Rashid's node it will ask that node
+for other peer addresses to connect to. That way Selma will be able to
+expand her set of peers.
+
+.Selma asks her peers for more peer addresses to connect to.
+image::{imagedir}/selma-finds-more-peers.svg[{half-width}]
+
+Selma is only connected to two peers, Qi's node and Rashid's node. But
+she thinks that she needs more nodes to connect to. Being connected to
+only two nodes has some implications:
+
+* Qi and Rashid can collude to hide transactions and blocks from Selma.
+* Qi's node could break and she's left with only Rashid's node. Then
+  Rashid can single handedly hide information from Selma.
+* Both Qi's and Rashid's node could break in which case Selma is
+  completely disconnected from the network until she connects to some
+  other nodes via the initial peer lookup mechanisms.
+
+This is how Selma asks Rashid for more peer addresses to connect to:
+
+.Selma requests more peer addresses from Rashid's node. He responds with a bunch.
+image::{imagedir}/addr-selma-rashid.svg[{half-width}]
+
+[.gbinfo]
+.Seed nodes
+****
+Nodes disconnect from seed nodes after getting an `addr` message, to
+avoid overloading them. They are potentially seed nodes for many
+nodes.
+****
+
+Selma sends a `getaddr` message to a peer, Rashid's node. Rashid
+responds with a set of IP addresses and TCP ports that Selma can use
+to connect to more peers. Rashid choses what addresses to send to
+Selma, but it's usually the addresses that Rashid is already connected
+to, and possibly some addresses that Rashid collected from his peers
+but didn't use himself.
+
+[.gbinfo]
+.Connectivity
+****
+A typical Bitcoin full node has about 100 active connections to other
+nodes at the same time.
+****
+
+Selma will connect to any number of the received addresses to increase
+her _connectivity_. The more peers you are connected to, the more your
+connectivity. A high degree of connectivity decreases the risk of
+missing out on information due to misbehaving nodes.
+
+==== Step 3 - Synchronize
+
+****
+image::{imagedir}/2ndcol-sync.svg[]
+****
+
+Now that Selma is well connected to, and part of, the Bitcoin network,
+it's time for her to download and verify the blockchain.
+
+Remember in step 2, when Selma received a `version` message from Qi's
+node that stated `height=487224`? Selma will use that information now
+to determine where to fetch historic blocks from.
+
+Selma only has a single block, namely the genesis block. The genesis
+block is hard coded in the Bitcoin Core software, so all nodes have
+this block already when they start. Now she needs to download old
+blocks from other nodes. She knows that Qi has all blocks up to height
+`487224`. She has received version messages from four different nodes:
+
+|===
+| Node | Height
+
+| Qi | 487224
+| Rashid | 487224
+| Cafe | 487225
+| Tom | 487223
+|===
+
+She also wants all those blocks. She needs to download them all from
+her peers and verify them before being able to verify newly created
+blocks. This is because she has no idea of what the current UTXO set
+looks like. To build the current UTXO set, she needs to start with an
+empty UTXO set and go through all historic blocks from block 0, and
+update the UTXO set with the information in the transactions in the
+blocks.
+
+===== Download the first batch of blocks
+
+
+
+.Selma downloads three blocks from Tom
+image::{imagedir}/getblocks-selma-tom.svg[{half-width}]
+
+
+
+==== Step 4 - Normal operation
+
 
 
 
