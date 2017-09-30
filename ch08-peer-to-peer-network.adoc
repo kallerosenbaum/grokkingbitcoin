@@ -123,6 +123,14 @@ how this work a bit later.
 
 // REMEMBER: DON'T GO INTO IMPLEMENTATION DETAILS.
 
+[.gbinfo]
+.TCP
+****
+When you open a web page on http://bitcoin.org, your web browser will
+make a TCP connection to bitcoin.org and download a web page through
+that connection and display it to you.
+****
+
 Let's have a look at how the communication between two peers
 happen. We will look specifically at how Tom connects to Lisa and how
 they communicate across their communication channel called a TCP
@@ -142,7 +150,7 @@ number of that IP address. Lisas computer has the IP address
 142.12.233.96 and runs a cookie token program that listens for
 incoming connections on port 8333.
 
-.Tom computer program sets up a TCP connection to Lisa's computer program. After this they can send and receive data easily.
+.Tom computer program sets up a TCP connection to Lisa's computer program. After this they can send and receive data between each other.
 image::{imagedir}/tcp-connection.svg[{half-width}]
 
 Tom's node connects to Lisa's node through the IP address
@@ -247,7 +255,7 @@ network neighbors.
 You may ask, why doesn't John's wallet simply send the whole
 transaction immediately? Why go though the hassle with `inv` and
 `getdata`? This will become clear later, but it's because nodes may
-already have the transaction, se we save bandwidth by only sending
+already have the transaction, so we save bandwidth by only sending
 transaction hashes instead of whole transactions.
 
 ==== Tom forwards the transaction
@@ -792,98 +800,96 @@ empty UTXO set and go through all historic blocks from block 0, and
 update the UTXO set with the information in the transactions in the
 blocks.
 
-===== Download the first batch of blocks
+Selma selects one of her peers, Tom, to download blocks from. Selma
+knows that Tom has 487224 blocks, so he should be able to send Selma
+the first three blocks after block 0. That is blocks at height 1, 2
+and 3. This is how Selma's node requests the blocks from Tom's node:
 
-
-
-.Selma downloads three blocks from Tom
+.Selma downloads blocks from Tom by repeatedly sending a `getblocks` message with her latest block id
 image::{imagedir}/getblocks-selma-tom.svg[{half-width}]
 
+It starts with Selma who sends a `getblocks` message to Tom. The
+`getblocks` message contains Selma's latest block id, which happens to
+be the genesis block, block `0`.
 
+Tom sends back an `inv` with a bunch of block ids coming immediately
+after Selmas best block id. In this example Tom sends three hashes,
+but in reality, Bitcoin Core would send a list of at most 500
+block ids.
+
+[.gbinfo]
+.Initial download
+****
+Initial blockchain download takes several hours, even days, depending
+on the performance of your hardware and Internet speed.
+****
+
+Selma receives the `inv` and requests the actual blocks based on the
+list she got from Tom using a `getdata` message. Tom sends back the
+actual blocks in `block` messages, one by one. When he has sent the
+very last of those blocks, he will finish by sending an `inv`
+containing Tom's current chain tip block id. This `inv` is used by
+Selma to determine if there are more blocks to fetch from Tom. The
+initial `version` message from Tom contained a `height` value of
+487223. Selma could of course use that information to determine if
+there are more blocks, but only in the beginning. At the time Selma
+has downloaded all block up to height 487223, Tom has probably
+received more fresh blocks from his peers. This is why Tom advertises
+his current best chain tip after sending each batch of blocks.
+
+As Selma receives blocks, she validates them, updates her UTXO set and
+adds them to her own blockchain.
+
+===== Validating early blocks
+
+Transactions in old blocks, a month old or more, are already verified
+by most nodes and buried under a tremendous amount of proof of
+work. Given that so many nodes and miners have extended the old blocks
+is a good indication that the signatures in the transactions of those
+blocks are actually valid, so verifying them makes little sense. To
+make initial blockchain download faster, Bitcoin Core will skip
+signature verifications on the transactions in early blocks.
+
+.Signatures of reasonably old transactions will not be verified to speed up initial block download
+image::{imagedir}/skip-sigvalidation-of-early-blocks.svg[{half-width}]
+
+Bitcoin Core ships with a preconfigured block id of a block a number
+of weeks back from release date in the blockchain. For Bitcoin Core
+0.15.0.1, that block is
+
+ height: 477890
+ hash: 0000000000000000003b9ce759c2a087d52abc4266f8f4ebd6d768b89defa50a
+
+Which is about 8000 blocks back in the blockchain at realease
+date. This is of course a configuration parameter and the above block
+is just a default reasonable value. Selma could have changed this when
+starting her node, or she could have verified with friends and other
+sources she trusts that this block is in fact representing a "all
+valid transactions blockchain". She could also have disabled the
+feature to verify all transaction signatures since block 0.
+
+After a long while, she is finally on the same page as the other
+nodes. and ready to enter normal mode of operation.
 
 ==== Step 4 - Normal operation
 
+This step is easy, because we have already descibed it in
+<<_the_network_protocol>>. Selma enters normal mode of operation. From
+now on she will participate in block propagation, transaction
+propagation and verify every transaction and block coming in.
 
+.Selma is finally an active part of the Bitcoin peer to peer network
+image::{imagedir}/selma-full-blown-node.svg[{half-width}]
 
+Selma is now a full blown full node.
 
-That way, they can be sure that the stuff
+=== The actual Bitcoin network
 
-. A node is listening for
-incoming connections
-
-Focus on whan information is transferred.
-
-The anatomy of a peer to peer network message
-
-image::{imagedir}/network-message-general.svg[{}]
-
-
-What used to happen before was that Johns wallet would email the
-transaction to the miners, and connect to a full node to get
-notifications on when the transaction is included in a block.
-
-[.gbinfo]
-.TCP
-****
-TCP stands for Transmission Control Protocol. When you open a web page
-on http://bitcoin.org, your web browser will make a TCP connection to
-the computer named bitcoin.org and download an html file from their
-web server.
-****
-
-This is not how it happens anymore. John's wallet is no longer aware
-of any email addresses to miners. Instead, he just makes a internet
-(TCP) connection to one or more full nodes and start exchanging
-messages with them. In a sence, the lightweight wallets are now part
-of the peer to peer network, but not quite, since they don't pass
-information on.
-
-==== Version
-
-A lightweight wallet connects to a full node over the Internet. Once
-the connection is made, the lightweight wallet will send a version
-message to the full node.
-
-==== Inventory
-
-==== Tx
-
-==== Block
-
+The Bitcoin peer to peer network is huge. There are tens of thousands
+of full nodes and a lot of miners. 
 
 ==== Compact blocks
 
-==== MerkleBlock
-
-Point back to ch 6 where we introduced merkle trees and lightweight
-clients. Repeat the image from there.
-
-=== Finding peers
-
-Bootstrapping the network?
-
-=== Wallets send transactions over the peer-to-peer network
-
-Wallets stop sending transactions via email to miners. They are
-transported across the network just like blocks are.
-
-==== Mempool
-
-Why do full nodes need a mempool? To avoid forwarding invalid
-transactions to flood the network.
-
-Full nodes and miners all keep unconfirmed transaction in the
-_mempool_, short for memory pool.
-
-Update mempool during reorg and new blocks
-
-==== Users can see pending transactions
-
-Trusting unconfirmed transactions is risky. Maybe its ok for a cookie.
-
-==== The transaction lifecycle
-
-=== Initial sync
 
 ==== System grows
 
