@@ -1091,6 +1091,8 @@ image::{imagedir}/ex-getblocks-power-outage.svg[{half-width}]
 
 === Recap
 
+In this chapter you learned that
+
 * The peer to peer network makes blocks censorship resistant
 * A node connects to multiple peers to reduce their vulnerability for
   information hiding.
@@ -1098,7 +1100,7 @@ image::{imagedir}/ex-getblocks-power-outage.svg[{half-width}]
   communicate.
 * Transactions are broadcast on the Bitcoin peer to peer network to
   reach both miners and the recipient of the money early.
-* New nodes synchronizes with the Bitcoin network to get up to date
+* New nodes synchronize with the Bitcoin network to get up to date
   with the other nodes. Takes hours or days.
 * Nodes do not need to stay online 24/7. They can drop out and come
   back and sync up the latest stuff.
