@@ -929,7 +929,178 @@ Selma is now running a full blown full node.
 
 === Summary
 
+We have replaced the last central point of authority, the shared
+folder, with a peer to peer network. In a peer to peer network the
+full nodes communicate directly with each other. Each node is
+connected to several, potentially hundreds, other nodes. This makes it
+extremely hard to prevent blocks and transactions from propagating the
+network.
+
+This chapter had two main parts:
+
+1. How transactions and blocks flows through the network.
+2. How new nodes join the network.
+
+==== Part 1: Following a transaction
+
+In the fist part, we followed a transaction through the system. It
+started with John buying a cookie. His transaction got propagated
+across the peer to peer network and to the cafe's wallet:
+
+.Johns transaction propagates to all participants
+image::{imagedir}/summary-tx-propagation.svg[{half-width}]
+
+The cafe will almost immediately see that a transaction is incoming,
+but it's not yet confirmed. The next stage is to mine the
+block. Rashid is the lucky miner who finds the next block containing
+John's transaction:
+
+.Rashid's block containing John's transaction propagates to all participants
+image::{imagedir}/summary-block-propagation.svg[{half-width}]
+
+Rashid sends out the block to his peers who will relay the block to
+their peers and so on until the block has reached the whole
+network. Part of that propagation includes sending the block to
+lightweight wallets. The lightweight wallets will request
+`merkleblock` messages from the full node so that they don't have to
+download the full block.
+
+==== Part 2: Joining the network
+
+Starting a new node involves fours steps.
+
+.Selma goes through four steps to join the network
+image::{imagedir}/running-a-full-node.svg[{big-width}]
+
+1. Download and verify for example the Bitcoin Core software. Then start it.
+2. Connect to other nodes
+3. Download historic blocks
+4. Enter normal operation
+
+
+===== New release - 8.0
+
+This will be the final release of the cookie token system. Another
+much more widely used system, Bitcoin, has taken the world by storm,
+and we have decided to ditch the cookie token project. Enjoy the last version.
+
+[%autowidth,options="header"]
+.Release notes, cookie tokens 8.0
+|===
+|Version|Feature|How
+
+.2+|image:{commonimagedir}/new.png[role="gbnew"]*8.0*
+| Censorship resistant. For real this time.
+| The shared folder is replaced by a peer to peer network.
+
+| Transaction broadcasting
+| Transactions are broadcast to miners and others using the peer to peer network.
+
+.2+|7.0
+| Censorship resistant
+| Multiple miners, "Lisas", enabled by proof of work
+
+| Anyone can join the mining race
+| Automatic difficulty adjustments
+
+.3+|6.0
+| Prevent Lisa from deleting transactions
+| Signed blocks in a blockchain
+
+| Fully validating nodes
+| Keeps a copy of the whole blockchain
+
+| Lightweight wallet saves data traffic
+| Bloom filters and merkle proofs
+|===
+
 === Exercises
+
+==== Warm up
+
+1. Why is the shared folder a bad idea?
+
+2. What does it mean to relay a transaction or a block?
+
+3. What are `inv` messages used for?
+
+4. How does a node notify a lightweight wallet about an incoming
+pending transaction?
+
+5. How does the full node decide what transactions to send to
+lightweight wallets?
+
+6. Blocks are not sent in full to lightweight wallets. What part of
+the block is always sent to the wallet?
+
+7. Why do the cafe send a very big bloom filter to their trusted node?
+
+8. What would a security conscious person do after downloading Bitcoin
+Core, but before starting the software?
+
+9. What types of sources for peer addresses are available to a newly
+started node?
+
+10. How would a full node know when it's finished syncing?
+
+==== Dig in
+
+[start=11]
+. Suppose that Rashid finds a block and the Bitcoin peer to peer
+network consists of the following nodes:
+
+image::{imagedir}/ex-network-lie-to-lisa.svg[{quart-width}]
+
+What do you need to do to make sure Lisa don't get the next block?
+
+[start=12]
+. Suppose that Qi just received two transactions with transaction
+id:s TXID~1~ and TXID~2~, and one block with block ID BKID. Now she
+wants to inform Rashid about these new items. She don't know if Rashid
+already has these items. What does she do.
+
+. Suppose that the current Bitcoin network looks like this:
+
+image::{imagedir}/ex-network-badly-connected.svg[{quart-width}]
+
+When Qi finds a 1MB block, the cafe will experience a long delay
+before it gets the block (What's taking most time?). The cafe does not
+know where the next block will come from. What can the cafe do to
+improve the time it takes to receive blocks?
+
+[start=14]
+. Suppose that you are running a full node and experience a power
+outage for 18 minutes. When power comes back you start your node
+again. During those 18 minutes, two blocks, B~1~ and B~2~, have been
+created. Your latest block is B~0~. What will your node do after
+reconnecting to the network? You can assume that no new blocks are
+found during synchronization. Use the following table of message
+types and fill in the template below:
+
+[%autowidth]
+|===
+| type | data | purpose
+
+| `block` | full block | sends a block to a peer
+| `getblocks` | block id | Ask a peer for subsequent blocks ids after the given block id
+| `getdata` | tx ID:s or block ID:s | Request data from a peer
+| `inv` | tx ID:s or block ID:s | Inform a peer about stuff you have
+|===
+
+image::{imagedir}/ex-getblocks-power-outage.svg[{half-width}]
 
 === Recap
 
+* The peer to peer network makes blocks censorship resistant
+* A node connects to multiple peers to reduce their vulnerability for
+  information hiding.
+* The Bitcoin network protocol is the "language" nodes speak to
+  communicate.
+* Transactions are broadcast on the Bitcoin peer to peer network to
+  reach both miners and the recipient of the money early.
+* New nodes synchronizes with the Bitcoin network to get up to date
+  with the other nodes. Takes hours or days.
+* Nodes do not need to stay online 24/7. They can drop out and come
+  back and sync up the latest stuff.
+* Signature verification can be skipped for older blocks to speed up
+  initial synchronization.

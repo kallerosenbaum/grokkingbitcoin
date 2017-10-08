@@ -944,7 +944,7 @@ work. This kind of misbehavior is prohibited by the timestamp rules
 above. Since you can't lie more than two hours with your timestamp the
 next target cannot be manipulated more than marginally.
 
-[strength-length]
+[[strength-length]]
 ==== Chain strength vs chain length
 
 Let's get back to the discussion on chain strength and why it's

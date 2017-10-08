@@ -245,7 +245,6 @@ just update their copy of the blockchain as they receive transactions
 the copies would not remain copies for long, because the transactions
 may come in different order on different nodes:
 
-[id=transaction-ordering]
 .Transactions arrives in different order at different nodes. If they would all write the transactions to the blockchain, the different nodes' blockchains would differ.
 image::{imagedir}/transactions-unordered.svg[{big-width}]
 
@@ -263,7 +262,6 @@ order B, A!". This message, known as a _block_, is sent out on the
 network by that leader, in the same way as the transaction was sent by
 Alice.
 
-[id=transaction-ordering]
 .One node takes the lead and tells the others what order to add the transactions in. The other nodes verify the message and update their blockchain copies accordingly.
 image::{imagedir}/payment-overview-step-3.svg[{big-width}]
 
@@ -350,7 +348,7 @@ in 2008. That is an average daily inflation rate of nearly
 
 Extreme cases of inflation like this are called
 hyperinflation. Hyperinflation is usually driven by a rapid increase
-in the money supply. Government sometimes increase in money supply as
+in the money supply. Government sometimes increase the money supply as
 a tool to extract value from its population to pay for expenses like
 national debt, warfare or welfare. If this tool is over-used, the risk
 of hyperinflation is apparent.
@@ -527,7 +525,7 @@ certain geographical location.
 - [*] *Privacy*
 ****
 
-With at decentralized system like Bitcoin it is extremely hard to
+With a decentralized system like Bitcoin it is extremely hard to
 control how and by whom the system is used. No matter where or who
 they are, or whom they are sending money to, the Bitcoin system will
 treat all users equally. There is no central point in the Bitcoin
