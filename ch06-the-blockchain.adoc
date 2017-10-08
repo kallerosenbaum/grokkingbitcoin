@@ -388,6 +388,10 @@ cafe's. Then the wallet and the full node start talking:
 .Information exchange between a lightweight wallet and a full node. The full node sends all block headers and a fraction of the transactions to the wallet.
 image::{imagedir}/spv-node-exchange.svg[{big-width}]
 
+How this connection is made and how they actually send
+information between each other will be described more thoroughly in
+<<ch08>>. We only provide a high level glimpse here.
+
 [.inbitcoin]
 .BIP37
 ****
