@@ -21,11 +21,14 @@ currently use. This makes it impossible for Lisa to steal other
 peoples money, because anyone can now verify all payments in the
 spreadsheet.
 
+.Bitcoin transactions
+image::{imagedir}/visual-toc-transactions.svg[{big-width}]
+
 We will go deep on transactions and explore how transactions are
 programmable, meaning that they are very flexible in what you can do
-with transactions. For example multisignature transactions that
-require two signatures out of three possible to secure money shared by
-multiple people.
+with them. For example, multisignature transactions can require two
+signatures out of three possible to secure money shared by multiple
+people.
 
 After this chapter the system will have changed a lot: How wallets
 create payments, how Lisa verifies payments, and how payments are

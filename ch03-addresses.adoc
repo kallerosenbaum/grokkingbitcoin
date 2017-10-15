@@ -16,6 +16,9 @@ from the spreadsheet on how much cookies a certain coworker eats. Lisa
 also finds this very useful, because she don't have to maintain a
 table of names and public keys.
 
+.Bitcoin addresses
+image::{imagedir}/visual-toc-addresses.svg[{big-width}]
+
 Coworkers invent cookie token addresses which protects them from
 losing money due to typing errors. Cookie token addresses are used by
 users to pay to each other, pretty much like an email address.

@@ -24,6 +24,9 @@ when we have this nice peer to peer network of nodes, wallets can use
 this network to broadcast their transactions to all miners without
 knowing who or where they are.
 
+.Bitcoin's peer to peer network
+image::{imagedir}/visual-toc-peer-to-peer-network.svg[{big-width}]
+
 We will follow a transaction's path through the network, both as an
 unconfirmed transaction, and eventually as part of a mined block. It
 will start in John's wallet and end as a confirmed transaction in the

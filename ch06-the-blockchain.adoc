@@ -25,6 +25,9 @@ verifiers keeps their own copies of the blockchain and they can now
 fully validate the blockchain to ensure that Lisa doesn't remove
 already confirmed transactions.
 
+.The Bitcoin blockchain
+image::{imagedir}/visual-toc-blockchain.svg[{big-width}]
+
 It's been a while since we talked about normal users' wallets. We will
 introduce something called a lightweight wallet, or SPV (simplified
 payment verification) wallet, that will defer the verification of

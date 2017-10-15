@@ -20,6 +20,9 @@ cryptographic hashes. Wallets can now send their transactions to any
 or all of the miners to ensure that their transactions are being
 processed.
 
+.Proof of work
+image::{imagedir}/visual-toc-proof-of-work.svg[{big-width}]
+
 With the new proof of work system in place, miners want to make blocks
 as small as possible to be able to upload them as quickly as possible
 to the shared folder. This incentivizes miners to exclude transactions

@@ -24,6 +24,9 @@ of the common tasks users want to perform. The wallet will create new
 addresses, store the private keys, simplify how addresses are
 transferred between users and automate the payment process.
 
+.Bitcoin wallets
+image::{imagedir}/visual-toc-wallets.svg[{big-width}]
+
 The developers also introduce a new way to generate keys, called
 hierarchical deterministic wallets, so that backups becomes dead simple;
 You only need to to backup a single random number, called a seed, once

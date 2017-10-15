@@ -24,6 +24,9 @@ someone claiming to be someone else to pay money from that someone's
 account. We solve that by introducing digital signatures to the simple
 system.
 
+.Digital signatures in Bitcoin 
+image::{imagedir}/visual-toc-digital-signatures.svg[{big-width}]
+
 === The cookie token spreadsheet
 
 Suppose that there is a cafe in the office where you work. You and
