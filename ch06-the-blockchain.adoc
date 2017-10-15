@@ -964,7 +964,7 @@ a block by sending a block header and a merkle proof to the
 wallet. The merkle proof consists of the transaction and the merkle
 path. The merkle path is a series of hashes and whether the hash is a
 left hash or a right hash. The merkle path grows logarithmically with
-the number of transactions.
+the number of transactions in the block.
 
 For privacy reasons, wallets don't want just the transactions they are
 actually interested in. To obfuscate what addresses actually belongs
@@ -977,7 +977,7 @@ image::{imagedir}/summary-bloom-filter.svg[{half-width}]
 
 The full node tests various stuff from the transactions, for example
 public key hashes in outputs, using the three hash functions. If all
-bits on those indices are `1` then it will send the transactions. If
+bits on those indices are `1` then it will send the transaction. If
 not, it will not send the transaction.
 
 This chapter has solved the issue with deleted and/or changed
@@ -990,7 +990,31 @@ power over what goes into the blockchain and what doesn't. In <<ch07>>
 we will make it much harder for a single actor like Lisa to make such
 decisions.
 
-==== New release - 6.0!
+==== System changes
+
+This chapter has introduced a new concept specifically for the cookie
+token system: The shared folder. We have also introduced the
+blockchain that replaces the spreadsheet on Lisa's computer.
+
+[%autowidth]
+.The spreadsheet is replaced by the Blockchain. We also introduce the shared folder that acts as a placeholder for the Bitcoin network.
+|===
+| Cookie Tokens | Bitcoin | Covered in
+
+| 1 cookie token | 1 bitcoin | <<ch02>>
+| *[.line-through]#The spreadsheet#* | *[.line-through]#The blockchain#* | *[.line-through]#<<ch06>>#*
+| Lisa | A miner | <<ch07>>
+| *Block signature* | *Proof of work* | *<<ch07>>*
+| *The shared folder* | *The Bitcoin network* | *<<ch08>>*
+|===
+
+We will get rid of the shared folder in <<ch08>> and replace it with a
+peer to peer network of full nodes.
+ 
+This blockchain is very close to how Bitcoin's blockchain works, but
+with an important difference. The blocks are signed by Lisa using
+digital signatures whereas in Bitcoin they are signed using proof of
+work.
 
 It's time again to release a new version of the cookie token
 system. Just look at those fancy new features:

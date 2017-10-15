@@ -289,8 +289,8 @@ worry, Lisa has a plan for that.
 [.inbitcoin]
 .UTXO set
 ****
-All nodes in the Bitcoin network maintain a private UTXO set to speed
-up verification of transactions.
+All computers in the Bitcoin network maintain a private UTXO set to
+speed up verification of transactions.
 ****
 
 To make the unspent checks easier she creates a new, private,
@@ -373,24 +373,10 @@ Lisa is doing her job.
 
 These verifiers are very important to the system because they make
 sure that updates to the spreadsheet obey the agreed-upon rules. In
-Bitcoin these verifiers are called _full nodes_. Let's add them to our
-table that maps spreadsheet concepts to Bitcoin concepts:
-
-[%autowidth,options="header"]
-.Add a verifier, full node, to our table of key concepts.
-|===
-| Cookie Tokens | Bitcoin | Covered in
-| 1 cookie token | 1 bitcoin | <<ch02>>
-| The spreadsheet | The blockchain | <<ch06>>
-| A row in the spreadsheet | A transaction | <<ch05>> (Just covered)
-| Lisa | A miner | <<ch07>>
-| Lisa and her computer | The Bitcoin network | <<ch08>>
-| *A verifier* | *A full node* | <<ch06>> (new concept!)
-|===
-
-A miner (Lisa) is also a full node (a verifier), but a miner does more
-than a full node, for example update the spreadsheet (the
-blockchain). A full node is also called a verifying node in Bitcoin.
+Bitcoin these verifiers are called _full nodes_. Lisa is a full node
+(a verifier), but she does more than a full node, she updates the
+spreadsheet. A full node is also called a verifying node, or more
+casually a _node_, in Bitcoin.
 
 Lisa can no longer steal someone else's money because that would make
 the spreadsheet invalid. For example suppose that she tried to change
@@ -475,7 +461,7 @@ public key (not a PKH), while the scriptSig contained a signature only
 
 This tiny program, written in a programming language called Script,
 contains the instructions to Lisa on how to verify that the spending
-transaction is authorized. Suppose that Lisa want's to verify input 0
+transaction is authorized. Suppose that Lisa wants to verify input 0
 of John's transaction.
 
 She will run this program from top to bottom. A _stack_ is used to
@@ -1176,11 +1162,30 @@ in the spreadsheet is if transactions are being censored (not added
 to the spreadsheet) or deleted. We simply have to trust Lisa with
 these two things for now.
 
+==== System changes
+
 ****
 image::{imagedir}/toolbox.svg[]
 ****
 
-New tools to our toolbox: Transactions and transaction id
+We will add transactions and transaction id to our toolbox. Our
+concept mapping table is shrinkning by two rows: The notes to Lisa and
+the rows in the spreadsheet are replaced by a transactions.
+
+[%autowidth]
+.Transactions replace the notes to Lisa and the rows in the spreadsheet.
+|===
+| Cookie Tokens | Bitcoin | Covered in
+
+| 1 cookie token | 1 bitcoin | <<ch02>>
+| The spreadsheet | The blockchain | <<ch06>>
+| [.line-through]#*Note to Lisa*# | *[.line-through]#A transaction#* | *[.line-through]#<<ch05>>#*
+| *[.line-through]#A row in the spreadsheet#* | *[.line-through]#A transaction#* | *[.line-through]#<<ch05>>#*
+| Lisa | A miner | <<ch07>>
+|===
+
+The next chapter will take care of replacing the spreadsheet, that now
+contains transactions, with a blockchain.
 
 Let's release version 5.0 of the cookie token system:
 

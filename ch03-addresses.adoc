@@ -612,10 +612,10 @@ This will make it harder for Acme to extract information from the
 cookie token spreadsheet. They will not be able to tell which payments
 belong to the same person.
 
-=== Summary of the address creation process
+=== Summary
 
-Let's put the pieces together and have a look at the whole process
-again.
+Let's put the pieces together and have a look at the whole cookie
+token address creation process again.
 
 ****
 image::{imagedir}/address-creation-abstract.svg[]
@@ -629,6 +629,23 @@ the address before signing the message.
 
 .Faiza makes the payment to John and makes sure the address is valid
 image::{imagedir}/payment-with-address-summary.svg[{half-width}]
+
+==== System changes
+
+Our concept table is not updated in this chapter. Cookie token
+addresses are exactly what Bitcoin use, so we haven't introduced any
+concept that differs from Bitcoin.
+
+[%autowidth,options="header"]
+.Nothing new in the concept table
+|===
+| Cookie Tokens | Bitcoin | Covered in
+| 1 cookie token | 1 bitcoin | <<ch02>>
+| The spreadsheet | The blockchain | <<ch06>>
+| Note to Lisa | A transaction | <<ch05>>
+| A row in the spreadsheet | A transaction | <<ch05>>
+| Lisa | A miner | <<ch07>>
+|===
 
 .Toolbox
 ****

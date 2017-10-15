@@ -534,13 +534,27 @@ one more confirmation.
 I don't think the cookie token system will help us understand Bitcoin
 any more. It's time to let go of the cookie tokens and start talking
 solely about Bitcoin from now on. We have developed the cookie token
-system to a point where there are no differences from Bitcoin.
+system to a point where there are no differences from Bitcoin. Look at
+our concept mapping table
 
+[%autowidth]
+.The shared folder is ditched in favour of a peer to peer network
+|===
+| Cookie Tokens | Bitcoin | Covered in
+
+| 1 cookie token | 1 bitcoin | <<ch02>>
+| *[.line-through]#The shared folder#* | *[.line-through]#The Bitcoin network#* | *[.line-through]#<<ch08>>#*
+|===
+
+The last cookie tokien concept that differs from Bitcoin, the shared
+folder, has been eliminated. Let's have a look at how it all happened.
+
+.The cookie token system evolution.
 image::{imagedir}/cookie-token-evolution.svg[{full-width}]
 
 We will keep our friends at the office a while longer. John will
-probably have to buy one or two cookies more, but he will use Bitcoin
-to do it.
+probably have to buy a few more cookies, but he will use Bitcoin to
+do it.
 
 ==== Bitcoin at a glance
 
@@ -977,12 +991,27 @@ image::{imagedir}/running-a-full-node.svg[{big-width}]
 3. Download historic blocks
 4. Enter normal operation
 
+==== System changes
 
-===== New release - 8.0
+Our table of concept mapppings between the cookie token system and
+Bitcoin has become tiny:
+
+[%autowidth]
+.The shared folder is ditched in favour of a peer to peer network
+|===
+| Cookie Tokens | Bitcoin | Covered in
+
+| 1 cookie token | 1 bitcoin | <<ch02>>
+|===
+
+Since there are no technical differences between the cookie token
+system and the Bitcoin system, we will drop the cookie tokens and only
+work with Bitcoin from now on.
 
 This will be the final release of the cookie token system. Another
 much more widely used system, Bitcoin, has taken the world by storm,
-and we have decided to ditch the cookie token project. Enjoy the last version.
+and we have decided to ditch the cookie token project. Enjoy the last
+version.
 
 [%autowidth,options="header"]
 .Release notes, cookie tokens 8.0
@@ -994,7 +1023,8 @@ and we have decided to ditch the cookie token project. Enjoy the last version.
 | The shared folder is replaced by a peer to peer network.
 
 | Transaction broadcasting
-| Transactions are broadcast to miners and others using the peer to peer network.
+| Transactions are broadcast to miners and others using the peer to
+  peer network.
 
 .2+|7.0
 | Censorship resistant

@@ -128,15 +128,23 @@ corresponds to concepts in Bitcoin:
 | The spreadsheet | The blockchain | <<ch06>>
 | A row in the spreadsheet | A transaction | <<ch05>>
 | Lisa | A miner | <<ch07>>
-| Lisa and her computer | The Bitcoin network | <<ch08>>
 |===
 
-We will introduce a few more concepts in the cookie token system later
-as we go. The concepts in the cookie token system will gradually
-change as we learn new stuff and eventually turn into exactly what
-Bitcoin uses. This is our starting point for learning how Bitcoin
-works. We call this version 1.0 of the cookie token spreadsheet
-system:
+This table will follow us throughout the book. It describes
+differences between the cookie token system and Bitcoin. We will
+delete rows from it as we introduce various Bitcoin stuff. For
+example, The row "The spreadsheet" will be deleted in <<ch06>> when we
+use a blockchain to store transactions. We will also add a few rows as
+we introduce new concepts for the cookie token system that does not
+exist in Bitcoin.
+
+At the end of <<ch08>> this table will only contain the first row,
+mapping 1 cookie token to 1 bitcoin. That will mark the end of this
+cookie token example, and from that point we will only talk about
+Bitcoin itself.
+
+This is our starting point for learning how Bitcoin works. We call
+this version 1.0 of the cookie token spreadsheet system:
 
 [%autowidth,options="header"]
 .Release notes, cookie tokens 1.0
@@ -850,7 +858,26 @@ image::{imagedir}/digital-signature-summary.svg[{big-width}]
 The gist of this is that as long as John keeps his private key to
 himself, no one will be able to spend his money.
 
-It's time to release version 2.0 of the cookie tokens.
+===== System changes
+
+We need to add another concept to our concept table. The "Note to Lisa":
+
+[%autowidth]
+.Adding the "Note to Lisa" as a key concept
+|===
+| Cookie Tokens | Bitcoin | Covered in
+
+| 1 cookie token | 1 bitcoin | <<ch02>>
+| The spreadsheet | The blockchain | <<ch06>>
+| *Note to Lisa* | *A transaction* | *<<ch05>>*
+| A row in the spreadsheet | A transaction | <<ch05>>
+| Lisa | A miner | <<ch07>>
+|===
+
+The note to lisa will be replaced by transactions in
+<<ch05>>. Transactions will replace both the note to Lisa and the row
+in the spreadsheet. It's time to release version 2.0 of the cookie
+tokens.
 
 [%autowidth,options="header"]
 .Release notes, cookie tokens 2.0
@@ -873,20 +900,17 @@ except when executing signed cookie token transfers. If Lisa wanted to
 she could steal anyone's cookie tokens by just adding a transfer to the
 spreadsheet. But she wouldn't do that, or would she?
 
-===== New tools in our toolbox
-
 .Toolbox
 ****
 image::{imagedir}/toolbox-signatures.svg[]
 ****
 
-We have three new tools that we will put in our toolbox for
-later use: Key pair generation, digital signing, the signature and the verification.
+We have a lot of new tools that we will put in our toolbox for later
+use: Key pair generation, digital signing, the signature and the
+verification.
 
 .The tools used for signing and verification.
 image::{imagedir}/tool-signing.svg[{half-width}]
-
-The second and third tools to add are digital signing and verification.
 
 ==== Exercises
 

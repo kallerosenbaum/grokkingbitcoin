@@ -1521,10 +1521,10 @@ the miners to include the transaction in their blocks.
 The competition will lead to natural forks, when two miner finds a
 block at about the same time. They will eventually get resolved.
 
-.Proof of work will cause forks of the blockchain. They will be resolved with time.
+.Proof of work will cause forks of the blockchain. They will be resolved over time.
 image::{imagedir}/three-miners-proof-of-work.svg[{big-width}]
 
-The resolution affected by which branch miners chose to
+The resolution is affected by which branch miners chose to
 mine on. Miners usually mine on the first valid block they see.
 
 A merchant should not trust a high value transaction until a
@@ -1541,7 +1541,26 @@ their block rewards. The choice of number of required confirmations is
 up to the merchant and should be selected considering the value of the
 transaction.
 
-==== New release - 7.0!
+==== System changes
+
+Proof of work replaces the block signatures that we introduced in
+<<ch06>> and they can be removed from our concept mapping table.
+
+[%autowidth]
+.The block signatures has been replaced by the Bitcoin concept proof of work. Lisa has transformed into one of several miners.
+|===
+| Cookie Tokens | Bitcoin | Covered in
+
+| 1 cookie token | 1 bitcoin | <<ch02>>
+| *[.line-through]#Lisa#* | *[.line-through]#A miner#* | *[.line-through]#<<ch07>>#*
+| *[.line-through]#Block signature#* | *[.line-through]#Proof of work#* | *[.line-through]#<<ch07>>#*
+| The shared folder | The Bitcoin network | <<ch08>>
+|===
+
+Lisa is now doing the exact same tasks as a Bitcoin miner, which is
+why we remove Lisa from the table as well. The shared folder will be
+the last bit of the cookie token system that we will take
+care of. That's for the next chapter.
 
 We will now release a new, shiny version of the cookie token
 system. 

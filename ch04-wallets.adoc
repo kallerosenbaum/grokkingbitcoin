@@ -320,7 +320,10 @@ image::{imagedir}/2ndcol-forgotten-password.svg[]
 
 More things to secure:: John now needs to keep track of two things, a
   backup file and a password.
-Forgotten password:: Passwords that are rarely used, as is the case with backup passwords, will be eventually be forgotten. They can be written down on paper and stored in a safe place to mitigate this issue. They can also be stored by some password manager software.
+Forgotten password:: Passwords that are rarely used, as is the case
+with backup passwords, will eventually be forgotten. They can be
+written down on paper and stored in a safe place to mitigate this
+issue. They can also be stored by some password manager software.
 
 ****
 image::{imagedir}/2ndcol-technology-advancements.svg[]
@@ -1036,10 +1039,9 @@ bytes. It's a 256 bit number, the x-coordinate, prefixed by a byte
 specifying the odd/even property.
 
 
-=== Summary of HD wallets
+=== Summary
 
-Let's look back at what we have learned over the last couple of
-sections.
+Let's look back at what we have learned in this chapter
 
 .The cafe's hierarchical deterministic wallet. They use key hardening to isolate different branches of the tree from each other.
 image::{imagedir}/summary-hd-wallet.svg[{big-width}]
@@ -1058,9 +1060,28 @@ web server can now create as many addresses it needs to but without
 using any private keys. The private keys are kept in the cafe's wallet
 and never touches the web server.
 
+==== System changes
+
+Our concept table is not updated in this chapter either. The wallets
+described in this chapter works pretty much as in Bitcoin, but our
+wallets will email a "Note to Lisa" instead of sending a transaction
+across the global Bitcoin network.
+
+[%autowidth]
+.Nothing new in the concept table
+|===
+| Cookie Tokens | Bitcoin | Covered in
+
+| 1 cookie token | 1 bitcoin | <<ch02>>
+| The spreadsheet | The blockchain | <<ch06>>
+| Note to Lisa | A transaction | <<ch05>>
+| A row in the spreadsheet | A transaction | <<ch05>>
+| Lisa | A miner | <<ch07>>
+|===
+
 Let's have a release party! Cookie tokens 4.0, fresh from the lab!
 
-[%autowidth,options="header"]
+[%autowidth]
 .Release notes, cookie tokens 4.0
 |===
 |Version|Feature|How
@@ -1086,7 +1107,6 @@ Let's have a release party! Cookie tokens 4.0, fresh from the lab!
 |Secure payments
 |Digital signatures solves the problem with the imposter
 |===
-
 
 === Exercises
 
