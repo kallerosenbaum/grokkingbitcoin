@@ -574,7 +574,7 @@ kinds of fancy programs. Check out <<web-op-codes>> for a complete list.
 We have already mentioned that "pay to PKH" is not the only way
 to pay. You can write any program in the scriptPubKey. For example,
 you can write a scriptPubKey that ends with "OK" only if the scriptSig
-provide two number whose sum is 10. Or a program that ends with "OK"
+provides two number whose sum is 10. Or a program that ends with "OK"
 only if the scriptSig contains the SHA256 preimage of a hash. Consider
 this example:
 
@@ -592,16 +592,22 @@ output. Suppose that your scriptSig is
 Run the program to convince yourself that it works, and that all
 scriptSigs that doesn't give the specific hash fails.
 
-=== Fancy payment types
+=== Where were we?
+
+****
+image::{commonimagedir}/periscope.gif[]
+****
 
 This chapter covers most aspects of transactions. Look at this picture
-from <<ch01>> to recall how transactions a typical transaction is sent:
+from <<ch01>> to recall how a typical transaction is sent:
 
 .This chapter covers transactions. Right now we are exploring different ways to authenticate transactions.
 image::{imagedir}/periscope-transactions.svg[{half-width}]
 
 We have gone through the anatomy of the transaction and now we are
 discussing different ways to authenticate, "sign", transactions.
+
+=== Fancy payment types
 
 .Pay to hash
 ****
@@ -956,8 +962,8 @@ Sequence number:: A four byte number on each input. For most
 transactions this should be set to its maximum value `ffffffff`.
 
 We include this sparse information here just for completeness. These
-features will be discussed in later chapters, when we have learned
-about the blockchain.
+features will be discussed in <<ch09>> when we know more about the
+fundamentals of Bitcoin.
 
 === Rewards and coin creation
 

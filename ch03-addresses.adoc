@@ -1,15 +1,15 @@
 [[ch03]]
-== Addresses - Resolving privacy issues
+== Addresses - Adding privacy
 :imagedir: {baseimagedir}/ch03
 
 This chapter covers
 
 * Basic privacy
 * Replacing names with public key hashes
-* Encoding hashes into CT addresses
+* Protecting against money loss using addresses
 
 After this chapter, the spreadsheet will have gotten rid of personal
-names and replaced them with hashes of public keys. This is useful
+names. The are replaced with hashes of public keys. This is useful
 from a privacy perspective. No one can easily see who's
 paying who. This makes it harder for others to extract information
 from the spreadsheet on how much cookies a certain coworker eats. Lisa
@@ -20,8 +20,8 @@ table of names and public keys.
 image::{imagedir}/visual-toc-addresses.svg[{big-width}]
 
 Coworkers invent cookie token addresses which protects them from
-losing money due to typing errors. Cookie token addresses are used by
-users to pay to each other, pretty much like an email address.
+losing money due to typing errors. Cookie token addresses are used
+between users to pay each other, pretty much like an email address.
 
 === Cookie eating habits undisclosed
 
@@ -170,16 +170,6 @@ work. At the end of this chapter we will discuss more about how to
 further improve privacy.
 
 === Shorten the public key
-
-This whole chapter deals with Bitcoin addresses. To remind you where
-all this fits into Bitcoin, remember this diagram from <<ch01>>:
-
-.Bitcoin addresses.
-image::{imagedir}/periscope-digital-signatures-bitcoin-addresses.svg[{half-width}]
-
-We will end up with Bitcoin (cookie token) addresses towards the end
-of this chapter, but we need a few more steps towards our goal. Please
-be patient.
 
 Privacy was improved by using public keys in the spreadsheet, but they
 do take up a lot of space, compared to the names. The name "john"
@@ -372,13 +362,33 @@ but she's so thorough that it will _never_ happen. She's just too
 good at what she's doing for that to happen. Lisa will never cause
 someone else's funds to be burned.
 
-The security oriented people discuss this problem and comes up with an
-idea of Cookie Token Addresses. A cookie token address is a public key
-hash encoded in a certain way so that typing errors will be detected
-if they occur. At the same time they will make the recipient even
-shorter to write for the user.
+==== Where were we?
+
+****
+image::{commonimagedir}/periscope.gif[]
+****
+
+This whole chapter deals with Bitcoin addresses. To remind you where
+all this fits into Bitcoin, remember this diagram from <<ch01>>:
+
+.Bitcoin addresses.
+image::{imagedir}/periscope-digital-signatures-bitcoin-addresses.svg[{half-width}]
+
+We will end up with Bitcoin (cookie token) addresses towards the end
+of this chapter. We have just replaced the names in the spreadsheet
+with public key hashes. We will now get to Bitcoin addresses. A
+Bitcoin address is a _converted public key hash_. It is a public key
+hash written in a different way, more suitable for human users and
+safe against spelling errors. The public key hash is sent to Lisa (or
+Bitcoin nodes), but the address is what the payee gives to the payer.
 
 ==== Base58check
+
+The security oriented people discuss the problem with typos and comes
+up with an idea of Cookie Token Addresses. A cookie token address is a
+public key hash encoded in a certain way so that typing errors will be
+detected if they occur. At the same time they will make the recipient
+even shorter to write for the user.
 
 Suppose that Faiza feels sorry for John and wants make use of her 100
 CT by giving John 20 CT, 10 CT to recover his funds, plus 10 CT extra

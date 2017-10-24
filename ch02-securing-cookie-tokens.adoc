@@ -524,21 +524,17 @@ shredder to denote a cryptographic hash function.
 
 === Digital signatures
 
-This part of <<ch02>> explores how you can prove to someone that you
-approve a payment. To do that, we use _digital signatures_. Digital signatures were briefly mentioned in <<ch01>>, where Alices Bitcoin transaction of 1 bitcoin to Bob were signed by Alice using her private key.
-
-.Digital signatures in Bitcoin
-image::{imagedir}/periscope-digital-signatures.svg[{half-width}]
-
 ****
 image::{imagedir}/2ndcol-physical-vs-digital-signature.svg[]
 ****
 
-A digital signature is a digital equivalent of a hand written
-signature. The difference is that a hand written signature is tied to
-a person, while a digital signature is tied to a random number called
-a private key. A digital signature is much harder to forge than a hand
-written signature.
+This part of <<ch02>> explores how you can prove to someone that you
+approve a payment. To do that, we use _digital signatures_. A digital
+signature is a digital equivalent of a hand written signature. The
+difference is that a hand written signature is tied to a person, while
+a digital signature is tied to a random number called a private key. A
+digital signature is much harder to forge than a hand written
+signature.
 
 ==== Improving cookie token security
 
@@ -554,8 +550,7 @@ image:{imagedir}/note-to-lisa.svg[]
 
 Things are getting out of hand, so Lisa thinks out a great plan. She
 is going to require everybody to _digitally sign_ their cookie token
-transfers, by writing a message and a _digital signature_ on a piece of
-paper or in an email.
+transfers, by writing a message and a _digital signature_ in an email.
 
 Suppose that there is a new guy at the office, John. The company has
 given him some CT as a welcome gift when he started. Now John wants to
@@ -751,6 +746,24 @@ The signing process use the right side of the diagram in
 .John signs with his private key and Lisa verifies with Johns public key. She now knows for sure that John wrote this message.
 image::{imagedir}/sign-verify.svg[{half-width}]
 
+==== Where were we?
+
+****
+image::{commonimagedir}/periscope.gif[]
+****
+
+Digital signatures were briefly mentioned in <<ch01>>, where Alices
+Bitcoin transaction of 1 bitcoin to Bob were signed by Alice using her
+private key.
+
+.Digital signatures in Bitcoin
+image::{imagedir}/periscope-digital-signatures.svg[{half-width}]
+
+John has created a pair of keys and is about to digitally sign his
+payement to the cafe with his private key so that Lisa can verify that
+it's actually John who makes the payment. Lisa verifies this using
+John's public key.
+
 ==== John signs his payment
 
 Let's have a close look at how the signing really happens.
@@ -782,9 +795,7 @@ please move 10CT to Malory. /John" would generate this signature:
 [.gbminiex]
 .Why different?
 ****
-//REF
-Can you tell why the signature looks completely different. Use the
-figure above.
+Can you tell why the signature looks completely different.
 ****
 
  IBkECIzYrfw6pEEdAUbDpD32rq481j6h5a7UrEYG6BBz
@@ -844,106 +855,6 @@ the spreadsheet with John's transfer:
 
 .Lisa have added a row for John's cookie token transfer after verifying the signature of John's message.
 image::{imagedir}/cookie-sheet-basic-johns-transfer.svg[{half-width}]
-
-==== Summary
-
-Lisa has solved the problem with people claiming to be someone else
-when they make a payment. She requires all payers to digitally sign
-the cookie token transfers. Every user of the spreadsheet needs to
-have a private key and a public key. Lisa keeps track of which public
-key belongs to whom. A payment must from now on be written on a piece
-of paper or in an email to Lisa, and the message must be digitally
-signed with the person's private key. Lisa can then verify the
-signature to make sure she is not being fooled.
-
-image::{imagedir}/digital-signature-summary.svg[{big-width}]
-
-The gist of this is that as long as John keeps his private key to
-himself, no one will be able to spend his money.
-
-===== System changes
-
-We need to add another concept to our concept table. The "Note to Lisa":
-
-[%autowidth]
-.Adding the "Note to Lisa" as a key concept
-|===
-| Cookie Tokens | Bitcoin | Covered in
-
-| 1 cookie token | 1 bitcoin | <<ch02>>
-| The spreadsheet | The blockchain | <<ch06>>
-| *Note to Lisa* | *A transaction* | *<<ch05>>*
-| A row in the spreadsheet | A transaction | <<ch05>>
-| Lisa | A miner | <<ch07>>
-|===
-
-The note to lisa will be replaced by transactions in
-<<ch05>>. Transactions will replace both the note to Lisa and the row
-in the spreadsheet. It's time to release version 2.0 of the cookie
-tokens.
-
-[%autowidth,options="header"]
-.Release notes, cookie tokens 2.0
-|===
-|Version|Feature|How
-
-|image:{commonimagedir}/new.png[role="gbnew"]*2.0*
-|Secure payments
-|Digital signatures solves the problem with the imposter
-
-.2+|1.0
-|Simple payment system
-|Relies on Lisa being very trustworthy and knowing everyone's face
-|Finite money supply
-|7200 New CT rewarded to Lisa daily, halves every four years.
-|===
-
-Everybody still trust Lisa to not change the spreadsheet in any way
-except when executing signed cookie token transfers. If Lisa wanted to
-she could steal anyone's cookie tokens by just adding a transfer to the
-spreadsheet. But she wouldn't do that, or would she?
-
-.Toolbox
-****
-image::{imagedir}/toolbox-signatures.svg[]
-****
-
-We have a lot of new tools that we will put in our toolbox for later
-use: Key pair generation, digital signing, the signature and the
-verification.
-
-.The tools used for signing and verification.
-image::{imagedir}/tool-signing.svg[{half-width}]
-
-==== Exercises
-
-===== Warm up
-
-. Lisa is rewarded 7200 CT per day for her work. Why won't the money
-supply increase infinitely over time? Why don't we have 7200*10000=72
-million CT after 10000 days?
-. How can coworkers detect if Lisa rewards herself too much or too often?
-. How is the private key of a key-pair created?
-. What key is used to sign a message?
-. The signing process hashes the message to sign. Why?
-. If John didn't end his message with "/John", would Lisa be able to
-determine who to withdraw money from?  
-. What would Malory need in order to steal cookie tokens from John?
-
-===== Dig in
-
-[start=8]
-. Recall the example when you wanted to send your favorite cat
-picture to Fred. Now that you know about digital signatures, how can
-you ensure that the cat picture is not maliciously modified without
-using a second channel like text messages? Assume you already created
-a key pair and that you have give the public key to Fred.
-+
-image::{imagedir}/email-file-hash.svg[{half-width}]
-+
-. Are the names in the spreadsheet really needed anymore? Could they
-be replaced by something else? If that is possible, suggest how a
-typical payment can look?
 
 === Private key security
 
@@ -1097,6 +1008,106 @@ your key. For example, if you store the private key encrypted on your
 hard drive, you risk losing your key due to both computer failure and
 forgetting your password. So in this sense, the more secure you store
 your keys, the less secure it is.
+
+=== Summary
+
+Lisa has solved the problem with people claiming to be someone else
+when they make a payment. She requires all payers to digitally sign
+the cookie token transfers. Every user of the spreadsheet needs to
+have a private key and a public key. Lisa keeps track of which public
+key belongs to whom. A payment must from now on be written in an email
+to Lisa, and the message must be digitally signed with the person's
+private key. Lisa can then verify the signature to make sure she is
+not being fooled.
+
+image::{imagedir}/digital-signature-summary.svg[{big-width}]
+
+The gist of this is that as long as John keeps his private key to
+himself, no one will be able to spend his money.
+
+===== System changes
+
+We need to add another concept to our concept table. The "Note to Lisa":
+
+[%autowidth]
+.Adding the "Note to Lisa" as a key concept
+|===
+| Cookie Tokens | Bitcoin | Covered in
+
+| 1 cookie token | 1 bitcoin | <<ch02>>
+| The spreadsheet | The blockchain | <<ch06>>
+| *Note to Lisa* | *A transaction* | *<<ch05>>*
+| A row in the spreadsheet | A transaction | <<ch05>>
+| Lisa | A miner | <<ch07>>
+|===
+
+The note to lisa will be replaced by transactions in
+<<ch05>>. Transactions will replace both the note to Lisa and the row
+in the spreadsheet. It's time to release version 2.0 of the cookie
+tokens.
+
+[%autowidth,options="header"]
+.Release notes, cookie tokens 2.0
+|===
+|Version|Feature|How
+
+|image:{commonimagedir}/new.png[role="gbnew"]*2.0*
+|Secure payments
+|Digital signatures solves the problem with the imposter
+
+.2+|1.0
+|Simple payment system
+|Relies on Lisa being very trustworthy and knowing everyone's face
+|Finite money supply
+|7200 New CT rewarded to Lisa daily, halves every four years.
+|===
+
+Everybody still trust Lisa to not change the spreadsheet in any way
+except when executing signed cookie token transfers. If Lisa wanted to
+she could steal anyone's cookie tokens by just adding a transfer to the
+spreadsheet. But she wouldn't do that, or would she?
+
+.Toolbox
+****
+image::{imagedir}/toolbox-signatures.svg[]
+****
+
+We have a lot of new tools that we will put in our toolbox for later
+use: Key pair generation, digital signing, the signature and the
+verification.
+
+.The tools used for signing and verification.
+image::{imagedir}/tool-signing.svg[{half-width}]
+
+=== Exercises
+
+==== Warm up
+
+. Lisa is rewarded 7200 CT per day for her work. Why won't the money
+supply increase infinitely over time? Why don't we have 7200*10000=72
+million CT after 10000 days?
+. How can coworkers detect if Lisa rewards herself too much or too often?
+. How is the private key of a key-pair created?
+. What key is used to sign a message?
+. The signing process hashes the message to sign. Why?
+. If John didn't end his message with "/John", would Lisa be able to
+determine who to withdraw money from?  
+. What would Malory need in order to steal cookie tokens from John?
+
+==== Dig in
+
+[start=8]
+. Recall the example when you wanted to send your favorite cat
+picture to Fred. Now that you know about digital signatures, how can
+you ensure that the cat picture is not maliciously modified without
+using a second channel like text messages? Assume you already created
+a key pair and that you have given the public key to Fred.
++
+image::{imagedir}/email-file-hash.svg[{half-width}]
++
+. Are the names in the spreadsheet really needed anymore? Could they
+be replaced by something else? If that is possible, suggest how a
+typical payment can look?
 
 === Recap
 

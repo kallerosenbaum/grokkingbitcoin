@@ -478,23 +478,21 @@ the third, and last, transaction of the block.
 .Tom sends a `merkleblock` containing a merkle proof that John's transaction is in the block.
 image::{imagedir}/john-requests-merkleblock.svg[{half-width}]
 
-John gets a block header, two transaction id:s, and merkle paths
-connecting those transaction id:s to the merkle root in the block
-header. The `merkleblock` message contains transaction id:s of the
-transactions that match John's bloom filter. It does not contain the
-whole transactions, because it is assumed that John's wallet already
-has them. If the wallet would lack them for some reason, it may fetch
-them from Tom's node using a single `getdata` message with the missing
-txids. This is how the `merkleblock` will look:
+John gets a `merkleblock` message containing the block header and a
+partial merkle tree connecting his transaction id to the merkle root
+in the block header. Here is a little repetition from <<ch06>>:
 
-.The merkleblock contains a block header, the number of transactions in the block, and a merkle proof
-image::{imagedir}/verify-merkle-proof.svg[{half-width}]
+.The merkleblock contains a block header and a parital merkle tree.
+image::{imagedir}/verify-merkle-proof.svg[{big-width}]
 
 John's wallet will verify that
 
-* the block header is correct and has a valid proof of work
-* the merkle root in the header can be reconstructed using the number
-  of transactions (3) and the merkle proof.
+* the block header is correct and has a valid proof of work.
+* the merkle root in the header can be reconstructed using the partial
+  merkle tree.
+* The txid of John's transaction is included in the partial merkle
+  tree. He doesn't care about the irrelevant transaction that is used
+  to obfuscate what belongs to John..
 
 John's wallet is now sure that his transaction is contained in the new
 block. The wallet can display a message to John saying "Your

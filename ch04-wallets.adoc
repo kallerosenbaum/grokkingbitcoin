@@ -54,8 +54,11 @@ Create new addresses:: Users need to create new CT addresses every now
 and then. They may want to use different addresses for different
 purposes, or even different addresses for all payments for privacy
 reasons.
-Transfer payment details from payee to payer:: When John wants
-to buy a cookie, he needs to get the cafe's address and amount into
+Manage private keys:: For each address created, the wallet needs to
+store and manage the corresponding private key. Keeping the private
+keys safe from intruders is a delicate task.
+Transfer payment details from payee to payer:: When John wants to buy
+a cookie, he needs to get the cafe's address and amount into
 his app. Writing it by hand is cumbersome and error prone, so it would
 be nice if John could scan the details with his camera instead.
 Make a payment:: The app should be able to send an email to Lisa with
@@ -312,7 +315,7 @@ uses a truly random password, the entropy for the attacker is around
 
 ==== Problems with password encrypted backups
 
-The process with encrypted passwords works pretty good, but the
+The process with password encrypted backups works pretty well, but the
 process also introduces new problems:
 
 ****
@@ -524,28 +527,45 @@ data are just hashed together.
 3. The 512 bit hash value is splitted in half.
 4. The left 256 bits is added (yes, normal addition!) to the parent
 private key. The sum becomes the child private key.
-5. The right 256 bits becomes the child chain code
-6. The child private key and the child chain code together forms the
-child xprv.
-
 ****
 image::{imagedir}/2ndcol-key-tree.svg[]
 ****
+[start=5]
+5. The right 256 bits becomes the child chain code
+6. The child private key and the child chain code together forms the
+child xprv.
 
 This same process is used for all children and grandchildren of the
 master xprv until we have all keys Rita wanted in her
 wallet.
 
-=== Back to backup
+=== Where were we?
 
-Let's recall why we are here. We want to create a wallet app that end
-users can use to transfer cookie tokens (bitcoins) between each other,
-as in this picture from <<ch01>>:
+Let's recall why we are here. We want to create a wallet app that
+makes the lives easier for the end users:
+
+****
+image::{commonimagedir}/periscope.gif[]
+****
 
 .We are working on making a great wallet for users.
 image::{imagedir}/periscope-wallets.svg[{big-width}]
 
-Now, we want a safe and easy way to back up the private keys. We have
+The main duties of a wallet are
+
+* manage private keys
+* create new addresses 
+* transfer payment details from payee to payer
+* make a payment
+* keep track of funds
+* backup private keys
+
+We have covered the first five items, but we are note quite finished
+with backups yet. We have just laid the groundwork for better backups.
+
+=== Back to backup
+
+We want a safe and easy way to back up the private keys. We have
 created a hierarchical deterministic wallet to generate any number of
 private keys from a single seed. What is the minimum that Rita needs
 to backup in order to restore all keys in her wallet, should she lose
@@ -712,9 +732,9 @@ server would probably attract a lot of hacking attempts. Sooner or
 later someone succeeds to get access to the hard drive of the web
 server and steal the xprv.
 
-The cafe wants to avoid having any private keys on the web
-server. Thanks to the hierarchical deterministic wallet, this is
-perfectly possible by using extended _public_ keys.
+For this reason, the cafe wants to avoid having any private keys on
+the web server. Thanks to the hierarchical deterministic wallet, this
+is perfectly possible by using _extended public keys_.
 
 .Extended public key
 ****
@@ -819,7 +839,7 @@ could use the same technique to derive the master xprv from the master
 xpub and `m/1/1`. Can we do something to prevent such a catastrophic
 scenario? Yes, with _yet another key derivation function_! I'm sorry,
 but we need to get used to this. Nothing in Bitcoin is simple.
-Whatever pond you dip your toe into, it's always deeper than you
+Whatever puddle you dip your toe into, it's always deeper than you
 think. This new key derivation function is called _hardened extended
 private key derivation_.
 
