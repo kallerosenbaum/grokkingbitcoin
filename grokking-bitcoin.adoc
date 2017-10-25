@@ -52,5 +52,9 @@ ifdef::ch8,chall[]
 include::ch08-peer-to-peer-network.adoc[]
 endif::[]
 
+ifdef::ch9,chall[]
+include::ch09-transactions-revisited.adoc[]
+endif::[]
+
 ifdef::chweb,chall[]
 ifndef::chapter[include::web-resources.adoc[]]
