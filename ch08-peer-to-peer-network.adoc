@@ -115,23 +115,18 @@ new block and send it to her. The cafe can't hide information from
 Lisa as long as Lisa is well connected, has many different peers.
 
 Now that we have this nice network, wallets can use it to get their
-transactions sent to the miners? Then they don't have to keep track of
+transactions sent to the miners. Then they don't have to keep track of
 miner email addresses anymore. The transactions will be broadcast over
-the peer to peer network and within seconds reach all miners (well,
-all full nodes actually). Do you remember this from <<ch01>>?
-
-****
-Transactions travel the network as we described in <<ch01>>.
-
-image::{commonimagedir}/periscope.gif[]
-****
+the peer to peer network and within seconds reach all full nodes. That
+includes miners because they are also full nodes. This was mentioned
+in <<ch01>> with this figure:
 
 .Transactions travel the peer to peer network just like blocks do. Wallets don't need to know the miners anymore.
 image::{imagedir}/transactions-over-p2p-network.svg[{big-width}]
 
 The same thing goes here as for blocks; a single node cannot hinder
-transactions from reaching the whole network. A very pleasant effect
-of using the peer to peer network for transactions is that the
+transactions from reaching the whole network. Another very pleasant
+effect of using the peer to peer network for transactions is that the
 recipient of the transaction can be notified that a transaction is
 "pending", or about to be confirmed. We will see how this work a bit
 later.
@@ -574,6 +569,22 @@ connections.
 problems in their day-to-day life.
 
 Moving on.
+
+=== Where were we
+
+****
+image::{commonimagedir}/periscope.gif[]
+****
+
+This chapter is about Bitcoin's peer to peer network. The first half
+of the chapter described the network in action after it has been
+set up, as illustrated by this picture from <<ch01>>:
+
+.The Bitcoin network distrsibutes blocks (and transactions) to all participants.
+image::{imagedir}/periscope-bitcoin-network.svg[{quart-width}]
+
+The second half of this chapter will look at how a new node joins the
+network.
 
 === Bootstrapping the network
 
