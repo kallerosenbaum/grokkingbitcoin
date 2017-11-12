@@ -26,3 +26,10 @@ Chapter3:
 
 * Compare to PayPal. You can send money over internet.
 
+Chapter4:
+
+* Explain the different wallet types.
+
+Chapter5:
+
+* Wallet types, full node, ligthweight wallets etc, etc
