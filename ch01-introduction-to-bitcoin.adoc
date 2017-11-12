@@ -233,9 +233,9 @@ blockchain can be detected. More on that in <<ch06>>.
 In step 3 nodes update their local copies of the Bitcoin ledger with
 the information in Alice's transaction. The ledger is called _the
 blockchain_. The blockchain contains historic information about
-previous transactions, and new transactions are added to it every now
-and then. The computers in the Bitcoin network constantly try to keep
-their blockchains up to date with each other.
+previous transactions, and new transactions are appended to it every
+now and then. The computers in the Bitcoin network constantly try to
+keep their copies of the blockchain up to date with each other.
 
 It is not as straight forward as it may seem to update the blockchain
 with Alice's transaction. Alice's transaction is not the only
@@ -264,6 +264,13 @@ Alice.
 
 .One node takes the lead and tells the others what order to add the transactions in. The other nodes verify the message and update their blockchain copies accordingly.
 image::{imagedir}/payment-overview-step-3.svg[{big-width}]
+
+[.gbinfo]
+.The blockchain is append-only
+****
+New transactions are added to the end of the blockchain only. It grows
+only from the end.
+****
 
 As nodes see this message they update their copy of the blockchain
 according to the message and passes the message on to its
@@ -774,6 +781,7 @@ escape from their hyperinflating currency. These factors drives the
 Bitcoin price up in that market compared to for example the US and
 European markets where people can trade more freely.
 
+[[when-not-to-use-bitcoin]]
 ==== When not to use Bitcoin
 
 Bitcoin is nice and all, but it's not suitable for all sorts of
