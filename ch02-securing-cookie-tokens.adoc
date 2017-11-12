@@ -787,8 +787,9 @@ image::{imagedir}/sign-verify.svg[{half-width}]
 
 Let's summarize what we have learned about public and private keys.
 
-First a key pair is created. A private key is a huge secret random
-number. The public key is calculated from the private key.
+A key pair is created by first creating a private key. The private key
+is a huge secret random number. The public key is then calculated from
+the private key.
 
 image::{imagedir}/recap-keys-create.svg[{big-width}]
 
@@ -797,14 +798,13 @@ only by using the public key, and vice versa.
 
 image::{imagedir}/recap-keys-sign-verify.svg[{half-width}]
 
-The encryption/decryption in the figure is the foundation for digital
-signatures that will be used when John wants to make a payment. This
-process is *not* suitable to send secret messages because the public
-key is usually widely known.
+The encryption and decryption in the figure above is the foundation
+for digital signatures. This process is *not* suitable to send secret
+messages because the public key is usually widely known.
 
-The reverse process is also common. The public key is used to encrypt
-and the private key is used to decrypt. This process is used to send
-secret messages. It is not used in Bitcoin.
+The reverse process is also common where the public key is used to
+encrypt and the private key is used to decrypt. This process is used
+to send secret messages. It is not used in Bitcoin.
 
 ==== Where were we?
 
