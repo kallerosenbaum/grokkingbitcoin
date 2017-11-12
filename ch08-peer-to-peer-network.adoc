@@ -552,6 +552,7 @@ We will keep our friends at the office a while longer. John will
 probably have to buy a few more cookies, but he will use Bitcoin to
 do it.
 
+[[bitcoin-at-a-glance]]
 ==== Bitcoin at a glance
 
 The Bitcoin peer to peer network is huge. As of writing:
@@ -564,7 +565,8 @@ connections.
 * 250000 transaction per day
 * An estimate of 150000 BTC, value $660M, being moved daily
 * Total mining hashrate is about 8 Exahash/s
-* Transaction fees paid each day totals around 150 BTC
+* Transaction fees paid each day totals around 150 BTC. A typical
+  transaction pays 30000 satoshis, which is 0.0003 BTC or about $1.30.
 * People in all corners of the world use Bitcoin to get around
 problems in their day-to-day life.
 

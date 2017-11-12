@@ -876,6 +876,7 @@ full nodes. The interested reader can read about it on <<web-target-change>>.
 The period of 2016 block on which the next target is calculated is
 called a _retarget period_. 
 
+[[timestamp-rules]]
 ==== Rules for timestamps
 
 [.gbinfo]

@@ -844,6 +844,7 @@ the top. Always weigh the risks before putting money on the line and
 select your security measures accordingly. This book will help you
 understand the risks and how to secure your money.
 
+[[altcoins]]
 === Other cryptocurrencies
 
 This book will cover Bitcoin. But there are several other so-called
