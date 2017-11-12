@@ -103,7 +103,7 @@ as the recipient.
 image::{imagedir}/lisa-is-rewarded.svg[{half-width}]
 
 This is how all the cookie tokens in the spreadsheet are created. The
-very first row in the spreadsheed is a reward row like the one above
+very first row in the spreadsheet is a reward row like the one above
 that creates the very first 7200 CT ever. The plan is that Lisa is
 rewarded 7200 cookie tokens per day during the first four years, and
 then the reward is halved to 3600 CT/day for the next four years, and
@@ -170,16 +170,6 @@ result, Bitcoin.
 [id=cryptographic_hashing]
 === Cryptographic hashes
 
-// Fingerprint analogy
-// A CHF is computer program
-// Hash a cat picture
-// Compare size of input and output
-// The word "hash"
-// Change cat picture
-// Compare outputs
-
-// 
-
 Cryptographic hashes are used all over the place in Bitcoin. Trying to
 learn Bitcoin without knowing what cryptographic hashes are, is like
 learning chemistry without knowing what an atom is.
@@ -244,32 +234,41 @@ the hash value?
 ==== Why are cryptographic hash functions useful?
 
 Cryptographic hash functions can be used as an integrity check, to
-detect changes in data. Suppose that you want to send your favorite
-cat picture to your friend Fred via email, but you suspect that the
-picture may be accidentally corrupted during transfer. How would you
-and Fred make sure that the picture Fred receives is exactly the same
-as the one you send?
+detect changes in data. Suppose that you want to store your favorite
+cat picture on your laptop's hard drive, but you suspect that the
+picture may become corrupt on the hard drive. This could happen for
+example due to disk errors or by hackers. How can you make sure that
+you detect corruption?
+
+First, you calculate a cryptographic hash of the cat picture on your
+hard drive and write it down on a piece of paper.
+
+.Save a hash of the cat picture on a piece of paper
+image::{imagedir}/integrity-check-1.svg[{half-width}]
+
+Later, when you want to look at the picture, you can make sure that
+the picture hasn't changed. Calculate the cryptographic hash of the
+cat picture again and compare it to the original hash on your paper.
+
+.Check the integrity of the cat picture. You detect a change.
+image::{imagedir}/integrity-check-2.svg[{big-width}]
 
 [.gbfaq]
-.What about malicious modifications?
+.Extremely sure?
 ****
-You don't care about malicious modifications at this stage, we'll talk
-about that later.
+There is a tiny chance that the cat picture has changed even thought
+the hashes match. But as we will see later, that chance is so small it
+can be ignored.
 ****
 
-.Checking file integrity. You calculate the cryptographic hash of the cat picture and send the picture and the hash to Fred. Fred calculates the cryptographic hash of the received file and compares it to the hash provided by you in the email.
-image::{imagedir}/email-file-hash.svg[{big-width}]
+If the new hash matches the one on paper, you can be extremely sure
+that the picture hasn't changed. On the other hand if the hashes don't
+match, the cat picture has definitely changed.
 
-You compose an email to Fred and attach the cat picture to the
-email. But you also calculate the cryptographic hash, the digital
-fingerprint, of the cat picture. That hash is written down in the body
-of the email. The cryptographic hash function is standard software and
-available on both your computer and Fred's computer.
-
-When Fred receives this email, he saves the cat picture in a file on
-his computer and calculates the hash of that file. If the result is
-the same as the hash in the email, Fred knows for sure that the file is
-not accidentally corrupted.
+Cryptographic hashes are used a lot in Bitcoin to verify that data
+hasn't changed. For example, every now and then, on average every 10
+minutes, the whole history of all Bitcoin transactions is hashed. If
+the data changes, it will be noticed by anyone verifying the data.
 
 ==== How does a cryptographic hash function work?
 
@@ -499,25 +498,14 @@ same cryptographic hash as "`cat`"?
 
 ===== Dig in
 
-****
-image:{imagedir}/2ndcol-cat-email-to-fred.svg[]
-****
-
 [start=6]
-. Does the cat picture transfer example protect against malicious
-modifications during transfer? Suppose that someone has access to your
-or Fred's email service provider and can tamper with the email while
-in transit, could she modify the email in any way so that Fred accepts
-a modified file without noticing? If so, how could you and your friend
-prevent that?
-
 . Our simplistic hash function from the section <<cryptographic_hashing>>
 is not a _cryptographic_ hash function. Which two of the four properties
 of a cryptographic hash function is it lacking?
 +
 image::{imagedir}/simplistic-hash-algorithm-exercise.svg[{half-width}]
 
-. The paper shredded in our toolbox is not a perfect analogy. Can you
+. The paper shredder in our toolbox is not a perfect analogy. Can you
 tell why? What properties of a cryptographic hash function does the
 shredder lack? Short on better analogies, we will stick to using the
 shredder to denote a cryptographic hash function.
@@ -535,6 +523,44 @@ difference is that a hand written signature is tied to a person, while
 a digital signature is tied to a random number called a private key. A
 digital signature is much harder to forge than a hand written
 signature.
+
+==== Typical use of digital signatures
+
+
+
+
+
+Suppose that you want to send your favorite cat picture to your friend
+Fred via email, but you suspect that the picture may be, maliciously
+or accidentally, corrupted during transfer. How would you and Fred
+make sure that the picture Fred receives is exactly the same as the
+one you send?
+
+You can include a _digital signature_ of the cat picture in the
+email. Fred can then verify this digital signature to make sure that
+the cat picture is authentic. This is done in three different phases:
+
+.You send a digitally signed cat picture to Fred. Fred verifies the signature to make sure that he's got the same cat as the cat you signed.
+image::{imagedir}/signing-overview.svg[{big-width}]
+
+Step 1 is preparation. You create a huge random number, that we call a
+_private key_. This private key can be used to create digital
+signatures. You then create the _public key_ that can be used to
+verify the signatures created by the private key. The public key is
+_calculated_ from the private key. You hand the public key to Fred in
+person so that Fred is sure that the public key belongs to you.
+
+Step 2 is signing. You write an email to Fred and attach the cat
+picture. You also use your private key and the cat picture to
+digitally sign the cat picture. The result is a _digital signature_
+that you include in your email. Send the email to Fred.
+
+Step 3 is verifying. Fred receives your email, but he is concerned
+that the cat picture might be corrupt, so he wants to verify the
+signature. He uses your public key that he got from you in step 1, the
+digital signature in the email and the attached cat picture. If any of
+the signature or the cat picture has changed since you created the
+signature, the verification will fail.
 
 ==== Improving cookie token security
 
@@ -561,7 +587,8 @@ cookie token transfer. This is what he has to do:
 [[generate-key-pair]]
 image::{imagedir}/generate-key-pair.svg[{big-width}]
 
-There are three phases in this process.
+Just as with the email to Fred in the previous section, there are three
+phases in this process.
 
 [.gbinfo]
 .Key pair reuse
@@ -608,6 +635,12 @@ How the public key derivation function works is a hard topic covered
 in <<ch04,chapter 4>>. Luckily, you do not have to be a cryptography expert to
 understand how digital signatures works from a user's perspective.
 
+===== Two ways to use the key pair
+
+Keys are used to encrypt and decrypt data. Encryption is used to make
+messages unreadable to everybody but the ones that hold the proper
+decryption key.
+
 The private and public keys are thought of as a pair because they have
 a very strong relationship; The public key can be used to encrypt
 messages that only the private key can decrypt. It also works the
@@ -624,22 +657,26 @@ We will use the right side to make digital signatures. We will not use
 the left side at all in this book.
 ****
 
-Encryption is used to make messages unreadable to parties that don't
-hold the proper decryption keys. In the left example, only John would
-be able to read the encrypted message because he is the only one with
-access to his private key. In the right side example, Lisa can decrypt
-the message because she has the public key belonging to Johns
-private key. This is used to make digital signatures. It is not good
-practice to use the private key to encrypt messages, like in the right
+In the left side of <<enc-dec-public-private>>, only John would be
+able to read the encrypted message because he is the only one with
+access to his private key. This feature of public and private keys is
+not used in Bitcoin at all. It is used when two parties want to
+communicate in private. This is what's used when you do your online
+banking for example. When you see the little padlock in the address bar
+of your web browser, then you know that left side of the figure is
+used to secure your communication.
+
+In the right side of the figure, Lisa can decrypt the message because
+she has the public key belonging to Johns private key. It is not good
+practice to use the private key to encrypt messages, as in the right
 side of the diagram, because the public key is, well, public. When
-john hands his public key to Lisa, someone might overhear the
+John hands his public key to Lisa, someone might overhear the
 conversation, or Lisa might leave her table with public keys open on
 her computer screen. And that's okay. The public key is not
-secret. That is why it is a bad idea to encrypt with the private key
-and expect the message to be secret. We will not talk much more about
-the left side in this book, because the Cookie Token system or Bitcoin
-doesn't use it. But the next section will shed a little more light on
-the properties of the key pair.
+secret. That is why it is a bad idea to encrypt a message with the
+private key and expect the message to be secret.
+
+The right side is instead used to make digital signatures.
 
 ===== Locked box example
 
@@ -740,11 +777,34 @@ signature can only be verified by one person in this analogy. A real
 digital signature can be verified multiple times by multiple persons
 with a copy of the public key.
 
-The signing process use the right side of the diagram in
+The signing process uses the right side of the diagram in
 <<enc-dec-public-private>>:
 
 .John signs with his private key and Lisa verifies with Johns public key. She now knows for sure that John wrote this message.
 image::{imagedir}/sign-verify.svg[{half-width}]
+
+==== Recap on key pairs
+
+Let's summarize what we have learned about public and private keys.
+
+First a key pair is created. A private key is a huge secret random
+number. The public key is calculated from the private key.
+
+image::{imagedir}/recap-keys-create.svg[{big-width}]
+
+The private key can be used to encrypt a message that can be decrypted
+only by using the public key, and vice versa.
+
+image::{imagedir}/recap-keys-sign-verify.svg[{half-width}]
+
+The encryption/decryption in the figure is the foundation for digital
+signatures that will be used when John wants to make a payment. This
+process is *not* suitable to send secret messages because the public
+key is usually widely known.
+
+The reverse process is also common. The public key is used to encrypt
+and the private key is used to decrypt. This process is used to send
+secret messages. It is not used in Bitcoin.
 
 ==== Where were we?
 
@@ -752,7 +812,7 @@ image::{imagedir}/sign-verify.svg[{half-width}]
 image::{commonimagedir}/periscope.gif[]
 ****
 
-Digital signatures were briefly mentioned in <<ch01>>, where Alices
+Digital signatures were briefly mentioned in <<ch01>>, where Alice's
 Bitcoin transaction of 1 bitcoin to Bob were signed by Alice using her
 private key.
 
@@ -760,7 +820,7 @@ private key.
 image::{imagedir}/periscope-digital-signatures.svg[{half-width}]
 
 John has created a pair of keys and is about to digitally sign his
-payement to the cafe with his private key so that Lisa can verify that
+payment to the cafe with his private key so that Lisa can verify that
 it's actually John who makes the payment. Lisa verifies this using
 John's public key.
 
@@ -1025,7 +1085,7 @@ image::{imagedir}/digital-signature-summary.svg[{big-width}]
 The gist of this is that as long as John keeps his private key to
 himself, no one will be able to spend his money.
 
-===== System changes
+==== System changes
 
 We need to add another concept to our concept table. The "Note to Lisa":
 
@@ -1041,7 +1101,7 @@ We need to add another concept to our concept table. The "Note to Lisa":
 | Lisa | A miner | <<ch07>>
 |===
 
-The note to lisa will be replaced by transactions in
+The note to Lisa will be replaced by transactions in
 <<ch05>>. Transactions will replace both the note to Lisa and the row
 in the spreadsheet. It's time to release version 2.0 of the cookie
 tokens.
@@ -1097,14 +1157,24 @@ determine who to withdraw money from?
 ==== Dig in
 
 [start=8]
-. Recall the example when you wanted to send your favorite cat
-picture to Fred. Now that you know about digital signatures, how can
-you ensure that the cat picture is not maliciously modified without
-using a second channel like text messages? Assume you already created
-a key pair and that you have given the public key to Fred.
+. Suppose that you have a private key and that you have given your
+public key to a friend, Fred. Suggest how Fred can send you a secret
+message that only you can understand.
+
+****
+image::{imagedir}/message-in-a-bottle.svg[]
+****
+[start=9]
+. Suppose that you (let's pretend your name is Laura) and Fred still
+have the keys from the previous exercise. Now you want to send a message in a bottle to Fred saying
 +
-image::{imagedir}/email-file-hash.svg[{half-width}]
+----
+"Hi Fred! Can we meet at Tiffany’s at sunset tomorrow? /Laura"
+----
 +
+Please explain how you would sign the message so that Fred can be sure
+that the message is actually from you.
+
 . Are the names in the spreadsheet really needed anymore? Could they
 be replaced by something else? If that is possible, suggest how a
 typical payment can look?
