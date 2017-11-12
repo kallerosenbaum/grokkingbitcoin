@@ -13,10 +13,17 @@ body {
     font-size: 13px;    
 }
 
+
 div>p,.literalblock,.imageblock>.title,div>.tableblock,.dlist,.olist,.ulist,.stemblock {
     width: 75%;
 }
 
+/* Hack to get list paragraph continuations to not be 75% of previous block.
+See exercise 9 at end of ch2.
+*/
+li p {
+    width:100%
+}
 
 table.tableblock>caption.title {
     white-space: unset;
