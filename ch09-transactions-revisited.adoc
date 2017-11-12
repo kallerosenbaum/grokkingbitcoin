@@ -2,4 +2,196 @@
 == Transactions revisited - Bells and whistles
 :imagedir: {baseimagedir}/ch09
 
- 
+This chapter covers
+
+* Making transactions invalid until a certain time
+* Attaching arbitrary data to transactions
+* Swapping coins between different blockchains
+* Streaming money
+
+We are now past the core chapters of the book in which you have
+learned the basics of Bitcoin. In this chapter we will dig deeper into
+what functionality transactions can offer us.
+
+We will start by exploring the lock time and sequence numbers of
+transactions. Lock time is a way to make transactions invalid until a
+certain point time, or a certain block height. This means that you can
+create a transaction that can not be included in a block until that
+block height or point in time has passed. This is useful for a lot of
+more advanced features like payment channels and atomic swaps covered
+later.
+
+Sometimes it's useful to store some small amount of data in a
+transaction in the blockchain. For example you may want to store a
+hash of your will to make it provable that the will existed at the
+time of the transaction. This is useful in cases where the originality
+of the document is questioned.
+
+As mentioned in <<altcoins>>, there are a lot of alternative
+cryptocurrencies. Sometimes you may want to trade for example
+namecoins for bitcoins. The most obvious way to do it is to use an
+exchange to sell bitcoin and buy namecoins, but there are other more
+decentralized ways to do it. _Atomic swaps_ lets you swap your
+bitcoins directly with someone holding namecoins without a trusted
+third party like an exchange.
+
+Bitcoin's confirmation times (several minutes) and relatively high
+transaction fees, see <<bitcoin-at-a-glance>>, can be a showstopper
+for small quick payments, like when you buy your morning coffee on
+your way to work. You don't want to wait 10 minutes at the cafe. We
+noted in <<when-not-to-use-bitcoin>> that technical solutions are on
+their way to solve this problem. We will explain payment channels that
+lets you make tiny payments nearly instantaneous. Payment channels
+lays the groundworks for higher level systems, like the Lightning
+Network.
+
+=== Time locked transactions
+
+When you create and sign a transaction it will be valid and ready for
+inclusion in any future block. You can broadcast it immediately and
+have it mined. This is the normal case.
+
+However, there are times when you want to sign a transaction but be
+guaranteed not have it mined until after at least, say one year, have
+passed.
+
+Suppose that you have a fair amount of bitcoins, and in case you die,
+you want your daughter to get the money to her address @~D~, but only
+after you die. You can create a transaction that is time locked:
+
+[.gbinfo]
+.No fee?
+****
+For the sake of simplicity, this example don't pay any fees.
+****
+
+.A payment to your daughter that will become valid after one year has passed.
+image::{imagedir}/timelock-to-daughter.svg[{half-width}]
+
+You give this transaction to your daughter. This transaction is
+currently invalid, and your daughter stores it on her computer and she
+even prints a backup that she keeps in another place. It is not
+broadcast; No full node will accept a block containing this
+transaction yet. The transaction will become valid in the morning of
+2019-04-30. If you die before that, your daughter can wait until after
+the lock time date and then claim the money by broadcasting the
+transaction, which has then become valid.
+
+If you don't die before that date, you want to make sure that the time
+locked transaction becomes useless, so that your daughter can't take
+the money once the time lock date has passed. One way to do that is to
+spend one of the inputs of Tx~1~, to make the time locked transaction
+forever invalid, and create a new time locked transaction for yet
+another year:
+
+.Make Tx~1~ invalid by spending an output that Tx~1~ spends and create a new time locked transaction to your daughter
+image::{imagedir}/timelock-to-daughter-2.svg[{big-width}]
+
+[.bginfo]
+.Transaction malleability
+****
+There is a problem here. The txid of Tx~2~ _can_ change while being
+broadcasted, making Tx~3~ forever invalid. That's fixed by _segregated
+witness_ in <<ch10>>.
+****
+
+You need to
+
+. Create and sign a transaction, Tx~2~, that spends at least one of
+the inputs of Tx~1~. Tx~2~ is a normal, not time locked,
+transaction. Don't broadcast this transaction just yet.
+. Create a new time locked transaction, Tx~3~, that spends all your
+valid outputs, given that Tx~2~ becomes mined and give Tx~3~ to your
+daughter.
+. Broadcast Tx~2~. Once mined, Tx~1~ will become forever invalid,
+because one of the inputs of Tx~1~ is spent by Tx~2~.
+
+Note how the order of events are important here. If Tx~2~ is
+broadcasted _before_ you give Tx~3~ to your daughter, there's a chance
+that you die before giving her the transaction. Then your daughter
+will not be able to receive the funds, because she has no valid
+transaction to claim them with. Tx~1~ is invalidated by Tx~2~ in the
+blockchain, and Tx~3~ is not in your daughter's posession. Just do it
+right, ok?
+
+==== Time measurements
+
+There are two ways to express a lock time in a transaction. The first
+way is by setting a date and time as in the example above. The second
+way is to set a block height.
+
+===== Block time
+
+In the exmple above the lock time was expressed as a date and
+time. That actually means that the _median of the past 11 timestamps_
+must be greater than the lock time in the transaction. Remember the
+rules for the block timestamps in <<timestamp-rules>>? We said then
+that a timestamp of a block must be greater than the past 11 block
+median timestamp. We use that same median to decide whether a
+transaction is valid with regrads to lock time. Suppose that you've
+died on 2019-01-24. Your mourning daughter can't claim your money
+until 2019-04-20. More precisely:
+
+.Your daughter may claim your money after the median of the past 11 blocks is earlier than your lock time.
+image::{imagedir}/locktime-rules.svg[{full-width}]
+
+Your daughter's transaction cannot be mined in any block before the
+last one in the figure above. The median of the past 11 blocks, is
+strictly increasing according to the rules in
+<<timestamp-rules>>. It's not until the block _after_ the one with
+timestamp 07:33:21 that she can get her transaction confirmed. Before
+that block, the median past time is too early.
+
+Her transaction will not even propagate through the Bitcoin network
+until the lock time has passed. The nodes don't want to keep time
+locked transactions in their memories because they think there are
+better uses for the precious memory space than to fill them up with
+transactions that aren't even valid (yet). It's up to your daughter to
+broadcast the transaction after the lock time has passed.
+
+===== Block height
+
+There is another way to express time: By using block height. You can
+say that a transaction is not valid until after block height
+571019. Miners can not include the transaction:
+
+.A time locked transaction based on block height. This transaction is first valid at block height 571020.
+image::{imagedir}/height-timelock-to-daughter.svg[{quart-width}]
+
+until after block 571019 has been mined. The earliest block that the
+transacion can be included in is at height 571020. It's hard to
+predict exactly when that block will be mined, but thanks to the
+difficulty adjustments that keeps the average block time at about 10
+minutes, you can expect about 52596 per year.
+
+==== More usages of time locks
+
+The use of time locked transactions is a hypothetical one, probably
+not used by many. It's just a simple example to get us started. Time
+locks are most commonly used by more advanced digital _contracts_. A
+digital contract can be regarded as a traditional contract between
+parties, but they are _enforced_ by the Bitcoin network. Contracts are
+expressed as Bitcoin transaction outputs.
+
+
+
+
+
+lock time and sequence numbers OP_CHECKSEQUENCEVERIFY
+OP_CHECKLOCKTIMEVERIFY
+
+
+
+What to possibly cover:
+
+
+OP_RETURN
+
+atomic swaps
+payment channel
+transaction malleability
+
+RBF (CPFP, opt-in)
+
+
+segregated witness
