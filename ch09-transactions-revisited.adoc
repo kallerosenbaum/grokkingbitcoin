@@ -128,7 +128,7 @@ must be greater than the lock time in the transaction. Remember the
 rules for the block timestamps in <<timestamp-rules>>? We said then
 that a timestamp of a block must be greater than the past 11 block
 median timestamp. We use that same median to decide whether a
-transaction is valid with regrads to lock time. Suppose that you've
+transaction is valid with regards to lock time. Suppose that you've
 died on 2019-01-24. Your mourning daughter can't claim your money
 until 2019-04-20. More precisely:
 
@@ -156,7 +156,7 @@ say that a transaction is not valid until after block height
 571019. Miners can not include the transaction:
 
 .A time locked transaction based on block height. This transaction is first valid at block height 571020.
-image::{imagedir}/height-timelock-to-daughter.svg[{quart-width}]
+image::{imagedir}/height-timelock-to-daughter.svg[{half-width}]
 
 until after block 571019 has been mined. The earliest block that the
 transacion can be included in is at height 571020. It's hard to
@@ -164,34 +164,506 @@ predict exactly when that block will be mined, but thanks to the
 difficulty adjustments that keeps the average block time at about 10
 minutes, you can expect about 52596 per year.
 
-==== More usages of time locks
+=== Time locked outputs
 
-The use of time locked transactions is a hypothetical one, probably
-not used by many. It's just a simple example to get us started. Time
-locks are most commonly used by more advanced digital _contracts_. A
+Time locks are not very useful in itself. The only thing you can use
+it for is to create a transaction that may eventually become valid.
+
+You may instead want to say something like "The money in this output
+are not allowed to be spent before new years eve.", or "The money in
+this output must not be spent before 300 blocks have been mined on top
+of the block containg this output". These are examples time locked
+outputs. An output can be locked by
+
+* absolute time or block height
+* relative time or number of blocks after the block containing the output
+
+==== Absolute time locked outputs
+
+[.inbitcoin]
+.BIP65
+****
+This BIP describes in detail the Script operator,
+OP_CHECKTIMELOCKVERIFY, that implements the absolute time locked
+output.
+****
+
+Suppose that you want to give your daughter 1 BTC allowance on the
+first of May. You can then make a transaction as follows:
+
+.Paying allowance in advance to your daughter. She may not spend it before may 1 2019.
+image::{imagedir}/absolute-time-locked-outputs.svg[{half-width}]
+
+You can broadcast this transaction immediately to the Bitcoin network
+and have it mined. The first output is the interesting part. It says
+that this output cannot be spent before May 1 (2019). For the curious,
+the exact scriptPubKey is:
+
+[subs="normal"]
+----
+<may 1 2019 00:00:00> OP_CHECKLOCKTIMEVERIFY OP_DROP
+OP_DUP OP_HASH160 <PKH~D~> OP_EQUALVERIFY 
+OP_CHECKSIG
+----
+
+This script will make sure that the transaction spending the output is
+sufficiently time locked. For example
+
+.Various spending transactions and their validity.
+image::{imagedir}/absolute-time-locked-outputs-spending.svg[{big-width}]
+
+The first two transactions will never be valid because their time
+locks are not sufficiently late. The first one is not locked at all,
+which is illegal according to the scriptPubKey. The other one is at
+least time locked, but it's not late enough. 1 second before May 1 is
+too early.
+
+The third transaction on the other hand is ok, because the time lock
+is at least as high as the time in the scriptPubKey, 2019-05-01
+00:00:00. So this transaction will be valid on and after May 1. The
+last transaction will be valid on new year's eve right before the
+fireworks. Note however that both of the two last transactions cannot
+be mined, at most one of them can be mined since they spend the same
+outputs.
+
+The result of this example is that your daughter will be able to spend
+the output as she pleases after May 1.
+
+==== Relative time locked outputs
+
+[.inbitcoin]
+.BIP68 and BIP112
+****
+These two BIPs describe relative time locked outputs. The script
+operator is called OP_CHECKSEQUENCEVERIFY.
+****
+A relative time locked output works similar to absolute time locked
+outputs, but relative locks requires that a certain amount of time has
+passed between the block containing the output and the block
+containing the spending transaction.
+
+.Spending a relative time locked output is allowed after a certain amount of blocks has passed.
+image::{imagedir}/relative-lock-overview.svg[{half-width}]
+
+Relative time locks are most commonly used in _digital contracts_. A
 digital contract can be regarded as a traditional contract between
-parties, but they are _enforced_ by the Bitcoin network. Contracts are
-expressed as Bitcoin transaction outputs.
+parties, but they are enforced by the rules of the Bitcoin network
+rather than national laws. Contracts are expressed as Bitcoin
+transaction output scripts, the scriptPubKey. We will illustrate the
+use of relative time locked outputs with an _atomic swap_ in the next
+subsection. An atomic swap means that two persons swap coins with
+eachother across different cryptocurrencies.
+
+==== Atomic swaps
+
+A commonly mentioned digital contract is the _atomic swap_, where two
+parties want to swap coins with each other between different
+blockchains.
+
+Suppose that John is chatting with Fadime on a public forum on the
+Internet. They don't know each other and have no reason to trust one
+another. But they both want to trade.
+
+.Atomic
+****
+In compute science, the word _atomic_ means that a process either
+completes in its entirety or not at all. For atomic swaps it means
+that either the swap completes or they both get to keep their old
+coins. There are no other possible outcomees.
+****
+
+They agree that John will trade 2 bitcoins for 100 of Fadime's
+namecoins (NMC). Namecoin is an altcoin used as a decentralized naming
+system, like DNS. We talked briefly about altcoins in <<ch01>>. It's
+not important what Namecoin actually is used for in this example; We
+only conclude that it's another cryptocurrency on another blockchain
+than Bitcoin's.
+
+The conversation started like this:
+
+.John:
+> Do you want to swap 100 NMC for my 2 BTC? My Namecoin public
+> key is
+> 02381EFD...88CA7F23. I've
+> created a secret random number that has the SHA256 hash value H. I
+> will not tell you the secret number yet.
+
+.Fadime:
+> Sure John, let’s do it! My Bitcoin public key is
+> 02b0c907...df854ee8
+
+****
+image::{imagedir}/2ndcol-s-and-h.svg[]
+****
+
+We will call the secret number S. Only John knows S for now, but he
+shares the hash of S, H, with Fadime. Now they both have enough
+information to get started.
+
+They create one transaction each. John creates a Bitcoin transaction
+that spends 2 of his BTC. Fadime creates a Namecoin transaction that
+spends 100 of her NMC. They don't broadcast their transactions yet.
+
+image::{imagedir}/atomic-swaps-1.svg[{big-width}]
+
+The output of John's contract transaction can be spent in one of two
+ways:
+
+1. By providing the pre-image of H, and Fadime's signature. John knows
+such a pre-image, namely his secret number S from the conversation
+above, but Fadime doesn't.
+2. With John's signature after 48 hours.
+
+Likewise, the output of Fadime's contract transaction can be spent in
+one of two ways:
+
+1. By providing the pre-image of H, and John's signature.
+2. With Fadime's signature after 24 hours.
+
+The relative lock time is enforced by the Script operator
+`OP_CHECKSEQUENCEVERIFY`. This operator requires that the output of
+John's contract transaction is not spent until 48 hours has passed
+from the time when the contract transaction was confirmed. In Fadime's
+contract transaction, the operator requires that the output is unspent
+for at least 24 hours.
+
+Fadime knows that John has the secret number. So if Fadime broadcasts
+her contract transaction now, John can take the money and not fullfil
+his part of the deal. For this reason she will not broadcast her
+transaction until she has seen John's transaction safely confirmed in
+the blockchain. Since Fadime don't know the secret, S, John can safely
+broadcast his contract transaction without Fadime running away with
+the money.
+
+.p2sh address creation
+****
+image::{imagedir}/2ndcol-p2sh-address-creation.svg[]
+****
+
+So John broadcasts his contract transaction. Remember that the output
+of the contract transactions in this example are pay-to-script-hash,
+p2sh, outputs. The output contains a p2sh address that doesn't say
+anything about this being John's contract output. So, in order for
+Fadime to identify John's contract transaction on the blockchain, she
+will construct the same redeem script as John created for his contract
+transaction and generate the p2sh address John's contract transaction
+paid to. Then she can look for that p2sh address in the blockchain.
+
+When Fadime finds that John's transaction is confirmed, she broadcasts
+her own contract transaction. John waits until Fadime's transaction is
+sufficiently confirmed on the Namecoin blockchain. Then the actual
+swap happens in two steps:
+
+.The first step of the actual swap. John claims Fadime's 100 NMC by revealing the secret S.
+image::{imagedir}/atomic-swaps-2.svg[{big-width}]
+
+John broadcasts his swap transaction. John's swap transaction spends
+Fadime's contract transaction output by providing S and his
+signature. Again, note that John is spending a p2sh output, which
+means that the first thing that happens is that the redeem script that
+John provided in the scriptSig, will be hashed and compared to the
+hash in the scriptPubKey. Then the actual redeem script will be run.
+
+We won't go through the program in detail. But when the redeem script
+starts running, the stack will have "1" on top. This means "true" in
+Namecoin, just as in Bitcoin. That value will cause the program to run
+the part of the script that requires a pre-image and John's
+signature. The other part is not run at all.
+
+The script will leave the stack with a true on top because John
+provides both required items in the correct order, his signature and
+the pre-image, `S`. He succesfully claims his 100 NMC.
+
+Now, as soon as Fadime sees John's swap transaction she can create her
+own swap transaction on the Bitcoin blockchain.
+
+.Fadime completes the atomic swap by sending her swap transaction to the Bitcoin network.
+image::{imagedir}/atomic-swaps-3.svg[{big-width}]
+
+She takes the secret pre-image, S, from John's swap transaction and
+puts it into her own swap transaction that pays 2 BTC to Fadimes
+public key hash, PKH~F~. When the two swap transactions get confirmed,
+the atomic swap is complete. The effect of all this is that John has
+sent 2 BTC to Fadime, under the condition that Fadime sends 100 NMC to
+him, and Fadime sends 100 NMC to John under the condition that John
+sends 2 BTC to her.
+
+===== Failure of atomic swap
+
+The sequence of events in the atomic swap example above illustrated
+the case where both parties, John and Fadime, played by the rules. No
+one had to actually use the time locked branches of the contract
+transaction outputs. This subsection will go through some ways that
+the swap might fail.
+
+Fadime doesn't broadcast her contract transaction:: This means that
+John can't spend the output of Fadimes contract transaction, which
+means that Fadime will never get to see S. Without S, she can't spend
+John's contract output. The only possible outcome is that John must
+wait 48 hours for the relative time lock to release and then reclaim
+his own money.
+
+John doesn't spend Fadimes contract output in 24 hours:: Fadime can
+reclaim her coins and John must wait another 24 hours before claiming
+his coins back.
+
+John spends Fadimes contract output just after 24 hours has passed but before Fadime claims back her coins::
+Thankfully John's contract output has a 48 hour relative lock time as
+opposed to 24 hours in Fadime's contract output, so John can't claim
+his coins back until he has waited another 24 hours. During this time,
+Fadime can claim her BTC from John's contract output at any time using
+S and her signature.
+
+Fadime gets hit by a bus just after broadcasting her contract output::
+This is no good. John will be able to take his NMC from Fadime's
+contract output and then wait 48 hours to also claim back
+his BTC. Fadime loses out on this one.
+
+In the last of these cases, one could argue that the swap wasn't
+atomic. After all, the swap didn't go through and John ended up with
+all coins. This is a somewhat philosophical question. But we can think
+of swaps as being atomic under the condition that Fadime is able to
+take actions. We don't have this condition for John, though. It's a
+matter of who creates the secret, S.
+
+=== Storing stuff in the Bitcoin blockchain
+
+In the early days of Bitcoin, it became clear that people wanted to
+put stuff in transactions in the Bitcoin blockchain that doesn't have
+anything to do with Bitcoin itself.
+
+.A blockchain tribute to Cryptographer Sassama alledegedly posted by Dan Kaminsky. The message is wrapped into 3 columns to save space.
+----
+---BEGIN TRIBUTE---     LEN "rabbi" SASSAMA     P.S.  My apologies,
+#./BitLen                    1980-2011          BitCoin people.  He
+:::::::::::::::::::     Len was our friend.     also would have    
+:::::::.::.::.:.:::     A brilliant mind,       LOL'd at BitCoin's 
+:.: :.' ' ' ' ' : :     a kind soul, and        new dependency upon
+:.:'' ,,xiW,"4x, ''     a devious schemer;         ASCII BERNANKE  
+:  ,dWWWXXXXi,4WX,      husband to Meredith     :'::.:::::.:::.::.:
+' dWWWXXX7"     `X,     brother to Calvin,      : :.: ' ' ' ' : :':
+ lWWWXX7   __   _ X     son to Jim and          :.:     _.__    '.:
+:WWWXX7 ,xXX7' "^^X     Dana Hartshorn,         :   _,^"   "^x,   :
+lWWWX7, _.+,, _.+.,     coauthor and            '  x7'        `4,  
+:WWW7,. `^"-" ,^-'      cofounder and            XX7            4XX
+ WW",X:        X,       Shmoo and so much        XX              XX
+ "7^^Xl.    _(_x7'      more.  We dedicate       Xl ,xxx,   ,xxx,XX
+ l ( :X:       __ _     this silly hack to      ( ' _,+o, | ,o+,"  
+ `. " XX  ,xxWWWWX7     Len, who would have      4   "-^' X "^-'" 7
+  )X- "" 4X" .___.      found it absolutely      l,     ( ))     ,X
+,W X     :Xi  _,,_      hilarious.               :Xx,_ ,xXXXxx,_,XX
+WW X      4XiyXWWXd     --Dan Kaminsky,           4XXiX'-___-`XXXX'
+"" ,,      4XWWWWXX     Travis Goodspeed           4XXi,_   _iXX7' 
+, R7X,       "^447^                               , `4XXXXXXXXX^ _,
+R, "4RXk,      _, ,                               Xx,  ""^^^XX7,xX 
+TWk  "4RXXi,   X',x                             W,"4WWx,_ _,XxWWX7'
+lTWk,  "4RRR7' 4 XH                             Xwi, "4WW7""4WW7',W
+:lWWWk,  ^"     `4                              TXXWw, ^7 Xk 47 ,WH
+::TTXWWi,_  Xll :..                             :TXXXWw,_ "), ,wWT:
+=-=-=-=-=-=-=-=-=-=                             ::TTXXWWW lXl WWT: 
+                                                ----END TRIBUTE----
+----
+
+While this was certainly funny, it has some implications for Bitcoin's
+full nodes. This is purposefully ironic given the P.S. message that
+refers to the centralizing effect an ever increasingly growing
+blockchain will have due to increased cost of running a full node.
+
+The above message was written into the blockchain using a single
+transaction with transaction id
+`930a2114cdaa86e1fac46d15c74e81c09eee1d4150ff9d48e76cb0697d8e1d72`. The
+author created a transaction with 78 outputs, one for each 20
+character line in the message. Each line ends with a space so only 19
+characters are visible.
+
+For example, the very last output's scriptPubKey looks like this:
+
+ OP_DUP OP_HASH160 2d2d2d2d454e4420545249425554452d2d2d2d20 OP_EQUALVERIFY OP_CHECKSIG
+
+****
+image::{imagedir}/2ndcol-pkh-creation.svg[]
+****
+
+The interesting part is the public key hash. This is not an actual
+public key hash, but a made up one. Maybe you can see a pattern when
+you compare it to the line `----END TRIBUTE---- `:
+
+ 2d 2d 2d 2d 45 4e 44 20 54 52 49 42 55 54 45 2d 2d 2d 2d 20
+ -  -  -  -  E  N  D     T  R  I  B  U  T  E  -  -  -  -   
+
+This "public key hash" encodes one 20 character line in the
+message. It uses the so called _ascii table__ to encode
+characters. For example the character `-` is encoded as the byte
+`2d`. The characters A-Z are encoded by the bytes `41`-`5a`, and space
+is encoded as byte `20`.
+
+Let's have a look at the public key hashes of the 10 last lines of the
+message along with they ascii-decoded text:
+
+----
+20203458586958272d5f5f5f2d60585858582720   4XXiX'-___-`XXXX'
+202020345858692c5f2020205f69585837272020    4XXi,_   _iXX7'
+20202c2060345858585858585858585e205f2c20   , `4XXXXXXXXX^ _,
+202058782c202022225e5e5e5858372c78582020   Xx,  ""^^^XX7,xX
+572c22345757782c5f205f2c5878575758372720 W,"4WWx,_ _,XxWWX7'
+5877692c202234575737222234575737272c5720 Xwi, "4WW7""4WW7',W
+54585857772c205e3720586b203437202c574820 TXXWw, ^7 Xk 47 ,WH
+3a5458585857772c5f2022292c202c7757543a20 :TXXXWw,_ "), ,wWT:
+3a3a54545858575757206c586c205757543a2020 ::TTXXWWW lXl WWT:
+2d2d2d2d454e4420545249425554452d2d2d2d20 ----END TRIBUTE----
+----
+
+Most Bitcoin full nodes have (and had at the time of the above
+transction) a policy requiring that each output must have a
+non-negligable value. If not, the transaction would simply be
+dropped. There are some exceptions to this default policy that we'll
+learn in a moment. Each of the outputs pays 0.01 BTC to a
+bogus PKH to circumvent these policies.
+
+==== Bloated UTXO set
+
+Since these public key hashes are made up, there is no known pre-image
+to them. This also means that there is no know public/private key pair
+associated with the public key hashes. Thus, the outputs can never be
+spent by anyone. They are _not spendable_. The Bitcoin address of the
+last PKH is `157sXYpjvAyEJ6TdVFaVzmoETAQnHB6FGU`. Whoever pays money
+to this address throws the money in the trash. The money is lost
+forever. It is the equivalent of buring a dollar bill.
+
+Not spendable outputs as the ones above are indistiguishable from
+ordinary, spendable, outputs. They are _unprovably not
+spendable_. Full nodes have to treat them as spendable, meaning that
+they have to keep these not spendable outputs in their UTXO (unspent
+transaction output) set.
+
+As more and more not spendable outputs are created, the UTXO set will
+grow. As the UTXO set grows, it will occupy more and more memory on
+the full nodes.
+
+The developers of Bitcoin came up with a partial solution to this
+problem. Instead of sending money to unprovably not spendable outputs,
+users can create _provably not spendable_ outputs. If a full node can
+determine if an output is not spendable, it doesn't have to insert it
+into its UTXO set.
+
+The partial solution involves a new Script operator called
+`OP_RETURN`. This operator immediately fails when executed. A typical
+OP_RETURN scriptPubKey can look like this
+
+ OP_RETURN "I'm beginning to grok Bitcoin"
+
+If someone would try to spend this output, it would cause the script
+to fail when it encounters the `OP_RETURN`. So if the scriptPubKey
+contains this operator, a full node can determine that the output is
+not spendable and simply ignore the output. Saving the UTXO set from
+being forever bloated with this nonsense.
+
+There are a few policies regarding OP_RETURN:
+
+* The full scriptPubKey must not be bigger than 83 bytes
+* There can only be one OP_RETURN output per transaction
+* OP_RETURN output are allowed to have 0-value, so that you don't have
+  to burn money to use it.
+
+==== Create a token in Bitcoin
+
+We talked briefly about tracking ownership on the blockchian in
+<<ch01>>. Suppose that a car manufacturer, let's call them Ampere,
+decides that they want to digitally track the ownerships of their cars
+on the Bitcoin blockchain. This can be accomplished by creating a
+token in Bitcoin.
+
+Suppose that the Ampere wants to create a token for a newly
+manufactured car with the chassis number 123456. Then they broadcast a
+Bitcoin transaction as follows:
+
+.Ampere creates a new token for a newly built car. They issue the token to themselves because they still own this car.
+image::{imagedir}/car-token-1.svg[{half-width}]
+
+This "Ampere token protocol" depicts that a new token is created by
+
+* Ampere spends a coin from PKH~A~
+* The transction contains an OP_RETURN output with the text `"ampere
+  <chassis number>"`.
+* The output immediately following the OP_RETURN output is the initial
+  owner of the token.
+
+Ampere has a well known web page at https://www.ampere.example.com/
+where they have published their public key corresponding to
+PKH~A~. They also pump out their public key through advertisements and
+other means of communications. They do this so that people can verify
+that PKH~A~ actually belongs to Ampere.
+
+Now suppose that Ampere sells this car to a car dealer. The dealer has
+a public key hash PKH~D~. This is how Ampere will transfer the digital
+ownership to the dealer:
+
+.Ampere sells the car to a car dealer with public key hash PKH~D~.
+image::{imagedir}/car-token-2.svg[{big-width}]
+
+According to our simple protocol, ownership of a car is transferred by
+spending the old owner's output. The following rules apply:
+
+* The spending transaction spends the old owner's output.
+* The first output is the new owner of the car.
+* The first output must have the same value as the old owner's output.
+
+Now the car dealer is the new owner because the PKH~D~ is the first
+output of the spending transaction. That's it. When the dealer sells
+this car to a consumer, Fadime, the dealer transfers the ownership of
+the car to Fadime's address, PKH~F~:
+
+.The car dealer transfers the ownership of the car to Fadime's PKH~F~. 
+image::{imagedir}/car-token-3.svg[{big-width}]
+
+==== Start the car with proof of ownership
+
+Now, that Fadime is the rightful owner of this car, wouldn't it be
+cool if she could start the car by proving that she is the owner?
+She can. The car is equipped with an ignition lock that starts the
+engine when Fadime sends a proof of ownership to the car.
+
+.Fadime starts her car by signing a challenge with her private key.
+image::{imagedir}/car-token-4.svg[{half-width}]
+
+Fadime first asks the car to start. The car will not start if it
+doesn't know that Fadime has the private key belonging to PKH~F~. The
+car generates a big random number and sends it to Fadime. Fadime signs
+this random number with the private key and sends the signature and
+her public key to the car.
+
+The car needs the public key to be able to verify that the public key
+corresponds to PKH~F~ as written in the blockchain. The car keeps
+track of who currently owns the car by running a lightweight wallet
+that understands the Ampere token protocol.
+
+When the car has verified that the signature is valid and from the
+correct private key it will start the engine.
+
+=== Replace pending transactions
+
+When you send a Bitcoin transaction to buy a book online, the book
+store will wait for the transaction to confirm before it sends the
+book to you. Usually your transaction will get confirmed within an
+hour or so, but what if it doesn't? What if no miner ever wants to
+include your transaction? This can certainly happen if your transaction fee is not sufficient.
+
+In <<ch07>> we learned that you
+pay a transaction fee with every transaction.
+
+If this payment doesn't get confirmed
+
+That's simple. Once the transaction is confirmed it is extremely
+expensive to replace it as we saw in <<ch07>>. But before the
+transaction becomes confirmed, while it is in the unconfirmed phase, it can be cheaply removed fr
 
 
 
 
-
-lock time and sequence numbers OP_CHECKSEQUENCEVERIFY
-OP_CHECKLOCKTIMEVERIFY
-
-
-
-What to possibly cover:
-
-
-OP_RETURN
-
-atomic swaps
 payment channel
+
 transaction malleability
 
 RBF (CPFP, opt-in)
-
 
 segregated witness

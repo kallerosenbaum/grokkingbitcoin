@@ -14,7 +14,7 @@ body {
 }
 
 
-div>p,.literalblock,.imageblock>.title,div>.tableblock,.dlist,.olist,.ulist,.stemblock {
+div>p,.literalblock,.listingblock,.imageblock>.title,div>.tableblock,.dlist,.olist,.ulist,.stemblock {
     width: 75%;
 }
 

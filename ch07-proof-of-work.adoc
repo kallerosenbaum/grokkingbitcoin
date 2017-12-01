@@ -1662,7 +1662,7 @@ pass. Also suppose that the value of cookie tokens double every four
 years. Is it totally sure that the value of the block subsidy
 decreases over time?
 
-* Why would a miner chose not to include a transaction that pays a
+. Why would a miner chose not to include a transaction that pays a
   very small (or no) transaction fee?
 
 === Recap
