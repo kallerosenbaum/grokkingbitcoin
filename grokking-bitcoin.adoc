@@ -56,5 +56,9 @@ ifdef::ch9,chall[]
 include::ch09-transactions-revisited.adoc[]
 endif::[]
 
+ifdef::ch10,chall[]
+include::ch10-segregated-witness.adoc[]
+endif::[]
+
 ifdef::chweb,chall[]
 ifndef::chapter[include::web-resources.adoc[]]

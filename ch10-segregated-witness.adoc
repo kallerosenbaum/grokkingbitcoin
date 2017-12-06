@@ -1,0 +1,84 @@
+[[ch10]]
+== Segregated witness - Fixing malleability and more
+:imagedir: {baseimagedir}/ch10
+
+
+Short history and high-level overview of the problems at hand and how
+we fix them.
+
+=== Problems
+
+Detailed problem descriptions
+
+==== Transaction malleability
+
+Example of time locked transactions to your daugher where the base
+transaction is malleated.
+
+==== Signatures are unneccesarily stored forever
+
+* Need to store all signature data forever (refer to section on assumevalid)
+
+==== Block size limit
+
+* Block size is limited to 1 000 000 bytes
+
+==== Inefficient signature verification
+
+* Signature verifications scales as O(n^2^). (Use wording inefficient signature verification instead)
+
+==== Upgrades to Script is hard
+
+* Script upgrades are hard, only a few OP_NOPs left
+
+=== Solution
+
+==== Move signature data out of transactions
+
+* Transaction malleability is fixed because witness data is not part of the txid
+
+* Witness data becomes cheaper because it can be pruned
+
+* Allow 1 000 000 bytes but count a witness byte as 0.25 bytes, effectively increasing the block size.
+
+* scriptPubKey = 0 <witness program>, scriptSig = (empty), witness = ...input... <script> (a bunch of pushes)
+* New wtxid
+* Witness merkle root in an OP_RETURN output of the coinbase
+
+==== Upgradeable script
+
+* Scripts upgradeable via soft forks thanks to the "version byte"
+
+==== New hashing method for signatures
+
+* New sighash algorithm for native segwit
+
+==== Yet another address format
+
+==== Peer to peer network messages
+
+
+
+
+Include table of script types
+p2pkh
+p2sh
+p2wpkh
+p2wsh
+p2wpkh embedded in p2sh
+p2wsh embedded in p2sh
+
+
+
+
+
+
+Bitcoin's confirmation times (several minutes) and relatively high
+transaction fees, see <<bitcoin-at-a-glance>>, can be a showstopper
+for small quick payments, like when you buy your morning coffee on
+your way to work. You don't want to wait 10 minutes at the cafe. We
+noted in <<when-not-to-use-bitcoin>> that technical solutions are on
+their way to solve this problem. We will explain payment channels that
+lets you make tiny payments nearly instantaneous. Payment channels
+lays the groundworks for higher level systems, like the Lightning
+Network.
