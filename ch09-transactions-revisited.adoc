@@ -934,6 +934,7 @@ Transactions and transaction outputs can be locked in different ways
 to prevent spending of funds until a certain date or time span has
 occurred.
 
+[cols="s,2*"]
 |===
 |          | Enforced in spending transaction only | Enforced in output
 
@@ -965,9 +966,10 @@ number of at least one input to a value lower than `fffffffe`.
 The sequence numbers of inputs are used for a variety of purposes. We
 have discussed all different uses for sequence numbers in this
 chapter, and it's hard to keep track of them. Let's summarize the
-meaning for different values of the sequence numbers:
+meaning of different values of the sequence numbers:
 
 .Sequence numbers are used to enable or disable various features.
+[cols="s,3*"]
 |===
 | Sequence value (descending order) | relative lock time (BIP68), per input | Replace by fee (BIP125), any input | locktime, any input
 
