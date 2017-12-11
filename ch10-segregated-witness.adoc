@@ -82,3 +82,21 @@ their way to solve this problem. We will explain payment channels that
 lets you make tiny payments nearly instantaneous. Payment channels
 lays the groundworks for higher level systems, like the Lightning
 Network.
+
+
+
+
+Open questions:
+
+* Does anyone here know why the sequence of other inputs are zeroed when signing with SIGHASH_NONE or SIGHASH_SINGLE? Doesn't that interfere with relative lock time and RBF opt-in?
+
+* Why do Bernanke outputs have values >0? Do they have to?
+
+Closed questions:
+
+* How can you make a relative lock-time transaction that is not opt-in RBF?
+** opt-in is seq<0xffffffff-1 while rel-lock-time is 0x7fffffff-0x00000000
+
+payment channel
+lightning
+
