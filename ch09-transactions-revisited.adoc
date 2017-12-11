@@ -62,7 +62,7 @@ after you die. You can create a transaction that is time locked:
 [.gbinfo]
 .No fee?
 ****
-For the sake of simplicity, monst examples in this chapter don't pay
+For the sake of simplicity, most examples in this chapter don't pay
 any fees.
 ****
 
@@ -189,7 +189,7 @@ This BIP describes how an input can require a certain distance in time
 or blocks from the spent transaction output.
 ****
 
-The above example showed a usecase for absolute time locks on
+The above example showed a use case for absolute time locks on
 transactions. But there is also a way to require that a certain amount
 of time has passed since a spent output was confirmed. This is done on
 a per input basis:
@@ -595,10 +595,10 @@ address throws the money in the trash. The money is lost forever. It
 is the equivalent of burning a dollar bill.
 
 Unspendable outputs as the ones above are indistinguishable from
-ordinary, spendable, outputs. You cannot prove that yhey are
+ordinary, spendable, outputs. You cannot prove that they are
 unspendable. Full nodes have to treat them as spendable, meaning that
 they have to keep these unspendable outputs in their UTXO (unspent
-transaction output) set forever. This places an unneccesary burden on
+transaction output) set forever. This places an unnecessary burden on
 nodes: They need to keep all these outputs in memory.
 
 The developers of Bitcoin came up with a partial solution to this
@@ -927,11 +927,11 @@ There are a few drawbacks with this method:
 
 === Summary
 
-This chapter has been a potpuurri of things you can do with
+This chapter has been a potpourri of things you can do with
 transactions.
 
 Transactions and transaction outputs can be locked in different ways
-to prevent spending of funds until a certain date or timespan has
+to prevent spending of funds until a certain date or time span has
 occurred.
 
 |===
@@ -979,7 +979,7 @@ meaning for different values of the sequence numbers:
 | `00000000` | Enabled  | Enabled  | Enabled
 |===
 
-=== Excercises
+=== Exercises
 
 ==== Warm up
 
@@ -998,7 +998,7 @@ not be spent within 2048 blocks". 2048 is `0800` in hex.
 not be spent before new year's eve 2020". You don't have to translate
 the time to some fancy binary format, just write it as normal text.
 
-6. Suppose that Adam and Eve want to swap coins with eachother using
+6. Suppose that Adam and Eve want to swap coins with each other using
 an atomic swap. How many transactions would be created on each
 blockchain upon completion?
 
@@ -1017,7 +1017,7 @@ confirmed yet?
 2. Suppose that you want to bet 1 BTC that it's going to snow in
 London on Christmas Eve and Ruth bets 1 BTC that it's not. You appoint
 a person, Beth, that you both trust to solve any conflicts that might
-occurr. You and Ruth collaborate to create and broadcast a transaction
+occur. You and Ruth collaborate to create and broadcast a transaction
 that spend 1 BTC each to an output of 2 BTC with the following
 redeemScript.
 
@@ -1057,4 +1057,4 @@ doesn't opt-in. Explain your reasoning.
   the transaction in case it doesn't confirm within reasonable time.
 
 * Signatures can commit to different parts of the transaction using
-  six combilnations of SIGHASH types.
+  six combinations of SIGHASH types.
