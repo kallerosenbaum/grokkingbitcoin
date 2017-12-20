@@ -2,38 +2,467 @@
 == Segregated witness - Fixing malleability and more
 :imagedir: {baseimagedir}/ch10
 
+This chapter covers
 
-Short history and high-level overview of the problems at hand and how
-we fix them.
+* Problems needing solutions
+* Moving signatures out of transactions
+* Deploying the solution (tough one!)
+
+Bitcoin is far from perfect. There are several shortcomings that need
+to be addressed. The first subsection of this chapter will explain
+some shortcomings that Bitcoin suffers from. Among the most critical
+ones are _transaction malleability_ and inefficiencies in signature
+verification. We've already mentioned transaction malleability in
+<<time-locked-transactions>>, that can cause a transaction to change
+while being broadcast, and therefore its txid will change.
+
+A solution to these problems was presented in 2015 at a conference on
+Bitcoin scalability. This solution is known as _segregated witness_,
+which is a weird name for moving signature data out of transactions.
+
+We will descibe in detail this solution, which includes changes in
+pretty much all parts of Bitcoin: Bitcoin addresses, transaction
+format, block format, local storage and network protocol.
+
+Since segregated witness was a pretty big change in Bitcoin, it was
+not trivial to deploy without disrupting the network. It was carefully
+designed so that old software would continue working and accepting
+segregated witness transactions, though without verifying certain
+parts of the transactions.
+
+Last in this chapter we will explore blockchain forks. A blockchain
+fork can occur when part of the Bitcoin network changes the consensus
+rules. Forks come in different flavors; Soft forks and hard
+forks. Both fork types change the rules, but in different
+ways. Segregated witness was deployed as a soft fork.
 
 === Problems
 
-Detailed problem descriptions
+This first subsection of the chapter will discuss the problems that
+segregated witness, or segwit, intends to solve.
 
 ==== Transaction malleability
 
-Example of time locked transactions to your daugher where the base
-transaction is malleated.
+To explain transaction malleability, let's go back to the example in
+<<ch09>> where you gave a time locked transaction to your
+daughter. When almost a year has passed since you created the last
+time locked transaction, you need to invalidate that transaction and
+create a new one:
 
-==== Signatures are unneccesarily stored forever
+.You spend one of the outputs that the previous time locked transaction spends and create a new time locked transaction that you give to your daughter.
+image::{imagedir}/inheritance-transaction.svg[{big-width}]
+
+It was important to give the new time locked transaction, Tx~3~, to
+your daughter before broadcasting Tx~2~ that invalidates the previous
+time locked transaction, Tx~1~. Otherwise, if you broadcast Tx~2~
+before giving Tx~3~ to your daughter, you may get hit by a bus between
+the two steps. Then your daughter will not be able to claim the money.
+
+So suppose that you do this correctly and first give Tx~3~ to your
+daughter and then broadcast Tx~2~. Tx~3~ spends the output of Tx~2~,
+which means that Tx~3~ contains the _transaction id_ of Tx~2~ in one
+of its inputs.
+
+Let's see what _may_ happen when you broadcast Tx~2~:
+
+image::{imagedir}/tx2-malleated.svg[{half-width}]
+
+Qi want to mess things up. When she receives your transaction Tx~2~,
+she modifies it in a certain way, into Tx~2M~, so that Tx~2M~ is still
+valid and has the same effect as the original transaction, Tx~2~. We
+will see shortly different ways how that can be done. The result is
+that there are now two different transactions that flow through the
+network that spends the same outputs and sends the money to the same
+recipients with the same amounts, but they have _different transaction
+ids_.
+
+Since Tx~2~ and Tx~2M~ spends the same outputs, they are in conflict
+with each other and at most one of them will get confirmed. Suppose
+that Tx~2M~ is the winner and gets mined in the next block. What
+happens to your daughter's inheritance?
+
+.Inheritance fails because your daughters time locked transaction is forever invalid due to transaction malleability.
+image::{imagedir}/inheritance-fails.svg[{big-width}]
+
+The _malleated_ transaction, Tx~2M~ is stored in the blockchain. That
+makes Tx~2~ invalid because it spends the same output as Tx~2M~. The
+first input of the time locked transaction that you gave to your
+daughter contains the txid of Tx~2~, so when 2020-04-30 has passed,
+your daughter will not be able to claim her inheritance because she
+tries to spend an output from an invalid transaction.
+
+===== How can Qi change the txid?
+
+There are several options for Qi to change the scriptSig without invalidating the transaction. Among them are:
+
+.Three classes of malleability issues.
+image::{imagedir}/super-zoom-tx-malleability-problems.svg[{full-width}]
+
+The first one modifies the signature container format, which changes
+how the signature is written in the script sig. There are a few
+different ways to _encode_ the signature that are all valid. Modern
+versions of Bitcoin Core will relay transactions only if all
+signatures are on the so-called "canonical" form. This means that it
+will accept transactions in the blockchain using any of the encodings,
+but not pass new transactions that aren't canonical. This is only a
+partial solutions because transactions malleated this way can still
+enter the blockchain.
+
+The second way to malleate a transaction is by using cryptographic
+tricks. I will not go into details here, because I'm not clever
+enough. I can only say that a signature, regardless of format, can be
+modified in a few ways that doesn't make them invalid. We only know
+about one such trick, but we cannot rule out that there are others. A
+relay policy is in place that prevents transactions with the known
+trick to propagate. But as with the previous policy rule, you can't
+really be sure it doesn't happen.
+
+The last one is about changing the program itself. There are several
+ways to to this. The one in the example above first duplicates
+(OP_DUP) the top item on the stack and then immediately removes
+(OP_DROP) the duplicate from the stack, effectively the change does
+nothing and the whole program will run just fine. This type is also
+limited by a relay policy that prohibits script operators other than
+data pushes in the scriptSig.
+
+While Bitcoin Core have implemented relay policies that decrease the
+probability for transaction malleability, it can still happen. For
+example, any miner can make such changes in any transaction before
+including them in their blocks.
+
+==== Signatures must be stored forever
+
+In <<validating-early-blocks>> we saw how a typical Bitcoin full node
+that is synchronizing its blockchain with the network skips signature
+verification of transactions older than a certain age. It can do that
+because so much proof of work has been committed to them.
+
+If signatures of old transactions are not neccesary for blockchain
+synchronization, why would any Bitcoin full node want to waste hard
+disk space to keep the scriptSigs of transactions. After all, the
+scriptSigs take a large percentage of the transaction size. A typical
+scriptSig spending a p2pkh output takes 107 bytes. Consider a few
+different transactions with two outputs:
+
+.Space occupied by scriptSig data of different typical transactions
+|===
+| Inputs | Total scriptSig size | Tx size | scriptSig percentage
+
+| 1 | 107 | 224 | 47%
+| 2 | 214 | 373 | 57%
+| 3 | 321 | 521 | 61%
+| 8 | 856 | 1255 | 68%
+|===
+
+.Txid
+****
+image::{imagedir}/2ndcol-txid.svg[]
+****
+
+Wouldn't it be nice if your full node didn't have to store the
+scriptSig data? You would save more than 50% disk space. There's just
+one problem: They are needed to calculate transaction ids. If you
+delete all scriptSigs from all transactions in your copy of the
+blockchain and send blocks to a syncing full node, that node would not
+be able to verify that an input spends an existing output, because
+they don't know the txid of the spent transaction. They would also not
+be able to verify that a certain transaction belongs in a certain
+block, because they cannot reconstruct the merkle root without
+calculating all txids in the block.
+
+.Without the scriptSigs, a full node will not be able to verify that a transaction is included in the block.
+image::{imagedir}/cannot-verify-tx-included-in-block.svg[{half-width}]
+
+But if we rely on proof of work to vouch for the validity of
+signatures, as we do in <<validating-early-blocks>>, couldn't we also
+rely on proof of work to vouch for inputs spending existing inputs,
+and that the transactions are included in a block?
+
+No. If we do that, any node can make up a fake transaction paying 1000
+BTC to themselves and put it in a block before sending the block
+to you. Without scriptSigs, you will not be able to calculate the
+txids, so you will not be able to verify that the proof of work
+actually commits to the transaction. With signature verification, it's
+different. You can use the proof of work to check that a lot of miners
+has attested the autenticity of old transactions and that the whole
+blockchain "makes sense", ie all inputs spend existing outputs and no
+transactions are added, changed or removed.
+
+But play a bit further with the thought of dropping the
+scriptSig. Apart from saving disk space it would also reduce data
+traffic when sending blocks to syncing nodes, as well as sending
+transactions to Lightweight wallets.
+
+
 
 * Need to store all signature data forever (refer to section on assumevalid)
-
-==== Block size limit
-
+* Also need to transfer all signatures during initial sync
 * Block size is limited to 1 000 000 bytes
+
+image::{imagedir}/tramsacton-size.svg[]
 
 ==== Inefficient signature verification
 
-* Signature verifications scales as O(n^2^). (Use wording inefficient signature verification instead)
+This one is a bit more intricate. When a transaction is signed, the
+signature algorithm will hash the transaction in a certain way, as we
+saw in <<sighash-types>>.
 
-==== Upgrades to Script is hard
+As you remember from <<sign-transaction>> we clean all scriptSigs
+before signing. But if we do _just_ that, all signatures of the
+transaction would sign the exact same content. If the transaction
+spends two different outputs to the same address, the signature in one
+of the inputs could be reused in the other input. This can possibly be
+exploited by bad actors.
 
-* Script upgrades are hard, only a few OP_NOPs left
+To avoid this problem, Bitcoin makes each signature commit to slightly
+different versions of the transaction by copying the spent
+scriptPubKey into the scriptSig of the input that is currently being
+signed.
+
+Let's take the most common example of the `ALL` SIGHASH type without
+`ANYONECANPAY` set and zoom in a bit on what's actually happening. The
+first input is signed:
+
+image::{imagedir}/sign-old-digest-1.svg[{half-width}]
+
+The scriptSigs of all inputs are empty, but we copy the scriptPubKey
+of the spent output and insert it into the scriptSig of the first
+input. Then we create the signature for the first input. Then we move
+on to sign the second input:
+
+image::{imagedir}/sign-old-digest-2.svg[{half-width}]
+
+Here all scriptSigs, except the second one is emtpy. The second
+scriptSig is populated with the scriptPubKey of the spent output. Then
+the signature is created.
+
+By doing this exercise for each input we make sure that signatures are
+not reusable across inputs. But this also introduces a
+problem. Signature verification becomes inefficient.
+
+Suppose that you want to verify the signatures of the above
+transaction. For every input, you need perform basically the same
+procedure as when the transaction was signed: Clean all the scriptSigs
+from the transaction and then, one at a time, insert the scriptPubKey
+in the scriptSig of the input you want to verify. Then verify the
+signature for that input.
+
+This may seem harmless, but as the number of inputs grow, the amount
+of data to hash for each signature increases. If you double the number
+of inputs, you
+
+* double the number of signatures to verify
+* double (roughly) the size of the transaction
+
+.Total time for hashing during signature verification. Time roughly quadruples when number of inputs double.
+image::{imagedir}/sighash-n2.svg[{big-width}]
+
+This means that if the time to verify the above transaction with two
+inputs was 1 ms, it would take 4 ms to verify a transaction with 4
+inputs. Double the number of inputs again, and we have 16 ms. A
+transaction with 1024 inputs would take more than four minutes!
+
+This weakness can be exploited by creating a large transaction with a
+lot of inputs. All nodes verifying the transaction will be busy
+verifying for minutes, this basically takes down the whole network for
+as long as you want.
+
+It would be much better if we could make the time grow linearly
+instead of quadratic. Then the 1024 inputs would take roughly 512 ms
+instead.
+
+==== Script upgrades are hard
+
+Sometimes it is desirable to extend the script language with new
+operations. For example `OP_CHECKSEQUENCEVERIFY` and
+`OP_CHECKLOCKTIMEVERIFY` were introduced in the language during 2015
+and 2016. Let's have a look at how `OP_CHECKLOCKTIMEVERIFY`, CLTV, was
+introduced.
+
+Will start with what `OP_` codes actually are. They are nothing but a
+single byte. `OP_EQUAL` for example, is represented by the byte `87`
+in hex code. Every node knows that when they encounter the byte `87`
+in the script program, they know that they need to compare the top two
+items on the stack and push the result back on the
+stack. `OP_CHECKMULTISIG` is also a single byte, `ae`. All operators are
+represented by a different byte.
+
+When Bitcoin was created, a number of "NOP" operators,
+`OP_NOP1`-`OP_NOP10`, was specified. They are represented by the bytes
+`b0`-`b9`. They are designed to do nothing. The name "NOP" comes from
+"No OPeration" which basically means, "when this instruction appears
+just ignore it and move on".
+
+These NOPs can be used to extend the script language, but only to a
+certain extent. The CLTV operator is actually `OP_NOP2`, or byte
+`b1`. CLTV was introduced by simply to release a version of Bitcoin
+Core that redefines how `OP_NOP2` works. But it needs to be done in a
+compatible way so that we don't break compatibility with old,
+non-upgraded nodes.
+
+Let's go back to the example from <<absolute-time-locked-outputs>>
+where you gave your daughter allowance in advance that she can cash
+out on May 1:
+
+.Using `OP_CHECKLOCKTIMEVERIFY` to lock an output until May 1.
+image::{imagedir}/cltv-allowance.svg[{half-width}]
+
+The scriptPubKey for this output is
+
+[subs="normal"]
+----
+<may 1 2019 00:00:00> OP_CHECKLOCKTIMEVERIFY OP_DROP
+OP_DUP OP_HASH160 <PKH~D~> OP_EQUALVERIFY 
+OP_CHECKSIG
+----
+
+or at least, that's how a new node, that is aware of the new meaning
+of byte `b1`, interprets the script. It will
+
+* push the time `<may 1 2019 00:00:00>` to the stack
+* *check that the lock time of the spending transaction has at least
+   the value found on top of the stack. Fail immediately otherwise*
+* drop the time value from the stack
+* continue with normal signature verification
+
+An old node, on the other hand will interprete the script as follows:
+
+[subs="normal"]
+----
+<may 1 2019 00:00:00> OP_NOP2 OP_DROP
+OP_DUP OP_HASH160 <PKH~D~> OP_EQUALVERIFY 
+OP_CHECKSIG
+----
+
+It will
+
+* push the time `<may 1 2019 00:00:00>` to the stack
+* *do nothing*
+* drop the time value from the stack
+* continue with normal signature verification
+
+Old nodes still treat `OP_NOP2` as it used to; By doing nothing and
+move on. It is not aware of the new rules associated with the byte
+`b1`.
+
+The `OP_CHECKLOCKTIMEVERIFY` is carefully designed to make  `OP_DROP`
+is included by the program author to make the script behave in the
+same way if the script succeeds on
+
+The old and the new nodes will behave the same if the
+`OP_CHECKLOCKTIMEVERIFY` succeeds on the new node. But if the
+OP_CHECKLOCKTIMEVERIFY fails on the new node, the old node will not
+fail, because "do nothing" never fails. The new nodes fail more often
+than the old nodes, because new nodes have stricter rules. The old
+nodes will always finish the script program with success whenever the
+new nodes finish with success. This is known as a _soft fork_. A soft
+fork is a system upgrade that doesn't require all nodes to upgrade. We
+will talk more about forks, system upgrades, and alternate currencies
+born from Bitcoin's blockchain in the next chapter.
+
+You may be wondering why the OP_DROP instruction is for. OP_DROP takes
+the top item on the stack and discards it. OP_CHECKLOCKTIMEVERIFY is
+designed to behave exactly like OP_NOP2 when it succeeds. The stack
+must look exactly the same after operator has been run, regardless if
+it's run as an OP_NOP2 by the old node or as `OP_CHECKLOCKTIMEVERIFY`
+by a new node. If CLTV would be designed without taking old nodes into
+account, it would probably take the top item from the stack. But since
+we need to take old nodes into account, we cannot do that because the
+change would not be compatible with old nodes. That's why we must add
+the extra OP_DROP after OP_CHECKLOCKTIMEVERIFY.
+
+The above was an example of how old script operators can be repurposed
+to do something more strict without disrupting the whole network.
+
+This method of script upgrades has been done for two operators so far.
+
+|===
+| Byte | Old code | New code | New meaning
+
+| `b1` | `OP_NOP2` | OP_CHECKLOCKTIMEVERIFY | Verify that the spending tx has high enough absolute lock time
+| `b2` | `OP_NOP3` | OP_CHECKSEQUENCEVERIFY | Verify that the spending input has high enough relative lock time
+|===
+
+There are only 10 spare operators that we can use for script upgrades,
+and such upgrades are limited to mimic the `OP_NOP` behaviour if they
+don't fail.
+
+Sooner or later we need another script upgrade mechanism. Both because
+we will run out of OP_NOPs and because we want the new script
+operators to behave differently than OP_NOP when they succeed.
 
 === Solution
 
+A solution to all the above problems were presented at a conference in
+2015 by Pieter Wuille. The solution was to move the script out of the
+transactions altogether.
+
 ==== Move signature data out of transactions
+
+Remind reader of anatomy of a normal transaction
+
+image::{imagedir}/normal-transaction.svg[]
+
+Note how all malleability is caused by modifying something in the scriptSig.
+
+If we could just change the system so that the txid does not cover the
+scriptSig, we would remove all known possibilities of unintentional
+transaction malleability. Unfortunately, if we do this we would make
+old software incompatible, because they calculate the txid in the
+traditional way.
+
+Segregated Witness, SegWit, solves problem and all the above mentioned problems
+in a forward and backward compatible way:
+
+* Forward compatible because data created by new software works with old software.
+* Backward compatible because data created by old software works with new software.
+
+In crypto-lingo a _witness_ basically means a signature. It is
+something that attests that the authenticity of something. For a
+Bitcoin transaction, the witness is the contents of the scriptSig,
+because that's what proves that the transaction is
+authenticated. Segregated means parted, so we part the contents of the
+scriptSig from the transaction, effectively leaving the scriptSig
+empty.
+
+Suppose that your wallet use segwit, and that you are selling a laptop
+to Amy. Your wallet needs to create an address that you can give to
+Amy. So far nothing new.
+
+The thing is that segwit defines a new address type, a segwit
+address. This address contains two vital pieces of information:
+
+* A version
+* A witness program (20 or 32 bytes)
+
+The version is always zero for now. This is used for future
+upgrades. The witness program is either a public key hash or a script
+hash.
+
+
+.The scriptSig is moved out of the transaction before createing the txid.
+image::{imagedir}/segwit-transaction-no-scriptsig.svg[]
+
+If you remember how p2sh worked, you know that new, p2sh enabled,
+nodes would look for a specific pattern, the p2sh output pattern:
+
+ OP_HASH160 <hash of redeemscript> OP_EQUAL
+
+It is the same with segregated witness. This new system looks for
+another pattern:
+
+ <version byte> <2-40 bytes of data>
+
+If this pattern is found by an old node, the stack would consist of
+two data items, the version byte and the data. The data is called the
+_witness program_.
+
+image::{imagedir}/segwit-stack-old-node.svg[]
+
+The witness program is a hash of a
+
+
+
 
 * Transaction malleability is fixed because witness data is not part of the txid
 
@@ -58,7 +487,11 @@ transaction is malleated.
 ==== Peer to peer network messages
 
 
+=== Deployment
 
+Describe soft forks and hard forks
+
+=== Summary
 
 Include table of script types
 p2pkh
@@ -68,9 +501,16 @@ p2wsh
 p2wpkh embedded in p2sh
 p2wsh embedded in p2sh
 
+=== Exercises
+
+==== Warm up
+
+==== Dig in
+
+=== Recap
 
 
-
+75% Discount because signatures doesn't go into the UTXO set.
 
 
 Bitcoin's confirmation times (several minutes) and relatively high
@@ -92,11 +532,20 @@ Open questions:
 
 * Why do Bernanke outputs have values >0? Do they have to?
 
+* 
+
 Closed questions:
+
+* Can we really save storage and or bandwidth between full nodes with SegWit?
+** Yes, but not right now. Witnessless mode is not implemented.
 
 * How can you make a relative lock-time transaction that is not opt-in RBF?
 ** opt-in is seq<0xffffffff-1 while rel-lock-time is 0x7fffffff-0x00000000
 
+* Is it possible that there are other yet unknown ways to malleate a signature than the "-S" trick? Or maybe even known ones? I refer only to inherent ECDSA signature malleability.
+** Yes it's possible according to wumpus in bitcoin-core-dev
+
 payment channel
 lightning
+
 

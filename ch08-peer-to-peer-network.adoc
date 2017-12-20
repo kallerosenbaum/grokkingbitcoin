@@ -907,6 +907,7 @@ adds them to her own blockchain. If there are more blocks to download
 from any peer, she will repeat this process until she's up-to-date
 with, or ahead of, everyone else.
 
+[[validating-early-blocks]]
 ===== Validating early blocks
 
 Transactions in old blocks are already verified by most nodes and
@@ -922,7 +923,7 @@ image::{imagedir}/skip-sigvalidation-of-early-blocks.svg[{half-width}]
 
 Of course, other stuff like verifying that no double spends occur, or
 that the block rewards are correct is still done. The syncing node
-must build their own UTXO set, so they still have to go through all
+must build its own UTXO set, so it still has to go through all
 transactions to be able to update the UTXO set accordingly.
 
 Bitcoin Core ships with a preconfigured hard coded block id of a block

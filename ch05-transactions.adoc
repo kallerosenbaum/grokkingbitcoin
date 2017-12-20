@@ -232,8 +232,8 @@ because it spends money addressed to PKH~2~.
 [.inbitcoin]
 .Not really cleaned...
 ****
-Bitcoin puts the scriptPubKey from the output into the scriptSig
-before signing. But that's not really important for grokking Bitcoin.
+Bitcoin puts the scriptPubKey from the spent output into the current
+scriptSig before signing. This will be discussed further in <<ch10>>.
 ****
 
 Both signatures cover the whole transaction, but with no signature

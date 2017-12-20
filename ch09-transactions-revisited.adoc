@@ -45,6 +45,7 @@ signatures. Signatures can be made in different ways depending on your
 use case. You can tune what the signature should commit to. In other
 words, we can change how the signing algorithm hashes the transaction.
 
+[[time-locked-transactions]]
 === Time locked transactions
 
 When you create and sign a transaction it will be valid and ready for
@@ -235,6 +236,7 @@ of the block containing this output". These are examples of time
 locked outputs. An output can be locked absolutely or relatively and
 locks can be time based or height based.
 
+[[absolute-time-locked-outputs]]
 ==== Absolute time locked outputs
 
 [.inbitcoin]
@@ -835,6 +837,7 @@ that you don't bump the fee at all. Then the book store can spend its
 output of 10 BTC and pay themselves 9.9998 BTC to in order add 0.0002
 BTC to the combined fee.
 
+[[sighash-types]]
 === Different signature types
 
 When you sign a typical Bitcoin transaction you sign the entire
