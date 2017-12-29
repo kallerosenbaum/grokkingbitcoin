@@ -130,77 +130,7 @@ probability for transaction malleability, it can still happen. For
 example, any miner can make such changes in any transaction before
 including them in their blocks.
 
-==== Signatures must be stored forever
-
-In <<validating-early-blocks>> we saw how a typical Bitcoin full node
-that is synchronizing its blockchain with the network skips signature
-verification of transactions older than a certain age. It can do that
-because so much proof of work has been committed to them.
-
-If signatures of old transactions are not neccesary for blockchain
-synchronization, why would any Bitcoin full node want to waste hard
-disk space to keep the scriptSigs of transactions. After all, the
-scriptSigs take a large percentage of the transaction size. A typical
-scriptSig spending a p2pkh output takes 107 bytes. Consider a few
-different transactions with two outputs:
-
-.Space occupied by scriptSig data of different typical transactions
-|===
-| Inputs | Total scriptSig size | Tx size | scriptSig percentage
-
-| 1 | 107 | 224 | 47%
-| 2 | 214 | 373 | 57%
-| 3 | 321 | 521 | 61%
-| 8 | 856 | 1255 | 68%
-|===
-
-.Txid
-****
-image::{imagedir}/2ndcol-txid.svg[]
-****
-
-Wouldn't it be nice if your full node didn't have to store the
-scriptSig data? You would save more than 50% disk space. There's just
-one problem: They are needed to calculate transaction ids. If you
-delete all scriptSigs from all transactions in your copy of the
-blockchain and send blocks to a syncing full node, that node would not
-be able to verify that an input spends an existing output, because
-they don't know the txid of the spent transaction. They would also not
-be able to verify that a certain transaction belongs in a certain
-block, because they cannot reconstruct the merkle root without
-calculating all txids in the block.
-
-.Without the scriptSigs, a full node will not be able to verify that a transaction is included in the block.
-image::{imagedir}/cannot-verify-tx-included-in-block.svg[{half-width}]
-
-But if we rely on proof of work to vouch for the validity of
-signatures, as we do in <<validating-early-blocks>>, couldn't we also
-rely on proof of work to vouch for inputs spending existing inputs,
-and that the transactions are included in a block?
-
-No. If we do that, any node can make up a fake transaction paying 1000
-BTC to themselves and put it in a block before sending the block
-to you. Without scriptSigs, you will not be able to calculate the
-txids, so you will not be able to verify that the proof of work
-actually commits to the transaction. With signature verification, it's
-different. You can use the proof of work to check that a lot of miners
-has attested the autenticity of old transactions and that the whole
-blockchain "makes sense", ie all inputs spend existing outputs and no
-transactions are added, changed or removed.
-
-But play a bit further with the thought of dropping the
-scriptSig. Apart from saving disk space it would also reduce data
-traffic when sending blocks to syncing nodes, as well as sending
-transactions to Lightweight wallets.
-
-
-
-* Need to store all signature data forever (refer to section on assumevalid)
-* Also need to transfer all signatures during initial sync
-* Block size is limited to 1 000 000 bytes
-
-image::{imagedir}/tramsacton-size.svg[]
-
+[[inefficient-sighash]]
 ==== Inefficient signature verification
 
 This one is a bit more intricate. When a transaction is signed, the
@@ -237,8 +167,8 @@ scriptSig is populated with the scriptPubKey of the spent output. Then
 the signature is created.
 
 By doing this exercise for each input we make sure that signatures are
-not reusable across inputs. But this also introduces a
-problem. Signature verification becomes inefficient.
+not reusable across inputs if signed by the same private key. But this
+also introduces a problem: Signature verification becomes inefficient.
 
 Suppose that you want to verify the signatures of the above
 transaction. For every input, you need perform basically the same
@@ -270,6 +200,47 @@ as long as you want.
 It would be much better if we could make the time grow linearly
 instead of quadratic. Then the 1024 inputs would take roughly 512 ms
 instead.
+
+==== Waste of bandwidth
+
+When a full node sends a transaction to a lightweight wallet, it sends
+the complete transaction, which includes all signature data. But a
+lightweight wallet cannot verify the signatures, because it doesn't
+have the full history of transactions back to the coinbase
+transactions.
+
+The scriptSigs make a large percentage of the transaction size. A
+typical scriptSig spending a p2pkh output takes 107 bytes. Consider a
+few different transactions with two outputs:
+
+.Space occupied by scriptSig data of different typical transactions
+|===
+| Inputs | Total scriptSig size | Tx size | scriptSig percentage
+
+| 1 | 107 | 224 | 47%
+| 2 | 214 | 373 | 57%
+| 3 | 321 | 521 | 61%
+| 8 | 856 | 1255 | 68%
+|===
+
+
+.Txid
+****
+image::{imagedir}/2ndcol-txid.svg[]
+****
+
+Wouldn't it be nice if a full node didn't have to send the scriptSig
+data to the lightweight wallet? You would save more than 50% data
+traffic. There's just one problem: They are needed to calculate
+transaction ids. If you skip sending scriptSigs of transactions, the
+lightweight wallet would not be able to verify that the transaction is
+included in a block, because it can't verify the merkle proof. You do
+remember how a lightweight wallet verifies a merkle proof, don't you?
+
+.Without the scriptSigs, a lightweight wallet will not be able to verify that a transaction is included in the block.
+image::{imagedir}/cannot-verify-tx-included-in-block.svg[{half-width}]
+
+It would be nice if we could solve this somehow.
 
 ==== Script upgrades are hard
 
@@ -397,13 +368,10 @@ A solution to all the above problems were presented at a conference in
 2015 by Pieter Wuille. The solution was to move the script out of the
 transactions altogether.
 
-==== Move signature data out of transactions
+Let's take a look again at the anatomy of a normal transaction:
 
-Remind reader of anatomy of a normal transaction
-
-image::{imagedir}/normal-transaction.svg[]
-
-Note how all malleability is caused by modifying something in the scriptSig.
+.The txid is calculated from the whole transaction, including scriptSigs.
+image::{imagedir}/normal-transaction.svg[{half-width}]
 
 If we could just change the system so that the txid does not cover the
 scriptSig, we would remove all known possibilities of unintentional
@@ -411,34 +379,416 @@ transaction malleability. Unfortunately, if we do this we would make
 old software incompatible, because they calculate the txid in the
 traditional way.
 
-Segregated Witness, SegWit, solves problem and all the above mentioned problems
-in a forward and backward compatible way:
+[.inbitcoin]
+.BIP141
+****
+The new rules defined by segregated witness are specified in BIP141,
+"Segregated Witness (Consensus layer)".
+****
 
-* Forward compatible because data created by new software works with old software.
-* Backward compatible because data created by old software works with new software.
+Segregated Witness, SegWit, solves the problem and all the above
+mentioned problems in a forward and backward compatible way:
+
+* Forward compatible because transactions and blocks created by new
+  software works with old software.
+* Backward compatible because transactions and blocks created by old
+  software works with new software.
 
 In crypto-lingo a _witness_ basically means a signature. It is
-something that attests that the authenticity of something. For a
-Bitcoin transaction, the witness is the contents of the scriptSig,
+something that attests the authenticity of something. For a Bitcoin
+transaction, the witness is the contents of the scriptSig program,
 because that's what proves that the transaction is
 authenticated. Segregated means parted, so we part the contents of the
 scriptSig from the transaction, effectively leaving the scriptSig
-empty.
+empty:
 
-Suppose that your wallet use segwit, and that you are selling a laptop
-to Amy. Your wallet needs to create an address that you can give to
-Amy. So far nothing new.
+.A segwit transaction has no signature data. The signatures are attached instead. The the txid does not commit to the signatures.
+image::{imagedir}/segwit-transaction-simple.svg[{half-width}]
 
-The thing is that segwit defines a new address type, a segwit
-address. This address contains two vital pieces of information:
+Segregated witness thus means that the contents of the scriptSig is
+removed from the transaction and put into an external structure that
+we call the witness.
 
-* A version
-* A witness program (20 or 32 bytes)
+We will follow a few segwit transactions to see how it affects the
+different parts of the Bitcoin system. But first we need to get some
+bitcoin into a segwit wallet.
+
+==== Segwit addresses
+
+Suppose that your wallet uses segwit, and that you are selling a
+laptop to Amy. Your wallet needs to create an address that you can
+give to Amy. So far nothing new.
+
+But SegWit defines a new address type that is encoded using _Bech32_
+instead of base58check. Your address is
+
+ bc1qeqzjk7vume5wmrdgz5xyehh54cchdjag6jdmkj
+
+This segwit address is a Bech32 encoding of the following pieces of
+information.
+
+ "bc"       "1"     00 c8052b799cde68ed8da8150c4cdef4ae3176cba8
+ human-     delim-  data part
+ readable   iter
+ part
+
+[.gbinfo]
+.bc
+****
+`bc` is short for Bitcoin. Who could have guessed?
+****
+
+where `"bc"` is the so called human-readable part that represents the
+type of the address, this is comparable with the `00` byte added
+before the public key hash for legacy addresses. The `"1"` is a
+delimiter between the human-readable part and the next part, the _data
+part_. The data part contains the actual information that's going to
+be used in the transaction. It consists of
+
+* A version, 0 in this case
+* A witness program, a public key hash
+  (c8052b799cde68ed8da8150c4cdef4ae3176cba8) in this case
+
+How the version and witness program is used will be covered in a later
+subsection. You give the address
+`bc1qeqzjk7vume5wmrdgz5xyehh54cchdjag6jdmkj` to Amy, by showing her a
+QR code.
+ 
+Amy scans this address, extracts the version and witness program, and
+creates a transaction with a new kind of scriptPubKey that we are not
+used to:
+
+.Amy sends 0.1 BTC to your segwit address. scriptPubKey doesn't contain any script operators, just data.
+image::{imagedir}/segwit-output.svg[{full-width}]
+
+Amy broadcasts this transaction on the Bitcoin network. The network
+will accept the transaction, because it is correctly signed in the old
+fashioned way. Eventually it will get confirmed in a block. Your
+wallet will acknowledge that you have actually received the money so
+you give the laptop to Amy.
+
+==== Spend your segwit output
+
+Now that you have received your money you want to spend them on a used
+popcorn machine. It costs only 0.09 BTC. It's a bargain! Suppose that
+the owner of the popcorn machine has the segwit address
+`bc1qlk349y63znw7up8wulw0rhvp02wptxul0qwrqp`.
+
+.You create and broadcast a payment to the popcorn machine owner.
+image::{imagedir}/segwit-spend-wpkh.svg[{big-width}]
+
+Your transaction sends the money to the popcorn owner's segwit address
+and pays 0.01 BTC in transaction fee. The input has an empty
+scriptSig; The signature data is instead added as a _witness field_ in
+the attached _witness_. Had there been multiple inputs in this
+transactions, there would be multiple witness fields in the witness,
+one for each input. You can mix segwit inputs and legacy inputs, in
+which case the the witness fields for the non-witness inputs would be
+empty, because their signatures are in the respective scriptSig, as
+they always were.
+
+==== Validate the segwit transaction
+
+You have sent your transaction for the popcorn machine to the Bitcoin
+peer to peer network for processing. Let's see how an upgraded full
+node validates this transaction before relaying it to other
+nodes. Since it's running the latest and greatest software, it knows
+how to deal with segwit transactions.
+
+.A full node verifies the witness of your transaction. The pattern `00` followed by exactly 20 bytes is treated special
+image::{imagedir}/segwit-spend-wpkh-verify.svg[{big-width}]
+
+[.gbinfo]
+.Remember p2sh
+****
+You may have noticed that this is very similar to how p2sh worked in
+<<p2sh-new-software>>. 
+****
+
+The full node, that knows about segwit, will look for a pattern in the
+scriptPubKey starting with a single version byte followed by a 2 to 40
+byte witness program. In this case the pattern matches, which means
+that this is a segwit output.
+
+Next step for the full node is to understand what kind of segwit
+output it is. As of writing, there is only one version of segwit
+output; Version `00`. This version comes in two different flavors:
+
+* _p2wpkh_ (pay-to-witness-public-key-hash) identified by a 20 byte witness program
+* _p2wsh_ (pay-to-witness-script-hash) identified by a 32 byte witness program
+
+In this case we have the version byte `00` followed by exactly 20
+bytes which means that this is a p2wpkh payment. If the version byte
+is not zero, the node will immediately accept this input without
+further processing. We'll talk a bit more on unknown versions later.
+
+The p2wpkh is the simplest of the two types because it is very similar
+to our well known p2pkh. Let's look at how they both work
+
+p2pkh:: The scriptPubKey contains the actual script that checks the
+signature in the scriptSig
+p2wpkh:: The actual script is a pre-determined template and the
+witness program _is_ the PKH to insert into the script template. The
+signatures are taken from the witness.
+
+In the end it's the exact same program that gets run for both of these
+two types. The difference is where the components come from.
+
+Why do this p2wpkh at all, when we are running the exact same script
+program as in p2pkh? Let's recall that we want to solve transaction
+malleability. We do that by removing the signature data from the
+transaction inputs so that no one can change the transaction id by
+making subtle changes to the scriptSig.
+
+The full node has verified this transaction and sends it to its
+peers. There's just one problem: One of the peers have no idea what
+segwit is. It is an old node that hasn't been upgraded for a while.
+
+===== "Validate" on old nodes
+
+An old node has just received your transaction and wants to
+verify it. Old nodes know nothing about segwit and that there are
+witnesses attached to transactions. It will download the transaction
+as it always has, which is without the witness attachment. This is
+what the node will see:
+
+.An old node will just see two data items in the scriptPubKey and an empty scriptSig.
+image::{imagedir}/segwit-spend-wpkh-verify-old-node.svg[{big-width}]
+
+Since the node doesn't know anything else, it will create the script
+program by taking the empty scriptSig and append the scriptPubKey,
+which will look like this:
+
+ 00 c8052b799cde68ed8da8150c4cdef4ae3176cba8
+
+It will run this program. The program puts two data items on the
+stack, first `00` then the `c805...cba8`. When it's done there is
+nothing left to do but check whether the top item on the stack,
+`c805...cba8`, is "true". Bitcoin defines anything that's non-zero to
+be true, so this script will pass and the transaction is authorized.
+
+This doesn't seems very secure. This is known as an "anyone can
+spend", meaning that anyone can create a transaction that spends the
+output. It requires no signature. You just have to create an input
+with an empty scriptSig to take the money.
+
+In <<ch11>> we will talk about how to deal with this problem. But for
+now, suppose that 95% of the nodes run with segwit and someone tries
+to use your output as an anyone-can-spend. Suppose also that this
+transaction gets included in a block by some miner that don't know
+about segwit. Then 95% of the network will not accept that block
+because it contains an invalid transaction according to segwit
+nodes. This means that the miner that defies the rules of the
+_economic majority_ will lose their income.
+
+==== Including your segwit transaction in a block
+
+Your segwit transaction has propagated through the network, and all
+nodes has verified it along the way. Now a miner wants to add the
+transaction into a new block. Suppose that the miner runs modern
+software and thus knows about segwit. Let's look at how it is included
+in the block.
+
+.Your segwit transaction gets included in a block. The block commits to the witnesses by putting the witness commitment into an output of the coinbase transaction.
+image::{imagedir}/block-segwit.svg[{full-width}]
+
+The block is built as before, but with one important difference. A new
+block rule is introduced in segwit: If there are segwit transactions
+in the block, the coinbase must contain an output with a _witness
+commitment_. This witness commitment is the combined hash of the
+_witness root hash_ and a _witness reserved value_. The witness root
+hash is the merkle root of all _witness txids_ or _wtxids_ of all
+transactions in the block. The wtxid is the hash of the transaction
+_including the witness_ if there is one. There is an exception for the
+coinbase, whose wtxid is always defined as just 32 zero bytes. The
+witness reserved value is dedicated for future system upgrades.
+
+The witness commitment is written in an `OP_RETURN` output:
+
+.The coinbase transaction's witness contains the witness reserved value and an OP_RETURN output contains the witness commitment.
+image::{imagedir}/segwit-coinbase-tx.svg[{half-width}]
+
+The witness reserved value can be any value. But a full node verifying
+this block needs a way to know what that value is. If the node didn't
+know the witness reserved value, it wouldn't be able to reconstruct
+the witness commitment for comparison with the OP_RETURN output's
+witness commitment. The coinbase transaction's witness contains the
+witness reserved value so that full nodes can verify the witness
+commitment.
+
+===== Old nodes verifying the block
+
+The block above is valid for new segwit-enabled full nodes so it must
+also be valid for old nodes that don't know what segwit is. An old
+node will not download any witnesses from it peers, because it doesn't
+know they exist.
+
+.An old node verifies the block with your transaction. It will not verify the signatures or the witness commitment.
+image::{imagedir}/block-segwit-old-node.svg[{half-width}]
+
+This node will do what it has always done. Run the scripts of the
+transactions, which will look like spending anyone-can-spend
+outputs. That's ok, move on. If some of the transactions in the block
+are non-segwit, those transactions will be fully verified.
+
+We have now gone full circle with your transaction to the popcorn
+machine owner who hands over the machine to you.
+
+==== Pay to witness script hash
+
+Do you remember when we introduced pay to script hash in
+<<pay-to-script-hash>>? They were moving the actual scriptPubKey part
+of the program to the spending input. Let's have another look at the
+charity wallet that John, Ellen and Faiza set up.
+
+.John and Faiza spends an output from their multisig wallet.
+image::{imagedir}/p2sh-overview.svg[{big-width}]
+
+The idea here was that the payer, the donor in this case, shouldn't
+have to pay for a big complex scriptPubKey. Instead the recipient
+wanting to use this fancy scheme will pay for the complexity.
+
+With segwit we can do about the same thing. The segwit version of p2sh
+is called pay-to-witness-script-hash, p2wsh. Isn't naming in Bitcoin
+fantastic?
+
+Suppose that John, Ellen and Faiza use SegWit for their charity wallet
+and that the previous popcorn machine owner wants to give the money he
+received for the popcorn machine to the charity.
+
+John, Ellen and Faiza must provide the popcorn guy with a
+pay-to-witness-script-hash address, a p2wsh address. Their _witness
+script_ is the same as their p2sh _redeem script_ was when they were
+using p2sh:
+
+.The witness script is hashed into a witness script hash
+image::{imagedir}/witness-script-and-wsh.svg[{half-width}]
+
+They use this witness script hash to create a p2wsh address in the
+same way that you created your p2wpkh address. They encode
+
+ 00 983b977f86b9bce124692e68904935f5e562c88226befb8575b4a51e29db9062
+
+and get the p2wsh address
+
+ bc1qnqaewluxhx7wzfrf9e5fqjf47hjk9jyzy6l0hpt4kjj3u2wmjp3qr3lft8
+
+This address is handed to the popcorn guy who creates and broadcasts a
+transaction like this:
+
+.The popcorn guy sends the money to the charity's p2wsh address.
+image::{imagedir}/tx-popcorn-guy-to-charity.svg[{big-width}]
+
+The transaction has the witness attached just like your transaction to
+the popcorn guy. The only difference between your transaction and the
+popcorn guy's transaction is that the output has different length of
+their witness programs. Your transaction had a 20 byte witness
+program, because it was a public key hash, and the popcorn guy's
+transaction has a 32 byte witness program, because that's a double
+SHA256 of the witness script.
+
+This transaction will get verified and eventually included in a block.
+
+===== Spend the p2wsh transaction.
+
+Suppose that John and Faiza wants to spend the 0.08 BTC they got from
+the popcorn guy and send them to Amnesty International. Amnesty
+happens to also have a p2wsh address. John and Faiza collaborate to
+create the following transaction:
+
+.The charity pays 0.07 BTC to Amnesty's address. The witness is the signatures followed by a data item that contains the actual witness script.
+image::{imagedir}/tx-charity-to-amnesty.svg[{full-width}]
+
+Note how there's nothing in the scriptSig. When we used p2sh in
+<<pay-to-script-hash>>, the scriptSig got really big, because it
+contained two signatures and the redeemScript, which in turn contained
+three public keys.
+
+===== Verifying the p2wsh input
+
+A full node that wants to verify this transaction needs to determine
+the type of output that is being spent. It looks at the output and
+looks for the pattern `<version byte> <2 to 40 bytes data>`. It does find this
+pattern and concludes from this that this is a segwit output. Next
+thing to check is the value of the version byte.
+
+.Preparing to verify the p2wsh input
+image::{imagedir}/segwit-spend-wsh-verify-1.svg[{big-width}]
+
+The version byte is `00`. A version `00` segwit output can have two
+different lenghts of the witness program, 20 or 32 bytes. The first
+one was covered in previous sections on p2wpkh. The witness program in
+this example is 32 bytes, which means that this is a
+pay-to-witness-script-hash, p2wsh, output.
+
+Special rules apply when spending a p2wsh output. First, the data
+items in the witness field of the spending input is pushed onto the
+program stack in the order they appear in the witness field.
+
+Then the top item on the stack, the witness script, is verified
+against the witness program in the output.
+
+.Verifying the witness of a p2wsh payment.
+image::{imagedir}/segwit-spend-wsh-verify-2.svg[{big-width}]
+
+The witness script is hashed and compared to the witness program in
+the spent output before being executed with the three items on the
+stack. This process is similar to that of verifying p2sh payment.
+
+All segwit transactions are handled the same way by miners and block
+verifiers, so there's no difference in how the transaction is included
+and verified in a block compared to p2wpkh transactions.
+
+==== New hashing method for signatures
+
+[.inbitcoin]
+.BIP143
+****
+This solution is specified in BIP143, "Transaction Signature
+Verification for Version 0 Witness Program"
+****
+
+One of the problems segwit solves is the inefficient signature
+hashing. As explained in <<inefficient-sighash>>, if the number of
+inputs doubles, the time it takes to verify the transaction roughly
+quadruples.
+
+The solution is to make the signatures in steps. Suppose that you want
+to sign all four inputs of a trandsaction:
+
+.Hashing is done in two steps. The intermediate hash is reused for each input.
+image::{imagedir}/new-sighash-algo.svg[{big-width}]
+
+1. Make a reusable hash, intermediate hash
+2. Extend the reusable hash with stuff specific to the current input
+
+The intermediate hash commits to all inputs and outputs of the
+transaction.
+
+The good thing about this algorithm is that the bulk of the
+transaction is only hashed once to create the intermediate hash. This
+reduces the amount of hasing needed. When the number of input doubles, the 
+
+
+* New sighash algorithm for native segwit
+
+
+
+
+
+
+There are several ideas on what you might want blocks to
+commit to, for example the UTXO set or the merkle tree of all fees in
+the block.
+
+
+
+03aca107174d696e656420627920416e74506f6f6c7322205a393040c2090000
+546d0000
 
 The version is always zero for now. This is used for future
 upgrades. The witness program is either a public key hash or a script
 hash.
-
 
 .The scriptSig is moved out of the transaction before createing the txid.
 image::{imagedir}/segwit-transaction-no-scriptsig.svg[]
@@ -463,6 +813,11 @@ The witness program is a hash of a
 
 
 
+Also, as we discussed in <<validating-early-blocks>>, a full node that
+does the initial blockchain download, may chose not to verify any
+signatures before a certain block. This would also open up the
+possibility for the node to skip downloading and storing the
+scriptSigs.
 
 * Transaction malleability is fixed because witness data is not part of the txid
 
@@ -478,9 +833,6 @@ The witness program is a hash of a
 
 * Scripts upgradeable via soft forks thanks to the "version byte"
 
-==== New hashing method for signatures
-
-* New sighash algorithm for native segwit
 
 ==== Yet another address format
 
@@ -512,6 +864,7 @@ p2wsh embedded in p2sh
 
 75% Discount because signatures doesn't go into the UTXO set.
 
+Explain Bech32.
 
 Bitcoin's confirmation times (several minutes) and relatively high
 transaction fees, see <<bitcoin-at-a-glance>>, can be a showstopper
@@ -524,6 +877,11 @@ lays the groundworks for higher level systems, like the Lightning
 Network.
 
 
+Add to chaper 5 that p2sh is good because it moves fee burden from
+sender to recipient.
+
+Add transaction version to transactions in chapter 9. Also mention it
+in ch5 where we mention locktime and sequence.
 
 
 Open questions:

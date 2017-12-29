@@ -212,6 +212,7 @@ and indexes within those transactions. But only John will be able to
 sign this transaction because only he has the private keys
 corresponding to PKH~1~ and PKH~2~.
 
+[[sign-transaction]]
 ===== Sign the transaction
 
 John clicks OK in his wallet to approve the signing of the
@@ -741,6 +742,7 @@ All this can be fixed with a small change to how the programs
 are run. Some developers invent something called pay-to-script-hash,
 p2sh.
 
+[[pay-to-script-hash]]
 ==== Pay to script hash (p2sh)
 
 We have previously discussed how p2pkh hides the public key to the
@@ -821,6 +823,7 @@ interpret this program as a payment to a hash. Whoever can show a
 preimage of this hash gets the money. The actual multi-signature
 program contained in the redeemScript is never run.
 
+[[p2sh-new-software]]
 ===== New software
 
 Now suppose that the Cafe just upgraded their software and wants to
