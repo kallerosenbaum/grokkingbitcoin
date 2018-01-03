@@ -115,6 +115,7 @@ signatures. The coinbase of Tom's blocks would pay the block reward to
 Tom's CT address, while the coinbase of Lisa's blocks would pay the
 block reward to Lisa's CT address.
 
+[[draw-lucky-numbers]]
 ==== Draw lucky numbers
 
 To avoid the above problem, the miners need to somehow decide who
