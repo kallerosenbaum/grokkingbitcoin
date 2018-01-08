@@ -1032,7 +1032,7 @@ Some of the different trade-offs are
 .Security considerations against attackers. Note how the more secure options are also more inconvenient.
 image::{imagedir}/private-key-security.svg[{half-width}]
 
-Online vs offline:: On-line means that the private key is stored on a
+On-line vs off-line:: On-line means that the private key is stored on a
 device with network access, like your mobile phone or general purpose
 laptop. Off-line means that the private key is stored on a piece of
 paper, or a computer without any network access. On-line storage is

@@ -18,6 +18,11 @@ div>p,.literalblock,.listingblock,.imageblock>.title,div>.tableblock,.dlist,.oli
     width: 75%;
 }
 
+/* Some tables need to use the full page width. Set [role="widetable"] on them. */
+div>.widetable {
+    width: 100%;
+}
+
 /* Hack to get list paragraph continuations to not be 75% of previous block.
 See exercise 9 at end of ch2.
 */

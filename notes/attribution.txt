@@ -4,6 +4,9 @@ Acknowledgements:
 
 Jonathan Jogenfors for proofreading the crypto stuff
 Andreas Antonopoulos for helping out with open sourcing the book
+Pontus Lindblom for helping with reviews
+David A Harding for answering several of my and other's endless questions
 
-All reviewers for their valuable feedback.
+All Manning reviewers for all their valuable feedback.
+
 

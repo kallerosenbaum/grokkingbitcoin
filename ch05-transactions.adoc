@@ -519,7 +519,7 @@ puts PKH~1~ on the stack.
 Next up is another operator, `OP_EQUALVERIFY`. This means "Take the
 two top items from the stack and compare them. If they are equal,
 continue to next program instruction, else quit the program with an
-error. In either case. don't put anything back on the stack". Lisa
+error. In either case, don't put anything back on the stack". Lisa
 takes the two PKH items from the top of the stack and verifies that
 they are equal. They are equal, which means that the public key John
 has provided in his transaction matches the PKH that was set as
