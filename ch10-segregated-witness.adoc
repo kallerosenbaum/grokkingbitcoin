@@ -1124,11 +1124,84 @@ between 20,000 and 80,000 actual signature operations.
 
 === Summary
 
+This chapter has walked you through Segregated Witness. Segregated
+witness solves some serious problems:
+
+==== Problems
+
+Transaction malleability:: A txid might change without changing the
+effect of the transaction. This can cause broken transaction chains.
+
+Inefficient signature verification:: As the number of inputs double in
+a transaction, the time to verify the transaction increases
+quadratically. That's because both the size of the transaction doubles
+and the number of signatures to verify doubles.
+
+Wasted bandwidth:: Lightweight wallet are forced to download the
+transactions including all signatures to be able to verify the merkle
+proof.
+
+Hard to upgrade:: There is limited room for script language
+upgrades. There are a handful of `OP_NOPs` left, and you can't chanage
+an `OP_NOP` however you please. If the new operator behaviour
+succeeds, it must work exactly as an `OP_NOP`.
+
+==== Solution
+
+By moving signature data out of the base transaction, they will no
+longer be part of the transaction id.
+
+.Signatures are not part of the transaction id, because they are moved out from the base transaction.
+image::{imagedir}/summary-segwit-transaction.svg[{half-width}]
+
+So if the signature is malleated, it will not affect the txid. This
+unconfirmed chains of transactions unbreakable.
+
+A new signature hashing algorithm is used that makes the verification
+time grow _linearly_ with the number of inputs. The old signature
+hashing algorithm hashes the whole transaction for each signature:
+
+.The old style signature hashing algorithm will hash the whole transaction for each signature
+image::{imagedir}/summary-new-sighash-algo-old.svg[{big-width}]
+
+Signatures in witnesses will hash the transaction only once:
+
+.With segwit, the whole transaction is only hashed once, and that hash is reused for each signature.
+image::{imagedir}/summary-new-sighash-algo-new.svg[{big-width}]
+
+The intermediate hash is reused for each signature which greatly
+reduces the total amount of hashing.
+
+The bandwidth required by lightweight wallets decreases as they don't
+have to download the witnesses to be able to verify that a transaction
+is included in a block. They can use the per-transaction savings to
+increase their privacy by decreasing their bloom filter size or to
+reduce data traffic with preserved privacy.
+
+The witness version in the scriptPubKey allows for future upgrades of
+the script language. The upgrades can be arbitrarily complex with no
+restrictions on functionality.
+
+New block rules apply for segregated witness transactions. All
+witnesses must be committed to in an output of the coinbase
+transaction:
+
+image::{imagedir}/block-segwit.svg[{big-width}]
+
+Old nodes will still work, because they are not aware of the
+commitment in the coinbase transaction. This allowed us to introduce
+segwit as without disrupting, or splitting the blockchain into two
+separate cryptocurrencies.
+
 === Exercises
 
 ==== Warm up
 
+
+
 ==== Dig in
+
+
 
 === Recap
 
