@@ -1,0 +1,54 @@
+[[ch11]]
+== Bitcoin updates -  Safely introduce new stuff
+
+
+
+Also, as we discussed in <<validating-early-blocks>>, a full node that
+does the initial blockchain download, may chose not to verify any
+signatures before a certain block. This would also open up the
+possibility for the node to skip downloading and storing the
+scriptSigs.
+
+* Witness data becomes cheaper because it can be pruned
+
+Explain why it's called a "witness program"
+
+Add transaction version to transactions in chapter 9. Also mention it
+in ch5 where we mention locktime and sequence.
+
+Describe soft forks and hard forks and how segwit got deployed.
+
+Open questions:
+
+* Does anyone here know why the sequence of other inputs are zeroed when signing with SIGHASH_NONE or SIGHASH_SINGLE? Doesn't that interfere with relative lock time and RBF opt-in?
+
+* Why do Bernanke outputs have values >0? Do they have to?
+
+* 
+
+Closed questions:
+
+* Can we really save storage and or bandwidth between full nodes with segwit?
+** Yes, but not right now. Witnessless mode is not implemented.
+
+* How can you make a relative lock-time transaction that is not opt-in RBF?
+** opt-in is seq<0xffffffff-1 while rel-lock-time is 0x7fffffff-0x00000000
+
+* Is it possible that there are other yet unknown ways to malleate a signature than the "-S" trick? Or maybe even known ones? I refer only to inherent ECDSA signature malleability.
+** Yes it's possible according to wumpus in bitcoin-core-dev
+
+payment channel
+lightning
+
+Bitcoin's confirmation times (several minutes) and relatively high
+transaction fees, see <<bitcoin-at-a-glance>>, can be a showstopper
+for small quick payments, like when you buy your morning coffee on
+your way to work. You don't want to wait 10 minutes at the cafe. We
+noted in <<when-not-to-use-bitcoin>> that technical solutions are on
+their way to solve this problem. We will explain payment channels that
+lets you make tiny payments nearly instantaneous. Payment channels
+lays the groundworks for higher level systems, like the Lightning
+Network.
+
+
+
