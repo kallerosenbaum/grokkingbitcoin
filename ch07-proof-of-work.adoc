@@ -1668,6 +1668,8 @@ decreases over time?
 
 === Recap
 
+In this chapter you learned that
+
 * We now have multiple miners to avoid a central authority that can
   censor transactions.
 

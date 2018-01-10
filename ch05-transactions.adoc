@@ -1297,6 +1297,8 @@ that drawback.
 
 === Recap
 
+In this chapter you learned that
+
 * Transaction have inputs and outputs, which lets you spend multiple
   "coins" and pay to multiple recipients in a single transaction.
 

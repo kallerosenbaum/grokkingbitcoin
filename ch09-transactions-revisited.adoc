@@ -1044,6 +1044,8 @@ doesn't opt-in. Explain your reasoning.
 
 === Recap
 
+In this chapter you learned that
+
 * Transactions can be locked with respect to block height or time
   depending on your application needs.
 
