@@ -18,6 +18,11 @@ div>p,.literalblock,.listingblock,.imageblock>.title,div>.tableblock,.dlist,.oli
     width: 75%;
 }
 
+/* Don't set sublist width to 75%. */
+li>.olist {
+    width: 100%;
+}
+
 /* Some tables need to use the full page width. Set [role="widetable"] on them. */
 div>.widetable {
     width: 100%;

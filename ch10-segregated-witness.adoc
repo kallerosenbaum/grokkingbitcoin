@@ -1190,69 +1190,85 @@ image::{imagedir}/block-segwit.svg[{big-width}]
 
 Old nodes will still work, because they are not aware of the
 commitment in the coinbase transaction. This allowed us to introduce
-segwit as without disrupting, or splitting the blockchain into two
+segwit without disrupting, or splitting the blockchain into two
 separate cryptocurrencies.
 
 === Exercises
 
 ==== Warm up
 
+1. What part of the transaction is the cause for transaction malleability?
 
+2. Why is transaction malleability a problem?
+
+3. Why do we say that legacy transaction verification time increases
+quadratically with number of inputs?
+
+4. Why do lightweight wallets need the signatures of a legacy
+tranasction in order to verify that it's included in a block?
+
+5. Suppose that you want to add a new feature to Bitcoin's Script
+language and that you want to redefine the behaviour of
+`OP_NOP5`. What's important to think about to avoid a hard fork
+(because all nodes will not upgrade simultaneously)?
+
+6. Which of these Bitcoin addresses are segwit addresses? What kind of
+segwit addresses are they?
+
+i. `bc1qeqzjk7vume5wmrdgz5xyehh54cchdjag6jdmkj`
+i. `c8052b799cde68ed8da8150c4cdef4ae3176cba8`
+i. `bc1qnqaewluxhx7wzfrf9e5fqjf47hjk9jyzy6l0hpt4kjj3u2wmjp3qr3lft8`
+i. `3KsJCgA6ubxgmmzvZaQYR485tsk2G6C1Be`
+i. `00 bb4d49777d981096a75215ccdba8dc8675ff02d1`
+
+7. What's the witness version used for? The witness version is the
+first number in a segwit output, for example `00
+bb4d49777d981096a75215ccdba8dc8675ff02d1`.
 
 ==== Dig in
 
+[start=8]
+8. Explain how a segwit transaction is valid according to an old node
+that knows nothing about segwit. This is what the old node sees:
++
+image::{imagedir}/ex-segwit-spend-wpkh-verify-old-node.svg[{big-width}]
 
+9. Explain how a segwit transaction is validated by a new node that
+know about segwit. This is what it sees:
++
+image::{imagedir}/ex-segwit-spend-wpkh-verify.svg[{big-width}]
+
+10. Suppose that you want to upgrade the Bitcoin system without
+causing a hard fork. You want the witness commitment to, apart from
+witness root hash, also commit to the sum of all transaction fees in
+the block. Sugggest how that could be done. Use the figure below as a
+hint. How would old nodes and new nodes verify blocks that contain
+this commitment?
++
+image::{imagedir}/segwit-coinbase-tx.svg[{half-width}]
 
 === Recap
 
+In this chapter you learned that
 
+* Segwit moves scriptSigs out of transactions to solve transaction
+  malleability.
 
+* A new signature hashing algorithm is used by segwit that makes
+  transaction verification faster. Helps nodes staying up to date.
 
-Also, as we discussed in <<validating-early-blocks>>, a full node that
-does the initial blockchain download, may chose not to verify any
-signatures before a certain block. This would also open up the
-possibility for the node to skip downloading and storing the
-scriptSigs.
+* Lightweight wallets gets better privacy with preserved data traffic
+  by not downloading witness data.
 
-* Witness data becomes cheaper because it can be pruned
+* The witness version byte of the scriptPubKey makes upgrading the
+  script language easier.
 
-Explain why it's called a "witness program"
+* The block size can be somewhat increased by counting witness bytes
+  with a discount.
 
-Bitcoin's confirmation times (several minutes) and relatively high
-transaction fees, see <<bitcoin-at-a-glance>>, can be a showstopper
-for small quick payments, like when you buy your morning coffee on
-your way to work. You don't want to wait 10 minutes at the cafe. We
-noted in <<when-not-to-use-bitcoin>> that technical solutions are on
-their way to solve this problem. We will explain payment channels that
-lets you make tiny payments nearly instantaneous. Payment channels
-lays the groundworks for higher level systems, like the Lightning
-Network.
+* A new address format is introduced to distinguish from legacy
+  payments.
 
-Add transaction version to transactions in chapter 9. Also mention it
-in ch5 where we mention locktime and sequence.
-
-Describe soft forks and hard forks and how segwit got deployed.
-
-Open questions:
-
-* Does anyone here know why the sequence of other inputs are zeroed when signing with SIGHASH_NONE or SIGHASH_SINGLE? Doesn't that interfere with relative lock time and RBF opt-in?
-
-* Why do Bernanke outputs have values >0? Do they have to?
-
-* 
-
-Closed questions:
-
-* Can we really save storage and or bandwidth between full nodes with segwit?
-** Yes, but not right now. Witnessless mode is not implemented.
-
-* How can you make a relative lock-time transaction that is not opt-in RBF?
-** opt-in is seq<0xffffffff-1 while rel-lock-time is 0x7fffffff-0x00000000
-
-* Is it possible that there are other yet unknown ways to malleate a signature than the "-S" trick? Or maybe even known ones? I refer only to inherent ECDSA signature malleability.
-** Yes it's possible according to wumpus in bitcoin-core-dev
-
-payment channel
-lightning
-
+* Segwit can be "embedded" in old style p2sh addresses to allow old
+  wallets to send money to segwit wallets.
 
