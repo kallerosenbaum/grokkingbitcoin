@@ -16,9 +16,9 @@ verification. We've already mentioned transaction malleability in
 while being broadcast, and therefore its txid will change.
 
 A solution to these problems was presented in 2015 at a conference on
-Bitcoin scalability. This solution is known as _segregated witness_,
+Bitcoin scaling. This solution is known as _segregated witness_,
 which is a weird name for moving signature data out of
-transactions. We will descibe in detail this solution, which includes
+transactions. We will describe in detail this solution, which includes
 changes in pretty much all parts of Bitcoin: Bitcoin addresses,
 transaction format, block format, local storage and network protocol.
 
@@ -87,7 +87,7 @@ from an invalid transaction.
 ===== How can Qi change the txid?
 
 There are several options for Qi to change the transaction without
-invalidating it. They all involve chaning the scriptSig in one way of
+invalidating it. They all involve changing the scriptSig in one way of
 the other. Among them are:
 
 .Three classes of transaction malleability.
@@ -100,7 +100,7 @@ BIP66 fixes the first class of malleability issues.
 ****
 
 The first one modifies the signature container format, which changes
-how the signature is _encoded_ in the script sig. There are a few
+how the signature is _encoded_ in the scriptSig. There are a few
 different ways to encode the signature that are all valid. This issue
 was actually fixed in a system upgrade using BIP66, that requires all
 signatures to be encoded in a single specific way. The fix was
@@ -169,7 +169,7 @@ sign the second input:
 .Sign the second input.
 image::{imagedir}/sign-old-digest-2.svg[{big-width}]
 
-Here all scriptSigs, except the second one is emtpy. The second
+Here all scriptSigs, except the second one is empty. The second
 scriptSig is populated with the scriptPubKey of the spent output. Then
 the signature is created.
 
@@ -311,7 +311,7 @@ of byte `b1`, interprets the script. It will
 * drop the time value from the stack
 * continue with normal signature verification
 
-An old node, on the other hand will interprete the script as follows:
+An old node, on the other hand will interpret the script as follows:
 
 [subs="normal"]
 ----
@@ -351,7 +351,7 @@ from the stack. But since we need to take old nodes into account, we
 cannot do that. That's why we must add the extra `OP_DROP` after
 `OP_CHECKLOCKTIMEVERIFY`.
 
-The above was an example of how old script operators can be repurposed
+The above was an example of how old script operators can be re-purposed
 to do something more strict without disrupting the whole network.
 
 This method of script upgrades has been done for two operators so far.
@@ -365,7 +365,7 @@ This method of script upgrades has been done for two operators so far.
 |===
 
 There are only 10 spare operators that we can use for script upgrades,
-and such upgrades are limited to exactly mimic the `OP_NOP` behaviour
+and such upgrades are limited to exactly mimic the `OP_NOP` behavior
 if they don't fail.
 
 Sooner or later we need another script upgrade mechanism. Both because
@@ -449,7 +449,7 @@ base58check addresses we are used to:
 * The checksum used in Bech32 will detect up to 4 character errors
   with 100% certainty. If there are more character errors, the
   probability of detection failure is less than 1 in a billion. This
-  is a major improvement to the 4 byte chacksum in base58check, which
+  is a major improvement to the 4 byte checksum in base58check, which
   doesn't provide any guarantee.
 
 Your segwit address consists of two parts. The first part, `bc`, is a
@@ -477,7 +477,7 @@ reader to read BIP173.
 ****
 
 This is done in multiple steps. The data part of the address are
-converted, character by caracter into numbers using a _base32_ lookup
+converted, character by character into numbers using a _base32_ lookup
 table. The first of these numbers is the witness version, 0. The last
 six numbers is the checksum. The checksum is now verified and no
 errors are detected. Then the witness program is extracted by writing
@@ -657,7 +657,7 @@ image::{imagedir}/block-segwit-old-node.svg[{big-width}]
 
 This node will do what it has always done. Run the scripts of the
 transactions, which will look like spending anyone-can-spend
-outputs. That's ok, move on. If some of the transactions in the block
+outputs. That's OK, move on. If some of the transactions in the block
 are non-segwit, those transactions will be fully verified.
 
 We have now gone full circle with your transaction to the popcorn
@@ -745,7 +745,7 @@ thing to check is the value of the version byte.
 image::{imagedir}/segwit-spend-wsh-verify-1.svg[{big-width}]
 
 The version byte is `00`. A version `00` segwit output can have two
-different lenghts of the witness program, 20 or 32 bytes. The first
+different lengths of the witness program, 20 or 32 bytes. The first
 one was covered in previous sections on p2wpkh. The witness program in
 this example is 32 bytes, which means that this is a
 pay-to-witness-script-hash, p2wsh, output.
@@ -876,7 +876,7 @@ was not optimal, because
 
 * We may run out of `OP_NOPs`, there are 8 left.
 * The `OP_NOPs` cannot be redefined in arbitrary ways, they still need
-  to behave as `OP_NOP` in case the new behaviour succeeds.
+  to behave as `OP_NOP` in case the new behavior succeeds.
 
 The version byte allows for much more powerful future upgrades. We can
 do anything from slight modifications of specific operators, to
@@ -1009,7 +1009,7 @@ Regardless of the reason, this limit is in place.
 ==== Signature operations limit
 
 The signature operations limit is put in place because signature
-verification operations are reatively slow, especially in legacy
+verification operations are relatively slow, especially in legacy
 transactions. An attacker could stuff a transaction with a tremendous
 amount of signatures that causes a verifying nodes to be busy
 verifying signatures for a long time. The limit of 20,000 such
@@ -1022,7 +1022,7 @@ It will take a so called hard fork to remove or increase these
 limits. A hard fork is a rule change that causes old nodes and new
 nodes to disagree on what the strongest valid blockchain is. We will
 examine forks and upgrades in <<ch11>>. For now, suppose that new
-nodes decides that 8,000,000 byte blocks are ok. When a miner
+nodes decides that 8,000,000 byte blocks are OK. When a miner
 publishes a block that is bigger than 1,000,000 bytes, new nodes will
 accept it while old nodes will not accept it and a permanent fork has
 occurred, and we effectively have two different cryptocurrencies.
@@ -1142,8 +1142,8 @@ transactions including all signatures to be able to verify the merkle
 proof.
 
 Hard to upgrade:: There is limited room for script language
-upgrades. There are a handful of `OP_NOPs` left, and you can't chanage
-an `OP_NOP` however you please. If the new operator behaviour
+upgrades. There are a handful of `OP_NOPs` left, and you can't change
+an `OP_NOP` however you please. If the new operator behavior
 succeeds, it must work exactly as an `OP_NOP`.
 
 ==== Solution
@@ -1205,10 +1205,10 @@ separate cryptocurrencies.
 quadratically with number of inputs?
 
 4. Why do lightweight wallets need the signatures of a legacy
-tranasction in order to verify that it's included in a block?
+transaction in order to verify that it's included in a block?
 
 5. Suppose that you want to add a new feature to Bitcoin's Script
-language and that you want to redefine the behaviour of
+language and that you want to redefine the behavior of
 `OP_NOP5`. What's important to think about to avoid a hard fork
 (because all nodes will not upgrade simultaneously)?
 
@@ -1241,7 +1241,7 @@ image::{imagedir}/ex-segwit-spend-wpkh-verify.svg[{big-width}]
 10. Suppose that you want to upgrade the Bitcoin system without
 causing a hard fork. You want the witness commitment to, apart from
 witness root hash, also commit to the sum of all transaction fees in
-the block. Sugggest how that could be done. Use the figure below as a
+the block. Suggest how that could be done. Use the figure below as a
 hint. How would old nodes and new nodes verify blocks that contain
 this commitment?
 +
