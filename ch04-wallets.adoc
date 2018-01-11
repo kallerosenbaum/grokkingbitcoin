@@ -515,6 +515,7 @@ derived in any order. We chose to derive the savings account key,
 The process for deriving an xprv from a parent xprv is as follows.
 
 .Deriving a child xprv from a parent xprv. The public key and chain code of the parent and the desired index are hashed together. The parent private key is added to the left half of the hash and the sum becomes the child private key. The right half becomes the child chain code.
+[[hd-wallet-derive-child-xprv]]]
 image::{imagedir}/hd-wallet-derive-child-xprv.svg[{half-width}]
 
 The process starts with a parent xprv.

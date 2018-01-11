@@ -129,6 +129,7 @@ use names in this first example for simplicity.
 ****
 
 .A Bitcoin payment. The payment is processed in 4 steps.
+[[payment-overview]]
 image::{imagedir}/payment-overview.svg[{big-width}]
 
 Let's follow Alice's payment from Alice to Bob:

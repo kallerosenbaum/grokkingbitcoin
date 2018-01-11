@@ -144,6 +144,7 @@ the other two miners also drew a lucky number at the same time. This
 means that usually, only a single miner will produce the next block.
 
 .Three miners build blocks. Usually blocks are created one by one, but sometimes they will compete to become the next block.
+[[three-miners-and-a-fork]]
 image::{imagedir}/three-miners-and-a-fork.svg[{full-width}]
 
 [.gbinfo]
@@ -1147,7 +1148,7 @@ miners.
 | 10 | 6-4 | The honest transaction has 6 confirmations. Lisa gets the
   cafe. Deed of transfer signed. Lisa keeps trying to catch up.
 | 11 | 7-4 | Lisa thinks this sucks. The probability of creating four
-  blocks more than the cafe in the future is tiny.
+  blocks more than the honest chain in the future is tiny.
 |===
 
 Lisa gave up for several reasons:
