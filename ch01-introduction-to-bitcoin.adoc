@@ -63,9 +63,9 @@ proved itself to be working, more people got interested in it.
 image::{imagedir}/2ndcol-bitcoin-network.svg[]
 ****
 
-Today, in 2017, several millions of people are aware of Bitcoin,
-hundreds of thousands people are actively using Bitcoin and thousands
-of professionals are working on developing Bitcoin related
+Today several millions of people are aware of Bitcoin, hundreds of
+thousands people are actively using Bitcoin and thousands of
+professionals are working on developing Bitcoin related
 technology. Bitcoin is primarily used for payments, savings and
 speculation today. It removes friction in online payments, especially
 internationally, and it allows for anyone to use or participate in the
@@ -334,11 +334,13 @@ just received from Alice.
 
 Bitcoin would not be this widespread if it didn't solve real problems
 for real people. Bitcoin solves several problems with the traditional
-financial system. Let us look some commonly discussed problem areas.
+financial system. Let us look at some commonly discussed problem
+areas.
 
 ==== Inflation
 
-Inflation means that the purchasing power of a currency decreases.
+Inflation means that the purchasing power of a currency
+decreases.
 
 .Problems
 ****
@@ -356,17 +358,18 @@ in 2008. That is an average daily inflation rate of nearly
 
 Extreme cases of inflation like this are called
 hyperinflation. Hyperinflation is usually driven by a rapid increase
-in the money supply. Government sometimes increase the money supply as
-a tool to extract value from its population to pay for expenses like
-national debt, warfare or welfare. If this tool is over-used, the risk
-of hyperinflation is apparent.
+in the money supply. Governments sometimes increase the money supply
+as a tool to extract value from its population to pay for expenses
+like national debt, warfare or welfare. If this tool is over-used, the
+risk of hyperinflation is apparent.
 
-An increasing money supply will most likely lead to a depreciation of
-the currency. This in turn pushes people to exchange their local
-currency for goods or currencies that better holds value, which
-further drives the value of the currency down. This can spiral down to
-extremes like in Zimbabwe. The result is devastating for people as
-they see their life savings diminish to virtually nothing.
+A rapid increase in the money supply will most likely lead to a
+depreciation of the currency. This in turn pushes people to exchange
+their local currency for goods, or alternative currencies, that better
+holds value, which further drives the value of the currency down. This
+can spiral down to extremes like in Zimbabwe. The result is
+devastating for people as they see their life savings diminish to
+virtually nothing.
 
 .Some hyperinflations in modern time.
 |===
@@ -381,18 +384,18 @@ they see their life savings diminish to virtually nothing.
 
 Zimbabwe is one of the most extreme cases of inflation throughout
 history, but still today some countries suffer from very high
-inflation. One of them is Venezuela where its currency, the bolívar
-experienced a 480% inflation during 2016 and 2017 is forecast to suffer
-from 1700% inflation.
+inflation. One of them is Venezuela where its currency, the bolívar,
+experienced a 480% inflation during 2016, and during 2017 it suffered
+from about 4000% inflation.
 
 ==== Borders
 
-Moving value across national borders using fiat currency is hard,
-expensive and sometimes even forbidden. If you want to send 1000
-Swedish crowns (SEK) from Sweden to a person in the Philippines, you
-can use a service like Western Union for the transfer. At the time I
-investigated this, 1000 SEK was worth 5305 Philippine Pesos (PHP) or
-109 US dollars.
+Moving value across national borders using national, or _fiat_,
+currency is hard, expensive and sometimes even forbidden. If you want
+to send 1000 Swedish crowns (SEK) from Sweden to a person in the
+Philippines, you can use a service like Western Union for the
+transfer. At the time I investigated this, 1000 SEK was worth 5305
+Philippine Pesos (PHP) or 109 US dollars.
 
 .Cost of sending 5305 PHP from Sweden to Philippines
 |===
@@ -428,17 +431,17 @@ As noted in the previous section, not all people have access to bank
 accounts. People with bank accounts and access to banking services
 like online payments or loans are very privileged. About 38% of the
 world population don't have a bank account at all, according to the
-World Bank, see <<web-financial-inclusion>>. The numbers are improving
-but still a vast amount of people are stuck in a cash-only
+World Bank, see <<web-financial-inclusion>>. The numbers are slowly
+improving but still a lot of people are stuck in a cash-only
 environment. If these people want to receive money from a family
 member abroad, they will receive 5-10% less, due to higher remittance
 fees, than if they had a bank account.
 
 Without a bank account and basic bank services like online payments,
 people can not expand their businesses outside of their local
-community. A tailor will not be able offer services on the Internet to
-increase its customer base. A person living in a rural area may have
-to travel half a day just to pay a utility bill or top-up their
+community. A tailor will not be able to offer services on the Internet
+to increase its customer base. A person living in a rural area may
+have to travel half a day just to pay a utility bill or top-up their
 prepaid mobile phone.
 
 .Problems
@@ -490,13 +493,13 @@ already happening.
 ****
 
 We have seen lots of examples where these abilities are misused to
-disable someones ability to transact. For example, the non-profit
+disable someone's ability to transact. For example, the non-profit
 organization WikiLeaks was put under a blockade in 2010, see
 <<web-wikileaks-blockade>>, where all donations through traditional
 channels were blocked after pressure from the US government on the
 major payment networks, like Visa and MasterCard. We have also seen
-how Cyprus seized 47.5% [<<web-cyprus-seizure>>] of all bank deposits exceeding 100,000€ as
-part of a financial rescue program in 2013.
+how Cyprus seized 47.5% [<<web-cyprus-seizure>>] of all bank deposits
+exceeding 100,000 € as part of a financial rescue program in 2013.
 
 === The Bitcoin approach
 
@@ -540,12 +543,17 @@ treat all users equally. There is no central point in the Bitcoin
 system that can be exploited to censor payments, deny users service or
 seize funds.
 
-The decentralization is also a way to make it nearly impossible to
-change the rules of the currency without broad consensus. If a node or
-a group of nodes does not obey the rules they will be ignored by the
-rest. For example, one rule is that the money supply of Bitcoin is
-limited to 21,000,000 bitcoins, and that limit is nearly impossible to
-change due to decentralization.
+The decentralization implies that Bitcoin is _permissionless_, which
+means that you don't need to ask anyone for permission to
+participate. Anyone with a computer and an Internet connection can
+setup a Bitcoin node and take an active role in the Bitcoin
+network. No questions asked.
+
+It is nearly impossible to change the rules of the currency without
+broad consensus. If a node or a group of nodes does not obey the rules
+they will be ignored by the rest. For example, one rule is that the
+money supply of Bitcoin is limited to 21,000,000 bitcoins, and that
+limit is nearly impossible to change due to decentralization.
 
 [id=limited_supply]
 ==== Limited supply
@@ -574,7 +582,7 @@ schedule and will eventually stop increasing around year 2140.
 .The supply of bitcoins over time
 image::{imagedir}/money-supply.svg[{half-width}]
 
-As of writing, the money supply is about 16.5 million bitcoins and the
+As of writing, the money supply is about 17 million bitcoins and the
 current yearly increase in the money supply is about 4%, but the
 increase is halving every four years.
 
@@ -670,7 +678,7 @@ The most obvious use case for Bitcoin is to use it for shopping. The
 borderlessness and security of Bitcoin makes it ideal for online
 payments for goods and services.
 
-In traditional online paymnets, you send your debit card details to
+In traditional online payments, you send your debit card details to
 the merchant, and _hope_ that the merchant will withdraw as much as
 you agreed on. You also _hope_ that the merchant handles your debit
 card details with great care. They probably store the details in a
@@ -687,12 +695,11 @@ amount of money that you agreed upon, and nothing more.
 ==== Speculation
 
 The world is full of people wanting to get rich quick. Bitcoin can be
-very alluring to them, because of the _volatility_, tendency to
-change, of the price of bitcoin. Looking at the history of the Bitcoin
-price, it is very tempting to try to buy when it is low and sell when
-it is high.
+very alluring to them because of the price _volatility_, or tendency
+to change. Looking at the history of the bitcoin price, it is very
+tempting to try to buy when it is low and sell when it is high.
 
-.Price since beginning of Bitcoin
+.Price in USD since beginning of Bitcoin
 image::{imagedir}/bitcoin-price.png[{half-width}]
 
 In November 2013, the price climbed from about $100 (US dollars) to
@@ -859,13 +866,14 @@ understand the risks and how to secure your money.
 This book will cover Bitcoin. But there are several other so-called
 cryptocurrencies, and new ones pop up all the time. Cryptocurrencies
 other than Bitcoin are often referred to as _alt-coins_, alternative
-coins. I will list a few popular alt-coins along with their purpose and
-so-called market capitalization, market cap. The market cap is the
-product of the money supply, number of coins, and the current market
+coins. I will list a few popular alt-coins along with their purpose
+and so-called market capitalization, market cap. The market cap is the
+product of the money supply (number of coins) and the current market
 price per coin. Note that the market cap will most likely have changed
 a lot when you read this. I include it only to give you a glimpse of
 Bitcoin's position relative to the other cryptocurrencies.
 
+.Market capitalization of a few cryptocurrencies as of 2018-01-15.
 [cols="2,3,1",options="header"]
 |===
 | Currency
@@ -874,23 +882,23 @@ Bitcoin's position relative to the other cryptocurrencies.
 
 | image:{imagedir}/bitcoin-logo.png[role="smallheight"]
 | Global money, included for reference
-| 19
+| 231
 
 | image:{imagedir}/ethereum-logo.png[role="smallheight"]
 | Smart contracts, run unstoppable software
-| 4
+| 129
 
 | image:{imagedir}/monero-logo.png[role="smallheight"]
 | Anonymity
-| 0.3
+| 6
 
 | image:{imagedir}/zcash-logo.svg[role="smallheight"]
 | Anonymity
-| 0.07
+| 2
 
 | image:{imagedir}/namecoin-logo.svg[role="smallheight"]
 | Naming system, complements domain name system, DNS
-| 0.01
+| 0.1
 |===
 
 I encourage you to look up these cryptocurrencies as they all provide
@@ -906,8 +914,8 @@ image::{imagedir}/network-effect.svg[]
 ****
 
 Let's say that Sheila wants to start an alt-coin, Wowcoin. She takes
-the Bitcoin software and changes the max money supply to 11000000,
-instead of Bitcoin's 21000000, coins and starts. When Wowcoin is
+the Bitcoin software and changes the max money supply to 11,000,000,
+instead of Bitcoin's 21,000,000, coins and starts. When Wowcoin is
 started she will be very lonely, because no one else is using her
 alt-coin. If she wants Wowcoin to have some real value, she has got to
 convince other people to start using her alt-coin. If she's not
@@ -916,8 +924,10 @@ other people on-board, since they are pretty happy with what Bitcoin
 is already providing. Everybody else is using Bitcoin, so why would
 you use Wowcoin? Think of it as starting a new internet, that you call
 Wownet. People on Wownet will not be able to use services on the
-regular Internet, so why would anyone use Wownet? We call it the
-network effect; People tend to go where other people are.
+Internet? And conversely, people on the Internet will not be able to
+use your service if you are on Wownet.So why would anyone use Wownet
+We call it the network effect; People tend to go where other
+people are.
 
 === Recap
 
