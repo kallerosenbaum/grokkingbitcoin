@@ -1054,11 +1054,11 @@ job for her. Nice.
 But now you may wonder if she's still worth the 7200 CT per day in
 rewards. She doesn't work actively with verification anymore, she's
 just sitting there rolling her thumbs. Let's take a moment to reflect
-on what we reward her for. We reward her not to perform boring work,
-but to perform correct, honest confirmations of transactions and not
-censor transactions. That's what gives us, the coworkers, value. If
-she writes a computer program to do the heavy lifting, it doesn't make
-the processing of payments less correct or honest.
+on what we reward her for. We reward her not to perform boring manual
+work, but to perform correct, honest confirmations of transactions and
+not censor transactions. That's what gives us, the coworkers,
+value. If she writes a computer program to do the heavy lifting, it
+doesn't make the processing of payments less correct or honest.
 
 Transactions solves the problem with Lisa arbitrarily changing stuff
 in the spreadsheet. The only thing we have to trust Lisa with now is

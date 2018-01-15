@@ -40,12 +40,12 @@ As noted several times before, Lisa can delete transactions. For
 example, Lisa buys a cookie from the cafe, eats it, and deletes the
 transaction. Of course, Lisa wouldn't do that because she's the most
 trustworthy person on earth, but all coworkers don't know that or
-don't believe in it.
+don't believe in it. So suppose she does indeed delete a transaction:
 
-.Lisa buys a cookie and then reverts the transaction. She just stole a cookie from the cafe.
+.Lisa buys a cookie and then reverts the transaction. She just stole a cookie from the cafe. The cafe and Lisa now have different spreadsheets.
 image::{imagedir}/deleted-tx.svg[{big-width}]
 
-When the cafe eventually notices that the transaction has disappeared,
+Later, when the cafe notices that the transaction has disappeared,
 they can't prove that Lisa's transaction was ever in the
 spreadsheet. And Lisa can't prove it was not there. This situation is
 troublesome. If word is against word, we are in for a long and costly

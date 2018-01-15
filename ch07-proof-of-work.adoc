@@ -1015,9 +1015,9 @@ Well, if she's lucky.
 ==== Successful double spend
 
 Suppose that Lisa is about to pay for a cookie in the cafe. But at the
-same time she pays she also prepares a double spend transaction:
+time she pays she also prepares a double spend transaction:
 
-.Lisa creates two transactions that spend one common output.
+.Lisa creates two transactions that spend one common output. She pays a 0.5 CT in transaction fee.
 image::{imagedir}/double-spend-transaction.svg[{big-width}]
 
 C is the transaction to the cafe. L is Lisa's double spend transaction

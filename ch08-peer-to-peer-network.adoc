@@ -149,14 +149,15 @@ they communicate across their communication channel called a TCP
 .Tom and Lisa communicates over the Internet through a communication channel
 image::{imagedir}/tom-lisa-communication.svg[{quart-width}]
 
-Tom's node has heard about Lisa's node from another peer of his. He
-got the IP (Internet Protocol) address and _port_ of Lisa's node from
-that peer. Now he wants to connect to Lisa's node in order to
-communicate with it. All computers on the Internet have an IP
+Suppose that Tom's node knows about Lisa's node. We will explain in
+<<bootstrapping-the-network>> how Tom learns about other nodes. For
+now let's just assume that he's got the IP (Internet Protocol) address
+and _port_ of Lisa's node. Now he wants to connect to Lisa's node in
+order to communicate with it. All computers on the Internet have an IP
 address. That is how one computer can send information to another
 computer on the Internet. A computer program that listens for incoming
 connections must listen on a specific _port_ number of that IP
-address. Lisas computer has the IP address 142.12.233.96 and runs a
+address. Lisa's computer has the IP address 142.12.233.96 and runs a
 cookie token program that listens for incoming connections on port
 8333.
 
@@ -186,6 +187,7 @@ operating system. Lisa's and Tom's nodes can now speak freely to each
 other. Tom can send data to Lisa and Lisa can send data to Tom over
 this communication channel, or TCP connection.
 
+[[the-network-protocol]]
 === The network protocol
 
 Tom and Lisa can now send and receive data over a communication channel. For example
@@ -588,9 +590,10 @@ image::{imagedir}/periscope-bitcoin-network.svg[{quart-width}]
 The second half of this chapter will look at how a new node joins the
 network.
 
+[[bootstrapping-the-network]]
 === Bootstrapping the network
 
-The scenario in <<_the_network_protocol>> assumed that all nodes
+The scenario in <<the-network-protocol>> assumed that all nodes
 involved were already connected to each other. But how does a new node
 start? How would it find other nodes to connect to? How would it
 download the full blockchain from the genesis block, block 0, and up

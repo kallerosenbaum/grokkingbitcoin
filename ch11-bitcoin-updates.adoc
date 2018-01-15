@@ -1,41 +1,25 @@
 [[ch11]]
 == Bitcoin updates -  Safely introduce new stuff
 
+Describe soft forks and hard forks and how segwit got deployed.
+
 
 
 Also, as we discussed in <<validating-early-blocks>>, a full node that
 does the initial blockchain download, may chose not to verify any
 signatures before a certain block. This would also open up the
 possibility for the node to skip downloading and storing the
-scriptSigs.
-
-* Witness data becomes cheaper because it can be pruned
+scriptSigs. Witness data becomes cheaper because it can be pruned
 
 Explain why it's called a "witness program"
 
 Add transaction version to transactions in chapter 9. Also mention it
 in ch5 where we mention locktime and sequence.
 
-Describe soft forks and hard forks and how segwit got deployed.
+Generally, use graphs instead of tables?
 
-Open questions:
+Update outdated numbers and stuff throughout the book. Price charts etc.
 
-* Does anyone here know why the sequence of other inputs are zeroed when signing with SIGHASH_NONE or SIGHASH_SINGLE? Doesn't that interfere with relative lock time and RBF opt-in?
-
-* Why do Bernanke outputs have values >0? Do they have to?
-
-* 
-
-Closed questions:
-
-* Can we really save storage and or bandwidth between full nodes with segwit?
-** Yes, but not right now. Witnessless mode is not implemented.
-
-* How can you make a relative lock-time transaction that is not opt-in RBF?
-** opt-in is seq<0xffffffff-1 while rel-lock-time is 0x7fffffff-0x00000000
-
-* Is it possible that there are other yet unknown ways to malleate a signature than the "-S" trick? Or maybe even known ones? I refer only to inherent ECDSA signature malleability.
-** Yes it's possible according to wumpus in bitcoin-core-dev
 
 payment channel
 lightning
@@ -51,4 +35,19 @@ lays the groundworks for higher level systems, like the Lightning
 Network.
 
 
+Open questions:
 
+* Does anyone here know why the sequence of other inputs are zeroed when signing with SIGHASH_NONE or SIGHASH_SINGLE? Doesn't that interfere with relative lock time and RBF opt-in?
+
+* Why do Bernanke outputs have values >0? Do they have to?
+
+Closed questions:
+
+* Can we really save storage and or bandwidth between full nodes with segwit?
+** Yes, but not right now. Witnessless mode is not implemented.
+
+* How can you make a relative lock-time transaction that is not opt-in RBF?
+** opt-in RBF is seq<0xffffffff-1 while rel-lock-time is 0x7fffffff-0x00000000
+
+* Is it possible that there are other yet unknown ways to malleate a signature than the "-S" trick? Or maybe even known ones? I refer only to inherent ECDSA signature malleability.
+** Yes it's possible according to wumpus in bitcoin-core-dev
