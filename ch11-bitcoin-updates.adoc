@@ -3,8 +3,6 @@
 
 Describe soft forks and hard forks and how segwit got deployed.
 
-
-
 Also, as we discussed in <<validating-early-blocks>>, a full node that
 does the initial blockchain download, may chose not to verify any
 signatures before a certain block. This would also open up the
