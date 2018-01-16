@@ -19,7 +19,7 @@ div>p,.literalblock,.listingblock,.imageblock>.title,div>.tableblock,.dlist,.oli
 }
 
 /* Don't set sublist width to 75%. */
-li>.olist {
+li>.olist,li>.ulist {
     width: 100%;
 }
 

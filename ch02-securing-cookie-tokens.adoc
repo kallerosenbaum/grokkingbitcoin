@@ -38,7 +38,7 @@ tokens", CT. Cookie tokens can be exchanged for cookies in the cafe.
 ****
 A cookie token correspond to a bitcoin, the currency unit of
 Bitcoin. Bitcoin got its first price point 2010 when someone bought
-two pizzas for 10000 BTC. That money would get you 500000 pizzas
+two pizzas for 10,000 BTC. That money would get you 500,000 pizzas
 today.
 ****
 
@@ -109,9 +109,9 @@ rewarded 7200 cookie tokens per day during the first four years, and
 then the reward is halved to 3600 CT/day for the next four years, and
 so on until the reward is 0 CT/day. Let's not worry, for now, about
 what happens when the reward approaches 0, that's far in the
-future. We will discuss that in <<ch07>>. This reward halving
-makes the total money supply, the total amount of CT in circulation,
-approach 21000000 CT, but it will never exceed 21000000. What Lisa
+future. We will discuss that in <<ch07>>. This reward halving makes
+the total money supply, the total amount of CT in circulation,
+approach 21,000,000 CT, but it will never exceed 21,000,000. What Lisa
 does with the new cookie tokens she earned is up to her. She can buy
 cookies or sell the cookie tokens. She can also save them for later.
 
@@ -980,7 +980,7 @@ under the name John2.
 
 How can John secure his new private key and still have it readily
 available when he wants a cookie? John is pretty sure that he will not
-have more than 1000 cookie tokens on that key.
+have more than 1,000 cookie tokens on that key.
 
 [.gbinfo]
 .You are responsible
@@ -1009,7 +1009,7 @@ copy of his key, because you must
 
 If John thinks that he will never have more than 50 CT on his private
 key, he might not be very concerned with security. But the cafe who
-manages about 10000 cookie tokens might be very concerned. John and
+manages about 10,000 cookie tokens might be very concerned. John and
 the cafe probably need different strategies for storing their private
 keys.
 
@@ -1144,8 +1144,8 @@ image::{imagedir}/tool-signing.svg[{half-width}]
 ==== Warm up
 
 . Lisa is rewarded 7200 CT per day for her work. Why won't the money
-supply increase infinitely over time? Why don't we have 7200*10000=72
-million CT after 10000 days?
+supply increase infinitely over time? Why don't we have 7,200*10,000=72
+million CT after 10,000 days?
 . How can coworkers detect if Lisa rewards herself too much or too often?
 . How is the private key of a key-pair created?
 . What key is used to sign a message?

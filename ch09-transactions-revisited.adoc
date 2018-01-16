@@ -213,7 +213,7 @@ which translates to 5062 in decimal form. 5062 intervals of 512
 seconds is 30 days.
 
 The second output has a sequence number of `000003e8`. This means that
-the transaction is invalid until 1000 blocks have been mined since the
+the transaction is invalid until 1,000 blocks have been mined since the
 spent output was mined.
 
 .The first input locks the transaction for 30 days from the spent output.
@@ -222,7 +222,7 @@ image::{imagedir}/relative-lock-time-second-input.svg[{big-width}]
 The left-most bit is zero here too, which means that relative lock
 time is enabled for this input. The bit ant index 9 from the left 0,
 which means that the 16 right-most bits should be interpreted as
-number of blocks. `03e8` is hex code for 1000.
+number of blocks. `03e8` is hex code for 1,000.
 
 === Time locked outputs
 
@@ -718,7 +718,7 @@ image::{imagedir}/rbf-1.svg[{half-width}]
 You may recall from <<_transaction_fees>> that the transaction fee is
 the sum of the input values minus the sum of the output values. The
 fee per byte that miners care for is calculated by dividing that fee
-with the size of the transaction. In this case 1000 satoshis divided
+with the size of the transaction. In this case 1,000 satoshis divided
 by 225 bytes, which is about 4.4 sat/byte.
 
 If no miner is willing to include the transaction for that fee, your

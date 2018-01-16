@@ -305,13 +305,13 @@ of that name as well as a lot of other names and words. For example:
  ... john12 J0hn12 ... ... j0Hn321 ...
  j0Hn4321
 
-Bingo! Suppose that there are 1000000 common words and names and that
-each word can come in 100000 variations, on average. That is 100
+Bingo! Suppose that there are 1,000,000 common words and names and
+that each word can come in 100,000 variations, on average. That is 100
 billion different passwords to test, which corresponds to about 37
 bits of entropy. 100 billion tries will take a high-end desktop
 computer a few days to perform. Let's say that it takes 1 day. If John
 uses a truly random password, the entropy for the attacker is around
-48 bits. Then it would take around 2000 days to crack the password.
+48 bits. Then it would take around 2,000 days to crack the password.
 
 ==== Problems with password encrypted backups
 
@@ -367,25 +367,24 @@ This section will describe a standard called BIP32. This standard is
 widely used by various Bitcoin wallet software.
 ****
 
-One of the brighter developers, Petra Wiley, who is also a
-cryptographer, comes up with a new way to handle key creation to
-improve the backup situation which also brings totally new features to
-wallets.
+One of the brighter developers, who is a cryptographer, comes up with
+a new way to handle key creation to improve the backup situation which
+also brings totally new features to wallets.
 
-Petra realizes that if all private keys in a wallet were generated
-from a single random number called a _random seed_, the whole wallet
-can be backed up once and for all by writing down the seed on a piece
-of paper and store it in a safe place.
+She realizes that if all private keys in a wallet were generated from
+a single random number called a _random seed_, the whole wallet can be
+backed up once and for all by writing down the seed on a piece of
+paper and store it in a safe place.
 
 .Backing up a seed. This is how we want to make backups.
 image::{imagedir}/backup-seed-phone.svg[{half-width}]
 
-Rita talks to some other cryptographers and they decide on a
+She talks to some other cryptographers and they decide on a
 strategy. They are going to make a _hierarchical deterministic
 wallet_. This basically means that keys are organized as a tree, where
-one key is the root of the tree and that root can have any number
-of child keys. Each child key can in turn have a large number of
-children of its own, and so on.
+one key is the root of the tree and that root can have any number of
+child keys. Each child key can in turn have a large number of children
+of its own, and so on.
 
 Suppose that Rita wants to organize her keys based on purposes and
 generate 5 keys to use for shopping at the cafe, and another 3 keys to
@@ -437,13 +436,13 @@ tree grows up (erm, down) from.
 3. The descendant extended private keys of the master extended private
 key are derived.
 
-.Extended private key
-****
-image::{imagedir}/2ndcol-xprv.svg[]
-****
-
 An extended private key (xprv) contains two items: A private key and a
-chain code. The private key is indistinguishable from an old type
+chain code.
+
+.An extended private key consists of a private key and a chain code.
+image::{imagedir}/xprv.svg[{quart-width}]
+
+The private key is indistinguishable from an old type
 private key generated directly from a random number generator. It can
 be used to derive a public key and a cookie token address. You usually
 only make addresses out of leaves, but you could use internal keys as
@@ -454,6 +453,10 @@ of the chain code is to provide entropy when generating a child
 xprv. The master xprv doesn't differ from other xprvs, but we give it
 a special name because it is the ancestor of all keys in the tree. It
 is, however, created differently.
+
+****
+image::{imagedir}/2ndcol-create-seed.svg[]
+****
 
 In step 1, the random seed is created in the same way as when we
 created private keys in <<ch02,chapter 2>>. In this example we
@@ -474,7 +477,7 @@ image::{imagedir}/2ndcol-derive-master-xprv.svg[]
 We will look deeper into how the master extended private key is
 generated.
 
-.Deriving Rita's master xprv. The seed is hashed with HMAC-SHA512. The resulting hash of 512 bits is splitted into left 256 bits that becomes the master private key and the right 256 bits that becomes the chain code.
+.Deriving Rita's master xprv. The seed is hashed with HMAC-SHA512. The resulting hash of 512 bits is split into left 256 bits that becomes the master private key and the right 256 bits that becomes the chain code.
 image::{imagedir}/hd-wallet-derive-master-xprv.svg[{half-width}]
 
 [.gbfaq]
@@ -525,15 +528,16 @@ The process starts with a parent xprv.
 parent chain code acts as a source of entropy to the hashing
 function. The simplest way to think of it is that the three pieces of
 data are just hashed together.
-3. The 512 bit hash value is splitted in half.
-4. The left 256 bits is added (yes, normal addition!) to the parent
-private key. The sum becomes the child private key.
 ****
 image::{imagedir}/2ndcol-key-tree.svg[]
 ****
-[start=5]
-5. The right 256 bits becomes the child chain code
-6. The child private key and the child chain code together forms the
+[start=3]
+3. The 512 bit hash value is split in half:
+** The left 256 bits is added (yes, normal addition!) to the parent
+private key. The sum becomes the child private key.
+** The right 256 bits becomes the child chain code
+[start=4]
+4. The child private key and the child chain code together forms the
 child xprv.
 
 This same process is used for all children and grandchildren of the
@@ -721,9 +725,9 @@ put that xprv on the web server.
 image::{imagedir}/cafe-hd-wallet.svg[{quart-width}]
 
 The web server can now create new addresses as the orders
-pours in. Great. But what if Malory gains access to the web server's
-hard drive where the xprv is stored? She can steal all
-money in any of the addresses in the "online sales" account. She
+pours in. Great. But what if the Malory, the gangster, gains access to
+the web server's hard drive where the xprv is stored? She can steal
+all money in any of the addresses in the "online sales" account. She
 cannot steal from any other addresses in the tree. Convince yourself
 that she can't do that.
 
@@ -742,19 +746,19 @@ is perfectly possible by using _extended public keys_.
 image::{imagedir}/2ndcol-xpub.svg[]
 ****
 
-An extended public key (xpub) is like an extended private key but the
-private key is replaced by the public key. An xprv shares the chain
-code with the extended public key (xpub). You can create an xpub from
-an xprv, but you cannot create the xprv from the xpub. Can you see
-why?
+An extended public key (xpub) is similar to an extended private key
+but the xpub contains a public key and a chain code, while the xprv
+contains a private key and a chain code. An xprv shares the chain code
+with the extended public key (xpub). You can create an xpub from an
+xprv, but you cannot create the xprv from the xpub. Can you see why?
 
 The cafe puts the xpub `M/1` on the the web server. By convention, we
 use capital `M` to denote an xpub and `m` to denote an xprv. `M/1` and
-`m/1` have the same chain code, but `M/1` doesn't have the
-private key. You can create the whole xpub tree from the master xpub,
-which means that you can generate any and all addresses without the
-need for any private key. You can create addresses, but not spend
-money from those addresses.
+`m/1` have the same chain code, but `M/1` doesn't have the private
+key, only the public key. You can create the whole xpub tree from the
+master xpub, which means that you can generate any and all addresses
+without the need for any private key. You can create addresses, but
+not spend money from those addresses.
 
 .Generating the tree of xpubs from the master xpub. The general pattern is the same as when generating xprvs, but the child derivation function differs.
 image::{imagedir}/hd-wallet-xpub-tree.svg[{half-width}]
@@ -811,22 +815,36 @@ image::{imagedir}/steal-xprv.svg[{big-width}]
 Remember how the xprv derivation function used normal addition to
 calculate a child private key from a parent private key?
 
- "m/1" + "left half hash of index 1" = "m/1/1"
+[stem] 
+++++
+\text{"m/1"} + \text{"left half hash of index 1"}=\text{"m/1/1"}
+++++
+
+// "m/1" + "left half hash of index 1" = "m/1/1"
 
 This can just as well be written as
 
- "m/1" = "m/1/1" - "left half hash of index 1"
+[stem] 
+++++
+\text{"m/1/1"}-\text{"left half hash of index 1"}=\text{"m/1"}
+++++
  
 Malory has everything she need to calculate the left half hash for any
 child index of `M/1` she pleases, but she don't know which index her
 stolen private key has so she starts testing with index 0:
 
- "m/1/1" - "left half hash of index 0" = "a private key"
+[stem] 
+++++
+\text{"m/1/1"} - \text{"left half hash of index 0"} = \text{"a private key"}
+++++
 
 She derives the public key from this private key and notices that it
 doesn't match "M/1", so `0` wasn't the correct index. She then tries index `1`:
 
- "m/1/1" - "left half hash of index 1" = "another private key"
+[stem] 
+++++
+\text{"m/1/1"} - \text{"left half hash of index 1"} = \text{"another private key"}
+++++
 
 This private key derives to the public key `M/1`. Bingo! She has now
 calculated the private key `m/1` for the online sales account. Since
@@ -887,11 +905,14 @@ derived. We will make an attempt here instead.
 
 A public key in Bitcoin is a whole number solution to the equation
 
-y^2^ = x^3^ + 7 mod (2^256^-4294966319)
+[stem]
+++++
+y^2 = x^3 + 7 \mod{2^{256}-4294966319}
+++++
 
-There are astronomically many such solutions, about 2^256^ of them. To
-simplify, we will illustrate the solutions to y^2^ = x^3^ + 7 mod 11
-instead:
+There are astronomically many such solutions, about stem:[2^{256}] of
+them. To simplify, we will illustrate the solutions to stem:[y^2 = x^3
++ 7 \mod{11}] instead:
 
 [.inbitcoin]
 .Bitcoin use this curve
@@ -900,7 +921,7 @@ This specific curve is called secp256k1 and is used in Bitcoin. There
 are plenty of other curves with similar properties.
 ****
 
-.Whole number solutions to the elliptic curve  y^2^ = x^3^ + 7 mod 11. Each such solution is a public key.
+.Whole number solutions to the elliptic curve  stem:[y^2 = x^3 + 7 \mod{11}]. Each such solution is a public key.
 image::{imagedir}/curve-solutions.svg[{half-width}]
 
 [.gbfaq]
@@ -913,12 +934,13 @@ image::{imagedir}/elliptic-curve-crypt-image00.png[]
 ****
 
 A single public key, point on the curve, can be derived from each
-private key. To do this we start in a special point, G=(6, 5), on the
-curve. G is somewhat arbitrarily chosen and is widely known by
+private key. To do this we start in a special point, stem:[G=(6,5)], on the
+curve. stem:[G] is somewhat arbitrarily chosen and is widely known by
 everybody to be the starting point for public key derivation. *The
-public key is the private key multiplied by G*.
+public key is the private key multiplied by stem:[G]*.
 
-Suppose that your private key is `5`. Then your public key is 5*G.
+Suppose that your private key is stem:[5]. Then your public key is
+stem:[5G].
 
 To calculate this multiplication, we need two basic public key
 operations: addition and doubling, where doubling can be seen as
@@ -930,7 +952,7 @@ point. This third point is the negative result of the addition. To get
 the final result of the addition you need to take the symmetric point
 at the same x value.
 
-.Point addition. We add (x, y)=(6, 5) to (2, 2) by drawing a straight line through them that will intersect a third point. 
+.Point addition. We add stem:[(x, y)=(6,5)] to stem:[(2, 2)] by drawing a straight line through them that will intersect a third point. 
 image::{imagedir}/point-addition.svg[{half-width}]
 
 [.gbfaq]
@@ -939,19 +961,18 @@ image::{imagedir}/point-addition.svg[{half-width}]
 Yes, there's always a line that intersects a third point. It's one of the important properties of the curve.
 ****
 
-The result of (6, 5) + (2, 2) is (7, 8). The straight line between the
-two points cross the point (7, 3). The complement point to (7, 3) is
-(7, 8), which is the result of the addition.
+The result of stem:[(6, 5) + (2, 2)] is stem:[(7, 8)]. The straight line between the
+two points cross the point stem:[(7, 3)]. The complement point to stem:[(7, 3)] is
+stem:[(7, 8)], which is the result of the addition.
 
 To double a point is to add it to itself, but there's no slope to be
 calculated from a single point. In this special case, the slope is
-calculated from the single point P, (6, 5) as 3*x^2^*(2y)^-1^ mod
-11 = 2. 
+calculated from the single point stem:[P=(6,5)] as stem:[3*x^2*(2y)^{-1} \mod{11} = 2]. 
 
-.Point doubling. To "double" a point P draw a line through P with a special slope that is calculated from P. The line crosses another point, (3, 10). The complement point (3, 1) is our doubling result.
+.Point doubling. To "double" a point P draw a line through P with a special slope that is calculated from P. The line crosses another point, stem:[(3,10)]. The complement point stem:[(3, 1)] is our doubling result.
 image::{imagedir}/point-doubling.svg[{half-width}]
 
-The process is almost the same as adding two different points. But the
+The process is almost the same as adding two different points but the
 slope of the line is calculated differently.
 
 [.gbinfo]
@@ -963,11 +984,17 @@ Multiplication is performed by a sequence of adding and doubling operations.
 Using these two basic operations, adding and doubling, we can derive
 the multiplication of 5 and G. In binary form, 5 is
 
-`101~binary~ = 1*2^2^ + 0*2^1^ + 1*2^0^`
+[stem]
+++++
+101_{binary} = 1*2^2 + 0*2^1 + 1*2^0
+++++
 
 Your public key is then
 
-`5*G = 1*2^2^*G + 0*2^1^*G + 1*2^0^*G`
+[stem]
+++++
+5G = 1*2^2*G + 0*2^1*G + 1*2^0*G
+++++
 
 We start in G and calculate the resulting public key point by taking
 terms from right to left:
@@ -979,18 +1006,14 @@ There is a nice elliptic curve calculator in <<web-elliptic-curve-calculator>>
 that you can play with to get a better feel for how this works.
 ****
 
-1. Calculate `2^0^*G = 1*G = G`. Easy, now remember this value.
-2. Calculate `2^1^*G = 2*G`. This is a point "doubling" of the
+1. Calculate stem:[2^0*G = 1*G = G]. Easy, now remember this value.
+2. Calculate stem:[2^1*G = 2*G]. This is a point "doubling" of the
 previously remembered value G from step 1. Remember the value. Since
-there is a 0 in front of `2^1^*G`, we don't do anything with it, just
-remember it.
-3. Calculate `2^2^*G = 2*2*G`, which is a doubling of the
-previously remembered value `2*G`. Since there is a `1` in front of
-the `2^2^*G` term, we add this result to the result of
-step 1.
-
-The total end result of this process is your public key (6,
-6).
+there is a 0 in front of stem:[2^1*G], we don't do anything with it,
+just remember it.
+3. Calculate stem:[2^2*G = 2*2*G], which is a doubling of the
+previously remembered value stem:[2*G]. Since there is a `1` in front
+of the stem:[2^2*G] term, we add this result to the result of step 1.
 
 ==== Why is this secure?
 
@@ -1004,9 +1027,9 @@ hard. This is what makes public key derivation a one-way function.
 The multiplication process is pretty easy to complete, it takes just
 about 256 steps for a 256 bit private key. But to reverse this process
 is a totally different story. There is no known way to get the private
-key by point "division" (for example point (6, 6) "divided by" G). The
-only known way is to try different private keys and see if the public
-key is what you are looking for.
+key by point "division" (for example point stem:[(6,6)] "divided by"
+stem:[G]). The only known way is to try different private keys and see
+if the public key is what you are looking for.
 
 ==== xpub derivation
 
@@ -1051,17 +1074,16 @@ store y values, only whether the y value is even or odd. We do this by
 prefixing the x value with `02` (even) or `03` (odd). In John's case
 the y value is odd, so he gets the prefix `03`.
 
-Looking at the curve in the margin, there is a single point x=5,
-y=0. That doesn't look symmetric, but it's actually a so called
+Looking at the curve in the margin, there is a single point stem:[x=5,
+y=0]. That doesn't look symmetric, but it's actually a so called
 double-root to the curve, it is two points with the same y
 value 0. But how are those two roots symmetric? We can cheat and let
-one of them be (5, 0) (even) and the other (5, 11) (odd), which
-becomes (5, 0) due to modulo 11. Now they are symmetric.
+one of them be stem:[(5,0)] (even) and the other stem:[(5,11)] (odd), which
+becomes stem:[(5, 0)] due to modulo 11. Now they are symmetric.
 
 This is also the reason why public keys are 33 bytes and not 32
 bytes. It's a 256 bit number, the x-coordinate, prefixed by a byte
 specifying the odd/even property.
-
 
 === Summary
 

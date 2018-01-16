@@ -130,12 +130,12 @@ Let's try another naïve approach:
 image::{imagedir}/2ndcol-draw-lucky-numbers.svg[]
 ****
 
-The miners all draw a random number between 0 and 999999 each every
+The miners all draw a random number between 0 and 999,999 each every
 second. If a miner happens to draw a number in the range 0-555 it will
 immediately sign and publish a block. The probability of drawing a
-lucky number on a single try is quite low, 556/1000000 or roughly 1 in
+lucky number on a single try is quite low, 556/1,000,000 or roughly 1 in
 1800 tries. The miners draw one number each second so each miner is
-expected to draw a lucky number every thirty minutes (1800 seconds) on
+expected to draw a lucky number every thirty minutes (1,800 seconds) on
 average. The three miners together will then produce on average one
 block every 10 minutes.
 
@@ -318,9 +318,9 @@ X * 10^-Y^
 
 | 2 | 2.1e-7 | 90 years
 
-| 3 | 7.6e-11 | 250000 years
+| 3 | 7.6e-11 | 250,000 years
 
-| 4 | 2.8e-14 | 700000000 years
+| 4 | 2.8e-14 | 700,000,000 years
 |===
 
 [.inbitcoin]
@@ -635,8 +635,8 @@ probability, p, of drawing a lucky number, where target was 555:
 
 [stem]
 ++++
-p=\frac{555+1}{1000000}=\frac{556}{1000000} \\
-difficulty=\frac{1}{p}=\frac{1000000}{556}
+p=\frac{555+1}{1,000,000}=\frac{556}{1,000,000} \\
+difficulty=\frac{1}{p}=\frac{1,000,000}{556}
 ++++
 
 So we sum the difficulties of all blocks to get the accumulated proof
@@ -727,7 +727,7 @@ cookie token system have increased significantly. Now we have
 .Total hashrate of Bitcoin
 ****
 As of writing, the total hashrate of Bitcoin is about 8
-Exahash/s. That's 8 000 000 000 000 000 000 hash/s.
+Exahash/s. That's 8,000,000,000,000,000,000 hash/s.
 ****
 
 |===
@@ -771,7 +771,7 @@ more exactly 264/144=1.8 times the desired supply increase.
 Forks happens naturally every now and then. But when the block rate
 increases the risk of natural forks increases. Imagine if three
 thousand people would start mining in their basements. It would
-increase the block rate by 1000 times. Each and every second several
+increase the block rate by 1,000 times. Each and every second several
 miners would find a valid proof of work and publish a block. We would
 get forks on almost every block height. This makes transactions in
 recent blocks less reliable, because the blocks can more easily become
@@ -1099,17 +1099,17 @@ succeed. That would mean that she loses out on the rewards from those
 blocks.
 
 But what if she tried to double spend a larger amount than 10 CT? Say
-100000 CT?  Then it would be more worth it for Lisa to try to double
+100,000 CT?  Then it would be more worth it for Lisa to try to double
 spend. Just imagine if she could buy the whole cafe and pull off a
 double spend attack. Then she would have a cafe and still have her
-100000 CT.
+100,000 CT.
 
-The cafe owner is willing to sell the cafe for 100000 CT to Lisa. But
+The cafe owner is willing to sell the cafe for 100,000 CT to Lisa. But
 the cafe is of course aware of double spend attacks. Therefore, the
 cafe owner says to Lisa that for this high amount of money, he will
 give her the cafe after 6 confirmations.
 
-What does this mean? Lisa must pay the cafe owner 100000 CT and then
+What does this mean? Lisa must pay the cafe owner 100,000 CT and then
 wait until the transaction is included in a block and 5 more blocks
 has been built after that block. Only then will the cafe owner hand
 over the cafe to Lisa.
@@ -1214,8 +1214,6 @@ q_{z}=
 (\frac{q}{p})^z & \mbox{if } q \gt p \\
 \end{array}
 \right.
-
-
 ++++
 
 Look at the column for 36% hashrate, which is what Lisa has. When she
@@ -1243,8 +1241,8 @@ Tom is a smart guy and knows not to try this. He understands that he's
 far better off securing the blockchain along with everybody else and
 get his fair share of the rewards, than trying to defeat it. After
 all, with 18% of the hashrate he gets almost a fifth of all block
-rewards. That's more than 50 CT per hour. After 2000 hours, or 12
-weeks, he would have made 100000 honest cookie tokens, instead of
+rewards. That's more than 50 CT per hour. After 2,000 hours, or 12
+weeks, he would have made 100,000 honest cookie tokens, instead of
 trying to steal them.
 
 ===== Tom and Lisa colludes to double spend
@@ -1270,7 +1268,7 @@ blockchain, but they can make as many double spends they want.
 
 Let's play with the idea that Tom and Lisa starts double spending. For
 example, they buy the cafe and double spend the transactions, so that
-they end up with both the cafe and 100000 CT. Every now and then
+they end up with both the cafe and 100,000 CT. Every now and then
 people will notice that the blockchain history is changed. 6
 confirmation transactions used to be very reliable, but now they can't
 be trusted anymore. What would happen to the cookie token value if the
@@ -1520,7 +1518,7 @@ coinbase transaction.
 image::{imagedir}/lisa-collects-transaction-fees.svg[{half-width}]
 
 The block subsidy is used to fairly get new money into circulation in
-the economy, until all 21 000 000 new cookie tokens are minted. The
+the economy, until all 21,000,000 new cookie tokens are minted. The
 transaction fee is added by the sender of a transaction to incentivize
 the miners to include the transaction in their blocks.
 

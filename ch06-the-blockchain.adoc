@@ -920,7 +920,7 @@ image::{imagedir}/bigger-partial-merkle-tree.svg[{full-width}]
 The full node only has to send the block header, the number "12", 14
 flags, 7 hashes, and the two interesting transactions. This sums to
 about 800 bytes. This far less data than sending the block header and
-all 12 transactions, which would be about 3000 bytes.
+all 12 transactions, which would be about 3,000 bytes.
 
 Let's check some rough numbers on how the merkle proof compare in size
 to the full block as the number of transactions grows.
@@ -931,17 +931,17 @@ to the full block as the number of transactions grows.
 | Number of tx in block | Length of list of hashes | Block size [bytes] |
   Size of merkle proof [bytes]
 
-| 1      | 1  | 330      | 362
-| 2      | 2  | 580      | 394
-| 3      | 3  | 830      | 426
-| 4      | 3  | 1080     | 426
-| 5      | 4  | 1330     | 458
-| 8      | 4  | 2080     | 458
-| 10     | 5  | 2580     | 490
-| 100    | 8  | 25080    | 586
-| 1000   | 11 | 250080   | 682
-| 10000  | 15 | 2500080  | 810
-| 100000 | 18 | 25000080 | 906
+| 1       | 1  | 330      | 362
+| 2       | 2  | 580      | 394
+| 3       | 3  | 830      | 426
+| 4       | 3  | 1,080     | 426
+| 5       | 4  | 1,330     | 458
+| 8       | 4  | 2,080     | 458
+| 10      | 5  | 2,580     | 490
+| 100     | 8  | 25,080    | 586
+| 1,000   | 11 | 250,080   | 682
+| 10,000  | 15 | 2,500,080  | 810
+| 100,000 | 18 | 25,000,080 | 906
 |===
 
 [.inbitcoin]

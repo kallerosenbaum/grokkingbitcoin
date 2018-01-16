@@ -559,16 +559,16 @@ do it.
 
 The Bitcoin peer to peer network is huge. As of writing:
 
-* It consists of about 10000 publicly accessible full nodes. Add to
+* It consists of about 10,000 publicly accessible full nodes. Add to
 that several 10s of thousands full nodes that don't accept incoming
 connections.
-* Bitcoin's money supply is currently about 17000000 BTC.
-* Each bitcoin is worth around $4400
-* 250000 transaction per day
-* An estimate of 150000 BTC, value $660M, being moved daily
+* Bitcoin's money supply is currently about 17,000,000 BTC.
+* Each bitcoin is worth around $4,400
+* 250,000 transaction per day
+* An estimate of 150,000 BTC, value $660M, being moved daily
 * Total mining hashrate is about 8 Exahash/s
 * Transaction fees paid each day totals around 150 BTC. A typical
-  transaction pays 30000 satoshis, which is 0.0003 BTC or about $1.30.
+  transaction pays 30,000 satoshis, which is 0.0003 BTC or about $1.30.
 * People in all corners of the world use Bitcoin to get around
 problems in their day-to-day life.
 
@@ -936,7 +936,7 @@ Bitcoin Core 0.15.0.1, that block is
  height: 477890
  hash: 0000000000000000003b9ce759c2a087d52abc4266f8f4ebd6d768b89defa50a
 
-Which is about 8000 blocks back in the blockchain at release
+Which is about 8,000 blocks back in the blockchain at release
 date. This is of course a configuration parameter and the above block
 is just a default reasonable value. Selma could have changed this when
 starting her node, or she could have verified with friends and other
