@@ -33,6 +33,7 @@ lets you make tiny payments nearly instantaneous. Payment channels
 lays the groundworks for higher level systems, like the Lightning
 Network.
 
+From p2r5: Make Chapter 4 some more straight an “easy”.
 
 Open questions:
 
