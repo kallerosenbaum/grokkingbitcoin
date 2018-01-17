@@ -90,37 +90,28 @@ Lisa and what is stored in the spreadsheet. It will not change how
 wallets behave from a user's perspective, the wallet app will look
 exactly the same.
 
-[.gbinfo]
-.PKH~x~ and @~x~
-****
-Public key hashes and addresses can be converted back and
-forth. Therefore we may use @~x~ and PKH~x~ interchangeably and let
-the context represent what they mean. As a general rule of thumb,
-wallets and humans deal with addresses, while transactions, Lisa, and
-the spreadsheet deal with public key hashes.
-****
-
-Suppose that John wants to buy a cookie in the cafe. The cookie costs
-10 CT, but John only has two addresses with money on them, one with 8
-CT, @~1~, and one with 5 CT, @~2~.
-
-John will not make a "Note to Lisa" as he has done so many times
-before. The wallet software now uses _transactions_, so his wallet
-will create a _transaction_ instead. The purpose of the transaction is
-to pay 10 CT to the Cafe's address @~C~.
+Suppose that John wants to buy a cookie in the cafe. John will not
+make a "Note to Lisa" as he has done so many times before. The wallet
+software now uses _transactions_, so his wallet will create a
+_transaction_ instead. The purpose of the transaction is to pay 10 CT
+to the Cafe's CT address.
 
 .The payment process is the same for users, but very different for Lisa and the spreadsheet.
 image::{imagedir}/wallet-payment-process-transactions.svg[{big-width}]
 
 John scans the cafe's payment URI and his wallet creates a transaction
 and asks John to accept it. He clicks OK, and the wallet signs the
-transaction with two different private keys, one for @~1~ and one
-key for @~2~. John's wallet then sends the signed transaction as an
+transaction. John's wallet then sends the signed transaction as an
 attachment in an otherwise empty email to Lisa.
 
-Lisa verifies that the money the transaction spends exists, that they are not
-already spent, and that the two signatures are valid. If all checks
-pass, Lisa confirms the transaction by adding it to the spreadsheet.
+The transaction contains information on where to send money. But it
+also contains information on _what money_ to spend by referencing
+"coins" that John has received in previous transactions.
+
+Lisa verifies that the coins the transaction spends exist, that they
+are not already spent, and that the signatures are valid. If all
+checks pass, Lisa confirms the transaction by appending it to the end
+of the spreadsheet.
 
 Once the transaction hits the spreadsheet, anyone can make the same
 verification as Lisa did. They can verify that Lisa doesn't steal
@@ -138,51 +129,35 @@ in the next three subsections.
 - [ ] verify (anyone)
 ****
 
-Let's dive in and have a closer look at what John's transaction
-contains.
+Let's dive in and have a closer look at how John's transaction is
+created.
 
 .John's wallet prepares to pay 10 CT for a cookie. He uses both his keys with funds to cover the cost. He pays himself the change of 3 CT to a fresh address. The transaction is not yet signed.
 image::{imagedir}/transaction.svg[{big-width}]
+
+John's wallet has created a new transaction. The new transaction has
+two _inputs_ and two _outputs_. Inputs specify what outputs of
+previous transactions to spend. Outputs specify where the money goes.
+
+===== Inputs
+
+The inputs specify what transaction outputs to spend. John has two
+unspent transaction outputs, one with 8 CT and one with 5 CT. The
+unspent outputs belongs to two different previous transactions,
+transaction 1 and transaction 2 that payed money to John. Now John
+wants to spend these unspent transaction outputs.
 
 ****
 image::{imagedir}/txid.svg[]
 ****
 
-A transaction id (txid) of a transaction is the double SHA256,
-dSHA256, hash of the transaction. We will frequently use the term
-transaction id (txid). It is called a transaction _id_ because this
-hash is often used to refer to the transaction, as in the case with
-inputs in the picture above.
+A transaction input references a previous transaction using its
+_transaction id_ (txid). The txid of a transaction is the double
+SHA256 hash of the transaction. It is called a transaction _id_
+because this hash is often used to refer to the transaction, as in the
+case with inputs in the picture above.
 
-John has created a new transaction. The new transaction has two
-_inputs_ and two _outputs_. Outputs specify where the money goes and
-inputs specify what outputs of previous transactions to spend.
-
-[.gbinfo]
-.This is a simplification
-****
-The outputs and inputs is a bit more advanced that just specifying a
-PKH in an output. In reality the output contains a tiny computer
-program that will verify the signature in the input trying to spend
-this output. We will talk more about that later.
-****
-
-A transaction output contains an amount and a public key hash, PKH. In
-John's transaction there are two outputs, index 0 paying 10 CT to
-PKH~C~, the Cafe, for the cookie, and index 1 that pays 3 CT back to
-one of John's own keys, PKH~3~. We call this _change_ because it
-resembles traditional change where you pay $75 with a $100 bill and
-get $25 back as change: John pays with 13 CT and gets 3 CT back to his
-change address PKH~3~. Change is needed because you cannot partly
-spend a transaction output. You either spend it completely, or you
-don't spend it.
-
-The inputs specify what transaction outputs to spend. John has two
-unspent transaction outputs, one with 8 CT and one with 5 CT. The
-unspent outputs belongs to two different previous transactions,
-transaction 1 and transaction 2 that once payed money to John. Now
-John wants to spend these unspent transaction outputs. His first
-input, with index 0, contains
+His first input, with index 0, contains
 
 * the txid of transaction 1
 * the index, 1, of the output in transaction 1 to spend.
@@ -191,6 +166,27 @@ His second input, with index 1, contains
 
 * the txid of transaction 2
 * the index, 0, of the output in transaction 2 to spend.
+
+===== Outputs
+
+[.gbinfo]
+.This is simplified
+****
+The outputs and inputs is a bit more advanced that just specifying a
+PKH in an output. In reality the output contains a tiny computer
+program that will verify the signature in the input trying to spend
+the output. We will talk more about that later.
+****
+
+A transaction output contains an amount and a public key hash, PKH. In
+John's transaction there are two outputs. Output at index 0 pays 10 CT
+to PKH~C~, the Cafe, for the cookie. The output at index 1 pays 3 CT
+back to one of John's own keys, PKH~3~. We call this _change_ because
+it resembles traditional change where you pay $75 with a $100 bill and
+get $25 back as change: John pays with 13 CT and gets 3 CT back to his
+change address PKH~3~. Change is needed because you cannot partly
+spend a transaction output. You either spend it completely, or you
+don't spend it.
 
 [.inbitcoin]
 .Transaction fee
@@ -205,8 +201,8 @@ difference, if any, is called a transaction fee, which we will discuss
 in <<ch07>>. For now, John pays no transaction fee, so his output sum
 matches the input sum exactly.
 
-The transaction is created but not signed yet. Anyone could have
-created this transaction because it is based completely on public
+The transaction is now created, but it is not yet signed. Anyone could
+have created this transaction because it is based completely on public
 information. The inputs just refer to transactions in the spreadsheet
 and indexes within those transactions. But only John will be able to
 sign this transaction because only he has the private keys

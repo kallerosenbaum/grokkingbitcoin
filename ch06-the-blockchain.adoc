@@ -648,12 +648,7 @@ We can generalize the calculation above:
 
 [stem] 
 ++++
-(1-r^3)^t=p \Rightarrow lg_{10}(1-r^3)=\frac{lg_{10}(p)}{t}
-\Rightarrow 1-r^3 = 10^{ \frac{lg_{10}(p)}{t}} \\
-
-\Rightarrow r^3 = 1 - 10^{ \frac{lg_{10}(p)}{t}}
-= 1 - (10^{ lg_{10}(p) })^{\frac{1}{t}} = 1 - p^{\frac{1}{t}} \\
-
+(1-r^3)^t=p \Rightarrow 1-r^3=p^{\frac{1}{t}} \Rightarrow r^3=1-p^{\frac{1}{t}} \\
 \Rightarrow r=\sqrt[3]{1-p^{\frac{1}{t}}}
 ++++
 
@@ -829,10 +824,12 @@ tree, left branch first. The steps are outlined in the following table.
 | 5 | no  | ✔✔✘✔✘ | yes | 3 4 5
 |===
 
-This ordering of the steps is called _depth
-first_, meaning that we always move downwards in the tree as far as we
-can before moving sideways. But we will not go down in branches of the
-tree that does not contain any interesting transactions.
+This ordering of the steps is called _depth first_, meaning that we
+always move downwards in the tree as far as we can before moving
+sideways. But we will not go down in branches of the tree that does
+not contain any interesting transactions. This is noted in the list of
+flags as ✘. We stop at ✘ because we don't want to send unneccesary
+data to the wallet, hence the term _partial_ merkle tree.
 
 Now that the full node has created this partial merkle tree, the node
 will send the block header and the partial merkle tree to the wallet,

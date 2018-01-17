@@ -18,6 +18,7 @@ Generally, use graphs instead of tables?
 
 Update outdated numbers and stuff throughout the book. Price charts etc.
 
+Add answers to exercises
 
 payment channel
 lightning

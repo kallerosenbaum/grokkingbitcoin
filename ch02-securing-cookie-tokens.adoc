@@ -38,8 +38,8 @@ tokens", CT. Cookie tokens can be exchanged for cookies in the cafe.
 ****
 A cookie token correspond to a bitcoin, the currency unit of
 Bitcoin. Bitcoin got its first price point 2010 when someone bought
-two pizzas for 10,000 BTC. That money would get you 500,000 pizzas
-today.
+two pizzas for 10,000 BTC. That money would get you 12,000,000 pizzas
+as of January 2018.
 ****
 
 .The spreadsheet have a column for the sender, a column for the recipient and a column for the amount of cookie tokens transferred. New cookie token transfers are appended at the end of the spreadsheet.
@@ -272,11 +272,11 @@ the data changes, it will be noticed by anyone verifying the data.
 
 ==== How does a cryptographic hash function work?
 
-The real answer is very complex, so we will not go there. But to help
-you understand the operation of a cryptographic hash function, we will
-create a very simplistic cryptographic hash function. Well, it is not
-really cryptographic, we will come to that later. Let's just call it a
-hash function for now.
+The real answer is very complex, so we will not go into exact
+detail. But to help you understand the operation of a cryptographic
+hash function, we will create a very simplistic cryptographic hash
+function. Well, it is not really cryptographic, we will come to that
+later. Let's just call it a hash function for now.
 
 [.gbinfo]
 .Modulo
@@ -629,7 +629,9 @@ private key is then transformed into a public key using a public key
 derivation function. The public key derivation function is a one-way
 function, just as the cryptographic hash functions discussed
 earlier. You can not derive the private key from the public key. The
-security of digital signatures relies heavily on this feature.
+security of digital signatures relies heavily on this feature. Also,
+running a private key through the public key derivation function
+multiple times will always result in the same public key.
 
 How the public key derivation function works is a hard topic covered
 in <<ch04,chapter 4>>. Luckily, you do not have to be a cryptography expert to
@@ -851,13 +853,14 @@ The explanation to all this is that someone has
 . managed to copy Johns private key. John's laptop has been on his
   desk all night long. Anyone could have taken out the hard drive from
   the laptop to search for his private key.
+  
 . created a new key pair and sent the new public key to Lisa:
 
  Hi Lisa. My name is Melissa, and I'm new here.
  My public key is
  02c5d2dd24ad71f89bfd99b9c2132f796fa746596a06f5a33c53c9d762e37d9008
 
-. sent a signed message to Lisa
+. sent a fraudulent message, signed with the stolen private key, to Lisa
 
  Hi Lisa, please move 90 CT to Melissa. Thanks, John
  Signature:

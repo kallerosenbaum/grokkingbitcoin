@@ -382,17 +382,20 @@ image::{imagedir}/tx-cafenode-cafe.svg[{half-width}]
 .0-conf tx
 ****
 If the cafe accepts a transaction that is not yet in the blockchain,
-it means that he trusts that John has paid enough transaction fee that
-it will not be double spent
+it means that he trusts that John has paid enough transaction fee and
+that it will not be double spent
 ****
 
 The wallet has now received the transaction. It can show a message to
 the cafe owner that a transaction is "pending". The cafe owner has a
 choice here: He can chose to trust that the transaction will get
 confirmed eventually, or he can wait until the transaction is included
-in a block. This time, the cafe decides that it needs to wait until
-the transaction is included in a valid block. This brings us to the
-next phase, including the transaction in a block in the blockchain.
+in a block. If he doesn't wait for confirmation, the risk of a
+successful double spend attack is _much_ higher than for a
+single-confirmation transaction. This time, the cafe decides that it
+needs to wait until the transaction is included in a valid block. This
+brings us to the next phase, including the transaction in a block in
+the blockchain.
 
 ==== Include the transaction in a block
 
@@ -559,9 +562,7 @@ do it.
 
 The Bitcoin peer to peer network is huge. As of writing:
 
-* It consists of about 10,000 publicly accessible full nodes. Add to
-that several 10s of thousands full nodes that don't accept incoming
-connections.
+* It consists of about 10,000 publicly accessible full nodes.
 * Bitcoin's money supply is currently about 17,000,000 BTC.
 * Each bitcoin is worth around $4,400
 * 250,000 transaction per day
@@ -653,12 +654,12 @@ This is a hard problem. Remember when Lisa used to sign blocks with
 her private key? How would the full nodes verify that the blocks are
 actually signed by Lisa? They used multiple sources to fetch Lisa's
 public key, for example the bulletin board at the entrance of the
-office, the company's intranet, and asking colleagues. The same applies
-here. You can download the key from http://bitcoin.org, ask a friend
-you trust, and download the key from one of the many _key servers_ on
-the Internet. Usually you shouldn't trust a single source, but use at
-least two different sources. The key that currently is being used to
-sign Bitcoin Core releases is named
+office, the company's intranet, and asking colleagues. The same
+applies here. You can download the key from http://bitcoin.org, ask a
+friend you trust, and download the key from one of the many _key
+servers_ on the Internet. Usually you shouldn't trust a single source,
+but use at least two different sources. The key that currently is
+being used to sign Bitcoin Core releases is named
 
  Wladimir J. van der Laan (Bitcoin Core binary release signing key) <laanwj@gmail.com>
 
@@ -666,9 +667,11 @@ and has the _fingerprint_, 160 bit SHA1 hash of the key:
 
  01EA 5486 DE18 A882 D4C2  6845 90C8 019E 36C2 E964
 
-Selma checks that the key used to sign the `SHA256SUMS.asc` file has
-the exact same fingerprint as the key she trusts to be from the
-Bitcoin Core team.
+This book can serve as _one_ of Selma's sources. She also downloads
+the key from a key server and asks a friend for the key. They are all
+the same! Selma checks that the key used to sign the `SHA256SUMS.asc`
+file has the exact same fingerprint as the key she trusts to be from
+the Bitcoin Core team.
 
 Next she must verify that the program has the same hash-value as
 stated in `SHA256SUMS.asc`. It does match, which means that she can be

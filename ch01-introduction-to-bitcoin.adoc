@@ -187,8 +187,8 @@ The digital signature proves that Alice approves the transaction. The
 digital signature is created with a huge secret number, called a
 _private key_, that only Alice knows.
 
-Alice sends this transaction to one or more _Bitcoin nodes_, computers
-in the Bitcoin network.
+Alice sends this transaction to all _Bitcoin nodes_, computers in the
+Bitcoin network, that her wallet app is connected to.
 
 ==== Step 2 - The Bitcoin network
 

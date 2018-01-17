@@ -635,7 +635,7 @@ We are going to explore how this encoding works. It's really fun, but
 if you think this goes too deep, you can just accept the above paragraph
 and skip to section <<extended-public-keys>>.
 
-===== Encode seed into mnemonic sentence 
+==== Encode seed into mnemonic sentence 
 
 .Encoding a random seed as a 12 word mnemonic sentence. The seed is checksummed and every group of 11 bits are looked up in a word list of 2048 words.
 image::{imagedir}/mnemonic-sentence.svg[{half-width}]
@@ -662,7 +662,7 @@ Rita's wallet shows the mnemonic sentence to her and she writes the 12
 words down on a piece of paper. She puts the paper in a safe place and
 gets on with her life.
 
-===== Decode mnemonic sentence into seed
+==== Decode mnemonic sentence into seed
 
 ****
 image::{imagedir}/2ndcol-drop-phone-ocean.svg[]
@@ -728,8 +728,11 @@ The web server can now create new addresses as the orders
 pours in. Great. But what if the Malory, the gangster, gains access to
 the web server's hard drive where the xprv is stored? She can steal
 all money in any of the addresses in the "online sales" account. She
-cannot steal from any other addresses in the tree. Convince yourself
-that she can't do that.
+cannot steal from any other addresses in the tree. For example, she
+cannot calculate any key in the "Counter sales" account, because she
+doesn't have access to the master extended private key. The master
+xprv is needed to calculate the Counter sales account key and all its
+children.
 
 Typical web servers are prone to hacking attempts because they are
 usually accessible from the whole world. Storing money on the web
@@ -750,7 +753,10 @@ An extended public key (xpub) is similar to an extended private key
 but the xpub contains a public key and a chain code, while the xprv
 contains a private key and a chain code. An xprv shares the chain code
 with the extended public key (xpub). You can create an xpub from an
-xprv, but you cannot create the xprv from the xpub. Can you see why?
+xprv, but you cannot create the xprv from the xpub. This is because
+public key derivation is a one-way function; A public key can be
+derived from a private key, but a private key cannot be derived from a
+public key.
 
 The cafe puts the xpub `M/1` on the the web server. By convention, we
 use capital `M` to denote an xpub and `m` to denote an xprv. `M/1` and
