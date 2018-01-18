@@ -143,16 +143,11 @@ Let's take a closer look at what John's wallet does in step 4.
 .John has just clicked OK in his wallet to approve the payment. The wallet takes care of the rest for John. It selects a key with enough funds and signs a message to Lisa. The signed message is then automatically emailed to Lisa.
 image::{imagedir}/johns-wallet-payment-process.svg[{half-width}]
 
-[.gbminiex]
-.Why use multiple keys?
-****
-Do you remember why a user might want to have multiple keys?
-****
-
 The wallet does the exact same thing as users would do manually
 before. Notice that the wallet manages three key pairs. Two with funds
 and one with no funds. With this new wallet, users can have as many
-addresses they want. The wallet will keep track of them for the user.
+addresses they want, which is good for privacy. The wallet will keep
+track of them for the user.
 
 The cafe's wallet, as well as John's wallet, will check the spreadsheet
 every now and then to see if there are any new payments concerning any
@@ -184,7 +179,12 @@ pending waiting for confirmation.
 
 === Private key backups
 
-[.gbfaq]
+The development team created a feature to backup the private keys of
+the wallet. The idea is that the wallet creates a text file, the
+backup file, with all private keys in it and sends the backup file to
+an email address that the user chooses.
+
+[.gbinfo]
 .Why backup?
 ****
 Your keys hold your money. If you lose your keys you lose your
@@ -192,11 +192,6 @@ money. A proper backup is NOT optional. You must take immediate active
 steps to make sure your keys are backed up, otherwise you will sooner
 or later lose your money.
 ****
-
-The development team created a feature to backup the private keys of
-the wallet. The idea is that the wallet creates a text file, the
-backup file, with all private keys in it and sends the backup file to
-an email address that the user chooses.
 
 Imagine that John wants to backup his private keys. The wallet
 collects all keys ever created by the wallet and writes them into a
@@ -1054,15 +1049,13 @@ if the public key is what you are looking for.
 
 ==== xpub derivation
 
-.xpub derivation
-****
-image::{imagedir}/2ndcol-derive-child-xpub.svg[]
-****
-
 We have seen how an ordinary public key is derived from a private key
 through public key multiplication. But how can the multiplication of
 the parent public key with the left half hash become the child public
 key?
+
+.child public key is derived by multiplying the parent public key with the left half hash.
+image::{imagedir}/2ndcol-derive-child-xpub.svg[{quart-width}]
 
 We can convince ourselves that it works by looking at both normal
 public key derivation and child public key derivation side by side:

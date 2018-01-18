@@ -340,6 +340,77 @@ for real people. Bitcoin solves several problems with the traditional
 financial system. Let us look at some commonly discussed problem
 areas.
 
+==== Segregation
+
+People with bank accounts and access to banking services like online
+payments or loans are very privileged. About 38% of the world
+population don't have a bank account at all, according to the World
+Bank, see <<web-financial-inclusion>>. The numbers are slowly
+improving but still a lot of people are stuck in a cash-only
+environment. If these people want to receive money from a family
+member abroad, they will receive 5-10% less, due to higher remittance
+fees, than if they had a bank account.
+
+Without a bank account and basic bank services like online payments,
+people can not expand their businesses outside of their local
+community. A tailor will not be able to offer services on the Internet
+to increase its customer base. A person living in a rural area may
+have to travel half a day just to pay a utility bill or top-up their
+prepaid mobile phone.
+
+.Problems
+****
+- [ ] *Segregation*
+****
+
+This segregation between banked people and unbanked people is driven
+by a number of factors:
+
+* Banking services are too expensive for a large portion of the population.
+* In order to use bank services you need documentation, like an ID
+  card, that many people don't have.
+* Banking services may be denied to people with certain political
+  views or people conducting certain businesses. People may also be
+  denied service due to their ethnicity.
+
+[id=privacy-issues]
+==== Privacy issues
+
+****
+image::{imagedir}/privacy-issue-mastercard.svg[]
+****
+
+Apart from the huge problems in the previous sections there are
+several other problems with traditional money. States can easily
+
+* trace payments
+* censor payments
+* freeze funds
+* seize funds
+
+You might say, "I have nothing to hide, and the government need these
+tools to fight crime". The problem is that you do not know what your
+government looks like in five years and how that government defines
+crime. New laws are just an election away. After next election, your
+government may pass a law that allows freezing funds of people with
+your political view. There are places in the world where this is
+already happening.
+
+.Problems
+****
+- [ ] Segregation
+- [ ] *Privacy issues*
+****
+
+We have seen lots of examples where these abilities are misused to
+disable someone's ability to transact. For example, the non-profit
+organization WikiLeaks was put under a blockade in 2010, see
+<<web-wikileaks-blockade>>, where all donations through traditional
+channels were blocked after pressure from the US government on the
+major payment networks, like Visa and MasterCard. We have also seen
+how Cyprus seized 47.5% [<<web-cyprus-seizure>>] of all bank deposits
+exceeding 100,000 € as part of a financial rescue program in 2013.
+
 ==== Inflation
 
 Inflation means that the purchasing power of a currency
@@ -347,6 +418,8 @@ decreases.
 
 .Problems
 ****
+- [ ] Segregation
+- [ ] Privacy issues
 - [ ] *Inflation*
 ****
 
@@ -417,6 +490,8 @@ convenient you want it.
 
 .Problems
 ****
+- [ ] Segregation
+- [ ] Privacy issues
 - [ ] Inflation
 - [ ] *Borders*
 ****
@@ -427,82 +502,6 @@ directly to the recipient, or transfer money using some mobile app
 made specifically for the currency. As long as you stay within one
 country and one currency, fiat currencies usually does a pretty
 good job.
-
-==== Segregation
-
-As noted in the previous section, not all people have access to bank
-accounts. People with bank accounts and access to banking services
-like online payments or loans are very privileged. About 38% of the
-world population don't have a bank account at all, according to the
-World Bank, see <<web-financial-inclusion>>. The numbers are slowly
-improving but still a lot of people are stuck in a cash-only
-environment. If these people want to receive money from a family
-member abroad, they will receive 5-10% less, due to higher remittance
-fees, than if they had a bank account.
-
-Without a bank account and basic bank services like online payments,
-people can not expand their businesses outside of their local
-community. A tailor will not be able to offer services on the Internet
-to increase its customer base. A person living in a rural area may
-have to travel half a day just to pay a utility bill or top-up their
-prepaid mobile phone.
-
-.Problems
-****
-- [ ] Inflation
-- [ ] Borders
-- [ ] *Segregation*
-****
-
-This segregation between banked people and unbanked people is driven
-by a number of factors:
-
-* Banking services are too expensive for a large portion of the population.
-* In order to use bank services you need documentation, like an ID
-  card, that many people don't have.
-* Banking services may be denied to people with certain political
-  views or people conducting certain businesses. People may also be
-  denied service due to their ethnicity.
-
-[id=privacy-issues]
-==== Privacy issues
-
-****
-image::{imagedir}/privacy-issue-mastercard.svg[]
-****
-
-Apart from the huge problems in the previous sections there are
-several other problems with traditional money. States can easily
-
-* trace payments
-* censor payments
-* freeze funds
-* seize funds
-
-You might say, "I have nothing to hide, and the government need these
-tools to fight crime". The problem is that you do not know what your
-government looks like in five years and how that government defines
-crime. New laws are just an election away. After next election, your
-government may pass a law that allows freezing funds of people with
-your political view. There are places in the world where this is
-already happening.
-
-.Problems
-****
-- [ ] Inflation
-- [ ] Borders
-- [ ] Segregation
-- [ ] *Privacy issues*
-****
-
-We have seen lots of examples where these abilities are misused to
-disable someone's ability to transact. For example, the non-profit
-organization WikiLeaks was put under a blockade in 2010, see
-<<web-wikileaks-blockade>>, where all donations through traditional
-channels were blocked after pressure from the US government on the
-major payment networks, like Visa and MasterCard. We have also seen
-how Cyprus seized 47.5% [<<web-cyprus-seizure>>] of all bank deposits
-exceeding 100,000 € as part of a financial rescue program in 2013.
 
 === The Bitcoin approach
 
@@ -533,10 +532,10 @@ certain geographical location.
 [.inbitcoin]
 .Fixed
 ****
-- [ ] Inflation
-- [ ] Borders
 - [*] *Segregation*
 - [*] *Privacy*
+- [ ] Inflation
+- [ ] Borders
 ****
 
 With a decentralized system like Bitcoin it is extremely hard to
@@ -564,10 +563,10 @@ limit is nearly impossible to change due to decentralization.
 [.inbitcoin]
 .Fixed
 ****
-- [*] *Inflation*
-- [ ] Borders
 - [*] Segregation
 - [*] Privacy
+- [*] *Inflation*
+- [ ] Borders
 ****
 
 A hard promise of Bitcoin is that its money supply will not exceed 21
@@ -594,10 +593,10 @@ increase is halving every four years.
 [.inbitcoin]
 .Fixed
 ****
-- [*] Inflation
-- [*] *Borders*
 - [*] Segregation
 - [*] Privacy
+- [*] Inflation
+- [*] *Borders*
 ****
 
 Since Bitcoin is a system run by ordinary computers connected to the

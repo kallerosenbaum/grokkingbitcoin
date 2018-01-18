@@ -434,11 +434,11 @@ validation process or the spreadsheet in any way.
 
 ===== Base58check encoding
 
+Let's see how this mysterious base58check encoding and decoding is working.
+
 ****
 image::{imagedir}/base58check-encode-decode-1.svg[]
 ****
-
-Let's see how this mysterious base58check encoding and decoding is working.
 
 .Base58check encoding John's public key hash. A version is added to the hash, and then a checksum is created and appended to the versioned hash. Last, the checksummed, versioned hash is base58 encoded.
 image::{imagedir}/address-encoding.svg[{big-width}]

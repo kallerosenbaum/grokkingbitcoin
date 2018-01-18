@@ -829,12 +829,6 @@ tokens. We want one block per 10 minutes on average, to keep the pace
 of newly minted cookie tokens at the desired rate. That's 2016 blocks
 in about two weeks.
 
-.Retarget
-****
-If 2016 blocks took 13 days (less than 14 days), we need to decrease the target to make it
-harder to mine.
-****
-
 If the 2016 blocks took more than 2 weeks to produce, the target must
 be increased to increase the probability that a block header hash will
 meet the target. We make it less difficult. If the 2016 blocks took
@@ -901,14 +895,6 @@ The miner creating a block sets the timestamp to the current time
 before producing a proof of work. But since different full nodes run
 on different computers, their clocks may not be in perfect
 sync.
-
-[.inbitcoin]
-.Network time
-****
-A full node in Bitcoin usually gets its time from other full nodes it
-is connected to in the Bitcoin peer-to-peer network. Network time will
-be discussed in <<ch08>>.
-****
 
 Suppose that Lisa produces a block with timestamp 2017-08-13 07:33:21
 UTC and publishes it on the shared folder. And then Tom produces the

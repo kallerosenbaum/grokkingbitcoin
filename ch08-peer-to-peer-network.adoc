@@ -414,18 +414,16 @@ all miners. Now he just sends it to any of the full nodes, and the
 transaction will propagate across the whole peer to peer
 network. Miners can now chose to include Johns transaction in their
 blocks they are mining. Suppose that the transaction includes a nice
-transaction fee so that some or all miners are willing to include it.
+transaction fee so that some or all miners are willing to include it
+and that Rashid is the next miner to find a valid proof of work for
+his block, which happens to contain John's transaction.
 
-.Rashid's block
-****
-image::{imagedir}/2ndcol-rashids-block-valid.svg[]
-****
+.Rashid's block containing John's transaction
+image::{imagedir}/2ndcol-rashids-block-valid.svg[{half-width}]
 
-Let's say that Rashid is the next miner to find a valid proof of work
-for his block, which happens to contain John's transaction. Now Rashid
-wants to get his block to the other miners as quickly as possible to
-minimize the risk of some other miner getting a block out before
-Rashid's block.
+Now Rashid wants to get his block to the other miners as quickly as
+possible to minimize the risk of some other miner getting a block out
+before Rashid's block.
 
 He creates an `inv` message and sends it to all his peers: Tom, Cafe
 and Qi. Rashid's peers will send back a `getdata` message, and Rashid will
