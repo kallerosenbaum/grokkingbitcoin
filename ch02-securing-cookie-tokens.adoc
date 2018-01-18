@@ -338,6 +338,7 @@ Some cryptographic hash functions are not considered cryptographically secure an
 | MD5 | 128 | No
 |===
 ****
+
 Let us have a look at what properties you can expect from a
 cryptographic hash function. We will illustrate the properties using
 the SHA256 (Secure Hash Algorithm with 256 bit output) algorithm,
@@ -445,6 +446,27 @@ them concurrently it would take about 3*10^49^ years.
 Preimage resistance, second-preimage resistance and collision
 resistance are extremely important in Bitcoin. Most of its security
 relies on these properties.
+
+==== Some well known hash functions
+
+There are several different cryptographic hash functions. Some
+cryptographic hash functions are not considered cryptographically
+secure any more.
+
+[%autowidth]
+|===
+| Name | Bits | Secure so far? | Used in Bitcoin?
+
+| SHA256 | 256 | Yes | Yes
+| SHA512 | 512 | Yes | Yes, in some wallets
+| RIPEMD160 | 160 | Yes | Yes
+| SHA-1 | 160 | No. A collision has been found. | No
+| MD5 | 128 | No. Collisions can trivially be created. The algorithm
+  is also vulnerable to pre-image attacks, but not trivially. |No
+|===
+
+Generally, when a collision has been found in a cryptographic hash
+function, most cryptographers will consider the function insecure.
 
 ==== Summary
 
@@ -669,14 +691,12 @@ of your web browser, then you know that left side of the figure is
 used to secure your communication.
 
 In the right side of the figure, Lisa can decrypt the message because
-she has the public key belonging to Johns private key. It is not good
-practice to use the private key to encrypt messages, as in the right
-side of the diagram, because the public key is, well, public. When
-John hands his public key to Lisa, someone might overhear the
-conversation, or Lisa might leave her table with public keys open on
-her computer screen. And that's okay. The public key is not
-secret. That is why it is a bad idea to encrypt a message with the
-private key and expect the message to be secret.
+she has the public key belonging to Johns private key. This feature is
+used for _digital signatures_. But it is not a good ide to use the
+private key to encrypt secret messages because the public key is,
+well, public. The message would not be more secret than the public
+key. Digital signatures, on the other hand, doesn't rely on any
+messages being secret.
 
 The right side is instead used to make digital signatures. Which we'll
 explore soon. But first some recap and orientation.
@@ -692,7 +712,7 @@ the private key.
 image::{imagedir}/recap-keys-create.svg[{big-width}]
 
 The private key can be used to encrypt a message that can be decrypted
-only by using the public key, and vice versa.
+only by using the public key:
 
 image::{imagedir}/recap-keys-sign-verify.svg[{half-width}]
 

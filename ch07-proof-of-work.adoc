@@ -407,9 +407,11 @@ cafe's full node wants to verify that it's valid. Besides verifying
 the usual stuff like transactions and the merkle root, the full node
 must verify that Qi's block includes a valid proof of work. The rule
 is that the proof of work is valid if the block header hash, block id,
-is less than or equal to the target:
+is less than or equal to an agreed upon target that's written in the
+block header:
 
-.The block id must be less than or equal to the target in the header. Otherwise the block is invalid.
+.The block id must be less than or equal to the target in the
+header. Otherwise the block is invalid.
 image::{imagedir}/valid-pow-example.svg[{half-width}]
 
 [.inbitcoin]
@@ -650,26 +652,28 @@ introduced _difficulty adjustments_.
 
 ==== What if we run out of nonces?
 
-The nonce is a 32 bit number. In case a miner has tried all 4294967296
-possible numbers without success, she has to do something else to
-change the block header. There are several options:
+The nonce is a 32 bit number. This is pretty small. In case a miner
+has tried all 4294967296 possible numbers without success, she has to
+do something else to change the block header. Otherwise she will redo
+the exact same tries she has already made. There are several options
+to make a change:
 
 .The block header can be changed in different ways
 image::{imagedir}/change-header.svg[{quart-width}]
 
 1. Change the timestamp slightly
-2. Add, remove or rearrange transactions in the block
-3. Change the coinbase transaction
-
-Once any of these changes has been made to the block, the header will
-have changed. Then the nonce can be reset to `0` and the miner can
-begin hashing again.
+2. Add, remove or rearrange transactions in the block the merkle root.
+3. Modify the coinbase transaction
 
 Changing the timestamp is straight forward, just add a second to the
 timestamp and the header will be different. If one of the other two
 options are used, the merkle root will have to be recalculated because
 the transaction data is changed. When the merkle root has been
-updated, the header has changed, which was the goal.
+updated, the header has changed.
+
+Once any of these changes has been made to the block, the header will
+have changed so that the nonce can be reset to `0` and the miner can
+begin hashing again.
 
 === Miners have to move out
 
@@ -1441,12 +1445,12 @@ big and pays 0.5 CT in fee. That's 0.00125 CT/byte. This is a very
 simple calculation for Lisa to do, and she does the same for all
 transactions. If the fee per byte is above a certain threshold, she
 will include the transaction. She can select transactions however she
-wants. For example, she can include her own transaction without any
-fee at all, or she can drop all transactions that pays for cookies no
-matter how high the fee is. And that's OK. There are several other
-miners that may have different strategies for selecting
-transactions. Most of them will probably make decisions based on fee
-per byte only.
+wants, as described in <<transaction-selection>>. For example, she can
+include her own transaction without any fee at all, or she can drop
+all transactions that pays for cookies no matter how high the
+fee is. And that's OK. There are several other miners that may have
+different strategies for selecting transactions. Most of them will
+probably make decisions based on fee per byte only.
 
 How does Lisa collect this fee? She collects the fee using her
 coinbase transaction.

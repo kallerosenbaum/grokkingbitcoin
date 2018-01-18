@@ -776,7 +776,7 @@ compare to the xprv derivation in the margin.
 
 .xprv derivation
 ****
-image::{imagedir}/hd-wallet-derive-child-xprv.svg[]
+image::{imagedir}/2ndcol-hd-wallet-derive-child-xprv.svg[]
 ****
 
 .Extended public key derivation. The private key addition from the xprv derivation is replaced by public key "multiplication". The multiplication here is not what you are used to.
@@ -802,6 +802,11 @@ dig deeper into this at the end of this chapter.
 
 [id=hardened-key-derivation]
 === Hardened private key derivation
+
+Warning: This section is pretty hard. If you had a hard time
+understanding extended private key derivation and extended public key
+derivation above, I suggest that you skip this section. You don't need
+it to understand the rest of this book.
 
 The cafe's online business works well. People are ordering cookies
 like crazy! The online sales account grows with a new key pair for
@@ -861,21 +866,20 @@ account. Not good.
 
 Now think about what would happen if Malory had the master xpub. She
 could use the same technique to derive the master xprv from the master
-xpub and `m/1/1`. Can we do something to prevent such a catastrophic
-scenario? Yes, with _yet another key derivation function_! I'm sorry,
-but we need to get used to this. Nothing in Bitcoin is simple.
-Whatever puddle you dip your toe into, it's always deeper than you
-think. This new key derivation function is called _hardened extended
-private key derivation_.
+xpub and `m/1/1`. This means that Malory can recreate all private keys
+of all "accounts" in the whole wallet. Can we do something to prevent
+such a catastrophic scenario? Yes, with _yet another key derivation
+function_! This new key derivation function is called _hardened
+extended private key derivation_.
 
-Suppose that the cafe want to prevent a bad guy, for example Malory,
-from accessing the private keys of the counter sales account and the
-master xprv. The thief must be confined to the online sales account
-only. The cafe can then generate the online sales xprv differently:
+Suppose that the cafe wants to prevent Malory from accessing the
+master xprv, even if she got the master xpub and a private key in the
+online sales account. The cafe can then generate the xprv for the
+online sales account using hardened extended private key derivation:
 
 .Normal child xprv derivation
 ****
-image::{imagedir}/2ndcol-derive-child-xprv.svg[]
+image::{imagedir}/2ndcol-hd-wallet-derive-child-xprv.svg[]
 ****
 
 .Derive a hardened child xprv for the online sales account. We use the parent private key as input to the hash function instead of the public key.
@@ -883,13 +887,24 @@ image::{imagedir}/hd-wallet-derive-hardened-child-xprv.svg[{half-width}]
 
 The apostrophe in `m/1'` is not a typo. The apostrophe is used to
 denote hardened key derivation. The difference is that with hardened
-key derivation we hash the private key instead of the public key. This
-means that an attacker cannot do the "minus" trick anymore because the
-hash is derived from the parent private key. She cannot calculate the
-left half hash to subtract from the child private key because she
-doesn't have the parent private key. This also means that you cannot
-derive a hardened child xpub from a parent xpub. You must have the
-parent xprv to generate any children at all, public or private.
+key derivation we hash the _private key_ instead of the
+public key. This means that an attacker cannot do the "minus" trick
+anymore because the hash is derived from the parent private key. She
+cannot calculate the left half hash to subtract from the child private
+key because she doesn't have the parent private key. The result will
+look like this:
+
+.The master xpub cannot be used to generate any child keys at all because `m/0'` and `m/1'` are hardened keys.
+image::{imagedir}/cafes-wallet-hardened.svg[{half-width}]
+
+This also means that you cannot derive a hardened child xpub from a
+parent xpub. You must have the parent xprv to generate any children at
+all, public or private. The children of `m/1'` cannot be derived as
+hardened private keys, because that would require the cafe to put the
+private key `m/1'` on the online sales web server. Using non-hardened
+keys in the online sales account makes the cafe vulnerable to an
+attacker stealing `m/1'/1` and `M/1'`. If that happens, all funds in
+the online sales account will be stolen.
 
 === Public key multiplication
 
@@ -917,8 +932,8 @@ y^2 = x^3 + 7 \mod{2^{256}-4294966319}
 ++++
 
 There are astronomically many such solutions, about stem:[2^{256}] of
-them. To simplify, we will illustrate the solutions to stem:[y^2 = x^3
-+ 7 \mod{11}] instead:
+them, so we simplify by using the solutions to stem:[y^2 = x^3 + 7
+\mod{11}] instead:
 
 [.inbitcoin]
 .Bitcoin use this curve

@@ -188,16 +188,17 @@ spreadsheet with a cryptographic hash of the public key. This is to
 shorten the senders and recipients of the spreadsheet, but also to
 protect user's money if a flaw in the public key derivation function
 is found. The hashing is not made with a single cryptographic hash
-function, but from two different cryptographic hash functions:
+function, but with two different cryptographic hash functions:
 
 .Replace the public keys with the RIPEMD160 hash of the SHA256 hash of the public key.
 image::{imagedir}/hash-public-key.svg[{big-width}]
 
-The public key is first hashed with SHA256, as we are familiar with
-from the previous chapter. The result of that cryptographic hash
-function is then hashed with RIPEMD160, a cryptographic hash function
-that outputs a 160 bit (20 byte) number. We call this final hash the
-_public key hash_.
+We will discuss the reason for using two hash functions in the next
+section. The public key is first hashed with SHA256, as we are
+familiar with from the previous chapter. The result of that
+cryptographic hash function is then hashed with RIPEMD160, a
+cryptographic hash function that outputs a 160 bit (20 byte)
+number. We call this final hash the _public key hash_.
 
 All public keys in the spreadsheet are replaced by their respective
 public key hashes.
@@ -387,9 +388,9 @@ Bitcoin nodes), but the address is what the payee gives to the payer.
 
 The security oriented people discuss the problem with typos and comes
 up with an idea of Cookie Token Addresses. A cookie token address is a
-public key hash encoded in a certain way so that typing errors will be
-detected if they occur. At the same time they will make the recipient
-even shorter to write for the user.
+public key hash _encoded with base58check_, so that typing errors will
+be detected if they occur. The public key hash can be converted back
+and forth between base58check and plain byte format.
 
 Suppose that Faiza feels sorry for John and wants make use of her 100
 CT by giving John 20 CT, 10 CT to recover his funds, plus 10 CT extra
@@ -509,8 +510,9 @@ the alphabet is the 58 characters
  123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz
 
 If you feel put off by this low level base58 mumbo jumbo, you can skip
-to <<base58check-decoding>> and just accept that base58 is a way to encode and
-decode data. For the rest of you, please continue. It's fun.
+to <<base58check-decoding>> and just accept that base58 is a way to
+encode and decode data. For the rest of you, please
+continue. It's fun.
 
 In base64, each character represents exactly 6 bits which makes it
 straight forward to encode and decode data. But with base58 each
@@ -519,7 +521,7 @@ bits. We need to encode data differently.
 
 Let's get back to our example where John creates his address. He has
 just added a version and a checksum. Now it's time to encode the 25
-bytes into an address.
+bytes into the final result, the address.
 
 [id=base58-encoding]
 .Encoding John's versioned and checksummed public key hash with base58. The essential part is where you divide the number by 58 and keep the remainders. The remainders are then mapped one by one in the lookup table.

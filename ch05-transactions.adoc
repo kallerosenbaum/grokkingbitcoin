@@ -233,17 +233,16 @@ Bitcoin puts the scriptPubKey from the spent output into the current
 scriptSig before signing. This will be discussed further in <<ch10>>.
 ****
 
-Both signatures cover the whole transaction, but with no signature
-data. You sign the transaction without any signatures in it. You can
-not put a signature in input 0 and _then_ sign for input 1. This is
-because verification becomes hard if the person verifying don't know
-in what order the signatures were made. If you make _all_ signatures
-from a cleaned transaction, then it doesn't matter in what order the
+You sign the transaction without any signatures in it. You can not put
+a signature in input 0 and _then_ sign for input 1. This is because
+verification becomes hard if the person verifying don't know in what
+order the signatures were made. If you make _all_ signatures from a
+cleaned transaction, then it doesn't matter in what order the
 signatures were made.
 
 When all signatures have been made, they are added to the
 transaction. But there's still one piece missing. How can someone, for
-example the Cafe, verifying the transaction know what public key to
+example the cafe, verifying the transaction know what public key to
 use for verification of a signature? The cafe can only see the PKH in
 the spent outputs and the signatures in the spending inputs. They
 cannot get the public key from the PKH, because cryptographic hashes
@@ -461,14 +460,16 @@ public key (not a PKH), while the scriptSig contained a signature only
 
 This tiny program, written in a programming language called Script,
 contains the instructions to Lisa on how to verify that the spending
-transaction is authorized. Suppose that Lisa wants to verify input 0
-of John's transaction.
+transaction is authorized. The ability to write a computer program
+inside a transaction is very useful for various use cases. We will
+cover several use cases of customized programs throughout this book.
 
-She will run this program from top to bottom. A _stack_ is used to
-keep track of intermediate calculation results. The stack is like a
-pile of stuff. You can add stuff on top of the stack and you can take
-stuff off from the top of the stack. To access stuff below the top
-item, you have to first take out all the item on top of it.
+Now Suppose that Lisa wants to verify input 0 of John's
+transaction. She will run this program from top to bottom. A _stack_
+is used to keep track of intermediate calculation results. The stack
+is like a pile of stuff. You can add stuff on top of the stack and you
+can take stuff off from the top of the stack. To access stuff below
+the top item, you have to first take out all the item on top of it.
 
 Let's start
 
@@ -553,6 +554,8 @@ Lisa does the same checks for the other input, with index 1, of John's
 transaction. If that program also ends with "OK", then the whole
 transaction is valid and she can add the transaction to the
 spreadsheet.
+
+==== Why use a program?
 
 The scriptPubKey part of the program stipulates exactly what the
 spending transaction needs to provide to spend the output. The only

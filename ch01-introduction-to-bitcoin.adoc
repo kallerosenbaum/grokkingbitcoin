@@ -132,7 +132,9 @@ use names in this first example for simplicity.
 [[payment-overview]]
 image::{imagedir}/payment-overview.svg[{big-width}]
 
-Let's follow Alice's payment from Alice to Bob:
+This figure will follow us in each intro of chapter 2 through 8 where
+we point out what in this figure we will cover in the chapter. Now,
+let's follow Alice's payment from Alice to Bob:
 
 . Alice creates and signs a transaction that moves 1 bitcoin from her
 to Bob. She then sends it to the Bitcoin network.
@@ -283,11 +285,12 @@ takes the lead is rewarded with newly minted bitcoins and transaction
 fees payed by the transactions it includes in the block.
 
 But, wouldn't every node constantly take the lead to collect the
-rewards? No, it is very hard to take the lead. To take the lead, a
-node must solve a hard problem which takes time and electricity. It is
-so hard that most nodes in the network don't even try. The nodes that
-do try are called _miners_ because they mine new coins, similar to a
-gold miner digging for gold. This process is described in <<ch07>>.
+rewards? No, to take the lead, a node must solve a hard problem. This
+takes plenty of time and electricity for the node, which ensures that
+leaders don't pop up very often. It is so hard that most nodes in the
+network don't even try. The nodes that do try are called _miners_
+because they mine new coins, similar to a gold miner digging for
+gold. This process is described in <<ch07>>.
 
 [id=overview-wallets]
 ==== Step 4 - Wallets
@@ -707,11 +710,20 @@ over $1100 in a few weeks. This was clearly a so called _bubble_,
 where people were afraid of missing out on a great rise, so they
 bought in, driving the price further up, until it eventually started
 dropping again. The drop to 50% of its peak value was just as quick as
-its rise. Fluctuations like this is rarely driven by any specific news
-or technological advancements, but from speculation.
+its rise. This has happened many times already. Fluctuations like this
+is rarely driven by any specific news or technological advancements,
+but from speculation.
 
 Speculation can be fun, if you can afford to lose, but it is more like
 a lottery than something to make a living off of.
+
+The volatility in Bitcoin price seems contradictory to the claims of
+non-inflationary property; A 50% drop in market value seems pretty
+inflationary. Bitcoin is still relatively new, and lots of short-term
+speculation causes this volatiliy. But as Bitcoin grows and more
+people and institutions start using Bitcoin to store their wealth, it
+will probably stabilize in the long run. So the deflationary property
+of Bitcoin will emerge over time.
 
 ==== Non-currency uses
 
@@ -727,9 +739,9 @@ image::{imagedir}/transfer-ownership.svg[]
 
 Bitcoin allow you to embed small pieces of data with payments. This
 data can be for example a chassis number of a car. When the car leaves
-the factory, the manufacturer can make a small payment to the the new
-car owner and attach the chassis number. This payment will represent
-the transfer of ownership for that car.
+the factory, the manufacturer can make a small Bitcoin payment to the
+the new car owner and attach the chassis number. This payment will
+represent the transfer of ownership for that car.
 
 Bitcoin payments are public records but they are not tied to persons
 in any way. They are tied to long strings of numbers called public
@@ -749,9 +761,9 @@ the current owner.
 
 ===== Proof of existence
 
-Using the same technique to store data in a payment to transfer
-ownership of a car, you can prove that a document existed prior to a
-certain point in time.
+Using the same technique to store data in a Bitcoin payment to
+transfer ownership of a car, you can prove that a document existed
+prior to a certain point in time.
 
 ****
 image::{imagedir}/proof-of-existence.svg[]
@@ -760,9 +772,10 @@ image::{imagedir}/proof-of-existence.svg[]
 A digital document has a "fingerprint", a cryptographic hash, that
 anyone can calculate from that document. It is nearly impossible to
 create a different document with the same fingerprint. This
-fingerprint can be attached to a payment. It is irrelevant where the
-money goes; The important thing is that the fingerprint is recorded in
-the Bitcoin blockchain. You "anchor" the document in the blockchain.
+fingerprint can be attached to a Bitcoin payment. It is irrelevant
+where the money goes; The important thing is that the fingerprint is
+recorded in the Bitcoin blockchain. You "anchor" the document in the
+blockchain.
 
 Bitcoin payments are public records, so anyone can validate that the
 document existed before the time of the payment by taking the
@@ -799,11 +812,12 @@ financial activity. At least not yet.
 
 Each transaction needs to pay a fee to be processed. The fee is not
 related to the amount sent, but to how big the transaction is in
-bytes. High-value transactions are not bigger than low-value
-transactions, so the fee is about the same for both kinds of
-transactions. If that fee is a significant share of the actual payment
-you want to make, it is not economically feasible to pay with ordinary
-Bitcoin transactions.
+bytes. This is because the network's cost for processing a transaction
+depends mostly on how big (in bytes) the transaction is. High-value
+transactions are not bigger than low-value transactions, so the fee is
+about the same for both kinds of transactions. If that fee is a
+significant share of the actual payment you want to make, it is not
+economically feasible to pay with ordinary Bitcoin transactions.
 
 |===
 | Amount | Fee | Fee % | Feasible

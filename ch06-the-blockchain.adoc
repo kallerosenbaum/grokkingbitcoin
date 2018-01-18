@@ -144,12 +144,11 @@ if she tries to cheat. We will see how that works shortly.
 
 ==== Lisa builds a block
 
-Lisa creates a new block every 10 minutes containing all recent
-unconfirmed transactions and writes it in a new file on a shared
-folder. Everyone has permission to read files from the shared folder,
-but Lisa also has write permission. When Lisa writes the block to a
-file in the shared folder, she _confirms_ the transactions in that
-block.
+Lisa creates a new block every 10 minutes containing some unconfirmed
+transactions and writes it in a new file on a shared folder. Everyone
+has permission to read files from the shared folder, but Lisa also has
+write permission. When Lisa writes the block to a file in the shared
+folder, she _confirms_ the transactions in that block.
 
 [.inbitcoin]
 .Shared folder? Really?
@@ -226,6 +225,29 @@ that Lisa produces a new block every 10 minutes, which means that the
 rewards of 7200 CT per day are spread out over 144 blocks, since there
 are 144 intervals of 10 minutes in 24 hours, and 7200/144=50. We will
 talk more about block rewards and the coinbase in <<ch07>>.
+
+[[transaction-selection]]
+===== Transaction selection
+
+When Lisa builds her block, she picks _some_ transactions to include
+in her block. She could select anything from zero transactions to all
+unconfirmed transactions. The order of the transactions is not
+important, as long as all transactions spend outputs already present
+in the blockchain or in the block being built. For example, this
+block is perfectly fine:
+
+.Transactions must be ordered in "spending" order, otherwise there are no restrictions
+image::{imagedir}/transaction-selection.svg[{half-width}]
+
+All transactions in this block spend transactions already in the
+blockchain, meaing they all reference transactions to the left of
+themselves. However, the following block is invalid:
+
+.Invalid block because a transaction spends an output that "doesn't yet exist"
+image::{imagedir}/transaction-selection-invalid.svg[{half-width}]
+
+It is invalid because a transaction spends a transaction that's placed
+_after_, to the right of, the spending transaction.
 
 ==== How does this protect us from deletes?
 
@@ -841,18 +863,14 @@ _merkle proof_.
 
 The wallet has received a block header, a partial merkle tree and the
 transaction Tx~2~ from the full node. That's all the wallet needs in
-order to verify that Tx~2~ is indeed included in the block. It starts
-with verifying the partial merkle tree:
+order to verify that Tx~2~ is indeed included in the block. The goal
+is to verify that there is a way to "connect" Tx~2~ to the merkle root
+in the block header. It starts with verifying the partial merkle tree:
 
 .The wallet verifies the partial merkle tree
 image::{imagedir}/verify-partial-merkle-tree.svg[{big-width}]
 
-The goal of this is to verify that the computed root of the partial
-merkle tree matches the merkle root in the block header that the
-wallet received from the full node. If they match, the full node has
-proven that the txid of Tx~2~ actually exist in this block.
-
-The process for computing the root is:
+The verification process is:
 
 * Use the number of transactions (3) received from the full node to
 build the structure of the merkle tree. The wallet knows how a merkle
@@ -976,14 +994,16 @@ wallet receives a transaction and a merkle proof, it can check that the
 transaction is contained in the block and that Lisa signed that
 block. But there are a lot of things it cannot verify. For example:
 
-* the scriptSigs of the inputs. 
+* that the Script programs in the transaction all returns "OK", this
+  usually means to check the signatures of all inputs.
 * that the spent outputs are not already spent.
 * that it receives all relevant transactions.
 
 The lightweight wallet also don't know what rules the full node is
-following. The full node may have adopted a rule that allows double
-the reward to Lisa. A typical full node operator would drop this block
-as invalid, because that's not a rule he signed up for.
+following. The full node may have adopted a rule that pays double the
+reward to Lisa. A typical full node would consider any block that pays
+too much to Lisa as invalid, because that's not a rule he signed up
+for, and drop the block.
 
 The lightweight wallet needs to trust the full nodes to verify those
 things on behalf of the wallet and that it is following the rules it
@@ -1001,8 +1021,7 @@ should verify the block and drop it, because it is invalid. But there
 might be occasions when the full node, deliberately or accidentally,
 don't detect the error. Perhaps the cafe is in cahoots with Lisa to
 fool John, who knows? The cafe and Lisa can, at least temporarily,
-make John believe that he has received money that he didn't
-receive.
+make John believe that he has received money that he didn't receive.
 
 There are at least two measures John can take to reduce the risk of
 being fooled by a full node:
@@ -1031,7 +1050,7 @@ development team of your wallet software if unsure.
 .John has setup a trusted node that his lightweight wallet connects to.
 image::{imagedir}/trusted-node.svg[{half-width}]
 
-The last option is very useful if John is concerned that the full
+The last option is very useful if John is concerned that some full
 nodes may adopt rule changes that he doesn't agree with. The only way
 to be absolutely sure that you follow the rules you think is to run
 your own full node.
