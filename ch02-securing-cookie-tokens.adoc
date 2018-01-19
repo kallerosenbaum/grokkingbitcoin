@@ -325,20 +325,6 @@ used. The output of a cryptographic hash function is often referred to
 as a _hash_ or a _digest_. I am using term _hash_ here, but either
 is equally valid.
 
-.Cryptographic hash functions
-****
-Some cryptographic hash functions are not considered cryptographically secure any more.
-|===
-| Name | Bits | OK?
-
-| SHA256 | 256 | Yes
-| SHA512 | 512 | Yes
-| RIPEMD 160 | 160 | Yes
-| SHA-1 | 160 | No
-| MD5 | 128 | No
-|===
-****
-
 Let us have a look at what properties you can expect from a
 cryptographic hash function. We will illustrate the properties using
 the SHA256 (Secure Hash Algorithm with 256 bit output) algorithm,
