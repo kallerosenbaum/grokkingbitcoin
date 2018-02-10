@@ -112,7 +112,7 @@ track of the big picture and what the goal of the currect
 topic is. Look for the periscope picture and section headers like
 "Where were we?".
 
-The Bitcoin network validates and confirms payments between Bitcoin
+The Bitcoin network verifies and confirms payments between Bitcoin
 users. The Bitcoin network is a network of computers running Bitcoin
 software.
 
@@ -203,7 +203,7 @@ their local copy of the ledger, and check that
 * Alice's digital signature is valid.
 
 [id=overview-bitcoin-network]
-.The Bitcoin network. Alice sends her transaction to a node in the network. The node will validate the transaction and forward it to other nodes. Eventually the transaction have reached all nodes in the network.
+.The Bitcoin network. Alice sends her transaction to a node in the network. The node will verify the transaction and forward it to other nodes. Eventually the transaction have reached all nodes in the network.
 image::{imagedir}/payment-overview-step-2.svg[{big-width}]
 
 [.inbitcoin]
@@ -219,7 +219,7 @@ Bitcoin network.
 
 If all checks pass, a node will forward the transaction to the nodes
 it is connected to in the Bitcoin network. Alice's transaction would
-shortly have traveled the whole network while being validated by each
+shortly have traveled the whole network while being verified by each
 node along the way. The ledger has not been updated yet, that's the
 next step.
 
@@ -254,7 +254,7 @@ image::{imagedir}/transactions-unordered.svg[{big-width}]
 [.gbfaq]
 .Why is ordering important?
 ****
-If transactions come in different order, it's very hard to validate if
+If transactions come in different order, it's very hard to verify if
 two copies of the blockchain are equal. Integrity checks are much
 easier with strict ordering.
 ****
@@ -776,7 +776,7 @@ where the money goes; The important thing is that the fingerprint is
 recorded in the Bitcoin blockchain. You "anchor" the document in the
 blockchain.
 
-Bitcoin payments are public records, so anyone can validate that the
+Bitcoin payments are public records, so anyone can verify that the
 document existed before the time of the payment by taking the
 fingerprint of the document and compare it to the fingerprint stored
 in the blockchain.
@@ -951,9 +951,9 @@ In this chapter you learned that
 * Bitcoin is used by many different actors, like savers, merchants,
   traders for many different purposes like payments, remittances and
   savings.
-* A network of computers, the Bitcoin network, validate and keep
+* A network of computers, the Bitcoin network, verify and keep
   records of all payments.
-* A transaction goes through four steps: Send transaction, validate
+* A transaction goes through four steps: Send transaction, verify
   transaction, add transaction to blockchain, notify recipient wallet.
 * It solves problems with inflation, borders, segregation and privacy
   by providing limited supply, decentralization and borderlessness.

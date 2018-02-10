@@ -873,7 +873,7 @@ The explanation to all this is that someone has
  IPSq8z0IyCVZNZNMIgrOz5CNRRtRO+A8Tc3j9og4pWbA
  H/zT22dQEhSaFSwOXNp0lOyE34d1+4e30R86qzEbJIw=
 
-Lisa validated the transfer in step 3 and concluded that it is valid
+Lisa verified the transfer in step 3 and concluded that it is valid
 and executed the transfer. John asks Lisa to revert the, according to
 him, fraudulent transfer. But Lisa refuses to do that. She thinks the
 transfer is perfectly valid. If John let someone see his private key,

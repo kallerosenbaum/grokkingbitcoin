@@ -135,7 +135,7 @@ payment details start with `bitcoin:` instead of `ct:`
 . John's wallet creates an email to Lisa that looks just the same as
 before. The wallet automatically selects an address to send from and
 signs the message with the correct private key. On Lisa's side,
-nothing has changed. She validates and execute the payment exactly as
+nothing has changed. She verifies and execute the payment exactly as
 before.
 
 Let's take a closer look at what John's wallet does in step 4.

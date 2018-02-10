@@ -326,7 +326,7 @@ character is `d` when it should have been a `c`. What happens now?
 .Any recipient goes
 ****
 There is no "wrong" recipient PKH. Lisa adds any recipient as long as
-the signature is valid. She could validate that the length of the PKH
+the signature is valid. She could verify that the length of the PKH
 is 20 bytes if she wants to, but it depends on her mood. Don't rely
 on it.
 ****

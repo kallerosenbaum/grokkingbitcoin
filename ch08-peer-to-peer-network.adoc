@@ -906,7 +906,7 @@ he has already received block `487224` by the time Selma has received
 the first three blocks from Tom. This is why Tom advertises his
 current best chain tip after sending each batch of blocks.
 
-As Selma receives blocks, she validates them, updates her UTXO set and
+As Selma receives blocks, she verifies them, updates her UTXO set and
 adds them to her own blockchain. If there are more blocks to download
 from any peer, she will repeat this process until she's up-to-date
 with, or ahead of, everyone else.

@@ -771,7 +771,7 @@ because running the program would leave the top stack item with "OK".
 ****
 
 You need new software in order to verify this transaction in full. We
-will talk about how this transaction is validated by new software in a
+will talk about how this transaction is verified by new software in a
 moment. But first, let's see how old software would handle this
 transaction.
 

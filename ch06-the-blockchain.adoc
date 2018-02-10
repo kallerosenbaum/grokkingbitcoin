@@ -22,7 +22,7 @@ that are secured from tampering by hashing and signing the set of
 transactions in a clever way. This technique makes it easy to provide
 cryptographic proof of fraud if Lisa tries any dirty tricks. All
 verifiers keeps their own copies of the blockchain and they can now
-fully validate the blockchain to ensure that Lisa doesn't remove
+fully verify the blockchain to ensure that Lisa doesn't remove
 already confirmed transactions.
 
 .The Bitcoin blockchain

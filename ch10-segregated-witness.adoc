@@ -516,11 +516,11 @@ which case the the witness fields for the legacy inputs would be
 empty, because their signatures are in the respective signature script, as
 they always were.
 
-==== Validate the segwit transaction
+==== Verify the segwit transaction
 
 You have sent your transaction for the popcorn machine to the Bitcoin
 peer to peer network for processing. Let's see how an upgraded full
-node validates this transaction before relaying it to other
+node verifies this transaction before relaying it to other
 nodes. Since it's running the latest and greatest software, it knows
 how to deal with segwit transactions.
 
@@ -573,7 +573,7 @@ The full node has verified this transaction and sends it to its
 peers. There's just one problem: One of the peers have no idea what
 segwit is. It is an old node that hasn't been upgraded for a while.
 
-===== "Validate" on old nodes
+===== "Verify" on old nodes
 
 An old node has just received your transaction and wants to
 verify it. Old nodes know nothing about segwit and that there are
@@ -1233,7 +1233,7 @@ that knows nothing about segwit. This is what the old node sees:
 +
 image::{imagedir}/ex-segwit-spend-wpkh-verify-old-node.svg[{big-width}]
 
-9. Explain how a segwit transaction is validated by a new node that
+9. Explain how a segwit transaction is verified by a new node that
 know about segwit. This is what it sees:
 +
 image::{imagedir}/ex-segwit-spend-wpkh-verify.svg[{big-width}]
