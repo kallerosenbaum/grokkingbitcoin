@@ -83,7 +83,7 @@ image::{imagedir}/pay-to-name-note.svg[]
 .New style payment using public keys instead of names.
 image::{imagedir}/payment-with-pubkey.svg[{half-width}]
 
-The note to Lisa contains a few vital parts
+The email to Lisa contains a few vital parts
 
 * a message containing
 ** amount
@@ -316,7 +316,7 @@ This is convenient for Lisa, but it can cause people to lose money if
 they are not very careful. Imagine once again that John wants to buy a
 cookie. This time he's not careful enough when writing the message.
 
-.John makes a typo on the recipient in the note to Lisa. What now?
+.John makes a typo on the recipient in the email to Lisa. What now?
 image::{imagedir}/payment-to-bad-pubkey-hash.svg[{big-width}]
 
 He makes a typing error on the recipient public key hash. The last
@@ -332,7 +332,7 @@ on it.
 ****
 
 John doesn't notice the error and happily signs the message and send
-the note to Lisa. Lisa verifies the signature, which verifies fine,
+the email to Lisa. Lisa verifies the signature, which verifies fine,
 and calculates the public key hash of the sender. She doesn't care
 about the recipient. She inserts a new row in the spreadsheet paying
 from `5f2613791b36f667fdb8e95608b55e3df4c5f9eb` to
@@ -428,7 +428,7 @@ The payment process is changed for the payer, but nothing is changed
 for Lisa. Faiza will base58check _decode_ John's address into a public
 key hash. The decoding will make sure that there were no typing errors
 made in the address. How that is done will be covered in the next few
-diagrams. The note to Lisa is exactly the same as before. The cookie
+diagrams. The email to Lisa is exactly the same as before. The cookie
 token address is only used by users. It's not part of Lisa's
 validation process or the spreadsheet in any way.
 
@@ -658,7 +658,7 @@ concept that differs from Bitcoin.
 | Cookie Tokens | Bitcoin | Covered in
 | 1 cookie token | 1 bitcoin | <<ch02>>
 | The spreadsheet | The blockchain | <<ch06>>
-| Note to Lisa | A transaction | <<ch05>>
+| Email to Lisa | A transaction | <<ch05>>
 | A row in the spreadsheet | A transaction | <<ch05>>
 | Lisa | A miner | <<ch07>>
 |===
@@ -702,7 +702,7 @@ release a new version, 3.0, of the cookie token system.
 . The public key hash (PKH) is only 160 bits? We made it shorter by
 using RIPEMD160. Why do we want it shorter? There are two good
 reasons.
-. If the recipient PKH is misspelled in the note to Lisa, when will
+. If the recipient PKH is misspelled in the email to Lisa, when will
 that be discovered?
 . Can you convince Lisa to reverse payments?
 . Base58check encoding is used to create a cookie token (Bitcoin)

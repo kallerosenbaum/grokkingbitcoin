@@ -13,7 +13,7 @@ that Lisa can steal, which worries some new people. They are hesitant
 to use the system if they know Lisa can steal from them.
 
 The main focus of this chapter will be on transactions. Transactions,
-which replace our old "Note to Lisa", are pieces of data that
+which replace our old "Email to Lisa", are pieces of data that
 formalizes how users send their payments to Lisa, so that Lisa can
 automate her work. The transactions will be stored as-is in the
 spreadsheet instead of the "To", "From", "Amount CT" scheme we
@@ -91,7 +91,7 @@ wallets behave from a user's perspective, the wallet app will look
 exactly the same.
 
 Suppose that John wants to buy a cookie in the cafe. John will not
-make a "Note to Lisa" as he has done so many times before. The wallet
+make a "Email to Lisa" as he has done so many times before. The wallet
 software now uses _transactions_, so his wallet will create a
 _transaction_ instead. The purpose of the transaction is to pay 10 CT
 to the Cafe's CT address.
@@ -1023,7 +1023,7 @@ exactly one coinbase per 24 hours and each coinbase creates exactly
 ==== Transition from version 4.0
 
 You may also be wondering how the coworkers updated from the system
-with "Notes to Lisa" as it was in release 4.0, to the one with
+with "Emails to Lisa" as it was in release 4.0, to the one with
 transactions. What happened to all already existing cookie tokens in
 the spreadsheet?
 
@@ -1180,17 +1180,17 @@ image::{imagedir}/toolbox.svg[]
 ****
 
 We will add transactions and transaction id to our toolbox. Our
-concept mapping table is shrinkning by two rows: The notes to Lisa and
+concept mapping table is shrinkning by two rows: The emails to Lisa and
 the rows in the spreadsheet are replaced by a transactions.
 
 [%autowidth]
-.Transactions replace the notes to Lisa and the rows in the spreadsheet.
+.Transactions replace the emails to Lisa and the rows in the spreadsheet.
 |===
 | Cookie Tokens | Bitcoin | Covered in
 
 | 1 cookie token | 1 bitcoin | <<ch02>>
 | The spreadsheet | The blockchain | <<ch06>>
-| [.line-through]#*Note to Lisa*# | *[.line-through]#A transaction#* | *[.line-through]#<<ch05>>#*
+| [.line-through]#*Email to Lisa*# | *[.line-through]#A transaction#* | *[.line-through]#<<ch05>>#*
 | *[.line-through]#A row in the spreadsheet#* | *[.line-through]#A transaction#* | *[.line-through]#<<ch05>>#*
 | Lisa | A miner | <<ch07>>
 |===

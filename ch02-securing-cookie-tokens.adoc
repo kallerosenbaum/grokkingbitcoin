@@ -732,7 +732,7 @@ John's public key.
 
 Let's have a close look at how the signing really happens.
 
-.John digitally signs the transfer of 10 CT to the cafe. The message to Lisa is first hashed and then encrypted with John's private key. The note to Lisa contains both the message in clear text and the signature.
+.John digitally signs the transfer of 10 CT to the cafe. The message to Lisa is first hashed and then encrypted with John's private key. The email to Lisa contains both the message in clear text and the signature.
 image::{imagedir}/signing-details.svg[{big-width}]
 
 [.inbitcoin]
@@ -774,7 +774,7 @@ that in the next section where Lisa verifies the signature.
 image::{imagedir}/note-to-lisa.svg[]
 ****
 
-The last thing that John does is to compose a note to Lisa and give it
+The last thing that John does is to compose a email to Lisa and give it
 to her.
 
 ==== Lisa verifies the signature
@@ -992,22 +992,22 @@ himself, no one will be able to spend his money.
 
 ==== System changes
 
-We need to add another concept to our concept table. The "Note to Lisa":
+We need to add another concept to our concept table. The "Email to Lisa":
 
 [%autowidth]
-.Adding the "Note to Lisa" as a key concept
+.Adding the "Email to Lisa" as a key concept
 |===
 | Cookie Tokens | Bitcoin | Covered in
 
 | 1 cookie token | 1 bitcoin | <<ch02>>
 | The spreadsheet | The blockchain | <<ch06>>
-| *Note to Lisa* | *A transaction* | *<<ch05>>*
+| *Email to Lisa* | *A transaction* | *<<ch05>>*
 | A row in the spreadsheet | A transaction | <<ch05>>
 | Lisa | A miner | <<ch07>>
 |===
 
-The note to Lisa will be replaced by transactions in
-<<ch05>>. Transactions will replace both the note to Lisa and the row
+The email to Lisa will be replaced by transactions in
+<<ch05>>. Transactions will replace both the email to Lisa and the row
 in the spreadsheet. It's time to release version 2.0 of the cookie
 tokens.
 

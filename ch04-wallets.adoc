@@ -15,7 +15,7 @@ image:{imagedir}/note-to-lisa.svg[{half-width}]image:{imagedir}/new-note-to-lisa
 
 So far we have done nothing to improve the user experience for the
 coworkers using the cookie token spreadsheet. It has actually become
-worse for users because the notes to Lisa now needs more information
+worse for users because the emails to Lisa now needs more information
 than in the beginning. On top of that users should take extra steps to
 use multiple addresses to preserve their privacy.
 
@@ -91,7 +91,7 @@ key ring. Anyway, we will go through the features of this wallet.
 Suppose, once again, that John wants to buy a cookie in the cafe. Both
 John and the cafe are using this new app.
 
-.John buys a cookie using the wallet app. The cafe generates a key and displays a QR code with payment details to John. John scans the payment details and taps "OK" to approve the payment. John's wallet sends the "Note to Lisa" in an email to Lisa.
+.John buys a cookie using the wallet app. The cafe generates a key and displays a QR code with payment details to John. John scans the payment details and taps "OK" to approve the payment. John's wallet sends the "Email to Lisa" in an email to Lisa.
 image::{imagedir}/wallet-payment-process.svg[{big-width}]
 
 The process goes through several steps:
@@ -1124,7 +1124,7 @@ and never touches the web server.
 
 Our concept table is not updated in this chapter either. The wallets
 described in this chapter works pretty much as in Bitcoin, but our
-wallets will email a "Note to Lisa" instead of sending a transaction
+wallets will email a "Email to Lisa" instead of sending a transaction
 across the global Bitcoin network.
 
 [%autowidth]
@@ -1134,7 +1134,7 @@ across the global Bitcoin network.
 
 | 1 cookie token | 1 bitcoin | <<ch02>>
 | The spreadsheet | The blockchain | <<ch06>>
-| Note to Lisa | A transaction | <<ch05>>
+| Email to Lisa | A transaction | <<ch05>>
 | A row in the spreadsheet | A transaction | <<ch05>>
 | Lisa | A miner | <<ch07>>
 |===
