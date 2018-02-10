@@ -256,7 +256,7 @@ image::{imagedir}/absolute-time-locked-outputs.svg[{half-width}]
 You can broadcast this transaction immediately to the Bitcoin network
 and have it mined. The first output is the interesting part. It says
 that this output cannot be spent before May 1 (2019). For the curious,
-the exact scriptPubKey is:
+the exact pubkey script is:
 
 [subs="normal"]
 ----
@@ -273,12 +273,12 @@ image::{imagedir}/absolute-time-locked-outputs-spending.svg[{big-width}]
 
 The first two transactions will never be valid because their time
 locks are not sufficiently late. The first one is not locked at all,
-which is illegal according to the scriptPubKey. The second one is at
+which is illegal according to the pubkey script. The second one is at
 least time locked, but it's not late enough. 1 second before May 1 is
 too early.
 
 The third transaction on the other hand is OK, because the time lock
-is at least as high as the time in the scriptPubKey, 2019-05-01
+is at least as high as the time in the pubkey script, 2019-05-01
 00:00:00. So this transaction will be valid on and after May 1. The
 last transaction will be valid on new year's eve right before the
 fireworks. Note however that both of the two last transactions cannot
@@ -308,7 +308,7 @@ Relative time locks are most commonly used in _digital contracts_. A
 digital contract can be regarded as a traditional contract between
 parties, but they are enforced by the rules of the Bitcoin network
 rather than national laws. Contracts are expressed as Bitcoin
-transaction output scripts, the scriptPubKey. We will illustrate the
+transaction output scripts, the pubkey script. We will illustrate the
 use of relative time locked outputs with an _atomic swap_ in the next
 subsection. An atomic swap means that two persons swap coins with
 each other across different cryptocurrencies.
@@ -418,8 +418,8 @@ John broadcasts his swap transaction. John's swap transaction spends
 Fadime's contract transaction output by providing S and his
 signature. Again, note that John is spending a p2sh output, which
 means that the first thing that happens is that the redeem script that
-John provided in the scriptSig, will be hashed and compared to the
-hash in the scriptPubKey. Then the actual redeem script will be run.
+John provided in the signature script, will be hashed and compared to the
+hash in the pubkey script. Then the actual redeem script will be run.
 
 We won't go through the program in detail. But when the redeem script
 starts running, the stack will have "1" on top. This means "true" in
@@ -541,7 +541,7 @@ author created a transaction with 78 outputs, one for each 20
 character line in the message. Each line ends with a space so only 19
 characters are visible.
 
-For example, the very last output's scriptPubKey looks like this:
+For example, the very last output's pubkey script looks like this:
 
  OP_DUP OP_HASH160 2d2d2d2d454e4420545249425554452d2d2d2d20 OP_EQUALVERIFY OP_CHECKSIG
 
@@ -611,19 +611,19 @@ into its UTXO set.
 
 The partial solution involves a new Script operator called
 `OP_RETURN`. This operator immediately fails when executed. A typical
-`OP_RETURN` scriptPubKey can look like this
+`OP_RETURN` pubkey script can look like this
 
  OP_RETURN "I'm Grokking Bitcoin"
 
 If someone would try to spend this output, it would cause the script
-to fail when it encounters the `OP_RETURN`. So if the scriptPubKey
+to fail when it encounters the `OP_RETURN`. So if the pubkey script
 contains this operator, a full node can determine that the output is
 not spendable and simply ignore the output. Saving the UTXO set from
 being forever bloated with this nonsense.
 
 There are a few policies regarding OP_RETURN:
 
-* The full scriptPubKey must not be bigger than 83 bytes
+* The full pubkey script must not be bigger than 83 bytes
 * There can only be one OP_RETURN output per transaction
 * OP_RETURN output are allowed to have 0-value, so that you don't have
   to burn money to use it.
@@ -841,7 +841,7 @@ BTC to the combined fee.
 === Different signature types
 
 When you sign a typical Bitcoin transaction you sign the entire
-transaction excluding the scriptSig.
+transaction excluding the signature script.
 
 .Normally the whole transaction is signed. All inputs and all outputs are covered.
 image::{imagedir}/sign-transaction-all.svg[{quart-width}]

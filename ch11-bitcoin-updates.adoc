@@ -7,7 +7,7 @@ Also, as we discussed in <<validating-early-blocks>>, a full node that
 does the initial blockchain download, may chose not to verify any
 signatures before a certain block. This would also open up the
 possibility for the node to skip downloading and storing the
-scriptSigs. Witness data becomes cheaper because it can be pruned
+signature scripts. Witness data becomes cheaper because it can be pruned
 
 Explain why it's called a "witness program"
 

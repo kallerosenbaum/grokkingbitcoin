@@ -87,7 +87,7 @@ from an invalid transaction.
 ===== How can Qi change the txid?
 
 There are several options for Qi to change the transaction without
-invalidating it. They all involve changing the scriptSig in one way of
+invalidating it. They all involve changing the signature script in one way of
 the other. Among them are:
 
 .Three classes of transaction malleability.
@@ -100,7 +100,7 @@ BIP66 fixes the first class of malleability issues.
 ****
 
 The first one modifies the signature container format, which changes
-how the signature is _encoded_ in the scriptSig. There are a few
+how the signature is _encoded_ in the signature script. There are a few
 different ways to encode the signature that are all valid. This issue
 was actually fixed in a system upgrade using BIP66, that requires all
 signatures to be encoded in a single specific way. The fix was
@@ -121,7 +121,7 @@ nothing and the whole program will run just fine.
 The second and third form of transaction malleability are somewhat
 limited by relay policies. This means that nodes will require the
 signatures to conform to specific rules and that no script operators
-except data pushes are present in the scriptSig. However, there is
+except data pushes are present in the signature script. However, there is
 nothing stopping a miner from mining malleated transactions. Relay
 policies are implemented to make transaction malleability a bit
 harder, but they can't prevent it. The first form of malleability is
@@ -135,7 +135,7 @@ data in the blockchain.
 When a transaction is signed, the signature algorithm will hash the
 transaction in a certain way, as we saw in <<sighash-types>>.
 
-As you remember from <<sign-transaction>> we clean all scriptSigs
+As you remember from <<sign-transaction>> we clean all signature scripts
 before signing. But if we do _just_ that, all signatures of the
 transaction would be using the exact same hash. If the transaction
 spends two different outputs to the same address, the signature in one
@@ -145,32 +145,32 @@ exploited by bad actors.
 [.gbinfo]
 .Why not just a dummy byte?
 ****
-Inserting the scriptPubKey into scriptSig seems unnecessary. One could
-simply add a single dummy byte in the scriptSig to avoid signature
+Inserting the pubkey script into signature script seems unnecessary. One could
+simply add a single dummy byte in the signature script to avoid signature
 reuse. No one really knows why it's done this way.
 ****
 
 To avoid this problem, Bitcoin makes each signature commit to slightly
 different versions of the transaction by copying the spent
-scriptPubKey into the scriptSig of the input that is currently being
+pubkey script into the signature script of the input that is currently being
 signed.
 
 Let's zoom in a bit on what's actually happening. Suppose that we want
 to sign a transaction with two inputs. The first input is signed:
 
-.Sign the first input. Prepare by copying the scriptPubKey to the scriptSig.
+.Sign the first input. Prepare by copying the pubkey script to the signature script.
 image::{imagedir}/sign-old-digest-1.svg[{big-width}]
 
-The scriptSigs of all inputs are empty, but we copy the scriptPubKey
-of the spent output and insert it into the scriptSig of the spending
+The signature scripts of all inputs are empty, but we copy the pubkey script
+of the spent output and insert it into the signature script of the spending
 input. Then we create the signature for the first input and move on to
 sign the second input:
 
 .Sign the second input.
 image::{imagedir}/sign-old-digest-2.svg[{big-width}]
 
-Here all scriptSigs, except the second one is empty. The second
-scriptSig is populated with the scriptPubKey of the spent output. Then
+Here all signature scripts, except the second one is empty. The second
+signature script is populated with the pubkey script of the spent output. Then
 the signature is created.
 
 By doing this exercise for each input we make sure that signatures are
@@ -179,9 +179,9 @@ also introduces a problem: Signature verification becomes inefficient.
 
 Suppose that you want to verify the signatures of the above
 transaction. For every input, you need perform basically the same
-procedure as when the transaction was signed: Clean all the scriptSigs
-from the transaction and then, one at a time, insert the scriptPubKey
-in the scriptSig of the input you want to verify. Then verify the
+procedure as when the transaction was signed: Clean all the signature scripts
+from the transaction and then, one at a time, insert the pubkey script
+in the signature script of the input you want to verify. Then verify the
 signature for that input.
 
 This may seem harmless, but as the number of inputs grow, the amount
@@ -226,13 +226,13 @@ the complete transaction, which includes all signature data. But a
 lightweight wallet cannot verify the signatures, because it doesn't
 have the spent outputs.
 
-The scriptSigs make a large percentage of the transaction size. A
-typical scriptSig spending a p2pkh output takes 107 bytes. Consider a
+The signature scripts make a large percentage of the transaction size. A
+typical signature script spending a p2pkh output takes 107 bytes. Consider a
 few different transactions with two outputs:
 
-.Space occupied by scriptSig data of different typical transactions
+.Space occupied by signature script data of different typical transactions
 |===
-| Inputs | Total scriptSig size | Tx size | scriptSig percentage
+| Inputs | Total signature script size | Tx size | signature script percentage
 
 | 1 | 107 | 224 | 47%
 | 2 | 214 | 373 | 57%
@@ -246,14 +246,14 @@ few different transactions with two outputs:
 image::{imagedir}/2ndcol-txid.svg[]
 ****
 
-Wouldn't it be nice if a full node didn't have to send the scriptSig
+Wouldn't it be nice if a full node didn't have to send the signature script
 data to the lightweight wallet? You would save more than 50% data
 traffic. There's just one problem: They are needed to calculate
-transaction ids. If you skip sending scriptSigs of transactions, the
+transaction ids. If you skip sending signature scripts of transactions, the
 lightweight wallet would not be able to verify that the transaction is
 included in a block, because it can't verify the merkle proof.
 
-.Without the scriptSigs, a lightweight wallet will not be able to verify that a transaction is included in the block.
+.Without the signature scripts, a lightweight wallet will not be able to verify that a transaction is included in the block.
 image::{imagedir}/cannot-verify-tx-included-in-block.svg[{half-width}]
 
 It would be nice if we could solve this somehow.
@@ -293,7 +293,7 @@ out on May 1:
 .Using `OP_CHECKLOCKTIMEVERIFY` to lock an output until May 1.
 image::{imagedir}/cltv-allowance.svg[{half-width}]
 
-The scriptPubKey for this output is
+The pubkey script for this output is
 
 [subs="normal"]
 ----
@@ -380,11 +380,11 @@ altogether.
 
 Let's take a look again at the anatomy of a normal transaction:
 
-.The txid is calculated from the whole transaction, including scriptSigs.
+.The txid is calculated from the whole transaction, including signature scripts.
 image::{imagedir}/normal-transaction.svg[{half-width}]
 
 If we could just change the system so that the txid does not cover the
-scriptSig, we would remove all known possibilities of unintentional
+signature script, we would remove all known possibilities of unintentional
 transaction malleability. Unfortunately, if we do this we would make
 old software incompatible, because they calculate the txid in the
 traditional way.
@@ -406,15 +406,15 @@ mentioned problems in a forward and backward compatible way:
 
 In crypto-lingo, a _witness_ basically means a signature. It is
 something that attests the authenticity of something. For a Bitcoin
-transaction, the witness is the contents of the scriptSig, because
+transaction, the witness is the contents of the signature script, because
 that's what proves that the transaction is authenticated. Segregated
-means parted, so we part the contents of the scriptSig from the
-transaction, effectively leaving the scriptSig empty:
+means parted, so we part the contents of the signature script from the
+transaction, effectively leaving the signature script empty:
 
 .A segwit transaction contains no signature data. The signatures are attached instead. The txid does not commit to the signatures.
 image::{imagedir}/segwit-transaction-simple.svg[{half-width}]
 
-Segregated witness thus means that the contents of the scriptSig is
+Segregated witness thus means that the contents of the signature script is
 removed from the transaction and put into an external structure that
 we call the witness.
 
@@ -484,10 +484,10 @@ errors are detected. Then the witness program is extracted by writing
 each number as a 5 bit number and rearrange them in groups of 8
 bits. Each groups then represents a byte of the witness program.
 
-Amy creates a transaction with a new kind of scriptPubKey that we are
+Amy creates a transaction with a new kind of pubkey script that we are
 not used to:
 
-.Amy sends 0.1 BTC to your segwit address. scriptPubKey doesn't contain any script operators, just data.
+.Amy sends 0.1 BTC to your segwit address. pubkey script doesn't contain any script operators, just data.
 image::{imagedir}/segwit-output.svg[{big-width}]
 
 She broadcasts this transaction on the Bitcoin network. The network
@@ -508,12 +508,12 @@ image::{imagedir}/segwit-spend-wpkh.svg[{big-width}]
 
 Your transaction sends the money to the popcorn machine owner's segwit
 address and pays 0.01 BTC in transaction fee. The input has an empty
-scriptSig; The signature data is instead added as a _witness field_ in
+signature script; The signature data is instead added as a _witness field_ in
 the attached _witness_. Had there been multiple inputs in this
 transaction, there would be multiple witness fields in the witness,
 one for each input. You can mix segwit inputs and legacy inputs, in
 which case the the witness fields for the legacy inputs would be
-empty, because their signatures are in the respective scriptSig, as
+empty, because their signatures are in the respective signature script, as
 they always were.
 
 ==== Validate the segwit transaction
@@ -535,7 +535,7 @@ You may have noticed that this is similar to how p2sh worked in
 ****
 
 The full node, that knows about segwit, will look for a pattern in the
-scriptPubKey starting with a single version byte followed by a 2 to 40
+pubkey script starting with a single version byte followed by a 2 to 40
 byte witness program. In this case the pattern matches, which means
 that this is a segwit output.
 
@@ -554,8 +554,8 @@ further processing. We'll talk a bit more on unknown versions later.
 The p2wpkh is the simplest of the two types because it is very similar
 to our well known p2pkh. Let's look at how they both work
 
-p2pkh:: The scriptPubKey contains the actual script that checks the
-signature in the scriptSig
+p2pkh:: The pubkey script contains the actual script that checks the
+signature in the signature script
 p2wpkh:: The actual script is a pre-determined template and the
 witness program _is_ the PKH to insert into the script template. The
 signatures are taken from the witness.
@@ -567,7 +567,7 @@ Why do this p2wpkh at all, when we are running the exact same script
 program as in p2pkh? Let's recall that we want to solve transaction
 malleability. We do that by removing the signature data from the
 transaction inputs so that no one can change the transaction id by
-making subtle changes to the scriptSig.
+making subtle changes to the signature script.
 
 The full node has verified this transaction and sends it to its
 peers. There's just one problem: One of the peers have no idea what
@@ -581,11 +581,11 @@ witnesses attached to transactions. It will download the transaction
 as it always has, which is without the witness attachment. This is
 what the node will see:
 
-.An old node will just see two data items in the scriptPubKey and an empty scriptSig.
+.An old node will just see two data items in the pubkey script and an empty signature script.
 image::{imagedir}/segwit-spend-wpkh-verify-old-node.svg[{big-width}]
 
 Since the node doesn't know anything else, it will create the script
-program by taking the empty scriptSig and append the scriptPubKey. The
+program by taking the empty signature script and append the pubkey script. The
 resulting program will look like this:
 
  00 c8052b799cde68ed8da8150c4cdef4ae3176cba8
@@ -599,7 +599,7 @@ be true, so this script will pass and the transaction is authorized.
 This doesn't seems very secure. This is known as an "anyone can
 spend", meaning that anyone can create a transaction that spends the
 output. It requires no signature. You just have to create an input
-with an empty scriptSig to take the money.
+with an empty signature script to take the money.
 
 In <<ch11>> we will talk about how to deal with this problem. But for
 now, suppose that 95% of the nodes run with segwit and someone tries
@@ -666,7 +666,7 @@ machine owner who hands over the machine to you.
 ==== Pay to witness script hash
 
 Do you remember when we introduced pay to script hash in
-<<pay-to-script-hash>>? They were moving the actual scriptPubKey part
+<<pay-to-script-hash>>? They were moving the actual pubkey script part
 of the program to the spending input. Let's have another look at the
 charity wallet that John, Ellen and Faiza set up.
 
@@ -674,7 +674,7 @@ charity wallet that John, Ellen and Faiza set up.
 image::{imagedir}/p2sh-overview.svg[{big-width}]
 
 The idea here was that the payer, the donor in this case, shouldn't
-have to pay a higher fee for a big complex scriptPubKey. Instead the
+have to pay a higher fee for a big complex pubkey script. Instead the
 recipient wanting to use this fancy scheme will pay for the
 complexity.
 
@@ -728,8 +728,8 @@ create the following transaction:
 .The charity pays 0.07 BTC to Amnesty's address. The witness is the signatures followed by a data item that contains the actual witness script.
 image::{imagedir}/tx-charity-to-amnesty.svg[{full-width}]
 
-Note how there's nothing in the scriptSig. When we used p2sh in
-<<pay-to-script-hash>>, the scriptSig got really big, because it
+Note how there's nothing in the signature script. When we used p2sh in
+<<pay-to-script-hash>>, the signature script got really big, because it
 contained two signatures and the redeemScript, which in turn contained
 three public keys.
 
@@ -797,7 +797,7 @@ transaction. Then, for each input add the intermediate hash to some
 input-specific data:
 
 Spent outpoint:: The transaction id and index of the output that this input spends
-Spent output script:: The scriptPubKey of the spent output
+Spent output script:: The pubkey script of the spent output
 Spent amount:: The BTC value of the spent output.
 
 .Old hashing
@@ -911,15 +911,15 @@ and makes a payment to that script hash.
 Later, when you want to spend your output, you create a transaction
 like this:
 
-.You spend the money you got from Nina by setting the version byte and witness program in the scriptSig of your input.
+.You spend the money you got from Nina by setting the version byte and witness program in the signature script of your input.
 image::{imagedir}/p2wpkh-in-p2sh-spend.svg[{big-width}]
 
 You create a witness just as you would with a normal p2wpkh input, but
 you also set the redeem script as a single data item in the
-scriptSig. The redeem script happens to be a version byte followed by
-your 20 byte public key hash. Using this scriptSig, old nodes can
+signature script. The redeem script happens to be a version byte followed by
+your 20 byte public key hash. Using this signature script, old nodes can
 verify that the script hash in the spent output matches the hash of
-the redeemScript in the scriptSig. New nodes will detect that the
+the redeemScript in the signature script. New nodes will detect that the
 redeemScript is a version byte and a witness program and verify the
 witness accordingly.
 
@@ -933,7 +933,7 @@ We have talked about several standard types of payments. Let's summarize them:
 
 [%autowidth,cols="h,4*",role="widetable"]
 |===
-| Short name | Address format | scriptPubKey | scriptSig | Witness field
+| Short name | Address format | pubkey script | signature script | Witness field
 
 | p2pkh
 | `**1** <some base58 characters>`
@@ -1086,7 +1086,7 @@ actual block size increase.
 There are a number of reasons for why the witness discount is
 implemented:
 
-* The scriptSigs and witnesses don't go into the UTXO set. Data that
+* The signature scripts and witnesses don't go into the UTXO set. Data that
 goes into the UTXO set have higher costs, because the UTXO set should
 preferably be stored in RAM for fast transaction verification.
 
@@ -1178,7 +1178,7 @@ is included in a block. They can use the per-transaction savings to
 increase their privacy by decreasing their bloom filter size or to
 reduce data traffic with preserved privacy.
 
-The witness version in the scriptPubKey allows for future upgrades of
+The witness version in the pubkey script allows for future upgrades of
 the script language. The upgrades can be arbitrarily complex with no
 restrictions on functionality.
 
@@ -1251,7 +1251,7 @@ image::{imagedir}/segwit-coinbase-tx.svg[{half-width}]
 
 In this chapter you learned that
 
-* Segwit moves scriptSigs out of transactions to solve transaction
+* Segwit moves signature scripts out of transactions to solve transaction
   malleability.
 
 * A new signature hashing algorithm is used by segwit that makes
@@ -1260,7 +1260,7 @@ In this chapter you learned that
 * Lightweight wallets gets better privacy with preserved data traffic
   by not downloading witness data.
 
-* The witness version byte of the scriptPubKey makes upgrading the
+* The witness version byte of the pubkey script makes upgrading the
   script language easier.
 
 * The block size can be somewhat increased by counting witness bytes

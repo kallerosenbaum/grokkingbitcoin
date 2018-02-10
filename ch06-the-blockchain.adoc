@@ -611,7 +611,7 @@ The node will test
 
 * the txid of the transaction
 * all transaction output (TXO) references in the inputs
-* all data items in scriptSigs
+* all data items in signature scripts
 * all data items of the outputs
 
 So for John's wallet to be notified of spends it needs to add either
@@ -648,7 +648,7 @@ node:
 
 * the txid of the transaction (1)
 * all transaction output (TXO) references in the inputs (2)
-* all data items in scriptSigs (public key and signature x 2 = 4)
+* all data items in signature scripts (public key and signature x 2 = 4)
 * all data items of the outputs (2)
 
 The probability that all 9 tests is negative is (1-(5/8)^3^)^9^≈

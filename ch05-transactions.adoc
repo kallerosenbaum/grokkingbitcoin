@@ -229,8 +229,8 @@ because it spends money addressed to PKH~2~.
 [.inbitcoin]
 .Not really cleaned...
 ****
-Bitcoin puts the scriptPubKey from the spent output into the current
-scriptSig before signing. This will be discussed further in <<ch10>>.
+Bitcoin puts the pubkey script from the spent output into the current
+signature script before signing. This will be discussed further in <<ch10>>.
 ****
 
 You sign the transaction without any signatures in it. You can not put
@@ -441,20 +441,20 @@ usually don't have to worry about key reuse.
 I haven't been totally honest about what a transaction contains. An
 output of a transaction does not just contain a PKH. Instead, it
 contains part of a small computer program. This part is called
-scriptPubKey. The input that spends the output contains the other part
+pubkey script. The input that spends the output contains the other part
 of this program. This other part, the signature and the public key in
-John's transaction, is called scriptSig.
+John's transaction, is called signature script.
 
-.The scriptSig is the first part of a program. The scriptPubKey in the spent output is the second part. If the complete program returns `true`, then the payment is authorized to spend the output.
+.The signature script is the first part of a program. The pubkey script in the spent output is the second part. If the complete program returns `true`, then the payment is authorized to spend the output.
 image::{imagedir}/script.svg[{big-width}]
 
 [.gbinfo]
 .Odd names
 ****
-The naming of scriptSig and scriptPubKey can seem odd because the
-scriptPubKey doesn't contain a public key, but the scriptSig does. In
-the early times of Bitcoin, the scriptPubKey contained an actual
-public key (not a PKH), while the scriptSig contained a signature only
+The naming of signature script and pubkey script can seem odd because the
+pubkey script doesn't contain a public key, but the signature script does. In
+the early times of Bitcoin, the pubkey script contained an actual
+public key (not a PKH), while the signature script contained a signature only
 (and no public key).
 ****
 
@@ -531,12 +531,12 @@ The last operator, `OP_CHECKSIG`, means "Verify that the top public
 key on the stack and the signature that's next on the stack correctly
 signs the transaction. Put `true` or `false` on top of the stack
 depending on the verification outcome". Lisa takes John's transaction
-and cleans out all the scriptSig from all inputs. She uses the top two
+and cleans out all the signature script from all inputs. She uses the top two
 items from the stack, which is John's public key and his signature, to
 verify that the signature signs the cleaned transaction. When John
 signed this transaction, he signed the transaction without any
 signature data in the inputs. This is why Lisa must first clean out
-the scriptSig data from the transaction before verifying the
+the signature script data from the transaction before verifying the
 signature. The signature was good, so Lisa puts `true`, meaning "OK",
 back on the stack.
 
@@ -557,12 +557,12 @@ spreadsheet.
 
 ==== Why use a program?
 
-The scriptPubKey part of the program stipulates exactly what the
+The pubkey script part of the program stipulates exactly what the
 spending transaction needs to provide to spend the output. The only
-way to spend an output is to provide a scriptSig that makes the
+way to spend an output is to provide a signature script that makes the
 program finish with an "OK" on top of the stack. In the example above,
-the only acceptable scriptSig is a valid signature followed by the
-public key corresponding to the PKH in the scriptPubKey.
+the only acceptable signature script is a valid signature followed by the
+public key corresponding to the PKH in the pubkey script.
 
 [.inbitcoin]
 .Operators
@@ -572,10 +572,10 @@ kinds of fancy programs. Check out <<web-op-codes>> for a complete list.
 ****
 
 We have already mentioned that "pay to PKH" is not the only way
-to pay. You can write any program in the scriptPubKey. For example,
-you can write a scriptPubKey that ends with "OK" only if the scriptSig
+to pay. You can write any program in the pubkey script. For example,
+you can write a pubkey script that ends with "OK" only if the signature script
 provides two number whose sum is 10. Or a program that ends with "OK"
-only if the scriptSig contains the SHA256 preimage of a hash. Consider
+only if the signature script contains the SHA256 preimage of a hash. Consider
 this example:
 
  OP_SHA256
@@ -585,12 +585,12 @@ this example:
 This will let anyone who knows an input to SHA256 that result in the
 hash `334d016f...d42c87b7` to spend the output. We happen to know from
 <<ch02>> that the text "Hello!" will give this specific
-output. Suppose that your scriptSig is
+output. Suppose that your signature script is
 
  Hello!
 
 Run the program to convince yourself that it works, and that all
-scriptSigs that doesn't give the specific hash fails.
+signature scripts that doesn't give the specific hash fails.
 
 === Where were we?
 
@@ -676,14 +676,14 @@ then the other two keys are enough to spend the money.
 * No single person of the three partners can single-handedly run away
   with the money.
 
-Let's have a look at how a program, scriptSig + scriptPubKey, that
+Let's have a look at how a program, signature script + pubkey script, that
 enforces the 2-of-3 rule looks:
 
 [.inbitcoin]
 .Bug
 ****
 There is a bug in Bitcoin software that causes `OP_CHECKMULTISIG` to
-need an extra dummy item first in the scriptSig. This bug cannot "just
+need an extra dummy item first in the signature script. This bug cannot "just
 be fixed", because that would cause old transactions of this type to
 appear invalid.
 ****
@@ -692,8 +692,8 @@ appear invalid.
 image::{imagedir}/multisig-program.svg[{quart-width}]
 
 The `OP_CHECKMULTISIG` operator instructs Lisa to verify that the two
-signatures in the scriptSig are made with the keys in the
-scriptPubKey. Lisa follows the instructions and runs the program as
+signatures in the signature script are made with the keys in the
+pubkey script. Lisa follows the instructions and runs the program as
 follows:
 
 image:{imagedir}/execute-multisig-1.svg[{third-width}]
@@ -720,7 +720,7 @@ image::{imagedir}/flyer-scriptpubkey.svg[]
 ****
 
 Coworkers that want to donate cookie tokens need to write the
-scriptPubKey above into their transaction outputs. There are a few problems
+pubkey script above into their transaction outputs. There are a few problems
 with this:
 
 * The coworkers' wallets only knows how to make p2pkh
@@ -732,7 +732,7 @@ with this:
   just want to pay.
 * Transactions need to pay a fee to get processed (more on this in
   later chapters). This fee depends on how big, in bytes, the
-  transaction is. A big scriptPubKey causes the sender to pay a
+  transaction is. A big pubkey script causes the sender to pay a
   higher fee. That's not fair, because it's the recipient that wants
   to use this fancy expensive feature. It should be payed for by the
   recipient, not the sender.
@@ -759,7 +759,7 @@ Suppose, still, that Faiza, Ellen and John wants to raise money for
 charity and they want a multi-signature setup to protect their money
 and share the responsibility of and power over the money.
 
-.Overview of pay-to-script-hash. The scriptPubKey is very simple. The scriptSig is special, because it contains a data item that contains program.
+.Overview of pay-to-script-hash. The pubkey script is very simple. The signature script is special, because it contains a data item that contains program.
 image::{imagedir}/p2sh-overview.svg[{big-width}]
 
 [.inbitcoin]
@@ -811,11 +811,11 @@ software.
 ****
 It's important that Lisa runs the latest software. If Lisa would run
 old software she would only verify that the hash of the redeemScript
-matches the script hash in the scriptPubKey. She would not care about
+matches the script hash in the pubkey script. She would not care about
 the contents of the redeemScript.
 ****
 
-You may recognize the scriptPubKey from our example earlier when you
+You may recognize the pubkey script from our example earlier when you
 can pay money to a preimage of a hash. That's what happened here too,
 but with a different cryptographic hash function. The old software
 interpret this program as a payment to a hash. Whoever can show a
@@ -828,14 +828,14 @@ program contained in the redeemScript is never run.
 Now suppose that the Cafe just upgraded their software and wants to
 verify this transaction again. Let's see how that happens.
 
-The new software looks at the scriptPubKey to determine if this
+The new software looks at the pubkey script to determine if this
 transaction is spending a p2sh output. It looks for the pattern
 
  OP_HASH160
  20 byte hash
  OP_EQUAL
 
-If the scriptPubKey has this exact pattern, the p2sh pattern, the
+If the pubkey script has this exact pattern, the p2sh pattern, the
 program will be treated differently. First, the exact same seven steps
 as the old software above are performed, but the stack is saved away
 after step 2. Let's call this the "saved stack". If the seven steps
@@ -940,8 +940,8 @@ proper p2sh output:
 This concludes our sections on programmable transactions. We have
 learned that transactions can express a lot of different rules for how
 to spend money. Note that we cannot constrain where spent money goes,
-only what's needed in the input to spend the money. scriptPubKey make
-the rules for what's required in the scriptSig. Later in the book we
+only what's needed in the input to spend the money. pubkey script make
+the rules for what's required in the signature script. Later in the book we
 will revisit transactions to talk about more fancy stuff you can do
 with transactions, for example make spending impossible until a
 certain date in the future.
@@ -1156,7 +1156,7 @@ contains the last part of a Script program. When the output is spent,
 the input spending the output must provide the first part of the
 program.
 
-.A transaction spending output 1 of another transactions. The program consists of a scriptSig followed by a scriptPubKey.
+.A transaction spending output 1 of another transactions. The program consists of a signature script followed by a pubkey script.
 image::{imagedir}/script.svg[{big-width}]
 
 The program is run by Lisa. If the program ends with "OK", then the
@@ -1251,9 +1251,9 @@ the transaction have and what would their CT values be?
 . Why is the public key needed in the input of a transaction if it
   spends a pay-to-public-key-hash, p2pkh, output?
 
-. Why is the scriptSigs of a transaction cleaned when your wallet signs the transaction?
+. Why is the signature scripts of a transaction cleaned when your wallet signs the transaction?
 
-. Where is the scriptPubKey located in a transaction and what does it
+. Where is the pubkey script located in a transaction and what does it
 contain?
 
 . What is the criteria, in terms of the Script program, for
@@ -1276,12 +1276,12 @@ it contains 10,000 UTXOs and that you send a transaction to Lisa that
 has 2 inputs and 5 outputs. How many UTXOs will the UTXO set contain
 after the transaction has confirmed?
 
-. Create a scriptPubKey that allows anyone to spend the output. What
-would the scriptSig of the spending input contain? Hint: what's the
+. Create a pubkey script that allows anyone to spend the output. What
+would the signature script of the spending input contain? Hint: what's the
 criteria for authorizing the spend?
 
-. Create a scriptPubKey that requires the spender to provide two
-numbers in the scriptSig whose sum is 10 in order to spend the
+. Create a pubkey script that requires the spender to provide two
+numbers in the signature script whose sum is 10 in order to spend the
 money. There is an operator called OP_ADD that takes the top two items
 from the stack and puts back the sum of those items.
 
