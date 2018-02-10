@@ -713,16 +713,16 @@ cookies to the coworker's cubicle.
 The web server needs to be able to present a new cookie token address
 to every customer for privacy reasons, but where does it get the
 addresses from? The cafe could create an xprv for an
-"online sales" account in its hierarchical deterministic wallet and
+"on-line sales" account in its hierarchical deterministic wallet and
 put that xprv on the web server.
 
-.The cafe copies its "online sales" xprv to the web server.
+.The cafe copies its "on-line sales" xprv to the web server.
 image::{imagedir}/cafe-hd-wallet.svg[{quart-width}]
 
 The web server can now create new addresses as the orders
 pours in. Great. But what if the Malory, the gangster, gains access to
 the web server's hard drive where the xprv is stored? She can steal
-all money in any of the addresses in the "online sales" account. She
+all money in any of the addresses in the "on-line sales" account. She
 cannot steal from any other addresses in the tree. For example, she
 cannot calculate any key in the "Counter sales" account, because she
 doesn't have access to the master extended private key. The master
@@ -803,19 +803,19 @@ understanding extended private key derivation and extended public key
 derivation above, I suggest that you skip this section. You don't need
 it to understand the rest of this book.
 
-The cafe's online business works well. People are ordering cookies
-like crazy! The online sales account grows with a new key pair for
-every order. The xpub for the online sales account sits on the web
+The cafe's on-line business works well. People are ordering cookies
+like crazy! The on-line sales account grows with a new key pair for
+every order. The xpub for the on-line sales account sits on the web
 server and the xprv is only present in the cafe's wallet (and in a
 locked away mnemonic sentence).
 
 Suppose that the private key `m/1/1` that only contains 10 CT was
 stolen by Malory somehow. This may seem harmless because that private
 key has so little money in it. But it may be worse than that. If
-Malory has also managed to get the xpub for the online sales account
-from the web server, she can _calculate the online sales xprv_.
+Malory has also managed to get the xpub for the on-line sales account
+from the web server, she can _calculate the on-line sales xprv_.
 
-.Malory has stolen the private key `m/1/1` from the cafe and the parent xpub from the web server. She can now steal all money in the online sales account.
+.Malory has stolen the private key `m/1/1` from the cafe and the parent xpub from the web server. She can now steal all money in the on-line sales account.
 image::{imagedir}/steal-xprv.svg[{big-width}]
 
 Remember how the xprv derivation function used normal addition to
@@ -853,10 +853,10 @@ doesn't match "M/1", so `0` wasn't the correct index. She then tries index `1`:
 ++++
 
 This private key derives to the public key `M/1`. Bingo! She has now
-calculated the private key `m/1` for the online sales account. Since
+calculated the private key `m/1` for the on-line sales account. Since
 the xprv shares the chain code with the xpub she also has the xprv for
-`m/1` and she can calculate the whole private key tree for the online
-sales account. Malory steals all the money from the online sales
+`m/1` and she can calculate the whole private key tree for the on-line
+sales account. Malory steals all the money from the on-line sales
 account. Not good.
 
 Now think about what would happen if Malory had the master xpub. She
@@ -869,15 +869,15 @@ extended private key derivation_.
 
 Suppose that the cafe wants to prevent Malory from accessing the
 master xprv, even if she got the master xpub and a private key in the
-online sales account. The cafe can then generate the xprv for the
-online sales account using hardened extended private key derivation:
+on-line sales account. The cafe can then generate the xprv for the
+on-line sales account using hardened extended private key derivation:
 
 .Normal child xprv derivation
 ****
 image::{imagedir}/2ndcol-hd-wallet-derive-child-xprv.svg[]
 ****
 
-.Derive a hardened child xprv for the online sales account. We use the parent private key as input to the hash function instead of the public key.
+.Derive a hardened child xprv for the on-line sales account. We use the parent private key as input to the hash function instead of the public key.
 image::{imagedir}/hd-wallet-derive-hardened-child-xprv.svg[{half-width}]
 
 The apostrophe in `m/1'` is not a typo. The apostrophe is used to
@@ -896,10 +896,10 @@ This also means that you cannot derive a hardened child xpub from a
 parent xpub. You must have the parent xprv to generate any children at
 all, public or private. The children of `m/1'` cannot be derived as
 hardened private keys, because that would require the cafe to put the
-private key `m/1'` on the online sales web server. Using non-hardened
-keys in the online sales account makes the cafe vulnerable to an
+private key `m/1'` on the on-line sales web server. Using non-hardened
+keys in the on-line sales account makes the cafe vulnerable to an
 attacker stealing `m/1'/1` and `M/1'`. If that happens, all funds in
-the online sales account will be stolen.
+the on-line sales account will be stolen.
 
 === Public key multiplication
 
@@ -1114,8 +1114,8 @@ The wallet generates a tree of keys from a random seed. The users
 backup their keys by writing the random seed in the form of 12 English
 words on a piece of paper and lock it up safely.
 
-The cafe accepts cookie tokens on its online shop. It only puts the
-xpub for the "online sales" account, `M/1'`, on the web server. The
+The cafe accepts cookie tokens on its on-line shop. It only puts the
+xpub for the "on-line sales" account, `M/1'`, on the web server. The
 web server can now create as many addresses it needs to but without
 using any private keys. The private keys are kept in the cafe's wallet
 and never touches the web server.

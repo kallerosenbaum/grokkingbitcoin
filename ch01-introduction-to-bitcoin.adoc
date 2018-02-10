@@ -67,7 +67,7 @@ Today several millions of people are aware of Bitcoin, hundreds of
 thousands people are actively using Bitcoin and thousands of
 professionals are working on developing Bitcoin related
 technology. Bitcoin is primarily used for payments, savings and
-speculation today. It removes friction in online payments, especially
+speculation today. It removes friction in on-line payments, especially
 internationally, and it allows for anyone to use or participate in the
 Bitcoin network without special permission from a bank or similar
 institution.
@@ -342,7 +342,7 @@ areas.
 
 ==== Segregation
 
-People with bank accounts and access to banking services like online
+People with bank accounts and access to banking services like on-line
 payments or loans are very privileged. About 38% of the world
 population don't have a bank account at all, according to the World
 Bank, see <<web-financial-inclusion>>. The numbers are slowly
@@ -351,7 +351,7 @@ environment. If these people want to receive money from a family
 member abroad, they will receive 5-10% less, due to higher remittance
 fees, than if they had a bank account.
 
-Without a bank account and basic bank services like online payments,
+Without a bank account and basic bank services like on-line payments,
 people can not expand their businesses outside of their local
 community. A tailor will not be able to offer services on the Internet
 to increase its customer base. A person living in a rural area may
@@ -526,7 +526,7 @@ image::{imagedir}/centralized-decentralized.svg[{half-width}]
 In a centralized system, the service is controlled by a single entity
 like a bank. It implies that this single entity can decide who gets to
 use the service and what the user is allowed to do. For example an
-online video service may chose to provide a video only to people in a
+on-line video service may chose to provide a video only to people in a
 certain geographical location.
 
 [.inbitcoin]
@@ -677,10 +677,10 @@ image::{imagedir}/shopping-cart.png[]
 ****
 
 The most obvious use case for Bitcoin is to use it for shopping. The
-borderlessness and security of Bitcoin makes it ideal for online
+borderlessness and security of Bitcoin makes it ideal for on-line
 payments for goods and services.
 
-In traditional online payments, you send your debit card details to
+In traditional on-line payments, you send your debit card details to
 the merchant, and _hope_ that the merchant will withdraw as much as
 you agreed on. You also _hope_ that the merchant handles your debit
 card details with great care. They probably store the details in a

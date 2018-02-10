@@ -704,7 +704,7 @@ correct private key it will start the engine.
 
 === Replace pending transactions
 
-When you send a Bitcoin transaction to buy a book online, the book
+When you send a Bitcoin transaction to buy a book on-line, the book
 store will wait for the transaction to confirm before it sends the
 book to you. Usually your transaction will get confirmed within an
 hour or so, but what if it doesn't? What if no miner ever wants to
@@ -774,7 +774,7 @@ using the _sequence numbers_ of the inputs of a transaction.
 .Use opt-in replace by fee to be able to easily replace your transaction before it's confirmed.
 image::{imagedir}/rbf-3.svg[{half-width}]
 
-Suppose again that you want to pay for a book in an online book
+Suppose again that you want to pay for a book in an on-line book
 store. When you create the transaction, you make sure that one of the
 inputs (there is only one in this example) has a sequence number less
 than `fffffffe`. This signals to nodes that you want this transaction

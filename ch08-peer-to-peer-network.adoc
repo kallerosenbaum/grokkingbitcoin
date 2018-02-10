@@ -1151,7 +1151,7 @@ In this chapter you learned that
   reach both miners and the recipient of the money early.
 * New nodes synchronize with the Bitcoin network to get up to date
   with the other nodes. Takes hours or days.
-* Nodes do not need to stay online 24/7. They can drop out and come
+* Nodes do not need to stay on-line 24/7. They can drop out and come
   back and sync up the latest stuff.
 * Signature verification can be skipped for older blocks to speed up
   initial synchronization.

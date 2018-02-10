@@ -671,7 +671,7 @@ In the left side of <<enc-dec-public-private>>, only John would be
 able to read the encrypted message because he is the only one with
 access to his private key. This feature of public and private keys is
 not used in Bitcoin at all. It is used when two parties want to
-communicate in private. This is what's used when you do your online
+communicate in private. This is what's used when you do your on-line
 banking for example. When you see the little padlock in the address bar
 of your web browser, then you know that left side of the figure is
 used to secure your communication.
