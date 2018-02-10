@@ -575,7 +575,7 @@ We have already mentioned that "pay to PKH" is not the only way
 to pay. You can write any program in the pubkey script. For example,
 you can write a pubkey script that ends with "OK" only if the signature script
 provides two number whose sum is 10. Or a program that ends with "OK"
-only if the signature script contains the SHA256 preimage of a hash. Consider
+only if the signature script contains the SHA256 pre-image of a hash. Consider
 this example:
 
  OP_SHA256
@@ -619,7 +619,7 @@ discussing different ways to authenticate, "sign", transactions.
 John's transaction just spent a p2pkh (pay-to-public-key-hash)
 output. But as noted earlier, other types of payments are
 possible. For example, pay-to-hash, where you pay to a SHA256 hash. To
-spend that output you need to provide the preimage of the hash. We
+spend that output you need to provide the pre-image of the hash. We
 will explore some more interesting and useful ways to authenticate
 transactions.
 
@@ -816,10 +816,10 @@ the contents of the redeemScript.
 ****
 
 You may recognize the pubkey script from our example earlier when you
-can pay money to a preimage of a hash. That's what happened here too,
+can pay money to a pre-image of a hash. That's what happened here too,
 but with a different cryptographic hash function. The old software
 interpret this program as a payment to a hash. Whoever can show a
-preimage of this hash gets the money. The actual multi-signature
+pre-image of this hash gets the money. The actual multi-signature
 program contained in the redeemScript is never run.
 
 [[p2sh-new-software]]

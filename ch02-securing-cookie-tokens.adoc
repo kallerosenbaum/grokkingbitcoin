@@ -361,19 +361,19 @@ image::{imagedir}/hash-properties.svg[{big-width}]
 
 Collision resistance:: It's hard to find two different inputs that
 give _the same_ hash.
-Preimage resistance:: It's hard to find an input that gives _a
+Pre-image resistance:: It's hard to find an input that gives _a
 certain_ hash.
-Second-preimage resistance:: It's hard to find an input that gives
+Second-pre-image resistance:: It's hard to find an input that gives
 _the same hash as a certain other input_.
 
 ==== Illustration of "hard"
 
 The term "hard" in this context means astronomically hard. It is
-silly to even try. We will have a look at second-preimage resistance
+silly to even try. We will have a look at second-pre-image resistance
 as an example of what "hard" means, but a similar example can be
 made for any of the three variants.
 
-.Second preimage resistance
+.Second-pre-image resistance
 ****
 image::{imagedir}/2ndcol-second-preimage.svg[[]
 ****
@@ -412,7 +412,7 @@ a| image:{imagedir}/grumpy-cat-drawing.jpg[{thumb}] | dee6a5d3...db479561 | nope
 .How big is 2^256^?
 ****
 2^256^ is about 3*10^77^ which is almost the number of atoms in the
-universe. To find a preimage to SHA256 is like picking an atom in the
+universe. To find a pre-image to SHA256 is like picking an atom in the
 universe and hope it's the correct one.
 ****
 
@@ -429,7 +429,7 @@ I think we can stop trying, don't you? I don't think buying a faster
 computer will help either. Even if we had 1 trillion computers and ran
 them concurrently it would take about 3*10^49^ years.
 
-Preimage resistance, second-preimage resistance and collision
+Pre-image resistance, second-pre-image resistance and collision
 resistance are extremely important in Bitcoin. Most of its security
 relies on these properties.
 
@@ -1092,7 +1092,7 @@ In this chapter you learned that
 * The reward halves every four years to limit the money supply.
 * You can use cryptographic hash functions to detect changes in a file
   or in a message.
-* You can't make up a preimage of a cryptographic hash. A preimage is
+* You can't make up a pre-image of a cryptographic hash. A pre-image is
   an input that has a certain known output.
 * Digital signatures are useful to prove the authenticity of a
   payment. Only the rightful owner of bitcoins may spend them.

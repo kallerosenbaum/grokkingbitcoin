@@ -254,13 +254,13 @@ Nakamoto, the inventor of Bitcoin, has stopped corresponding with the
 Bitcoin community. We can only speculate on why it was chosen. Instead
 let us discuss some properties of this scheme.
 
-If any one of the hash functions are not preimage resistant the other
+If any one of the hash functions are not pre-image resistant the other
 still is. This means that if you can _calculate_ an input to RIPEMD160
-that gives a certain PKH output, you still need to preimage attack
+that gives a certain PKH output, you still need to pre-image attack
 SHA256 (with about 2^255^ guesses) in order to find the
 public key. Likewise, if you can calculate an input to SHA256 that
-gives a certain output, you first need to preimage attack RIPEMD160
-before you can use that preimage to calculate the public key.
+gives a certain output, you first need to pre-image attack RIPEMD160
+before you can use that pre-image to calculate the public key.
 
 ****
 image::{imagedir}/flawed-sha256.svg[]
@@ -750,7 +750,7 @@ prevents a bad guy from stealing your money?
 
 . Suppose that there was a serious flaw in RIPEMD160 so that anyone
 can easily figure out an SHA256 hash to derive the PKH from. It is not
-preimage resistant. What prevents a bad guy from stealing your money?
+pre-image resistant. What prevents a bad guy from stealing your money?
 
 === Recap
 
