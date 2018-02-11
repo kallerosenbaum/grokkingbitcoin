@@ -276,11 +276,11 @@ entropy of your eight character password above?
 The real entropy of a password also depends on what the attacker knows
 about the password. The entropy of the eight character password above
 is _at worst_ 48 bits. The less the attacker knows about the password,
-the higher the entropy. For example, suppose an attacker, Malory,
+the higher the entropy. For example, suppose an attacker, Mallory,
 steals John's encrypted backup file and tries to perform a brute-force
 attack on it. A brute-force attack means that the attacker makes
 repeated password guesses over and over until she finds the correct
-password. If Malory knows the password length, 8, but not what set of
+password. If Mallory knows the password length, 8, but not what set of
 characters is used, she must try passwords with all reasonable
 characters, for example `$`, `,`, and possibly `Ö`, none of which are
 part of your character set. This adds a little extra entropy to the
@@ -720,7 +720,7 @@ put that xprv on the web server.
 image::{imagedir}/cafe-hd-wallet.svg[{quart-width}]
 
 The web server can now create new addresses as the orders
-pours in. Great. But what if the Malory, the gangster, gains access to
+pours in. Great. But what if the Mallory, the gangster, gains access to
 the web server's hard drive where the xprv is stored? She can steal
 all money in any of the addresses in the "on-line sales" account. She
 cannot steal from any other addresses in the tree. For example, she
@@ -810,12 +810,12 @@ server and the xprv is only present in the cafe's wallet (and in a
 locked away mnemonic sentence).
 
 Suppose that the private key `m/1/1` that only contains 10 CT was
-stolen by Malory somehow. This may seem harmless because that private
+stolen by Mallory somehow. This may seem harmless because that private
 key has so little money in it. But it may be worse than that. If
-Malory has also managed to get the xpub for the on-line sales account
+Mallory has also managed to get the xpub for the on-line sales account
 from the web server, she can _calculate the on-line sales xprv_.
 
-.Malory has stolen the private key `m/1/1` from the cafe and the parent xpub from the web server. She can now steal all money in the on-line sales account.
+.Mallory has stolen the private key `m/1/1` from the cafe and the parent xpub from the web server. She can now steal all money in the on-line sales account.
 image::{imagedir}/steal-xprv.svg[{big-width}]
 
 Remember how the xprv derivation function used normal addition to
@@ -835,7 +835,7 @@ This can just as well be written as
 \text{"m/1/1"}-\text{"left half hash of index 1"}=\text{"m/1"}
 ++++
  
-Malory has everything she need to calculate the left half hash for any
+Mallory has everything she need to calculate the left half hash for any
 child index of `M/1` she pleases, but she don't know which index her
 stolen private key has so she starts testing with index 0:
 
@@ -856,18 +856,18 @@ This private key derives to the public key `M/1`. Bingo! She has now
 calculated the private key `m/1` for the on-line sales account. Since
 the xprv shares the chain code with the xpub she also has the xprv for
 `m/1` and she can calculate the whole private key tree for the on-line
-sales account. Malory steals all the money from the on-line sales
+sales account. Mallory steals all the money from the on-line sales
 account. Not good.
 
-Now think about what would happen if Malory had the master xpub. She
+Now think about what would happen if Mallory had the master xpub. She
 could use the same technique to derive the master xprv from the master
-xpub and `m/1/1`. This means that Malory can recreate all private keys
+xpub and `m/1/1`. This means that Mallory can recreate all private keys
 of all "accounts" in the whole wallet. Can we do something to prevent
 such a catastrophic scenario? Yes, with _yet another key derivation
 function_! This new key derivation function is called _hardened
 extended private key derivation_.
 
-Suppose that the cafe wants to prevent Malory from accessing the
+Suppose that the cafe wants to prevent Mallory from accessing the
 master xprv, even if she got the master xpub and a private key in the
 on-line sales account. The cafe can then generate the xprv for the
 on-line sales account using hardened extended private key derivation:

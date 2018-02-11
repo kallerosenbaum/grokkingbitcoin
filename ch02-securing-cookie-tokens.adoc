@@ -575,8 +575,8 @@ signature, the verification will fail.
 It's time to move back to our cookie token spreadsheet. The company is
 doing well and grows rapidly. After a while Lisa has a hard time
 recognizing everyone. She notices that some people are not honest. For
-example Malory says that she is Anne, to trick Lisa into moving cookie
-tokens from Anne to the cafe, instead of from Malory to the cafe.
+example Mallory says that she is Anne, to trick Lisa into moving cookie
+tokens from Anne to the cafe, instead of from Mallory to the cafe.
 
 ****
 image:{imagedir}/note-to-lisa.svg[]
@@ -754,7 +754,7 @@ garbage:
 This is the signature. If John would have used another private key or
 a slightly different message as input, the signature would have looked
 completely different. For example, using the input message "Lisa,
-please move 10CT to Malory. /John" would generate this signature:
+please move 10CT to Mallory. /John" would generate this signature:
 
 [.gbminiex]
 .Why different?
@@ -762,8 +762,8 @@ please move 10CT to Malory. /John" would generate this signature:
 Can you tell why the signature looks completely different.
 ****
 
- IBkECIzYrfw6pEEdAUbDpD32rq481j6h5a7UrEYG6BBz
- dmZmsFAtT+cvXTZbpwC76/gMES9DCcS5ArjhCDjwbq8= 
+ ILDtL+AVMmOrcrvCRwnsJUJUtzedNkSoLb7OLRoH2iaD
+ G1f2WX1dAOTYkszR1z0TfTVIVwdAlD0W7B2hBTAzFkk=
 
 This is not even remotely similar to the previous signature. This is
 good to know for John, as he knows that his signature cannot be used
@@ -896,8 +896,8 @@ You have the full responsibility for the security of your private keys.
 The security of the spreadsheet has shifted from a system where Lisa
 knows everyone's face to one where Lisa knows everyone's
 public key. In a sense, the security could actually be worse now,
-because it might be easier for Malory to steal John's private key than
-it is for her to trick Lisa into thinking Malory is John. That depends
+because it might be easier for Mallory to steal John's private key than
+it is for her to trick Lisa into thinking Mallory is John. That depends
 on how John protects his private key. An important thing to note is
 that the security of John's private key is totally up to him. No one
 is going to be able to restore John's private key if he loses it. And
@@ -1057,7 +1057,7 @@ million CT after 10,000 days?
 . The signing process hashes the message to sign. Why?
 . If John didn't end his message with "/John", would Lisa be able to
 determine who to withdraw money from?  
-. What would Malory need in order to steal cookie tokens from John?
+. What would Mallory need in order to steal cookie tokens from John?
 
 ==== Dig in
 
