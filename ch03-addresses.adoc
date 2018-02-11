@@ -289,7 +289,7 @@ cryptographers. SHA256 was developed by the United States National
 Security Agency, the NSA. Both are considered secure and both have
 been subject to scrutiny from a large number of people.
 
-[.gbfaq]
+[.gbinfo]
 .Has privacy improved?
 ****
 No.
@@ -417,7 +417,7 @@ who then makes a payment as follows:
 .Faiza makes a payment to John's cookie token address. She decodes the address into a public key hash, while verifying that the address is not misspelled.
 image::{imagedir}/payment-with-address.svg[{half-width}]
 
-[.gbfaq]
+[.gbinfo]
 .Who uses CT addresses?
 ****
 Cookie token addresses are only used between users to safely transmit
@@ -565,7 +565,7 @@ time checking for typing errors.
 .Base58check decoding is basically done by reversing the base58check encoding. Typing errors are detected when the checksums don't match.
 image::{imagedir}/address-decoding.svg[{big-width}]
 
-[.gbfaq]
+[.gbinfo]
 .How safe is the checksum
 ****
 The checksum is 4 bytes, which corresponds to 2^32^≈4.3 billion

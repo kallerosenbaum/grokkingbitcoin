@@ -49,7 +49,7 @@ of <<ch01>>. We noted that in a system with a central authority, that
 authority has absolute power over who gets to use the service and for
 what purposes. 
 
-[.gbfaq]
+[.gbinfo]
 .What about the shared folder?
 ****
 Right, the administrator of the shared folder is also a central
@@ -1391,7 +1391,7 @@ inputs were equal to the sum of the outputs. He didn't pay any
 transaction fee.
 
 .Half a CT?
-[.gbfaq]
+[.gbinfo]
 ****
 Cookie tokens and bitcoins can be split into tiny fractions. The
 smallest Bitcoin unit possible is a satoshi, 1 sat = 10^-8^ bitcoin.

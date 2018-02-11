@@ -251,7 +251,7 @@ may come in different order on different nodes:
 .Transactions arrives in different order at different nodes. If they would all write the transactions to the blockchain, the different nodes' blockchains would differ.
 image::{imagedir}/transactions-unordered.svg[{big-width}]
 
-[.gbfaq]
+[.gbinfo]
 .Why is ordering important?
 ****
 If transactions come in different order, it's very hard to verify if

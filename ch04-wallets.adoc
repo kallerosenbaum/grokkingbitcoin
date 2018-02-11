@@ -71,7 +71,7 @@ only exist in the app. If the mobile phone is lost or broken, the
 private keys are gone. You know by now what happens when you lose your
 keys, don't you? We need some backup facility for the private keys.
 
-[.gbfaq]
+[.gbinfo]
 .Why "wallet"?
 ****
 The term wallet is widely used in the Bitcoin world for all things
@@ -475,7 +475,7 @@ generated.
 .Deriving Rita's master xprv. The seed is hashed with HMAC-SHA512. The resulting hash of 512 bits is split into left 256 bits that becomes the master private key and the right 256 bits that becomes the chain code.
 image::{imagedir}/hd-wallet-derive-master-xprv.svg[{half-width}]
 
-[.gbfaq]
+[.gbinfo]
 .What is "CT seed"?
 ****
 HMAC needs two inputs, a value to hash and a "key". We don't have or
@@ -940,7 +940,7 @@ are plenty of other curves with similar properties.
 .Whole number solutions to the elliptic curve  stem:[y^2 = x^3 + 7 \mod{11}]. Each such solution is a public key.
 image::{imagedir}/curve-solutions.svg[{half-width}]
 
-[.gbfaq]
+[.gbinfo]
 .Curve? I see only dots.
 ****
 We call it a "curve", because in the continuous, real number world, the solutions
@@ -971,7 +971,7 @@ at the same x value.
 .Point addition. We add stem:[(x, y)=(6,5)] to stem:[(2, 2)] by drawing a straight line through them that will intersect a third point. 
 image::{imagedir}/point-addition.svg[{half-width}]
 
-[.gbfaq]
+[.gbinfo]
 .Is there always a third point?
 ****
 Yes, there's always a line that intersects a third point. It's one of the important properties of the curve.

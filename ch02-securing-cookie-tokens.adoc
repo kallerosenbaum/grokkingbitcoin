@@ -253,7 +253,7 @@ cat picture again and compare it to the original hash on your paper.
 .Check the integrity of the cat picture. You detect a change.
 image::{imagedir}/integrity-check-2.svg[{big-width}]
 
-[.gbfaq]
+[.gbinfo]
 .Extremely sure?
 ****
 There is a tiny chance that the cat picture has changed even thought
@@ -408,7 +408,7 @@ a| image:{imagedir}/grumpy-cat-drawing.jpg[{thumb}] | dee6a5d3...db479561 | nope
 | My entire music collection | a5bcb2d9...9c143f7a | nope
 |===
 
-[.gbfaq]
+[.gbinfo]
 .How big is 2^256^?
 ****
 2^256^ is about 3*10^77^ which is almost the number of atoms in the

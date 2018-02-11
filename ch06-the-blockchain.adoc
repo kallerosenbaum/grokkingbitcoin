@@ -277,7 +277,7 @@ Lisa have paid for a cookie and the cafe have downloaded the block
 that contains Lisa's transaction and verified it. They give Lisa the
 cookie and she eats it. Yummy.
 
-[.gbfaq]
+[.gbinfo]
 .Why not just delete block?
 ****
 If she deletes a block she must eventually replace it with another

@@ -782,7 +782,7 @@ software to the bleeding edge version that support pay-to-script-hash
 payments? The developers made this forward compatible, meaning that
 old software will not reject these new transactions.
 
-[.gbfaq]
+[.gbinfo]
 .Why verify
 ****
 The cafe is not involved in this transaction, why would the cafe want
