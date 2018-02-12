@@ -4,9 +4,9 @@
 
 This chapter covers
 
-* getting to know Bitcoin
-* following a Bitcoin payment
-* problems solved by Bitcoin
+* Getting to know Bitcoin
+* Following a Bitcoin payment
+* Problems solved by Bitcoin
 
 This book will hopefully teach you enough about Bitcoin so that you
 can make informed decisions on how you can use Bitcoin to improve your
@@ -57,12 +57,6 @@ system. Bitcoin didn't get much attention then, apart from within a
 very limited set of cryptography experts. But gradually, as the system
 proved itself to be working, more people got interested in it.
 
-[.inbitcoin]
-.The Bitcoin network
-****
-image::{imagedir}/2ndcol-bitcoin-network.svg[]
-****
-
 Today several millions of people are aware of Bitcoin, hundreds of
 thousands people are actively using Bitcoin and thousands of
 professionals are working on developing Bitcoin related
@@ -72,10 +66,46 @@ internationally, and it allows for anyone to use or participate in the
 Bitcoin network without special permission from a bank or similar
 institution.
 
-The Bitcoin ecosystem consists of several actors. These are the most common
-types of actors:
+////
+==== Who uses Bitcoin?
 
-.The Bitcoin network and some different actors who use the network.
+There are no intended users
+
+Permissionless
+
+We don't know/care
+
+Use cases emerge over time
+
+The dominant use cases today are savings, international payments, and
+speculation.
+
+Gold (limited supply)
+
+Anyone with an Internet connection is a potential user of
+Bitcoin. Than means that we can't really know who uses it today and
+for what purposes. But a good guess is that Bitcoin is used mainly for
+
+* Long term investments
+* International payments
+* Short term speculation
+
+But the interesting thing about Bitcoin is that no one decides what
+Bitcoin should be used for. Use cases emerge as users invent new ways
+to use the system. The system doesn't tell you what you may or may not
+do with the system; As long as you follow the same rules as everybody
+else, you're good to go.
+////
+
+
+A lot of more or less interesting use cases have emerged over the
+years for Bitcoin. Among the most obvoius ones are international
+payments and savings.
+
+Just as with any other asset or currenty, the Bitcoin ecosystem
+consists of several types of users. These are some common types:
+
+.The Bitcoin network and some of its different users.
 image::{imagedir}/actors.svg[{big-width}]
 
 [.inbitcoin]
@@ -92,6 +122,8 @@ Worker:: Someone getting her salary in bitcoin.
 Exchange:: A commercial service people can use to exchange their local
 currency to and from bitcoin.
 Trader:: A short term speculator performing trading on an exchange.
+
+
 
 The Bitcoin network's job is to process Bitcoin payments. The network
 consists of thousands of computers that we call nodes. Any of the
@@ -121,6 +153,10 @@ payment starts with Alice creating a transaction and sending it to the
 Bitcoin network. A transaction is instructions to the Bitcoin network
 on how to move the money.
 
+.A Bitcoin payment. The payment is processed in 4 steps.
+[[payment-overview]]
+image::{imagedir}/payment-overview.svg[{full-width}]
+
 [.inbitcoin]
 .I thought Bitcoin was anonymous?
 ****
@@ -128,22 +164,17 @@ Bitcoin doesn't use names or any other personal information, but we
 use names in this first example for simplicity.
 ****
 
-.A Bitcoin payment. The payment is processed in 4 steps.
-[[payment-overview]]
-image::{imagedir}/payment-overview.svg[{big-width}]
-
 This figure will follow us in each intro of chapter 2 through 8 where
 we point out what in this figure we will cover in the chapter. Now,
 let's follow Alice's payment from Alice to Bob:
 
-. Alice creates and signs a transaction that moves 1 bitcoin from her
+1. Alice creates and signs a transaction that moves 1 bitcoin from her
 to Bob. She then sends it to the Bitcoin network.
-. The computers in the network, the Bitcoin nodes, check that Alice
-actually has the money to spend and that she is authorized to spend
-them.
-. Each computer updates its own copy of the Bitcoin blockchain with the
-new payment information.
-. The network notifies Bob that he has received 1 bitcoin.
+2. The computers in the network, the Bitcoin nodes, check that Alice
+actually has the money to spend and that the tx is authentic.
+3. Each computer updates its own copy of the Bitcoin blockchain, the
+ledger, with the new payment information.
+4. The network notifies Bob that he has received 1 bitcoin.
 
 Note how Alice does not really _send_ 1 bitcoin to Bob, but asks the
 Bitcoin network to move 1 bitcoin from Alice to Bob in the Bitcoin
@@ -166,8 +197,9 @@ use the terms interchangeably. We cover transactions in <<ch05>> and <<ch09>>.
 
 Step 1 of the process is when Alice asks the network to move 1 bitcoin
 to Bob. She asks by sending a Bitcoin _transaction_ to the Bitcoin
-network. The transaction contains information on how the money moves
-and a proof that Alice actually is authorized to move the money.
+network. The transaction contains instructions on how to move the
+money and a _digital signature_ that proves that it is actually Alice
+that requests to move the money.
 
 [id=bitcoin_payment]
 .Step 1: Alice creates a transaction, signs it and sends it to one or more Bitcoin nodes in the Bitcoin network.
@@ -186,25 +218,28 @@ We discuss digital signatures in-depth in <<ch02>>.
 ****
 
 The digital signature proves that Alice approves the transaction. The
-digital signature is created with a huge secret number, called a
-_private key_, that only Alice knows.
+digital signature is created from the transaction (without the
+signature) and a huge secret number, called a _private key_, that only
+Alice knows. The result is a digital signature that only the owner of
+the private key could have created.
 
-Alice sends this transaction to all _Bitcoin nodes_, computers in the
-Bitcoin network, that her wallet app is connected to.
+Alice's mobile wallet app is connected to one or more _Bitcoin nodes_,
+computers in the Bitcoin network. Her wallet sends the transaction to
+them.
 
 ==== Step 2 - The Bitcoin network
 
 Alice has sent a transaction to one or more Bitcoin nodes. In step 2
 of the process, each node checks that the transaction is valid and if
-it is, pass it on to other nodes. They check validity by consulting
-their local copy of the ledger, and check that
+it is, they pass it on to other nodes. They consult their local copy
+of the ledger and check that
 
 * the coins that Alice spends exist and that they are not already spent
 * Alice's digital signature is valid.
 
 [id=overview-bitcoin-network]
-.The Bitcoin network. Alice sends her transaction to a node in the network. The node will verify the transaction and forward it to other nodes. Eventually the transaction have reached all nodes in the network.
-image::{imagedir}/payment-overview-step-2.svg[{big-width}]
+.Alice has sent her transaction to a node in the network. The node will verify the transaction and forward it to other nodes. Eventually the transaction has reached all nodes in the network.
+image::{imagedir}/payment-overview-step-2.svg[{full-width}]
 
 [.inbitcoin]
 .Bad transactions
@@ -218,10 +253,10 @@ connect to other nodes and together they form a network, the
 Bitcoin network.
 
 If all checks pass, a node will forward the transaction to the nodes
-it is connected to in the Bitcoin network. Alice's transaction would
-shortly have traveled the whole network while being verified by each
-node along the way. The ledger has not been updated yet, that's the
-next step.
+it is connected to in the Bitcoin network. This is known as
+_relaying_. Alice's transaction would shortly have traveled the whole
+network while being verified by each node along the way. The ledger
+has not been updated yet, that's the next step.
 
 ==== Step 3 - The blockchain
 
@@ -233,7 +268,7 @@ are chained together in such a way that modifications to the
 blockchain can be detected. More on that in <<ch06>>.
 ****
 
-In step 3 nodes update their local copies of the Bitcoin ledger with
+In step 3, nodes update their local copies of the Bitcoin ledger with
 the information in Alice's transaction. The ledger is called _the
 blockchain_. The blockchain contains historic information about
 previous transactions, and new transactions are appended to it every
@@ -249,7 +284,7 @@ the copies would not remain copies for long, because the transactions
 may come in different order on different nodes:
 
 .Transactions arrives in different order at different nodes. If they would all write the transactions to the blockchain, the different nodes' blockchains would differ.
-image::{imagedir}/transactions-unordered.svg[{big-width}]
+image::{imagedir}/transactions-unordered.svg[{full-width}]
 
 [.gbinfo]
 .Why is ordering important?
@@ -265,8 +300,8 @@ order B, A!". This message, known as a _block_, is sent out on the
 network by that leader, in the same way as the transaction was sent by
 Alice.
 
-.One node takes the lead and tells the others what order to add the transactions in. The other nodes verify the message and update their blockchain copies accordingly.
-image::{imagedir}/payment-overview-step-3.svg[{big-width}]
+.One node takes the lead and tells the others what order to add the transactions in. The other nodes verify the block and update their blockchain copies accordingly.
+image::{imagedir}/payment-overview-step-3.svg[{full-width}]
 
 [.gbinfo]
 .The blockchain is append-only
@@ -275,10 +310,10 @@ New transactions are added to the end of the blockchain only. It grows
 only from the end.
 ****
 
-As nodes see this message they update their copy of the blockchain
+As nodes see this block they update their copy of the blockchain
 according to the message and passes the message on to its
 neighbors. Alice's transaction was one of the transactions in the
-leader's message and it is now part of the blockchain.
+block and is now part of the blockchain.
 
 Why would a node want to take the lead? It's because the node that
 takes the lead is rewarded with newly minted bitcoins and transaction
@@ -307,31 +342,32 @@ notify Bob that he has received one bitcoin.
 
 [id=wallet-connection]
 .Bob's wallet have asked a node to notify the wallet upon activity in his Bitcoin address. Alice pays to Bob's address, and the node has just written the transaction to the blockchain, so it notifies Bob's wallet.
-image::{imagedir}/payment-overview-step-4.svg[{big-width}]
+image::{imagedir}/payment-overview-step-4.svg[{full-width}]
 
 [.inbitcoin]
 .Wallet duties
 ****
 A typical Bitcoin wallet will
 
- - [x] Hold keys
- - [x] Watch incoming/outgoing bitcoins
- - [x] Send bitcoins
+* Manage keys
+* Watch incoming/outgoing bitcoins
+* Send bitcoins
 ****
 
 Bob's wallet is connected to some of the nodes in the Bitcoin
 network. When a transaction concerning Bob is added to the blockchain,
 the nodes that Bob's wallet is connected to will notify Bob's
 wallet. The wallet will then display a message to Bob that he just
-received one bitcoin.
+received one bitcoin. Alice also use a wallet. Her wallet will also be
+notified of her own transaction.
 
-As noted at the start of this section, Alice also use a wallet. Her
-wallet will also be notified of her own transaction, but there's one
-more very important thing that her wallet does. It holds her private
-keys for her. The keys are used to create digital signatures and those
-keys needs to be stored securely so that only Alice can use them. Bob
-also has a private key in his wallet so that he can spend the money he
-just received from Alice.
+Besides sending and receiving transactions, Bob's and Alice's wallets
+also manages their private keys for them. The private keys are used to
+create digital signatures. Alice created her digital signature with
+one of her private keys. When Bob later wants to spend the money he
+received to his Bitcoin address, he needs to create a transaction and
+digitally sign it with the private key corresponding to that Bitcoin
+address.
 
 === Problems with money today
 
@@ -344,7 +380,7 @@ areas.
 
 People with bank accounts and access to banking services like on-line
 payments or loans are very privileged. About 38% of the world
-population don't have a bank account at all, according to the World
+population don't have a bank account at all according to the World
 Bank, see <<web-financial-inclusion>>. The numbers are slowly
 improving but still a lot of people are stuck in a cash-only
 environment. If these people want to receive money from a family
@@ -380,8 +416,9 @@ by a number of factors:
 image::{imagedir}/privacy-issue-mastercard.svg[]
 ****
 
-Apart from the huge problems in the previous sections there are
-several other problems with traditional money. States can easily
+Apart from the problems in the previous sections there are several
+privacy problems with traditional money, when it comes to electronic
+payments like credit cards or bank transfers. States can easily
 
 * trace payments
 * censor payments
@@ -394,7 +431,7 @@ government looks like in five years and how that government defines
 crime. New laws are just an election away. After next election, your
 government may pass a law that allows freezing funds of people with
 your political view. There are places in the world where this is
-already happening.
+happening.
 
 .Problems
 ****
@@ -410,6 +447,12 @@ channels were blocked after pressure from the US government on the
 major payment networks, like Visa and MasterCard. We have also seen
 how Cyprus seized 47.5% [<<web-cyprus-seizure>>] of all bank deposits
 exceeding 100,000 € as part of a financial rescue program in 2013.
+
+Worth noting here is that bank notes and coins are usually not
+affected. As long as there is cash, people can trade freely and
+privately. In some parts of the world, cash is being phased out, which
+means that soon you will not be able to buy a chewing gum without
+being recorded by someone.
 
 ==== Inflation
 
@@ -427,8 +470,8 @@ decreases.
 image::{imagedir}/inflation.jpg[{half-width}]
 
 Most currencies are subject to inflation. Some more than others. For
-example the Zimbabwean dollar that during 2007-2008 inflated nearly
-10^23^%, peaking at 80 billion percent per month during a few months
+example the Zimbabwean dollar inflated nearly 10^23^% during
+2007-2008, peaking at 80 billion percent per month during a few months
 in 2008. That is an average daily inflation rate of nearly
 100%. Prices roughly doubled every day.
 
@@ -482,11 +525,11 @@ Philippine Pesos (PHP) or 109 US dollars.
 | Credit card | Cash | 4,498 PHP | 876 PHP | 16.3%
 |===
 
-If the recipient have a bank account with the capability of receiving
-international money transfer, we could get away with a 4.9% fee. A
+If the recipient has a bank account with the capability of receiving
+international money transfer, we could get away with a 4.9% fee. But a
 typical remittance recipient will only be able to receive cash, which
-doubles or triples the cost to 10.5% or 16.3% depending on how quick or
-convenient you want it.
+doubles or triples the cost to 10.5% or 16.3% depending on how quick
+or convenient you want it.
 
 .Problems
 ****
@@ -545,17 +588,16 @@ treat all users equally. There is no central point in the Bitcoin
 system that can be exploited to censor payments, deny users service or
 seize funds.
 
-The decentralization implies that Bitcoin is _permissionless_, which
-means that you don't need to ask anyone for permission to
-participate. Anyone with a computer and an Internet connection can
-setup a Bitcoin node and take an active role in the Bitcoin
-network. No questions asked.
+Bitcoin is _permissionless_, which means that you don't need to ask
+anyone for permission to participate. Anyone with a computer and an
+Internet connection can setup a Bitcoin node and take an active role
+in the Bitcoin network. No questions asked. No registration.
 
 It is nearly impossible to change the rules of the currency without
-broad consensus. If a node or a group of nodes does not obey the rules
-they will be ignored by the rest. For example, one rule is that the
-money supply of Bitcoin is limited to 21,000,000 bitcoins, and that
-limit is nearly impossible to change due to decentralization.
+broad consensus. If a node does not obey the rules it will be ignored
+by the rest. For example, one rule is that the money supply of Bitcoin
+is limited to 21,000,000 bitcoins. That limit is nearly impossible to
+change because of decentralization.
 
 [id=limited_supply]
 ==== Limited supply
@@ -571,11 +613,11 @@ limit is nearly impossible to change due to decentralization.
 
 A hard promise of Bitcoin is that its money supply will not exceed 21
 million bitcoins. People can be sure that if they own one bitcoin,
-they know that they will _always_ own at least one 21 millionth of the
-total supply of bitcoins. This feature is not found in any fiat
-currency, where decisions on the supply is made every so often by a
-company or a state. Bitcoin is very resistant to high inflation
-because there is no way to increase the money supply at will.
+they will _always_ own at least one 21 millionth of the total supply
+of bitcoins. This feature is not found in any fiat currency, where
+decisions on the supply is made every so often by a company or a
+state. Bitcoin is very resistant to high inflation because there is no
+way to increase the money supply at will.
 
 The money supply of Bitcoin is actually not fixed today. It is
 increasing, at a diminishing rate, according to a _predetermined_
@@ -611,8 +653,9 @@ There is no difference between sending a bitcoin to someone in the
 same room or sending it to someone on another continent. The
 experience is the same: Money is sent directly to the recipient, who
 will see the payment nearly instantaneously and after 10-60 minutes
-the recipient can be _sure_ that the money is hers. There is no way of
-reversing the transfer without the recipient's consent.
+the recipient can be _sure_ that the money is hers. Once settled,
+there is no way of reversing the transfer without the recipient's
+consent.
 
 === How is Bitcoin used?
 
@@ -639,8 +682,8 @@ keys are also all that is needed to spend your money. Keep them safe.
 This makes savings an attractive use case for Bitcoin. A simple way to
 save is to create a private key and write it down on a piece of paper
 that you store in a safe. That piece of paper is now your savings
-account, your savings _wallet_. You can start sending bitcoins to your
-wallet. As long as your private key is kept safe, your money is
+account, your savings _wallet_. You can then send sending bitcoins to
+your wallet. As long as your private key is kept safe, your money is
 safe. There are a lot of different saving schemes you can chose from
 to find the right balance between security and convenience.
 
@@ -834,7 +877,7 @@ cheap, instantaneous micropayments of fractions of a cent.
 
 Bitcoin payments takes time to confirm. A typical payment will confirm
 within 20 minutes. The recipient will see the payment immediately, but
-he cannot trust the payment until it is confirmed by the Bitcoin
+he shouldn't trust the payment until it is confirmed by the Bitcoin
 network. This limitation can also be fixed by systems built on top of
 Bitcoin, for example the Lightning Network.
 
@@ -937,10 +980,9 @@ other people on-board, since they are pretty happy with what Bitcoin
 is already providing. Everybody else is using Bitcoin, so why would
 you use Wowcoin? Think of it as starting a new internet, that you call
 Wownet. People on Wownet will not be able to use services on the
-Internet? And conversely, people on the Internet will not be able to
-use your service if you are on Wownet.So why would anyone use Wownet
-We call it the network effect; People tend to go where other
-people are.
+Internet. Conversely, people on the Internet will not be able to use
+your service if you are on Wownet. So why would anyone use Wownet? We
+call it the network effect; People tend to go where other people are.
 
 === Recap
 
