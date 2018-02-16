@@ -1,0 +1,111 @@
+[[answers]]
+== Answers to exercises
+
+=== Chapter 2
+
+==== Cryptographic hash functions
+
+1. 256 bits
+2. 32 bytes
+3. A cryptographic hash function
+4. `061a` is `6*256 + (16+10) = 1536 + 26 = 1562` in decimal form. The
+binary form of '06' is `0000 0110` and the binary form of `1a` is
+`0001 1010` so the full binary representation is `0000 0110 0001
+1010`.
+5. No. If it was possible, the function would not be second-pre-image
+resistant.
+6. Property 2 and 4 are lacking:
+7. Second-preimage-resistance is stopping the attacker. He needs to
+find an input that gives the same hash as a certain other input, the
+cat picture.
+
+==== Digital signatures
+
+1. The money supply increase rate will decrease over time because the
+reward to Lisa halves every 4 years. This means that the total amount
+of CT ever to be created is 21,000,000.
+2. The coworkers have read-access to the spreadsheet. They can watch
+the spreadsheet and verify that Lisa doesn't reward herself too much
+or too often.
+3. The private key is created using a random number generator of some
+sort. A very simple one is a coin that you flip 256 times to generate
+your 256 bit private key. You can also use your operating system's
+built-in random number generator.
+4. The private key.
+5. The message is hashed because we want signatures to be small and
+fixed in size. We don't want the signatures to be big just because the
+signed message is big.
+6. Mallory would need John's private key to steal cookies
+from him. She would also need his name, John, to write into the email
+to Lisa, but that's easily available in the spreadsheet.
+7. Fred can use my public key to encrypt the message and send the
+encrypted message to me. I can then decrypt that message using my
+private key.
+8. I sign the message using my private key and write the digital
+signature onto the note in the bottle. Fred can then verify that the
+signature is in fact made with my private key. He does that by using
+my public key to decrypt the signature and compare the decrypted hash
+with the actual hash of the message. If they match, he can be sure
+that the message is from me.
+9. The names in the spreadsheets act as identifiers for public keys,
+we could instead skip the names and use public keys diretly in the
+spreadsheet. We will do that in the next chapter. An email to Lisa
+wouldn't have to contain any names and look something like this:
+
+ Please more 10 CT from
+ <my public key>
+ to
+ <recipient public key>
+ Signature:
+ <signature of above message made with my private key>
+
+=== Chapter 3
+
+1. The public key hash is made short because a) It makes the
+spreadsheet smaller in size and b) it is shorter, and thus easier, to
+write for a user.
+
+2. No. She is very trustworthy. She will not tamper with the
+spreadsheet.
+
+3. Yes you can. There is a base58check decoding algorithm that does
+that.
+
+4. It's used by a payer to translate the recipient's address into a
+public key hash. The payer needs to write the recipient's PKH in the
+email to Lisa.
+
+5. Let's base58 encode `0047` step by step:
+  a. Remove leading `00` bytes. There is one, which leaves us with `47`
+  b. Convert to decimal number: `47` in hex is `4*16+7=71` in decimal
+  c. Divide by `71` by `58`: `71/58=1*58+13`. Quotient is `1`, remainder is `13`
+  d. Divide quotient `1` by `58`: `1/58=0*58+1`. Quotient is `0`, remainder is `1`
+  e. Lookup remainders `13` and `1`, result: `E` and `2`
+  f. Add a '1' for the removed `00` byte in step a, which results in `E21`
+  g. Reverse, `12E`. Done
+
+6. The 4 byte checksum.
+
+7. He must make two separate payments. For example: Payment 1 spends 2
+CT from @~1~ and payment 2 spends 8 CT from @~2~.
+
+8. Yes it is. Put the version byte `00` in front and base58check
+encode them to get the addresses.
+
+9. No, because the spreadsheet contains public key hashes. Since
+cryptographic hash functions are one-way functions, you can't go from
+public key hash to public key.
+
+10. They can look at the amounts. Many of the 10 CT payments are
+probably cookie purchases.
+
+11. The bad guy cannot steal cookie tokens, because he needs the
+public key in order to exploit the flaw in the public key derivation
+function. The spreadsheet contains public key hashes, they can't get
+the public key, see exercise 11.
+
+12. The bad guy needs the private key in order to sign fraudulent
+emails to Lisa. Eventhough he can reverse RIPEMD160, he'd still need
+to pre-image attack SHA256 and reverse the public key derivation
+function to get to a working private key.
+
