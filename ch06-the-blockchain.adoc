@@ -220,9 +220,9 @@ newly created money in a block is called the _block subsidy_.
 
 The first transaction in each block is a coinbase transaction, but the
 coinbase transactions of the blocks create 50 cookie tokens per block
-instead of 7200 cookie tokens as was the case in <<ch05>>. The idea is
+instead of 7,200 cookie tokens as was the case in <<ch05>>. The idea is
 that Lisa produces a new block every 10 minutes, which means that the
-rewards of 7200 CT per day are spread out over 144 blocks, since there
+rewards of 7,200 CT per day are spread out over 144 blocks, since there
 are 144 intervals of 10 minutes in 24 hours, and 7200/144=50. We will
 talk more about block rewards and the coinbase in <<ch07>>.
 

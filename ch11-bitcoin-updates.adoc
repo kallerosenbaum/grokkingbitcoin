@@ -16,6 +16,8 @@ in ch5 where we mention locktime and sequence.
 
 Generally, use graphs instead of tables?
 
+Make a better ecosystem overview in ch01. Seriously.
+
 Update outdated numbers and stuff throughout the book. Price charts etc.
 
 Add answers to exercises

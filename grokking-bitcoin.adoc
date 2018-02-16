@@ -5,6 +5,7 @@
 :sectnums:
 :toc: left
 :toclevels: 30
+:icons: font
 :baseimagedir: images
 :commonimagedir: {baseimagedir}/common
 :stylesheet: grokking-bitcoin.css
@@ -60,5 +61,10 @@ ifdef::ch10,chall[]
 include::ch10-segregated-witness.adoc[]
 endif::[]
 
+ifdef::chans,chall[]
+ifndef::chapter[include::answers.adoc[]]
+endif::[]
+
 ifdef::chweb,chall[]
 ifndef::chapter[include::web-resources.adoc[]]
+endif::[]
