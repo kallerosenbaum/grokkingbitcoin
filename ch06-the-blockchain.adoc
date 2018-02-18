@@ -633,8 +633,9 @@ the full node will send more unrelated transactions to the
 wallet. More unrelated transactions means more wasted data traffic,
 but also improves privacy.
 
-Let's do some back-of-the-envelope calculations. Feel free to skip
-this part and jump to <<periscope>>
+Let's do some back-of-the-envelope calculations.
+
+WARNING: Feel free to skip this part and jump to <<periscope>>.
 
 The bloom filter in the example above has 8 bits of which 5 are
 ones. A single hash function's output has the probability 5/8 to hit

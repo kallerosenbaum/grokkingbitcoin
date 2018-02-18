@@ -109,3 +109,54 @@ emails to Lisa. Eventhough he can reverse RIPEMD160, he'd still need
 to pre-image attack SHA256 and reverse the public key derivation
 function to get to a working private key.
 
+=== Chapter 4
+
+1. `bitcoin:155gWNamPrwKwu5D6JZdaLVKvxbpoKsp5S&amount=50`
+
+2. Each character corresponds to 6 bits of entropy because 2^6^=64. 10 such characters make 60 bits of entropy, which corresponds to 60 coin flips.
+
+3. Four problems:
+  ** Passwords are easily forgotten
+  ** Randomness is hard
+  ** Security of a password decreases as technology improves
+  ** You need to keep track of two items: The backup _and_ the
+   password. This increases the risk that the backup is lost.
+
+4. The seed is created by using a random number generator, for example a series of coin flips or the random number generator provided by your operating system.
+
+5. An xprv consists of a private key and a chain code.
+
+6. An xpub consists of a public key and a chain code.
+
+7. The xprv at path `m/2/1` and the wanted index `7`.
+
+8. No, you would need xprv `m/2/1` to derive xpub `M/2/1/7'`. You
+first derive hardened xprv `m/2/1/7'` from `m/2/1` using hardnened
+extended private key derivation and then calculate the xpub `M/2/1/7'`
+from `m/2/1/7'`.
+
+9. You can use this procedure to get the master xprv:
+  .. Use master xpub `M` to derive xpub `M/4`.
+  .. Use `M/4` to derive the left half hash at index 1.
+  .. Subtract that left half hash from `m/4/1` to get private key `m/4`.
+  .. Subtract the left half hash of `M/4` from `m/4` to get private key `m`.
+  .. `m` together with the chain code of xpub `M` is the master xprv.
+
+10. Yes, I'd be able to steal all funds in any addresses because I can
+calculate the master xprv.
+
+11. The victim could have used hardening to generate `m/4'`
+instead. That way I wouldn't be able to get the master xprv. If I
+stole `m/4'/1` and master xpub, I would only be able to steal funds on
+the `m/4'/1` key. I would not be able to calculate the `M/4'` xpub.
+
+12. The employees can import the extended public key for the counter
+sales account. Then the employees will be able to generate any public
+keys under that account, and thus generate as many addresses as they
+need without ever having to know any private keys.
+
+13. My (and Anita's) wallet can generate 10 addresses ahead of time
+and monitor the spreadsheet for those addresses. If Anita gets paid on
+one of these addresses, probably the first of those 10, then my wallet
+wouldn't reuse that address when I request a payment from a
+customer. I would instead take the next unused address.

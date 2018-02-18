@@ -513,9 +513,9 @@ the alphabet is the 58 characters
 
  123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz
 
-If you feel put off by this low level base58 mumbo jumbo, you can skip
-to <<base58check-decoding>> and just accept that base58 is a way to
-encode and decode data. For the rest of you, please
+WARNING: If you feel put off by this low level base58 mumbo jumbo, you
+can skip to <<base58check-decoding>> and just accept that base58 is a
+way to encode and decode data. For the rest of you, please
 continue. It's fun.
 
 In base64, each character represents exactly 6 bits which makes it
