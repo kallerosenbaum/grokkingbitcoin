@@ -543,7 +543,7 @@ For each output in a transaction the node tests whether any public key
 hash matches the filter. It starts with Tx~1~. Tx~1~ has a single
 output to PKH~V~. To test whether PKH~V~ matches the filter, it runs
 PKH~V~ through the exact same three hash functions as John's wallet
-did when the filter was created. The hash functions output the indices
+did when the filter was created. The hash functions output the indexes
 `5`, `1` and `0`. The bits at index `5` and `0` are both `1`, but the
 bit at index `1` is `0`. A zero bit means that PKH~V~ is definitely
 not interesting to John's wallet. If John's wallet was interested in
@@ -553,7 +553,7 @@ John's wallet is not interested in this transaction.
 
 Next transaction is Tx~2~. It contains two public key hashes: PKH~b~
 and PKH~X~. The node will test each of these in turn. It begins with
-PKH~b~. Running this PKH through the hash functions gives the indices
+PKH~b~. Running this PKH through the hash functions gives the indexes
 `5`, `0` and `3`. All those three bits have the value `1`. This means
 that the node cannot say for sure if the transaction is interesting to
 the wallet, but it cannot say that it's definitely not
@@ -698,7 +698,7 @@ very rough calculations based on somewhat false assumptions regarding
 the characteristics of transactions. We also don't take into account
 that the number of ones in our example is not strictly 6, but can be
 anywhere from 3 to 6 since both John's addresses could have generated
-the same set of indices. But it should help you get an idea on how big
+the same set of indexes. But it should help you get an idea on how big
 a bloom filter must be.
 
 [[periscope]]
@@ -1091,7 +1091,7 @@ image::{imagedir}/summary-bloom-filter.svg[{half-width}]
 
 The full node tests various stuff from the transactions, for example
 public key hashes in outputs, using the three hash functions. If all
-bits on those indices are `1` then it will send the transaction. If
+bits on those indexes are `1` then it will send the transaction. If
 not, it will not send the transaction.
 
 This chapter has solved the issue with deleted and/or changed
@@ -1224,7 +1224,7 @@ this be detected by a full node that
 .. has already downloaded the original block?
  
 . Make a bloom filter of eight bits of the two addresses @~1~ and
-@~2~, where @~1~ hashes to the indices `6`, `1`, and `7` and @~2~
+@~2~, where @~1~ hashes to the indexes `6`, `1`, and `7` and @~2~
 hashes to `1`, `5` and `7`. Then suppose that a full node tests the
 following transaction against the bloom filter:
 +

@@ -12,7 +12,7 @@ signature scripts. Witness data becomes cheaper because it can be pruned
 Explain why it's called a "witness program"
 
 Add transaction version to transactions in chapter 9. Also mention it
-in ch5 where we mention locktime and sequence.
+in ch5 where we mention locktime and sequence. Also BIP68 requires transaction version 2.
 
 Generally, use graphs instead of tables?
 

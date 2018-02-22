@@ -409,8 +409,13 @@ organization of keys.
 
 Note how the keys in the tree are numbered. Each set of children is
 numbered from 0 and upwards. This is used to give each key a unique
-identifier. For example the first (index 0) savings key is denoted
+identifier. For example the first, _index_ 0, savings key is denoted
 `m/1/0`. `m` is special and refers to the master private key.
+
+INFO: Computer programmers often use the term _index_ to denote a
+position within a list. It is usually 0-based (zero-based), meaning
+that the first item in the list has index 0, the second item has index
+1, and so on. We will use 0-based indexes throughout this book.
 
 How is a tree structure like this accomplished? Let's have a closer
 look at the creation of `m/1/0` and `m/1/1`.
@@ -616,18 +621,18 @@ Rita's wallet can display the seed as a sequence of 12 English words, called a _
 image:{imagedir}/backup-mnemonic.svg[]
 ****
 
-This mnemonic sentence _encodes_ the seed in a human
+IMPORTANT: This mnemonic sentence _encodes_ the seed in a human
 readable way. It's much more approachable to write down those 12 words
 than it is to write down cryptic hex code. If Rita loses her wallet
 she can install the wallet app on another phone and restore the seed
-from those 12 words. All Rita's keys can be regenerated from that
-seed.
+from those 12 words. All Rita's private keys can be regenerated from
+that seed.
+
+==== Encode seed into mnemonic sentence 
 
 WARNING: We are going to explore how this encoding works. It's really
 fun, but if you think this goes too deep, you can just accept the
 above paragraph and skip to section <<extended-public-keys>>.
-
-==== Encode seed into mnemonic sentence 
 
 The encoding starts with the random seed:
 

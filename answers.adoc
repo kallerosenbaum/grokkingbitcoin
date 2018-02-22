@@ -1,5 +1,6 @@
 [[answers]]
 == Answers to exercises
+:imagedir: {baseimagedir}/answers
 
 === Chapter 2
 
@@ -160,3 +161,69 @@ and monitor the spreadsheet for those addresses. If Anita gets paid on
 one of these addresses, probably the first of those 10, then my wallet
 wouldn't reuse that address when I request a payment from a
 customer. I would instead take the next unused address.
+
+=== Chapter 5
+
+1. I would spend the 4 CT and the 7 CT outputs. The new outputs would
+be 10 CT to the cafe and 1 CT in change to an address that I control.
+
+2. They are used in inputs to reference transactions to spend outputs
+from.
+
+3. Because you can't spend part of a transansaction output. You either
+spend the output or you don't. If the output contains more value than
+you're paying, you need to give back change to yourself.
+
+4. In the signature scripts in the inputs.
+
+5. Because the verifiers need to know what public key to verify the
+signature with. You can't verify the signature with a public key hash,
+so you need to explicitly reveal the public key in the signature
+script.
+
+6. The signature scripts are cleaned so that verifiers don't have to know the order in which the inputs are signed. It's easier if all inputs are clean from signatures when signing.
+
+7. Each output of a transaction contains a pubkey script. It contains
+the second part of a script program. The first part will be provided
+later when the output is spent.
+
+8. The script program must end with "OK" on top of the stack.
+
+9. A p2sh address always starts with a `3`. You can also recognize it
+by base58 decoding it and looking at the first byte. If that byte is
+`05` it's a p2sh address.
+
+10. I'll create a transaction with one input and three outputs:
++
+image::{imagedir}/ex-solution-10.svg[{full-width}]
+
+11. 10,003 UTXOs. You remove two UTXOs by spending two outputs and you
+add five new UTXOs. The net effect on the UTXO set is thus +3 UTXOs.
+
+12. The pubkey script can be for example `1`. The spending input can
+have an empty signature script. The full script program just puts a
+`1` on the stack. A result stack with non-zero on top means "OK".
+
+13. `OP_ADD 10 OP_EQUAL`. This will first add the two top items on the
+stack and put the result back on top. Then we will push the number 10
+to the stack and compare the two top items. If equal, "OK" will be
+pushed to the stack.
+
+14. I have to run a full node that verifies everything in the
+spreadsheet from the very first transaction up to the transaction
+containing my money from Faiza. I need to verify (among other things)
+that:
++
+* Lisa created the expected number of coinbase transactions with the correct amounts in them.
+* for each transaction, the sum of outputs doesn't exceed the sum of
+  inputs.
+* All signatures from Faiza's payment back to all coinbase
+  transactions are ok.
+
+15. If there are several UTXOs to the same PKH, it means that as soon
+as one of them is spent, the security of the other UTXOs to the same
+PKH will be degraded. This is because we remove layer of security, the
+cryptographic hash function. From that point we rely solely on public
+key derivation function to be secure. Users can avoid that problem by
+using unique addresses for all incoming payments. Then all UTXOs would
+be for different public key hashes.
