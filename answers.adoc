@@ -195,7 +195,7 @@ by base58 decoding it and looking at the first byte. If that byte is
 
 10. I'll create a transaction with one input and three outputs:
 +
-image::{imagedir}/ex-solution-10.svg[{full-width}]
+image::{imagedir}/ch05-ex-solution-10.svg[{full-width}]
 
 11. 10,003 UTXOs. You remove two UTXOs by spending two outputs and you
 add five new UTXOs. The net effect on the UTXO set is thus +3 UTXOs.
@@ -227,3 +227,78 @@ cryptographic hash function. From that point we rely solely on public
 key derivation function to be secure. Users can avoid that problem by
 using unique addresses for all incoming payments. Then all UTXOs would
 be for different public key hashes.
+
+=== Chapter 6
+
+1. By the previous block's block id, which is the hash of the previous
+block's header.
+
+2. The merkle root of a block commits to all transactions in that block.
+
+3. Lisa's block signature commits to the previous block id, the merkle
+root and the timestamp. This in turn commits to the whole blockchain
+before this block and and all transactions in the block.
+
+4. The first transaction in each block is a coinbase transaction. This
+coinbase transaction creates 50 new cookie tokens. This will be cut in
+half every four years, so after next halving, only 25 cookie tokens
+will be created in each block.
+
+5. All transactions. The hash functions will all result in an index
+containing `1` because there are no zeroes in the bloom filter. Any
+item in the transaction that we test will be a positive.
+
+6. In the input we will test:
+   * The txid together with the index that identifies the output to spend.
+   * All data items in the signature scripts
+   * All data items in the pubkey scripts
+   * The txid of the transaction
+
+7. They are not pre-image resistant, collision resistant or
+second-preimage resistant. The outputs space is very small, typically
+just a few hundered to a few thousand numbers. It will only take a
+fraction of a second to find a pre-image of for example `172`.
+
+8. The rightmost leaf must be copied to make an even number of
+leaves. The same goes for the next level, where the third hash needs
+to be copied.
++
+image::{imagedir}/ch06-ex-solution-8.svg[{full-width}]
+
+9. If Lisa's private block signing key is stolen the thief can start
+double spending. Also if a bad guy replaces Lisa's block signing
+public key on one or more sources, like the bulletin board or the
+intranet, the bad guy can fool people in accepting blocks not signed
+by Lisa.
+
+10. Lisa can censor transactions and the shared folder administrator
+can censor blocks.
+
+11. a) Yes, a new node that downloads all blocks from the shared
+folder will notice that there are two versions of the block. b) Yes,
+an old node that has already downloaded the original block will detect
+that there is an alternate version of the block.
+
+12. The bits at indexes `1`, `5`, `6` and `7` are set to `1` and the
+other to `0`. The full node would NOT send this transaction to the
+full node. Nothing that is tested hashes to only `1`-bits. This was somewhat of a trick question, because the  is a 
++
+image::{imagedir}/ch06-ex-solution-12.svg[{full-width}]
+
+13. The partial merkle tree is:
++
+ Number of tx: 3
+ Flags: ✔✔✘✔✔✔
+ Hashes 3 4 6
+
+14. The interesting transactions are number 7 and 13, or leafs number
+6 and 10 from the left. You have already seen the solution in
+<<bigger-trees>>, but we provide it here as well for reference.
+
+image::{imagedir}/ch06-ex-solution-14.svg[{full-width}]
+
+[start=15]
+15. You need to verify that
+* the transaction's txid is in the list of hashes.
+* the root of the partial merkle tree matches the merkle root in the block header.
+* the block header is correctly signed.
