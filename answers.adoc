@@ -302,3 +302,74 @@ image::{imagedir}/ch06-ex-solution-14.svg[{full-width}]
 * the transaction's txid is in the list of hashes.
 * the root of the partial merkle tree matches the merkle root in the block header.
 * the block header is correctly signed.
+
+=== Chapter 7
+
+1. She single handedly decides what transactions get confirmed.
+
+2. The probability of censorship will decrease because all miners must
+decide to censor my transactions, otherwise my transactions will slip
+through because some miner decides to confirm it.
+
+3. Miners can cheat with random numbers. You can't prove whether a miner
+cheated or not.
+
+4. If the block id of a block is lower than the target in the block
+header, and the target is the agreed upon target.
+
+5. By repeatedly increasing the nonce and hash (double SHA256) the
+block header until the block id (the block header hash) is lower than
+the target.
+
+6. The branch of the fork with most accumulated proof of work. This is
+not neccesarily the same as the branch with most blocks.
+
+7. A miner with hashrate 100 Mhash/s can perform 100,000,000 tries per
+second to find a valid proof of work.
+
+8. The target will decrease. If the 2016 blocks took 15 days instead
+of the goal of 14 days, it means that it's too hard to find blocks, so
+we need to increase the difficulty, which means decrease the target.
+
+9. 50%. But if you plan to give up your try at some point, should
+things not go as planned, your chances will decrease a bit.
+
+10. The small block will reach the other miners more quickly than the
+big block because a smaller block travels a computer network faster
+than a big block. The small block is probably also quicker to verify
+than the big block. Miners will probably download and verify the small
+block faster than the big block and continue their mining activity on
+top of the small block, which gives the small block a higher
+probability of becoming part of the strongest chain.
+
+11. The target will decrease by a factor 3/4. The time to produce 2016
+block is 1.5 weeks, the first 1008 blocks takes 1 week and the next
+1008 weeks takes 0.5 weeks. So the new target becomes
+
+[stem]
+++++
+new\ target=old\ target*\frac{1.5\ weeks}{2\ weeks}=old\ target*\frac{3}{4}
+++++
+
+[start=12]
+12. Selma has the majority of the hash rate. As long as she plays by
+the same rules as everyone else, she's going to earn a lot of block
+rewards. When she breaks the rules by changing the target prematurely,
+all full nodes, except Selma's, will discard her blocks. Selma will
+continue working on her own branch of the blockchain with her new
+rules, while all the rest will work on the branch with the old
+rules. The branches will be mutually incompatible. The hashrate of the
+old branch will drop to 48%, but the system ticks on and everyone
+continues their daily lives as normal. Selma, on the other hand, will
+spend a lot of electricity and time on her new branch and no one will
+buy her block rewards. The value of her mined coins will probably drop
+dramatically since they are not following the consensus rules. Selma
+is a loser.
+
+13. The "fee per byte" metric used by most miners will be
+very low. For every byte of transaction data the miner puts in its
+block it will loose a little competitiveness because the block will
+get bigger and thus slower to transport over the network and to
+verify. If the fee per byte for the transaction isn't high enough to
+compensate for the lost competitiveness, the miner will probably not
+include it.
