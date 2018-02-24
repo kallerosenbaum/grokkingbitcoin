@@ -156,9 +156,10 @@ This approach is naïve because we assume that miners are drawing their
 random numbers without cheating.
 ****
 
-The miners save their blocks as <blockid>.dat in the shared folder so
-that multiple blocks at the same height don't have to worry about
-naming their files.
+The miners save their blocks as <last-8-hexdigits-of-blockid>.dat in
+the shared folder so that multiple blocks at the same height don't
+have to worry about naming their files. An example of a file name is
+`9ce35c25.dat`.
 
 The system ticks on quite well, but once in a while two miners will
 draw a lucky number at the same time. They are not aware that another

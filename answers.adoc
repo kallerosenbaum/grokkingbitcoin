@@ -373,3 +373,54 @@ get bigger and thus slower to transport over the network and to
 verify. If the fee per byte for the transaction isn't high enough to
 compensate for the lost competitiveness, the miner will probably not
 include it.
+
+=== Chapter 8
+
+1. The shared folder is a bad idea because it gives the shared folder administrator absolute power over what blocks to allow.
+
+2. To relay a block means to pass it on to other peers.
+
+3. An `inv` message is used to announce to other peers that you have a
+certain block or transaction. `inv` stands for inventory.
+
+4. It will run the transaction through the bloom filter it got from
+the wallet. If any tested item in the transaction matches the filter,
+it will send the transaction should be sent to the lightweight wallet.
+
+5. The full node sends an `inv` to the lightweight wallet, after
+consulting the bloom filter. The wallet may then fetch the
+transaction if it doesn't already have it.
+
+6. The block header.
+
+7. Because the cafe doesn't have to obfuscate to their trusted node
+what addresses belongs to the wallet. They send a very big bloom
+filter to save data traffic on their mobile phone; A bloom filter that
+contains mostly zeroes will send almost no false positives.
+
+8. She would verify the signature of the program using the public key
+she knows belongs to the Bitcoin Core development team. She does this
+to avoid being tricked to run some malicious software.
+
+9. DNS servers, Asking trusted friends, hard-coded addresses shipped
+with Bitcoin Core.
+
+10. When the node has all blocks up to and including the last `inv` of
+each peer she downloads from.
+
+11. You need to convince the cafe, Qi and Tom to hide blocks from
+Lisa. You can bribe them or threaten them.
+
+12. She sends an `inv` message to Rashid's node containing:
++
+ tx=<TXID~1~>
+ tx=<TXID~2~>
+ block=<BKID>
+
+13. The cafe can connect to more nodes to shorten the paths
+from Qi. It can for example connect to Tom's node or directly to Qi's
+node.
+
+14. My node will start the synchronization process as follows:
++
+image::{imagedir}/ch08-solution-ex-getblocks-power-outage.svg[{full-width}]

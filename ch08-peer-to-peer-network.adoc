@@ -8,7 +8,7 @@ This chapter covers
 * Leaving the silly cookie tokens
 * Bootstrapping the peer to peer network
 
-Let's talk about the elephant in the room. The shared folder. All
+Let's talk about the elephant in the room: The shared folder. All
 blocks the miners produce must pass through the shared folder on their
 way to other full nodes and miners. This chapter will remove the
 central shared folder and replace it with a decentralized peer to peer
@@ -33,11 +33,11 @@ will start in John's wallet and end as a confirmed transaction in the
 cafe's wallet.
 
 We no longer need the cookie token system to help us understand
-Bitcoin at this point in the chapter. We will jump straight to talking
-only about Bitcoin from now on. There are practically no differences
-between the cookie token system and Bitcoin any more so it doesn't
-make sense to keep talking about cookie tokens, when in fact we want
-to learn about Bitcoin.
+Bitcoin at this point in the chapter. We will talk only about Bitcoin
+from now on. There are practically no differences between the cookie
+token system and Bitcoin any more so it doesn't make sense to keep
+talking about cookie tokens, when in fact we want to learn about
+Bitcoin.
 
 The last topic in this chapter will cover how a new node connects to
 the network and becomes part of the peer to peer network. This is far
@@ -84,7 +84,7 @@ instead of relying on the central shared folder. They could send the
 blocks directly to one another in a _peer to peer network_.
 
 .In a peer to peer network, blocks are being passed on from one node to another. Much like how gossip spreads among people.
-image::{imagedir}/basic-network.svg[{half-width}]
+image::{imagedir}/basic-network.svg[{big-width}]
 
 Think of the peer to peer network as a large number of people. One
 person does not know everyone else, but he may know 5 people. When
@@ -106,7 +106,7 @@ node can't do much to censor information. Suppose that Rashid finds a
 block and he wants to get this block out to all nodes.
 
 .If the cafe refuses to relay a block to Lisa, someone else will do it.
-image::{imagedir}/nodes-tolerate-bad-actors.svg[{half-width}]
+image::{imagedir}/nodes-tolerate-bad-actors.svg[{big-width}]
 
 Rashid sends his block to Qi, Tom and Cafe. For some reason, the cafe
 doesn't forward the block to Lisa. But Lisa has several peers in this
@@ -147,7 +147,7 @@ they communicate across their communication channel called a TCP
 (Transmission Control Protocol) connection.
 
 .Tom and Lisa communicates over the Internet through a communication channel
-image::{imagedir}/tom-lisa-communication.svg[{quart-width}]
+image::{imagedir}/tom-lisa-communication.svg[{half-width}]
 
 Suppose that Tom's node knows about Lisa's node. We will explain in
 <<bootstrapping-the-network>> how Tom learns about other nodes. For
@@ -172,12 +172,13 @@ widely used full node software.
 image::{imagedir}/tcp-connection.svg[{half-width}]
 
 Tom's node connects to Lisa's node through the IP address
-142.12.233.96 and port 8333. His node (computer program) starts by
-sending a message to Lisa's computer saying that he wants to talk to a
-computer program on Lisa's port 8333. Her computer knows that a
-program is actually listening on port 8333, so it sends back a "Sure,
-welcome" message. Tom's computer acknowledges that by sending back a
-"OK, cool. Let's talk..." message.
+142.12.233.96 and TCP port 8333. His node (computer program) starts by
+asking its operating system to initiate a connection to Lisa. The
+operating system sends a message to Lisa's computer saying that he
+wants to talk to a computer program on Lisa's port 8333. Her computer
+knows that a program is actually listening on port 8333, so it sends
+back a "Sure, welcome" message. Tom's computer acknowledges that by
+sending back a "OK, cool. Let's talk..." message.
 
 The node software on Tom's and Lisa's computers were not involved in
 this handshake, it was carried out by their operating systems, for
@@ -195,11 +196,11 @@ Tom and Lisa can now send and receive data over a communication channel. For exa
 .Lisa must be able to understand what Tom writes on the channel.
 image::{imagedir}/need-protocol.svg[{half-width}]
 
-but if Tom's node speaks a language that Lisa's node don't understand,
+But if Tom's node speaks a language that Lisa's node don't understand,
 the communication will not be meaningful. The nodes need to have a
 common language, a _protocol_.
 
-The Cookie token network protocol defines a set of different message
+The Cookie Token network protocol defines a set of different message
 types that are allowed. A typical message in the Cookie token (well,
 Bitcoin) network is the `inv` message:
 
@@ -212,12 +213,12 @@ messages is out of scope of this book.
 ****
 
 .A typical network message.
-image::{imagedir}/protocol-inv-example.svg[{half-width}]
+image::{imagedir}/protocol-inv-example.svg[{big-width}]
 
 The `inv`, short for _inventory_, message is used by a node to inform
 other nodes about something it has. In the example above, Tom's node
 informs Lisa's node that Tom has three things to offer Lisa, two
-transactions and a block. The message contains the id for each of the
+transactions and a block. The message contains an id for each of the
 items.
 
 ==== John sends the transaction
@@ -253,7 +254,7 @@ just send the transaction unsolicited. He first informs Tom's node
 that there is a transaction to be fetched.
 
 .Tom's node is informed about John's transaction so that Tom can fetch it.
-image::{imagedir}/tx-john-tom.svg[{half-width}]
+image::{imagedir}/tx-john-tom.svg[{big-width}]
 
 The first message is an `inv` message as described in the previous
 section. The `inv` is sent from John's wallet to Tom's full node. Tom
@@ -278,24 +279,23 @@ transaction hashes instead of whole transactions.
 ==== Tom forwards the transaction
 
 If the transaction is valid, Tom's node will inform his neighbors
-about this new transaction using an `inv` message, just like John did
-when he informed Tom's node about the transaction.
+about this new transaction using an `inv` message, just like John's
+wallet did when it informed Tom's node about the transaction.
 
 .Tom forwards the transaction to his friends.
-image::{imagedir}/tom-sends-tx.svg[{half-width}]
+image::{imagedir}/tom-sends-tx.svg[{big-width}]
 
 The process is exactly the same for these three message exchanges as
 John used when he first sent the transaction to Tom. Lisa, Qi and
 Rashid will get an `inv` message from Tom.
 
 .Tom's node sends the transaction to Qi's node by using the familiar three-step process
-image::{imagedir}/tx-tom-qi.svg[{half-width}]
+image::{imagedir}/tx-tom-qi.svg[{big-width}]
 
 When Lisa, Qi and Rashid has received the transaction, they too will
-forward the transaction to their peers after they have verified the
-transaction. Qi's and Rashid's nodes are a bit slower so it takes them
-a while to verify the transaction, we will get back to them
-later.
+inform their peers about the transaction after they have
+verified it. Qi's and Rashid's nodes are a bit slower so it takes them
+a while to verify the transaction, we will get back to them later.
 
 ****
 image::{imagedir}/2ndcol-lisa-sends-inv.svg[]
@@ -312,7 +312,7 @@ transaction and will not reply with anything. She will remember that
 Lisa has it, though.
 
 .Lisa's node sends an inv to Qi's node, but Qi's node already has the transaction
-image::{imagedir}/tx-lisa-qi.svg[{half-width}]
+image::{imagedir}/tx-lisa-qi.svg[{big-width}]
 
 Now Qi has just finished verifying the transaction. She knows that
 Lisa's node has this transaction, so she doesn't have to send and
@@ -339,9 +339,9 @@ this.
 
 The cafe's full node has received the transaction and verified it. The
 cafe also has a lightweight wallet on a mobile phone that it uses to
-send and receive transactions. They are concerned with security, so
-they have configured their lightweight wallet to only connect to their
-own full node, their _trusted node_.
+send and receive money. They are concerned with security, so they have
+configured their lightweight wallet to only connect to their own full
+node, their _trusted node_.
 
 .The cafe's lightweight wallet has a TCP connection to their own full node
 image::{imagedir}/cafe-connected-to-node.svg[{half-width}]
@@ -378,24 +378,17 @@ will request the actual transaction using `getdata`:
 .The cafe's wallet gets John's transaction from their trusted node after being checked against the bloom filter.
 image::{imagedir}/tx-cafenode-cafe.svg[{half-width}]
 
-[.gbinfo]
-.0-conf tx
-****
-If the cafe accepts a transaction that is not yet in the blockchain,
-it means that he trusts that John has paid enough transaction fee and
-that it will not be double spent
-****
-
 The wallet has now received the transaction. It can show a message to
 the cafe owner that a transaction is "pending". The cafe owner has a
-choice here: He can chose to trust that the transaction will get
-confirmed eventually, or he can wait until the transaction is included
-in a block. If he doesn't wait for confirmation, the risk of a
-successful double spend attack is _much_ higher than for a
-single-confirmation transaction. This time, the cafe decides that it
-needs to wait until the transaction is included in a valid block. This
-brings us to the next phase, including the transaction in a block in
-the blockchain.
+choice here: He can chose to trust that the transaction, a so-called
+0-conf transaction, will get confirmed eventually, or he can wait
+until the transaction is confirmed. If the cafe accepts the 0-conf
+transaction, it means that they trust that John has paid enough
+transaction fee and that it will not be double spent.
+
+This time, the cafe decides that it needs to wait until the
+transaction is included in a valid block. This brings us to the next
+phase, including the transaction in a block in the blockchain.
 
 ==== Include the transaction in a block
 
@@ -412,7 +405,7 @@ The transaction has reached all these miners during transaction
 propagation. John's wallet used to send the transaction via email to
 all miners. Now he just sends it to any of the full nodes, and the
 transaction will propagate across the whole peer to peer
-network. Miners can now chose to include Johns transaction in their
+network. Miners can now chose to include Johns transaction in the
 blocks they are mining. Suppose that the transaction includes a nice
 transaction fee so that some or all miners are willing to include it
 and that Rashid is the next miner to find a valid proof of work for
@@ -453,7 +446,9 @@ image::{imagedir}/tom-cafe-qi-sends-inv.svg[{half-width}]
 As you can see, Tom and Qi has sent an inv to one another. That's not
 a problem; since they both have the block, they will just ignore the
 `inv` received from peers. Lisa will request the block from one of her
-peers just like Qi requested the block from Rashid.
+peers just like Qi requested the block from Rashid. This concludes the
+propagation of this block. Almost. The lightweiht wallets need to be
+informed about the block.
 
 ==== Notify wallets
 
@@ -474,7 +469,7 @@ this particular block, Rashid's block, we have John's transaction as
 the third, and last, transaction of the block.
 
 .Tom sends a `merkleblock` containing a merkle proof that John's transaction is in the block.
-image::{imagedir}/john-requests-merkleblock.svg[{half-width}]
+image::{imagedir}/john-requests-merkleblock.svg[{big-width}]
 
 John gets a `merkleblock` message containing the block header and a
 partial merkle tree connecting his transaction id to the merkle root
@@ -499,7 +494,7 @@ transaction has 1 confirmation".
 The cafe's lightweight wallet will also be notified in the same way:
 
 .The cafe requests a `merkleblock` from their trusted full node
-image::{imagedir}/cafewallet-requests-merkleblock.svg[{half-width}]
+image::{imagedir}/cafewallet-requests-merkleblock.svg[{big-width}]
 
 ****
 image::{imagedir}/2ndcol-bloom-filter-tradeoff.svg[]
@@ -512,7 +507,7 @@ data traffic. The sparser the bloom filter, the less extra obfuscation
 traffic will be sent to the wallet.
 
 The owner of the cafe feels comfortable handing over the cookie to
-John now. John eats his cookie. Deal is done.
+John now. John eats his cookie. The deal is done.
 
 ==== More confirmations
 
@@ -561,13 +556,13 @@ do it.
 The Bitcoin peer to peer network is huge. As of writing:
 
 * It consists of about 10,000 publicly accessible full nodes.
-* Bitcoin's money supply is currently about 17,000,000 BTC.
-* Each bitcoin is worth around $4,400
+* Bitcoin's money supply is about 17,000,000 BTC.
+* Each bitcoin is worth around $10,000
 * 250,000 transaction per day
 * An estimate of 150,000 BTC, value $660M, being moved daily
-* Total mining hashrate is about 8 Exahash/s
-* Transaction fees paid each day totals around 150 BTC. A typical
-  transaction pays 30,000 satoshis, which is 0.0003 BTC or about $1.30.
+* Total mining hashrate is about 25 Ehash/s, 25*10^18^ hash/s.
+* Transaction fees paid each day totals around 50 BTC. Which averages
+  36,000 satoshis per transaction, or about $2 per transaction.
 * People in all corners of the world use Bitcoin to get around
 problems in their day-to-day life.
 
@@ -604,7 +599,7 @@ Suppose that Selma wants to start her own full node. This is how it
 would typically happen:
 
 .Running a full node involves, downloading and running the software, connect to other nodes, download old blocks and enter normal operation
-image::{imagedir}/running-a-full-node.svg[{big-width}]
+image::{imagedir}/running-a-full-node.svg[{full-width}]
 
 1. Selma downloads, verifies and starts the full node computer program
 2. The computer program connects to some nodes
@@ -639,7 +634,7 @@ Bitcoin Core software and a signature that signs the contents of the
 `SHA256SUMS.asc` file:
 
 .The Bitcoin Core team signs the released program with their private key
-image::{imagedir}/core-signs-program.svg[{half-width}]
+image::{imagedir}/core-signs-program.svg[{big-width}]
 
 Selma has downloaded both the program itself, in a file called
 `bitcoin-0.15.0.1-x86_64-linux-gnu.tar.gz` and the signature file
@@ -692,7 +687,7 @@ port for that peer, for example
 
  IP: 142.12.233.96 port: 8333
 
-An IP number and port are often written as
+An IP address and port are often written as
 
  142.12.233.96:8333
 
@@ -720,8 +715,8 @@ fooled.
 The preferred way to find initial node addresses is to look them up in
 the DNS system. DNS is a global name lookup system, used to lookup IP
 numbers from computer names. For example, when you visit
-https://bitcoin.org with your web browser, it will use DNS to lookup
-the IP number of the name bitcoin.org. The Bitcoin Core software does
+`https://bitcoin.org` with your web browser, it will use DNS to lookup
+the IP number of the name `bitcoin.org`. The Bitcoin Core software does
 the same. The names to lookup are hard coded into Bitcoin Core, just
 like the hard coded IP addresses and ports. There are several DNS
 seeds coded into the software. A lookup of a DNS seed can return
@@ -741,13 +736,14 @@ that Bitcoin Core listens on, which is `8333`.
 image::{imagedir}/initial-connection-simple.svg[]
 ****
 
-Suppose that Selma's node chooses to connect to Qi's node and to
-`47.196.31.246:8333`. She sets up a TCP connection to each of the two
-nodes and sends an initial message to both of them on the new TCP
-connections. Let's look at how she talks to Qi's node.
+Suppose that Selma's node chooses to connect to Qi's node,
+`1.234.63.203:4567`, and to `47.196.31.246:8333`. She sets up a TCP
+connection to each of the two nodes and sends an initial message to
+both of them on the new TCP connections. Let's look at how she talks
+to Qi's node.
 
 .Selma exchanges `version` message with Qi.
-image::{imagedir}/version-selma-qi.svg[{half-width}]
+image::{imagedir}/version-selma-qi.svg[{big-width}]
 
 The exchange, called a _handshake_, starts with Selma who sends a
 `version` message to Qi. The handshake is used to agree on a protocol
@@ -789,15 +785,15 @@ for other peer addresses to connect to. That way Selma will be able to
 expand her set of peers.
 
 .Selma asks her peers for more peer addresses to connect to.
-image::{imagedir}/selma-finds-more-peers.svg[{half-width}]
+image::{imagedir}/selma-finds-more-peers.svg[{big-width}]
 
 Selma is only connected to two peers, Qi's node and Rashid's node. But
 she thinks that she needs more nodes to connect to. Being connected to
 only two nodes has some implications:
 
 * Qi and Rashid can collude to hide transactions and blocks from Selma.
-* Qi's node could break and she's left with only Rashid's node. Then
-  Rashid can single handedly hide information from Selma.
+* Qi's node could break and Selma is left with only Rashid's
+  node. Then Rashid can single handedly hide information from Selma.
 * Both Qi's and Rashid's node could break in which case Selma is
   completely disconnected from the network until she connects to some
   other nodes via the initial peer lookup mechanisms.
@@ -805,7 +801,7 @@ only two nodes has some implications:
 This is how Selma asks Rashid for more peer addresses to connect to:
 
 .Selma requests more peer addresses from Rashid's node. He responds with a bunch.
-image::{imagedir}/addr-selma-rashid.svg[{half-width}]
+image::{imagedir}/addr-selma-rashid.svg[{big-width}]
 
 [.gbinfo]
 .Initial nodes
@@ -825,7 +821,7 @@ but didn't use himself.
 Selma will connect to any number of the received addresses to increase
 her _connectivity_. The more peers you are connected to, the better
 your connectivity. A high degree of connectivity decreases the risk of
-missing out on information due to misbehaving nodes. Also, information
+missing out on information due to misbehaving peers. Also, information
 propagates quicker if nodes have higher connectivity. A typical full
 node in Bitcoin has about 100 active connections at the same time.
 
@@ -838,7 +834,7 @@ image::{imagedir}/2ndcol-sync.svg[]
 Now that Selma is well connected to, and part of, the Bitcoin network,
 it's time for her to download and verify the full blockchain up to the
 very latest block available. This process is called _synchronization_,
-or _sync_.
+_sync_, or _initial blockchain download_.
 
 Remember in step 2, when Selma received a `version` message from Qi's
 node that stated `height=487224`? Selma will use that information now
@@ -872,8 +868,8 @@ knows that Tom has 487224 blocks, so he should be able to send Selma
 the first three blocks after block 0. That is blocks at height 1, 2
 and 3. This is how Selma's node requests the blocks from Tom's node:
 
-.Selma downloads blocks from Tom by repeatedly sending a `getblocks` message with her latest block id
-image::{imagedir}/getblocks-selma-tom.svg[{half-width}]
+.Selma downloads blocks from Tom by repeatedly sending a `getblocks` message with her latest block id.
+image::{imagedir}/getblocks-selma-tom.svg[{big-width}]
 
 It starts with Selma who sends a `getblocks` message to Tom. The
 `getblocks` message contains Selma's latest block id, which happens to
@@ -914,16 +910,14 @@ with, or ahead of, everyone else.
 [[validating-early-blocks]]
 ===== Validating early blocks
 
-Transactions in old blocks are already verified by most nodes and
-buried under a tremendous amount of proof of work. Given that so many
-nodes and miners have extended the old blocks is a good indication
-that the signatures in the transactions of those blocks are actually
-valid, so verifying them during synchronization makes little sense. To
-make synchronization faster, Bitcoin Core will skip signature
-verification on the transactions in early blocks.
+The most time consuming part of verifying a block is verifying the
+transaction signatures. If you know of any block id that is part of a
+valid blockchain, you can skip verifying the signatures of all blocks
+prior to and including this block. This will greatly speed up the
+initial blockchain download up to that block:
 
 .Signatures of reasonably old transactions will not be verified to speed up initial block download
-image::{imagedir}/skip-sigvalidation-of-early-blocks.svg[{half-width}]
+image::{imagedir}/skip-sigvalidation-of-early-blocks.svg[{big-width}]
 
 Of course, other stuff like verifying that no double spends occur, or
 that the block rewards are correct is still done. The syncing node
@@ -951,7 +945,7 @@ nodes. and ready to enter normal mode of operation.
 ==== Step 4 - Normal operation
 
 This step is easy, because we have already described it in
-<<_the_network_protocol>>. Selma enters normal mode of operation. From
+<<the-network-protocol>>. Selma enters normal mode of operation. From
 now on she will participate in block propagation, transaction
 propagation and verify every transaction and block coming in.
 
@@ -981,7 +975,7 @@ started with John buying a cookie. His transaction got propagated
 across the peer to peer network and to the cafe's wallet:
 
 .Johns transaction propagates to all participants
-image::{imagedir}/summary-tx-propagation.svg[{half-width}]
+image::{imagedir}/summary-tx-propagation.svg[{big-width}]
 
 The cafe will almost immediately see that a transaction is incoming,
 but it's not yet confirmed. The next stage is to mine the
@@ -989,7 +983,7 @@ block. Rashid is the lucky miner who finds the next block containing
 John's transaction:
 
 .Rashid's block containing John's transaction propagates to all participants
-image::{imagedir}/summary-block-propagation.svg[{half-width}]
+image::{imagedir}/summary-block-propagation.svg[{big-width}]
 
 Rashid sends out the block to his peers who will relay the block to
 their peers and so on until the block has reached the whole
@@ -1003,7 +997,7 @@ download the full block.
 Starting a new node involves fours steps.
 
 .Selma goes through four steps to join the network
-image::{imagedir}/running-a-full-node.svg[{big-width}]
+image::{imagedir}/running-a-full-node.svg[{full-width}]
 
 1. Download and verify for example the Bitcoin Core software. Then start it.
 2. Connect to other nodes
@@ -1073,11 +1067,11 @@ version.
 
 3. What are `inv` messages used for?
 
-4. How does a node notify a lightweight wallet about an incoming
-pending transaction?
-
-5. How does the full node decide what transactions to send to
+4. How does the full node decide what transactions to send to
 lightweight wallets?
+
+5. How does a node notify a lightweight wallet about an incoming
+pending transaction?
 
 6. Blocks are not sent in full to lightweight wallets. What part of
 the block is always sent to the wallet?
@@ -1095,30 +1089,30 @@ started node?
 ==== Dig in
 
 [start=11]
-. Suppose that Rashid finds a block and the Bitcoin peer to peer
-network consists of the following nodes:
-
-image::{imagedir}/ex-network-lie-to-lisa.svg[{quart-width}]
-
-What do you need to do to make sure Lisa don't get the next block?
+11. the Bitcoin peer to peer network consists of the following nodes:
++
+image::{imagedir}/ex-network-lie-to-lisa.svg[{half-width}]
++
+Which node owners do you need to threaten to prevent Lisa from getting
+any blocks but the ones Lisa creates herself?
 
 [start=12]
-. Suppose that Qi just received two transactions with transaction
+12. Suppose that Qi just received two transactions with transaction
 id:s TXID~1~ and TXID~2~, and one block with block ID BKID. Now she
 wants to inform Rashid about these new items. She don't know if Rashid
 already has these items. What does she do.
 
-. Suppose that the current Bitcoin network looks like this:
-
-image::{imagedir}/ex-network-badly-connected.svg[{quart-width}]
-
-When Qi finds a 1MB block, the cafe will experience a long delay
-before it gets the block (What's taking most time?). The cafe does not
-know where the next block will come from. What can the cafe do to
-improve the time it takes to receive blocks?
+13. Suppose that the current Bitcoin network looks like this:
++
+image::{imagedir}/ex-network-badly-connected.svg[{half-width}]
++
+When Qi creates a valid 1MB block, the cafe will experience a long
+delay before it gets the block. The cafe does not know where the next
+block will come from. What can the cafe do to improve the time it
+takes to receive blocks?
 
 [start=14]
-. Suppose that you are running a full node and experience a power
+14. Suppose that you are running a full node and experience a power
 outage for 18 minutes. When power comes back you start your node
 again. During those 18 minutes, two blocks, B~1~ and B~2~, have been
 created. Your latest block is B~0~. What will your node do after
@@ -1154,4 +1148,5 @@ In this chapter you learned that
 * Nodes do not need to stay on-line 24/7. They can drop out and come
   back and sync up the latest stuff.
 * Signature verification can be skipped for older blocks to speed up
-  initial synchronization.
+  initial synchronization. This is useful if you know that a specific
+  block is valid.

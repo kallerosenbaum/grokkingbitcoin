@@ -20,6 +20,8 @@ Make a better ecosystem overview in ch01. Seriously.
 
 Update outdated numbers and stuff throughout the book. Price charts etc.
 
+Section on pruning
+
 Add answers to exercises
 
 payment channel
