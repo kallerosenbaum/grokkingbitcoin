@@ -24,6 +24,10 @@ Section on pruning
 
 Add answers to exercises
 
+Go through book and highlight IMPORTANT stuff.
+
+Explain nothing-up-my-sleeve in ch04.
+
 payment channel
 lightning
 

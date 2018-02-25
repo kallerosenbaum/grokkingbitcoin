@@ -424,3 +424,86 @@ node.
 14. My node will start the synchronization process as follows:
 +
 image::{imagedir}/ch08-solution-ex-getblocks-power-outage.svg[{full-width}]
+
+=== Chapter 9
+
+1. At least one of the inputs must have a sequence number < `ffffffff`.
+
+2. The median of the timestamps of the 11 previous blocks must be
+strictly later than 2019-12-25 00:00:00.
+
+3. In the sequence number. The actual lock time is located in the
+rightmost 16 bits of the sequence number.
+
+4. `<2048> OP_CHECKSEQUENCEVERIFY OP_DROP`. Don't forget the OP_DROP
+afterwards, otherwise the <2048> would stay on the stack. This would
+problems in case OP_CSV succeeds.
+
+5. 2 transactions on each blockchain. One for the contract transation
+and one for the swap transaction.
+
+6. With fake public key hashes, the data must be stored forever in the
+UTXO set because Bitcoin nodes can't distinguish between fake public
+key hashes and real ones. The nodes will not be able to tell if the
+output is unspendable or not. With an OP_RETURN output, the node knows
+that the output is unspendable and thus doesn't have to keep it in the
+UTXO set.
+
+7. Your first transaction paid a too small fee and got stuck
+pending. You then want to replace it with a new transaction that pays
+a higher fee.
+
+8. Absolute lock time requires that a certain block height or point in
+time has passed before the transaction is valid. Relative lock time
+requires that a certain amount of time or blocks have passed since the
+spent output was confirmed.
+
+9. The redeem script contains two branches of code. The first branch
+will require that both You and Ruth sign to spend the 2 BTC. This can
+be done at any time. To spend the 2 BTC using the second branch
+requires that all of the following conditions are met:
++
+--
+* You have waited until new year's eve
+* Beth has signed the transaction
+* You or Ruth sings the transaction
+
+To be precise, you and Ruth can spend using the first branch with the
+following signature script (excluding the redeem script):
+
+ 0 <your sig> <ruth sig> 1
+
+The second branch can be spent at earlies on new year's eve by:
+
+ 0 <your or ruths sig> <beth sig> 0 
+
+The rightmost digit in both signature scripts above will select what
+branch to use, the rest just fulfills the requirement in the
+respective branch.
+
+The timelocked branch ensures that Beth has no power to collude with
+either You or Ruth before new year's eve.
+--
+
+10. No. The redeem script is not known to the nodes until an output is
+spent. And since you can't spend an OP_RETURN redeem script, nodes
+will never know about the redeem script.
+
+11. A full node that receives a transaction will keep it in memory
+until it is included in a block. If a second, conflicting, transaction
+arrives, the node will drop that second transaction and not
+relay it. It will consider the first seen transaction as the "real"
+one and the second transaction as a "double spend attempt". Nodes
+(including miners) are not required to follow this policy, because it
+is just a policy.
+
+12. A miner can always select whatever valid transactions they want to
+include in their blocks. This means that all transactions are in a way
+"replaceable". A miner can offer replacement as a service; Upload a
+double spend transaction with a high fee via the miner's website to
+have it confirmed in their next winning block.
++
+It is of course simpler for normal users to replace a transaction that
+has opted in to RBF. But using services like the one above is simple
+enough for a motivated thief. The difference in security is therefore
+not as big as one might think.

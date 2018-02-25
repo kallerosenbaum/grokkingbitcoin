@@ -21,6 +21,9 @@ div>p,.literalblock,.listingblock,.imageblock>.title,div>.tableblock,.dlist,.oli
 .literalblock {
     font-size: 0.9em;
 }
+.literalblock>.title {
+    font-size: 0.9em;
+}
 
 /* Don't set sublist width to 75%. */
 li>.olist,li>.ulist,td>.olist,td>.ulist {

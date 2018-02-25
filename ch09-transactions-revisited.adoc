@@ -16,7 +16,7 @@ what functionality transactions can offer us.
 We will start by exploring time locks. A time lock is a way to make
 transactions invalid until a certain point time, or a certain block
 height. This means that you can create a transaction that can not be
-included in a block until that point in time of block height has
+included in a block until that point in time or block height has
 passed. This is useful for digital contracts like atomic swaps covered
 later in this chapter.
 
@@ -56,9 +56,9 @@ However, there are times when you want to sign a transaction but be
 guaranteed not have it mined until after at least, say one year, have
 passed.
 
-Suppose that you have a fair amount of bitcoins, and in case you die,
-you want your daughter to get the money to her address @~D~, but only
-after you die. You can create a transaction that is time locked:
+Suppose that you have 100 bitcoins, and in case you die, you want your
+daughter to get the money to her address @~D~, but only after
+you die. You can create a transaction that is time locked:
 
 [.gbinfo]
 .No fee?
@@ -68,7 +68,7 @@ any fees.
 ****
 
 .A payment to your daughter that will become valid after one year has passed.
-image::{imagedir}/timelock-to-daughter.svg[{half-width}]
+image::{imagedir}/timelock-to-daughter.svg[{big-width}]
 
 [.gbinfo]
 .Sequence numbers
@@ -97,20 +97,22 @@ transaction, which has become valid by then.
 
 If you don't die before that date, you want to make sure that the time
 locked transaction becomes useless, so that your daughter can't take
-the money once the time lock date has passed. One way to do that is to
-spend one of the inputs of Tx~1~, to make the time locked transaction
-forever invalid, and create a new time locked transaction for yet
-another year:
+the money once the time lock date has passed.
+
+You can create, but not broadcast yet, a new transaction, Tx~2~, that
+doublespends an output that Tx~1~ spends. If Tx~2~ would confirm,
+TX~1~ would become forever invalid. Then you create a new time locked
+transaction for yet another year:
 
 .Make Tx~1~ invalid by spending an output that Tx~1~ spends and create a new time locked transaction to your daughter
-image::{imagedir}/timelock-to-daughter-2.svg[{big-width}]
+image::{imagedir}/timelock-to-daughter-2.svg[{full-width}]
 
 [.gbinfo]
 .Transaction malleability
 ****
 There is a problem here. The txid of Tx~2~ _can_ change while being
-broadcast, making Tx~3~ forever invalid. That's fixed by _segregated
-witness_ in <<ch10>>.
+broadcast, making Tx~3~ forever invalid. That's called _transaction
+malleability_ and is fixed by _segregated witness_ in <<ch10>>.
 ****
 
 You need to
@@ -119,16 +121,17 @@ You need to
 the outputs spent by Tx~1~. Tx~2~ is a normal, not time locked,
 transaction. Don't broadcast this transaction just yet.
 . Create a new time locked transaction, Tx~3~, that spends all your
-outputs. Give Tx~3~ to your daughter.
+outputs. This transaction is locked for another year. Give Tx~3~ to
+your daughter.
 . Broadcast Tx~2~. Once Tx~2~ is mined, Tx~1~ will become forever
 invalid, because one of the inputs of Tx~1~ is spent by Tx~2~.
 
 Note how the order of events are important here. If Tx~2~ is broadcast
 _before_ you give Tx~3~ to your daughter, there's a chance that you
-die before giving her the transaction. Then your daughter will not be
-able to receive the funds, because she has no valid transaction to
-claim them with. Tx~1~ is invalidated by Tx~2~ in the blockchain, and
-Tx~3~ is not in your daughter's possession.
+die before giving her Tx~3~. Then your daughter will not be able to
+receive the funds, because she has no valid transaction to claim them
+with. Tx~1~ is invalidated by Tx~2~ in the blockchain, and Tx~3~ is
+not in your daughter's possession.
 
 ==== Time measurements
 
@@ -187,23 +190,24 @@ year.
 .BIP68
 ****
 This BIP describes how an input can require a certain distance in time
-or blocks from the spent transaction output.
+or blocks from the spent transaction output. This applies to
+transactions with version at least 2.
 ****
 
 The above example showed a use case for absolute time locks on
 transactions. But there is also a way to require that a certain amount
-of time has passed since a spent output was confirmed. This is done on
-a per input basis:
+of time has passed since a spent output was confirmed. We call this a
+_relative time lock_. This is done on a per input basis:
 
 .Relative time locks can be expressed either as a number of blocks or as a number of units of time. The sequence number of the inputs are used for this.
-image::{imagedir}/relative-lock-time.svg[{big-width}]
+image::{imagedir}/relative-lock-time.svg[{full-width}]
 
 The first input of the transaction has a sequence number of
 `004013c6`. This says that the transaction is not valid until 30 days
 have passed since the spent output was confirmed.
 
 .The first input locks the transaction for 30 days from the spent output.
-image::{imagedir}/relative-lock-time-first-input.svg[{big-width}]
+image::{imagedir}/relative-lock-time-first-input.svg[{full-width}]
 
 The left-most bit of this sequence number is 0, which means that
 relative lock time is enabled. The bit at index 9 from the left is 1,
@@ -217,12 +221,18 @@ the transaction is invalid until 1,000 blocks have been mined since the
 spent output was mined.
 
 .The first input locks the transaction for 30 days from the spent output.
-image::{imagedir}/relative-lock-time-second-input.svg[{big-width}]
+image::{imagedir}/relative-lock-time-second-input.svg[{full-width}]
 
 The left-most bit is zero here too, which means that relative lock
-time is enabled for this input. The bit ant index 9 from the left 0,
+time is enabled for this input. The bit at index 9 from the left is 0,
 which means that the 16 right-most bits should be interpreted as
 number of blocks. `03e8` is hex code for 1,000.
+
+The version of the transaction needs to be at least 2 for relative
+time locks to work. If the version is 1, the sequance numbers will not
+have any effect on relative lock time, but it will affect absolute
+lock time and "Replace by fee". Replace by fee is discussed later in
+<<replace-by-fee>>.
 
 === Time locked outputs
 
@@ -242,16 +252,15 @@ locks can be time based or height based.
 [.inbitcoin]
 .BIP65
 ****
-This BIP describes in detail the Script operator,
-OP_CHECKLOCKTIMEVERIFY, that implements the absolute time locked
-output.
+This BIP describes in detail the Script operator, OP_CHECKLOCK-TIMEVERIFY that implements the
+absolute time locked output.
 ****
 
 Suppose that you want to give your daughter 1 BTC allowance on the
 first of May. You can then make a transaction as follows:
 
 .Paying allowance in advance to your daughter. She may not spend it before may 1 2019.
-image::{imagedir}/absolute-time-locked-outputs.svg[{half-width}]
+image::{imagedir}/absolute-time-locked-outputs.svg[{big-width}]
 
 You can broadcast this transaction immediately to the Bitcoin network
 and have it mined. The first output is the interesting part. It says
@@ -294,7 +303,7 @@ the output as she pleases after May 1.
 .BIP112
 ****
 This BIP describes relative time locked outputs. The script
-operator is called OP_CHECKSEQUENCEVERIFY.
+operator is called OP_CHECK-SEQUENCEVERIFY.
 ****
 A relative time locked output works similar to an absolute time locked
 output, but relative locks require that a certain amount of time _has
@@ -307,11 +316,11 @@ image::{imagedir}/relative-lock-overview.svg[{big-width}]
 Relative time locks are most commonly used in _digital contracts_. A
 digital contract can be regarded as a traditional contract between
 parties, but they are enforced by the rules of the Bitcoin network
-rather than national laws. Contracts are expressed as Bitcoin
-transaction output scripts, the pubkey script. We will illustrate the
-use of relative time locked outputs with an _atomic swap_ in the next
-subsection. An atomic swap means that two persons swap coins with
-each other across different cryptocurrencies.
+rather than national laws. Contracts are expressed as Bitcoin pubkey
+scripts. We will illustrate the use of relative time locked outputs
+with an _atomic swap_ in the next subsection. An atomic swap means
+that two persons swap coins with each other across different
+cryptocurrencies.
 
 ==== Atomic swaps
 
@@ -340,13 +349,16 @@ than Bitcoin's.
 
 The conversation started like this:
 
+[subs="normal"]
 .John:
-> Do you want to swap 100 NMC for my 2 BTC? My Namecoin public key is
-> 02381EFD...88CA7F23. I've created a *secret random number that has
-> the SHA256 hash value H*. I will not tell you the secret number yet.
+ Do you want to swap 100 NMC for my 2 BTC? My Namecoin public key is
+ *02381EFD...88CA7F23*. I've created a *secret random number that has
+ the SHA256 hash value H*. I will not tell you the secret number yet.
 
+[subs="normal"]
 .Fadime:
-> Sure John, let’s do it! My Bitcoin public key is 02b0c907...df854ee8
+ Sure John, let’s do it! My Bitcoin public key is
+ *02b0c907...df854ee8*
 
 ****
 image::{imagedir}/2ndcol-s-and-h.svg[]
@@ -361,7 +373,7 @@ that spends 2 of his BTC. Fadime creates a Namecoin transaction that
 spends 100 of her NMC. They don't broadcast their transactions yet.
 
 .John and Fadime creates a contract transaction each. The redeem script of this p2sh output contains the contract details.
-image::{imagedir}/atomic-swaps-1.svg[{big-width}]
+image::{imagedir}/atomic-swaps-1.svg[{full-width}]
 
 The output of John's contract transaction can be spent in one of two
 ways:
@@ -379,18 +391,18 @@ one of two ways:
 
 The relative lock time is enforced by the Script operator
 `OP_CHECKSEQUENCEVERIFY`. This operator requires that the output of
-John's contract transaction is not spent until 48 hours has passed
-from the time when the contract transaction was confirmed. In Fadime's
-contract transaction, the operator requires that the output is unspent
-for at least 24 hours.
+John's contract transaction is not spent by John until 48 hours has
+passed from the time when the contract transaction was confirmed. In
+Fadime's contract transaction, the operator requires that Fadime
+doesn't spend the output until after 24 hours.
 
 Fadime knows that John has the secret number. So if Fadime broadcasts
 her contract transaction now, John can take the money and not fulfill
 his part of the deal. For this reason she will not broadcast her
 transaction until she has seen John's transaction safely confirmed in
-the blockchain. Since Fadime don't know the secret, S, John can safely
-broadcast his contract transaction without Fadime running away with
-the money.
+the blockchain. Since Fadime doesn't know the secret, S, John can
+safely broadcast his contract transaction without Fadime running away
+with the money.
 
 .p2sh address creation
 ****
@@ -401,10 +413,11 @@ So John broadcasts his contract transaction. Remember that the output
 of the contract transaction in this example is a pay-to-script-hash,
 p2sh, output. The output contains a p2sh address that doesn't say
 anything about this being John's contract output. So, in order for
-Fadime to identify John's contract transaction on the blockchain, she
-will construct the same redeem script as John created for his contract
-transaction and generate the p2sh address John's contract transaction
-paid to. Then she can look for that p2sh address in the blockchain.
+Fadime to identify John's contract transaction on the Bitcoin
+blockchain, she will construct the same redeem script as John created
+for his contract transaction and generate the p2sh address John's
+contract transaction paid to. Then she can look for that p2sh address
+in the Bitcoin blockchain.
 
 When Fadime finds that John's transaction is confirmed, she broadcasts
 her own contract transaction. John waits until Fadime's transaction is
@@ -412,7 +425,7 @@ sufficiently confirmed on the Namecoin blockchain. Then the actual
 swap happens in two steps:
 
 .The first step of the actual swap. John claims Fadime's 100 NMC by revealing the secret S.
-image::{imagedir}/atomic-swaps-2.svg[{big-width}]
+image::{imagedir}/atomic-swaps-2.svg[{full-width}]
 
 John broadcasts his swap transaction. John's swap transaction spends
 Fadime's contract transaction output by providing S and his
@@ -431,19 +444,20 @@ The script will leave the stack with a true on top because John
 provides both required items in the correct order, his signature and
 the pre-image, `S`. He successfully claims his 100 NMC.
 
-Now, as soon as Fadime sees John's swap transaction she can create her
-own swap transaction on the Bitcoin blockchain.
+As soon as Fadime sees John's swap transaction on the Namecoin
+netwrok, she can create her own swap transaction for the Bitcoin
+blockchain.
 
 .Fadime completes the atomic swap by sending her swap transaction to the Bitcoin network.
-image::{imagedir}/atomic-swaps-3.svg[{big-width}]
+image::{imagedir}/atomic-swaps-3.svg[{full-width}]
 
-She takes the secret pre-image, S, from John's swap transaction and
-puts it into her own swap transaction that pays 2 BTC to Fadime's
-public key hash, PKH~F~. When the two swap transactions get confirmed,
-the atomic swap is complete. The effect of all this is that John has
-sent 2 BTC to Fadime, under the condition that Fadime sends 100 NMC to
-him, and Fadime sends 100 NMC to John under the condition that John
-sends 2 BTC to her.
+She takes the pre-image, S, from John's swap transaction and puts it
+into her own swap transaction that pays 2 BTC to Fadime's public key
+hash, PKH~F~. When the two swap transactions get confirmed, the atomic
+swap is complete. The effect of all this is that John has sent 2 BTC
+to Fadime, under the condition that Fadime sends 100 NMC to him, and
+Fadime sends 100 NMC to John under the condition that John sends 2 BTC
+to her.
 
 ===== Failure of atomic swap
 
@@ -489,7 +503,6 @@ In the early days of Bitcoin, it became clear that people wanted to
 put stuff in transactions in the Bitcoin blockchain that doesn't have
 anything to do with Bitcoin itself.
 
-[.small]
 .A blockchain tribute to Cryptographer Sassama allegedly posted by Dan Kaminsky. The message is wrapped into 3 columns to save space.
 ....
 ---BEGIN TRIBUTE---     LEN "rabbi" SASSAMA     P.S.  My apologies,
@@ -522,11 +535,8 @@ lTWk,  "4RRR7' 4 XH                             Xwi, "4WW7""4WW7',W
                                                 ----END TRIBUTE----
 ....
 
-While this was certainly funny, it has some implications for Bitcoin's
-full nodes. This is purposefully ironic given the P.S. message that
-refers to the centralizing effect an ever increasingly growing
-blockchain will have due to increased cost of running a full node.
-
+While this was certainly interesting and funny, it has some
+implications for Bitcoin's full nodes.
 
 .Blockchain explorer
 ****
@@ -547,7 +557,7 @@ For example, the very last output's pubkey script looks like this:
 
 The interesting part is the public key hash. This is not an actual
 public key hash, but a made up one. Maybe you can see a pattern when
-you compare it to the line `----END TRIBUTE---- `:
+you compare it to the line ``----END TRIBUTE---- ``:
 
  2d 2d 2d 2d 45 4e 44 20 54 52 49 42 55 54 45 2d 2d 2d 2d 20
  -  -  -  -  E  N  D     T  R  I  B  U  T  E  -  -  -  -   
@@ -573,13 +583,6 @@ message along with the ASCII-decoded text:
 3a3a54545858575757206c586c205757543a2020 ::TTXXWWW lXl WWT:
 2d2d2d2d454e4420545249425554452d2d2d2d20 ----END TRIBUTE----
 ----
-
-Most Bitcoin full nodes have (and had at the time of the above
-transaction) a policy requiring that each output must have a
-non-negligible value. If not, the transaction would simply be
-dropped. There are some exceptions to this default policy that we'll
-learn in a moment. Each of the outputs pays 0.01 BTC to a
-bogus PKH to circumvent these policies.
 
 ==== Bloated UTXO set
 
@@ -609,7 +612,7 @@ users can create _provably unspendable_ outputs. If a full node can
 determine if an output is unspendable, it doesn't have to insert it
 into its UTXO set.
 
-The partial solution involves a new Script operator called
+The partial solution involves a new script operator called
 `OP_RETURN`. This operator immediately fails when executed. A typical
 `OP_RETURN` pubkey script can look like this
 
@@ -619,14 +622,18 @@ If someone would try to spend this output, it would cause the script
 to fail when it encounters the `OP_RETURN`. So if the pubkey script
 contains this operator, a full node can determine that the output is
 not spendable and simply ignore the output. Saving the UTXO set from
-being forever bloated with this nonsense.
+being forever bloated with this nonsense. A typical `OP_RETURN` output
+pays 0 BTC, but it can also set a value >0 to "burn" money.
 
 There are a few policies regarding OP_RETURN:
 
-* The full pubkey script must not be bigger than 83 bytes
-* There can only be one OP_RETURN output per transaction
-* OP_RETURN output are allowed to have 0-value, so that you don't have
-  to burn money to use it.
+* The full pubkey script must not be bigger than 83 bytes.
+* There can only be one OP_RETURN output per transaction.
+
+The above three policies are just that, policies. It's not against
+Bitcoin's consensus rules to include a transaction violating these
+policies, but full nodes implementing these policies will not relay
+such transactions.
 
 ==== Create a token in Bitcoin
 
@@ -636,19 +643,19 @@ decides that they want to digitally track the ownership of their cars
 on the Bitcoin blockchain. This can be accomplished by creating a
 token in Bitcoin.
 
-Suppose that the Ampere wants to create a token for a newly
-manufactured car with the chassis number 123456. Then they broadcast a
-Bitcoin transaction as follows:
+Suppose that Ampere wants to create a token for a newly manufactured
+car with the chassis number 123456. Then they broadcast a Bitcoin
+transaction as follows:
 
 .Ampere creates a new token for a newly built car. They issue the token to themselves because they still own this car.
-image::{imagedir}/car-token-1.svg[{half-width}]
+image::{imagedir}/car-token-1.svg[{big-width}]
 
-This "Ampere token protocol" depicts that a new token is created by
+This "Ampere token protocol" specifies that a new token is created when
 
-* Ampere spends a coin from PKH~A~
-* The transaction contains an OP_RETURN output with the text `"ampere
+* Ampere spends a coin from PKH~A~.
+* the transaction contains an OP_RETURN output with the text `"ampere
   <chassis number>"`.
-* The first output is the initial owner of the token.
+* the first output is the initial owner of the token.
 
 Ampere has a well known web page at https://www.ampere.example.com/
 where they have published their public key corresponding to
@@ -661,14 +668,14 @@ a public key hash PKH~D~. This is how Ampere will transfer the digital
 ownership to the dealer:
 
 .Ampere sells the car to a car dealer with public key hash PKH~D~.
-image::{imagedir}/car-token-2.svg[{big-width}]
+image::{imagedir}/car-token-2.svg[{full-width}]
 
 According to our simple protocol, ownership of a car is transferred by
 spending the old owner's output. The following rules apply:
 
 * The spending transaction spends the old owner's output.
-* The first output is the new owner of the car.
-* The first output must have the same value as the old owner's output.
+* The first output of the spending transaction is the new owner of
+  the car.
 
 Now the car dealer is the new owner because the PKH~D~ is the first
 output of the spending transaction. That's it. When the dealer sells
@@ -676,7 +683,7 @@ this car to a consumer, Fadime, the dealer transfers the ownership of
 the car to Fadime's address, PKH~F~:
 
 .The car dealer transfers the ownership of the car to Fadime's PKH~F~. 
-image::{imagedir}/car-token-3.svg[{big-width}]
+image::{imagedir}/car-token-3.svg[{full-width}]
 
 ==== Start the car with proof of ownership
 
@@ -686,7 +693,7 @@ She can. The car is equipped with an ignition lock that starts the
 engine when Fadime sends a proof of ownership to the car.
 
 .Fadime starts her car by signing a challenge with her private key.
-image::{imagedir}/car-token-4.svg[{half-width}]
+image::{imagedir}/car-token-4.svg[{big-width}]
 
 Fadime first asks the car to start. The car will not start if it
 doesn't know that Fadime has the private key belonging to PKH~F~. The
@@ -702,6 +709,7 @@ that understands the Ampere token protocol.
 When the car has verified that the signature is valid and from the
 correct private key it will start the engine.
 
+[[replace-by-fee]]
 === Replace pending transactions
 
 When you send a Bitcoin transaction to buy a book on-line, the book
@@ -712,14 +720,14 @@ include your transaction? This can certainly happen if your
 transaction fee is not sufficient.
 
 [id=stuck-transaction]
-.You pay for your book and set the transaction fee to 0.0001 BTC
-image::{imagedir}/rbf-1.svg[{half-width}]
+.You pay for your book and set the transaction fee to 0.00001 BTC
+image::{imagedir}/rbf-1.svg[{big-width}]
 
 You may recall from <<_transaction_fees>> that the transaction fee is
 the sum of the input values minus the sum of the output values. The
-fee per byte that miners care for is calculated by dividing that fee
-with the size of the transaction. In this case 1,000 satoshis divided
-by 225 bytes, which is about 4.4 sat/byte.
+"fee per byte" that miners care about is calculated by dividing that
+fee with the size of the transaction. In this case 1,000 satoshis
+divided by 225 bytes, which is about 4.4 sat/byte.
 
 If no miner is willing to include the transaction for that fee, your
 transaction will be stuck waiting for confirmation. If the transaction
@@ -728,7 +736,7 @@ something about the situation. Maybe you can create a new similar
 transaction, but with a higher fee? Let's try.
 
 .You try to replace your old, stuck, transaction with a new one with higher fee.
-image::{imagedir}/rbf-2.svg[{half-width}]
+image::{imagedir}/rbf-2.svg[{big-width}]
 
 That's nice. You have created and signed a new transaction with a 20
 times higher fee. This would surely get mined, you think, and
@@ -740,23 +748,22 @@ think that the first transaction is the one that counts and disregards
 any further transactions that spend the same output. It is completely
 up to the nodes how to handle the second transaction, but the most
 common policy is to drop it. This is what Bitcoin Core does, and
-that's the most widely used Bitcoin software. This policy is know as
-the _first seen policy_.
+that's the most widely used Bitcoin software. This policy is known as
+the _first-seen policy_.
 
 You may be able to circumvent this policy by sending the second
 transaction directly to one or more miners. Miners have different
-incentives than full nodes. Mining full nodes want to earn rewards by
-providing proof of work to the blockchain, while non-mining full nodes
-want to keep their memory and computing resource consumption down. So
-if a miner would get hold of the second, high-fee transaction, it
-would probably decide to include that despite the fact that the
-low-fee transaction was first seen. This way to replace transactions
-is very impractical because
-
-* you don't know the IP address of any miners unless they publish it
-somehow, you also reveal your IP address to the miners, who then
-become targets for various surveillance organizations or companies
-wanting to monetize information about you.
+incentives than full nodes. Mining full nodes want to earn rewards,
+subsidy+fees, by providing proof of work to the blockchain, while
+non-mining full nodes want to keep their memory and computing resource
+consumption down. So if a miner would get hold of the second, high-fee
+transaction, it would probably decide to include that despite the fact
+that the low-fee transaction was first seen. This way to replace
+transactions is very impractical because you don't know the IP address
+of any miners unless they publish it somehow, you also reveal your IP
+address to the miners, who then become targets for various
+surveillance organizations or companies wanting to monetize
+information about you.
 
 ==== Opt-in replace by fee
 
@@ -772,7 +779,7 @@ generally called _opt-in replace by fee_, or opt-in RBF. It works by
 using the _sequence numbers_ of the inputs of a transaction.
 
 .Use opt-in replace by fee to be able to easily replace your transaction before it's confirmed.
-image::{imagedir}/rbf-3.svg[{half-width}]
+image::{imagedir}/rbf-3.svg[{big-width}]
 
 Suppose again that you want to pay for a book in an on-line book
 store. When you create the transaction, you make sure that one of the
@@ -780,18 +787,8 @@ inputs (there is only one in this example) has a sequence number less
 than `fffffffe`. This signals to nodes that you want this transaction
 to be replaceable.
 
-You may be wondering where these sequence numbers come from. The
-intention with sequence numbers from the beginning was to allow for a
-kind of transaction replacement, but the feature was disabled in the
-software, but the sequence numbers remained in the transaction
-inputs. These sequence number have since been re-purposed for absolute
-lock time, relative lock time, and replace by fee as described
-throughout this chapter. If you feel confused, don't worry. We will
-summarize the different uses of the sequence numbers in the summary of
-this chapter.
-
 When a node receives this transaction, it will be treated as a normal
-transaction but the replaceability will be remembered.
+transaction but the "replaceability" will be remembered.
 
 When you later notice that your transaction doesn't confirm because of
 a too low fee, you can create a new, replacement transaction with a
@@ -806,9 +803,19 @@ confirmed within reasonable time.
 In the example above you set the sequence number of the input of the
 replacement transaction to `ffffffff`. This has the effect that the
 replacement transaction is not itself replaceable. If you want the
-replacement transaction to be replaceable you need to set its sequence
-number to `fffffffd` or less just as you did on the replaced
+replacement transaction to also be replaceable you need to set its
+sequence number to `fffffffd` or less just as you did on the replaced
 transaction.
+
+You may be wondering where these sequence numbers come from. The
+intention with sequence numbers from the beginning was to allow for a
+kind of transaction replacement. The feature was early disabled in the
+software, but the sequence numbers remained in the transaction
+inputs. These sequence number have since been re-purposed for absolute
+lock time, relative lock time, and replace by fee as described
+throughout this chapter. If you feel confused, don't worry. We will
+summarize the different uses of the sequence numbers in the summary of
+this chapter.
 
 ==== Child pays for parent
 
@@ -816,20 +823,20 @@ There is yet another way to bump up a fee. Suppose that you have the
 situation from <<stuck-transaction>>:
 
 .You have not paid sufficient transaction fee. Transaction is stuck in pending state because miners don't want to include your transaction in a block.
-image::{imagedir}/rbf-4.svg[{half-width}]
+image::{imagedir}/rbf-4.svg[{big-width}]
 
 If you notice that this transaction gets stuck, you can make another
 transaction that spends your change and pays an extra high fee to
 compensate for the low fee in your original transaction.
 
 .Spend your change and pay extra fee for the "parent" transaction.
-image::{imagedir}/rbf-5.svg[{big-width}]
+image::{imagedir}/rbf-5.svg[{full-width}]
 
 Suppose that a miner sees these two transactions. If the miner wants
 to collect the fee from the child transaction, it has to include both
 the parent transaction and the child transaction. If it tries to
 include only the child transaction, the block wouldn't be valid
-because the child transaction spends money that don't exist in the
+because the child transaction spends money that doesn't exist in the
 blockchain.
 
 This trick can be performed both by you and by the book store. Suppose
@@ -844,7 +851,7 @@ When you sign a typical Bitcoin transaction you sign the entire
 transaction excluding the signature script.
 
 .Normally the whole transaction is signed. All inputs and all outputs are covered.
-image::{imagedir}/sign-transaction-all.svg[{quart-width}]
+image::{imagedir}/sign-transaction-all.svg[{half-width}]
 
 This transaction contains two inputs and each input signs the complete
 transaction. A signature _commits to_ all inputs and all outputs. If
@@ -854,13 +861,13 @@ invalid.
 This behavior of signatures can be changed using a parameter in the
 signature.
 
-.A signature can commit to different parts of the transaction depending on the so called SIGHASH types. This illustrates what a signature in the second input would commit to for different combinations of SIGHASH types.
-image::{imagedir}/sign-transaction-combos.svg[{half-width}]
+.A signature can commit to different parts of the transaction depending on the so called SIGHASH types. The greyed out parts are not included by the signature in the second input of each transaction.
+image::{imagedir}/sign-transaction-combos.svg[{big-width}]
 
 There are three ways to commit to outputs and two ways to commit to
 inputs. For the outputs, you can commit to
 
-* all output (ALL). No one gets to change any outputs.
+* all outputs (ALL). No one gets to change any outputs.
 * a single output at the same index as the input (SINGLE). I only care
   about the specific output. The rest may change.
 * no outputs (NONE). I don't care at all where the money goes. Anyone
@@ -881,76 +888,32 @@ ANYONECANPAY is used to commit to the whole transaction. This is what
 we are used to from all the chapters in this book. Other types are
 really rare, and used primarily for specialized digital contracts.
 
-==== Funding a skate park
-
-As a simple example of how you can use the SIGHASH types, suppose that
-you want to raise money to build a skate park in the area you
-live. The skate park will cost 10 BTC to build. You can then send an
-email to all families in your neighborhood:
-
-[.small]
-----
-Dear families,
-
-I'm planning to build a skate park. If you want to help with funding
-it, please send me a transaction with one input and one output as
-follows:
-
-Input: The amount of money you want to contribute to the project,
-signed with SIGHASH types ANYONECANPAY and ALL. Note that you will not
-get any change back. The whole input will go into funding of the skate
-park
-
-Output: 10 BTC to 1G5cycsCpe1ABLK41WTttnK1fo8ypYvocj
-
-Regards
-Susie
-----
-
-Your neighbors can now join the project by sending you transactions
-that you assemble into a single transaction once you have enough
-funding.
-
-Let's say that you and 2 neighbors want to fund the skate park, then
-you will receive two transactions from your neighbors that you can
-assemble together with your own input:
-
-.Three neighbors contribute to the funding of the skate park. They all send some bitcoin to the address PKH~P~, `1G5cycsCpe1ABLK41WTttnK1fo8ypYvocj`.
-image::{imagedir}/skate-park-funding.svg[{big-width}]
-
-Your neighbors don't have to know who else participates in the
-funding. They effectively say "I'm, in only if enough others are.".
-
-There are a few drawbacks with this method:
-
-* Participants don't get any change back. They need to spend a whole
-  UTXO.
-* The PKH~P~ address is controlled by you, so your neighbors have to
-  trust you not to run away with the money.
-
 === Summary
 
 This chapter has been a potpourri of things you can do with
 transactions.
 
-Transactions and transaction outputs can be locked in different ways
-to prevent spending of funds until a certain date or time span has
-occurred.
+Transactions and transaction outputs can be time locked in different
+ways to prevent funds from being spent until a certain date or time
+span has occurred.
 
-[cols="s,2*"]
 |===
-|          | Enforced in spending transaction only | Enforced in output
+| Do this | Means
 
-| Absolute | Transaction lock time | OP_CHECKLOCKTIMEVERIFY
-| Relative | Sequence number of input | OP_CHECKSEQUENCEVERIFY
+| Set Lock Time of a transaction | The transaction will not be valid until a certain time/block height
+| Set time lock on an input using the sequence number | The
+  transaction will not be valid until a certain amount of time/blocks
+  have passed
+| Use `OP_CHECK**LOCKTIME**VERIFY` in a pubkey script | The output cannot be spent until a certain time/block height
+| Use `OP_CHECK**SEQUENCE**VERIFY` in a pubkey script | The output cannot be spent until a certain amount of time/blocks have passed
 |===
 
 All these variants can be expressed in either block height or
-time. Time locks are mostly useful in digital contracts such as atomic
-swaps. An atomic swap lets people swap coins with each other without a
-trusted third party.
+time. Time based locks are mostly useful in digital contracts such as
+atomic swaps. An atomic swap lets people who don't trust each other
+swap coins without using a trusted third party.
 
-image::{imagedir}/summary-atomic-swaps.svg[{big-width}]
+image::{imagedir}/summary-atomic-swaps.svg[{full-width}]
 
 The general idea is that John must reveal the secret, S, in order to
 claim his coins. Fadime can then use S to claim her coins.
@@ -971,17 +934,20 @@ have discussed all different uses for sequence numbers in this
 chapter, and it's hard to keep track of them. Let's summarize the
 meaning of different values of the sequence numbers:
 
-.Sequence numbers are used to enable or disable various features.
-[cols="s,3*"]
+.Sequence numbers are used to enable or disable various features. [.big]#✔#=enabled, [.big]#✘# disabled.
+[cols=">1,3*^3",options="header"]
 |===
-| Sequence value (descending order) | relative lock time (BIP68), per input | Replace by fee (BIP125), any input | locktime, any input
+<| Sequence value (descending order)
+<| locktime, any input
+<| Replace by fee (BIP125), any input
+<| relative lock time on input (BIP68). Tx version 2 required.
 
-| `ffffffff` | Disabled | Disabled | Disabled
-| `fffffffe` | Disabled | Disabled | Enabled
-| `fffffffd` | Disabled | Enabled  | Enabled
-| `80000000` | Disabled | Enabled  | Enabled
-| `7fffffff` | Enabled  | Enabled  | Enabled
-| `00000000` | Enabled  | Enabled  | Enabled
+| `ffffffff` | [.big]#✘# | [.big]#✘# | [.big]#✘#
+| `fffffffe` | [.big]#✔# | [.big]#✘# | [.big]#✘#
+| `fffffffd` | [.big]#✔# | [.big]#✔# | [.big]#✘#
+| `80000000` | [.big]#✔# | [.big]#✔# | [.big]#✘#
+| `7fffffff` | [.big]#✔# | [.big]#✔# | [.big]#✔#
+| `00000000` | [.big]#✔# | [.big]#✔# | [.big]#✔#
 |===
 
 === Exercises
@@ -997,47 +963,49 @@ meaning of different values of the sequence numbers:
 3. Where is relative lock time of an input located?
 
 4. How can you express a rule in an output saying "This output must
-not be spent within 2048 blocks". 2048 is `0800` in hex.
+not be spent within 2048 blocks".
 
-5. How can you express a rule in an output saying "This output must
-not be spent before new year's eve 2020". You don't have to translate
-the time to some fancy binary format, just write it as normal text.
-
-6. Suppose that Adam and Eve want to swap coins with each other using
+5. Suppose that Adam and Eve want to swap coins with each other using
 an atomic swap. How many transactions would be created on each
 blockchain upon completion?
 
-7. Why is it bad for the UTXO set to store arbitrary data such as
+6. Why is it bad for the UTXO set to store arbitrary data such as
 "HELLO WORLD" as fake public key hashes in outputs as opposed to
 storing them in OP_RETURN outputs?
 
-8. Why would you want to replace a broadcast transaction that isn't
+7. Why would you want to replace a broadcast transaction that isn't
 confirmed yet?
 
 ==== Dig in
 
-[start=9]
-1. Explain the differences between absolute lock time and relative lock time.
+[start=8]
+8. Explain the differences between absolute lock time and relative lock time.
 
-2. Suppose that you want to bet 1 BTC that it's going to snow in
-London on Christmas Eve and Ruth bets 1 BTC that it's not. You appoint
-a person, Beth, that you both trust to solve any conflicts that might
-occur. You and Ruth collaborate to create and broadcast a transaction
-that spend 1 BTC each to an output of 2 BTC with the following
-redeemScript.
+9. (This excercise is hard, feel free to skip it.) Suppose that you
+want to bet 1 BTC that it's going to snow in London on Christmas Eve
+and Ruth bets 1 BTC that it's not. You appoint a person, Beth, that
+you both trust to solve any conflicts that might occur. You and Ruth
+collaborate to create and broadcast a transaction that spend 1 BTC
+each to an output of 2 BTC with the following redeem script. Explain
+how the redeem script works on a conceptual level.
 
-image::{imagedir}/ex-bet-escrow.svg[{big-width}]
+.The redeem script *can* be made smaller, but to make it simpler to read we use a slightly bigger version.
+image::{imagedir}/ex-bet-escrow.svg[{full-width}]
 
-Explain how the redeemScript works on a conceptual level.
+[start=10]
+10. If a p2sh output pays to a redeem script that consists solely of
+an OP_RETURN with 32 random bytes, would full nodes be able to know
+that the output is unspendable?
++
+--
+.redeem script
+ OP_RETURN 53a1e411...b4e6d949
+--
 
-[start=11]
-3. If a p2sh redeem script would contain an OP_RETURN, would nodes be
-able to prove that they are unspendable?
-
-4. Please explain how the first-seen policy works. Also, are nodes
+11. Please explain how the first-seen policy works. Also, are nodes
 obliged to follow the policy?
 
-5. Opt-in replace by fee offers a method for transaction
+12. Opt-in replace by fee offers a method for transaction
 replacement. Is there any fundamental security difference between a
 transaction with opt-in replace by fee enabled and a transaction that
 doesn't opt-in. Explain your reasoning.
@@ -1046,10 +1014,9 @@ doesn't opt-in. Explain your reasoning.
 
 In this chapter you learned that
 
-* Transactions can be locked with respect to block height or time
-  depending on your application needs.
-
-* The locks can be either absolute or relative.
+* Transactions can be locked with respect to time or block height
+  depending on your application needs. The locks can be either
+  absolute or relative.
 
 * A transaction output can require the spending transaction to be time
   locked. This useful in many digital contracts.
@@ -1064,4 +1031,5 @@ In this chapter you learned that
   the transaction in case it doesn't confirm within reasonable time.
 
 * Signatures can commit to different parts of the transaction using
-  six combinations of SIGHASH types.
+  six combinations of SIGHASH types. This can be handy in certain
+  digital contracts.
