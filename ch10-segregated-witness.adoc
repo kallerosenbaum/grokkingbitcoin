@@ -4,8 +4,8 @@
 
 This chapter covers
 
-* Understanding problems to solve
-* Solving problems by moving signatures out of transactions
+* Understanding the problems to solve
+* Moving signatures out of transactions
 
 Bitcoin is far from perfect. There are several shortcomings that
 should be addressed. The first section of this chapter will explain
@@ -25,13 +25,13 @@ transaction format, block format, local storage and network protocol.
 Since segregated witness was a pretty big change in Bitcoin, it was
 not trivial to deploy without disrupting the network. It was carefully
 designed so that old software would continue working and accepting
-segregated witness transactions, though without verifying certain
-parts of the transactions.
+segregated witness transactions and blocks, though without verifying
+certain parts of them.
 
 === Problems
 
 In this section we will discuss the problems that segregated witness,
-or segwit, intends to solve.
+or segwit, will solve.
 
 ==== Transaction malleability
 
@@ -42,7 +42,7 @@ time locked transaction, you need to invalidate that transaction and
 create a new time locked transaction:
 
 .You spend one of the outputs that the previous time locked transaction spends and create a new time locked transaction that you give to your daughter.
-image::{imagedir}/inheritance-transaction.svg[{big-width}]
+image::{imagedir}/inheritance-transaction.svg[{full-width}]
 
 It was important to give the new time locked transaction, Tx~3~, to
 your daughter before broadcasting Tx~2~ that invalidates the previous
@@ -87,8 +87,8 @@ from an invalid transaction.
 ===== How can Qi change the txid?
 
 There are several options for Qi to change the transaction without
-invalidating it. They all involve changing the signature script in one way of
-the other. Among them are:
+invalidating it. They all involve changing the signature script in one
+way or the other. Among them are:
 
 .Three classes of transaction malleability.
 image::{imagedir}/super-zoom-tx-malleability-problems.svg[{full-width}]
@@ -100,19 +100,19 @@ BIP66 fixes the first class of malleability issues.
 ****
 
 The first one modifies the signature container format, which changes
-how the signature is _encoded_ in the signature script. There are a few
-different ways to encode the signature that are all valid. This issue
-was actually fixed in a system upgrade using BIP66, that requires all
-signatures to be encoded in a single specific way. The fix was
-activated in block 363724.
+how the signature is _encoded_ in the signature script. There are a
+few different ways to encode the signature that are all valid. This
+issue was actually fixed in a system upgrade using BIP66, that
+requires all signatures to be encoded in a very specific way. The fix
+was activated in block 363724.
 
 The second way to malleate a transaction is by using cryptographic
-tricks. I will not go into details here, because I'm not clever
-enough. I can only say that a signature, regardless of format, can be
-modified in a few ways that doesn't make them invalid. We only know
-about one such trick, but we cannot rule out that there are others.
+tricks. I will not go into details here, but the signature, regardless
+of container format, can be modified in a few ways that doesn't make
+them invalid. We only know about one such trick, but we cannot rule
+out that there are others.
 
-The last one is about changing the Script program itself. There are
+The last one is about changing the script program itself. There are
 several ways to to this. The one in the example above first duplicates
 (OP_DUP) the top item on the stack and then immediately removes
 (OP_DROP) the duplicate from the stack, effectively the change does
@@ -135,24 +135,25 @@ data in the blockchain.
 When a transaction is signed, the signature algorithm will hash the
 transaction in a certain way, as we saw in <<sighash-types>>.
 
-As you remember from <<sign-transaction>> we clean all signature scripts
-before signing. But if we do _just_ that, all signatures of the
-transaction would be using the exact same hash. If the transaction
-spends two different outputs to the same address, the signature in one
-of the inputs could be reused in the other input. This can possibly be
-exploited by bad actors.
+As you remember from <<sign-transaction>> we clean all signature
+scripts before signing. But if we do _just_ that, all signatures of
+the transaction would be using the exact same hash. If the transaction
+spends two different outputs that pays to the same address, the
+signature in one of the inputs could be reused in the other
+input. This can possibly be exploited by bad actors.
 
 [.gbinfo]
 .Why not just a dummy byte?
 ****
-Inserting the pubkey script into signature script seems unnecessary. One could
-simply add a single dummy byte in the signature script to avoid signature
-reuse. No one really knows why it's done this way.
+Inserting the pubkey script into signature script seems
+unnecessary. One could simply add a single dummy byte in the signature
+script to avoid signature reuse. No one really knows why it's done
+this way.
 ****
 
 To avoid this problem, Bitcoin makes each signature commit to slightly
-different versions of the transaction by copying the spent
-pubkey script into the signature script of the input that is currently being
+different versions of the transaction by copying the spent pubkey
+script into the signature script of the input that is currently being
 signed.
 
 Let's zoom in a bit on what's actually happening. Suppose that we want
@@ -186,14 +187,14 @@ signature for that input.
 
 This may seem harmless, but as the number of inputs grow, the amount
 of data to hash for each signature increases. If you double the number
-of inputs, you
+of inputs, you roughly
 
 * double the number of signatures to verify
-* double (roughly) the size of the transaction
+* double the size of the transaction
 
 [[sighash-n2]]
 .Total time for hashing during signature verification. Time roughly quadruples when number of inputs double.
-image::{imagedir}/sighash-n2.svg[{big-width}]
+image::{imagedir}/sighash-n2.svg[{full-width}]
 
 [.gbinfo]
 .Why 1 ms?
@@ -216,8 +217,8 @@ down.
 It would be much better if we could make the transaction verification
 time grow linearly instead of quadratically. This would mean that the
 time to verify a transaction doubles as the number of inputs
-doubles. Then the 1024 inputs would take roughly 512 ms instead of 4
-minutes.
+doubles. Then the 1024 inputs would take roughly 512 ms to verify
+instead of 4 minutes.
 
 ==== Waste of bandwidth
 
@@ -226,9 +227,10 @@ the complete transaction, which includes all signature data. But a
 lightweight wallet cannot verify the signatures, because it doesn't
 have the spent outputs.
 
-The signature scripts make a large percentage of the transaction size. A
-typical signature script spending a p2pkh output takes 107 bytes. Consider a
-few different transactions with two outputs:
+The signature scripts constitutes a large percentage of the
+transaction size. A typical signature script spending a p2pkh output
+takes 107 bytes. Consider a few different transactions with two
+outputs:
 
 .Space occupied by signature script data of different typical transactions
 |===
@@ -254,7 +256,7 @@ lightweight wallet would not be able to verify that the transaction is
 included in a block, because it can't verify the merkle proof.
 
 .Without the signature scripts, a lightweight wallet will not be able to verify that a transaction is included in the block.
-image::{imagedir}/cannot-verify-tx-included-in-block.svg[{half-width}]
+image::{imagedir}/cannot-verify-tx-included-in-block.svg[{big-width}]
 
 It would be nice if we could solve this somehow.
 
@@ -266,13 +268,13 @@ operations. For example `OP_CHECKSEQUENCEVERIFY` and
 and 2016. Let's have a look at how `OP_CHECKLOCKTIMEVERIFY`, CLTV, was
 introduced.
 
-Will start with what `OP_` codes actually are. They are nothing but a
-single byte. `OP_EQUAL` for example, is represented by the byte `87`
+We will start with what `OP_` codes actually are. They are nothing but
+a single byte. `OP_EQUAL` for example, is represented by the byte `87`
 in hex code. Every node knows that when they encounter the byte `87`
 in the script program, they know that they need to compare the top two
 items on the stack and push the result back on the
-stack. `OP_CHECKMULTISIG` is also a single byte, `ae`. All operators are
-represented by a different byte.
+stack. `OP_CHECKMULTISIG` is also a single byte, `ae`. All operators
+are represented by different bytes.
 
 When Bitcoin was created, a number of "NOP" operators,
 `OP_NOP1`-`OP_NOP10`, was specified. They are represented by the bytes
@@ -302,8 +304,8 @@ OP_DUP OP_HASH160 <PKH~D~> OP_EQUALVERIFY
 OP_CHECKSIG
 ----
 
-or at least, that's how a new node, that is aware of the new meaning
-of byte `b1`, interprets the script. It will
+That's how a new node, that is aware of the new meaning of byte `b1`,
+interprets the script. It will
 
 * push the time `<may 1 2019 00:00:00>` to the stack
 * *check that the lock time of the spending transaction has at least
@@ -381,7 +383,7 @@ altogether.
 Let's take a look again at the anatomy of a normal transaction:
 
 .The txid is calculated from the whole transaction, including signature scripts.
-image::{imagedir}/normal-transaction.svg[{half-width}]
+image::{imagedir}/normal-transaction.svg[{big-width}]
 
 If we could just change the system so that the txid does not cover the
 signature script, we would remove all known possibilities of unintentional
@@ -412,7 +414,7 @@ means parted, so we part the contents of the signature script from the
 transaction, effectively leaving the signature script empty:
 
 .A segwit transaction contains no signature data. The signatures are attached instead. The txid does not commit to the signatures.
-image::{imagedir}/segwit-transaction-simple.svg[{half-width}]
+image::{imagedir}/segwit-transaction-simple.svg[{big-width}]
 
 Segregated witness thus means that the contents of the signature script is
 removed from the transaction and put into an external structure that
@@ -467,7 +469,7 @@ Amy, by showing her a QR code. She has a modern wallet that
 understands this address format, so she scans this address and
 extracts the version and witness program:
 
-.Amy decodes the segwit address to get the version byte and the witness program.
+.Amy decodes the segwit address to get the witness version and the witness program.
 image::{imagedir}/bech32-decode.svg[{full-width}]
 
 .Checksum
@@ -476,7 +478,7 @@ We won't go into details on the checksum. We encourage the interested
 reader to read BIP173.
 ****
 
-This is done in multiple steps. The data part of the address are
+This is done in multiple steps. The data part of the address is
 converted, character by character into numbers using a _base32_ lookup
 table. The first of these numbers is the witness version, 0. The last
 six numbers is the checksum. The checksum is now verified and no
@@ -487,7 +489,7 @@ bits. Each groups then represents a byte of the witness program.
 Amy creates a transaction with a new kind of pubkey script that we are
 not used to:
 
-.Amy sends 0.1 BTC to your segwit address. pubkey script doesn't contain any script operators, just data.
+.Amy sends 0.1 BTC to your segwit address. Pubkey script doesn't contain any script operators, just data.
 image::{imagedir}/segwit-output.svg[{big-width}]
 
 She broadcasts this transaction on the Bitcoin network. The network
@@ -508,13 +510,13 @@ image::{imagedir}/segwit-spend-wpkh.svg[{big-width}]
 
 Your transaction sends the money to the popcorn machine owner's segwit
 address and pays 0.01 BTC in transaction fee. The input has an empty
-signature script; The signature data is instead added as a _witness field_ in
-the attached _witness_. Had there been multiple inputs in this
-transaction, there would be multiple witness fields in the witness,
-one for each input. You can mix segwit inputs and legacy inputs, in
-which case the the witness fields for the legacy inputs would be
-empty, because their signatures are in the respective signature script, as
-they always were.
+signature script; The signature data is instead added as a _witness
+field_ in the attached _witness_. Had there been multiple inputs in
+this transaction, there would be multiple witness fields in the
+witness, one for each input. You can mix segwit inputs and legacy
+inputs, in which case the witness fields for the legacy inputs would
+be empty, because their signatures are in the respective signature
+script, as they always were.
 
 ==== Verify the segwit transaction
 
@@ -524,8 +526,8 @@ node verifies this transaction before relaying it to other
 nodes. Since it's running the latest and greatest software, it knows
 how to deal with segwit transactions.
 
-.A full node verifies the witness of your transaction. The pattern `00` followed by exactly 20 bytes is treated special
-image::{imagedir}/segwit-spend-wpkh-verify.svg[{big-width}]
+.A full node verifies the witness of your transaction. The pattern `00` followed by exactly 20 bytes gets special treatment.
+image::{imagedir}/segwit-spend-wpkh-verify.svg[{full-width}]
 
 [.gbinfo]
 .Remember p2sh
@@ -543,13 +545,15 @@ Next step for the full node is to understand what _kind_ of segwit
 output it is. As of writing, there is only one version of segwit
 output; Version `00`. This version comes in two different flavors:
 
-* _p2wpkh_ (pay-to-witness-public-key-hash) identified by a 20 byte witness program
-* _p2wsh_ (pay-to-witness-script-hash) identified by a 32 byte witness program
+* _p2wpkh_ (pay-to-witness-public-key-hash) identified by a 20 byte witness program, as in this example.
+* _p2wsh_ (pay-to-witness-script-hash) identified by a 32 byte witness program.
 
 In this case we have the version byte `00` followed by exactly 20
 bytes which means that this is a p2wpkh payment. If the version byte
-is not zero, the node will immediately accept this input without
-further processing. We'll talk a bit more on unknown versions later.
+is unknown to the node, the node will immediately accept this input
+without further processing. This acceptance of unknown versions will
+become useful future forward compatible upgrades of the script
+language. All segwit nodes will recognize verion `00`.
 
 The p2wpkh is the simplest of the two types because it is very similar
 to our well known p2pkh. Let's look at how they both work
@@ -560,8 +564,11 @@ p2wpkh:: The actual script is a pre-determined template and the
 witness program _is_ the PKH to insert into the script template. The
 signatures are taken from the witness.
 
-In the end it's the exact same program that gets run for both of these
-two types. The difference is where the components come from.
+In the end it's seemingly the exact same program that gets run for
+both of these two types. The difference is where the components come
+from. But there are also other differences between segwit scripts and
+legacy scripts, for example the meaning of OP_CHECKSIG has changed as
+we'll read about in <<new-hashing-algorithm>>.
 
 Why do this p2wpkh at all, when we are running the exact same script
 program as in p2pkh? Let's recall that we want to solve transaction
@@ -602,9 +609,9 @@ output. It requires no signature. You just have to create an input
 with an empty signature script to take the money.
 
 In <<ch11>> we will talk about how to deal with this problem. But for
-now, suppose that 95% of the nodes run with segwit and someone tries
-to use your output as an anyone-can-spend. Suppose also that this
-transaction gets included in a block by some miner that don't know
+now, suppose that 95% of the nodes (including miners) run with segwit.
+If someone tries to use your output as an anyone-can-spend, and this
+transaction gets included in a block by some miner that doesn't know
 about segwit. Then 95% of the network will not accept that block
 because it contains an invalid transaction according to segwit
 nodes. This means that a miner that defies the rules of the _economic
@@ -613,7 +620,7 @@ majority_ will lose their income.
 ==== Including your segwit transaction in a block
 
 Your segwit transaction has propagated through the network, and all
-nodes has verified it along the way. Now a miner wants to insert the
+nodes have verified it along the way. Now a miner wants to insert the
 transaction into a new block. Suppose that the miner runs modern
 software and thus knows about segwit. Let's look at how it is included
 in the block.
@@ -626,16 +633,17 @@ block rule is introduced in segwit: If there are segwit transactions
 in the block, the coinbase transaction must contain an output with a
 _witness commitment_. This witness commitment is the combined hash of
 the _witness root hash_ and a _witness reserved value_. The witness
-root hash is the merkle root of all _witness txids_ or _wtxids_ of all
-transactions in the block. The wtxid is the hash of the transaction
-_including the witness_ if there is one. There is an exception for the
-coinbase, whose wtxid is always defined as 32 zero bytes. The
-witness reserved value is dedicated for future system upgrades.
+root hash is the merkle root of the _witness txids_, or _wtxids_, of
+all transactions in the block. The wtxid is the hash of the
+transaction _including the witness_ if there is one. There is an
+exception for the coinbase, whose wtxid is always defined as 32 zero
+bytes. The witness reserved value is dedicated for future system
+upgrades.
 
 The witness commitment is written in an `OP_RETURN` output:
 
 .The coinbase transaction's witness contains the witness reserved value and an OP_RETURN output contains the witness commitment.
-image::{imagedir}/segwit-coinbase-tx.svg[{half-width}]
+image::{imagedir}/segwit-coinbase-tx.svg[{big-width}]
 
 The witness reserved value can be any value. But a full node verifying
 this block needs a way to know what that value is. If the node didn't
@@ -686,12 +694,19 @@ Suppose that John, Ellen and Faiza use segwit for their charity wallet
 and that the previous popcorn machine owner wants to give the money he
 received for the popcorn machine to the charity.
 
+[.gbinfo]
+.The script looks the same but is different
+****
+The meaning of the witness script is slightly different than the
+meaning redeem script because OP_CHECKMULTISIG has changed a bit.
+****
+
 John, Ellen and Faiza must provide the popcorn guy with a p2wsh
 address. Their _witness script_ is the same as their p2sh _redeem
 script_ was when they were using p2sh:
 
 .The witness script is hashed into a witness script hash
-image::{imagedir}/witness-script-and-wsh.svg[{half-width}]
+image::{imagedir}/witness-script-and-wsh.svg[{big-width}]
 
 They use this witness script hash to create a p2wsh address in the
 same way that you created your p2wpkh address. They encode
@@ -706,27 +721,27 @@ This address is handed to the popcorn guy who creates and broadcasts a
 transaction like this:
 
 .The popcorn guy sends the money to the charity's p2wsh address.
-image::{imagedir}/tx-popcorn-guy-to-charity.svg[{big-width}]
+image::{imagedir}/tx-popcorn-guy-to-charity.svg[{full-width}]
 
 The transaction has the witness attached just like your transaction to
 the popcorn guy. The only difference between your transaction and the
 popcorn guy's transaction is that the output has different length of
 their witness programs. Your transaction had a 20 byte witness
-program, because it was a public key hash, and the popcorn guy's
-transaction has a 32 byte witness program, because that's a double
-SHA256 of the witness script.
+program, because it was a SHA256+RIPEMD160 hash of a public key, and
+the popcorn guy's transaction has a 32 byte witness program, because
+that's a double SHA256 of a witness script.
 
 This transaction will get verified and eventually included in a block.
 
 ===== Spend the p2wsh transaction.
 
 Suppose that John and Faiza wants to spend the 0.08 BTC they got from
-the popcorn guy and send them to Amnesty International. Amnesty
-happens to also have a p2wsh address. John and Faiza collaborate to
-create the following transaction:
+the popcorn guy and send them to a shelter for homeless people. The
+shelter happens to also have a p2wsh address. John and Faiza
+collaborate to create the following transaction:
 
-.The charity pays 0.07 BTC to Amnesty's address. The witness is the signatures followed by a data item that contains the actual witness script.
-image::{imagedir}/tx-charity-to-amnesty.svg[{full-width}]
+.The charity pays 0.07 BTC to the shelter's address. The witness is the signatures followed by a data item that contains the actual witness script.
+image::{imagedir}/tx-charity-to-shelter.svg[{full-width}]
 
 Note how there's nothing in the signature script. When we used p2sh in
 <<pay-to-script-hash>>, the signature script got really big, because it
@@ -737,18 +752,18 @@ three public keys.
 
 A full node that wants to verify this transaction needs to determine
 the type of output that is being spent. It looks at the output and
-looks for the pattern `<version byte> <2 to 40 bytes data>`. It does
-find this pattern and concludes that this is a segwit output. Next
-thing to check is the value of the version byte.
-
-.Preparing to verify the p2wsh input
-image::{imagedir}/segwit-spend-wsh-verify-1.svg[{big-width}]
+finds the pattern `<version byte> <2 to 40 bytes data>`, and concludes
+that this is a segwit output. Next thing to check is the value of the
+version byte.
 
 The version byte is `00`. A version `00` segwit output can have two
 different lengths of the witness program, 20 or 32 bytes. The first
 one was covered in previous sections on p2wpkh. The witness program in
 this example is 32 bytes, which means that this is a
 pay-to-witness-script-hash, p2wsh, output.
+
+.Preparing to verify the p2wsh input
+image::{imagedir}/segwit-spend-wsh-verify-1.svg[{full-width}]
 
 Special rules apply when spending a p2wsh output. First, the data
 items in the witness field of the spending input is pushed onto the
@@ -781,13 +796,20 @@ Verification for Version 0 Witness Program"
 One of the problems segwit solves is the inefficient signature
 hashing. As explained in <<inefficient-sighash>>, if the number of
 inputs doubles, the time it takes to verify the transaction roughly
-quadruples.
+quadruples. This is because you roughly
+
+* double the number of signatures to verify
+* double the size of the transaction
+
+If you double the number of hashes performed _and_ double the amount
+of data each hash needs to process, you effectively quadruple the
+total time spent on hashing.
 
 The solution is to make the signatures in steps. Suppose that you want
 to sign all four inputs of a transaction:
 
 .Hashing is done in two steps. The intermediate hash is reused for each input.
-image::{imagedir}/new-sighash-algo.svg[{big-width}]
+image::{imagedir}/new-sighash-algo.svg[{full-width}]
 
 1. Make a reusable hash, intermediate hash
 2. Extend the reusable hash with stuff specific to the current input
@@ -807,8 +829,8 @@ image::{imagedir}/2ndcol-sighash-n2.svg[]
 
 The bulk of the transaction is only hashed once to create the
 intermediate hash. This drastically reduces the amount of hashing
-needed. When the number of input doubles, the amount of hashing only
-doubles. This makes the hashing algorithm perform _linearly with
+needed. When the number of input doubles, the needed amount of hashing
+only doubles. This makes the hashing algorithm perform _linearly with
 number of inputs_ instead of _quadratically_. The time to verify the
 transaction with 1024 inputs in <<sighash-n2>> would be reduced from
 262144 ms to 512 ms.
@@ -841,9 +863,9 @@ This is true for both non-segwit and segwit transaction. However, with
 segwit, when the signatures commit to the spent output amounts, the
 wallet must get the amounts from somewhere to be able to sign. Suppose
 that the input amounts are somehow provided to the off-line wallet,
-for example through a USB memory stick alongside the transaction to
-sign. Then the wallet can sign the transaction using those amounts and
-even show the user what fee is being paid before signing.
+alongside the transaction to sign. Then the wallet can sign the
+transaction using those amounts and even show the user what fee is
+being paid before signing.
 
 If the wrong amount is provided to the off-line wallet, the wallet
 wouldn't be able to tell. It cannot verify the input values. But since
@@ -865,7 +887,7 @@ used to either
 * keep the bloom filter size as is and get about 50% reduction in data
   traffic.
 * improve privacy by decreasing the size of the bloom filter to get
-  more false positives.
+  more false positives without increasing data traffic.
 
 ==== Upgradeable script
 
@@ -897,13 +919,13 @@ wallet. She can only pay to ordinary addresses like p2pkh and p2sh.
 You can make a p2sh address that Nina can pay to:
 
 .Nina sends 0.1 BTC to your segwit wallet using a p2wpkh inside a p2sh address.
-image::{imagedir}/p2wpkh-in-p2sh.svg[{half-width}]
+image::{imagedir}/p2wpkh-in-p2sh.svg[{big-width}]
 
 Nina pays to `3KsJCgA6ubxgmmzvZaQYR485tsk2G6C1Be` which is an old
 style p2sh address that contains the hash of the redeem script `00
 bb4d49777d981096a75215ccdba8dc8675ff02d1`. This redeem script is a
 version byte `00` followed by a 20 byte witness program. That is the
-pattern for p2wpkh which we covered a few sections back.
+pattern for p2wpkh which we covered earlier in this chapter.
 
 Nina's wallet knows nothing about this. It sees only a p2sh address
 and makes a payment to that script hash.
@@ -911,7 +933,7 @@ and makes a payment to that script hash.
 Later, when you want to spend your output, you create a transaction
 like this:
 
-.You spend the money you got from Nina by setting the version byte and witness program in the signature script of your input.
+.You spend the money you got from Nina by setting the version byte and witness program in the redeem script in your signature script of your input.
 image::{imagedir}/p2wpkh-in-p2sh-spend.svg[{big-width}]
 
 You create a witness just as you would with a normal p2wpkh input, but
@@ -929,48 +951,26 @@ nested in p2sh_.
 
 === Recap of payment types
 
-We have talked about several standard types of payments. Let's summarize them:
+We have talked about several types of payments. Let's summarize the most common ones:
 
-[%autowidth,cols="h,4*",role="widetable"]
-|===
-| Short name | Address format | pubkey script | signature script | Witness field
+.p2pkh. Address format `1<some base58 characters>``
+image::{imagedir}/recap-payment-types-p2pkh.svg[{big-width}]
 
-| p2pkh
-| `**1** <some base58 characters>`
-| Actual script
-| pubkey and signature
-| -
+.p2sh. Address format `3<some base58 characters>``
+image::{imagedir}/recap-payment-types-p2sh.svg[{big-width}]
 
-| p2sh
-| `**3** <some base58 characters`
-| Script that verifies redeem script hash
-| signatures plus the actual redeem script
-| -
+.p2wpkh. Address format `bc1q<38 base32 characters>``
+image::{imagedir}/recap-payment-types-p2wpkh.svg[{big-width}]
 
-| p2wpkh
-| `**bc1q** <38 base32 characters>`
-| 00 <pkh>
-| -
-| pubkey and signature
+.p2wsh. Address format `bc1q<58 base32 characters>``
+image::{imagedir}/recap-payment-types-p2wsh.svg[{big-width}]
 
-| p2wsh
-| `**bc1q** <58 base 32 characters>`
-| 00 <witness script hash>
-| -
-| signatures plus the actual witness script
+.p2wpkh nested in p2sh. Address format `3<some base58 characters>``
+image::{imagedir}/recap-payment-types-p2wpkh-in-p2sh.svg[{big-width}]
 
-| p2wpkh in p2sh
-| `**3** <some base58 characters>`
-| script that verifies redeem script hash
-| one item containing version byte and pkh
-| pubkey and signature
+.p2wsh nested in p2sh. Address format `3<some base58 characters>``
+image::{imagedir}/recap-payment-types-p2wsh-in-p2sh.svg[{big-width}]
 
-| p2wsh in p2sh
-| `**3** <some base58 characters>`
-| script that verifies redeem script hash
-| one item containing version byte and witness script hash
-| signatures plus the actual witness script
-|===
 
 === Block limits
 
@@ -979,12 +979,12 @@ signature operations.
 
 ==== Block size limit
 
-In 2010 the Bitcoin software was updated with a limit of 1,000,000
-bytes. It is not totally clear why this was done, but most people seem
-to think that the limit was introduced to reduce the impact of certain
-denial-of-service attacks. A denial of service attack is aimed at
-stalling or crashing Bitcoin nodes so that the network can't function
-properly.
+In 2010 the Bitcoin software was updated with a block size limit of
+1,000,000 bytes. It is not totally clear why this was done, but most
+people seem to think that the limit was introduced to reduce the
+impact of certain denial-of-service attacks. A denial of service
+attack is aimed at stalling or crashing Bitcoin nodes so that the
+network can't function properly.
 
 One way to mess with the network is to create a very large block that
 takes 10 seconds to download on a good internet connection. That may
@@ -998,23 +998,22 @@ decrease during such forks.
 
 Another potential problem with big blocks, that could be exploited by
 attackers, is that people with poor internet connections will be left
-out completely, because they simply cannot keep up with the network
-because they don't have the required network capacity, processing
-power, RAM or disk storage space needed to run a full node. These
-people will need to switch to systems with less security like
-lightweight wallets, reducing the security of the whole network.
+out completely, because they simply cannot keep up with the network,
+or they don't have the required network capacity, processing power,
+RAM or disk storage space needed to run a full node. These people will
+need to switch to systems with less security like lightweight wallets,
+reducing the security of the whole network.
 
 Regardless of the reason, this limit is in place.
 
 ==== Signature operations limit
 
 The signature operations limit is put in place because signature
-verification operations are relatively slow, especially in legacy
+verification operations are relatively slow, especially in non-segwit
 transactions. An attacker could stuff a transaction with a tremendous
-amount of signatures that causes a verifying nodes to be busy
-verifying signatures for a long time. The limit of 20,000 such
-operations per block is somewhat arbitrarily chosen to prevent such an
-attack.
+amount of signatures that causes verifying nodes to be busy verifying
+signatures for a long time. The limit of 20,000 such operations per
+block is somewhat arbitrarily chosen to prevent such an attack.
 
 ==== Increasing the limits
 
@@ -1040,8 +1039,8 @@ transaction outputs. A new measurement, _block weight_, is put in
 place. The maximum _weight_ of a block is 4,000,000 _weight units_,
 WU:
 
-.Witness bytes and non-witness bytes are counted differently. Witness bytes contribute less to the block weight.
-image::{imagedir}/block-weight.svg[{big-width}]
+.Witness bytes and non-witness bytes are counted differently. Witness bytes contribute less to the block weight and not at all to the traditional block size, the _base block size_.
+image::{imagedir}/block-weight.svg[{full-width}]
 
 Let's call the block excluding the witnesses the _base block_.
 
@@ -1054,9 +1053,9 @@ base block. But the more segwit is used, the more data can be moved
 from the base block to the witness, which allows for a bigger total
 block size.
 
-Suppose that a block only contains segwit transactions and that the
-witnesses account for r of all transaction data in the block. The
-maximum block weight is 4,000,000 and a total block size T gives us
+Suppose that the witnesses in a block account for ratio r of the data
+in a block. The maximum block weight is 4,000,000 and a total block
+size T gives us
 
 [stem]
 ++++
@@ -1091,13 +1090,9 @@ goes into the UTXO set have higher costs, because the UTXO set should
 preferably be stored in RAM for fast transaction verification.
 
 * Give wallet developers, exchanges and smart contract developers
-  incentive to make less outputs to reduce the size of the
+  incentive to make fewer outputs to reduce the size of the
   UTXO set. For example an exchange may chose to consolidate their
   many outputs into a few outputs.
-
-* Old nodes don't download witness data, which means that witness data
-  doesn't affect the network as much as other parts of the
-  transactions.
 
 * The witnesses doesn't have to be sent to lightweight wallet.
 
@@ -1106,56 +1101,58 @@ preferably be stored in RAM for fast transaction verification.
 Since we are increasing the block size with segwit, we also need to
 increase the amount of allowed signature operations; Allowing more
 transaction data per block should imply that we also need to allow
-more signature operations. We can be increase the limit in the same
+more signature operations. We can increase the limit in the same
 manner as the block size limit was increased.
 
 We increase the number of allowed signature operations from 20,000 to
 80,000, and count each legacy signature as 4 operations and each
 segwit operation as 1 operation. We count a segwit signature operation
-less than legacy operation, because they are more efficient as
+less than a legacy operation, because they are more efficient as
 discussed in <<new-hashing-algorithm>>.
 
-This will have the same effect as as the block size increase: If a
-block only contains legacy inputs, the old limit of 20,000 actual
-operations remains. If the block contains only segwit inputs the new
-limit of 80,000 actual operations is in effect. Any combination of
-legacy and segwit inputs in a block will result in a limit somewhere
-between 20,000 and 80,000 actual signature operations.
+This will have the same effect as the block size increase: If a block
+only contains legacy inputs, the old limit of 20,000 actual operations
+remains. If the block contains only segwit inputs the new limit of
+80,000 actual operations is in effect. Any combination of legacy and
+segwit inputs in a block will result in a limit somewhere between
+20,000 and 80,000 actual signature operations.
 
 === Summary
 
 This chapter has walked you through Segregated Witness. Segregated
-witness solves some serious problems:
+witness solves some problems:
 
 ==== Problems
 
 Transaction malleability:: A txid might change without changing the
-effect of the transaction. This can cause broken transaction chains.
+effect of its transaction. This can cause broken links between
+transactions, making the child transaction invalid.
 
 Inefficient signature verification:: As the number of inputs double in
 a transaction, the time to verify the transaction increases
-quadratically. That's because both the size of the transaction doubles
-and the number of signatures to verify doubles.
+quadratically. That's because both the size of the transaction, and
+the number of signatures to verify doubles.
 
-Wasted bandwidth:: Lightweight wallet are forced to download the
+Wasted bandwidth:: Lightweight wallets have to download the
 transactions including all signatures to be able to verify the merkle
-proof.
+proof, but the signature data is useless to them because they don't
+have to spent outputs to verify against.
 
 Hard to upgrade:: There is limited room for script language
 upgrades. There are a handful of `OP_NOPs` left, and you can't change
-an `OP_NOP` however you please. If the new operator behavior
-succeeds, it must work exactly as an `OP_NOP`.
+an `OP_NOP` however you please. If the new operator behavior succeeds,
+it must behave exactly as an `OP_NOP`.
 
 ==== Solution
 
-By moving signature data out of the base transaction, they will no
-longer be part of the transaction id.
+By moving signature data out of the base transaction, that data will
+no longer be part of the transaction id.
 
 .Signatures are not part of the transaction id, because they are moved out from the base transaction.
-image::{imagedir}/summary-segwit-transaction.svg[{half-width}]
+image::{imagedir}/summary-segwit-transaction.svg[{big-width}]
 
-So if the signature is malleated, it will not affect the txid. This
-unconfirmed chains of transactions unbreakable.
+So if the signature is malleated, it will not affect the
+txid. Unconfirmed chains of transactions become unbreakable.
 
 A new signature hashing algorithm is used that makes the verification
 time grow _linearly_ with the number of inputs. The old signature
@@ -1167,7 +1164,7 @@ image::{imagedir}/summary-new-sighash-algo-old.svg[{big-width}]
 Signatures in witnesses will hash the transaction only once:
 
 .With segwit, the whole transaction is only hashed once, and that hash is reused for each signature.
-image::{imagedir}/summary-new-sighash-algo-new.svg[{big-width}]
+image::{imagedir}/summary-new-sighash-algo-new.svg[{full-width}]
 
 The intermediate hash is reused for each signature which greatly
 reduces the total amount of hashing.
@@ -1182,11 +1179,9 @@ The witness version in the pubkey script allows for future upgrades of
 the script language. The upgrades can be arbitrarily complex with no
 restrictions on functionality.
 
-New block rules apply for segregated witness transactions. All
-witnesses must be committed to in an output of the coinbase
-transaction:
+New block rules apply for segregated witness transactions. An output in the coinbase transaction must commit to all witnesses of the block:
 
-image::{imagedir}/block-segwit.svg[{big-width}]
+image::{imagedir}/block-segwit.svg[{full-width}]
 
 Old nodes will still work, because they are not aware of the
 commitment in the coinbase transaction. This allowed us to introduce
@@ -1222,8 +1217,9 @@ i. `3KsJCgA6ubxgmmzvZaQYR485tsk2G6C1Be`
 i. `00 bb4d49777d981096a75215ccdba8dc8675ff02d1`
 
 7. What's the witness version used for? The witness version is the
-first number in a segwit output, for example `00
-bb4d49777d981096a75215ccdba8dc8675ff02d1`.
+first number in a segwit output, for example `00` in
++
+ 00 bb4d49777d981096a75215ccdba8dc8675ff02d1
 
 ==== Dig in
 
@@ -1231,33 +1227,38 @@ bb4d49777d981096a75215ccdba8dc8675ff02d1`.
 8. Explain how a segwit transaction is valid according to an old node
 that knows nothing about segwit. This is what the old node sees:
 +
-image::{imagedir}/ex-segwit-spend-wpkh-verify-old-node.svg[{big-width}]
+image::{imagedir}/ex-segwit-spend-wpkh-verify-old-node.svg[{full-width}]
 
 9. Explain how a segwit transaction is verified by a new node that
-know about segwit. This is what it sees:
+knows about segwit. This is what it sees:
 +
-image::{imagedir}/ex-segwit-spend-wpkh-verify.svg[{big-width}]
+image::{imagedir}/ex-segwit-spend-wpkh-verify.svg[{full-width}]
 
-10. Suppose that you want to upgrade the Bitcoin system without
-causing a hard fork. You want the witness commitment to, apart from
-witness root hash, also commit to the sum of all transaction fees in
-the block. Suggest how that could be done. Use the figure below as a
-hint. How would old nodes and new nodes verify blocks that contain
-this commitment?
+10. Suppose that you want to upgrade the Bitcoin system. You want the
+witness commitment to commit to the transaction fees in the block, in
+addition to the witness root hash, by makíng a merkle tree of all
+transacion fees. Suggest how that merkle root could be commited to in
+the block without breaking compatibility with old nodes. You don't
+have to think about future upgradeability after this change, because
+that's more complex. Use the figure below as a hint.
 +
-image::{imagedir}/segwit-coinbase-tx.svg[{half-width}]
+image::{imagedir}/segwit-coinbase-tx.svg[{big-width}]
+
+11. How would old nodes and new nodes verify blocks that contain the
+commitment in the previous excercise?
 
 === Recap
 
 In this chapter you learned that
 
-* Segwit moves signature scripts out of transactions to solve transaction
-  malleability.
+* Segwit moves signature script data out of transactions to solve
+  transaction malleability issues.
 
 * A new signature hashing algorithm is used by segwit that makes
-  transaction verification faster. Helps nodes staying up to date.
+  transaction verification faster. Helps nodes staying up to date with
+  less resources.
 
-* Lightweight wallets gets better privacy with preserved data traffic
+* Lightweight wallets get better privacy with preserved data traffic
   by not downloading witness data.
 
 * The witness version byte of the pubkey script makes upgrading the
@@ -1266,8 +1267,8 @@ In this chapter you learned that
 * The block size can be somewhat increased by counting witness bytes
   with a discount.
 
-* A new address format is introduced to distinguish from legacy
-  payments.
+* A new address format is introduced to help wallets distinguish
+  between legacy payments and segwit payments.
 
 * Segwit can be "embedded" in old style p2sh addresses to allow old
   wallets to send money to segwit wallets.

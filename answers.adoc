@@ -507,3 +507,69 @@ It is of course simpler for normal users to replace a transaction that
 has opted in to RBF. But using services like the one above is simple
 enough for a motivated thief. The difference in security is therefore
 not as big as one might think.
+
+=== Chapter 10
+
+1. The signature script
+
+2. A transaction T~2~,that spends an output of an unconfirmed
+transaction, T~1~, can become invalid if the txid of T~1~ is changed
+while being broadcast. This causes a lot of problems for "smart
+contracts".
+
+3. The time to verify a legacy transaction increases 4 times when the
+number of inputs doubles. This is because you need
+
+* to verify twice the number of signatures
+* each signature takes double the time to verify because the
+   transaction to hash has doubled in size.
+
+4. In order to verify that the transaction is included in a block, the
+lightweight wallets need to calculate the transaction's txid. The
+wallet needs the signatures to calculate the txid, because they are
+included in the txid.
+
+5. The new behaviour of `OP_NOP5` must, if it succeeds, be exactly
+like the old behaviour of `OP_NOP5`. This means that it should have no
+effect at all if it succeeds.
+
+6. a (p2wpkh) and b (p2wsh) are segwit addresses.
+
+7. The witness version is used to make future upgrades easier. The
+rule is that unknown witness versions are accepted. When a new witness
+version is deployed, old nodes will accept any payment that spends
+outputs with that new witness version. This avoids causing old and new
+nodes following different branches (forks) of the blockchain.
+
+8. All data items in the signature script are pushed to the
+stack. There are no such items in the signatures script, so nothing to
+do there. Then `00` will be pushed followed by `c805...cba8`. Then the
+script program is finished and the top item on the stack is
+checked. It's not zero, which means that the spending is valid.
+
+9. The new node will notice that the output is the "segwit
+pattern". It will also notice that the witness version is `00` and
+that the witness program is 20 bytes. This means that this is a p2wpkh
+output. To spend such an output the signature script must be empty and
+the witness must contain exactly a signature and the pubkey
+corresponding to `PKH~Y~`
+
+10. The fee merkle root can be placed in the right branch under the
+witness commitment. But we also need to put the fee merkle root in the
+witness for the coinbase input so that old segwit nodes can verify the
+witness root hash.
+
+11. An old segwit node will verify the block exactly as before. The
+Witness reserved value can be anything as long as it equals the
+witness of the coinbase input. So the old node will be able to build
+the witness commitment, but it will not know that the witness reserved
+value is a fee merkle root. Old nodes will thus not be able to verify
+that the fee merkle tree.
++
+A new segwit node will verify both the witness root hash and the fee
+merkle root. It knows that the new rule is in place and will always
+enforce the rule on all blocks. The node will create the fee merkle
+tree from the transactions in the block and combine the fee merkle
+root with the witness root hash to build the witness commitment. This
+witness commitment is then compared to the witness commitment in the
+coinbase's OP_RETURN output. Match means OK.
