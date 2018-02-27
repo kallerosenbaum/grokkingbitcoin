@@ -8,8 +8,7 @@ Todo:
 
 Make a better ecosystem overview in ch01. Seriously.
 
-spellcheck
-
+Update stats with css class "movingtarget"
 
 
 Less important todos: 

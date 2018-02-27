@@ -100,7 +100,6 @@ do with the system; As long as you follow the same rules as everybody
 else, you're good to go.
 ////
 
-////
 A lot of more or less interesting use cases have emerged over the
 years for Bitcoin. Among the most obvious ones are international
 payments and savings. Just as with any other asset or currency, the
@@ -125,14 +124,12 @@ Exchange:: A commercial service people can use to exchange their local
 currency to and from bitcoin.
 Trader:: A short term speculator performing trading on an exchange.
 
-
-
 The Bitcoin network's job is to process Bitcoin payments. The network
 consists of thousands of computers that we call nodes. Any of the
 actors can participate actively in the Bitcoin network by running
 their own Bitcoin node. You must run your own node if you don't want
 to trust others to provide you with correct financial information.
-////
+
 === The big picture
 
 .The periscope
