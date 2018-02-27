@@ -548,6 +548,14 @@ output; Version `00`. This version comes in two different flavors:
 * _p2wpkh_ (pay-to-witness-public-key-hash) identified by a 20 byte witness program, as in this example.
 * _p2wsh_ (pay-to-witness-script-hash) identified by a 32 byte witness program.
 
+[.gbinfo]
+.Why "witness program"
+****
+It's called a witness program because it can actually be regarded as a
+program of a weird language. In case of a p2wpkh output the witness
+program is a single operator whose length defines its behaviour.
+****
+
 In this case we have the version byte `00` followed by exactly 20
 bytes which means that this is a p2wpkh payment. If the version byte
 is unknown to the node, the node will immediately accept this input

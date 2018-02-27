@@ -8,20 +8,13 @@ Todo:
 
 Make a better ecosystem overview in ch01. Seriously.
 
-Update outdated numbers and stuff throughout the book. Price
-charts etc. I've marked them with css class "movingtarget"
-
-Go through book and highlight IMPORTANT stuff.
-
-Explain why it's called a "witness program"
-
-Explain nothing-up-my-sleeve in ch04.
-
 spellcheck
 
 
 
 Less important todos: 
+
+Explain nothing-up-my-sleeve in ch04.
 
 Section on pruning
 

@@ -920,8 +920,7 @@ be stolen. With hardened xprv, we solve the case of a stolen `M` and
 === Public key multiplication
 
 Let's dig deeper in to public key multiplication. Public key
-multiplication is used to derive public keys from private keys and
-derive child public keys from parent public keys.
+multiplication is used to derive public keys from private keys.
 
 WARNING: We will try to explain it in simple terms, but if you think
 this is too much, you can skip this section and jump to <<ch04-summary>>
