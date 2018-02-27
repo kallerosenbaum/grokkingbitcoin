@@ -551,9 +551,9 @@ output; Version `00`. This version comes in two different flavors:
 [.gbinfo]
 .Why "witness program"
 ****
-It's called a witness program because it can actually be regarded as a
-program of a weird language. In case of a p2wpkh output the witness
-program is a single operator whose length defines its behaviour.
+It's called a witness program because it can be regarded as a program
+of a weird language. In version `00` the witness program is a single
+operator whose length defines its behavior.
 ****
 
 In this case we have the version byte `00` followed by exactly 20
@@ -561,7 +561,7 @@ bytes which means that this is a p2wpkh payment. If the version byte
 is unknown to the node, the node will immediately accept this input
 without further processing. This acceptance of unknown versions will
 become useful future forward compatible upgrades of the script
-language. All segwit nodes will recognize verion `00`.
+language. All segwit nodes will recognize version `00`.
 
 The p2wpkh is the simplest of the two types because it is very similar
 to our well known p2pkh. Let's look at how they both work
@@ -1244,8 +1244,8 @@ image::{imagedir}/ex-segwit-spend-wpkh-verify.svg[{full-width}]
 
 10. Suppose that you want to upgrade the Bitcoin system. You want the
 witness commitment to commit to the transaction fees in the block, in
-addition to the witness root hash, by makíng a merkle tree of all
-transacion fees. Suggest how that merkle root could be commited to in
+addition to the witness root hash, by making a merkle tree of all
+transaction fees. Suggest how that merkle root could be committed to in
 the block without breaking compatibility with old nodes. You don't
 have to think about future upgradeability after this change, because
 that's more complex. Use the figure below as a hint.
@@ -1253,7 +1253,7 @@ that's more complex. Use the figure below as a hint.
 image::{imagedir}/segwit-coinbase-tx.svg[{big-width}]
 
 11. How would old nodes and new nodes verify blocks that contain the
-commitment in the previous excercise?
+commitment in the previous exercise?
 
 === Recap
 

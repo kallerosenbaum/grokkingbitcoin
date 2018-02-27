@@ -1574,7 +1574,7 @@ transaction.
 ==== System changes
 
 Proof of work replaces the block signatures that we introduced in
-<<ch06>> and they can biw be removed from our concept mapping table.
+<<ch06>> and they can now be removed from our concept mapping table.
 
 [%autowidth]
 .The block signatures has been replaced by the Bitcoin concept proof of work. Lisa has transformed into one of several miners.

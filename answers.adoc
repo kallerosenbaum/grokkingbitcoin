@@ -49,7 +49,7 @@ my public key to decrypt the signature and compare the decrypted hash
 with the actual hash of the message. If they match, he can be sure
 that the message is from me.
 9. The names in the spreadsheets act as identifiers for public keys,
-we could instead skip the names and use public keys diretly in the
+we could instead skip the names and use public keys directly in the
 spreadsheet. We will do that in the next chapter. An email to Lisa
 wouldn't have to contain any names and look something like this:
 
@@ -132,7 +132,7 @@ function to get to a working private key.
 7. The xprv at path `m/2/1` and the wanted index `7`.
 
 8. No, you would need xprv `m/2/1` to derive xpub `M/2/1/7'`. You
-first derive hardened xprv `m/2/1/7'` from `m/2/1` using hardnened
+first derive hardened xprv `m/2/1/7'` from `m/2/1` using hardened
 extended private key derivation and then calculate the xpub `M/2/1/7'`
 from `m/2/1/7'`.
 
@@ -170,7 +170,7 @@ be 10 CT to the cafe and 1 CT in change to an address that I control.
 2. They are used in inputs to reference transactions to spend outputs
 from.
 
-3. Because you can't spend part of a transansaction output. You either
+3. Because you can't spend part of a transaction output. You either
 spend the output or you don't. If the output contains more value than
 you're paying, you need to give back change to yourself.
 
@@ -218,7 +218,7 @@ that:
 * for each transaction, the sum of outputs doesn't exceed the sum of
   inputs.
 * All signatures from Faiza's payment back to all coinbase
-  transactions are ok.
+  transactions are OK.
 
 15. If there are several UTXOs to the same PKH, it means that as soon
 as one of them is spent, the security of the other UTXOs to the same
@@ -256,7 +256,7 @@ item in the transaction that we test will be a positive.
 
 7. They are not pre-image resistant, collision resistant or
 second-preimage resistant. The outputs space is very small, typically
-just a few hundered to a few thousand numbers. It will only take a
+just a few hundred to a few thousand numbers. It will only take a
 fraction of a second to find a pre-image of for example `172`.
 
 8. The rightmost leaf must be copied to make an even number of
@@ -322,7 +322,7 @@ block header until the block id (the block header hash) is lower than
 the target.
 
 6. The branch of the fork with most accumulated proof of work. This is
-not neccesarily the same as the branch with most blocks.
+not necessarily the same as the branch with most blocks.
 
 7. A miner with hashrate 100 Mhash/s can perform 100,000,000 tries per
 second to find a valid proof of work.
@@ -439,7 +439,7 @@ rightmost 16 bits of the sequence number.
 afterwards, otherwise the <2048> would stay on the stack. This would
 problems in case OP_CSV succeeds.
 
-5. 2 transactions on each blockchain. One for the contract transation
+5. 2 transactions on each blockchain. One for the contract transaction
 and one for the swap transaction.
 
 6. With fake public key hashes, the data must be stored forever in the
@@ -473,7 +473,7 @@ following signature script (excluding the redeem script):
 
  0 <your sig> <ruth sig> 1
 
-The second branch can be spent at earlies on new year's eve by:
+The second branch can be spent at earliest on new year's eve by:
 
  0 <your or ruths sig> <beth sig> 0 
 
@@ -481,7 +481,7 @@ The rightmost digit in both signature scripts above will select what
 branch to use, the rest just fulfills the requirement in the
 respective branch.
 
-The timelocked branch ensures that Beth has no power to collude with
+The time locked branch ensures that Beth has no power to collude with
 either You or Ruth before new year's eve.
 --
 
@@ -529,8 +529,8 @@ lightweight wallets need to calculate the transaction's txid. The
 wallet needs the signatures to calculate the txid, because they are
 included in the txid.
 
-5. The new behaviour of `OP_NOP5` must, if it succeeds, be exactly
-like the old behaviour of `OP_NOP5`. This means that it should have no
+5. The new behavior of `OP_NOP5` must, if it succeeds, be exactly
+like the old behavior of `OP_NOP5`. This means that it should have no
 effect at all if it succeeds.
 
 6. a (p2wpkh) and b (p2wsh) are segwit addresses.

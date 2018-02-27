@@ -686,12 +686,12 @@ The decoding makes use of the four bit checksum to make sure that it
 is correct. If she accidentally writes the last word as `deposit`
 instead of `depend`, the checksum check would *probably* fail because
 she wrote the wrong word at the end. If she types `depends` instead of
-`depend`, the decoding would definately fail because there is no word
-`depends` in the wordlist.
+`depend`, the decoding would definitely fail because there is no word
+`depends` in the word list.
 
 The checksum is pretty weak. 4 bits make only 16 possible
 checksums. That means that a wrongly written mnemonic sentence, where
-all words exist in the wordlist, would have a probability 1/16 to not
+all words exist in the word list, would have a probability 1/16 to not
 be detected. This seems pretty bad. But the probability that you write
 such a sentence is very small, because your misspelled words have to
 exist in the word list. This reduces the risk of an invalid mnemonic
@@ -782,7 +782,7 @@ image::{imagedir}/hd-wallet-derive-child-xpub.svg[{full-width}]
 image::{imagedir}/2ndcol-hd-wallet-derive-child-xprv.svg[]
 ****
 
-This resemblles xprv derivation. The difference is in what we do with
+This resembles xprv derivation. The difference is in what we do with
 the left 256 bits of the 512 bit hash. To calculate the child public
 key we treat the left 256 bits as if it was a private key and derive a
 public key from it. This public key is then "added" to the parent
@@ -910,7 +910,7 @@ parent xpub. You must have the parent xprv to generate any children at
 all, public or private. The children of `m/1'` cannot be derived as
 hardened private keys, because that would require the cafe to put the
 private key `m/1'` on the on-line sales web server which would be
-insecrue. Using non-hardened leaf keys in the on-line sales account
+insecure. Using non-hardened leaf keys in the on-line sales account
 makes the cafe vulnerable to an attacker stealing `m/1'/1` and
 `M/1'`. If that happens, all funds in the on-line sales account will
 be stolen. With hardened xprv, we solve the case of a stolen `M` and

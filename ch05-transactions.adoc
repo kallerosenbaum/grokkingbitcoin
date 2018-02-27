@@ -112,7 +112,7 @@ Lisa verifies that the coins the transaction spends exist and that
 they are not already spent. She also verifies that the signatures,
 there may be several in a transaction, are valid. If all checks pass,
 Lisa confirms the transaction by appending it, exactly as she
-receveived it, to the end of the spreadsheet.
+received it, to the end of the spreadsheet.
 
 Once the transaction hits the spreadsheet, anyone can make the exact
 same verification of that transaction as Lisa did. They do this to
@@ -458,7 +458,7 @@ for change outputs too.
 
 Luckily, the wallets will automate key creation for you, so you
 usually don't have to worry about key reuse. Most Bitcoin wallets on
-the market today, will use uniqe addresses for all your incoming
+the market today, will use unique addresses for all your incoming
 payments.
 
 ==== Account based and value based systems
@@ -632,7 +632,7 @@ are named in the Bitcoin Core source code.
 
 You may wonder why we call the output script part pubkey script when
 it usually doesn't contain a public key? Likewise the input script is
-called signature script, but it doen's only contain a signature.
+called signature script, but it doesn't only contain a signature.
 
 Historically, the pubkey script in Bitcoin transactions used to
 contain an actual public key and the signature script used to contain
@@ -649,7 +649,7 @@ Things have change since then but the names signature script and
 pubkey script remains. Most developers today look at it in a more
 abstract way: The pubkey script can be regarded as a public key and
 the signature script can be regarded as a signature, but not
-neccesarily ordinary public keys and signatures. In a normal payment
+necessarily ordinary public keys and signatures. In a normal payment
 today the "public key" is the script that needs to be satisfied by the
 "signature", the signature script. Of course the "public key" here
 contains some operators an a PKH, but we can still view it as a public
@@ -1016,7 +1016,7 @@ as of writing, 1 and 2.
 
 Sequence number:: A four byte number on each input. For most
 transactions this is set to its maximum value `ffffffff`. This is an
-old disabled feature that's being repurposed for new functionality.
+old disabled feature that's being re-purposed for new functionality.
 
 Lock time:: A point in time that must have passed before it's allowed
 to add the transaction to the spreadsheet. If Lock time is 0, it means
@@ -1192,7 +1192,7 @@ back to her desk and simply removes her transaction. Now she got a
 cookie _and_ got to keep the money. This will of course be noticed
 when the cafe tries to spend the output from the removed transaction,
 or the next time Lisa tries to double-spend the outputs spent by the
-removed trasansaction. But as with John's transaction, its word
+removed transaction. But as with John's transaction, its word
 against word. Lisa can claim that the transaction was never in the
 spreadsheet, and the cafe can claim it was. No one can prove anything.
 
@@ -1237,7 +1237,7 @@ image::{imagedir}/toolbox.svg[]
 ****
 
 We will add transactions and transaction id to our toolbox. Our
-concept mapping table is shrinkning by two rows: The emails to Lisa and
+concept mapping table is shrinking by two rows: The emails to Lisa and
 the rows in the spreadsheet are replaced by a transactions.
 
 [%autowidth]
@@ -1314,7 +1314,7 @@ would their CT values be?
 . Where are the pubkey scripts located in a transaction and what does
 it contain?
 
-. What is required from a Script program (signatue script + pubkey
+. What is required from a Script program (signature script + pubkey
 script) for and input to be considered authentic?
 
 . How can you recognize a pay-to-script-hash address?

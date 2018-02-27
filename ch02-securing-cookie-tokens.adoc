@@ -632,7 +632,7 @@ times to digitally sign stuff.
 secret by John, and the public key is handed over to Lisa. This is a
 one-time setup step.
 . John wants a cookie. He writes a message and signs it with his
-private key. He gives the message includeing and the digital signature
+private key. He gives the message including the digital signature
 to Lisa.
 . Lisa verifies the signature of the message using Johns public key
 and updates the spreadsheet.

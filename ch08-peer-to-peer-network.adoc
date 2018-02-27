@@ -449,7 +449,7 @@ As you can see, Tom and Qi has sent an inv to one another. That's not
 a problem; since they both have the block, they will just ignore the
 `inv` received from peers. Lisa will request the block from one of her
 peers just like Qi requested the block from Rashid. This concludes the
-propagation of this block. Almost. The lightweiht wallets need to be
+propagation of this block. Almost. The lightweight wallets need to be
 informed about the block.
 
 ==== Notify wallets
@@ -477,7 +477,7 @@ John gets a `merkleblock` message containing the block header and a
 partial merkle tree connecting his transaction id to the merkle root
 in the block header. Here is a little repetition from <<ch06>>:
 
-.The merkleblock contains a block header and a parital merkle tree.
+.The merkleblock contains a block header and a partial merkle tree.
 image::{imagedir}/verify-merkle-proof.svg[{big-width}]
 
 John's wallet will verify that
@@ -534,7 +534,7 @@ system to a point where there are no differences from Bitcoin. Look at
 our concept mapping table
 
 [%autowidth]
-.The shared folder is ditched in favour of a peer to peer network
+.The shared folder is ditched in favor of a peer to peer network
 |===
 | Cookie Tokens | Bitcoin | Covered in
 
@@ -542,7 +542,7 @@ our concept mapping table
 | *[.line-through]#The shared folder#* | *[.line-through]#The Bitcoin network#* | *[.line-through]#<<ch08>>#*
 |===
 
-The last cookie tokien concept that differs from Bitcoin, the shared
+The last cookie token concept that differs from Bitcoin, the shared
 folder, has been eliminated. Let's have a look at how it all happened.
 
 .The cookie token system evolution.
@@ -581,7 +581,7 @@ This chapter is about Bitcoin's peer to peer network. The first half
 of the chapter described the network in action after it has been
 set up, as illustrated by this picture from <<ch01>>:
 
-.The Bitcoin network distrsibutes blocks (and transactions) to all participants.
+.The Bitcoin network distributes blocks (and transactions) to all participants.
 image::{imagedir}/periscope-bitcoin-network.svg[{quart-width}]
 
 The second half of this chapter will look at how a new node joins the
@@ -1013,7 +1013,7 @@ Our table of concept mapppings between the cookie token system and
 Bitcoin has become tiny:
 
 [%autowidth]
-.The shared folder is ditched in favour of a peer to peer network
+.The shared folder is ditched in favor of a peer to peer network
 |===
 | Cookie Tokens | Bitcoin | Covered in
 

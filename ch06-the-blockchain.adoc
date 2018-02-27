@@ -153,7 +153,7 @@ shared folder, but no one has permission to delete or change
 files. When Lisa writes a block to a file in the shared folder, she
 _confirms_ the transactions in that block.
 
-Suppose that Lisa is about to create a new block at heigh 20. She will
+Suppose that Lisa is about to create a new block at height 20. She will
 
 1. create a block template.
 2. sign the block template to make it complete.
@@ -287,7 +287,7 @@ block is perfectly fine:
 image::{imagedir}/transaction-selection.svg[{half-width}]
 
 All transactions in this block spend transactions already in the
-blockchain, meaing they all reference transactions to the left of
+blockchain, meaning they all reference transactions to the left of
 themselves. However, the following block is invalid:
 
 .Invalid block because a transaction spends an output that "doesn't yet exist"
@@ -567,7 +567,7 @@ determine what transactions to send?
 The block contains 3 transactions, Tx~1~, Tx~2~ and Tx~3~:
 
 .The block to send contains three transactions of which only one actually concerns John.
-image::{imagedir}/bloom-filter-transactions.svg[{fullwidth}]
+image::{imagedir}/bloom-filter-transactions.svg[{full-width}]
 
 Tx~1~ and Tx~3~ have nothing to do with John's addresses, but Tx~2~ is
 a payment to John's address @~b~. Now let's have a look at how the
@@ -886,13 +886,13 @@ This ordering of the steps is called _depth first_, meaning that we
 always move downwards in the tree as far as we can before moving
 sideways. But we will not go down in branches of the tree that does
 not contain any interesting transactions. This is noted in the list of
-flags as ✘. We stop at ✘ because we don't want to send unneccesary
+flags as ✘. We stop at ✘ because we don't want to send unnecessary
 data to the wallet, hence the term _partial_ merkle tree.
 
 Now that the full node has created this partial merkle tree, the node
 will send the block header and the partial merkle tree to the wallet,
 and follow that by sending the actual transaction Tx~2~. The block
-header together with the partial merkle tree is often refered to as a
+header together with the partial merkle tree is often referred to as a
 _merkle proof_.
 
 ===== Verify the partial merkle tree
@@ -999,7 +999,7 @@ to prove a single transaction. The block size is calculated as 80
 bytes block header plus number of transactions times 250. The merkle
 proof is calculated as 80 bytes block header plus length of list of
 hashes times 32 plus 250 bytes for the transaction. We ignore the
-flags and "number of transactions" as they are negligable. The
+flags and "number of transactions" as they are negligible. The
 transaction is actually not part of the merkle proof as the table
 suggest, but we include it here because we want to compare the amounts
 of data we need to transfer from the full node to the wallet.

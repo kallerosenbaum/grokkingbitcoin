@@ -102,10 +102,10 @@ else, you're good to go.
 
 ////
 A lot of more or less interesting use cases have emerged over the
-years for Bitcoin. Among the most obvoius ones are international
+years for Bitcoin. Among the most obvious ones are international
 payments and savings. Just as with any other asset or currency, the
 Bitcoin ecosystem has a lot of different users with different needs
-and busingesses. These are some common types:
+and businesses. These are some common types:
 
 .The Bitcoin network and some of its different users.
 image::{imagedir}/actors.svg[{big-width}]
@@ -142,7 +142,7 @@ image::{commonimagedir}/periscope.gif[]
 
 We will use the figures from this subsection every now and then
 throughout the book to help you with orientation. It's easy to lose
-track of the big picture and what the goal of the currect
+track of the big picture and what the goal of the current
 topic is. Look for the periscope picture and section headers like
 "Where were we?".
 
@@ -696,7 +696,7 @@ country to another, especially if you move money to a poor country and
 the recipient don't have a bank account. It is becoming increasingly
 popular to use Bitcoin to circumvent this expensive and slow legacy
 system. It is usually cheaper to exchange SEK for bitcoins in Sweden,
-and transfer the bitcoins to your friend in the Phillipines. Your
+and transfer the bitcoins to your friend in the Philippines. Your
 friend will then exchange the bitcoins locally for Philippine
 Pesos, PHP.
 
@@ -766,7 +766,7 @@ a lottery than something to make a living off of.
 The volatility in Bitcoin price seems contradictory to the claims of
 non-inflationary property; A 50% drop in market value seems pretty
 inflationary. Bitcoin is still relatively new, and lots of short-term
-speculation causes this volatiliy. But as Bitcoin grows and more
+speculation causes this volatility. But as Bitcoin grows and more
 people and institutions start using Bitcoin to store their wealth, it
 will probably stabilize in the long run. So the deflationary property
 of Bitcoin will emerge over time.

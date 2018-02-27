@@ -658,7 +658,7 @@ image::{imagedir}/summary-replace-names-with-pkh.svg[{big-width}]
 Then we used base58check to create an address from a public key
 hash. Let's put the pieces together and have a look at the whole
 cookie token address creation process from random number generator to
-the addresss.
+the address.
 
 ****
 image::{imagedir}/address-creation-abstract.svg[]

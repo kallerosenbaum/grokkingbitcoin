@@ -100,7 +100,7 @@ locked transaction becomes useless, so that your daughter can't take
 the money once the time lock date has passed.
 
 You can create, but not broadcast yet, a new transaction, Tx~2~, that
-doublespends an output that Tx~1~ spends. If Tx~2~ would confirm,
+double-spends an output that Tx~1~ spends. If Tx~2~ would confirm,
 TX~1~ would become forever invalid. Then you create a new time locked
 transaction for yet another year:
 
@@ -229,7 +229,7 @@ which means that the 16 right-most bits should be interpreted as
 number of blocks. `03e8` is hex code for 1,000.
 
 The version of the transaction needs to be at least 2 for relative
-time locks to work. If the version is 1, the sequance numbers will not
+time locks to work. If the version is 1, the sequence numbers will not
 have any effect on relative lock time, but it will affect absolute
 lock time and "Replace by fee". Replace by fee is discussed later in
 <<replace-by-fee>>.
@@ -445,7 +445,7 @@ provides both required items in the correct order, his signature and
 the pre-image, `S`. He successfully claims his 100 NMC.
 
 As soon as Fadime sees John's swap transaction on the Namecoin
-netwrok, she can create her own swap transaction for the Bitcoin
+network, she can create her own swap transaction for the Bitcoin
 blockchain.
 
 .Fadime completes the atomic swap by sending her swap transaction to the Bitcoin network.
@@ -987,7 +987,7 @@ confirmed yet?
 [start=8]
 8. Explain the differences between absolute lock time and relative lock time.
 
-9. (This excercise is hard, feel free to skip it.) Suppose that you
+9. (This exercise is hard, feel free to skip it.) Suppose that you
 want to bet 1 BTC that it's going to snow in London on Christmas Eve
 and Ruth bets 1 BTC that it's not. You appoint a person, Beth, that
 you both trust to solve any conflicts that might occur. You and Ruth
