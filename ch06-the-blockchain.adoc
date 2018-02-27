@@ -368,14 +368,16 @@ image::{imagedir}/replace-many-blocks.svg[{full-width}]
 image::{imagedir}/2ndcol-replace-many-blocks.svg[]
 ****
 
-Now she needs to make three alternative blocks: 21, 22
-and 23. Changing anything in a block causes that block and all
-subsequent blocks to be invalid and they must all be replaced by valid
-blocks. This is because each block header contains a pointer to the
-previous block, the previous block id, which will change if the
-previous block changes. Three new alternative block files must be
-created in the shared folder. Lisa would get caught in the same way as
-above.
+Now she needs to make three alternative blocks: 21, 22 and 23. They
+must all be replaced by valid blocks.
+
+IMPORTANT: Changing anything in a block makes that block and all
+subsequent blocks invalid.
+
+This is because each block header contains a pointer to the previous
+block, the previous block id, which will change if the previous block
+changes. Three new alternative block files must be created in the
+shared folder. Lisa would get caught in the same way as above.
 
 ==== Why use a blockchain at all?
 
@@ -393,9 +395,9 @@ approach:
   signature. That information is valuable when maintaining the
   UTXO set.
 
-By using the blockchain Lisa only have to sign the most recent, yet
-unconfirmed set of transactions while still, indirectly via the
-previous block id pointer, signing all historic transactions:
+IMPORTANT: By using the blockchain, Lisa only has to sign the most
+recent block of transactions while still, indirectly via the previous
+block id pointer, signing all historic transactions:
 
 .Each block signs all transactions ever made thanks to the previous block id field of the headers.
 image::{imagedir}/reincorcing-previous-block-signatures.svg[{full-width}]

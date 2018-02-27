@@ -491,9 +491,13 @@ image::{imagedir}/script.svg[{big-width}]
 
 This tiny program, written in a programming language called Script,
 contains the instructions to Lisa on how to verify that the spending
-transaction is authentic. The ability to write a computer program
-inside a transaction is very useful for various use cases. We will
-cover several use cases of customized programs throughout this book.
+transaction is authentic. If Lisa performs all instructions in the
+program without errors and the end result is "OK", then the
+transaction is authentic.
+
+The ability to write a computer program inside a transaction is very
+useful for various use cases. We will cover several use cases of
+customized programs throughout this book.
 
 Now Suppose that Lisa wants to verify input 0 of John's
 transaction. She will run this program from top to bottom. A _stack_
@@ -579,12 +583,14 @@ spreadsheet.
 
 ==== Why use a program?
 
-The pubkey script part of the program stipulates exactly what the
-spending transaction needs to provide to spend the output. The only
-way to spend an output is to provide a signature script that makes the
-program finish with an "OK" on top of the stack. In the example above,
-the only acceptable signature script is a valid signature followed by the
-public key corresponding to the PKH in the pubkey script.
+IMPORTANT: The pubkey script part of the program stipulates exactly
+what the spending transaction needs to provide to spend the
+output. The only way to spend an output is to provide a signature
+script that makes the program finish with an "OK" on top of the stack.
+
+In the example above, the only acceptable signature script is a valid
+signature followed by the public key corresponding to the PKH in the
+pubkey script.
 
 [.inbitcoin]
 .Operators
@@ -1050,7 +1056,7 @@ only way to create new coins is to add a coinbase transaction to the
 spreadsheet. New coins are created as rewards to Lisa for performing
 her valuable work.
 
-All transactions can be traced back to one or more coinbase
+IMPORTANT: All transactions can be traced back to one or more coinbase
 transactions by following the txid references in inputs of
 transactions. The transactions form a _transaction graph_. They are
 interconnected through the txids.

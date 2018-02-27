@@ -3,32 +3,30 @@
 
 Describe soft forks and hard forks and how segwit got deployed.
 
-Also, as we discussed in <<validating-early-blocks>>, a full node that
-does the initial blockchain download, may chose not to verify any
-signatures before a certain block. This would also open up the
-possibility for the node to skip downloading and storing the
-signature scripts. Witness data becomes cheaper because it can be pruned
 
-Explain why it's called a "witness program"
-
-Add transaction version to transactions in chapter 9. Also mention it
-in ch5 where we mention locktime and sequence. Also BIP68 requires transaction version 2.
-
-Generally, use graphs instead of tables?
+Todo:
 
 Make a better ecosystem overview in ch01. Seriously.
 
-Update outdated numbers and stuff throughout the book. Price charts etc.
-
-Section on pruning
-
-Add answers to exercises
+Update outdated numbers and stuff throughout the book. Price
+charts etc. I've marked them with css class "movingtarget"
 
 Go through book and highlight IMPORTANT stuff.
 
+Explain why it's called a "witness program"
+
 Explain nothing-up-my-sleeve in ch04.
 
+spellcheck
+
+
+
+Less important todos: 
+
+Section on pruning
+
 payment channel
+
 lightning
 
 Bitcoin's confirmation times (several minutes) and relatively high
@@ -43,13 +41,19 @@ Network.
 
 From p2r5: Make Chapter 4 some more straight an “easy”.
 
+
+
 Open questions:
 
-* Does anyone here know why the sequence of other inputs are zeroed when signing with SIGHASH_NONE or SIGHASH_SINGLE? Doesn't that interfere with relative lock time and RBF opt-in?
-
-* Why do Bernanke outputs have values >0? Do they have to?
+* Does anyone here know why the sequence of other inputs are zeroed
+  when signing with SIGHASH_NONE or SIGHASH_SINGLE? Doesn't that
+  interfere with relative lock time and RBF opt-in?
 
 Closed questions:
+
+* Why do Bernanke outputs have values >0? Do they have to?
+** No they don't have to. There's no policy agains value >0 today, and
+   there (probably) weren't any back then.
 
 * Can we really save storage and or bandwidth between full nodes with segwit?
 ** Yes, but not right now. Witnessless mode is not implemented.

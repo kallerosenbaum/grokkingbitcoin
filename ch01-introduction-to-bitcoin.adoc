@@ -34,18 +34,20 @@ called bitcoin with lowercase b. Commonly used symbols for bitcoin are
 ****
 
 Bitcoin is an electronic cash system. It allows for people to move
-bitcoins, the currency of Bitcoin, between each other without using a
-bank or any other trusted third party. It resembles traditional bank
-notes and coins in that way, but it is purely electronic and used over
-the Internet. The Bitcoin currency is not tied to any specific _fiat
-currency_ like the US dollar or the Chinese Renminbi; It has free
-floating exchange rates against all fiat currencies. You can buy and
-sell bitcoins for fiat currencies on several exchanges. No government
-or company is controlling Bitcoin. Instead, thousands of computers
-around the globe, the Bitcoin network, collectively keep the system
-working day and night, seven days a week. You don't need to register
-or sign up anywhere to use Bitcoin, you just need a computer program,
-like a mobile app to use it.
+bitcoins, the currency unit of Bitcoin, between each other without
+using a bank or any other trusted third party. It resembles
+traditional bank notes and coins in that way, but it is purely
+electronic and used over the Internet. The Bitcoin currency is not
+tied to any specific _fiat currency_ like the US dollar or the Chinese
+Renminbi; It has free floating exchange rates against all fiat
+currencies. You can buy and sell bitcoins for fiat currencies on
+several exchanges.
+
+No government or company is controlling Bitcoin. Instead, thousands of
+computers around the globe, the Bitcoin network, collectively keep the
+system working day and night, seven days a week. You don't need to
+register or sign up anywhere to use Bitcoin, you just need a computer
+program, like a mobile app to use it.
 
 Satoshi Nakamoto, a pseudonym whose identity is unknown, published a
 scientific paper on an e-mail list for cryptography related
@@ -57,14 +59,15 @@ system. Bitcoin didn't get much attention then, apart from within a
 very limited set of cryptography experts. But gradually, as the system
 proved itself to be working, more people got interested in it.
 
-Today several millions of people are aware of Bitcoin, hundreds of
-thousands people are actively using Bitcoin and thousands of
-professionals are working on developing Bitcoin related
-technology. Bitcoin is primarily used for payments, savings and
-speculation today. It removes friction in on-line payments, especially
-internationally, and it allows for anyone to use or participate in the
-Bitcoin network without special permission from a bank or similar
-institution.
+[.movingtarget]
+
+As of 2018, several millions of people are aware of Bitcoin, hundreds
+of thousands people are using Bitcoin and thousands of people are
+working on developing Bitcoin technology. Bitcoin is primarily used
+for payments, savings and speculation today. It removes friction in
+on-line payments, especially internationally, and it allows for anyone
+to participate in the Bitcoin network without special permission from
+a bank or similar institution.
 
 ////
 ==== Who uses Bitcoin?
@@ -97,13 +100,12 @@ do with the system; As long as you follow the same rules as everybody
 else, you're good to go.
 ////
 
-
+////
 A lot of more or less interesting use cases have emerged over the
 years for Bitcoin. Among the most obvoius ones are international
-payments and savings.
-
-Just as with any other asset or currenty, the Bitcoin ecosystem
-consists of several types of users. These are some common types:
+payments and savings. Just as with any other asset or currency, the
+Bitcoin ecosystem has a lot of different users with different needs
+and busingesses. These are some common types:
 
 .The Bitcoin network and some of its different users.
 image::{imagedir}/actors.svg[{big-width}]
@@ -130,7 +132,7 @@ consists of thousands of computers that we call nodes. Any of the
 actors can participate actively in the Bitcoin network by running
 their own Bitcoin node. You must run your own node if you don't want
 to trust others to provide you with correct financial information.
-
+////
 === The big picture
 
 .The periscope
@@ -144,9 +146,9 @@ track of the big picture and what the goal of the currect
 topic is. Look for the periscope picture and section headers like
 "Where were we?".
 
-The Bitcoin network verifies and confirms payments between Bitcoin
-users. The Bitcoin network is a network of computers running Bitcoin
-software.
+The Bitcoin network is a network of computers running Bitcoin
+software. The Bitcoin network verifies and confirms payments between
+Bitcoin users.
 
 Suppose that Alice wants to make a payment of 1 BTC to Bob. The
 payment starts with Alice creating a transaction and sending it to the
@@ -744,9 +746,11 @@ very alluring to them because of the price _volatility_, or tendency
 to change. Looking at the history of the bitcoin price, it is very
 tempting to try to buy when it is low and sell when it is high.
 
+[.movingtarget]
 .Price in USD since beginning of Bitcoin
 image::{imagedir}/bitcoin-price.png[{half-width}]
 
+[.movingtarget]
 In November 2013, the price climbed from about $100 (US dollars) to
 over $1100 in a few weeks. This was clearly a so called _bubble_,
 where people were afraid of missing out on a great rise, so they

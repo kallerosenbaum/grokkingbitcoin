@@ -99,11 +99,13 @@ networks _gossip networks_ for apparent reasons.
 To relay a received block means to pass the block on to others.
 ****
 
-Blocks can no longer be easily stopped. A node can chose not to pass a
-block on, or _relay_ it, to its peers, but the peers are connected to
-several other peers who will gladly relay the block to them. A single
-node can't do much to censor information. Suppose that Rashid finds a
-block and he wants to get this block out to all nodes.
+IMPORTANT: Blocks can no longer be easily stopped. A node can chose
+not to pass a block on, or _relay_ it, to its peers, but the peers are
+connected to several other peers who will gladly relay the block to
+them. A single node can't do much to censor information.
+
+Suppose that Rashid finds a block and he wants to get this block out
+to all nodes.
 
 .If the cafe refuses to relay a block to Lisa, someone else will do it.
 image::{imagedir}/nodes-tolerate-bad-actors.svg[{big-width}]
@@ -555,6 +557,7 @@ do it.
 
 The Bitcoin peer to peer network is huge. As of writing:
 
+[.movingtarget]
 * It consists of about 10,000 publicly accessible full nodes.
 * Bitcoin's money supply is about 17,000,000 BTC.
 * Each bitcoin is worth around $10,000
@@ -705,7 +708,7 @@ an address by asking a friend who's running a full node.
    to connect to.
 3. Use "hard coded" peer addresses in the full node program itself.
 
-It is important that Selma's node doesn't initially connect to just a
+IMPORTANT: Selma's node should not initially connect to just one
 single node. If that single node is malicious, you have no way of
 knowing it. If you connect to multiple nodes initially, you can verify
 that they all send data consistent with each other. If not, one or

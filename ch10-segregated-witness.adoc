@@ -416,9 +416,9 @@ transaction, effectively leaving the signature script empty:
 .A segwit transaction contains no signature data. The signatures are attached instead. The txid does not commit to the signatures.
 image::{imagedir}/segwit-transaction-simple.svg[{big-width}]
 
-Segregated witness thus means that the contents of the signature script is
-removed from the transaction and put into an external structure that
-we call the witness.
+IMPORTANT: Segregated witness thus means that the contents of the
+signature script is removed from the transaction and put into an
+external structure that we call the witness.
 
 We will follow a few segwit transactions to see how it affects the
 different parts of the Bitcoin system. But first we need to get some
@@ -1047,11 +1047,11 @@ Let's call the block excluding the witnesses the _base block_.
 * 1 byte of base block data is counted as 4 weight units
 * 1 byte of witness data is counted as 1 weight unit
 
-The effect is that the old 1,000,000 byte block size limit remains
-because the new rule and the old rule are effectively the same on the
-base block. But the more segwit is used, the more data can be moved
-from the base block to the witness, which allows for a bigger total
-block size.
+IMPORTANT: The effect is that the old 1,000,000 byte block size limit
+remains because the new rule and the old rule are effectively the same
+on the base block. But the more segwit is used, the more data can be
+moved from the base block to the witnesses, which allows for a bigger
+total block size.
 
 Suppose that the witnesses in a block account for ratio r of the data
 in a block. The maximum block weight is 4,000,000 and a total block

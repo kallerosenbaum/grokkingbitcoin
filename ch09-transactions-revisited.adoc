@@ -751,6 +751,12 @@ common policy is to drop it. This is what Bitcoin Core does, and
 that's the most widely used Bitcoin software. This policy is known as
 the _first-seen policy_.
 
+[.gbinfo]
+.Hint for exercises
+****
+Keep this in mind for <<exercise-rbf>>.
+****
+
 You may be able to circumvent this policy by sending the second
 transaction directly to one or more miners. Miners have different
 incentives than full nodes. Mining full nodes want to earn rewards,
@@ -1005,6 +1011,8 @@ that the output is unspendable?
 11. Please explain how the first-seen policy works. Also, are nodes
 obliged to follow the policy?
 
+[[exercise-rbf,Exercise 12]]
+[start=12]
 12. Opt-in replace by fee offers a method for transaction
 replacement. Is there any fundamental security difference between a
 transaction with opt-in replace by fee enabled and a transaction that

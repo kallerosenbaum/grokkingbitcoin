@@ -36,6 +36,7 @@ tokens", CT. Cookie tokens can be exchanged for cookies in the cafe.
 [.inbitcoin]
 .Bitcoin, the currency
 ****
+[.movingtarget]
 A cookie token correspond to a bitcoin, the currency unit of
 Bitcoin. Bitcoin got its first price point 2010 when someone bought
 two pizzas for 10,000 BTC. That money would get you 12,000,000 pizzas
@@ -663,7 +664,7 @@ operating systems. The random number is now John's private key. The
 private key is then transformed into a public key using a public key
 derivation function.
 
-[IMPORTANT]: The public key derivation function is a one-way function,
+IMPORTANT: The public key derivation function is a one-way function,
 just as the cryptographic hash functions discussed earlier; You can
 not derive the private key from the public key. The security of
 digital signatures relies heavily on this one-way feature. Also,
@@ -812,7 +813,7 @@ image::{imagedir}/2ndcol-verify.svg[]
 Lisa looks at the email and sees that it claims to be from John, so
 she looks up John in her table of public keys.
 
-.Lisa uses the message (A), the signature (B) and John's public key (C) to verify that the message is actually signed with John's private key.
+.Lisa uses the message (A), the signature (B) and John's public key \(C) to verify that the message is actually signed with John's private key.
 image::{imagedir}/verify-signature.svg[{big-width}]
 
 The purpose of Lisa's actions in this picture is to determine that the
@@ -832,11 +833,11 @@ image::{imagedir}/2ndcol-encrypted-hash.svg[]
 
 IMPORTANT: John encrypted the hash of the message with his
 _private_ key. This encrypted hash is the signature. So if Lisa
-decrypts the signature (B) with John's _public_ key (C), the result
+decrypts the signature (B) with John's _public_ key \(C), the result
 should be the a hash that equals the hash of the message (A) in the
 email.
 
-Lisa takes the signature (B) and decrypts it with the public key (C)
+Lisa takes the signature (B) and decrypts it with the public key \(C)
 she looked up in her table of public keys. The decryption outputs a
 big number. If this number is equal to the hash of the message (A), it
 proves that John's private key was used to sign the message. Lisa

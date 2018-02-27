@@ -332,6 +332,7 @@ X * 10^-Y^
 [.inbitcoin]
 .Forks
 ****
+[.movingtarget]
 Forks in Bitcoin are a bit more probable than in this example, but still occurs only about once per day.
 ****
 
@@ -584,12 +585,14 @@ block. Can you smell the fragrance of self-empowerment?
 
 The difference from verifying a digitally signed block is that the
 full node verifies that the block producer has provided a valid proof
-of work instead of a valid digital signature. Note that we now don't
-need anything other than the block itself to determine if the proof of
-work is valid. We used to need stuff from outside the blockchain, the
-miner's public key from the bulletin board. This is a major leap
-forward towards decentralization. There are no longer any central
-sources for public keys that can be manipulated.
+of work instead of a valid digital signature.
+
+IMPORTANT: With proof of work, we don't need anything other than the
+block itself to determine if the block is valid. We used to need stuff
+from outside the blockchain, the miner's public key from the bulletin
+board. This is a major leap forward towards decentralization. There
+are no longer any central sources for public keys that can be
+manipulated.
 
 ==== Comparing with lucky numbers
 
@@ -732,7 +735,7 @@ expects to produce more blocks per day than for example Qi.
 After Lisa's and Rashid's added hashrate, the total hashrate in the
 cookie token system have increased significantly. Now we have
 
-[.inbitcoin]
+[role="inbitcoin movingtarget"]
 .Total hashrate of Bitcoin
 ****
 As of writing, the total hashrate of Bitcoin is about 8
@@ -830,14 +833,16 @@ target is _calculated_ after every 2016 blocks. Remember that each
 block contains a coinbase transaction that creates 50 new cookie
 tokens. We want one block per 10 minutes on average, to keep the pace
 of newly minted cookie tokens at the desired rate. That's 2016 blocks
-in about two weeks.
+in two weeks.
 
-If the 2016 blocks took more than 2 weeks to produce, the target must
-be increased to increase the probability that a block header hash will
-meet the target. We make it less difficult. If the 2016 blocks took
-less than 2 weeks to produce, the target must be decreased to decrease
-the probability of meeting the target. We increase the difficulty. The
-new target is calculated as
+IMPORTANT: If the 2016 blocks took more than 2 weeks to produce, the
+target must be increased to increase the probability that a block
+header hash will meet the target. We make it less difficult. If the
+2016 blocks took less than 2 weeks to produce, the target must be
+decreased to decrease the probability of meeting the target. We
+increase the difficulty.
+
+The new target is calculated as
 
 [stem]
 ++++
@@ -1296,7 +1301,7 @@ their own miners at home. Let's say that five more people join in the
 mining business, and each adds a computer with 150 Mhash/s. Now we
 have a whole new situation.
 
-[.inbitcoin]
+[role="inbitcoin movingtarget"]
 .Bitcoin's hashrate distribution
 ****
 As of writing, Bitcoin's 8 Exahash/s are distributed as follows
@@ -1418,13 +1423,15 @@ decides that the transaction fee compensates more than enough for the
 small incremental risk of losing the block race due to including the
 transaction.
 
-John can tune the incentive for miners to include his transaction. If
-it's really important to him that the transaction is confirmed in one
-of the next few blocks, he should pay a relatively high fee. If
-there's no hurry, he can pay a very low fee, but he needs to be
-cautious. If he pays a too small fee, no miner will be willing to
-include his transaction, ever. We will talk more about fees, and how
-you can change them if they get stuck pending in <<ch09>>.
+IMPORTANT: John can tune the incentive for miners to include his
+transaction. If it's really important to him that the transaction is
+confirmed in one of the next few blocks, he should pay a relatively
+high fee. If there's no hurry, he can pay a very low fee, but he needs
+to be cautious. If he pays a too small fee, no miner will be willing
+to confirm his transaction.
+
+We will talk more about fees, and how you can change them if they get
+stuck pending in <<ch09>>.
 
 [.inbitcoin]
 .Fees in Bitcoin
