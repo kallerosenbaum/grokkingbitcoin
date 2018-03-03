@@ -66,10 +66,10 @@ millions of people are using Bitcoin and 10s of thousands of people
 are working on developing Bitcoin related technology. 100s of people
 are involved in Bitcoin development.
 
-Anyone can participate in the Bitcoin network without special
+Anyone can use or participate in the Bitcoin network without special
 permission from a bank or similar institution. Thanks to this
-_permissionless_ nature of Bitcoin, a lot of Bitcoin related technology
-have emerged over the years. Bitcoin participants can be roughly
+_permissionless_ nature of Bitcoin, a lot of Bitcoin related
+technology have emerged over the years. Bitcoin users can be roughly
 categorized in to several groups.
 
 .The Bitcoin network and some of its different kinds of users.
@@ -99,16 +99,15 @@ Protocols on top:: Systems can be built on top of bitcoin. Payment
 networks, specialized tokens and decentralized exchanges are all
 examples of _protocols_ that operate "on top" of Bitcoin to perform
 certain tasks.
-Bitcoin developers:: People working, usually for free, with the
-computer programs that the participants of the Bitcoin network are
-running.
+Bitcoin developers:: People working, often for free, with the computer
+programs that the participants of the Bitcoin network are running.
 
 The Bitcoin network's job is to process Bitcoin payments. The network
 consists of thousands of computers that we call nodes. Any of the
-actors mentioned above can participate actively in the Bitcoin network
-by running their own Bitcoin node. You must run your own node if you
-don't want to trust others to provide you with correct financial
-information.
+actors mentioned above can also participate actively in the Bitcoin
+network by running their own Bitcoin node. You must run your own node
+if you don't want to trust others to provide you with correct
+financial information.
 
 === The big picture
 
