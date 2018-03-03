@@ -61,74 +61,54 @@ proved itself to be working, more people got interested in it.
 
 [.movingtarget]
 
-As of 2018, several millions of people are aware of Bitcoin, hundreds
-of thousands people are using Bitcoin and thousands of people are
-working on developing Bitcoin technology. Bitcoin is primarily used
-for payments, savings and speculation today. It removes friction in
-on-line payments, especially internationally, and it allows for anyone
-to participate in the Bitcoin network without special permission from
-a bank or similar institution.
+As of 2018, hundreds of millions of people are aware of Bitcoin,
+millions of people are using Bitcoin and 10s of thousands of people
+are working on developing Bitcoin related technology. 100s of people
+are involved in Bitcoin development.
 
-////
-==== Who uses Bitcoin?
+Anyone can participate in the Bitcoin network without special
+permission from a bank or similar institution. Thanks to this
+_permissionless_ nature of Bitcoin, a lot of Bitcoin related technology
+have emerged over the years. Bitcoin participants can be roughly
+categorized in to several groups.
 
-There are no intended users
-
-Permissionless
-
-We don't know/care
-
-Use cases emerge over time
-
-The dominant use cases today are savings, international payments, and
-speculation.
-
-Gold (limited supply)
-
-Anyone with an Internet connection is a potential user of
-Bitcoin. Than means that we can't really know who uses it today and
-for what purposes. But a good guess is that Bitcoin is used mainly for
-
-* Long term investments
-* International payments
-* Short term speculation
-
-But the interesting thing about Bitcoin is that no one decides what
-Bitcoin should be used for. Use cases emerge as users invent new ways
-to use the system. The system doesn't tell you what you may or may not
-do with the system; As long as you follow the same rules as everybody
-else, you're good to go.
-////
-
-A lot of more or less interesting use cases have emerged over the
-years for Bitcoin. Among the most obvious ones are international
-payments and savings. Just as with any other asset or currency, the
-Bitcoin ecosystem has a lot of different users with different needs
-and businesses. These are some common types:
-
-.The Bitcoin network and some of its different users.
-image::{imagedir}/actors.svg[{big-width}]
+.The Bitcoin network and some of its different kinds of users.
+image::{imagedir}/actors.svg[{full-width}]
 
 [.inbitcoin]
 .Bitcoin doesn't care
 ****
-The Bitcoin network doesn't distinguish between actors. The actors are
-just using Bitcoin in different ways.
+The Bitcoin network doesn't distinguish between users. No user is more
+important than any other user. It doesn't matter who they are or what
+they do, everyone participates on the same terms.
 ****
 
-Saver:: Saves bitcoin for future use.
-Shopper:: A person buying goods and services for bitcoin.
-Merchant:: For example a restaurant accepting bitcoin payments.
-Worker:: Someone getting her salary in bitcoin.
-Exchange:: A commercial service people can use to exchange their local
-currency to and from bitcoin.
-Trader:: A short term speculator performing trading on an exchange.
+End users:: These are people using Bitcoin for their day-to-day
+needs. It can be for example savings, shopping, speculation, salary.
+Corporate users:: Companies using Bitcoin to solve their business
+needs, for example paying wages internationally, or use cases similar
+to those of the end users.
+Merchants:: For example a restaurant or a book store accepting bitcoin
+payments.
+Bitcoin services:: Companies providing Bitcoin related services to its
+customers. For example top-up mobile phones, remittance services or
+tipping services.
+Exchanges:: A commercial service people can use to exchange their
+local currency to and from bitcoin.
+Protocols on top:: Systems can be built on top of bitcoin. Payment
+networks, specialized tokens and decentralized exchanges are all
+examples of _protocols_ that operate "on top" of Bitcoin to perform
+certain tasks.
+Bitcoin developers:: People working, usually for free, with the
+computer programs that the participants of the Bitcoin network are
+running.
 
 The Bitcoin network's job is to process Bitcoin payments. The network
 consists of thousands of computers that we call nodes. Any of the
-actors can participate actively in the Bitcoin network by running
-their own Bitcoin node. You must run your own node if you don't want
-to trust others to provide you with correct financial information.
+actors mentioned above can participate actively in the Bitcoin network
+by running their own Bitcoin node. You must run your own node if you
+don't want to trust others to provide you with correct financial
+information.
 
 === The big picture
 
@@ -466,7 +446,7 @@ decreases.
 ****
 
 .Inflation
-image::{imagedir}/inflation.jpg[{half-width}]
+image::{imagedir}/inflation.svg[{big-width}]
 
 Most currencies are subject to inflation. Some more than others. For
 example the Zimbabwean dollar inflated nearly 10^23^% during
@@ -587,7 +567,7 @@ treat all users equally. There is no central point in the Bitcoin
 system that can be exploited to censor payments, deny users service or
 seize funds.
 
-Bitcoin is _permissionless_, which means that you don't need to ask
+Bitcoin is permissionless, which means that you don't need to ask
 anyone for permission to participate. Anyone with a computer and an
 Internet connection can setup a Bitcoin node and take an active role
 in the Bitcoin network. No questions asked. No registration.
