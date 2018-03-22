@@ -35,7 +35,7 @@ can now send their transactions to any or all of the miners to ensure
 that their transactions are being processed.
 
 .Proof of work
-image::{imagedir}/visual-toc-proof-of-work.svg[]
+:imagedir: images/ch07/visual-toc-proof-of-work.svg[]
 
 With the new proof of work system in place, miners want to make blocks
 as small as possible to be able to upload them as quickly as possible
@@ -82,7 +82,7 @@ starts to refuse to process transactions she suspects to be paying for
 cookies, for example by looking for transactions with a 10 CT output.
 
 .Lisa could censor transactions like a dictator. No cookies for John.
-image::{imagedir}/censorship.svg[]
+:imagedir: images/ch07/censorship.svg[]
 
 People wanting to pay for a cookie in the cafe will be denied service
 because their payments won't go through. Other transactions that don't
@@ -90,7 +90,7 @@ have anything to do with cookies may get filtered out by Lisa as well,
 because she _suspects_ that they are used to pay for cookies.
 
 ****
-image::{imagedir}/2ndcol-acme-forces-lisa.svg[]
+:imagedir: images/ch07/2ndcol-acme-forces-lisa.svg[]
 ****
 
 Another possibility of censorship would be that Acme Insurances forces
@@ -121,7 +121,7 @@ company's intranet. All wallets start sending transactions to all
 three block producers, or _miners_. Let's have a look at what happens.
 
 .Tom and Qi begins creating blocks just as Lisa does which results in block collisions. The block headers have been simplified for clarity.
-image::{imagedir}/three-miners-collisions.svg[]
+:imagedir: images/ch07/three-miners-collisions.svg[]
 
 If they all just do what Lisa did, they would produce a block every 10
 minutes which results in three different blocks with about the same
@@ -143,7 +143,7 @@ system would halt.
 Let's try another naïve approach:
 
 ****
-image::{imagedir}/2ndcol-draw-lucky-numbers.svg[]
+:imagedir: images/ch07/2ndcol-draw-lucky-numbers.svg[]
 ****
 
 The miners each draw a random number between 0 and 999,999 every
@@ -161,7 +161,7 @@ means that usually, only a single miner will produce the next block.
 
 .Three miners build blocks. Usually blocks are created nicely one by one, but sometimes they will compete to become the next block, as at height 106.
 [[three-miners-and-a-fork]]
-image::{imagedir}/three-miners-and-a-fork.svg[]
+:imagedir: images/ch07/three-miners-and-a-fork.svg[]
 
 [TIP]
 .Honest miners
@@ -207,7 +207,7 @@ everyone is honest:
 In the simplest and most common case, exactly one miner is the first
 to draw a lucky number. This time it's Lisa who's lucky:
 
-image::{imagedir}/chain-fork-simple-resolution.svg[]
+:imagedir: images/ch07/chain-fork-simple-resolution.svg[]
 
 Lisa extended Tom's block, so the branch Tom and Lisa were working on
 just got one block longer. A general rule for this blockchain is that
@@ -243,14 +243,14 @@ correct branch. Miners will again pick sides and try to expend their
 branch of choice.
 
 .Both Lisa and Qi draws a lucky number at the same time. The situation is not resolved yet.
-image::{imagedir}/chain-fork-of-depth-2.svg[]
+:imagedir: images/ch07/chain-fork-of-depth-2.svg[]
 
 Let's say that Tom is the next to draw a lucky number. He builds the
 next block on his branch which now becomes three blocks long. It
 becomes longer than the other branch which is only two blocks long.
 
 .Tom is the next lucky miner and he gets to extend "his" branch which will now become the longest branch.
-image::{imagedir}/chain-fork-delayed-resolution.svg[]
+:imagedir: images/ch07/chain-fork-delayed-resolution.svg[]
 
 Every miner will acknowledge that by switching to Tom's branch and
 move on from there. We finally have a winner branch of this
@@ -263,7 +263,7 @@ time. Then they would both extend Tom's branch. The result will be a
 fork of the fork:
 
 .One of the branches experiences yet another fork. This new fork is resolved like the previous fork.
-image::{imagedir}/chain-fork-of-fork.svg[]
+:imagedir: images/ch07/chain-fork-of-fork.svg[]
 
 We now have three branches. Qi's branch is probably abandoned, because
 it is shorter than the two new branches; Lisa's branch and Tom's
@@ -379,7 +379,7 @@ really lucky.
 == Where were we?
 
 ****
-image::{commonimagedir}/periscope.gif[]
+:imagedir: images/common/periscope.gif[]
 ****
 
 This chapter is about _proof of work_. We haven't introduced that term
@@ -391,7 +391,7 @@ the next block and in what order. Bitcoin use proof of work to
 decide who gets to take the lead.
 
 .Proof of work is how we select a leader without a leader.
-image::{imagedir}/periscope-proof-of-work.svg[]
+:imagedir: images/ch07/periscope-proof-of-work.svg[]
 
 Proof of work makes it possible to randomly select a leader among all
 miners without using a central authority. Pay close attention to this
@@ -415,11 +415,11 @@ a block, which will result in a 10 minute block interval, just as
 before.
 
 .The block signatures are replaced by proof of work.
-image::{imagedir}/proof-of-work-overview.svg[]
+:imagedir: images/ch07/proof-of-work-overview.svg[]
 
 .Old style block
 ****
-image::{imagedir}/2ndcol-old-style-block.svg[]
+:imagedir: images/ch07/2ndcol-old-style-block.svg[]
 ****
 
 The trick is to replace the digital signatures in the block header
@@ -432,7 +432,7 @@ is less than or equal to an agreed upon target that's written in the
 block header:
 
 .The block id must be less than or equal to the target in the header. Otherwise the block is invalid.
-image::{imagedir}/valid-pow-example.svg[]
+:imagedir: images/ch07/valid-pow-example.svg[]
 
 [CAUTION]
 .Target in Bitcoin
@@ -502,7 +502,7 @@ created a block and set the target to `00000000926e…` and the nonce to
 `0`. Then she tests whether the proof of work is valid:
 
 .Qi tests if her block is valid by verifying the proof of work
-image::{imagedir}/create-pow-example-1.svg[]
+:imagedir: images/ch07/create-pow-example-1.svg[]
 
 She calculates the block id, by hashing her block header with double
 SHA-256. In this case the block id is `aa9c614e7f50…`. This number is
@@ -531,7 +531,7 @@ Qi will now make a second attempt at making a valid proof of work. She
 increases the nonce from `0` to `1` and tests the validity again:
 
 .Qi increases the nonce and makes a second attempt at finding a valid proof of work. This also fails.
-image::{imagedir}/create-pow-example-2.svg[]
+:imagedir: images/ch07/create-pow-example-2.svg[]
 
 When Qi changes the block header by increasing the nonce, the block id
 will change. This is because any tiny change in the header will result
@@ -540,7 +540,7 @@ displayed in <<cryptographic_hashing>> when we changed the cat
 picture:
 
 .Changing the input of a cryptographic hash function will result in a completely different output.
-image::{imagedir}/2ndcol-hashing-a-modified-cat.svg[]
+:imagedir: images/ch07/2ndcol-hashing-a-modified-cat.svg[]
 
 The new block id is `863c9bea5fd8…`. This is also bigger than the
 target. Qi failed again. I'm sorry, but there is no way around
@@ -548,7 +548,7 @@ this. Qi must try once more. She increases the nonce from `1` to `2`
 and tests again:
 
 .Qi's third attempt at finding a valid proof of work. Failed again.
-image::{imagedir}/create-pow-example-3.svg[]
+:imagedir: images/ch07/create-pow-example-3.svg[]
 
 The result is the same: Miserable failure. The block id was
 `005ce22db5aa…` this time, which is still bigger than the target.
@@ -556,17 +556,17 @@ The result is the same: Miserable failure. The block id was
 She repeats this over and over. For example her 227,299,125th try:
 
 .Qi's try with nonce 227,299,124. Close but no cigar!
-image::{imagedir}/create-pow-example-4.svg[]
+:imagedir: images/ch07/create-pow-example-4.svg[]
 
 This was really close, but close doesn't help. She has to keep trying:
 
 .Qi keeps on working.
-image::{imagedir}/create-pow-example-5.svg[]
+:imagedir: images/ch07/create-pow-example-5.svg[]
 
 Until finally
 
 .The nonce 492781982 is a winner!
-image::{imagedir}/create-pow-example-6.svg[]
+:imagedir: images/ch07/create-pow-example-6.svg[]
 
 The nonce 492,781,982 results in a block id `000000003c77…`. She
 compares this to the target:
@@ -588,7 +588,7 @@ target. The verification of a block is now slightly different than
 before:
 
 .Block verification has changed. The verifier doesn't need anything from outside the block anymore.
-image::{imagedir}/verify-block-then-and-now.svg[]
+:imagedir: images/ch07/verify-block-then-and-now.svg[]
 
 [TIP]
 .Blocks are self-contained
@@ -614,7 +614,7 @@ The blockchain will grow in the same way as before, but the drawing of
 lucky numbers are replaced by hashing the block header.
 
 .The blockchain works just as when lucky numbers were used.
-image::{imagedir}/three-miners-proof-of-work.svg[]
+:imagedir: images/ch07/three-miners-proof-of-work.svg[]
 
 [TIP]
 ====
@@ -649,7 +649,7 @@ followed the longest chain. The accumulated proof of work for a
 blockchain is the sum of the _difficulties_ of each block in the
 chain. The _difficulty of a block_ is calculated as
 
-image::{imagedir}/calculate-difficulty.svg[]
+:imagedir: images/ch07/calculate-difficulty.svg[]
 
 The gist of this is that the higher the target of a block, the lower
 the difficulty of that block, and the lower the target, the higher the
@@ -658,11 +658,10 @@ probability of winning in one try. Compare this to the probability, p,
 of drawing a winning lucky number, where target was 555:
 
 
-[latexmath]
-++++
-p=\frac{555+1}{1,000,000}=\frac{556}{1,000,000} \\
-difficulty=\frac{1}{p}=\frac{1,000,000}{556}
-++++
+
+latexmath: p=\frac{555+1}{1,000,000}=\frac{556}{1,000,000}
+latexmath: difficulty=\frac{1}{p}=\frac{1,000,000}{556}
+
 
 
 So we sum the difficulties of all blocks to get the accumulated proof
@@ -683,7 +682,7 @@ the exact same tries she has already made. There are several options
 to make a change:
 
 .The block header can be changed in different ways
-image::{imagedir}/change-header.svg[]
+:imagedir: images/ch07/change-header.svg[]
 
 1. Change the timestamp slightly
 2. Add, remove or rearrange transactions
@@ -778,7 +777,7 @@ _block rate_ is too high, almost double the desired rate.
 ==== Too fast money creation
 
 ****
-image::{imagedir}/money-supply.png[]
+:imagedir: images/ch07/money-supply.png[]
 ****
 
 Do you remember the planned money supply curve from <<ch02>>? The plan
@@ -861,10 +860,9 @@ increase the difficulty.
 The new target is calculated as
 
 
-[latexmath]
-++++
-new\ target=old\ target*\frac{time\ to\ produce\ last\ 2016\ blocks}{2\ weeks}
-++++
+
+latexmath: new\ target=old\ target*\frac{time\ to\ produce\ last\ 2016\ blocks}{2\ weeks}
+
 
 
 
@@ -930,7 +928,7 @@ too much. There are a few rules that the timestamp must obey. Suppose
 that the cafe's full node are about to verify Tom's block.
 
 .Two blocks are mined with decreasing timestamps. That's OK.
-image::{imagedir}/timestamps-diff.svg[]
+:imagedir: images/ch07/timestamps-diff.svg[]
 
 * The timestamp must be strictly later than the _median_ of the previous
   11 timestamps.
@@ -984,7 +982,7 @@ They can differ because of several reasons:
 We will only show option 1 here. Suppose that a natural fork occurs:
 
 .A natural fork with differing timestamps between the branches will cause one branch to become stronger than the other in case of a retarget.
-image::{imagedir}/strength-length.svg[]
+:imagedir: images/ch07/strength-length.svg[]
 
 .Timestamps
 ****
@@ -1002,10 +1000,9 @@ the respective retarget periods differ by four hours, which causes the
 new targets to be different. Recall the retarget formula:
 
 
-[latexmath]
-++++
-new\ target=old\ target*\frac{time\ to\ produce\ last\ 2016\ blocks}{2\ weeks}
-++++
+
+latexmath: new\ target=old\ target*\frac{time\ to\ produce\ last\ 2016\ blocks}{2\ weeks}
+
 
 
 
@@ -1036,7 +1033,7 @@ Suppose that Lisa is about to pay for a cookie in the cafe. But at the
 time she pays she also prepares a double spend transaction:
 
 .Lisa creates two transactions that spend one common output. She pays a 0.5 CT in transaction fee.
-image::{imagedir}/double-spend-transaction.svg[]
+:imagedir: images/ch07/double-spend-transaction.svg[]
 
 C is the transaction to the cafe. L is Lisa's double spend transaction
 that she is going to snatch back her money with. Both these
@@ -1050,7 +1047,7 @@ proof of work, Lisa secretly puts the double spend transaction, L,
 into a secret block of her own and starts working on that block.
 
 .Lisa pulls off a double spend attack - and succeeds in spite of her small hashrate.
-image::{imagedir}/double-spend-attack-success.svg[]
+:imagedir: images/ch07/double-spend-attack-success.svg[]
 
 Lisa's goal is to secretly find valid proof of work for her fraud
 branch, containing L, that exceeds the proof of work of the honest
@@ -1143,7 +1140,7 @@ previous example.
 Let's see how it goes:
 
 .Lisa tries to double spend a transaction with 6 confirmations. She fails.
-image::{imagedir}/double-spend-attack-fail.svg[]
+:imagedir: images/ch07/double-spend-attack-fail.svg[]
 
 The outcome is the expected. Lisa couldn't produce more blocks than
 the honest chain in the long run. She gave up at 7-4.
@@ -1218,19 +1215,11 @@ h|       1%     h| 10%     h| 18% (Tom) h| 36% (Lisa) h| 45% h| 50%
 
 The probability, q~z~, is calculated as
 
-[latexmath] 
-++++
-q=attacker's\ hashrate \\
-p=honest\ hashrate \\
-z=blocks\ to\ catch\ up \\
-q_{z}=
-\left\{
-\begin{array}{ll}
-1 & \mbox{if } p \leq q \\
-(\frac{q}{p})^z & \mbox{if } q \gt p \\
-\end{array}
-\right.
-++++
+
+latexmath: q=attacker's\ hashrate \\
+latexmath: p=honest\ hashrate \\
+latexmath: z=blocks\ to\ catch\ up \\
+latexmath: q_{z}=\left\{\begin{array}{ll}1 & \mbox{if } p \leq q \\(\frac{q}{p})^z & \mbox{if } q \gt p \\\end{array}\right.
 
 Look at the column for 36% hashrate, which is what Lisa has. When she
 is three blocks behind, she must produce four blocks more than the
@@ -1245,7 +1234,7 @@ Imagine if Tom would be attempting a double spend instead of
 Lisa. He's only got half of Lisa's hashrate, 100 Mhash/s.
 
 .Tom attempts to double spend with 18% hashrate and gives up. He's actually lucky finding two blocks in about the same time the honest miners finds three.
-image::{imagedir}/double-spend-attack-tom-fail.svg[]
+:imagedir: images/ch07/double-spend-attack-tom-fail.svg[]
 
 Tom's chances are smaller than Lisa's. He's getting a bit lucky and
 finds two blocks early, but after falling 2 blocks behind the honest
@@ -1267,7 +1256,7 @@ Tom and Lisa have 300 Mhash/s together. They control more than 50%
 (54.5%) of the total hashrate.
 
 .Hashrate distribution. Two miners can collude to control a majority of the hashrate.
-image::{imagedir}/chart-hashrate-distribution-then.png[]
+:imagedir: images/ch07/chart-hashrate-distribution-then.png[]
 
 If they cooperate in a double spend attack and if they are willing to
 try indefinitely, their chances are 100% to succeed, see
@@ -1328,14 +1317,14 @@ have a whole new situation.
 ====
 As of writing, Bitcoin's 8 Exahash/s are distributed as follows
 
-image::{imagedir}/chart-hashrate-distribution-bitcoin.png[]
+:imagedir: images/ch07/chart-hashrate-distribution-bitcoin.png[]
 
 This constantly changes, but it should give you an idea of how it can
 look in the real world.
 ====
 
 .New hashrate distribution. It's much harder to get control over a majority of the hashrate.
-image::{imagedir}/chart-hashrate-distribution-now.png[]
+:imagedir: images/ch07/chart-hashrate-distribution-now.png[]
 
 The total hashrate increases from 550 Mhash/s to 1300 Mhash/s. The
 biggest miner, Lisa with 200 Mhash/s, now only has about 15% of the
@@ -1378,7 +1367,7 @@ uploading their respective blocks to the shared folder at the exact
 same time.
 
 .Lisa and Tom compete to get Qi and the other miners to mine on top of their block. Tom wins this race because his block was smaller.
-image::{imagedir}/block-size-matters.svg[]
+:imagedir: images/ch07/block-size-matters.svg[]
 
 Tom's block is smaller than Lisa's. That means that Tom will upload
 his block to the shared folder faster than Lisa uploads her block. It
@@ -1420,7 +1409,7 @@ miners an incentive to include his transaction he decides to add a
 transaction fee. He constructs his transaction as follows:
 
 .John includes a transaction fee that the miner who mines a block with his transaction gets.
-image::{imagedir}/transaction-fee.svg[]
+:imagedir: images/ch07/transaction-fee.svg[]
 
 When John created a similar transaction in <<ch05>>, the sum of the
 inputs were equal to the sum of the outputs. He didn't pay any
@@ -1482,7 +1471,7 @@ How does Lisa collect this fee? She collects the fee using her
 coinbase transaction.
 
 .Lisa is working on a block and she has included John's transaction and a few others. She collects the fees in the coinbase output.
-image::{imagedir}/lisa-collects-transaction-fees.svg[]
+:imagedir: images/ch07/lisa-collects-transaction-fees.svg[]
 
 Lisa sums up all transaction fees from the transactions in her block
 and increases the coinbase output with that amount. The amount in the
@@ -1508,7 +1497,7 @@ block subsidy decreases. The typical miner wants the income from the
 mining to at least cover their electricity bill:
 
 .A miner must make at least enough money to pay for the electricity.
-image::{imagedir}/mining-economy.svg[]
+:imagedir: images/ch07/mining-economy.svg[]
 
 Note that the _value_ of the block subsidy may not always
 decrease over time. Let's look at some examples:
@@ -1555,7 +1544,7 @@ compete to be the first to find a valid _proof of work_ for their
 block:
 
 .A valid proof of work. The block header hash is lower than the target.
-image::{imagedir}/summary-valid-pow.svg[]
+:imagedir: images/ch07/summary-valid-pow.svg[]
 
 The miner who wins the competition will publish its block and collect
 the block reward. The block reward consists of the block subsidy and
@@ -1563,7 +1552,7 @@ the transactions fees. The reward is collected in the coinbase
 transaction.
 
 .The block reward is collected in the coinbase output.
-image::{imagedir}/lisa-collects-transaction-fees.svg[]
+:imagedir: images/ch07/lisa-collects-transaction-fees.svg[]
 
 The block subsidy is used to fairly get new money into circulation in
 the economy, until all 21,000,000 new cookie tokens are minted. The
@@ -1574,7 +1563,7 @@ The competition will lead to natural forks, when two miner finds a
 block at about the same time. They will eventually get resolved.
 
 .Proof of work will cause forks of the blockchain. They will be resolved over time.
-image::{imagedir}/three-miners-proof-of-work.svg[]
+:imagedir: images/ch07/three-miners-proof-of-work.svg[]
 
 The resolution is affected by which branch miners chose to
 mine on. Miners usually mine on the first valid block they see.
@@ -1585,7 +1574,7 @@ containing the transaction. This is to reduce the risk of double
 spends.
 
 .Requiring many confirmations can protect the merchant from double spends.
-image::{imagedir}/double-spend-attack-tom-fail.svg[]
+:imagedir: images/ch07/double-spend-attack-tom-fail.svg[]
 
 It can be very expensive for a miner to try a double spend. If they
 fail, they will have spent a lot of electricity and lost all their
