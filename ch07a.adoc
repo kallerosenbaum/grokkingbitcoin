@@ -23,16 +23,17 @@ Chapter 7
 latexmath:[$p=\frac{555+1}{1,000,000}=\frac{556}{1,000,000}$]
 latexmath:[$difficulty=\frac{1}{p}=\frac{1,000,000}{556}$]
 
-latexmath: [$new\ target=old\ target*\frac{time\ to\ produce\ last\ 2016\ blocks}{2\ weeks}$]
+latexmath:[$new\ target=old\ target*\frac{time\ to\ produce\ last\ 2016\ blocks}{2\ weeks}$]
 
 
-latexmath: [$new\ target=old\ target*\frac{time\ to\ produce\ last\ 2016\ blocks}{2\ weeks}$]
+latexmath:[$new\ target=old\ target*\frac{time\ to\ produce\ last\ 2016\ blocks}{2\ weeks}$]
 
 
 latexmath:[$\q=attacker's\ hashrate$]
 latexmath:[$\p=honest\ hashrate$]
 latexmath:[$\z=blocks\ to\ catch\ up$]
-latexmath:[$\q_{z}=\left\{\begin{array}{ll}1 & \mbox{if } p \leq q \\(\frac{q}{p})^z & \mbox{if } q \gt p \\\end{array}\right$]
+latexmath:[$\q_{z}=\left\{\begin{array}{ll}1 & \mbox{if } p \leq q$]
+latexmath:[$\frac{q}{p})^z & \mbox{if } q \gt p \\\end{array}\right$]
 
 
 
