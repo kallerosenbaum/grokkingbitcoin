@@ -363,7 +363,8 @@ One of the brighter developers, who is a cryptographer, comes up with
 a new way to handle key creation to improve the backup situation which
 also brings totally new features to wallets.
 
-IMPORTANT: She realizes that if all private keys in a wallet were
+[role="important"]
+She realizes that if all private keys in a wallet were
 generated from a single random number called a _random seed_, the
 whole wallet can be backed up once and for all by writing down the
 seed on a piece of paper and store it in a safe place.
@@ -621,7 +622,8 @@ Rita's wallet can display the seed as a sequence of 12 English words, called a _
 image:{imagedir}/backup-mnemonic.svg[]
 ****
 
-IMPORTANT: This mnemonic sentence _encodes_ the seed in a human
+[role="important"]
+This mnemonic sentence _encodes_ the seed in a human
 readable way. It's much more approachable to write down those 12 words
 than it is to write down cryptic hex code. If Rita loses her wallet
 she can install the wallet app on another phone and restore the seed

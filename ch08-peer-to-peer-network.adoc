@@ -99,7 +99,8 @@ networks _gossip networks_ for apparent reasons.
 To relay a received block means to pass the block on to others.
 ****
 
-IMPORTANT: Blocks can no longer be easily stopped. A node can chose
+[role="important"]
+Blocks can no longer be easily stopped. A node can chose
 not to pass a block on, or _relay_ it, to its peers, but the peers are
 connected to several other peers who will gladly relay the block to
 them. A single node can't do much to censor information.
@@ -708,7 +709,8 @@ an address by asking a friend who's running a full node.
    to connect to.
 3. Use "hard coded" peer addresses in the full node program itself.
 
-IMPORTANT: Selma's node should not initially connect to just one
+[role="important"]
+Selma's node should not initially connect to just one
 single node. If that single node is malicious, you have no way of
 knowing it. If you connect to multiple nodes initially, you can verify
 that they all send data consistent with each other. If not, one or

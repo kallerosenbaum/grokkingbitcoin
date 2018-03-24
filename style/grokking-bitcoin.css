@@ -76,6 +76,10 @@ table.tableblock>caption.title {
     width:50px;
 }
 
+.important p {
+    font-weight: bold;
+}
+
 .gbinfo::before,.inbitcoin::before,.gbminiex::before {
     float: right;
     position: relative;

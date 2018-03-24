@@ -388,7 +388,8 @@ created it, anyone with read access to the spreadsheet can
 verify it. Anyone can create a _private_ UTXO set and work through all
 transactions and end up with the exact same UTXO set as Lisa.
 
-IMPORTANT: This means that anyone can make the same checks as Lisa
+[role="important"]
+This means that anyone can make the same checks as Lisa
 does. They can verify that Lisa is doing her job. These verifiers are
 very important to the system because they make sure that updates to
 the spreadsheet obey the agreed-upon rules.
@@ -583,7 +584,8 @@ spreadsheet.
 
 ==== Why use a program?
 
-IMPORTANT: The pubkey script part of the program stipulates exactly
+[role="important"]
+The pubkey script part of the program stipulates exactly
 what the spending transaction needs to provide to spend the
 output. The only way to spend an output is to provide a signature
 script that makes the program finish with an "OK" on top of the stack.
@@ -1056,7 +1058,8 @@ only way to create new coins is to add a coinbase transaction to the
 spreadsheet. New coins are created as rewards to Lisa for performing
 her valuable work.
 
-IMPORTANT: All transactions can be traced back to one or more coinbase
+[role="important"]
+All transactions can be traced back to one or more coinbase
 transactions by following the txid references in inputs of
 transactions. The transactions form a _transaction graph_. They are
 interconnected through the txids.

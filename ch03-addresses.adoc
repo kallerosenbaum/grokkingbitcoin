@@ -347,7 +347,8 @@ spelling mistake.
 image:{imagedir}/pkh-pre-image-resistance.svg[]
 ****
 
-IMPORTANT: John has sent money to a "public key hash" for which there
+[role="important"]
+John has sent money to a "public key hash" for which there
 is no known private key. No one is ever going to be able to spend
 those 10 CT, not the cafe, not John, nobody. John has just digitally
 burned 10 CT.
@@ -637,7 +638,8 @@ A week later, John receives a letter from Acme, politely informing him
 that he is now promoted to a higher risk category, and his insurance
 premium has been adjusted accordingly.
 
-IMPORTANT: There are obviously still privacy issues to deal
+[role="important"]
+There are obviously still privacy issues to deal
 with. Luckily, as noted above, users can create as many addresses they
 like. For example the cafe could create a unique address for every
 incoming payment. And John can create a brand new cookie token address

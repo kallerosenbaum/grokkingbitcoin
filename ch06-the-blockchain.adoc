@@ -371,7 +371,8 @@ image::{imagedir}/2ndcol-replace-many-blocks.svg[]
 Now she needs to make three alternative blocks: 21, 22 and 23. They
 must all be replaced by valid blocks.
 
-IMPORTANT: Changing anything in a block makes that block and all
+[role="important"]
+Changing anything in a block makes that block and all
 subsequent blocks invalid.
 
 This is because each block header contains a pointer to the previous
@@ -395,7 +396,8 @@ approach:
   signature. That information is valuable when maintaining the
   UTXO set.
 
-IMPORTANT: By using the blockchain, Lisa only has to sign the most
+[role="important"]
+By using the blockchain, Lisa only has to sign the most
 recent block of transactions while still, indirectly via the previous
 block id pointer, signing all historic transactions:
 
@@ -1037,7 +1039,8 @@ reward to Lisa. A typical full node would consider any block that pays
 too much to Lisa as invalid, because that's not a rule he signed up
 for, and drop the block.
 
-IMPORTANT: The lightweight wallet needs to trust the full node to verify those
+[role="important"]
+The lightweight wallet needs to trust the full node to verify those
 things on behalf of the wallet and that the full node is following the
 rules that the wallet expects it to follow.
 

@@ -84,7 +84,8 @@ someone who is willing to sell you some, possibly Anne or the cafe, at
 a price you both agree on. Lisa will then add a row to the spreadsheet
 accordingly.
 
-IMPORTANT: Lisa have promised never to remove or change anything in the
+[role="important"]
+Lisa have promised never to remove or change anything in the
 spreadsheet, just add to it. What happens in the spreadsheet, stays in
 the spreadsheet!
 
@@ -340,15 +341,13 @@ because it is the one that Bitcoin uses the most. There are several
 different cryptographic hash functions, but they all provide the same
 basic properties:
 
-[IMPORTANT]
-====
+[role="important"]
 . The same input will always produce the same hash.
 . Slightly different inputs will produce very different hashes.
 . The hash is always of the same fixed size. For SHA256 it is 256
   bits.
 . Trial-and-error is the only known way to find an input that gives a
 certain hash.
-====
 
 .A cryptographic hash function, SHA256, in action. The input "Hello!" will give you the same output every time, but the slightly modified input "Hello" will give you a totally different output.
 image::{imagedir}/cryptographic-hashing.svg[{big-width}]
@@ -664,7 +663,8 @@ operating systems. The random number is now John's private key. The
 private key is then transformed into a public key using a public key
 derivation function.
 
-IMPORTANT: The public key derivation function is a one-way function,
+[role="important"]
+The public key derivation function is a one-way function,
 just as the cryptographic hash functions discussed earlier; You can
 not derive the private key from the public key. The security of
 digital signatures relies heavily on this one-way feature. Also,
@@ -785,7 +785,8 @@ looks like garbage:
 
 This is the signature.
 
-IMPORTANT: The signature is an encrypted hash of a message. If John
+[role="important"]
+The signature is an encrypted hash of a message. If John
 would have used another private key to sign with or a slightly
 different message, the signature would have looked completely
 different.
@@ -831,7 +832,8 @@ C. Johns public key that she just looked up in her table
 image::{imagedir}/2ndcol-encrypted-hash.svg[]
 ****
 
-IMPORTANT: John encrypted the hash of the message with his
+[role="important"]
+John encrypted the hash of the message with his
 _private_ key. This encrypted hash is the signature. So if Lisa
 decrypts the signature (B) with John's _public_ key \(C), the result
 should be the a hash that equals the hash of the message (A) in the

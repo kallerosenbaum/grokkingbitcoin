@@ -148,7 +148,8 @@ requirements between you and that one peer will decrease. As more and
 more nodes start adopting compact blocks, your total bandwidth
 requirement will drop even more.
 
-IMPORTANT: You have not made any changes to the consensus
+[role="important"]
+You have not made any changes to the consensus
 rules. Blocks are verified using your software exactly as before. The
 blocks Bitcoin New produce will be accepted by Bitcoin Old nodes, and
 vice versa, blocks produced by Bitcoin Old nodes will be accepted by

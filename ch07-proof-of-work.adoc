@@ -587,7 +587,8 @@ The difference from verifying a digitally signed block is that the
 full node verifies that the block producer has provided a valid proof
 of work instead of a valid digital signature.
 
-IMPORTANT: With proof of work, we don't need anything other than the
+[role="important"]
+With proof of work, we don't need anything other than the
 block itself to determine if the block is valid. We used to need stuff
 from outside the blockchain, the miner's public key from the bulletin
 board. This is a major leap forward towards decentralization. There
@@ -835,7 +836,8 @@ tokens. We want one block per 10 minutes on average, to keep the pace
 of newly minted cookie tokens at the desired rate. That's 2016 blocks
 in two weeks.
 
-IMPORTANT: If the 2016 blocks took more than 2 weeks to produce, the
+[role="important"]
+If the 2016 blocks took more than 2 weeks to produce, the
 target must be increased to increase the probability that a block
 header hash will meet the target. We make it less difficult. If the
 2016 blocks took less than 2 weeks to produce, the target must be
@@ -1423,7 +1425,8 @@ decides that the transaction fee compensates more than enough for the
 small incremental risk of losing the block race due to including the
 transaction.
 
-IMPORTANT: John can tune the incentive for miners to include his
+[role="important"]
+John can tune the incentive for miners to include his
 transaction. If it's really important to him that the transaction is
 confirmed in one of the next few blocks, he should pay a relatively
 high fee. If there's no hurry, he can pay a very low fee, but he needs
