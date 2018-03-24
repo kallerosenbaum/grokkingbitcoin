@@ -1,19 +1,6 @@
-= Grokking Bitcoin
-:chapter: 7
-:sectnums:
-:figure-caption: Figure {chapter}.
-:listing-caption: Listing {chapter}.
-:table-caption: Table {chapter}.
-:sectnumoffset: 6
-:leveloffset: 1  
-:xrefstyle: short
-:imagedir: images/ch07
-:commonimagedir: images/common
-:stem: latexmath
-
 [[ch07]]
-= Proof of work - Resist censorship
-
+== Proof of work - Resist censorship
+:imagedir: {baseimagedir}/ch07
 This chapter covers
 
 * Making transactions censorship resistant, by allowing multiple "Lisas"
