@@ -321,8 +321,8 @@ header, and the target is the agreed upon target.
 block header until the block id (the block header hash) is lower than
 the target.
 
-6. The branch of the fork with most accumulated proof of work. This is
-not necessarily the same as the branch with most blocks.
+6. The branch with most accumulated proof of work. This is not
+necessarily the same as the branch with most blocks.
 
 7. A miner with hashrate 100 Mhash/s can perform 100,000,000 tries per
 second to find a valid proof of work.
@@ -539,7 +539,7 @@ effect at all if it succeeds.
 rule is that unknown witness versions are accepted. When a new witness
 version is deployed, old nodes will accept any payment that spends
 outputs with that new witness version. This avoids causing old and new
-nodes following different branches (forks) of the blockchain.
+nodes following different branches of the blockchain.
 
 8. All data items in the signature script are pushed to the
 stack. There are no such items in the signatures script, so nothing to

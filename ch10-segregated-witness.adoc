@@ -1002,9 +1002,9 @@ seem fast enough, but uploading this block to 5 peers will take 50
 seconds, provided that your peers have the same internet speed as you
 have. This will cause the block to propagate very slowly across the
 peer to peer network, which will increase the risk of an unintended
-blockchain fork. Unintended forks will resolve with time, as we saw in
+blockchain split. Unintended splits will resolve with time, as we saw in
 <<draw-lucky-numbers>>, but the overall security of Bitcoin will
-decrease during such forks.
+decrease during such splits.
 
 Another potential problem with big blocks, that could be exploited by
 attackers, is that people with poor internet connections will be left
@@ -1033,8 +1033,9 @@ nodes to disagree on what the strongest valid blockchain is. We will
 examine forks and upgrades in <<ch11>>. For now, suppose that new
 nodes decides that 8,000,000 byte blocks are OK. When a miner
 publishes a block that is bigger than 1,000,000 bytes, new nodes will
-accept it while old nodes will not accept it and a permanent fork has
-occurred, and we effectively have two different cryptocurrencies.
+accept it while old nodes will not accept it and a permanent
+blockchain split has occurred, and we effectively have two different
+cryptocurrencies.
 
 With segwit, there is an opportunity to somewhat increase both these
 limits without a hard fork.

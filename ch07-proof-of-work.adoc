@@ -164,14 +164,14 @@ have to worry about naming their files. An example of a file name is
 The system ticks on quite well, but once in a while two miners will
 draw a lucky number at the same time. They are not aware that another
 miner also drew a lucky number, so they will both produce a block at
-the same height. This situation is known as a _fork_, because the
-chain splits in two. Both forks are equally valid, so which one is the
-"correct" one? Which miner will "win" the block and collect the block
-reward of 50 CT?
+the same height. This situation is known as a _blockchain split_,
+because the chain splits in two. Both branches are equally valid, so
+which one is the "correct" one? Which miner will "win" the block and
+collect the block reward of 50 CT?
 
 We don't know who the winner is yet. It's up to the miners to decide
-which branch of the fork they want to extend with their next
-blocks. In the diagram above, both Tom and Qi have created a block at
+which branch they want to extend with their next blocks. In the
+diagram above, both Tom and Qi have created a block at
 height 106. This is how the different miners probably would think:
 
 Tom:: I will extend my own block, because if I win the next block I
@@ -239,37 +239,37 @@ becomes longer than the other branch which is only two blocks long.
 image::{imagedir}/chain-fork-delayed-resolution.svg[{full-width}]
 
 Every miner will acknowledge that by switching to Tom's branch and
-move on from there. We finally have a winner branch of this
-fork. Again, Qi happens to be the loser in this fight.
+move on from there. We finally have a winning branch. Again, Qi
+happens to be the loser in this fight.
 
-===== fork of fork
+===== split of split
 
 Say instead that Tom and Lisa both draw a lucky number at the same
 time. Then they would both extend Tom's branch. The result will be a
-fork of the fork:
+split of the split:
 
-.One of the branches experiences yet another fork. This new fork is resolved like the previous fork.
+.One of the branches experiences yet another split. This new split is resolved like the previous split.
 image::{imagedir}/chain-fork-of-fork.svg[{big-width}]
 
 We now have three branches. Qi's branch is probably abandoned, because
 it is shorter than the two new branches; Lisa's branch and Tom's
 branch. Now we have a new competition that will get resolved in the
-same way as the first fork. It will be resolved by
+same way as the first split. It will be resolved by
 
 * immediately by the next block.
 * delayed by two simultaneous blocks, one on each branch.
-* a new fork will be introduced on either of the two new branches.
+* a new split will be introduced on either of the two new branches.
 
-==== Probability of forks
+==== Probability of splits
 
-Eventually, one branch of a fork will win. The likelihood that two
+Eventually, one branch of a split will win. The likelihood that two
 branches of length X happens next diminishes rapidly for increasing X.
 
 ////
 N = Number of dice
 S = number of sides on the die (1800)
 
-P(chain forks on next block) =
+P(chain splits on next block) =
 P(two or more dice wins | some die wins) =
 P(two or more dice wins)/P(some die wins)
 
@@ -330,15 +330,15 @@ X * 10^-Y^
 |===
 
 [.inbitcoin]
-.Forks
+.Splits
 ****
 [.movingtarget]
-Forks in Bitcoin are a bit more probable than in this example, but still occurs only about once per day.
+Splits in Bitcoin are a bit more probable than in this example, but still occurs only about once per day.
 ****
 
-A fork of branch length 1 is quite likely to happen, but a branch of
+A split of branch length 1 is quite likely to happen, but a branch of
 length 2 will probably not happen during Lisa's lifetime, she's 45. No
-matter how long the forks are, eventually they will resolve with a
+matter how long the splits are, eventually they will resolve with a
 winner.
 
 This seems like a nice scheme. But there are issues with it:
@@ -617,7 +617,7 @@ number `00000000926e…`=926eb9*2^200^ instead of just `556`.
 
 .Comparing the lucky number system with the proof of work system.
 |===
-| Idea | target | possible values | draw every | average block time | Best chain in a fork
+| Idea | target | possible values | draw every | average block time | Best chain in a split
 
 | Lucky numbers | `555` | `1000000` | second | 10 minutes | Longest chain
 | Proof of work | 926eb9*2^200^ | `2^256^` | 0.02 microsecond | 10 minutes | Most work chain
@@ -779,17 +779,17 @@ would take only about half the time until all coins are created.
 This means that the increase rate in money supply is 264/144=1.8 times
 the desired supply increase rate.
 
-===== More forks
+===== More splits
 
-Forks happens naturally every now and then. But when the block rate
-increases the risk of natural forks increases. Imagine if three
+Splits happen naturally every now and then. But when the block rate
+increases the risk of natural splits increases. Imagine if three
 thousand people would start mining in their basements. It would
 increase the block rate by 1,000 times. Each and every second several
 miners would find a valid proof of work and publish a block. We would
-get forks on almost every block height. This makes transactions in
+get splitss on almost every block height. This makes transactions in
 recent blocks less reliable, because those blocks can more easily
-become forked off from the main chain if they happens to appear only
-in non-strongest chains.
+become split off from the main chain if they happens to appear only in
+non-strongest branches.
 
 It would also be problematic from a security perspective, because if
 there are two branches with about 50% of the total hashrate on each
@@ -960,13 +960,13 @@ differ?
 
 They can differ because of several reasons:
 
-1. Natural fork close before a retarget.
-2. Accidental forks due to incompatible software versions.
-3. Deliberate forks as an attack against the honest chain.
+1. Natural split close before a retarget.
+2. Accidental splits due to incompatible software versions.
+3. Deliberate splits as an attack against the honest chain.
 
-We will only show option 1 here. Suppose that a natural fork occurs:
+We will only show option 1 here. Suppose that a natural split occurs:
 
-.A natural fork with differing timestamps between the branches will cause one branch to become stronger than the other in case of a retarget.
+.A natural split with differing timestamps between the branches will cause one branch to become stronger than the other in case of a retarget.
 image::{imagedir}/strength-length.svg[{big-width}]
 
 .Timestamps
@@ -976,7 +976,7 @@ wall.
 ****
 
 This is a very unlikely scenario, but we need to take it into account,
-because it probably will happen, at least in Bitcoin. A fork happens
+because it probably will happen, at least in Bitcoin. A split happens
 right before a retarget and the two blocks' timestamps differ by four
 hours which is the theoretical maximum. Next, two new blocks are
 produced at the same time, one on each branch. These new blocks have
@@ -1256,7 +1256,7 @@ try indefinitely, their chances are 100% to succeed, see
 
 This scary scenario means that Tom and Lisa can rewrite history at
 will.  They run faster than all the combined hashrate of the honest
-miners. They can create a fork from any block in the blockchain
+miners. They can create a branch from any block in the blockchain
 history and work their way up to the honest chain tip and
 surpass it. Then all miners will move over to Tom's and Lisa's
 branch. Note that they still cannot steal anyone's money in the
@@ -1551,10 +1551,10 @@ the economy, until all 21,000,000 new cookie tokens are minted. The
 transaction fee is added by the sender of a transaction to incentivize
 the miners to include the transaction in their blocks.
 
-The competition will lead to natural forks, when two miner finds a
+The competition will lead to natural splits, when two miner finds a
 block at about the same time. They will eventually get resolved.
 
-.Proof of work will cause forks of the blockchain. They will be resolved over time.
+.Proof of work will cause splits of the blockchain. They will be resolved over time.
 image::{imagedir}/three-miners-proof-of-work.svg[{full-width}]
 
 The resolution is affected by which branch miners chose to
