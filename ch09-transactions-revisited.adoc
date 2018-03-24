@@ -630,7 +630,7 @@ There are a few policies regarding OP_RETURN:
 * The full pubkey script must not be bigger than 83 bytes.
 * There can only be one OP_RETURN output per transaction.
 
-The above three policies are just that, policies. It's not against
+The above two policies are just that, policies. It's not against
 Bitcoin's consensus rules to include a transaction violating these
 policies, but full nodes implementing these policies will not relay
 such transactions.

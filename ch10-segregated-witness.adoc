@@ -985,6 +985,7 @@ image::{imagedir}/recap-payment-types-p2wsh-in-p2sh.svg[{big-width}]
 Bitcoin blocks are limited to 1,000,000 bytes in size and 20,000
 signature operations.
 
+[[block-size-limit]]
 ==== Block size limit
 
 In 2010 the Bitcoin software was updated with a block size limit of
@@ -1037,6 +1038,7 @@ occurred, and we effectively have two different cryptocurrencies.
 With segwit, there is an opportunity to somewhat increase both these
 limits without a hard fork.
 
+[[increasing-the-block-size-limit]]
 ===== Increasing the block size limit
 
 The old rule of 1,000,000 bytes remains, so old nodes can continue

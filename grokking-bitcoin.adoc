@@ -61,6 +61,10 @@ ifdef::ch10,chall[]
 include::ch10-segregated-witness.adoc[]
 endif::[]
 
+ifdef::ch11,chall[]
+include::ch11-bitcoin-upgrades.adoc[]
+endif::[]
+
 ifdef::chans,chall[]
 ifndef::chapter[include::answers.adoc[]]
 endif::[]

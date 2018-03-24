@@ -6,7 +6,7 @@ ADOC=$(wildcard *.adoc)
 BUILDADOC=$(patsubst %.adoc,build/%.adoc,$(ADOC))
 .SUFFIXES: .adoc
 FULLBOOK=-a chall
-ALLCHAPTERS=ch1 ch2 ch3 ch4 ch5 ch6 ch7 ch8 ch9 ch10 chans chweb
+ALLCHAPTERS=ch1 ch2 ch3 ch4 ch5 ch6 ch7 ch8 ch9 ch10 ch11 chans chweb
 
 all: full chunked
 

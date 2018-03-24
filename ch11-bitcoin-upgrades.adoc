@@ -1,12 +1,791 @@
 [[ch11]]
-== Bitcoin updates -  Safely introduce new stuff
+== Bitcoin upgrades - change the consensus rules
+:imagedir: {baseimagedir}/ch11
 
-Describe soft forks and hard forks and how segwit got deployed.
+Bitcoin is constantly evolving. Every now and then new features are
+adopted by the Bitcoin ecosystem. We have seen several examples of
+this throught this book, for example the introduction of p2sh,
+relative time locked outputs, and segregated witness.
+
+Upgrading Bitcoin is much more complex than upgrading, say an online
+book store. An online book store is a central service with a single
+person or group of persons that decides on a plan and executes the
+plan accoringly. The system can even tolerate a bit of down-time
+during the process.
+
+Bitcoin consist of thousands of independent nodes, all of which run
+different versions of Bitcoin and whose operators have different views
+on what changes should and should not be adopted. It's nearly
+impossible to convince all node operators to upgrade to a new version
+at the same time. Changes have to be rolled out gradually without
+disrupting the Bitcoin system. We have already seen how software
+changes to facilitate such upgrades can be engineered, but we haven't
+seen how to actually deploy such changes in the Bitcoin network.
+
+=== Bitcoin forks
+
+Open source software is software that is free to download, inspect,
+change, and redistribute as you please. Open source software is
+extremely common today. A lot of the software you use on a daily basis
+is probably open source. Maybe you use the google chrome web browser
+or the GNU/Linux operating system? Those are examples of open source
+projects.
+
+Open source projects can be _forked_. If you make a copy of the source
+code for Linux, make some changes to it, and distribute your new
+version of the Linux source code, you have created a _fork_ of the
+projet.
+
+Bitcoin is an open source project that can be forked just as other
+open source projects, like Linux.
+
+Suppose that you want to make a change in the Bitcoin Core
+sorftware. You create your own fork of Bitcoin Core. Depending on the
+change you make in your fork the nodes running your forked version
+will behave differently. We generally categorize changes as
+
+Hard forks:: Changes that creates data that old nodes don't
+accept. Doubling the maximum allowed block weight would be a hard fork.
+Soft forks:: Changes that creates data that old nodes
+accept. Decreasing the maximium allowed block weight would be a soft
+fork.
+Non-consensus forks:: Changes that doesn't affect the consensus rules
+at all. Adding a new feature to the peer-to-peer networking protocol
+is a non-consensus fork.
+
+If a fork causes the consensus rules to differ from the old version,
+you risk having a chain-split if anyone runs your forked computer
+program. Some nodes follow the strongest chain that is valid according
+to their old rules and some nodes follow the strongest chaing that is
+valid according to your new rules. The result will be a split in the
+blockchain.
+
+We will work through a few examples to illustrate what happens in
+different scenarios. We will start with the simplest case. We will use
+the name _Bitcoin Old_ to refer to the previous version of the program
+and _Bitcoin New_ to refer to your changed version of the program.
+
+==== Non-consensus-changing forks
+
+Suppose that you want to add a new feature to the networking code of
+Bitcoin Core. You want to add a new message type called `kill` that
+causes the recipient of the message to shut itself down. Only nodes
+running Bitcoin New would know how to deal with an incoming `kill`
+message. Bitcoin Old nodes will just ignore the, for them, unknown
+message.
+
+.Your new message will be accepted by Bitcoin New and ignored by Bitcoin Old.
+image::{imagedir}/kill-message.svg[{big-width}]
+
+Many people consider your change a huge security risk. The don't want
+their nodes shut down by a random stranger on the Internet. You will
+have a hard time convincing them to use Bitcoin New. You can't force
+this software upon anyone, people will have to actively want it and
+install it for Bitcoin New to get mainstream adoption across the
+network.
+
+Stupid changes like the `kill` message will not make it in the world
+of open source.
+
+===== Make something useful instead.
+
+[.inbitcoin]
+.BIP152
+****
+This was actually implemented in Bitcoin Core during 2016 and greatly
+improved the block propagation time in the Bitcoin network. BIP152,
+"Compact Block Relay", describes this in detail. We only describe a
+simplified version here.
+****
+
+Suppose that you're a great engineer and invent something useful
+instead. You invent something called compact blocks. Compact blocks
+allows a peer to send a block to another peer, but doesn't sent the
+full block. Instead, it uses the fact that the recipient node already
+has received most of the transactions in the block. Remeber that a
+transaction first travels the network during transaction propagation,
+and then it travels the network again during block propagation once
+the transaction is confirmed.
+
+.Qi gets a transaction twice. First during transaction propagation, second during block propagation.
+image::{imagedir}/qi-gets-the-transaction-twice.svg[{full-width}]
+
+When Rashid sends the block to Qi, wouldn't it be great if the block
+didn't have to contain all transactions that Qi already has. The
+bandwidth requirements would drop dramatically. Rashid can instead
+send just the block header and a list of transaction id:s. Qi can the
+reconstruct the block from the transaction it already has in memory
+and the message from Rashid. In case Qi doesn't have one of the
+transactions, Qi will request them from Rashid.
+
+.Compact blocks in action. Rashid sends just the neccesary data to Qi.
+image::{imagedir}/compact-blocks.svg[{half-width}]
+
+The protocol starts with Rashid sending Qi a `cmpctblock` message. Qi
+will use that message to recreate the block using the transactions she
+already has in memory. If she succeeds, she's done and can start
+verifing the block. If she misses some transactions, she will request
+them from Rashid using a `getcmpcttxn` message containing a list of
+txids. Rashid will then reply with a `cmpcttxn` message containing the
+missing transactions.
+
+Note that this is a very simplified version of how it actually
+works. The main differences are:
+
+1. The `cmpctblock` message can also include some full transactions,
+for example the coinbase transaction of the block.
+2. Compact blocks can work in two different modes: In high bandwidth
+mode `cmpctblock` messages are sent unsolicited instead of an `inv`,
+while in low bandwith mode the `cmpctblock` is sent only upon request
+after and `inv` has been received.
+3. You announce to your peers that you support compact blocks.
+
+This is a really useful change that many people find valuable. You
+release your software and people tend to start using it. Everybody
+doesn't have to upgrade to this version. If only one of your peers use
+it, you will benefit by running it yourself, because the bandwidth
+requirements between you and that one peer will decrease. As more and
+more nodes start adopting compact blocks, your total bandwidth
+requirement will drop even more.
+
+IMPORTANT: You have not made any changes to the consensus
+rules. Blocks are verified using your software exactly as before. The
+blocks Bitcoin New produce will be accepted by Bitcoin Old nodes, and
+vice versa, blocks produced by Bitcoin Old nodes will be accepted by
+Bitcoin New nodes. This means that you have made a
+non-consensus-changing fork.
+
+==== Hard forks
+
+Suppose that you create a fork that changes the maximum allowed block
+weight, discussed in <<increasing-the-block-size-limit>>, from
+4,000,000 weight units (WU) to 8,000,000 WU. This would allow for more
+transactions to be stuffed into each block. But on the other hand, a
+higher limit may have a negative impact on some nodes in the Bitcoin
+network as we talked about in <<block-size-limit>>.
+
+Anyhow, you make this change and start using it in the Bitcoin
+network. When your node receives a block from a Bitcoin Old node, you
+will accept it because the block is definately <= 8,000,000 WU; The
+Bitcoin Old node will not create blocks larger than 4,000,000 WU.
+
+When your Bitcoin New node is lucky enough to find a valid proof of
+work, you publish your block. This block will definately be <=
+8,000,000 WU, but it may or may not be <= 4,000,000 WU. If it is <=
+4,000,000 WU, it will be accepted by Bitcoin Old nodes. But if not,
+your block will be rejected by Bitcoin Old nodes. Your blockchain will
+diverge from the Bitcoin Old blockchain.
+
+.Your node running Bitcoin New is a loser against the Bitcoin Old nodes. Bitcoin Old will discard all your blocks that violate the <=4,000,000 WU rule.
+image::{imagedir}/hard-fork-single-new-node.svg[{full-width}]
+
+Whenever your Bitcoin New node mines a new block, it might get
+rejected by the Bitcoin Old nodes depending on whether it is <=
+4,000,000 WU or not. For the blocks that gets rejected, you will have
+wasted a lot of electricity and time on mining blocks that don't make
+it into the main chain.
+
+But suppose that a majority of the hash rate likes your new Bitcoin
+New program and start using it instead of Bitcoin Old. What happens
+then? Let's see how it plays out:
+
+.A majority of the hash rate runs Bitcoin New. It seems to have caused a permanent chain split.
+image::{imagedir}/hard-fork-majority-new-node.svg[{big-width}]
+
+When a New node has mined a block, all Bitcoin New nodes will try to
+extend that new block, but all Bitcoin Old nodes will keep on trying
+to extend the latest valid, according to Old rules, block.
+
+The New nodes wins more block over time than the Old nodes. It seems
+like the New nodes branch will stay intact because it gets a
+reassuring lead in accumulated proof of work.
+
+The new nodes have created a successful chain split, it seems. But if
+some miners decide to go back to running Bitcoin Old, or if additional
+miners enter the race using Bitcoin Old nodes, so that Old gets a
+majority of the hash rate again, the New chain may be facing problems:
+
+.The New chain is wiped out because the Old chain becomes stronger.
+image::{imagedir}/hard-fork-new-chain-reorg.svg[{full-width}]
+
+When Bitcoin Old nodes have a hash rate majority they will outperform
+the Bitcoin New nodes and eventually they will catch up with the New
+nodes and surpass them. New nodes acknowledges that fact by switching
+back to mining on the Old chain. We say that the branch created by the
+New nodes was wiped out by a chain reorganization, commonly known as a
+_reorg_.
+
+===== Wipeout protection
+
+Blocks created by Old nodes in the hard fork above are always
+compatible with with New nodes. This means that there is a risk for a
+reorg of the Bitcoin New chain.
+
+This is not the case in all hard forks. Suppose for example that you
+want to change the proof of work hash function from double SHA256 to
+single SHA256. Then your blocks will always be rejected by Old nodes,
+and conversely, blocks created by Bitcoin Old will always be rejected
+by Bitcoin New nodes. A change like this is therefore guaranteed not
+to get reorged by the Bitcoin Old branch.
+
+An example of this is an alternative cryptocurrency called _Bitcoin
+Cash_. It was created through a hard fork of Bitcoin Core at block
+height 478559. The main thing they did was to increase the maximum
+base block size and remove segregated witness from the code. This
+would make the Bitcoin Old chain compatible with Bitcoin New nodes, so
+they would be vulnerable to wipeout. In order to protect against
+Bitcoin New being wiped out in a reorg, they added _wipeout
+protection_ by requiring the forking block to be greater than
+1,000,000 bytes (1 MB).
+
+.Bitcoin Cash protects against wipeout by requiring the first block after the chain split to be >1MB.
+image::{imagedir}/bitcoin-cash-hard-fork.svg[{big-width}]
+
+The result is that Bitcoin New nodes _cannot_ move back to the the
+Bitcoin Old branch, because that branch has a block less than or equal
+to 1 MB at height 478559.
+
+==== Soft forks
+
+We have discussed soft forks several times throught this book. A soft
+fork is a fork where blocks created by Bitcoin New nodes are accepted
+by Bitcoin Old nodes. The reverse is not true; Bitcoin New nodes may
+not accept a block created by a Bitcoin Old node.
+
+Segregated witness is an example of a soft fork. The change was
+carefully designed so that old nodes doesn't fail in verifying blocks
+that are valid according to new nodes. So all Bitcoin Old nodes will
+accept any blocks from Bitcoin New nodes and incorporate them into the
+blockchain.
+
+On the other hand, a Bitcoin Old node *could* create a block that is
+not valid according to Bitcoin New.
+
+.Your soft fork may cause a chain split if the Old nodes produce a block that you don't accept.
+image::{imagedir}/soft-fork-single-new-node.svg[{big-width}]
+
+Just as was the case with hard forks, above, the Bitcoin Old chain is
+in risk of being wiped out by a reorg. Suppose that some more miners
+decide to upgrade to Bitcoin New and cause the hash rate majority to
+support the New blockchain. After a while we will probably see a reorg:
+
+.As people adopt Bitcoin New, your branch will cause a reorg for Bitcoin Old nodes.
+image::{imagedir}/soft-fork-majority-new-node.svg[{full-width}]
+
+The Bitcoin New branch will become the stronger branch and therefore,
+the remaining Bitcoin Old will abandon their branch and start working
+on the same branch as the Bitcoin New nodes. However, as soon as a
+Bitcoin Old node creates a block that is invalid on New nodes, it will
+will lose out on the block reward, because it will not be accepted on
+the Bitcoin New branch.
+
+==== Differences between hard and soft forks
+
+Let's have a look at what differs soft forks from hard forks. As a general rule:
+
+* A soft fork _tightens_ the rules. Segregated witness is a soft fork.
+* A Hard fork _widens_ the rules. Bitcoin Cash is a hard fork.
+
+This is a very simple, yet true, distinction. The effects of a chain
+split caused by a soft fork vs a hard forks can be summarized as
+follows:
+
+Soft fork:: The Old branch might get wiped out in a reorg. You can't
+  protect the Old branch from wipeout becuase that would make this
+  fork a hard fork. The New branch *could* be wiped out if the Old
+  branch doesn't break the New rules.
+Hard fork:: The New branch might get wiped out in a reorg. Use wipeout
+  protection to avoid this. The Old branch can not be wiped out.
+
+=== Transaction replay
+
+Regardless the cause of a chain split, its effects are the same. Users
+end up with two versions of their UTXOs. One version is spendable on
+Old chain and one version is spendable on New chain. We effectively
+have two cryptocurrencies, Bitcoin Old and Bitcoin New.
+
+Suppose that a chain split has occured and you want to pay for a book
+at an on-line book store. You want to do this using Bitcoin Old,
+because that's what the on-line book store wants.
+
+.After a chain split you effectively have two versions of your UTXOs.
+image::{imagedir}/utxos-in-chain-split.svg[{big-width}]
+
+You create your transaction as you've always done and
+broadcast it. Your transaction will be accepted by the Bitcoin Old
+nodes in the network because you spend a UTXO that exists on those
+nodes. But your transaction is _also valid on the Bitcoin New nodes_
+because you have the same UTXOs there as well. If your transaction
+propagates to a Bitcoin New miner and a Bitcoin Old miner, it will
+probably end up in both branches of the blockchain.
+
+This is not what you intended. Your transactions has been _replayed_
+on the Bitcoin New branch.
+
+===== Replay protection
+
+To protect users against replay during a chain split due to a hard
+fork, the transaction format on the new chain can be changed in such a
+way that the transaction is only valid on at most one branch.
+
+When Bitcoin Cash did their hard fork, they made sure that
+transactions made by Old wallets were not valid on the New blockchain
+and that transactions made by New wallets was not valid on the Bitcoin
+Old blockchain.
+
+.With replay protection, a transaction is only valid on one of the branches.
+image::{imagedir}/bitcoin-cash-replay-protection.svg[{full-width}]
+
+To achieve this, a transaction on the New branch has to use a new
+SIGHASH type, FORKID, in all signatures of the transaction. This
+SIGHASH type doesn't actually do anything, but using it makes the
+transaction invalid on the Old chain and valid on the New chain. If a
+transaction doesn't use FORKID, the transaction is valid on the Old
+chain and invalid on the New chain.
+
+Using a new SIGHASH type for signatures is of course not the only way
+to achieve replay protection. Any change that makes transactions valid
+on at most one chain will do. You can for example require that
+transactions subtract `01` from the spent txid from the time of the
+chain split and forward. Suppose that the UTXO you want to spend has
+the txid
+
+[subs=normal]
+ 6bde18fff1a6d465de1e88b3e84edfe8db7daa1b1f7b8443965f389d8decac**08**
+
+If you want to spend the UTXO on the Old chain, you use that hash in
+the input of your transaction. If you want to spend the UTXO on the
+New chain, you would use
+
+[subs=normal]
+ 6bde18fff1a6d465de1e88b3e84edfe8db7daa1b1f7b8443965f389d8decac**07**
+
+instead. This is a bit of a silly example, because it would require a
+lot of ćhanges in the source code that also would make the program
+less efficient, but it can still serve as an example.
+
+// BIP 115 ????		Generic anti-replay protection using Script
+
+
+[[deployment-mechanisms]]
+=== Upgrade mechanisms
+
+All non-urgent upgrades of Bitcoin so far has been made using soft
+forks. Doing a soft fork safely is a hard problem, and the mechanisms
+used to do them have evolved over time.
+
+The main worry when doing a soft fork is that the blockchain splits in
+two and stays that way over a significant amount of time. If that
+happens, we effectively have two cryptocurrencies, causing confusion
+to users.
+
+==== Using coinbase signalling: BIP16
+
+When pay-to-script-hash, p2sh, was introduced in 2012, the Bitcoin
+community had no experience in upgrading. They had to come up with a
+way to avoid a blockchain split. They implemented soft fork
+_signalling_ using the coinbase; New miners signal support for p2sh by
+putting the string `/P2SH/` into the coinbase of the blocks they
+produce.
+
+.A miner signals support for pay-to-script-hash by writing "/P2SH/" in the coinbase's signature script.
+image::{imagedir}/p2sh-support-signalling.svg[{half-width}]
+
+On a specific day, the Bitcoin developers checked if at least 550 of
+the last 1000 blocks contained `P2SH`. It did, so they made a new
+software release that would enforce the p2sh rules on April 1 2012.
+
+This worked out well and miners quickly adopted the soft fork and the
+whole network upgraded within reasonable time.
+
+==== Using incremented block version number signalling: BIP34, 66, 65
+
+.Full header
+[.inbitcoin]
+****
+The header is now complete. We have no more hidded features up our
+sleeve. This is the actual 80 byte header:
+
+4 B version +
+32 B previous block id +
+32 B merkle root +
+4 B timestamp +
+4 B target +
+4 B nonce +
+
+Total 80 B
+****
+
+We haven't talked about it before but the block header comes with a
+version. The version is encoded in the first four bytes before the
+previous block hash.
+
+.The block header contains a block version. The first blocks used version 1. 
+image::{imagedir}/header-version-1.svg[{half-width}]
+
+Block version is used to signal support for certain new features.
+
+[.inbitcoin]
+.BIP34
+****
+This BIP, "Block v2, Height in coinbase" describes both how to store
+the height in the coinbase and how to deploy the change using version
+numbers.
+****
+
+The first soft fork using block version was done in 2013. This soft
+fork added a rule that all new blocks must contain the height of the
+block in its coinbase transaction.
+
+The _activation_ of the soft fork was performed in steps using block
+version _signalling_, to avoid a blockchain split:
+
+1. Miners and full nodes gradually started running the soft fork. The
+soft fork increase the block version from 1 to 2. Note that its only
+the miners that run the soft fork that increase the block version.
++
+.Miners that run the soft fork signal support for it by increasing their block versions.
+image::{imagedir}/header-version-2.svg[{half-width}]
+
+2. Wait until 750 of the last 1000 blocks have version at
+least 2. When this happens, the New miners probably have about 75% of
+the hash rate.
++
+.New miners have about 75% of the total hash rate.
+image::{imagedir}/relative-hash-rate-75.svg[{half-width}]
+
+3. Start rejecting new blocks with version 2 that doesn't contain the
+height in the coinbase. From this point, some Old miner _could_ cause
+a chain split by creating a block version 2 that violoates the "height
+in coinbase" rule. The Old miners would probably build on top of that
+block while the New miners build on top of the previous block. Since
+the New miners have more hash rate, they will outperform the Old
+miners and reorg their blockchain.
+
+4. Wait until 950 of the last 1000 blocks have version >= 2. When this
+happens, the New miners have about 95% of the hash rate.
++
+.New miners have about 95% of the total hash rate.
+image::{imagedir}/relative-hash-rate-95.svg[{half-width}]
+
+5. Start rejecting all new blocks with version 1. All miners producing
+version 1 blocks will be losers because 95% of the hash rate rejects
+those blocks. The hope is that miners that still haven't upgraded
+would do so quickly to not lose too much money on mining worthless
+blocks.
+
+During step 1, nothing has changed. Only old rules are in effect. But
+when we 750 of the last 1000 blocks have version 2, we enter the next
+step. Here, nodes running the soft fork start ensuring that every new
+block of version 2 has the height in the coinbase. If not, the block
+is dropped. This would typically not have any inpact, because old
+nodes should use version 1 blocks. But there might be nodes
+deliberately or accidentally using block 2 for other purposes than
+this soft fork. The 75% rule is to avoid "false positives" when
+evaluating the 95% rule.
+
+When a greater portion of the blocks, 95% of the last 1000, signals
+support with version 2 blocks, the last step, 4, is entered. From this
+point forward, all new blocks with version <2 will be dropped.
+
+Why did we go through these stages? The first threshold, 750 of 1000
+blocks, is to get reassuring majority of the hash rate before starting
+to reject version 2 blocks without the height in the coinbase.
+
+Suppose that New nodes would start rejecting such blocks immediately
+instead. Also, imagine a miner that are among the first few miners
+that adopt the soft fork. If that miner rejects blocks that a majority
+of the hash rate (the Old miners) will accept, this miner will split
+the chain. Thus, a miner wants to wait until at least 50% of the hash
+rate signals the soft fork before starting to reject any blocks.
+
+Say instead that New miners wait until they have 51% to avoid a chain
+split. This would work as long as their hash rate stays above 50%. But
+if the hash rate of New miners drop back below 50% again, they must
+stop enforcing their rule to avoid a chain split.
+
+To reduce the risk of this back-and-forth problem, they wait until 75%
+signals the new rules. This greatly reduces the risk of having to stop
+enforcing the rules for version 2 blocks.
+
+The following soft forks were introduced using this mechanism:
+
+|===
+| BIP | Name | Date | Block version
+
+| BIP34 | Block v2, Height in Coinbase | March 2013 | 2
+| BIP66 | Strict DER Encoding | July 2015 | 3
+| BIP65 | OP_CHECKLOCKTIMEVERIFY | December 2015 | 4
+|===
+
+The upgrade mechanism used above is called a _miner activated_ soft
+fork. That's because it's the miners that start enforcing the new
+rules and all or most full nodes will follow, whether they like it
+or not.
+
+==== Using block version bits signalling, BIP9
+
+The developers of Bitcoin collected a lot of experience from previous
+soft forks. A few problems needed to be addressed:
+
+* You can only deploy one soft fork at a time.
+* Used block versions can not be reused for new purposes.
+
+The most annoying problem is that you can't roll out multiple soft
+forks at once. This is because previous deployment mechanisms, for
+example the one used for BIP34, checked if the version of a block were
+greater than or equal to a certain number, for example 2.
+
+Suppose that you wanted to deploy both BIP34 and BIP66
+simultaneously. BIP34 would use block version 2 and BIP66 would use
+block version 3. This would mean that you can't selectively signal
+support for only BIP66, because you would also have to signal support
+for BIP34, because your block's version 3 is greater than or equal
+to 2.
+
+===== Solution
+
+They came up with a bitcoin improvement proposal, BIP9, that describes
+a process for how to safely deploy several soft forks
+simultaneoulsy.
+
+This process also uses the block version, but in a different way. They
+decided to change the way the block version bytes are
+interpreted. Block versions that has the top 3 bits set to exactly
+`001` will be treated differently.
+
+First of all, all such block versions are greater that 4 because the
+smallest such block version is `20000000` which is a lot bigger than
+`00000004`, so the blocks using BIP9 will always support BIP34, 66
+and 65. Good.
+
+Next, the 29 bits to the right of the leftmost `001` bits can be used
+to signal support for at most 29 simultaneous soft forks.
+
+.The block version is treated differently. Each of the right 29 bits can signal for different proposals.
+image::{imagedir}/version-bits.svg[{full-width}]
+
+Each of the version bits, the 29 right-most bits, can be used to
+independently deploy a single feature or a group of features. If a bit
+is set to `1`, it means that the miner that produced the block support
+the feature represented by that bit number.
+
+A number of parameters need to be defined for each feature:
+
+name:: A short, but descriptive name for the feature.
+bit:: The number of the bit to use for signalling.
+start time:: What time to start monitoring for miner support.
+timeout:: A time when the deployment will be considered failed.
+
+The deployment goes through a number of _states_. After each retarget
+period, the state is updated as follows:
+
+.State transitions happens every 2016 blocks.
+image::{imagedir}/bip9-states.svg[{full-width}]
+
+When comparing block times to the start time and timeout, we always
+use median time past of the previous 11 blocks. This is to make it
+harder for miners to manipulate the state transitions and to make sure
+that each successive block has a time greater than the previous block.
+
+==== Use BIP9 to deploy relative lock time
+
+[.inbitcoin]
+.BIPs 68, 112, 113
+****
+This "feature" is actually a group of BIPs that collectively make the
+relative lock time work.
+****
+
+Let's look at an example of how a deployment using version bits can
+play out. We will look at how relative lock time was deployed. The
+developers of this new feature defined the following parameters for
+the new feature:
+
+----
+name: csv
+bit: 0
+start time: 2016-05-01 00:00:00
+timeout:    2017-05-01 00:00:00
+----
+
+The timeout was one year after the start time, which will gave the
+miners about one year to upgrade to the soft fork implementing this
+feature.
+
+Here are the state transitions that occurred:
+
+.BIP9 deployment of csv. It went well.
+image::{imagedir}/bip9-relative-lock-time-states.svg[{full-width}]
+
+[%autowidth,role="widetable"]
+|===
+| State | Date (median time past) | Block height | Why?
+
+| DEFINED | 2009-01-03 18:15 | 0    	  | All features are DEFINED since block 0
+| ...     | ...              | ... | ...
+| DEFINED | 2016-04-30 23:36 | 409642	| Median past time has not passed start time
+| DEFINED | 2016-05-01 00:11 | 409643   | Median past time has passed start time, but retarget period need to finish
+
+| DEFINED | 2016-05-11 04:18 | 411263 | The last block before retarget
+| STARTED | 2016-05-11 04:29 | 411264 | The first retarget causes state to change to STARTED
+
+| STARTED | 2016-06-08 02:02 | 415296 | Stay in STARTED, because < 1916 (95%) of last 2016 blocks signal support for csv
+
+| LOCKED_IN | 2016-06-21 04:49 | 417312 | LOCKED_IN because the last retarget period has >= 1916 blocks supporting csv
+
+| ACTIVE | 2016-07-04 21:44 | 419328 | Active because it's exactly one retarget after LOCKED_IN
+|===
+
+
+
+This is
+done in stages.
+
+1. All New miners will set a bit for the feature they support. It the
+figure above, the bit number is 10.
+
+
+
+
+
+
+
+The four already used versions,
+1-4 requires only 3 bits, 001 to 100. The remaining 29 bits can be
+used differently.
+
+signal iff:
+
+       leftmost 3 bits are exactly 001
+       bit N is set N in {0,..., 28}
+
+0x20000000...0x3FFFFFFF
+
+
+===== Relative lock time
+
+
+
+===== Segwit (failed)
+
+bip68 wrítten  2015-05-28
+bip9 written 2015-10-04
+
+May 2016-may 2017 active on #419328
+BIP68  Relative lock-time using consensus-enforced sequence numbers	BIP9 using bit 0 version >= 536870912
+BIP112 CHECKSEQUENCEVERIFY			   	    		bit 0 too
+BIP113 Median time-past as endpoint for lock-time calculations		bit 0 too
+
+
+==== Using block version bits and flag-day: Segwit (succeeded)
+
+==== Future soft forks using version bits (BIP8)
+
+==== Miner activated and User activated soft forks
+
+BIP8 is still draft, and not implemented.
+
+BIP9 --> BIP148 --> BIP91
+
+
+
+Miners can lie. See BIP66 split.
+
+Block versions
+[role="widetable"]
+|===
+| Height | Date | version bytes (big-endian signed integer) | bits | human-readable | Description
+
+| 0	 | 2009-01-03 18:15 | 00000001 | 0000 0001 0000 0000 0000 0000 0000 0001 | 1 | Genesis
+
+| 224412 | 2013-03-05 18:57 | 00000002 | 0000 0010 0000 0000 0000 0000 0000 0002 | 2 | Height in coinbase (reject invalid v2 blocks)
+| 227930 | 2013-03-25 07:30 | 00000002 | 0000 0010 0000 0000 0000 0000 0000 0002 | 2 | Height in coinbase (reject v1 blocks)
+
+| 363725 | 2015-07-04 01:54 | 00000003 | 0000 0011 0000 0000 0000 0000 0000 0003 | 3 | BIP66 enforced
+| 388381 | 2015-12-14 17:24 | 00000004 | 0000 0100 0000 0000 0000 0000 0000 0004 | 4 | BIP65 OP_CHECKLOCKTIMEVERIFY
+
+| 407021 | 2016-04-13 01:22 | 20000000 | 0010 0000 0000 0000 0000 0000 0000 0000 | 536870912 | First BIP9 block No BIP9 bits set
+
+| 411264 | 2016-05-11 05:34 | 20000001 | 0010 0000 0000 0000 0000 0000 0000 0001 | 536870913 | BIP9 Relative locktime + OP_CHECKSEQUENCEVERIFY signalling started
+
+| 419327 | 2016-07-04 23:06 | 20000001 | 0010 0000 0000 0000 0000 0000 0000 0001 | 536870913 | BIP9 Relative locktime + OP_CHECKSEQUENCEVERIFY
+| 419328 | 2016-07-04 23:16 | 20000000 | 0010 0000 0000 0000 0000 0000 0000 0000 | 536870912 | No BIP9 bits set (OP_CSV active)
+
+| 438914 | 2016-11-14 18:39 | 20000002 | 0010 0010 0000 0000 0000 0000 0000 0010 | 536870914 | Segwit signalling started (a day early)
+| 481824 | 2017-08-24 01:57 | 20000002 | 0010 0010 0000 0000 0000 0000 0000 0010 | 536870914 | Segwit active
+
+| 514766 | 2018-03-23 08:37:41 | 20000000 | 0010 0000 0000 0000 0000 0000 0000 0000 | 536870912 | Latest block
+|===
+
+Version bit {0, 1, 2, ..., 28}
+starttime (typically 1 month after soft fork release). Minimum MTP, where the bit gets its meaning
+timeout (typically 1 year) Fail if MTP>=timeout. No return from Failed state.
+
+Interpret version bits as a LE-signed integer. For example `0x00000020` is
+
+20000000~16~
+0010 0000 0000 0000 0000 0000 0000 0000~2~
+536870912~10~
+
+The rightmost 29 bits can be used as BIP9 version bits.
+
+
+00000020 version
+43e5b896e096647ec482ee5724fd474162d5f92a85e808000000000000000000 prevBlock
+10d805440f29e72daff5539ac02c3455065b32e42d94f087f7b8909c279c794e merkleRoot
+c7529d5a timestamp
+a3895517 target
+4412ae89 nonce
+
+History
+
+2012-04-01
+BIP16, p2sh   	 	   						flagday after manual check for 550/1000? BIP16
+
+2013-03-24
+BIP34  Block v2, Height in Coinbase					750/1000 nVersion = 2
+
+2015-07
+BIP66  Strict DER encoding 						750/1000 nVersion = 3
+
+2015-12
+BIP65 OP_CHECKLOCKTIMEVERIFY						750/1000 nVersion = 4
+
+May 2016-may 2017 active on #419328
+BIP68  Relative lock-time using consensus-enforced sequence numbers	BIP9 using bit 0 version >= 536870912
+BIP112 CHECKSEQUENCEVERIFY			   	    		bit 0 too
+BIP113 Median time-past as endpoint for lock-time calculations		bit 0 too
+
+2017-08 active on #481824
+BIP141,BIP143,BIP147 SegWit						BIP148 UASF + BIP91 bit 1
+
+
+Catastrophic bug?
+
+Who's got the power to change rules?
+
+BIP 8		Version bits with lock-in by height
+BIP 9		Version bits with timeout and delay
+BIP 50		March 2013 Chain Fork Post-Mortem
+BIP 91		Reduced threshold Segwit MASF
+BIP 99		Motivation and deployment of consensus rule changes ([soft/hard]forks)
+BIP 148		Mandatory activation of segwit deployment
+
+=== History of hard forks
+
+Bitcoin XT
+Bitcoin Unlimited
+Bitcoin Cash
+Bitcoin Gold
+Bitcoin Diamond
+
+
+
+
 
 
 Todo:
-
-Make a better ecosystem overview in ch01. Seriously.
 
 Update stats with css class "movingtarget"
 
