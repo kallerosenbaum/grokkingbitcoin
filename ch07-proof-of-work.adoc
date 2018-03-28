@@ -915,8 +915,9 @@ that the cafe's full node are about to verify Tom's block.
 .Two blocks are mined with decreasing timestamps. That's OK.
 image::{imagedir}/timestamps-diff.svg[{full-width}]
 
-* The timestamp must be strictly later than the _median_ of the previous
-  11 timestamps.
+* The timestamp must be strictly later than the _median_ of the
+  previous 11 timestamps. This median is commonly referred to as
+  _median time past_ of the block..
 * The timestamp must be at most two hours before or after the cafe's
   clock. This rule does not apply when verifying old blocks.
 

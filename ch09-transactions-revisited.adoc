@@ -142,24 +142,24 @@ block height.
 ===== Block time
 
 In the example above the lock time was expressed as a date and
-time. That actually means that the _median of the past 11 timestamps_
-must be greater than the lock time in the transaction. Remember the
-rules for the block timestamps in <<timestamp-rules>>? We said then
-that a timestamp of a block must be greater than the past 11 block
-median timestamp. We use that same median to decide whether a
-transaction is valid with regards to lock time. Suppose that you've
-died on 2019-01-24. Your mourning daughter can't claim your money
-until 2019-04-30. More precisely:
+time. That actually means that the _median time past_ must be greater
+than the lock time in the transaction. Remember the rules for the
+block timestamps in <<timestamp-rules>>? We said then that a timestamp
+of a block must be greater than the past 11 blocks' median timestamp,
+or the _median time past_ of the block. We use the median time past to
+decide whether a transaction is valid with regards to lock
+time. Suppose that you've died on 2019-01-24. Your mourning daughter
+can't claim your money until 2019-04-30. More precisely:
 
-.Your daughter may claim your money after the median of the past 11 blocks is earlier than your lock time.
+.Your daughter may claim your money after the median time past is earlier than your lock time.
 image::{imagedir}/locktime-rules.svg[{full-width}]
 
 Your daughter's transaction cannot be mined in any block before the
-last one in the figure above. The median of the past 11 blocks, is
-strictly increasing according to the rules in
-<<timestamp-rules>>. It's not until the block _after_ the one with
-timestamp 07:33:21 that she can get her transaction confirmed. Before
-that block, the median past time is too early.
+last one in the figure above. The median time past is strictly
+increasing according to the rules in <<timestamp-rules>>. It's not
+until the block _after_ the one with timestamp 07:33:21 that she can
+get her transaction confirmed. Before that block, the median time past
+is too early.
 
 Her transaction will not even propagate through the Bitcoin network
 until the lock time has passed. The nodes don't want to keep time
