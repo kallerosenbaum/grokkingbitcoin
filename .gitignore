@@ -4,6 +4,7 @@ buildbook/asciidoc-manning-templates/
 chapter-tips.adoc
 *.pdf
 *.html
+!docinfo.html
 *.xml
 
 
@@ -17,3 +18,4 @@ graph.png
 graph_original.png
 notes/keyconversion/node_modules/
 notes/keyconversion/signature.sign
+style/asciidoctor.css

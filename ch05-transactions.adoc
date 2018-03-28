@@ -1100,6 +1100,7 @@ Note that this is not at all how it happened in Bitcoin. Bitcoin was
 designed for transactions from the beginning. The "initial state" in
 Bitcoin was an empty UTXO set. No one had any bitcoins.
 
+[[trust-in-lisa]]
 === Trust in Lisa
 
 In this chapter the payment process has become more formalized, for

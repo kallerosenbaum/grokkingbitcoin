@@ -993,7 +993,11 @@ to the full block as the number of transactions grows.
 [.inbitcoin]
 .80 byte header
 ****
-Bitcoin's block header is always 80 bytes. The cookie token block headers are slightly bigger, because of the signature. In the next chapter we will fix our block header to match Bitcoin's exactly.
+Bitcoin's block header is always 80 bytes. The cookie token block
+headers are slightly bigger, because of the signature. In the next
+chapter we will fix our block header to match Bitcoin's more closely,
+and in ch11 we will talk about the version that's also in the block
+header.
 ****
 
 The table assumes that all transactions are 250 bytes and we only want
