@@ -8,9 +8,12 @@
 :icons: font
 :baseimagedir: images
 :commonimagedir: {baseimagedir}/common
-:stylesheet: grokking-bitcoin.css
+// The specialized css is specified in style/docinfo.html instead of a :stylesheet: attribute
+//:stylesheet: grokking-bitcoin.css
 :stem: latexmath
 :xrefstyle: short
+:docinfo: shared
+:docinfodir: {stylesdir}
 :chapter-label: chapter
 :section-label: section
 
