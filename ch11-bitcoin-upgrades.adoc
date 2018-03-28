@@ -588,9 +588,8 @@ Why did we go through these stages? It's not entirely clear why the
 above. The deployment might have worked fine with just the 95%
 rule. We will not explore the rationale behind the 75% rule, just
 accept that it was used for this deployment and a few other
-deployments, see <<block-version-number-deployments>>.
-
-The following soft forks were introduced using this mechanism:
+deployments. The following soft forks were introduced using this
+mechanism:
 
 [[block-version-number-deployments]]
 .Features deployed using incremented block version
@@ -604,10 +603,17 @@ The following soft forks were introduced using this mechanism:
 
 The upgrade mechanism used above is called a _miner activated_ soft
 fork. That's because it's the miners that start enforcing the new
-rules and all or most full nodes will follow, whether they like it
-or not.
+rules and all or most full nodes will follow, because the New blocks
+are accepted by both Old and New full nodes.
 
 ==== Using block version bits signalling, BIP9
+
+[.inbitcoin]
+.BIP9
+****
+This BIP specifies a standard for how to use the version field of the
+block header to perform multiple simultaneous deployments.
+****
 
 The developers of Bitcoin collected a lot of experience from previous
 soft forks. A few problems needed to be addressed:
@@ -640,8 +646,8 @@ interpreted. Block versions that has the top 3 bits set to exactly
 
 First of all, all such block versions are greater that 4 because the
 smallest such block version is `20000000` which is a lot bigger than
-`00000004`, so the blocks using BIP9 will always support BIP34, 66
-and 65. Good.
+`00000004`, so the blocks using BIP9 will always support the already
+deployed BIP34, 66 and 65. Good.
 
 Next, the 29 bits to the right of the leftmost `001` bits can be used
 to signal support for at most 29 simultaneous soft forks.
@@ -654,23 +660,24 @@ independently deploy a single feature or a group of features. If a bit
 is set to `1`, it means that the miner that produced the block support
 the feature represented by that bit number.
 
-A number of parameters need to be defined for each feature:
+A number of parameters need to be defined for each deployable feature:
 
 name:: A short, but descriptive name for the feature.
 bit:: The number of the bit to use for signalling.
 start time:: What time to start monitoring for miner support.
 timeout:: A time when the deployment will be considered failed.
 
-The deployment goes through a number of _states_. After each retarget
-period, the state is updated as follows:
+The deployment goes through a number of _states_. The state is updated
+_after each retarget period_ as follows:
 
 .State transitions happens every 2016 blocks.
 image::{imagedir}/bip9-states.svg[{full-width}]
 
 When comparing block times to the start time and timeout, we always
-use median time past of the previous 11 blocks. This is to make it
-harder for miners to manipulate the state transitions and to make sure
-that each successive block has a time greater than the previous block.
+use median time past as described in <<timestamp-rules>>. This is to
+make it harder for miners to manipulate the state transitions and to
+make sure that each successive block has a time greater than the
+previous block.
 
 ==== Use BIP9 to deploy relative lock time
 
@@ -683,8 +690,7 @@ relative lock time work.
 
 Let's look at an example of how a deployment using version bits can
 play out. We will look at how relative lock time was deployed. The
-developers of this new feature defined the following parameters for
-the new feature:
+developers of this new feature defined the following BIP9 parameters:
 
 ----
 name: csv
@@ -693,15 +699,15 @@ start time: 2016-05-01 00:00:00
 timeout:    2017-05-01 00:00:00
 ----
 
-The timeout was one year after the start time, which will gave the
-miners about one year to upgrade to the soft fork implementing this
-feature.
+The timeout was one year after the start time, which gave the miners
+about one year to upgrade to the soft fork implementing this feature.
 
 Here are the state transitions that occurred:
 
 .BIP9 deployment of csv. It went well.
 image::{imagedir}/bip9-relative-lock-time-states.svg[{full-width}]
 
+/////
 let's look at it in a bit finer detail:
 
 .States of the BIP9 deployment of relative lock time.
@@ -719,13 +725,17 @@ let's look at it in a bit finer detail:
 | *LOCKED_IN* | 2016-06-21 04:49 | 417312 | LOCKED_IN because the last retarget period has >= 1916 blocks supporting csv
 | *ACTIVE* | 2016-07-04 21:44 | 419328 | Active because it's exactly one retarget after LOCKED_IN
 |===
-
+/////
 This deployment went fast and smooth. It took only 3 retarget periods
 for 95% of the miners to upgrade to the new software.
 
-However, all deployments aren't as smooth.
+Unfortunately, all deployments aren't as smooth.
 
 ==== Use BIP9 to deploy SegWit
+
+****
+image::{imagedir}/segwit-lets-deploy.svg[]
+****
 
 The deployment of segregated witness, described in <<ch10>>, also used
 BIP9 for its deployment, but things didn't work out as anticipated. It
@@ -742,9 +752,21 @@ timeout:    2017-11-15 00:00:00
 A new version of Bitcoin Core was released with the above segwit
 deployment parameters. Users adopted this new version pretty quickly,
 but for some reason, miners seemed hesitant. The signalling plataued
-at around 30%.
+at around 30% and the deployment process got stuck in the `STARTED`
+state:
+
+.The segwit deployment didn't proceed as anticipated.
+image::{imagedir}/bip9-segwit-stuck-started.svg[{full-width}]
+
+If the deployment times out and enters the `FAILED` state, a whole new
+deployment cycle has to be put in place and executed which may take
+yet another year.
 
 ===== Conflicts of interest
+
+****
+image::{imagedir}/segwit2x-double-size.svg[]
+****
 
 Another proposal was also discussed in parallel. This proposal was
 known as _Segwit2x_. This was a proposal to activate segwit _and_
@@ -762,6 +784,10 @@ but stick to what we know.
 
 ===== User activated soft fork
 
+****
+image::{imagedir}/uasf.svg[]
+****
+
 In the midst of all this, another proposal, BIP148, surfaced that
 would start dropping blocks that didn't signal bit 1, segwit, on
 2017-08-01. The effect of this would be that nodes running BIP148
@@ -771,17 +797,29 @@ a user-activated soft fork. Users, the ones running full nodes,
 collectively decide that they will start applying new rules, and if
 miners don't comply, their blocks will be discarded.
 
+This was an attempt at forcing the deployment of segwit in spite of
+hesitant miners.
+
 Some groups, especially the Bitcoin Core team, thought this proposal
 was too risky. It could case a chain split if not a majority of the
-hash rate would signal for segwit. There was also a group of people
-wanting to move forward with BIP148 regardless. This caused some worry
-in the Bitcoin community.
+hash rate would signal for segwit. But there was also a group of
+people wanting to move forward with BIP148 regardless. This caused
+some worry in the Bitcoin community.
 
 ===== A proposal to bridge the groups
 
-A new BIP, BIP91, was written in May 2017 to satisfy both of the above
-proposals. It would use BIP9 with a custom threshold. It would also
-use a smaller span of blocks to gauge support:
+****
+image::{imagedir}/2ndcol-bip91-kumbaya.svg[]
+****
+
+We had the stalled segwit deployment, an alternate segwit2x fork
+coming that many miners seem to want and a group of impatient users
+wanting to enforce segwit using BIP148.
+
+To avoid a timeout of the segwit deployment, which would further delay
+segwit, and to avoid a possible blockchain split by BIP148, and to
+please the segwit 2x crowd, a new BIP was written. BIP91 would satisfy
+both of the above groups. It would use BIP9 with a custom threshold:
 
 ----
 name: segsignal
@@ -794,29 +832,37 @@ Ceases to be active when segwit is locked_in (or failed).
 ----
 
 This BIP does it a bit differently than normal BIP9 deployments. It
-uses a shorter timespan, 336 blocks instead of 2016 blocks, and it
+uses a shorter period, 336 blocks instead of 2016 blocks, and it
 uses a lower threshold, 80% instead of 95%.
 
 While active, this BIP will behave like BIP148. This means that all
 blocks that don't signal bit 1 (segwit) will be rejected. Note how
 this is compatible with both BIP148 and segwit2x. It will signal using
 bit 4 which is the same bit as segwit2x would use, and it will enforce
-segwit lock-in by dropping non-bit-1-signaling blocks.
+segwit lock-in by rejecting non-bit-1-signaling blocks.
 
 The BIP was not implemented in Bitcoin Core, but in a forked version
 of Bitcoin Core. This version quickly got broad adoption among miners
-and on 2017-07-20 the BIP got LOCKED_IN. It activated three days
-later. Note that it was mainly miners who adopted BIP91. Normal users
-typically used Bitcoin Core that didn't implement BIP91.
+and on 2017-07-21 the BIP got LOCKED_IN.
+
+.BIP91 updates its state every 336 blocks instead of the usual 2016. This went fast.
+image::{imagedir}/bip91-states.svg[{full-width}]
+
+It activated three days after `LOCKED_IN`. Note that it was mainly
+miners who adopted BIP91. Normal users typically used Bitcoin Core
+that didn't implement BIP91.
 
 When miners activated BIP91, they started dropping blocks that didn't
-signal bit 1. The result was that non-bit-1 blocks didn't make it into
-the strongest chain, which quickly forced the remaining miners to
-upgrade to segwit signaling blocks to avoid mining on a minority
-chain.
+signal bit 1 which is the bit for the `segwit` deployment. The result
+was that non-bit-1 blocks didn't make it into the strongest chain,
+which quickly forced the remaining miners to upgrade to segwit
+signaling blocks to avoid mining on a minority chain.
 
 Since most miners were quickly starting to signal segwit, BIP141 got
-LOCKED_IN at 2017-08-09 and ACTIVE on 2017-08-24.
+LOCKED_IN at 2017-08-09 and ACTIVE on 2017-08-24:
+
+.Segwit finally activates thanks to BIP91.
+image::{imagedir}/bip9-segwit-active.svg[{full-width}]
 
 Normal non-mining users, merchants and exchanges didn't have to do
 anything particular to stay on the strongest chain, since their
@@ -836,10 +882,13 @@ proposal. Since several miners each control more that 5% of the total
 hash rate, it means that any one of these individual entities can
 block a system upgrade.
 
+[.important]
+
 As we noted in <<trust-in-lisa>>, we pay miners to perform correct,
 honest confirmations of transations. We don't pay them to decide the
-rules. The rules are decided collectively by everyone, you and me, by
-running our Bitcoin software of choice.
+rules, we pay them to _follow_ the rules. The rules are decided
+collectively by everyone, you and me, by running our Bitcoin software
+of choice.
 
 Think about that.
 
@@ -873,68 +922,6 @@ a 100% compliance because non-compliant blocks don't count anymore.
 
 
 === NOTES
-
-decide on a specific date or block
-height that start dropping blocks
-
-
-
-
-
-Some miners wanted segwit2x while others wanted just segwit. We
-started seeing all combinations of signalling:
-
-----
-20000000: No signalling
-20000002: BIP141
-20000010: segwit2x
-20000012: BIP141 and segwit2x.
-----
-
-
-
-
-A few BIPs were written to try to mitigate this issue, and the one
-that finally got widespread adoption was BIP91.
-
-
-Sequence of events:
-
-. BIP141 Defined
-. BIP141 Started
-. BIP141 User adoption fast
-. BIP141 Miner adoption slow
-
-. 12 Mars 2017: Shaolin Fry proposes a flag-day activation. BIP148 is
-born. Core didn't implement this BIP, but others did.
-
-. BIP148 turned out to be controversial. Not everybody
-liked it. Especially the segwit2x crowd opposed it because it
-conflicts with their NYA using bit4. Exchanges and businesses
-hesitant.
-
-* BIP149 was born
-
-. NYA born. No core devs supported it, but many prominent
-orgs did. The support for 2MB was weak and would not be implemented in
-Bitcoin Core. 
-
-. Some people wanted to go through with BIP148 regardless if they're a
-minority or not. They think risking a chain split if they only get a
-mining minority would be worth it.
-
-. BIP91 was born to avoid a BIP148 chain split and to avoid having
-another deployment after BIP141 times out.
-
-. Miners started adopting BIP91. 2017-07-20 BIP91 LOCKED_IN.
-
-. This caused rest of miners to quickly start signal segwit.
-
-. BIP91 ACTIVE on 477120, 2017-07-23. Miners started rejecting
-non-segwit-signalling blocks. But by then all miners have upgraded to
-BIP141 so little to no orphaned blocks occurred.
-
-. BIP141 ACTIVE on 2017-08-09. 
 
 BIP141:
 Deployed using BIP9
@@ -970,131 +957,12 @@ name: segsignal
 bit: 4
 start time: 2017-06-01
 timeout: 2017-11-15
-LOCKED_IN: 2017-07-20 
-ACTIVE: 2018-07-23 477102
+LOCKED_IN: 2017-07-21 
+ACTIVE: 2018-07-23 477120
 Not active after LOCKED_IN
 While active, drop non-segwit-signalling (bit 1) blocks
 
-Strip:
-
-Roles: Bitcoin Core, Users, Segwit2x, Miners, Hilliard
-
-Core: Let's activate BIP141 using BIP9 bit 1!
-
-Users: Yay!
-
-Miners: No!
-
-Users: Let's do BIP148 to reject non-bit-1-blocks on August 1.
-
-Core: Too risky, that might cause a chain split. Will not implement.
-
-Segwit2x: We want to activate segwit AND increase the maximum block
-weight with a hard fork. We'll use BIP9 and bit 4 to activate this
-change. We don't want JUST segwit.
-
-Users: We'll implement BIP148 and go through with it.
-
-Hilliard: Ok, How about BIP91? Segwit2x gets the segwit part of their
-will, and the segwit crowd gets segwit.
-
-Miners: Ok, fine. BIP91 ACTIVE on 2018-07-23
-
-Users: Segwit is ACTIVE on 2017-08-09. Party!
-
-Segwit2x: We'll go through with block size increase in mid-november
-according to plan.
-
-Core/Users: Hmm, I don't like the idea of a hard fork. Let's not do it.
-
-Segwit2x: We'll go through with it anyway.
-
-Segwit2x: Early november 2017: Ok, we'll not do it. Not enough user
-support.
-
-
-
-
-
-
-The four already used versions,
-1-4 requires only 3 bits, 001 to 100. The remaining 29 bits can be
-used differently.
-
-signal iff:
-
-       leftmost 3 bits are exactly 001
-       bit N is set N in {0,..., 28}
-
-0x20000000...0x3FFFFFFF
-
-
-===== Relative lock time
-
-
-
-===== Segwit (failed)
-
-bip68 wrítten  2015-05-28
-bip9 written 2015-10-04
-
-May 2016-may 2017 active on #419328
-BIP68  Relative lock-time using consensus-enforced sequence numbers	BIP9 using bit 0 version >= 536870912
-BIP112 CHECKSEQUENCEVERIFY			   	    		bit 0 too
-BIP113 Median time-past as endpoint for lock-time calculations		bit 0 too
-
-
-==== Using block version bits and flag-day: Segwit (succeeded)
-
-==== Future soft forks using version bits (BIP8)
-
-==== Miner activated and User activated soft forks
-
-BIP8 is still draft, and not implemented.
-
-BIP9 --> BIP148 --> BIP91
-
-
-
 Miners can lie. See BIP66 split.
-
-Block versions
-[role="widetable"]
-|===
-| Height | Date | version bytes (big-endian signed integer) | bits | human-readable | Description
-
-| 0	 | 2009-01-03 18:15 | 00000001 | 0000 0001 0000 0000 0000 0000 0000 0001 | 1 | Genesis
-
-| 224412 | 2013-03-05 18:57 | 00000002 | 0000 0010 0000 0000 0000 0000 0000 0002 | 2 | Height in coinbase (reject invalid v2 blocks)
-| 227930 | 2013-03-25 07:30 | 00000002 | 0000 0010 0000 0000 0000 0000 0000 0002 | 2 | Height in coinbase (reject v1 blocks)
-
-| 363725 | 2015-07-04 01:54 | 00000003 | 0000 0011 0000 0000 0000 0000 0000 0003 | 3 | BIP66 enforced
-| 388381 | 2015-12-14 17:24 | 00000004 | 0000 0100 0000 0000 0000 0000 0000 0004 | 4 | BIP65 OP_CHECKLOCKTIMEVERIFY
-
-| 407021 | 2016-04-13 01:22 | 20000000 | 0010 0000 0000 0000 0000 0000 0000 0000 | 536870912 | First BIP9 block No BIP9 bits set
-
-| 411264 | 2016-05-11 05:34 | 20000001 | 0010 0000 0000 0000 0000 0000 0000 0001 | 536870913 | BIP9 Relative locktime + OP_CHECKSEQUENCEVERIFY signalling started
-
-| 419327 | 2016-07-04 23:06 | 20000001 | 0010 0000 0000 0000 0000 0000 0000 0001 | 536870913 | BIP9 Relative locktime + OP_CHECKSEQUENCEVERIFY
-| 419328 | 2016-07-04 23:16 | 20000000 | 0010 0000 0000 0000 0000 0000 0000 0000 | 536870912 | No BIP9 bits set (OP_CSV active)
-
-| 438914 | 2016-11-14 18:39 | 20000002 | 0010 0010 0000 0000 0000 0000 0000 0010 | 536870914 | Segwit signalling started (a day early)
-| 481824 | 2017-08-24 01:57 | 20000002 | 0010 0010 0000 0000 0000 0000 0000 0010 | 536870914 | Segwit active
-
-| 514766 | 2018-03-23 08:37:41 | 20000000 | 0010 0000 0000 0000 0000 0000 0000 0000 | 536870912 | Latest block
-|===
-
-Version bit {0, 1, 2, ..., 28}
-starttime (typically 1 month after soft fork release). Minimum MTP, where the bit gets its meaning
-timeout (typically 1 year) Fail if MTP>=timeout. No return from Failed state.
-
-Interpret version bits as a LE-signed integer. For example `0x00000020` is
-
-20000000~16~
-0010 0000 0000 0000 0000 0000 0000 0000~2~
-536870912~10~
-
-The rightmost 29 bits can be used as BIP9 version bits.
 
 
 00000020 version
@@ -1104,51 +972,7 @@ c7529d5a timestamp
 a3895517 target
 4412ae89 nonce
 
-History
-
-2012-04-01
-BIP16, p2sh   	 	   						flagday after manual check for 550/1000? BIP16
-
-2013-03-24
-BIP34  Block v2, Height in Coinbase					750/1000 nVersion = 2
-
-2015-07
-BIP66  Strict DER encoding 						750/1000 nVersion = 3
-
-2015-12
-BIP65 OP_CHECKLOCKTIMEVERIFY						750/1000 nVersion = 4
-
-May 2016-may 2017 active on #419328
-BIP68  Relative lock-time using consensus-enforced sequence numbers	BIP9 using bit 0 version >= 536870912
-BIP112 CHECKSEQUENCEVERIFY			   	    		bit 0 too
-BIP113 Median time-past as endpoint for lock-time calculations		bit 0 too
-
-2017-08 active on #481824
-BIP141,BIP143,BIP147 SegWit						BIP148 UASF + BIP91 bit 1
-
-
 Catastrophic bug?
-
-Who's got the power to change rules?
-
-BIP 8		Version bits with lock-in by height
-BIP 9		Version bits with timeout and delay
-BIP 50		March 2013 Chain Fork Post-Mortem
-BIP 91		Reduced threshold Segwit MASF
-BIP 99		Motivation and deployment of consensus rule changes ([soft/hard]forks)
-BIP 148		Mandatory activation of segwit deployment
-
-=== History of hard forks
-
-Bitcoin XT
-Bitcoin Unlimited
-Bitcoin Cash
-Bitcoin Gold
-Bitcoin Diamond
-
-
-
-
 
 
 Todo:
