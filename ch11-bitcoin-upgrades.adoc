@@ -876,11 +876,10 @@ The events that occurred during segwit deployment was not
 anticipated. Few people thought that miners would refuse to adopt
 BIP141. Yet, that's what happened.
 
-It was made very clear that BIP9 is not an ideal way to deploy soft
-forks. It gives 5% of the hash rate a veto against any BIP9 deployed
-proposal. Since several miners each control more that 5% of the total
-hash rate, it means that any one of these individual entities can
-block a system upgrade.
+It became clear that BIP9 is not an ideal way to deploy a soft
+fork. It gives 5% of the hash rate a veto against it . Since several
+miners each control more that 5% of the total hash rate, it means that
+any one of these individual entities can block a system upgrade.
 
 [.important]
 
@@ -894,13 +893,19 @@ Think about that.
 
 Suppose that 99% of the Bitcoin users (end-users, exchanges,
 merchants, etc) want a rule change, for example smaller blocks, which
-would be a soft fork. But no miner wants that, they refuse to
-comply. Suppose also that users changes their software to drop all big
-blocks after a certain block height.
+would be a soft fork. Also suppose that no miner wants smaller blocks
+so they all refuse to comply. Suppose also that 99% of the non-mining
+full nodes change their software to drop all big blocks after a
+certain block height.
 
 What would happen when that block height has passed? Miners that
 produce big blocks will build a blockchain that the users will deem
-invalid. The value of the block rewards in the "miner" chain will be
+invalid.
+
+.Users start rejecting big blocks. They see no new valid blocks, but plenty invalid (too big) blocks.
+image::{imagedir}/uasf-start.svg[{half-width}]
+
+The value of the block rewards in the "miner" chain will be
 unknown, because the exchanges don't deal with the miner chain. Miners
 will not be able to exchange their block rewards to pay their
 electricity bills. Even if the electicity provider takes Bitcoin, the
@@ -910,16 +915,46 @@ electricity provider is also a Bitcoin user, remember?
 
 But if a single miner decides to comply with the users' demand the
 blocks produced by that miner will be the only blocks actually
-accepted by users. The incentives for miners to comply with the will
-of the economic majority are pretty clear.
+accepted by users.
+
+.One miner decides to go with the users' will and only build small blocks. That miner will be able to pay the bills.
+image::{imagedir}/uasf-single-miner.svg[{big-width}]
+
+This single miner will be rewarded for the block it created, because
+the economic majority accepts the block. The blocks on the miner (big
+block) chain are still pretty worthless since no users accepts
+them. On top of that, the single small block miner will be able to
+charge more fees than before, because the total amount of block space
+is smaller. Not only because the maximum block weight is smaller but
+also because the total amount of blocks is smaller.
+
+Some more big block miners will probably realize that they are quickly
+running out of money and decide to switch to the user-accepted branch.
+
+.A few more miners realize that it's more profitable to work on the users' branch.
+image::{imagedir}/uasf-more-miners.svg[{full-width}]
+
+When more miners move over to the users' branch, that branch will
+eventually grow stronger than the big blocks brach. When that happens,
+the big blocks branch will get wiped out and the remaining miners will
+automatically switch to the small blocks branch, because the change is
+a soft fork.
+
+.The users' branch is stronger and wipes out the big blocks branch.
+image::{imagedir}/uasf-wipeout-miners.svg[{full-width}]
+
+Users win.
 
 To make use of this insight a new deployment mechanism is in the
 making. It's generally called _user activated soft fork_. The general
 idea is to start with a BIP9-like deployment but with the exception
 that if the deployment doesn't get LOCKED_IN well before the timeout,
-blocks that don't signal will be dropped. This will effectively cause
-a 100% compliance because non-compliant blocks don't count anymore.
+blocks that don't signal for the fork will be dropped. This will
+effectively cause 100% compliance because non-compliant blocks don't
+count anymore.
 
+
+////
 
 === NOTES
 
@@ -1024,3 +1059,4 @@ Closed questions:
 
 * Is it possible that there are other yet unknown ways to malleate a signature than the "-S" trick? Or maybe even known ones? I refer only to inherent ECDSA signature malleability.
 ** Yes it's possible according to wumpus in bitcoin-core-dev
+////
