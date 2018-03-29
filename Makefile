@@ -1,5 +1,5 @@
-AD=/home/kalle/hack/git/asciidoctor/bin/asciidoctor
-#AD=asciidoctor
+#AD=/home/kalle/hack/git/asciidoctor/bin/asciidoctor
+AD=asciidoctor
 MAIN=grokking-bitcoin.adoc
 OUTPUTDIR=build
 ADOC=$(wildcard *.adoc)
