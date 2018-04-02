@@ -1,42 +1,47 @@
 [[ch11]]
-== Bitcoin upgrades - change the consensus rules
+== Bitcoin upgrades - change consensus rules
 :imagedir: {baseimagedir}/ch11
 
 This chapter covers
 
-* Understanding differences between hard forks and soft forks
+* Understanding hard forks and soft forks
 * Upgrading Bitcoin safely
 * Letting users decide rules instead of miners
 
-Bitcoin is constantly evolving. Every now and then new features are
-adopted by the Bitcoin ecosystem. We have seen several examples of
-this throught this book, for example the introduction of p2sh,
-relative time locks, and segregated witness.
+When Bitcoin's consensus rules change, it can happen in two
+ways. Either via a soft fork or via a hard fork. These two types of
+changes are fundamentally different. We will learn about the
+differences between hard and soft forks as well as understand what the
+implications are when deploying a soft fork and a hard fork.
 
-Upgrading Bitcoin is much more complex than upgrading, say an online
-book store. An online book store is a central service with a single
-person or group of persons that decides on a plan and executes the
-plan accoringly. The system can even tolerate a bit of down-time
-during the process.
+Rolling out a consensus rule change over the Bitcoin network can be a
+very difficult task. Each Bitcoin node is souvereign and no one
+dictates what software people should run. The users decide for
+themselves what software to run. This fact makes it very hard to roll
+out, or _deploy_, consensus rule changes without having broad user and
+miner support. The _deployment machanisms_ have evolved over time and
+we will go through that evolution and explore the current state of
+deployment mechanisms.
 
-Bitcoin consist of thousands of independent nodes, all of which run
-different versions of Bitcoin and whose operators have different views
-on what changes should and should not be adopted. It's nearly
-impossible to convince all node operators to upgrade to a new version
-at the same time. Changes have to be rolled out gradually without
-disrupting the Bitcoin system. We have already seen how software
-changes to facilitate such upgrades can be engineered, so called
-soft-forks, but we haven't seen how to actually deploy such changes in
-the Bitcoin network while minimizing the risk of a blockchain split.
+As of writing, most (non-critical) updates to Bitcoin's consensus
+rules have been made via so called _miner activated soft forks_ where
+miners signal support and start enforcing the new rules. However, this
+comes with some issues, for example a big miner can block an upgrade
+in spite of broad user adoption. People are looking to solve that with
+so called _user-activated soft forks_. That means that power is where
+power belongs: With the people using Bitcoin, the _economic majority_.
+It is the economic majority that ultimately and collectively decides
+the consensus rules, and that insight is put into practice with
+user-activated soft forks.
 
+[[bitcoin-forks]]
 === Bitcoin forks
 
 Open source software is software that is free to download, use,
-inspect, change, and redistribute as you please. Open source software
-is very common today. A lot of the software you use on a daily basis
-is probably open source. Maybe you use the Google Chrome web browser
-or the GNU/Linux operating system? Those are examples of open source
-projects.
+inspect, change, and redistribute as you please. A lot of the software
+you use on a daily basis is probably open source. Maybe you use the
+Google Chrome web browser or and Android mobile phone? Those are
+examples of software built on open source projects.
 
 Open source projects can be _forked_. If you make a copy of the source
 code for Linux, make some changes to it, and distribute your new
@@ -49,45 +54,42 @@ open source project, like Linux.
 Suppose that you want to make a change in the Bitcoin Core
 software. You create your own fork of Bitcoin Core. Depending on the
 change you make in your fork, the nodes running your forked version
-will behave differently. We generally categorize changes as
+will behave differently.
 
-////
-Dear twitter, is there a good name for a non-consensus-rule-changing fork? Is it even meaningful to talk about a fork if it's not changing the consensus rules? Do you consider a clone of of Bitcoin Core with a different GUI coloring theme a fork? Speak freely!
+In the context of Bitcoin, we use the term _fork_ to mean a consensus
+rule change. This change can be done in Bitcoin Core, or in a copied
+version of Bitcoin Core (a fork in traditional sense), or in any
+alternative Bitcoin full node software program. If someone runs a full
+node with changed consensus rules compared to other people's full
+nodes, that person is running a fork.
 
+We generally categorize forks in Bitcoin as
 
-Yes, hell, the word "fork" is so infected with different meanings. Maybe avoid that word altogether. But then the reader won't be able to understand street bitcoin-lingo.
+Hard forks:: A hard fork relaxes the consensus rules. Some blocks that
+was considered invalid by old nodes, will be considered valid by new
+nodes. Doubling the maximum allowed block weight would be a hard fork.
 
-Code change: A change within the same code repository
-Code clone: A clone of a repository
-Soft consensus rule change: soft fork
-Hard consensus rule change: hard fork
-software change: a code change that's not a consensus rule change
-
-A side bar explaining the street lingo.
-////
-
-Hard forks:: Changes that might create blocks that old nodes don't
-accept. Doubling the maximum allowed block weight would be a hard
-fork.
-
-Soft forks:: Changes that creates blocks that old nodes accept, but
-new nodes might not accept blocks from old nodes. Decreasing the
-maximium allowed block weight would be a soft fork.
-
-Changes that don't change the consensus rules:: Changing the color of
-the graphical user interface or adding a new feature to the
-peer-to-peer networking protocol are changes that don't affect the
-consensus rules.
+Soft forks:: A soft fork tightens the consensus rules. All blocks that
+new nodes consider valid will also be considered valid by old nodes,
+but some blocks considered valid by old nodes will be considered
+_invalid_ by new nodes.
 
 .Soft forks tighten the consensus rules while hard forks widens them, compare with decreasing the maximum block weight and increasing it respectively.
 image::{imagedir}/hard-vs-soft-fork.svg[{big-width}]
 
-If a fork causes the consensus rules to differ from the old version,
-you risk having a chain-split if anyone runs your forked computer
-program. Some nodes will follow the strongest chain that is valid
-according to their old rules and some nodes, the ones running your
-software, follow the strongest chain that is valid according to your
-new rules. The result might be a split in the blockchain.
+Changes that don't change the consensus rules, for example changing
+the color of the graphical user interface or adding a new feature to
+the peer-to-peer networking protocol, are not Bitcoin forks.  However,
+they could be forks of a software project in the traditional
+sense. From now on we will only use the term _fork_ to mean a change
+of consensus rules.
+
+If you create a fork, soft or hard, you risk having a chain-split if
+anyone runs your forked computer program. Some nodes will follow the
+strongest chain that is valid according to their old rules and some
+nodes, the ones running your software, follow the strongest chain that
+is valid according to your new rules. The result might be a split in
+the blockchain.
 
 We will work through a few examples to illustrate what happens in
 different scenarios. We will start with the simplest case, which is a
@@ -107,7 +109,7 @@ message.
 .Your new message will be accepted by Bitcoin New and ignored by Bitcoin Old.
 image::{imagedir}/kill-message.svg[{big-width}]
 
-Many people consider your change a huge security risk. The don't want
+Most people consider your change a huge security risk. The don't want
 their nodes shut down by a random stranger on the Internet. You will
 have a hard time convincing them to use Bitcoin New. You can't force
 this software upon anyone, people will have to actively want it and
@@ -122,20 +124,20 @@ of open source.
 [.inbitcoin]
 .BIP152
 ****
-This was actually implemented in Bitcoin Core during 2016 and greatly
-improved the block propagation time in the Bitcoin network. BIP152,
-"Compact Block Relay", describes this in detail. We only describe a
-simplified version here.
+This was implemented in Bitcoin Core during 2016 and greatly improved
+the block propagation time in the Bitcoin network. BIP152, "Compact
+Block Relay", describes this in detail. We only describe a simplified
+version here.
 ****
 
-Suppose that you're a great engineer and invent something useful
-instead. You invent something called compact blocks. Compact blocks
-allows a peer to send a block to another peer, but doesn't send the
-full block. Instead, it uses the fact that the recipient node already
-has received most of the transactions in the block. Remeber that a
-transaction first travels the network during transaction propagation,
-and then it travels the network again during block propagation once
-the transaction is confirmed.
+Suppose that you invent something useful instead. You invent something
+called compact blocks. Compact blocks allows a peer to send a block to
+another peer, but without sending the full block. Instead, it uses the
+fact that the recipient node already has received most of the
+transactions in the block. Remeber that a transaction first travels
+the network during transaction propagation, and then it travels the
+network again during block propagation once the transaction is
+confirmed.
 
 .Qi gets a transaction twice. First during transaction propagation, second during block propagation.
 image::{imagedir}/qi-gets-the-transaction-twice.svg[{full-width}]
@@ -162,16 +164,17 @@ indexes of the missing transactions. Rashid will then reply with a
 Note that this is a very simplified version of how it actually
 works. The main differences are:
 
-1. The `cmpctblock` message can also include some full transactions,
-for example the coinbase transaction of the block.
-2. Compact blocks can work in two different modes: In high bandwidth
-mode, `cmpctblock` messages are sent unsolicited instead of first
-using an `inv`, while in low bandwith mode the `cmpctblock` is sent
-only upon request after an `inv` has been received.
-3. You announce to your peers that you support compact blocks.
-4. The list of txids sent in the `cmpctblock` messages are not full
-txids, but shortened to save data traffic, but still long enough to
-almost always uniquely identify the actual transactions used.
+1. The `cmpctblock` message can also include some complete
+transactions, for example the coinbase transaction of the block.
+2. Compact blocks can work in two different modes:
+.. High bandwidth mode, `cmpctblock` messages are sent unsolicited
+instead of first using an `inv`,
+.. Low bandwith mode, the `cmpctblock` is sent only upon request after
+an `inv` has been received.
+3. The list of txids sent in the `cmpctblock` messages are not full
+txids, but shortened versions to save data traffic, but still long
+enough to almost always uniquely identify the actual transactions
+used.
 
 This is a really useful change that many people find valuable. You
 release your software and people tend to start using it. Everybody
@@ -194,6 +197,10 @@ nodes.
 image::{imagedir}/2ndcol-hard-fork.svg[]
 ****
 
+As described in <<bitcoin-forks>>, a hard fork is a software change
+that relaxes the consensus rules. Blocks created by new nodes might be
+rejected by old nodes.
+
 Suppose that you create a fork that changes the maximum allowed block
 weight, discussed in <<increasing-the-block-size-limit>>, from
 4,000,000 weight units (WU) to 8,000,000 WU. This would allow for more
@@ -211,16 +218,17 @@ enough to find a valid proof of work, you publish your block. This
 block will definately be ≤ 8,000,000 WU, but it may or may not be ≤
 4,000,000 WU. If it is ≤ 4,000,000 WU, it will be accepted by Bitcoin
 Old nodes. But if not, your block will be rejected by Bitcoin Old
-nodes. Your blockchain will diverge from the Bitcoin Old blockchain.
+nodes. Your blockchain will diverge from the Bitcoin Old
+blockchain. You have caused a blockchain split.
 
 .Your node running Bitcoin New is a loser against the Bitcoin Old nodes. Bitcoin Old will discard all your blocks that violate the ≤ 4,000,000 WU rule.
 image::{imagedir}/hard-fork-single-new-node.svg[{full-width}]
 
-Whenever your Bitcoin New node mines a new block, it might get
-rejected by the Bitcoin Old nodes depending on whether it is ≤
-4,000,000 WU or not. For the blocks that gets rejected, you will have
-wasted a lot of electricity and time on mining blocks that don't make
-it into the main chain.
+When your Bitcoin New node mines a new block, it might get rejected by
+the Bitcoin Old nodes depending on whether it is ≤ 4,000,000 WU
+or not. For the blocks that get rejected, you will have wasted a lot
+of electricity and time on mining blocks that don't make it into the
+main chain.
 
 But suppose that a majority of the hash rate likes your new Bitcoin
 New program and start using it instead of Bitcoin Old. What happens
@@ -238,7 +246,7 @@ they collectively have more hash rate than the Old nodes. It seems
 like the New nodes' branch will stay intact because it gets a
 reassuring lead in accumulated proof of work.
 
-The new nodes have created a successful chain split, it seems. But if
+The new nodes have created a lasting chain split, it seems. But if
 some miners decide to go back to running Bitcoin Old, or if additional
 miners enter the race using Bitcoin Old nodes, so that Old gets a
 majority of the hash rate again, the New chain may be facing problems:
@@ -247,10 +255,10 @@ majority of the hash rate again, the New chain may be facing problems:
 image::{imagedir}/hard-fork-new-chain-reorg.svg[{full-width}]
 
 When Bitcoin Old nodes have a hash rate majority they will outperform
-the Bitcoin New nodes and eventually they will catch up with the New
-nodes and surpass them. New nodes acknowledges that fact by switching
-back to mining on the Old chain. We say that the branch created by the
-New nodes was wiped out by a chain reorganization, commonly known as a
+the Bitcoin New nodes and eventually catch up with the New nodes and
+surpass them. New nodes acknowledge that fact by switching back to
+mining on the Old chain. We say that the branch created by the New
+nodes was wiped out by a chain reorganization, commonly known as a
 _reorg_.
 
 ===== Wipeout protection
@@ -261,10 +269,12 @@ reorg of the Bitcoin New chain.
 
 This is not the case in all hard forks. Suppose for example that you
 want to change the proof of work hash function from double SHA256 to
-single SHA256. Then your blocks will always be rejected by Old nodes,
-and conversely, blocks created by Bitcoin Old will always be rejected
-by Bitcoin New nodes. A change like this is therefore guaranteed not
-to get reorged by the Bitcoin Old branch.
+single SHA256. Then your Bitcoin New blocks will always be rejected by
+Old nodes, and conversely, blocks created by Bitcoin Old will always
+be rejected by Bitcoin New nodes. A change like this is therefore
+guaranteed not to get reorged by the Bitcoin Old branch. It's wipeout
+protected by nature, but many changes are not wipeout protected by
+nature.
 
 [.gbinfo]
 .Replay protection
@@ -275,15 +285,15 @@ transactions to appear on both branches of a chain split and
 effectively also serves as wipeout protection.
 ****
 
-An example of this is an alternative cryptocurrency called _Bitcoin
-Cash_. It was created through a hard fork of Bitcoin Core at block
-height 478559. The main thing they did was to increase the maximum
-base block size and remove segregated witness from the code. This
-would make the Bitcoin Old chain compatible with Bitcoin New nodes, so
-they would be vulnerable to wipeout. In order to protect against
-Bitcoin New being wiped out in a reorg, they added _wipeout
-protection_ by requiring the forking block to be greater than
-1,000,000 bytes (1 MB).
+An example of a change that's not wipeout protected by nature is an
+alternative cryptocurrency called _Bitcoin Cash_. It was created
+through a hard fork of Bitcoin Core at block height 478559, on
+2017-08-01. The main thing they did was to increase the maximum base
+block size and remove segregated witness from the code. This would
+make the Bitcoin Old chain compatible with Bitcoin New nodes, so they
+would be vulnerable to wipeout. In order to protect against Bitcoin
+New being wiped out in a reorg, they _added wipeout protection_ by
+requiring the forking block to be greater than 1,000,000 bytes (1 MB).
 
 .Bitcoin Cash protects against wipeout by requiring the first block after the chain split to be >1MB.
 image::{imagedir}/bitcoin-cash-hard-fork.svg[{big-width}]
@@ -303,11 +313,11 @@ We have discussed soft forks several times throught this book. A soft
 fork is a change in the consensus rules where blocks created by
 Bitcoin New nodes are accepted by Bitcoin Old nodes. However, the
 reverse is not true; Bitcoin New nodes might not accept a block
-created by a Bitcoin Old node.
+created by a Bitcoin Old node. The consensus rules are tightened.
 
 Segregated witness is an example of a soft fork. The change was
-carefully designed so that old nodes doesn't fail in verifying blocks
-that are valid according to New nodes. So all Bitcoin Old nodes will
+carefully designed so that old nodes don't fail in verifying blocks
+that contain segregated witness transactions. So all Bitcoin Old nodes will
 accept any blocks from Bitcoin New nodes and incorporate them into the
 blockchain.
 
@@ -316,15 +326,16 @@ not valid according to Bitcoin New. For example, a non-segwit miner
 could include into its block a transaction that spends a segwit output
 as if it was an anyone-can-spend output.
 
-.An old miner regards a segwit output as anyone can spend and adds a transaction that spends it with an empty signature script and no witness.
+.An Old miner regards a segwit output as anyone can spend and adds a transaction that spends it as such to the block.
 image::{imagedir}/spend-segwit-as-anyone-can-spend.svg[{full-width}]
 
-Suppose that there is a single miner running Bitcoin New. Also assume
-that the Old miners produce a block that's invalid according to New
-nodes. The result would be that the Bitcoin Old nodes build a block
-that's not accepted by the New miners. The New miners would ignore the
-invalid Old block. This is the point where the blockchain splits in
-two:
+Suppose that there is only a single miner with a small hash rate
+running Bitcoin New. Also assume that the Old miners produce a block
+that's invalid according to New nodes, as in the example with the
+segwit transaction above. The result would be that the Bitcoin Old
+nodes build a block that's not accepted by the New miner. The New
+miner would reject the invalid Old block. This is the point where the
+blockchain splits in two:
 
 .The soft fork may cause a chain split if the Old nodes produce a block that New miners don't accept.
 image::{imagedir}/soft-fork-single-new-node.svg[{big-width}]
@@ -348,7 +359,7 @@ the Bitcoin New branch.
 
 Let's have a look at what differs soft forks from hard forks. As a general rule:
 
-* A Hard fork _widens_ the rules. Bitcoin Cash is a hard fork.
+* A Hard fork _relaxes_ the rules. Bitcoin Cash is a hard fork.
 * A soft fork _tightens_ the rules. Segregated witness is a soft fork.
 
 This is a very simple, yet true, distinction. The effects of a chain
@@ -358,7 +369,7 @@ follows:
 Hard fork:: The New branch might get wiped out in a reorg. Use wipeout
   protection to avoid this. The Old branch can not be wiped out.
 Soft fork:: The Old branch might get wiped out in a reorg. You can't
-  protect the Old branch from wipeout becuase that would make this
+  protect the Old branch from wipeout because that would make this
   fork a hard fork. Remember that the definition of a soft fork is
   that Old nodes accept New blocks.
 
@@ -369,12 +380,12 @@ end up with two versions of their UTXOs. One version is spendable on
 Old chain and one version is spendable on New chain. We effectively
 have two cryptocurrencies, Bitcoin Old and Bitcoin New.
 
-Suppose that a chain split has occured and you want to pay for a book
-at an on-line book store.
-
 .After a chain split you effectively have two versions of your UTXOs.
 image::{imagedir}/utxos-in-chain-split-before-book-purchase.svg[{half-width}]
 
+
+Suppose that the above chain split has occured and you want to pay for
+a book at an on-line book store.
 
 [.gbinfo]
 .Value swings
@@ -385,8 +396,8 @@ branch may or may not be known, it depends on if those coins are
 widely traded yet.
 ****
 
-You want to do this using Bitcoin Old, because that's what the on-line
-book store wants.
+You want to do this using Bitcoin Old, because that's what the book
+store wants.
 
 You create your transaction as you've always done and
 broadcast it. Your transaction will be accepted by the Bitcoin Old
@@ -400,7 +411,7 @@ image::{imagedir}/old-new-utxo-sets.svg[{big-width}]
 If your transaction propagates to a Bitcoin New miner and a Bitcoin
 Old miner, it will probably end up in both branches of the blockchain.
 
-.After a chain split you effectively have two versions of your UTXOs.
+.Transaction replay causes you to pay in both currencies
 image::{imagedir}/utxos-in-chain-split.svg[{big-width}]
 
 This is not what you intended. Your transactions has been _replayed_
@@ -431,7 +442,7 @@ chain and invalid on the New chain.
 Using a new SIGHASH type for signatures is of course not the only way
 to achieve replay protection. Any change that makes transactions valid
 on at most one chain will do. You can for example require that New
-transactions subtract `01` from the spent txid. Suppose that the UTXO
+transactions subtract `1` from the input txid. Suppose that the UTXO
 you want to spend has the txid
 
 [subs=normal]
@@ -474,8 +485,16 @@ produce.
 .A miner signals support for pay-to-script-hash by writing "/P2SH/" in the coinbase's signature script.
 image::{imagedir}/p2sh-support-signalling.svg[{half-width}]
 
+[.inbitcoin]
+.User-activated soft fork
+****
+A deployment method where users start enforcing rules has become known
+as a User-Activated Soft Fork. We'll talk about this later in this
+chapter.
+****
+
 On a specific day the Bitcoin developers checked if at least 550 of
-the last 1000 blocks contained `P2SH`. It did, so they made a new
+the last 1000 blocks contained `/P2SH/`. It did, so they made a new
 software release that would start enforcing the p2sh rules on April 1
 2012, the so called flag-day.
 
@@ -486,7 +505,7 @@ flag day.
 
 ==== Using incremented block version number signalling: BIP34, 66, 65
 
-We haven't talked about it before but the block header comes with a
+We haven't talked about it much before but the block header comes with a
 version. The version is encoded in the first four bytes before the
 previous block hash.
 
@@ -512,7 +531,7 @@ The block version can used to signal support for certain new features.
 [.inbitcoin]
 .BIP34
 ****
-This BIP, "Block v2, Height in coinbase" describes both how to store
+This BIP, "Block v2, Height in coinbase", describes both how to store
 the height in the coinbase and how to deploy the change using version
 numbers.
 ****
@@ -531,7 +550,7 @@ version _signalling_ to avoid a blockchain split:
 soft fork increase the block version from 1 to 2. Note that its only
 miners that run the soft fork that increase the block version.
 +
-.Miners that run the soft fork signal support for it by increasing their block versions.
+.Miners that run the soft fork signal support for it by increasing their block version.
 image::{imagedir}/header-version-2.svg[{half-width}]
 
 ****
@@ -540,13 +559,12 @@ image::{imagedir}/relative-hash-rate-75.svg[]
 
 [start=2]
 2. Wait until 750 of the last 1000 blocks have version at
-least 2. When this happens, the New miners probably have about 75% of
-the hash rate.
+least 2. When this threshold is reached, the New miners probably have
+about 75% of the hash rate.
 
 3. Start rejecting newly produced version 2 blocks that don't contain
 the height in the coinbase. These blocks are falsely signalling for
 BIP34.
-
 
 ****
 image::{imagedir}/relative-hash-rate-95.svg[]
@@ -566,18 +584,23 @@ During step 1, nothing has changed. Only Old rules are in effect. But
 when 750 of the last 1000 blocks have version 2, we enter the next
 step. Here, nodes running the soft fork start ensuring that every new
 block of version 2 has the height in the coinbase. If not, the block
-is dropped. This is because there might be nodes deliberately or
+is dropped. On reason for this is there might be nodes deliberately or
 accidentally using block version 2 for other purposes than this soft
 fork. The 75% rule removes "false positives" when evaluating the 95%
 rule.
 
 From this point, some Old miner _could_ cause a chain split by
 creating a block of version 2 that violates the "height in coinbase"
-rule. The Old miners would build on top of that block while the New
-miners would build on top of the previous block. However, the New
-miners _probably_ (depending on the amount of "false" version 2
-signalling) have more hash rate and will outperform the Old miners and
-wipe out their Old branch.
+rule.
+
+.The Old nodes could cause a chain split, but it probably won't last for long.
+image::{imagedir}/soft-fork-bip34-chain-split.svg[{big-width}]
+
+The Old miners would build on top of that block while the New miners
+would build on top of the previous block. However, the New miners
+_probably_ (depending on the amount of "false" version 2 signalling)
+have more hash rate and will outperform the Old miners and wipe out
+their Old branch.
 
 When a greater portion of the blocks, 95% of the last 1000, signals
 support with version 2 blocks, the last step, 5, is entered. From this
@@ -636,8 +659,7 @@ to 2.
 ===== Solution
 
 They came up with a bitcoin improvement proposal, BIP9, that describes
-a process for how to safely deploy several soft forks
-simultaneoulsy.
+a process for how to deploy several soft forks simultaneoulsy.
 
 This process also uses the block version, but in a different way. They
 decided to change the way the block version bytes are
@@ -679,6 +701,20 @@ make it harder for miners to manipulate the state transitions and to
 make sure that each successive block has a time greater than the
 previous block.
 
+`DEFINED`:: This is the starting state. It means that a retarget
+hasn't happened after the start time yet.
+`STARTED`:: Wait until at least 1916 (95%) blocks in the last retarget
+period signals support.
+`LOCKED_IN`:: This state is a grace period to give the remaining
+non-signalling miners a chance to upgrade. If they don't, their blocks
+might be rejected.
+`ACTIVE`:: The new rules are in effect.
+`FAILED`:: The timeout occurred before the deployment got `LOCKED_IN`. 
+
+When the deployment is `ACTIVE` or `FAILED`, the bit used to signal
+support should be reset to `0` so that it can then be reused for other
+deployments.
+
 ==== Use BIP9 to deploy relative lock time
 
 [.inbitcoin]
@@ -693,8 +729,8 @@ play out. We will look at how relative lock time was deployed. The
 developers of this new feature defined the following BIP9 parameters:
 
 ----
-name: csv
-bit: 0
+name:       csv
+bit:        0
 start time: 2016-05-01 00:00:00
 timeout:    2017-05-01 00:00:00
 ----
@@ -743,8 +779,8 @@ started out the same way as with csv above. The parameters selected
 for this deployment was:
 
 ----
-name: segwit
-bit: 1
+name:       segwit
+bit:        1
 start time: 2016-11-15 00:00:00
 timeout:    2017-11-15 00:00:00
 ----
@@ -758,9 +794,9 @@ state:
 .The segwit deployment didn't proceed as anticipated.
 image::{imagedir}/bip9-segwit-stuck-started.svg[{full-width}]
 
-If the deployment times out and enters the `FAILED` state, a whole new
-deployment cycle has to be put in place and executed which may take
-yet another year.
+The deployment of segwit was in risk of failing, entering the `FAILED`
+state after timeout. If that happens, a whole new deployment cycle has
+to be put in place and executed which may take yet another year.
 
 ===== Conflicts of interest
 
@@ -769,20 +805,20 @@ image::{imagedir}/segwit2x-double-size.svg[]
 ****
 
 Another proposal was also discussed in parallel. This proposal was
-known as _Segwit2x_. This was a proposal to activate segwit _and_
-increase the maximum block weight via a hard fork. This proposal would
-use BIP9 with version bit 4 to signal support. Bitcoin Core didn't
-show any interest in this proposal, but the Bitcoin Core software
-repository was forked under the name btc1 by a group of people where
-the proposal was implemented. The threshold would be 80% of the last
-2016 blocks in order to lock in segwit.
+known as _Segwit2x_. This was a proposal to first activate segwit _and
+then_ increase the maximum block weight via a hard fork. This proposal
+would use BIP9 with version bit 4 to signal support. Bitcoin Core
+didn't show any interest in this proposal, but the Bitcoin Core
+software repository was forked under the name btc1 by a group of
+people where the proposal was implemented. The threshold would be 80%
+of the last 2016 blocks in order to lock in segwit.
 
-There seemed to be a discrepancty between what full nodes wanted and
+There seemed to be a discrepancy between what full nodes wanted and
 what miners wanted. Some rumours and theories floated around about
 what actually cased this discrepancy. We will not go into that here,
 but stick to what we know.
 
-===== User activated soft fork
+===== A user-activated soft fork
 
 ****
 image::{imagedir}/uasf.svg[]
@@ -793,15 +829,17 @@ would start dropping blocks that didn't signal bit 1, segwit, on
 2017-08-01. The effect of this would be that nodes running BIP148
 would experience a 100% adoption of BIP141, and that would cause
 BIP141 to lock in after at most two retargets. This is what's known as
-a user-activated soft fork. Users, the ones running full nodes,
+a _user-activated soft fork_. Users, the ones running full nodes,
 collectively decide that they will start applying new rules, and if
-miners don't comply, their blocks will be discarded.
+miners don't comply, their blocks will be discarded. We will talk a
+bit more about user-activated soft forks towards the end of this
+chapter.
 
 This was an attempt at forcing the deployment of segwit in spite of
 hesitant miners.
 
 Some groups, especially the Bitcoin Core team, thought this proposal
-was too risky. It could case a chain split if not a majority of the
+was too risky. It could cause a chain split if not a majority of the
 hash rate would signal for segwit. But there was also a group of
 people wanting to move forward with BIP148 regardless. This caused
 some worry in the Bitcoin community.
@@ -819,16 +857,16 @@ wanting to enforce segwit using BIP148.
 To avoid a timeout of the segwit deployment, which would further delay
 segwit, and to avoid a possible blockchain split by BIP148, and to
 please the segwit 2x crowd, a new BIP was written. BIP91 would satisfy
-both of the above groups. It would use BIP9 with a custom threshold:
+all of the above groups. It would use BIP9 with a custom threshold:
 
 ----
-name: segsignal
-bit: 4
+name:       segsignal
+bit:        4
 start time: 2017-06-01 00:00:00
-timeout: 2017-11-15 00:00:00
-Period: 336 blocks
-Threshold: 269 blocks (80%)
-Ceases to be active when segwit is locked_in (or failed).
+timeout:    2017-11-15 00:00:00
+Period:     336 blocks
+Threshold:  269 blocks (80%)
+Ceases to be active when segwit (bit 1) is LOCKED_IN or FAILED.
 ----
 
 This BIP does it a bit differently than normal BIP9 deployments. It
@@ -855,11 +893,12 @@ that didn't implement BIP91.
 When miners activated BIP91, they started dropping blocks that didn't
 signal bit 1 which is the bit for the `segwit` deployment. The result
 was that non-bit-1 blocks didn't make it into the strongest chain,
-which quickly forced the remaining miners to upgrade to segwit
-signaling blocks to avoid mining on a minority chain.
+which quickly forced the remaining miners to upgrade to segwit to
+avoid mining invalid blocks.
 
-Since most miners were quickly starting to signal segwit, BIP141 got
-LOCKED_IN at 2017-08-09 and ACTIVE on 2017-08-24:
+Miners were quickly starting to signal segwit, the original segwit
+proposal using bit 1 for its deployment, and it got LOCKED_IN at
+2017-08-09 and ACTIVE on 2017-08-24:
 
 .Segwit finally activates thanks to BIP91.
 image::{imagedir}/bip9-segwit-active.svg[{full-width}]
@@ -891,11 +930,20 @@ of choice.
 
 Think about that.
 
+==== User-activated soft forks
+
+To underscore the importance of the economic majority (you, me and
+everyone else using Bitcoin), and to avoid having miners vetoing
+proposals that the economic majority wants, people started thinking
+more about user-activated soft forks.
+
+Let's look at a fictitious example of a user-activated soft fork:
+
 Suppose that 99% of the Bitcoin users (end-users, exchanges,
 merchants, etc) want a rule change, for example smaller blocks, which
 would be a soft fork. Also suppose that no miner wants smaller blocks
 so they all refuse to comply. Suppose also that 99% of the non-mining
-full nodes change their software to drop all big blocks after a
+full nodes change their software to reject all big blocks after a
 certain block height.
 
 What would happen when that block height has passed? Miners that
@@ -935,24 +983,32 @@ running out of money and decide to switch to the user-accepted branch.
 image::{imagedir}/uasf-more-miners.svg[{full-width}]
 
 When more miners move over to the users' branch, that branch will
-eventually grow stronger than the big blocks brach. When that happens,
-the big blocks branch will get wiped out and the remaining miners will
-automatically switch to the small blocks branch, because the change is
-a soft fork.
+eventually grow stronger than the big blocks branch. When that
+happens, the big blocks branch will get wiped out and the remaining
+miners will automatically switch to the small blocks branch, because
+the change is a soft fork.
 
 .The users' branch is stronger and wipes out the big blocks branch.
 image::{imagedir}/uasf-wipeout-miners.svg[{full-width}]
 
 Users win.
 
-To make use of this insight a new deployment mechanism is in the
-making. It's generally called _user activated soft fork_. The general
-idea is to start with a BIP9-like deployment but with the exception
-that if the deployment doesn't get LOCKED_IN well before the timeout,
-blocks that don't signal for the fork will be dropped. This will
-effectively cause 100% compliance because non-compliant blocks don't
-count anymore.
+One of the very first soft forks in Bitcoin, the deployment of BIP16
+(pay-to-script-hash) was actually a user-activated soft fork. The
+deployment was manual in the sense that developers manually counted
+the number of blocks that signalled support and then decided on a
+flag-day to ship in the next release of the Bitcoin software. Then
+after this date all blocks that didn't comply with the new rules were
+rejected by nodes.
 
+To make use of the insights in the recent segwit deployment, a new
+deployment mechanism is in the making as of writing. It's generally
+called user-activated soft fork. The general idea is to start with a
+BIP9-like deployment but with the exception that if the deployment
+doesn't get LOCKED_IN well before the timeout, blocks that don't
+signal for the fork will be dropped. This will effectively cause 100%
+support because non-compliant blocks don't count anymore, and the
+deployment would soon get LOCKED_IN.
 
 ////
 
@@ -1013,6 +1069,8 @@ Catastrophic bug?
 Todo:
 
 Update stats with css class "movingtarget"
+
+Define consensus rules
 
 
 Less important todos: 
