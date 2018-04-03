@@ -75,7 +75,7 @@ but some blocks considered valid by old nodes will be considered
 _invalid_ by new nodes.
 
 .Soft forks tighten the consensus rules while hard forks widens them, compare with decreasing the maximum block weight and increasing it respectively.
-image::{imagedir}/hard-vs-soft-fork.svg[{big-width}]
+image::{imagedir}/hard-vs-soft-fork.svg[{full-width}]
 
 Changes that don't change the consensus rules, for example changing
 the color of the graphical user interface or adding a new feature to
@@ -995,11 +995,11 @@ Users win.
 
 One of the very first soft forks in Bitcoin, the deployment of BIP16
 (pay-to-script-hash) was actually a user-activated soft fork. The
-deployment was manual in the sense that developers manually counted
-the number of blocks that signaled support and then decided on a
-flag-day to ship in the next release of the Bitcoin software. Then
-after this date all blocks that didn't comply with the new rules were
-rejected by nodes.
+deployment was manual in the sense that developers, on a specific day,
+manually counted the number of blocks that signaled support and then
+decided on a flag-day that they put in the next release of the Bitcoin
+software. Then after this date all blocks that didn't comply with the
+new rules were rejected by nodes running this software.
 
 To make use of the insights in the recent segwit deployment, a new
 deployment mechanism is in the making as of writing. It's generally
@@ -1009,6 +1009,82 @@ doesn't get LOCKED_IN well before the timeout, blocks that don't
 signal for the fork will be dropped. This will effectively cause 100%
 support because non-compliant blocks don't count anymore, and the
 deployment would soon get LOCKED_IN.
+
+=== Summary
+
+This chapter has taught you about hard forks and soft forks, and how
+to deploy soft forks without splitting the blockchain. We have talked
+about several miner-activated soft forks and a few user-activated soft
+forks.
+////
+The difference between hard and soft forks is defined as
+
+[%autowidth]
+|===
+| Fork type  | Definition                      | Block compatibility | Risks wipe-out
+
+| *Hard* | The consensus rules are *relaxed*   | A New node can create a block that's invalid on Old nodes | New branch
+| *Soft* | The consensus rules are *tightened* | An Old node can create a block that's invalid on New nodes | Old branch
+|===
+
+The above table is illustrated by the following diagram:
+////
+
+Hard forks and soft forks can be illustrated with the following diagram:
+
+.Hard and soft forks compared.
+image::{imagedir}/summary-hard-vs-soft-fork.svg[{full-width}]
+
+In a *hard fork* the rules are *relaxed* so that a New block may be
+invalid according to Old rules. This means that in case of a
+blockchain split, the New branch may get wiped out by the Old branch.
+
+In a *soft fork* the rules are *tightened*. Old blocks may be invalid
+according to New rules. In case of a blockchain split, the Old brans
+is in risk of a wipe-out.
+
+You can protect a hard fork against wipe-out by deliberately making
+the New branch incompatible with the Old branch. For example, Bitcoin
+Cash requires the the first block after the split must have a base
+size >= 1,000,000 bytes which is invalid according to the Old
+rules. You can't protect the Old branch in a soft fork from wipe-out.
+
+To roll out a soft fork, care must be taken not to split the
+blockchain. If a split happens and both branches remain active over a
+significant amount of time, it will cause a lot of pain for users,
+exchanges, miners, etc.
+
+In a miner-activated soft fork (MASF), miners signal support and when for
+example 95% of the blocks signal support, the new rules start being
+enforced after a grace period. BIP9 standardized this process:
+
+.BIP9 states 
+image::{imagedir}/bip9-states.svg[{full-width}]
+
+In a user-activated soft fork (UASF), users start enforcing the rules on a
+specific day (or block height). A standard for this is being developed
+as of writing, and it will probably be a hybrid of BIP9 and
+user-activated soft fork:
+
+.User-activated soft fork states 
+image::{imagedir}/uasf-states.svg[{full-width}]
+
+The difference from a pure BIP9 deployment is that the UASF process is
+guaranteed to proceed to `ACTIVE` once the node has entered the
+`STARTED` state. In the `STARTED` state, the miners have a chance to
+move the deployment to `LOCKED_IN` state, but if they don't and the
+timeout has passed then the supporting full nodes (including miners
+that support the upgrade) will start enforcing the rules anyway.
+
+UASF has been used for deployment of BIP16, pay-to-script-hash, but it
+was done manually. Other than that, the community has no real-world
+experience with user-activated soft forks.
+
+=== Exercises
+
+
+
+=== Recap
 
 ////
 
@@ -1118,3 +1194,4 @@ Closed questions:
 * Is it possible that there are other yet unknown ways to malleate a signature than the "-S" trick? Or maybe even known ones? I refer only to inherent ECDSA signature malleability.
 ** Yes it's possible according to wumpus in bitcoin-core-dev
 ////
+
