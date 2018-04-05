@@ -573,3 +573,76 @@ tree from the transactions in the block and combine the fee merkle
 root with the witness root hash to build the witness commitment. This
 witness commitment is then compared to the witness commitment in the
 coinbase's OP_RETURN output. Match means OK.
+
+=== Chapter 11
+
+1. A soft fork tightens the consensus rules. This means that blocks
+created by New nodes are guaranteed to be accepted by Old nodes.
+
+2. .
+
+.. The New branch will get wiped out by the Old branch.
+.. It will _eventually_ get wiped out when the Old branch catches up
+with the New branch and surpasses it. This can take quite a few blocks
+depending on the initial deficit.
+.. Bitcoin New could be equipped with wipe-out protection. For example
+require that the first block in the split must have a certain property
+that's not valid in the Old chain. Bitcoin Cash, for example, required
+that the first block is ≥1,000,000 bytes.
+
+3. No, it will be outperformed by the New branch and the Old branch
+will pretty quickly be wiped out, reorged.
+
+4. 2016 blocks. The `LOCKED_IN` state is always one retarget period.
+
+5. Both. Old nodes can create a block that's not valid according to
+New nodes. Conversely, New nodes can create a block that's not valid
+according to Old nodes.
+
+6. If the New nodes don't have a majority of the hash rate, the Old
+nodes can cause a lasting blockchain split. This would effectively
+result in two cryptocurrencies.
+
+7. Replay protection is desirable because a transaction intended for
+one branch of the split, should not risk ending up on both branches.
+
+8. Yes. Suppose that the 11 timestamps before B~1~, sorted by value, are
++
+ a <= b <= c <= d <= e <= F <= g <= h <= i <= j <= k
++
+And F=2027-12-31 23:59:58
++
+When we add the timestamp T~1~=2027-12-31 23:59:59 of B~1~ to
+calculate MTP of B~2~, we must remove the block with lowest height
+from the list of timestamps.
++
+T~1~ is added somewhere to the right of F, because it's greater
+than F. If any of a, b, c, d, e, or F is removed the median value will
+move one step to the right, which is a value at most T~1~. In that
+case the new MTP is < timeout.
++
+If any of g, h, i, j or k is removed, we have added one value to the
+right of F and removed one value to the right of F, in which case the
+MTP remains F for B~2~. MTP for B~2~ is < timeout.
++
+So MTP of B~2~ is less than timeout, and all blocks (>95%) of the last
+2016 blocks signal support, which means that the deployment will move
+to `LOCKED_IN` and 2016 blocks later to `ACTIVE`.
+
+9. A portion (30%) of the economy starts rejecting blocks that don't
+comply with your soft fork. This means that you will cause a
+blockchain split that remans as long as a majority of miners support
+the Old branch.
+
+10. When most of the economy start rejecting Old blocks, miners
+probably don't want to mine Old blocks, because the block rewards
+would become nearly worthless for them. It'd be hard for miners to
+sell their Old coins on an exchange or pay for electricity with
+them. If they switch to mine New blocks instead, there are plenty of
+options to exchange their block rewards for goods/services/other
+currencies.
+
+11. The non-mining users using Old software would automatically switch
+to the New branch, once that branch is stronger than the Old
+branch. This is because the New branch is valid according to the Old
+software.

@@ -66,13 +66,14 @@ nodes, that person is running a fork.
 We generally categorize forks in Bitcoin as
 
 Hard forks:: A hard fork relaxes the consensus rules. Some blocks that
-was considered invalid by old nodes, will be considered valid by new
+was considered invalid by Old nodes, will be considered valid by New
 nodes. Doubling the maximum allowed block weight would be a hard fork.
 
 Soft forks:: A soft fork tightens the consensus rules. All blocks that
-new nodes consider valid will also be considered valid by old nodes,
-but some blocks considered valid by old nodes will be considered
-_invalid_ by new nodes.
+New nodes consider valid will also be considered valid by Old nodes,
+but some blocks considered valid by Old nodes will be considered
+_invalid_ by New nodes. Reducing the maximum allowed block weight
+would be a soft fork.
 
 .Soft forks tighten the consensus rules while hard forks widens them, compare with decreasing the maximum block weight and increasing it respectively.
 image::{imagedir}/hard-vs-soft-fork.svg[{full-width}]
@@ -698,8 +699,8 @@ image::{imagedir}/bip9-states.svg[{full-width}]
 When comparing block times to the start time and timeout, we always
 use median time past as described in <<timestamp-rules>>. This is to
 make it harder for miners to manipulate the state transitions and to
-make sure that each successive block has a time greater than the
-previous block.
+make sure that the time to compare for each successive block is
+greater than the time to compare of the previous block.
 
 `DEFINED`:: This is the starting state. It means that a retarget
 hasn't happened after the start time yet.
@@ -709,7 +710,9 @@ period signals support.
 non-signaling miners a chance to upgrade. If they don't, their blocks
 might be rejected.
 `ACTIVE`:: The new rules are in effect.
-`FAILED`:: The timeout occurred before the deployment got `LOCKED_IN`. 
+`FAILED`:: The timeout occurred before the deployment got
+`LOCKED_IN`. Timeout has precedence over other conditions, for example
+the 95% rule in case they happen simultaneously.
 
 When the deployment is `ACTIVE` or `FAILED`, the bit used to signal
 support should be reset to `0` so that it can then be reused for other
@@ -1040,7 +1043,7 @@ invalid according to Old rules. This means that in case of a
 blockchain split, the New branch may get wiped out by the Old branch.
 
 In a *soft fork* the rules are *tightened*. Old blocks may be invalid
-according to New rules. In case of a blockchain split, the Old brans
+according to New rules. In case of a blockchain split, the Old branch
 is in risk of a wipe-out.
 
 You can protect a hard fork against wipe-out by deliberately making
@@ -1082,7 +1085,84 @@ experience with user-activated soft forks.
 
 === Exercises
 
+==== Warm up
 
+1. A soft fork is a change of the consensus rules, but what
+characterizes a the changes made in a soft fork?
+
+2. Suppose that a hard fork causes a blockchain split and the New
+branch have 51% of the hash rate. Further suppose that the hash rate
+on the New branch drops to about 45%.
+
+.. What event will eventually happen?
+.. Why did we say that the event will _eventually_ happen? When does
+the event occurr?
+.. What can the developers of Bitcoin New do to prevent the event from
+happening?
+
+3. Suppose that an Old node causes a blockchain split during a soft
+fork where 80% of the hash rate runs Bitcoin New. Will the Old branch
+of the split last for long? Explain your answer.
+
+4. Suppose that you try to deploy a soft fork using BIP9. Your
+deployment has just reached the `LOCKED_IN` state. How long do you
+have to wait before your rules start being enforced?
+
+==== Dig in
+
+[start=5]
+5. Suppose that a fork changes the consensus rules such that Old nodes
+can create blocks invalid to New nodes, and New nodes can create block
+invalid to Old nodes:
++
+.Some blocks are only valid on Old nodes and some blocks are only valid on New nodes.
+image::{imagedir}/ex-hard-soft-fork.svg[{quart-width}]
++
+What nodes, (New, Old, both or none), would be able to cause a
+blockchain split when this fork is deployed?
+
+6. Why is it desirable to have a reassuring majority of the hash rate
+supporting Bitcoin New in a soft fork before starting to enforce the
+New rules?
+
+7. Suppose that a hard fork has caused a permanent blockchain split and
+that you are about to make a payment using Bitcoin New. Why is replay
+protection desirable in this scenario?
+
+8. Suppose that you want to deploy a soft fork using BIP9 with the
+following parameters:
++
+----
+bit:        12
+start time: 2027-01-01 00:00:00
+timeout:    2028-01-01 00:00:00
+----
++
+Also assume that the deployment is in `STARTED` state and all blocks
+in the current retarget period signal support using bit 12. The last
+block in the current retarget period has the following properties:
++
+----
+timestamp:        2027-12-31 23:59:59
+median time past: 2027-12-31 23:59:58
+----
++
+Will this deployment eventually get to the `ACTIVE` state?
+
+9. Suppose that you want to make a user-activated soft fork. You find
+it hard to convince other users to install your software. What would
+happen on the flag-day if just a small percentage (<30%) of the
+economy choses to run your software?
+
+10. Suppose that you want to make a user-activated soft fork. Lot's of
+other users seem to like your soft fork. Say that 80% of the economy
+install your fork. Why would miners (even those that don't like your
+change) switch to the New rules during a user-activated soft fork?
+
+11. In the preveious exercise, your soft fork had support from 80% of
+the economy. Suppose also that a majority of the hash rate decides to
+follow your New rules. What happens with the non-mining users that
+don't run your fork?
 
 === Recap
 
