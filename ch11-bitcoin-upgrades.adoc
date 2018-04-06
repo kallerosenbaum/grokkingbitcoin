@@ -1096,7 +1096,7 @@ on the New branch drops to about 45%.
 
 .. What event will eventually happen?
 .. Why did we say that the event will _eventually_ happen? When does
-the event occurr?
+the event occur?
 .. What can the developers of Bitcoin New do to prevent the event from
 happening?
 
@@ -1140,11 +1140,13 @@ timeout:    2028-01-01 00:00:00
 +
 Also assume that the deployment is in `STARTED` state and all blocks
 in the current retarget period signal support using bit 12. The last
-block in the current retarget period has the following properties:
+block, B~1~, in the current retarget period has the following
+properties:
 +
+[subs="normal"]
 ----
-timestamp:        2027-12-31 23:59:59
-median time past: 2027-12-31 23:59:58
+timestamp T~1~:          2027-12-31 23:59:59
+median time past MTP~1~: 2027-12-31 23:59:58
 ----
 +
 Will this deployment eventually get to the `ACTIVE` state?
@@ -1152,19 +1154,46 @@ Will this deployment eventually get to the `ACTIVE` state?
 9. Suppose that you want to make a user-activated soft fork. You find
 it hard to convince other users to install your software. What would
 happen on the flag-day if just a small percentage (<30%) of the
-economy choses to run your software?
+economy chooses to run your software?
 
 10. Suppose that you want to make a user-activated soft fork. Lot's of
 other users seem to like your soft fork. Say that 80% of the economy
 install your fork. Why would miners (even those that don't like your
 change) switch to the New rules during a user-activated soft fork?
 
-11. In the preveious exercise, your soft fork had support from 80% of
+11. In the previous exercise, your soft fork had support from 80% of
 the economy. Suppose also that a majority of the hash rate decides to
 follow your New rules. What happens with the non-mining users that
 don't run your fork?
 
 === Recap
+
+In this chapter you learned that
+
+* We don't want a blockchain split when deploying a fork, because that
+  would cause disruption in the Bitcoin economy.
+
+* A hard fork is a consensus rule change that requires every miner to
+  upgrade. Otherwise the blockchain will split.
+
+* A soft fork is a consensus rule change that doesn't require
+  simultaneous upgrade of the whole network.
+
+* A hard fork will lead to a blockchain split if a majority runs the
+  New software, which will cause confusion among users and miners.
+
+* During a blockchain split due to a hard fork you want wipe-out
+  protection to make sure the New branch isn't deleted by old nodes.
+
+* In a blockchain split, you want replay protection to let you select
+  what branch you want your transactions applied to.
+
+* A miner-activated soft fork, for example one using BIP9 for
+  deployment, lets miners deploy a non-controversial soft fork.
+
+* A user-activated soft fork lets users enforce deployment of a soft
+  fork. If a hash-rate majority eventually follows, the soft fork
+  succeeds without a lasting blockchain split.
 
 ////
 

@@ -608,22 +608,36 @@ one branch of the split, should not risk ending up on both branches.
 
 8. Yes. Suppose that the 11 timestamps before B~1~, sorted by value, are
 +
- a <= b <= c <= d <= e <= F <= g <= h <= i <= j <= k
+[subs="normal"]
+ a ≤ b ≤ c ≤ d ≤ e ≤ MTP~1~ ≤ g ≤ h ≤ i ≤ j ≤ k
 +
-And F=2027-12-31 23:59:58
+To calculate MTP~2~ of block B~2~ following B~1~, we add T~1~ to the
+above list. Since a timestamp of a block needs to be strictly later
+than the the MTP of the block, T~1~ must be sorted to the right of
+MTP~1~ in the list above, for example:
 +
-When we add the timestamp T~1~=2027-12-31 23:59:59 of B~1~ to
-calculate MTP of B~2~, we must remove the block with lowest height
-from the list of timestamps.
+[subs="normal"]
+ a ≤ b ≤ c ≤ d ≤ e ≤ MTP~1~ ≤ g ≤ h ≤ T~1~ ≤ i ≤ j ≤ k
 +
-T~1~ is added somewhere to the right of F, because it's greater
-than F. If any of a, b, c, d, e, or F is removed the median value will
-move one step to the right, which is a value at most T~1~. In that
-case the new MTP is < timeout.
+We must also remove the timestamp of the block with lowest height from
+the list of timestamps. If any of a, b, c, d, e, or MTP~1~ is removed
+the median value will move one step to the right, which is a value at
+most T~1~. In that case MTP~2~ is < timeout, for example:
 +
-If any of g, h, i, j or k is removed, we have added one value to the
-right of F and removed one value to the right of F, in which case the
-MTP remains F for B~2~. MTP for B~2~ is < timeout.
+[subs="normal"]
+ a ≤ b ≤ c ≤ e ≤ MTP~1~ ≤ MTP~2~ ≤ h ≤ T~1~ ≤ i ≤ j ≤ k
++
+g becomes MTP~2~.
++
+If any of g, h, i, j or k is removed instead, we have added one value
+(T~1~) to the right of MTP~1~ and removed one value to the right of
+MTP~1~.  In this case MTP~2~=MTP~1~ and thus MTP~2~ < timeout. For
+example:
++
+[subs="normal"]
+ a ≤ b ≤ c ≤ d ≤ e ≤ MTP~2~ ≤ g ≤ h ≤ T~1~ ≤ j ≤ k
++
+i is removed and T~1~ added, to the right of MTP~1~, so MTP~2~=MTP~1~.
 +
 So MTP of B~2~ is less than timeout, and all blocks (>95%) of the last
 2016 blocks signal support, which means that the deployment will move
