@@ -1,0 +1,58 @@
+= Grokking Bitcoin
+
+
+Kalle Rosenbaum
+MEAP began May 2017  Publication in Summer 2018 (estimated)
+ISBN 9781617294648  450 pages (estimated)  printed in black & white
+
+If you think Bitcoin is just an alternative currency for geeks, it's
+time to think again. Grokking Bitcoin opens up this powerful
+distributed ledger system, exploring the technology that enables
+applications both for Bitcoin-based financial transactions and using
+the blockchain for registering physical property ownership. With this
+fully illustrated, easy-to-read guide, you'll finally understand how
+Bitcoin works, how you can use it, and why you can trust the
+blockchain. You'll discover how to accept and exchange Bitcoin,
+participate in the Bitcoin network, set up a digital wallet, and even
+how Bitcoin mining works. Along the way, you'll dive into the
+underlying security and distributed system concepts that power
+Bitcoin. Each chapter is loaded with diagrams and exercises to help
+you gain a true understanding of each interesting topic.
+
+// TOC
+
+== about the technology
+
+The modern world turns on universally-accepted ideas of currency and
+ownership. Bitcoin, and its underlying technology, offer the potential
+to move control of these key institutions from change-prone
+governments to a secure storage system that independently records
+value and ownership in a distributed public ledger called "the
+blockchain." Data stored on the blockchain is, for all practical
+purposes, incorruptible; transactions are verified independently and
+everything is stored in the blockchain, that no single entity
+controls. In 2009 Bitcoin introduced the blockchain idea in
+combination with proof-of-work and incentive mechanisms for use as an
+alternative currency. Today, individuals, businesses, and institutions
+are using Bitcoin as the foundation for secure blockchain-based
+transaction systems.
+
+== what's inside
+
+* Send and receive Bitcoin payments
+* Bitcoin transactions
+* The blockchain
+* Bitcoin mining
+* The Bitcoin peer-to-peer network
+
+== about the reader
+
+This book provides a jargon-free introduction to Bitcoin for any
+technically interested reader. Some chapters address technical
+concepts that require basic knowledge of networking and programming.
+
+== about the author
+
+Kalle Rosenbaum founded Popeller, a Bitcoin consultancy, in
+2015. Kalle provides expert software development services, advice, and
+education around Bitcoin.
