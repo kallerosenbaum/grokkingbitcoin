@@ -1255,7 +1255,11 @@ Todo:
 
 Update stats with css class "movingtarget"
 
-Define consensus rules
+Define "consensus rules"
+
+Add tutorial on how to run a bitcoin node.
+
+Add a tutorial on how to use the RPC interface.
 
 
 Less important todos: 

@@ -10,8 +10,6 @@ for chdir in `find $imagesdir -type d -name "ch*"`; do
 	grep -q "{imagedir}/$file\\[" $docdir/$chdir*.adoc
 	if [ $? != 0 ] ; then
 	    echo $chdir/$file
-	fi	
+	fi
     done
 done
-
-		
