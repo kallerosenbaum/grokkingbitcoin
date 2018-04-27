@@ -623,13 +623,13 @@ example libbitcoin, bcoin, Bitcoinj and btcd. We will only focus on
 Bitcoin Core, but you are encouraged to explore the others yourself.
 
 To download Bitcoin Core, Selma visits their main web page,
-bitcoincore.org, and finds a download a link there. The problem is
-that Selma isn't sure that the program she downloads is actually the
-version that the developers behind Bitcoin Core released. Someone
-could have fooled Selma to download the program from bitconcore.org
-instead of bitcoincore.org, or someone might have hacked
-bitcoincore.org and replaced the downloadable files with alternative
-programs.
+bitcoincore.org, and finds a download a link there. But there is a
+potential problem: Selma isn't sure that the program she downloads is
+actually the version that the developers behind Bitcoin Core
+released. Someone could have fooled Selma to download the program from
+bitconcore.org instead of bitcoincore.org, or someone might have
+hacked bitcoincore.org and replaced the downloadable files with
+alternative programs.
 
 The Bitcoin Core team therefore signs all released versions of their
 program with a private key, let's call it the Bitcoin Core key. They
@@ -643,21 +643,18 @@ image::{imagedir}/core-signs-program.svg[{big-width}]
 
 Selma has downloaded both the program itself, in a file called
 `bitcoin-0.16.0-x86_64-linux-gnu.tar.gz` and the signature file called
-`SHA256SUMS.asc`. She can verify that the program is in fact signed by
-the private key corresponding to the public key in the signature
-file. But how can she know that this key is not bogus? How does she
-know that this key belongs to the Bitcoin Core team?
+`SHA256SUMS.asc`. In order to verify that the program is in fact
+signed by the Bitcoin Core private key, she needs to know the
+corresponding public key. But how can she know what this key is?
 
 This is a hard problem. Remember when Lisa used to sign blocks with
 her private key? How would the full nodes verify that the blocks are
 actually signed by Lisa? They used multiple sources to fetch Lisa's
 public key, for example the bulletin board at the entrance of the
 office, the company's intranet, and asking colleagues. The same
-applies here. You can download the key from http://bitcoin.org, ask a
-friend you trust, and download the key from one of the many _key
-servers_ on the Internet. Usually you shouldn't trust a single source,
-but use at least two different sources. The key that currently is
-being used to sign Bitcoin Core releases is named
+applies here; You shouldn't trust a single source, but use at least
+two different sources. The key that currently is being used to sign
+Bitcoin Core releases is named
 
  Wladimir J. van der Laan (Bitcoin Core binary release signing key) <laanwj@gmail.com>
 
@@ -665,15 +662,40 @@ and has the _fingerprint_, 160 bit SHA1 hash of the key:
 
  01EA 5486 DE18 A882 D4C2  6845 90C8 019E 36C2 E964
 
-This book can serve as _one_ of Selma's sources. She also downloads
-the key from a key server and asks a friend for the key. They are all
-the same! Selma checks that the key used to sign the `SHA256SUMS.asc`
-file has the exact same fingerprint as the key she trusts to be from
-the Bitcoin Core team.
+This book can serve as _one_ of Selma's sources. She decides to
 
-Next she must verify that the program has the same hash-value as
-stated in `SHA256SUMS.asc`. It does match, which means that she can be
-sure that the software she is about to run is authentic.
+* get the fingerprint of the key from https://bitcoincore.org.
+* verify the fingerprint with the Grokking Bitcoin book.
+* verify the fingerprint with a fiend.
+* download the actual key from a _key server_.
+
+[.gbinfo]
+.Where to get the key
+****
+It doesn't really matter where you get the actual public key from, but
+it's important to verify that the fingerprint of the public key is
+what you expect.
+****
+
+The fingerprints she got from the three sources match, so she
+downloads the public key from a key server. A key server is a computer
+on the Internet that provides a repository of keys. Key servers are
+commonly used to download keys identified by the key's
+fingerprint. Selma doesn't trust the key server so she needs to verify
+that the fingerprint of the downloaded key actually matches the
+expected fingerprint, which it does.
+
+Now when she has the Bitcoin Core public key, she can verify the
+signature of the `SHA256SUMS.asc` file.
+
+.Selma verifies the Bitcoin Core signature and that the hash in the signature file matches the hash of the actual program.
+image::{imagedir}/selma-verifies-program.svg[{big-width}]
+
+She uses the Bitcoin Core public key to verify the signature in the
+signature file. She must also verify that the program has the same
+hash-value as stated in `SHA256SUMS.asc`. The signature is valid and
+the hashes match, which means that she can be sure that the software
+she is about to run is authentic.
 
 Selma starts the program on her computer.
 
@@ -1055,8 +1077,8 @@ explains how the SHA256SUMS.asc file is designed:
 .The Bitcoin Core team signs the released program with their private key
 image::{imagedir}/core-signs-program.svg[{big-width}]
 
-We download the signature file `SHA256SUMS.asc` from the same server
-as we downloaded the program from:
+Download the signature file `SHA256SUMS.asc` from the same server as
+you downloaded the program from:
 
 ----
 $ wget https://bitcoincore.org/bin/bitcoin-core-0.16.0/SHA256SUMS.asc
@@ -1070,7 +1092,7 @@ the correct signature file at <<web-resource-download>>.
 The actual contents of this file looks like this (the actual hashes
 have been shortened in this listing):
 
-....
+----
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
 
@@ -1102,7 +1124,7 @@ AjW1CtbjFjjTNjpEtUXk8MpwvbROlAtwXjeQamIp44yGLltXTQOsyicsnXOqXXZq
 H7vuHfDxjUkN/8Jll9ta
 =ayUM
 -----END PGP SIGNATURE-----
-....
+----
 
 The signed message in the upper part of the file lists a number of
 files along with their respective SHA256 hashes. The listed files are
@@ -1112,10 +1134,10 @@ signature of the the message in the upper part. The signature commits
 to the whole message and thus to all the hashes and files listed in
 the message.
 
-===== Verify the integrity of the downloaded file
+===== Verify the hash of the downloaded file
 
-The file we downloaded is named
-`bitcoin-0.16.0-x86_64-linux-gnu.tar.gz` so we expect that the SHA256
+The file you downloaded is named for example
+`bitcoin-0.16.0-x86_64-linux-gnu.tar.gz` so you expect that the SHA256
 hash of that file matches `e632...6477` exactly. Let's check:
 
 ----
@@ -1135,57 +1157,34 @@ image::{imagedir}/download-key.svg[]
 ****
 
 To verify that the signature in the signature file is done by the
-Bitcoin Core signing key, we need the corresponding public key. As
-noted in <<step-1>>, you should get the key from multiple sources and
-verify that they all match before trusting that the key actually
-belong to who you think it belongs to. It's also OK to download the
-key from a single source and verify with other sources that the
-_fingerprint_ of that key belongs to the Bitcoin Core team.
+Bitcoin Core signing key, you need the corresponding public key. As
+noted in <<step-1>>, you should convince yourself about what
+_fingerprint_ the Bitcoin Core key has and then download that key from
+any source.
 
-We will
+You could for example
 
-* download the public key from `bitcoincore.org`, the official website
-  of the Bitcoin Core team.
-* consult the book Grokking Bitcoin to verify the fingerprint of that
-  key
-* verify the fingerprint with a friend
+1. get the fingerprint of the Bitcoin Core team's key from
+  `bitcoincore.org`, the official website of the Bitcoin Core team.
+2. consult the book Grokking Bitcoin to verify the fingerprint.
+3. verify the fingerprint with a friend.
+4. download the public key from a key server.
 
-Let's start downloading the key as
+You start with finding the Bitcoin Core team's public key fingerprint
+on their website. You find the following fingerprint on their
+downloads page: `01EA5486DE18A882D4C2684590C8019E36C2E964`.
 
-----
-$ wget https://bitcoincore.org/keys/laanwj-releases.asc
-----
-
-This downloads a public key into the file laanwj-releases.asc. The
-owner of this key is "Wladimir J. van der Laan (Bitcoin Core binary
-release signing key)", hence the name of the file. Let's examine this
-file using a program called `gpg`, GNU Privacy Guard, that's installed
-by default on most linux systems:
-
-----
-$ gpg laanwj-releases.asc 
-gpg: WARNING: no command supplied.  Trying to guess what you mean ...
-pub   rsa4096 2015-06-24 [SC] [expires: 2019-02-14]
-      01EA5486DE18A882D4C2684590C8019E36C2E964
-uid           Wladimir J. van der Laan (Bitcoin Core binary release signing key) <laanwj@gmail.com>
-----
-
-gpg says that the fingerprint is
-`01EA5486DE18A882D4C2684590C8019E36C2E964` and that it belongs to
-Wladimir J. van der Laan (Bitcoin Core binary release signing
-key). But of course we don't just trust that. We want to make sure
-beyond reasonable doubt that this is indeed the key we want.
-
-We will now consult the book Grokking Bitcoin to check if the
-fingerprint in that book matches the fingerprint of the
-downloaded key. Let's have a look in <<step-1>> of that book. It says:
+You will now consult the book Grokking Bitcoin to check if the
+fingerprint in that book matches the fingerprint from
+`bitcoincore.org`. Let's have a look in <<step-1>> of that book. It
+says:
 
  01EA 5486 DE18 A882 D4C2  6845 90C8 019E 36C2 E964
 
 This is the same fingerprint (although formatted slightly
-different). The book and the website bitcoincore.org both claim that
+different). The book and the website `bitcoincore.org` both claim that
 this key belong to the Bitcoin Core team. Let's not settle with
-that. We will also call a friend we trust and have him/her read the
+that. You will also call a friend you trust and have him/her read the
 fingerprint to us.
 
 You: Hello Donna! What's the fingerprint of the current Bitcoin Core
@@ -1195,49 +1194,63 @@ Donna: Hi! I have verified that key myself a few months ago and I know
 that the fingerprint is `01EA 5486 DE18 A882 D4C2 6845 90C8 019E 36C2
 E964`.
 
-You: Thank you, it matches my key, bye!
+You: Thank you, it matches mine, bye!
 
 Donna: You're welcome, bye!
 
-Donna's statement further stengthens your trust in this key. We think
-we have collected enough evidence that this is in fact the correct key.
+Donna's statement further stengthens your trust in this key. You think
+you have collected enough evidence that this is in fact the
+correct key.
 
-===== Install the public key as trusted on your computer
+Let's start downloading the key. To do this you can use a tool called
+`gpg`, which stands for GnuPG, which in turn stands for Gnu Privacy
+Guard. This is a program that conforms to a standard called OpenPGP,
+Pretty Good Privacy. This standard specifies how keys can be exchanged
+and how to do encryption and digital signatures in an
+interoperable way.
 
-When we have verified that the key belongs to the Bitcoin Core team,
-we will install that key onto our system and sign that key with a
-private key that we own. We do that to remember this key as
-trusted. The Bitcoin Core team will probably release new versions of
-Bitcoin Core in the future. If pgp remembers this public key as
-trusted, you don't have to go through all these key verification steps
-again when you upgrade.
+GnuPG is available on most linux computers by default. To download a
+public key with a certain fingerprint, you run the following `gpg`
+command:
+
+----
+$ gpg --recv-keys 01EA5486DE18A882D4C2684590C8019E36C2E964
+gpg: key 90C8019E36C2E964: public key "Wladimir J. van der Laan (Bitcoin Core binary release signing key) <laanwj@gmail.com>" imported
+gpg: no ultimately trusted keys found
+gpg: Total number processed: 1
+gpg:               imported: 1
+----
+
+Depending on the version of gpg you use, the output may vary. This
+downloads the public key from any available key server and verifies
+that the downloaded public key in fact has the fingerprint that you
+requested. The owner of this key is "Wladimir J. van der Laan (Bitcoin
+Core binary release signing key)".
+
+The above command downloads the key into gpg and adds it to your list
+of known keys. But the output of the above command, mentions that `no
+ultimately trusted keys found`. This means that this key is not signed
+by any key that you trust. You have only imported the key. In gpg,
+keys can sign other keys to certify that the signed key is legit.
+
+===== Sign the public key as trusted on your computer
+
+You have verified that the key belongs to the Bitcoin Core team, and
+installed that key onto your system using `gpg`.
+
+You will now sign that key with a private key that you own. You do
+that to remember this key as trusted. The Bitcoin Core team will
+probably release new versions of Bitcoin Core in the future. If GnuPG
+remembers this public key as trusted, you don't have to go through all
+these key verification steps again when you upgrade.
 
 The process is:
 
-1. Import the Bitcoin Core public key into gpg
-2. Create a key of your own
+1. Create a key of your own
 3. Sign the Bitcoin Core public key with your own private key
 
-Import the public key:
-
-----
-$ gpg --import laanwj-releases.asc
-gpg: key 90C8019E36C2E964: public key "Wladimir J. van der Laan (Bitcoin Core binary release signing key) <laanwj@gmail.com>" imported
-gpg: Total number processed: 1
-gpg:               imported: 1
-gpg: no ultimately trusted keys found
-----
-
-The above command imports the key we downloaded and adds it to your
-list of known keys. But the output of the above command, mentions that
-`no ultimately trusted keys found`. This means that this key is not
-signed by any key that you trust. You have only imported the key. In
-gpg, keys can sign other keys to certify that the signed key is
-legit.
-
-You will now sign the key you just verified, but for that you need to
-have a key of your own to sign with. Gpg let's you create a key with
-the following command:
+To create a key of your own, GnuPG let's you create a key with the
+following command:
 
 ----
 $ gpg --gen-key
@@ -1264,7 +1277,18 @@ Change (N)ame, (E)mail, or (O)kay/(Q)uit?
 
 Continue by pressing `O` (capital oh). Then you need to select a
 password to encrypt your private key with. Chose a password and make
-sure that you remember it.
+sure that you remember it. The key generation may take some time
+because it takes time to generate good random numbers for your key. When it's finished, you should see output like this:
+
+----
+public and secret key created and signed.
+
+pub   rsa2048 2018-04-27 [SC] [expires: 2020-04-26]
+      B8C0D19BB7E17E5CEC6D69D487C0AC3FEDA7E796
+      B8C0D19BB7E17E5CEC6D69D487C0AC3FEDA7E796
+uid                      Kalle Rosenbaum <kalle@example.com>
+sub   rsa2048 2018-04-27 [E] [expires: 2020-04-26]
+----
 
 Now you have a key of your own that you'll use to to sign keys that
 you trust. Let's sign the Bitcoin Core team key:
@@ -1321,18 +1345,17 @@ gpg: Good signature from "Wladimir J. van der Laan (Bitcoin Core binary release 
 ----
 
 It says that the signature is `Good` and that it's signed with a key
-that we fully trust `[full]`.
+that you fully trust, `[full]`.
 
-To summarize, we have:
+To summarize, you have:
 
-1. Downloaded Bitcoin Core and the signature file
-2. Verified that the hash of the `.tar.gz` file matches the stated hash
+1. downloaded Bitcoin Core and the signature file
+2. verified that the hash of the `.tar.gz` file matches the stated hash
   in `SHA256SUMS.asc`.
-3. Downloaded a public key and verified that it belongs to Bitcoin Core
-4. Imported the public key into GnuPG
-5. Signed that key with our own private key to tell GnuPG that the
+3. downloaded a public key and verified that it belongs to Bitcoin Core
+4. signed that key with our own private key so that GnuPG and you remember that the
   Bitcoin Core key is legit.
-6. Verified the signature of the `SHA256SUMS.asc` file.
+5. verified the signature of the `SHA256SUMS.asc` file.
 
 When you later upgrade the program, you can skip several of the above
 steps. The process then will be:
@@ -1392,7 +1415,7 @@ and download the blockchain for you.
 This process will take time. Depending on your internet connection,
 processor and disk, it can vary from several days down to a few hours.
 
-We can use the `bitcoin-cli` program to query the running node about
+You can use the `bitcoin-cli` program to query the running node about
 the progress:
 
 ----
