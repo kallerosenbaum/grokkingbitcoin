@@ -610,6 +610,7 @@ image::{imagedir}/running-a-full-node.svg[{full-width}]
 3. Selma's node downloads blocks from her peers
 4. Selma's node enters normal mode of operation
 
+[[step-1]]
 ==== Step 1 - Run the software
 
 ****
@@ -641,11 +642,11 @@ Bitcoin Core software and a signature that signs the contents of the
 image::{imagedir}/core-signs-program.svg[{big-width}]
 
 Selma has downloaded both the program itself, in a file called
-`bitcoin-0.15.0.1-x86_64-linux-gnu.tar.gz` and the signature file
-called `SHA256SUMS.asc`. She can verify that the program is in fact
-signed by the private key corresponding to the public key in the
-signature file. But how can she know that this key is not bogus? How
-does she know that this key belongs to the Bitcoin Core team?
+`bitcoin-0.16.0-x86_64-linux-gnu.tar.gz` and the signature file called
+`SHA256SUMS.asc`. She can verify that the program is in fact signed by
+the private key corresponding to the public key in the signature
+file. But how can she know that this key is not bogus? How does she
+know that this key belongs to the Bitcoin Core team?
 
 This is a hard problem. Remember when Lisa used to sign blocks with
 her private key? How would the full nodes verify that the blocks are
@@ -931,12 +932,12 @@ transactions to be able to update the UTXO set accordingly.
 
 Bitcoin Core ships with a preconfigured hard coded block id of a block
 a number of weeks back from release date in the blockchain. For
-Bitcoin Core 0.15.0.1, that block is
+Bitcoin Core 0.16.0, that block is
 
- height: 477890
- hash: 0000000000000000003b9ce759c2a087d52abc4266f8f4ebd6d768b89defa50a
+ height: 506067
+ hash: 0000000000000000005214481d2d96f898e3d5416e43359c145944a909d242e0
 
-Which is about 8,000 blocks back in the blockchain at release
+Which is about 5,000 blocks back in the blockchain at release
 date. This is of course a configuration parameter and the above block
 is just a default reasonable value. Selma could have changed this when
 starting her node, or she could have verified with friends and other
@@ -958,6 +959,518 @@ propagation and verify every transaction and block coming in.
 image::{imagedir}/selma-full-blown-node.svg[{half-width}]
 
 Selma is now running a full blown full node.
+
+=== Run your own full node
+
+.On-line instructions
+****
+More detailed instructions for all major operating systems are
+available at <<web-resource-install>>.
+****
+
+[WARNING]
+
+This section will walk you through setting up your own Bitcoin Core
+full node on a Linux operating system. It is intended for readers
+confortable with the linux operating system and command line.
+
+We have seen how a Bitcoin full node is downloaded, started, and
+synchronized in theory. This section will help you get your own full
+node installed.
+
+This section requires that you
+
+* have a fairly modern computer running a Linux operating system.
+* have lots of available disk space. As of writing, about 150 GB is needed.
+* have an Internet connection without a limited data plan.
+* know how to start and use a command-line terminal.
+
+If you don't have a Linux operating system, you can still use these
+instructions, but you will have to install the version of Bitcoin Core
+that's appropriate for your system. We'll help you select the correct
+file to download a bit further down.
+
+The general process for getting your own node running is:
+
+1. Download Bitcoin Core from https://bitcoincore.org/en/download/.
+2. Verify software.
+3. Unpack and start.
+4. Wait for initial blockchain download to finish.
+
+==== Download Bitcoin Core
+
+****
+image::{imagedir}/download-bitcoin-core.svg[]
+****
+
+To run your own full Bitcoin node, you need the software program
+to run. In this example we will download Bitcoin Core from
+<<web-resource-download>>. As of writing the latest version of Bitcoin
+Core is `0.16.0`. Let's download it:
+
+----
+$ wget https://bitcoincore.org/bin/bitcoin-core-0.16.0/bitcoin-0.16.0-x86_64-linux-gnu.tar.gz
+----
+
+As the file name `bitcoin-0.16.0-x86_64-linux-gnu.tar.gz` indicates,
+we download version 0.16.0 for 64 bit (`x86_64`) linux
+(`linux-gnu`). When you are reading this, new version of Bitcoin Core
+have probably been released. Consult <<web-resource-download>> to get
+the right version of Bitcoin Core. Also, if you use another operating
+system or computer architecture, please select the file that's right
+for you.
+
+==== Verify the the software
+
+[WARNING]
+
+This section is hard and requires a fair amount of work on the command
+line. If you just want to install and run the Bitcoin Core software
+for experimental purposes you can skip this section and jump to
+<<unpack-and-start>>. If not for experimental purposes please
+understand the risks explained in <<step-1>> before skipping this
+step.
+
+This section will show you how to verify that the downloaded `.tar.gz`
+file is not tampered with in any way. That file is digitally signed by
+the Bitcoin Core team's private key. The verification process
+involoves the following steps:
+
+. Download the signature file
+. Verify that the hash of the `.tar.gz` file matches the hash in the
+message part of the signature file
+. Download the Bitcoin Core team's public key
+. Install the public key as trusted on your computer
+. Verify the signature
+
+Let's get started.
+
+===== Download the signature file
+
+To be able to verify that your downloaded Bitcoin Core package is
+actually from the Bitcoin Core team, you need to download the
+signature file named SHA256SUMS.asc. This figure from <<step-1>>
+explains how the SHA256SUMS.asc file is designed:
+
+.The Bitcoin Core team signs the released program with their private key
+image::{imagedir}/core-signs-program.svg[{big-width}]
+
+We download the signature file `SHA256SUMS.asc` from the same server
+as we downloaded the program from:
+
+----
+$ wget https://bitcoincore.org/bin/bitcoin-core-0.16.0/SHA256SUMS.asc
+----
+
+This file will be used to verify that the downloaded `.tar.gz` file is
+signed by the Bitcoin Core team. Note that this file is for version
+0.16.0 only. If you use another version of Bitcoin Core, please select
+the correct signature file at <<web-resource-download>>.
+
+The actual contents of this file looks like this (the actual hashes
+have been shortened in this listing):
+
+....
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+f513...7012  bitcoin-0.16.0-aarch64-linux-gnu.tar.gz
+59f9...c3ea  bitcoin-0.16.0-arm-linux-gnueabihf.tar.gz
+d7c1...fb59  bitcoin-0.16.0-i686-pc-linux-gnu.tar.gz
+ade8...a88c  bitcoin-0.16.0-osx64.tar.gz
+df00...2ee7  bitcoin-0.16.0-osx.dmg
+8cbe...ee40  bitcoin-0.16.0.tar.gz
+7558...6a29  bitcoin-0.16.0-win32-setup.exe
+60d6...f424  bitcoin-0.16.0-win32.zip
+6d93...a16d  bitcoin-0.16.0-win64-setup.exe
+4270...03ef  bitcoin-0.16.0-win64.zip
+e632...6477  bitcoin-0.16.0-x86_64-linux-gnu.tar.gz
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.11 (GNU/Linux)
+
+iQIcBAEBCAAGBQJak7CDAAoJEJDIAZ42wulkBkkP+gO/ZTnBMKkB+aUh/IgxUo/k
+ntWuMDIMJnQRnhT0Q/x4Qj+Ft3g1jtwux7+U+xqtzoXvV66V3kPASp6e2S0nWLoR
+LGuiPsEdomUhnGv+0Tpb4KhNhRaDsV2cqu6ycYAPgI+DoSPkAn1H4hyiFESqbG9e
+ekdb/inEpplup7d7eUg9/sWO0pe8JOCukxcG/pW3cbpHY5ECm6xTjpAMv/g9ZY/a
+PEdIqzpTjENa1z+HZvj0p+BovUUXaobTx93o3kMegrXYpClSYJahltzi5i6oZyzf
+caaziGoHrhWrI93A0hXo5co3288i60+CDZfYMTZARxytbjpwC5qnkqU1Cn3UZ7/r
+z69/Lj/Un7lP633CUFtIPrAxwlLoDfmWjGo9pSqLgwU6OvGi9zoQk6FTMYyfXUwx
+IishFHvW8VjGFT6H+d5VD8DrY14USuuEY3Jo+0euho54JDXWygoDasZuzhmdVck6
+36MrVgeiIX50kVeiQ5nleQqzr/N/QQX5aadXfi5w23urdfzU6/MgnaMHwQ9xjsLf
+rL13WoD+cw/eX9e7jkPloKwxzPaJMWlTQZTmR4ABP8ATax3Ob8HbRqt0SbqtxYSu
+AjW1CtbjFjjTNjpEtUXk8MpwvbROlAtwXjeQamIp44yGLltXTQOsyicsnXOqXXZq
+H7vuHfDxjUkN/8Jll9ta
+=ayUM
+-----END PGP SIGNATURE-----
+....
+
+The signed message in the upper part of the file lists a number of
+files along with their respective SHA256 hashes. The listed files are
+all installation packages for all operating systems and architechtures
+that Bitcoin Core is released for. The lower part of the file is the
+signature of the the message in the upper part. The signature commits
+to the whole message and thus to all the hashes and files listed in
+the message.
+
+===== Verify the integrity of the downloaded file
+
+The file we downloaded is named
+`bitcoin-0.16.0-x86_64-linux-gnu.tar.gz` so we expect that the SHA256
+hash of that file matches `e632...6477` exactly. Let's check:
+
+----
+$ sha256sum bitcoin-0.16.0-x86_64-linux-gnu.tar.gz 
+e6322c69bcc974a29e6a715e0ecb8799d2d21691d683eeb8fef65fc5f6a66477  bitcoin-0.16.0-x86_64-linux-gnu.tar.gz
+----
+
+The above command calculates the SHA256 hash of our downloaded
+file. It does indeed match the hash in the `SHA256SUMS.asc` file. If
+they don't match, then something is wrong and you should halt
+installation and investigate what's wrong.
+
+===== Get the Bitcoin Core signing key
+
+****
+image::{imagedir}/download-key.svg[]
+****
+
+To verify that the signature in the signature file is done by the
+Bitcoin Core signing key, we need the corresponding public key. As
+noted in <<step-1>>, you should get the key from multiple sources and
+verify that they all match before trusting that the key actually
+belong to who you think it belongs to. It's also OK to download the
+key from a single source and verify with other sources that the
+_fingerprint_ of that key belongs to the Bitcoin Core team.
+
+We will
+
+* download the public key from `bitcoincore.org`, the official website
+  of the Bitcoin Core team.
+* consult the book Grokking Bitcoin to verify the fingerprint of that
+  key
+* verify the fingerprint with a friend
+
+Let's start downloading the key as
+
+----
+$ wget https://bitcoincore.org/keys/laanwj-releases.asc
+----
+
+This downloads a public key into the file laanwj-releases.asc. The
+owner of this key is "Wladimir J. van der Laan (Bitcoin Core binary
+release signing key)", hence the name of the file. Let's examine this
+file using a program called `gpg`, GNU Privacy Guard, that's installed
+by default on most linux systems:
+
+----
+$ gpg laanwj-releases.asc 
+gpg: WARNING: no command supplied.  Trying to guess what you mean ...
+pub   rsa4096 2015-06-24 [SC] [expires: 2019-02-14]
+      01EA5486DE18A882D4C2684590C8019E36C2E964
+uid           Wladimir J. van der Laan (Bitcoin Core binary release signing key) <laanwj@gmail.com>
+----
+
+gpg says that the fingerprint is
+`01EA5486DE18A882D4C2684590C8019E36C2E964` and that it belongs to
+Wladimir J. van der Laan (Bitcoin Core binary release signing
+key). But of course we don't just trust that. We want to make sure
+beyond reasonable doubt that this is indeed the key we want.
+
+We will now consult the book Grokking Bitcoin to check if the
+fingerprint in that book matches the fingerprint of the
+downloaded key. Let's have a look in <<step-1>> of that book. It says:
+
+ 01EA 5486 DE18 A882 D4C2  6845 90C8 019E 36C2 E964
+
+This is the same fingerprint (although formatted slightly
+different). The book and the website bitcoincore.org both claim that
+this key belong to the Bitcoin Core team. Let's not settle with
+that. We will also call a friend we trust and have him/her read the
+fingerprint to us.
+
+You: Hello Donna! What's the fingerprint of the current Bitcoin Core
+signing key?
+
+Donna: Hi! I have verified that key myself a few months ago and I know
+that the fingerprint is `01EA 5486 DE18 A882 D4C2 6845 90C8 019E 36C2
+E964`.
+
+You: Thank you, it matches my key, bye!
+
+Donna: You're welcome, bye!
+
+Donna's statement further stengthens your trust in this key. We think
+we have collected enough evidence that this is in fact the correct key.
+
+===== Install the public key as trusted on your computer
+
+When we have verified that the key belongs to the Bitcoin Core team,
+we will install that key onto our system and sign that key with a
+private key that we own. We do that to remember this key as
+trusted. The Bitcoin Core team will probably release new versions of
+Bitcoin Core in the future. If pgp remembers this public key as
+trusted, you don't have to go through all these key verification steps
+again when you upgrade.
+
+The process is:
+
+1. Import the Bitcoin Core public key into gpg
+2. Create a key of your own
+3. Sign the Bitcoin Core public key with your own private key
+
+Import the public key:
+
+----
+$ gpg --import laanwj-releases.asc
+gpg: key 90C8019E36C2E964: public key "Wladimir J. van der Laan (Bitcoin Core binary release signing key) <laanwj@gmail.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg: no ultimately trusted keys found
+----
+
+The above command imports the key we downloaded and adds it to your
+list of known keys. But the output of the above command, mentions that
+`no ultimately trusted keys found`. This means that this key is not
+signed by any key that you trust. You have only imported the key. In
+gpg, keys can sign other keys to certify that the signed key is
+legit.
+
+You will now sign the key you just verified, but for that you need to
+have a key of your own to sign with. Gpg let's you create a key with
+the following command:
+
+----
+$ gpg --gen-key
+gpg (GnuPG) 2.1.18; Copyright (C) 2017 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Note: Use "gpg --full-generate-key" for a full featured key generation dialog.
+
+GnuPG needs to construct a user ID to identify your key.
+----
+
+GnuPG will ask for your name and email address. Answer these
+questions, they will be used to identify your key.
+
+----
+Real name: Kalle Rosenbaum
+Email address: kalle@example.com
+You selected this USER-ID:
+    "Kalle Rosenbaum <kalle@example.com>"
+
+Change (N)ame, (E)mail, or (O)kay/(Q)uit? 
+----
+
+Continue by pressing `O` (capital oh). Then you need to select a
+password to encrypt your private key with. Chose a password and make
+sure that you remember it.
+
+Now you have a key of your own that you'll use to to sign keys that
+you trust. Let's sign the Bitcoin Core team key:
+
+----
+$ gpg --sign-key 01EA5486DE18A882D4C2684590C8019E36C2E964
+
+pub  rsa4096/90C8019E36C2E964
+     created: 2015-06-24  expires: 2019-02-14  usage: SC  
+     trust: unknown       validity: unknown
+[ unknown] (1). Wladimir J. van der Laan (Bitcoin Core binary release signing key) <laanwj@gmail.com>
+
+
+pub  rsa4096/90C8019E36C2E964
+     created: 2015-06-24  expires: 2019-02-14  usage: SC  
+     trust: unknown       validity: unknown
+ Primary key fingerprint: 01EA 5486 DE18 A882 D4C2  6845 90C8 019E 36C2 E964
+
+     Wladimir J. van der Laan (Bitcoin Core binary release signing key) <laanwj@gmail.com>
+
+This key is due to expire on 2019-02-14.
+Are you sure that you want to sign this key with your
+key "Kalle Rosenbaum <kalle@example.com>" (8DC7D3846BA6AB5E)
+
+Really sign? (y/N)
+----
+
+Enter `y`. You will be prompted for your private key password. Enter
+it and press enter. The Bitcoin Core key should now be regarded as
+trusted by `gpg`. This will simplify the process when you upgrade your
+node in the future.
+
+Let's look at your newly signed key:
+
+----
+$ gpg --list-keys 01EA5486DE18A882D4C2684590C8019E36C2E964
+pub   rsa4096 2015-06-24 [SC] [expires: 2019-02-14]
+      01EA5486DE18A882D4C2684590C8019E36C2E964
+uid           [  full  ] Wladimir J. van der Laan (Bitcoin Core binary release signing key) <laanwj@gmail.com>
+----
+
+The word to look for is the `full` in square brackets. This means that
+gpg, and you, fully trust this key.
+
+===== Verify the signature
+
+It's time to actually verify the signature of `SHA256SUMS.asc` file.
+
+----
+$ gpg --verify SHA256SUMS.asc 
+gpg: Signature made Mon 26 Feb 2018 08:00:19 AM CET
+gpg:                using RSA key 90C8019E36C2E964
+gpg: Good signature from "Wladimir J. van der Laan (Bitcoin Core binary release signing key) <laanwj@gmail.com>" [full]
+----
+
+It says that the signature is `Good` and that it's signed with a key
+that we fully trust `[full]`.
+
+To summarize, we have:
+
+1. Downloaded Bitcoin Core and the signature file
+2. Verified that the hash of the `.tar.gz` file matches the stated hash
+  in `SHA256SUMS.asc`.
+3. Downloaded a public key and verified that it belongs to Bitcoin Core
+4. Imported the public key into GnuPG
+5. Signed that key with our own private key to tell GnuPG that the
+  Bitcoin Core key is legit.
+6. Verified the signature of the `SHA256SUMS.asc` file.
+
+When you later upgrade the program, you can skip several of the above
+steps. The process then will be:
+
+1. Download Bitcoin Core and the signature file
+2. Verify that the hash of the `.tar.gz` file matches the stated hash
+  in `SHA256SUMS.asc`.
+3. Verify the signature of the `SHA256SUMS.asc` file.
+
+[[unpack-and-start]]
+==== Unpack and start
+
+Let's unpack the software:
+
+----
+tar -zxvf bitcoin-0.16.0-x86_64-linux-gnu.tar.gz
+----
+
+This will create a directory called `bitcoin-0.16.0`. Go into the
+directory `bitcoin-0.16.0/bin` and have a look:
+
+----
+$ cd bitcoin-0.16.0/bin
+$ ls
+bitcoin-cli  bitcoind  bitcoin-qt  bitcoin-tx  test_bitcoin
+----
+
+Here you have a number of executable programs:
+
+* `bitcoin-cli` is a program you can use to extract information about
+  the node you are running as well as manage a built-in wallet that's
+  shipped with Bitcoin Core.
+* `bitcoind` is the program to use if you want to run the node in the
+  background without a graphical user interface.
+* `bitcoin-qt` is the program to run if you want a graphical user
+  interface for your node. This is mainly useful if you use the
+  build-in wallet.
+* `bitcoin-tx` is a small utility program to create and modify Bitcoin
+  transactions.
+* `test_bitcoin` lets you test run a test suite.
+
+In this tutorial, we will run `bitcoind`, which stands for "Bitcoin
+Daemon". In unix systems like Linux, the word Daemon is used for
+computer programs that runs in the background.
+
+Let's start the Bitcoin Core daemon in the background and see what happens:
+
+----
+$ ./bitcoind &
+----
+
+This starts your node. It will automatically start connecting to peers
+and download the blockchain for you.
+
+==== Initial blockchain download
+
+This process will take time. Depending on your internet connection,
+processor and disk, it can vary from several days down to a few hours.
+
+We can use the `bitcoin-cli` program to query the running node about
+the progress:
+
+----
+$ ./bitcoin-cli getblockchaininfo
+{
+  "chain": "main",
+  "blocks": 274041,
+  "headers": 519862,
+  "bestblockhash": "0000000000000001fd843fd5a908994e15ae6fad3be1af29693744342bc8bc6d",
+  "difficulty": 707408283.0514966,
+  "mediantime": 1386628158,
+  "verificationprogress": 0.08967128107998179,
+  "initialblockdownload": true,
+  "chainwork": "00000000000000000000000000000000000000000000063ea31ee628115f842a",
+  "size_on_disk": 15175410363,
+  "pruned": false,
+  "softforks": [
+    {
+      "id": "bip34",
+      "version": 2,
+      "reject": {
+        "status": true
+      }
+    },
+    {
+      "id": "bip66",
+      "version": 3,
+      "reject": {
+        "status": false
+      }
+    },
+    {
+      "id": "bip65",
+      "version": 4,
+      "reject": {
+        "status": false
+      }
+    }
+  ],
+  "bip9_softforks": {
+    "csv": {
+      "status": "defined",
+      "startTime": 1462060800,
+      "timeout": 1493596800,
+      "since": 0
+    },
+    "segwit": {
+      "status": "defined",
+      "startTime": 1479168000,
+      "timeout": 1510704000,
+      "since": 0
+    }
+  },
+  "warnings": ""
+}
+----
+
+This command shows a lot of information about the blockchain. We can
+note that we have downloaded and verified blocks up to height
+274041. Bitcoin Core will downloaded block headers prior to the full
+blocks in order to verify proof of work. This node has downloaded
+headers up to height `519862`, which are all headers there is at this
+time. Another interesting thing is the `initialblockdownload` field,
+which is will remain `true` until the initial block download is
+finished.
+
+Keep this daemon running. We will get back to this daemon in an
+appendix to give you a concrete guide on how to use `bitcoin-cli` to
+examine the blockchain and to use your built-in wallet.
+
+If you want to stop the node, issue the following command:
+
+----
+$ ./bitcoin-cli stop
+----
+
+You can start the node again whenever you like, and the node will
+start where it left off.
 
 === Summary
 

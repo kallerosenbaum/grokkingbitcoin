@@ -32,3 +32,9 @@
 
 //bash web-resource bernanke-ascii-art
 // https://tradeblock.com/bitcoin/tx/930a2114cdaa86e1fac46d15c74e81c09eee1d4150ff9d48e76cb0697d8e1d72
+
+//bash web-resource install
+// https://bitcoin.org/en/full-node
+
+//bash web-resource download
+// https://bitcoincore.org/en/download/
