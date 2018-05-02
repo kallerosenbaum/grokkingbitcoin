@@ -8,11 +8,22 @@ This chapter covers
 * Upgrading Bitcoin safely
 * Letting users decide rules instead of miners
 
+[WARNING]
+
+This chapter is hard. To understand this chapter you should be
+confortable with concepts like the blockchain (<<ch06>>) ,
+proof-of-work (<<ch07>>) and the peer-to-peer network (<<ch08>>). If
+you had difficulties with these chapters, I suggest that you revisit
+them before continuing with this chapter. Of course, you can just try
+to read on anyway.
+
 When Bitcoin's consensus rules change, it can happen in two
 ways. Either via a soft fork or via a hard fork. These two types of
-changes are fundamentally different. We will learn about the
-differences between hard and soft forks as well as understand what the
-implications are when deploying a soft fork and a hard fork.
+changes are fundamentally different. In <<bitcoin-forks>> We will
+learn about the differences between hard and soft forks as well as
+understand what happens when different nodes run different consensus
+rules. This is very important to understand before starting to learn
+how to safely roll out changes in the consensus rules.
 
 Rolling out a consensus rule change over the Bitcoin network can be a
 very difficult task. Each Bitcoin node is sovereign and no one
@@ -25,14 +36,14 @@ deployment mechanisms.
 
 As of writing, most (non-critical) updates to Bitcoin's consensus
 rules have been made via so called _miner activated soft forks_ where
-miners signal support and start enforcing the new rules. However, this
-comes with some issues, for example a big miner can block an upgrade
-in spite of broad user adoption. People are looking to solve that with
-so called _user-activated soft forks_. That means that power is where
-power belongs: With the people using Bitcoin, the _economic majority_.
-It is the economic majority that ultimately and collectively decides
-the consensus rules, and that insight is put into practice with
-user-activated soft forks.
+miners signal support and eventually start enforcing the new
+rules. However, this comes with some issues, for example a big miner
+can veto an upgrade in spite of broad user adoption. People are
+looking to solve that with so called _user-activated soft forks_. This
+means that power is where power belongs: With the people using
+Bitcoin, the _economic majority_.  It is the economic majority that
+ultimately and collectively decides the consensus rules, and that
+insight is put into practice with user-activated soft forks.
 
 [[bitcoin-forks]]
 === Bitcoin forks
@@ -56,12 +67,31 @@ software. You create your own fork of Bitcoin Core. Depending on the
 change you make in your fork, the nodes running your forked version
 will behave differently.
 
-In the context of Bitcoin, we use the term _fork_ to mean a consensus
-rule change. This change can be done in Bitcoin Core, or in a copied
-version of Bitcoin Core (a fork in traditional sense), or in any
-alternative Bitcoin full node software program. If someone runs a full
-node with changed consensus rules compared to other people's full
-nodes, that person is running a fork.
+[.gbinfo]
+.Differing definitions
+****
+There are a few different definitions of a "fork". In this book we use
+the definition that the author finds best, which is "a change in the
+consensus rules".
+****
+
+[.important]
+
+In the context of Bitcoin, we use the term _fork_ to mean a change in
+the consensus rules. The consensus rules is the set of rules that
+define what a valid blockchain is. When some set of nodes use the same
+consensus rules, consensus emerges among them about what the current
+UTXO set, "who owns what", is.
+
+For example, the rule that limits the block weight to 4,000,000 WU is
+part of the consensus rules. But a _relay policy_ on a node, for
+example one that prevents transactions with tiny fees from being
+relayed by that node, is not part of the consensus rules.
+
+Your fork can be done in Bitcoin Core, or in a copied version of Bitcoin
+Core, or in any alternative Bitcoin full node software program. If
+someone runs a full node with your changed consensus rules compared to
+other people's full nodes, that person is running a fork.
 
 We generally categorize forks in Bitcoin as
 
@@ -85,6 +115,28 @@ they could be forks of a software project in the traditional
 sense. From now on we will only use the term _fork_ to mean a change
 of consensus rules.
 
+As an analogy of soft and hard forks, imagine a popular vegetarian
+restaurant where lots of vegetarians go to eat. Think of the
+restaurant as a miner, the guests as full nodes and the meals served
+as blocks. The restaurant produces meals that guests eat - the miner
+produces blocks that full nodes accept.
+
+Imagine that the restaurant changes their meals as follows.
+
+****
+image::{imagedir}/hard-vs-soft-fork-restaurant.svg[]
+****
+
+[%autowidth]
+.The restaurant can make a hard fork by start serving meat dishes and a soft fork by restricting the food to vegan.
+|===
+| Restaurant serves | Will guests accept it? | Fork type | Why
+
+| Vegetarian food | Yes | None | Vegetarians eat vegetarian food.
+| Non-vegetarian food | no | Hard fork | The rules are *relaxed*. Vegetarians can't eat here any more
+| Vegan food | Yes | Soft fork | The rules are *tightened*. Vegetarian rules still apply.
+|===
+
 If you create a fork, soft or hard, you risk having a chain-split if
 anyone runs your forked computer program. Some nodes will follow the
 strongest chain that is valid according to their old rules and some
@@ -98,24 +150,24 @@ change that doesn't affect the consensus rules. We will use the name
 _Bitcoin Old_ to refer to the previous version of the program and
 _Bitcoin New_ to refer to the changed version of the program.
 
-==== Non-consensus-rule-changing forks
+==== Non-consensus-rule changes
 
-Suppose that you want to add a new feature to the networking code of
-Bitcoin Core. You want to add a new message type called `kill` that
-causes the recipient of the message to shut itself down. Only nodes
-running Bitcoin New would know how to deal with an incoming `kill`
-message. Bitcoin Old nodes will just ignore the, for them, unknown
-message.
+Suppose that you want to add a new "feature" to the networking code of
+Bitcoin Core. You want to add a new network message type called
+`kill`, that one Bitcoin node can send to another Bitcoin node. The
+recipient node of this message will immediately shut itself down. Only
+nodes running Bitcoin New would know how to deal with an incoming
+`kill` message. Bitcoin Old nodes will just ignore the, for them,
+unknown message.
 
 .Your new message will be accepted by Bitcoin New and ignored by Bitcoin Old.
 image::{imagedir}/kill-message.svg[{big-width}]
 
-Most people consider your change a huge security risk. The don't want
+Most people consider your change a huge security risk. They don't want
 their nodes shut down by a random stranger on the Internet. You will
 have a hard time convincing them to use Bitcoin New. You can't force
 this software upon anyone, people will have to actively want it and
-install it for Bitcoin New to get mainstream adoption across the
-network.
+install it for Bitcoin New to get adoption across the network.
 
 Stupid changes like the `kill` message will not make it in the world
 of open source.
@@ -200,7 +252,9 @@ image::{imagedir}/2ndcol-hard-fork.svg[]
 
 As described in <<bitcoin-forks>>, a hard fork is a software change
 that relaxes the consensus rules. Blocks created by new nodes might be
-rejected by old nodes.
+rejected by old nodes. In the example with the vegetarian restaurant,
+a hard fork would be when the vegetarian restaurant starts to serve
+meat.
 
 Suppose that you create a fork that changes the maximum allowed block
 weight, discussed in <<increasing-the-block-size-limit>>, from
@@ -310,11 +364,11 @@ to 1 MB at height 478559.
 image::{imagedir}/2ndcol-soft-fork.svg[]
 ****
 
-We have discussed soft forks several times throughout this book. A soft
-fork is a change in the consensus rules where blocks created by
-Bitcoin New nodes are accepted by Bitcoin Old nodes. However, the
-reverse is not true; Bitcoin New nodes might not accept a block
-created by a Bitcoin Old node. The consensus rules are tightened.
+We have discussed soft forks several times throughout this book. A
+soft fork is a change in the consensus rules where blocks created by
+Bitcoin New nodes are accepted by Bitcoin Old nodes. The consensus
+rules are tightened. In the case with the vegetarian restaurant, a
+soft fork would be when the restaurant changes its food to vegan.
 
 Segregated witness is an example of a soft fork. The change was
 carefully designed so that old nodes don't fail in verifying blocks
@@ -471,8 +525,16 @@ used to do them have evolved over time.
 
 The main worry when doing a soft fork is that the blockchain splits in
 two and stays that way over a significant amount of time. If that
-happens, we effectively have two cryptocurrencies, causing confusion
-to users.
+happens, we effectively have two cryptocurrencies.
+
+This would cause confusion: Exchanges would need to decide which
+branch they consider to be "Bitcoin" and which branches to support for
+their exchange service. Users must be made aware that a split has
+happened so that they can take precaution to not send money on the
+wrong branch. Merchants need to make sure that they charge the
+currency or currencies they intend to. A blockchain split would
+probably also cause the value of the cryptocurrency to change
+dramatically.
 
 ==== Using coinbase signaling: BIP16
 

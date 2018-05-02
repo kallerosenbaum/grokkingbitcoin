@@ -119,15 +119,15 @@ several ways to to this. The one in the example above first duplicates
 nothing and the whole program will run just fine.
 
 The second and third form of transaction malleability are somewhat
-limited by relay policies. This means that nodes will require the
+limited by _relay policies_. This means that nodes will require the
 signatures to conform to specific rules and that no script operators
-except data pushes are present in the signature script. However, there is
-nothing stopping a miner from mining malleated transactions. Relay
-policies are implemented to make transaction malleability a bit
-harder, but they can't prevent it. The first form of malleability is
-actually prevented, though, because BIP66 tightens the _consensus
-rules_ for transactions. Consensus rules are rules that apply to the
-data in the blockchain.
+except data pushes are present in the signature script. Otherwise the
+node will not relay the transaction. However, there is nothing
+stopping a miner from mining malleated transactions. Relay policies
+are implemented to make transaction malleability a bit harder, but
+they can't prevent it. The first form of malleability is actually
+prevented, though, because BIP66 tightens the _consensus rules_ for
+transactions.
 
 [[inefficient-sighash]]
 ==== Inefficient signature verification
@@ -401,17 +401,18 @@ The new rules defined by segregated witness are specified in BIP141,
 Segregated Witness, segwit, solves that problem and all the above
 mentioned problems in a forward and backward compatible way:
 
-* Forward compatible because transactions and blocks created by new
-  software works with old software.
-* Backward compatible because transactions and blocks created by old
-  software works with new software.
+* Forward compatible because blocks created by new software works with
+  old software.
+* Backward compatible because blocks created by old software works
+  with new software.
 
 In crypto-lingo, a _witness_ basically means a signature. It is
 something that attests the authenticity of something. For a Bitcoin
-transaction, the witness is the contents of the signature script, because
-that's what proves that the transaction is authenticated. Segregated
-means parted, so we part the contents of the signature script from the
-transaction, effectively leaving the signature script empty:
+transaction, the witness is the contents of the signature script,
+because that's what proves that the transaction is
+authenticated. Segregated means parted, so we part the contents of the
+signature script from the transaction, effectively leaving the
+signature script empty:
 
 .A segwit transaction contains no signature data. The signatures are attached instead. The txid does not commit to the signatures.
 image::{imagedir}/segwit-transaction-simple.svg[{big-width}]

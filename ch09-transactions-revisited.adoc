@@ -630,10 +630,12 @@ There are a few policies regarding OP_RETURN:
 * The full pubkey script must not be bigger than 83 bytes.
 * There can only be one OP_RETURN output per transaction.
 
-The above two policies are just that, policies. It's not against
-Bitcoin's consensus rules to include a transaction violating these
-policies, but full nodes implementing these policies will not relay
-such transactions.
+The above two policies are just that, policies. Full nodes adhering to
+these policies will not relay transactions violating the policies. But
+if they encounter a block that contains transactions that violate the
+policies, the block will be accepted and relayed. We will talk more
+about policies and _consensus rules_, strict rules that apply to
+blocks, in <<ch10>> and <<ch11>>.
 
 ==== Create a token in Bitcoin
 
