@@ -1482,9 +1482,10 @@ time. Another interesting thing is the `initialblockdownload` field,
 which is will remain `true` until the initial block download is
 finished.
 
-Keep this daemon running. We will get back to this daemon in an
-appendix to give you a concrete guide on how to use `bitcoin-cli` to
-examine the blockchain and to use your built-in wallet.
+Keep this daemon running. You will get back to this daemon in an
+appendix where we will give you a small tutorial on how to use
+`bitcoin-cli` to examine the blockchain and to use your built-in
+wallet.
 
 If you want to stop the node, issue the following command:
 
