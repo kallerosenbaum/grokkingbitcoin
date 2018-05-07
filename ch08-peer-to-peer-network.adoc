@@ -982,6 +982,7 @@ image::{imagedir}/selma-full-blown-node.svg[{half-width}]
 
 Selma is now running a full blown full node.
 
+[[run-your-own-full-node]]
 === Run your own full node
 
 .On-line instructions

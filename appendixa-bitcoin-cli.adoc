@@ -1,0 +1,8 @@
+[appendix]
+== Using `bitcoin-cli`
+
+This appendix continues where <<run-your-own-full-node>> ended. We
+will use the node that we installed and
+
+* find useful information about the Bitcoin blockchain.
+* 

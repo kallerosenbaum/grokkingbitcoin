@@ -75,3 +75,7 @@ endif::[]
 ifdef::chweb,chall[]
 ifndef::chapter[include::web-resources.adoc[]]
 endif::[]
+
+ifdef::chappendixa,chall[]
+ifndef::chapter[include::appendixa-bitcoin-cli.adoc[]]
+endif::[]

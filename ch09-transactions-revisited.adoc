@@ -869,7 +869,7 @@ invalid.
 This behavior of signatures can be changed using a parameter in the
 signature.
 
-.A signature can commit to different parts of the transaction depending on the so called SIGHASH types. The greyed out parts are not included by the signature in the second input of each transaction.
+.A signature can commit to different parts of the transaction depending on the so called SIGHASH types. The greyed out parts are not included by the signature.
 image::{imagedir}/sign-transaction-combos.svg[{big-width}]
 
 There are three ways to commit to outputs and two ways to commit to

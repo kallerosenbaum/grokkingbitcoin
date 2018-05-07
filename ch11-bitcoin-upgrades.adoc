@@ -1300,9 +1300,6 @@ ACTIVE: 2018-07-23 477120
 Not active after LOCKED_IN
 While active, drop non-segwit-signaling (bit 1) blocks
 
-Miners can lie. See BIP66 split.
-
-
 00000020 version
 43e5b896e096647ec482ee5724fd474162d5f92a85e808000000000000000000 prevBlock
 10d805440f29e72daff5539ac02c3455065b32e42d94f087f7b8909c279c794e merkleRoot
@@ -1310,16 +1307,9 @@ c7529d5a timestamp
 a3895517 target
 4412ae89 nonce
 
-Catastrophic bug?
-
-
 Todo:
 
 Update stats with css class "movingtarget"
-
-Define "consensus rules"
-
-Add tutorial on how to run a bitcoin node.
 
 Add a tutorial on how to use the RPC interface.
 
@@ -1333,19 +1323,6 @@ Section on pruning
 payment channel
 
 lightning
-
-Bitcoin's confirmation times (several minutes) and relatively high
-transaction fees, see <<bitcoin-at-a-glance>>, can be a showstopper
-for small quick payments, like when you buy your morning coffee on
-your way to work. You don't want to wait 10 minutes at the cafe. We
-noted in <<when-not-to-use-bitcoin>> that technical solutions are on
-their way to solve this problem. We will explain payment channels that
-lets you make tiny payments nearly instantaneous. Payment channels
-lays the groundworks for higher level systems, like the Lightning
-Network.
-
-From p2r5: Make Chapter 4 some more straight an “easy”.
-
 
 
 Open questions:
