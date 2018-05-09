@@ -2,7 +2,144 @@
 == Using `bitcoin-cli`
 
 This appendix continues where <<run-your-own-full-node>> ended. We
-will use the node that we installed and
+will use the node that we installed to setup a Bitcoin wallet and
+learn how to explore the Bitcoin blockchain using `bitcoin-cli`, the
+command line tool of Bitcoin Core. We will also use the tool to create
+a Bitcoin wallet to send and receive Bitcoin with.
 
-* find useful information about the Bitcoin blockchain.
-* 
+Note that this appendix will not go into great depth on what
+`bitcoin-cli` is capable of.
+
+=== Graphical user interface?
+
+Bitcoin Core comes with a graphical user interface (GUI). To use the
+GUI version of Bitcoin Core, you need to stop the current node and
+start the GUI version, called `bitcoin-qt`:
+
+----
+$ ./bitcoin-cli stop
+Bitcoin server stopping
+$ ./bitcoin-qt &
+----
+
+If `bitcoind` didn't finish shutting down before you started
+`bitcoin-qt`, you will get an error message from `bitcoin-qt`. If so,
+click `OK` and try again.
+
+=== Explore the blockchain
+
+We have started Bitcoin Core in the background by running
+
+----
+ $ ./bitcoind &
+----
+
+We are now ready to start using `bitcoin-cli`. Let's begin with the
+`getblockchaininfo` command:
+
+[.fullwidth]
+----
+$ ./bitcoin-cli getblockchaininfo
+{
+  "chain": "main",
+  "blocks": 521749,
+  "headers": 521749,
+  "bestblockhash": "0000000000000000000c5314618cb173b6bad57cfd0bb394db2544842263711e",
+  "difficulty": 4022059196164.954,
+  "mediantime": 1525777123,
+  "verificationprogress": 0.9999960673911281,
+  "initialblockdownload": false,
+  "chainwork": "000000000000000000000000000000000000000001b1988a6da7a1e0c6602e80",
+  "size_on_disk": 190963680566,
+  "pruned": false,
+  "softforks": [
+    {
+      "id": "bip34",
+      "version": 2,
+      "reject": {
+        "status": true
+      }
+    },
+    {
+      "id": "bip66",
+      "version": 3,
+      "reject": {
+        "status": true
+      }
+    },
+    {
+      "id": "bip65",
+      "version": 4,
+      "reject": {
+        "status": true
+      }
+    }
+  ],
+  "bip9_softforks": {
+    "csv": {
+      "status": "active",
+      "startTime": 1462060800,
+      "timeout": 1493596800,
+      "since": 419328
+    },
+    "segwit": {
+      "status": "active",
+      "startTime": 1479168000,
+      "timeout": 1510704000,
+      "since": 481824
+    }
+  },
+  "warnings": ""
+}
+----
+
+The above command outputs a lot of information. Some of this is
+self-explanatory, but if you need guidance on what any of this means,
+use the `help` command followed by the command you want help with:
+
+[.fullwidth]
+----
+$ ./bitcoin-cli help getblockchaininfo
+getblockchaininfo
+Returns an object containing various state info regarding blockchain processing.
+
+Result:
+{
+  "chain": "xxxx",              (string) current network name as defined in BIP70 (main, test, regtest)
+  "blocks": xxxxxx,             (numeric) the current number of blocks processed in the server
+  "headers": xxxxxx,            (numeric) the current number of headers we have validated
+...
+}
+----
+
+The most useful help command is to run the `help` command without any
+arguments. That will give you a list of all available commands and a
+short explainer. Run
+
+----
+$ ./bitcoin-cli help
+----
+
+You will get a pretty long list of commands grouped by subject, for
+example `Blockchain`, `Mining`, and `Wallet`.
+
+
+
+////
+
+
+|===
+| property | value | explanation
+
+| chain | "main" | This means that we are on the main Bitcoin
+  blockchain. There is also a `"test"` blockchain that is commonly
+  used for experimentation where the money has no real value.
+| blocks | 521749 | The amount of blocks downloaded and verified.
+| headers | 521749 | The amount of headers downloaded, this can be greater than tne above property, expecially during initial blockchain download.
+| bestblockhash | "0000000000000000000c5314618cb173b6bad57cfd0bb394db2544842263711e" | The hash of the latest block of the strongest branch
+| difficulty | 4022059196164.954 | The difficulty to generate a new proof of work
+| initialblockdownload | false | This means that the initial blockchain download (IBD) is finished. If `true`, it means that IBD is ongoing.
+| chainwork |  000000000000000000000000000000000000000001b1988a6da7a1e0c6602e80 | The accumulated proof of work for the strongest branch.
+
+/////
+
