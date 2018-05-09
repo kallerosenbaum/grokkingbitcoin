@@ -473,7 +473,7 @@ This is not what you intended. Your transactions has been _replayed_
 on the Bitcoin New branch.
 
 [[replay-protection]]
-===== Replay protection
+==== Replay protection
 
 To protect users against replay during a chain split due to a hard
 fork, the transaction format on the new chain can be changed in such a
@@ -609,7 +609,7 @@ image::{imagedir}/height-in-coinbase.svg[{full-width}]
 The _activation_ of the soft fork was performed in steps using block
 version _signaling_ to avoid a blockchain split:
 
-1. Miners and full nodes gradually started running the soft fork. The
+. Miners and full nodes gradually started running the soft fork. The
 soft fork increase the block version from 1 to 2. Note that its only
 miners that run the soft fork that increase the block version.
 +
@@ -621,11 +621,11 @@ image::{imagedir}/relative-hash-rate-75.svg[]
 ****
 
 [start=2]
-2. Wait until 750 of the last 1000 blocks have version at
+. Wait until 750 of the last 1000 blocks have version at
 least 2. When this threshold is reached, the New miners probably have
 about 75% of the hash rate.
 
-3. Start rejecting newly produced version 2 blocks that don't contain
+. Start rejecting newly produced version 2 blocks that don't contain
 the height in the coinbase. These blocks are falsely signaling for
 BIP34.
 
@@ -634,10 +634,10 @@ image::{imagedir}/relative-hash-rate-95.svg[]
 ****
 
 [start=4]
-4. Wait until 950 of the last 1000 blocks have version >= 2. When this
+. Wait until 950 of the last 1000 blocks have version >= 2. When this
 happens, the New miners have about 95% of the hash rate.
 
-5. Start rejecting all new blocks with version 1. All miners producing
+. Start rejecting all new blocks with version 1. All miners producing
 version 1 blocks will be losers because 95% of the hash rate rejects
 those blocks. The hope is that miners that still haven't upgraded
 would do so quickly to not lose too much money on mining worthless
@@ -1149,10 +1149,10 @@ experience with user-activated soft forks.
 
 ==== Warm up
 
-1. A soft fork is a change of the consensus rules, but what
+. A soft fork is a change of the consensus rules, but what
 characterizes a the changes made in a soft fork?
 
-2. Suppose that a hard fork causes a blockchain split and the New
+. Suppose that a hard fork causes a blockchain split and the New
 branch have 51% of the hash rate. Further suppose that the hash rate
 on the New branch drops to about 45%.
 
@@ -1162,18 +1162,18 @@ the event occur?
 .. What can the developers of Bitcoin New do to prevent the event from
 happening?
 
-3. Suppose that an Old node causes a blockchain split during a soft
+. Suppose that an Old node causes a blockchain split during a soft
 fork where 80% of the hash rate runs Bitcoin New. Will the Old branch
 of the split last for long? Explain your answer.
 
-4. Suppose that you try to deploy a soft fork using BIP9. Your
+. Suppose that you try to deploy a soft fork using BIP9. Your
 deployment has just reached the `LOCKED_IN` state. How long do you
 have to wait before your rules start being enforced?
 
 ==== Dig in
 
 [start=5]
-5. Suppose that a fork changes the consensus rules such that Old nodes
+. Suppose that a fork changes the consensus rules such that Old nodes
 can create blocks invalid to New nodes, and New nodes can create block
 invalid to Old nodes:
 +
@@ -1183,15 +1183,15 @@ image::{imagedir}/ex-hard-soft-fork.svg[{quart-width}]
 What nodes, (New, Old, both or none), would be able to cause a
 blockchain split when this fork is deployed?
 
-6. Why is it desirable to have a reassuring majority of the hash rate
+. Why is it desirable to have a reassuring majority of the hash rate
 supporting Bitcoin New in a soft fork before starting to enforce the
 New rules?
 
-7. Suppose that a hard fork has caused a permanent blockchain split and
+. Suppose that a hard fork has caused a permanent blockchain split and
 that you are about to make a payment using Bitcoin New. Why is replay
 protection desirable in this scenario?
 
-8. Suppose that you want to deploy a soft fork using BIP9 with the
+. Suppose that you want to deploy a soft fork using BIP9 with the
 following parameters:
 +
 ----
@@ -1213,17 +1213,17 @@ median time past MTP~1~: 2027-12-31 23:59:58
 +
 Will this deployment eventually get to the `ACTIVE` state?
 
-9. Suppose that you want to make a user-activated soft fork. You find
+. Suppose that you want to make a user-activated soft fork. You find
 it hard to convince other users to install your software. What would
 happen on the flag-day if just a small percentage (<30%) of the
 economy chooses to run your software?
 
-10. Suppose that you want to make a user-activated soft fork. Lot's of
+. Suppose that you want to make a user-activated soft fork. Lot's of
 other users seem to like your soft fork. Say that 80% of the economy
 install your fork. Why would miners (even those that don't like your
 change) switch to the New rules during a user-activated soft fork?
 
-11. In the previous exercise, your soft fork had support from 80% of
+. In the previous exercise, your soft fork had support from 80% of
 the economy. Suppose also that a majority of the hash rate decides to
 follow your New rules. What happens with the non-mining users that
 don't run your fork?

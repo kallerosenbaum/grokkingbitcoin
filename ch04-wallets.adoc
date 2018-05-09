@@ -521,8 +521,8 @@ image::{imagedir}/hd-wallet-derive-child-xprv.svg[{full-width}]
 
 The process starts with a parent xprv.
 
-1. The desired index is appended to the parent public key
-2. The public key and index becomes the input to HMAC-SHA512. The
+. The desired index is appended to the parent public key
+. The public key and index becomes the input to HMAC-SHA512. The
 parent chain code acts as a source of entropy to the hashing
 function. The simplest way to think of it is that the three pieces of
 data are just hashed together.
@@ -530,12 +530,11 @@ data are just hashed together.
 image::{imagedir}/2ndcol-key-tree.svg[]
 ****
 [start=3]
-3. The 512 bit hash value is split in half:
+. The 512 bit hash value is split in half:
 ** The left 256 bits is added, with normal addition modulo 2^256^, to
 the parent private key. The sum becomes the child private key.
 ** The right 256 bits becomes the child chain code
-[start=4]
-4. The child private key and the child chain code together form the
+. The child private key and the child chain code together form the
 child xprv.
 
 This same process is used for all children and grandchildren of the

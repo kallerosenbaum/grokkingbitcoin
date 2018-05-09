@@ -80,7 +80,7 @@ so far.
 
 What makes this transaction special are the sequence numbers of the
 inputs and the transaction lock time. We briefly mentioned sequence
-numbers in <<_lock_time_and_sequence_numbers>>. The sequence numbers
+numbers in <<lock-time-and-sequence-numbers>>. The sequence numbers
 are used to "enable" the lock time: If any input has a sequence number
 less than `ffffffff`, for example `fffffffe`, the lock time set on the
 transaction will be effective. If all sequence numbers are `ffffffff`,
@@ -962,34 +962,34 @@ meaning of different values of the sequence numbers:
 
 ==== Warm up
 
-1. What is required from the inputs of a transaction to enable absolute lock time?
+. What is required from the inputs of a transaction to enable absolute lock time?
 
-2. Suppose a transaction is time locked (absolute) to 2019-12-25
+. Suppose a transaction is time locked (absolute) to 2019-12-25
   00:00:00. How does a miner check if the transaction is OK to put in
   a block.
 
-3. Where is relative lock time of an input located?
+. Where is relative lock time of an input located?
 
-4. How can you express a rule in an output saying "This output must
+. How can you express a rule in an output saying "This output must
 not be spent within 2048 blocks".
 
-5. Suppose that Adam and Eve want to swap coins with each other using
+. Suppose that Adam and Eve want to swap coins with each other using
 an atomic swap. How many transactions would be created on each
 blockchain upon completion?
 
-6. Why is it bad for the UTXO set to store arbitrary data such as
+. Why is it bad for the UTXO set to store arbitrary data such as
 "HELLO WORLD" as fake public key hashes in outputs as opposed to
 storing them in OP_RETURN outputs?
 
-7. Why would you want to replace a broadcast transaction that isn't
+. Why would you want to replace a broadcast transaction that isn't
 confirmed yet?
 
 ==== Dig in
 
 [start=8]
-8. Explain the differences between absolute lock time and relative lock time.
+. Explain the differences between absolute lock time and relative lock time.
 
-9. (This exercise is hard, feel free to skip it.) Suppose that you
+. (This exercise is hard, feel free to skip it.) Suppose that you
 want to bet 1 BTC that it's going to snow in London on Christmas Eve
 and Ruth bets 1 BTC that it's not. You appoint a person, Beth, that
 you both trust to solve any conflicts that might occur. You and Ruth
@@ -1001,7 +1001,7 @@ how the redeem script works on a conceptual level.
 image::{imagedir}/ex-bet-escrow.svg[{full-width}]
 
 [start=10]
-10. If a p2sh output pays to a redeem script that consists solely of
+. If a p2sh output pays to a redeem script that consists solely of
 an OP_RETURN with 32 random bytes, would full nodes be able to know
 that the output is unspendable?
 +
@@ -1010,12 +1010,12 @@ that the output is unspendable?
  OP_RETURN 53a1e411...b4e6d949
 --
 
-11. Please explain how the first-seen policy works. Also, are nodes
+. Please explain how the first-seen policy works. Also, are nodes
 obliged to follow the policy?
 
 [[exercise-rbf,Exercise 12]]
 [start=12]
-12. Opt-in replace by fee offers a method for transaction
+. Opt-in replace by fee offers a method for transaction
 replacement. Is there any fundamental security difference between a
 transaction with opt-in replace by fee enabled and a transaction that
 doesn't opt-in. Explain your reasoning.

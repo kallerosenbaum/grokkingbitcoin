@@ -141,5 +141,5 @@ example `Blockchain`, `Mining`, and `Wallet`.
 | initialblockdownload | false | This means that the initial blockchain download (IBD) is finished. If `true`, it means that IBD is ongoing.
 | chainwork |  000000000000000000000000000000000000000001b1988a6da7a1e0c6602e80 | The accumulated proof of work for the strongest branch.
 
-/////
+////
 

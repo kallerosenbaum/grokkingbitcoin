@@ -988,7 +988,7 @@ Selma is now running a full blown full node.
 .On-line instructions
 ****
 More detailed instructions for all major operating systems are
-available at <<web-resource-install>>.
+available at <<web-install>>.
 ****
 
 [WARNING]
@@ -1028,7 +1028,7 @@ image::{imagedir}/download-bitcoin-core.svg[]
 
 To run your own full Bitcoin node, you need the software program
 to run. In this example we will download Bitcoin Core from
-<<web-resource-download>>. As of writing the latest version of Bitcoin
+<<web-download>>. As of writing the latest version of Bitcoin
 Core is `0.16.0`. Let's download it:
 
 ----
@@ -1038,7 +1038,7 @@ $ wget https://bitcoincore.org/bin/bitcoin-core-0.16.0/bitcoin-0.16.0-x86_64-lin
 As the file name `bitcoin-0.16.0-x86_64-linux-gnu.tar.gz` indicates,
 we download version 0.16.0 for 64 bit (`x86_64`) linux
 (`linux-gnu`). When you are reading this, new version of Bitcoin Core
-have probably been released. Consult <<web-resource-download>> to get
+have probably been released. Consult <<web-download>> to get
 the right version of Bitcoin Core. Also, if you use another operating
 system or computer architecture, please select the file that's right
 for you.
@@ -1088,7 +1088,7 @@ $ wget https://bitcoincore.org/bin/bitcoin-core-0.16.0/SHA256SUMS.asc
 This file will be used to verify that the downloaded `.tar.gz` file is
 signed by the Bitcoin Core team. Note that this file is for version
 0.16.0 only. If you use another version of Bitcoin Core, please select
-the correct signature file at <<web-resource-download>>.
+the correct signature file at <<web-download>>.
 
 The actual contents of this file looks like this (the actual hashes
 have been shortened in this listing):
@@ -1248,7 +1248,7 @@ these key verification steps again when you upgrade.
 The process is:
 
 1. Create a key of your own
-3. Sign the Bitcoin Core public key with your own private key
+2. Sign the Bitcoin Core public key with your own private key
 
 To create a key of your own, GnuPG let's you create a key with the
 following command:
@@ -1604,35 +1604,35 @@ version.
 
 ==== Warm up
 
-1. Why is the shared folder a bad idea?
+. Why is the shared folder a bad idea?
 
-2. What does it mean to relay a transaction or a block?
+. What does it mean to relay a transaction or a block?
 
-3. What are `inv` messages used for?
+. What are `inv` messages used for?
 
-4. How does the full node decide what transactions to send to
+. How does the full node decide what transactions to send to
 lightweight wallets?
 
-5. How does a node notify a lightweight wallet about an incoming
+. How does a node notify a lightweight wallet about an incoming
 pending transaction?
 
-6. Blocks are not sent in full to lightweight wallets. What part of
+. Blocks are not sent in full to lightweight wallets. What part of
 the block is always sent to the wallet?
 
-7. Why do the cafe send a very big bloom filter to their trusted node?
+. Why do the cafe send a very big bloom filter to their trusted node?
 
-8. What would a security conscious person do after downloading Bitcoin
+. What would a security conscious person do after downloading Bitcoin
 Core, but before starting the software?
 
-9. What types of sources for peer addresses are available to a newly
+. What types of sources for peer addresses are available to a newly
 started node?
 
-10. How would a full node know when it's finished syncing?
+. How would a full node know when it's finished syncing?
 
 ==== Dig in
 
 [start=11]
-11. the Bitcoin peer to peer network consists of the following nodes:
+. the Bitcoin peer to peer network consists of the following nodes:
 +
 image::{imagedir}/ex-network-lie-to-lisa.svg[{half-width}]
 +
@@ -1640,12 +1640,12 @@ Which node owners do you need to threaten to prevent Lisa from getting
 any blocks but the ones Lisa creates herself?
 
 [start=12]
-12. Suppose that Qi just received two transactions with transaction
+. Suppose that Qi just received two transactions with transaction
 id:s TXID~1~ and TXID~2~, and one block with block ID BKID. Now she
 wants to inform Rashid about these new items. She don't know if Rashid
 already has these items. What does she do.
 
-13. Suppose that the current Bitcoin network looks like this:
+. Suppose that the current Bitcoin network looks like this:
 +
 image::{imagedir}/ex-network-badly-connected.svg[{half-width}]
 +
@@ -1655,7 +1655,7 @@ block will come from. What can the cafe do to improve the time it
 takes to receive blocks?
 
 [start=14]
-14. Suppose that you are running a full node and experience a power
+. Suppose that you are running a full node and experience a power
 outage for 18 minutes. When power comes back you start your node
 again. During those 18 minutes, two blocks, B~1~ and B~2~, have been
 created. Your latest block is B~0~. What will your node do after

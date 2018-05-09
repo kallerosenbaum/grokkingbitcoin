@@ -298,7 +298,7 @@ image::{imagedir}/ch06-ex-solution-12.svg[{full-width}]
 image::{imagedir}/ch06-ex-solution-14.svg[{full-width}]
 
 [start=15]
-15. You need to verify that
+. You need to verify that
 * the transaction's txid is in the list of hashes.
 * the root of the partial merkle tree matches the merkle root in the block header.
 * the block header is correctly signed.
@@ -352,7 +352,7 @@ new\ target=old\ target*\frac{1.5\ weeks}{2\ weeks}=old\ target*\frac{3}{4}
 ++++
 
 [start=12]
-12. Selma has the majority of the hash rate. As long as she plays by
+. Selma has the majority of the hash rate. As long as she plays by
 the same rules as everyone else, she's going to earn a lot of block
 rewards. When she breaks the rules by changing the target prematurely,
 all full nodes, except Selma's, will discard her blocks. Selma will
@@ -366,7 +366,7 @@ buy her block rewards. The value of her mined coins will probably drop
 dramatically since they are not following the consensus rules. Selma
 is a loser.
 
-13. The "fee per byte" metric used by most miners will be
+. The "fee per byte" metric used by most miners will be
 very low. For every byte of transaction data the miner puts in its
 block it will loose a little competitiveness because the block will
 get bigger and thus slower to transport over the network and to

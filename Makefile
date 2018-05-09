@@ -13,17 +13,17 @@ full: setup
 chunked: $(ALLCHAPTERS)
 
 $(ALLCHAPTERS): ch% : setup
-	$(AD) -v -r ./hacks/sectnumoffset-treeprocessor.rb -a sectnumoffset=$$(($*-1)) -a ch$* -b html5 $(MAIN) -o $(OUTPUTDIR)/$(BASE_NAME)-$*.html
+	$(AD) -r ./hacks/sectnumoffset-treeprocessor.rb -a sectnumoffset=$$(($*-1)) -a ch$* -b html5 $(MAIN) -o $(OUTPUTDIR)/$(BASE_NAME)-$*.html
 
 setup: builddir links
 
 builddir:
-	mkdir -p $(OUTPUTDIR)
+	@mkdir -p $(OUTPUTDIR)
 
 links:
-	rm -f $(OUTPUTDIR)/images $(OUTPUTDIR)/style
-	ln -sfr images $(OUTPUTDIR)
-	ln -sfr style $(OUTPUTDIR)
+	@rm -f $(OUTPUTDIR)/images $(OUTPUTDIR)/style
+	@ln -sfr images $(OUTPUTDIR)
+	@ln -sfr style $(OUTPUTDIR)
 
 clean:
 	rm -rf $(OUTPUTDIR)

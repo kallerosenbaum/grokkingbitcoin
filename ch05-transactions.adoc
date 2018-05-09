@@ -1005,6 +1005,7 @@ will revisit transactions to talk about more fancy stuff you can do
 with transactions, for example make spending impossible until a
 certain date in the future.
 
+[[lock-time-and-sequence-numbers]]
 === More stuff in transactions
 
 We still haven't covered all the contents of a transaction. There are
