@@ -3,7 +3,7 @@ BASE_NAME=grokking-bitcoin
 MAIN=$(BASE_NAME).adoc
 OUTPUTDIR=build
 FULLBOOK=-a chall
-ALLCHAPTERS=ch1 ch2 ch3 ch4 ch5 ch6 ch7 ch8 ch9 ch10 ch11 chans chweb chappendixa
+ALLCHAPTERS=ch1 ch2 ch3 ch4 ch5 ch6 ch7 ch8 ch9 ch10 ch11 chappendixa chans chweb
 
 all: full chunked
 

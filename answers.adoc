@@ -1,3 +1,4 @@
+[appendix]
 [[answers]]
 == Answers to exercises
 :imagedir: {baseimagedir}/answers

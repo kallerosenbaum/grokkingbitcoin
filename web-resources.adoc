@@ -1,10 +1,8 @@
+[appendix]
 [[web-resources]]
 :resource-url: http://manning.com/grokking-bitcoin/resources
 
 == Web resources
-
-please see <<web-bitcoin-paper>>
-please see <<web-financial-inclusion>>
 
 [[web-bitcoin-paper,Web resource {counter:webresourceid}]]
 Web resource {counter:webresourceid}:: {resource-url}/bitcoin-paper

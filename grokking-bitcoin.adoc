@@ -28,54 +28,28 @@
 
 ifdef::ch1,chall[include::ch01-introduction-to-bitcoin.adoc[]]
 
-ifdef::ch2,chall[]
-include::ch02-securing-cookie-tokens.adoc[]
-endif::[]
+ifdef::ch2,chall[include::ch02-securing-cookie-tokens.adoc[]]
 
-ifdef::ch3,chall[]
-include::ch03-addresses.adoc[]
-endif::[]
+ifdef::ch3,chall[include::ch03-addresses.adoc[]]
 
-ifdef::ch4,chall[]
-include::ch04-wallets.adoc[]
-endif::[]
+ifdef::ch4,chall[include::ch04-wallets.adoc[]]
 
-ifdef::ch5,chall[]
-include::ch05-transactions.adoc[]
-endif::[]
+ifdef::ch5,chall[include::ch05-transactions.adoc[]]
 
-ifdef::ch6,chall[]
-include::ch06-the-blockchain.adoc[]
-endif::[]
+ifdef::ch6,chall[include::ch06-the-blockchain.adoc[]]
 
-ifdef::ch7,chall[]
-include::ch07-proof-of-work.adoc[]
-endif::[]
+ifdef::ch7,chall[include::ch07-proof-of-work.adoc[]]
 
-ifdef::ch8,chall[]
-include::ch08-peer-to-peer-network.adoc[]
-endif::[]
+ifdef::ch8,chall[include::ch08-peer-to-peer-network.adoc[]]
 
-ifdef::ch9,chall[]
-include::ch09-transactions-revisited.adoc[]
-endif::[]
+ifdef::ch9,chall[include::ch09-transactions-revisited.adoc[]]
 
-ifdef::ch10,chall[]
-include::ch10-segregated-witness.adoc[]
-endif::[]
+ifdef::ch10,chall[include::ch10-segregated-witness.adoc[]]
 
-ifdef::ch11,chall[]
-include::ch11-bitcoin-upgrades.adoc[]
-endif::[]
+ifdef::ch11,chall[include::ch11-bitcoin-upgrades.adoc[]]
 
-ifdef::chans,chall[]
-ifndef::chapter[include::answers.adoc[]]
-endif::[]
+ifdef::chappendixa,chall[include::appendixa-bitcoin-cli.adoc[]]
 
-ifdef::chweb,chall[]
-ifndef::chapter[include::web-resources.adoc[]]
-endif::[]
+ifdef::chans,chall[include::answers.adoc[]]
 
-ifdef::chappendixa,chall[]
-ifndef::chapter[include::appendixa-bitcoin-cli.adoc[]]
-endif::[]
+ifdef::chweb,chall[include::web-resources.adoc[]]
