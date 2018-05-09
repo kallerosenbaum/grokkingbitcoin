@@ -3,38 +3,53 @@
 
 == Web resources
 
-//bash web-resource bitcoin-paper
-// [https://bitcoin.org/bitcoin.pdf]
+please see <<web-bitcoin-paper>>
+please see <<web-financial-inclusion>>
 
-//bash web-resource financial-inclusion
+[[web-bitcoin-paper,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: {resource-url}/bitcoin-paper
+// https://bitcoin.org/bitcoin.pdf
+
+[[web-financial-inclusion,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: {resource-url}/financial-inclusion
 // http://datatopics.worldbank.org/financialinclusion/
 
-//bash web-resource wikileaks-blockade
+[[web-wikileaks-blockade,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: {resource-url}/wikileaks-blockade
 //https://en.wikipedia.org/wiki/Reception_of_WikiLeaks#Response_from_the_financial_industry
 
-//bash web-resource cyprus-seizure
+[[web-cyprus-seizure,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: {resource-url}/cyprus-seizure
 //https://www.bloomberg.com/news/articles/2013-07-30/cyprus-sets-levy-on-bank-of-cyprus-uninsured-depositors-at-47-5-
 
-//bash web-resource chargebacks
+[[web-chargebacks,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: {resource-url}/chargebacks
 //https://www.dalpay.com/en/support/chargebacks.html
 
-//bash web-resource bips
+[[web-bips,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: {resource-url}/bips
 //https://github.com/bitcoin/bips.
 
-//bash web-resource elliptic-curve-calculator
+[[web-elliptic-curve-calculator,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: {resource-url}/elliptic-curve-calculator
 // https://cdn.rawgit.com/andreacorbellini/ecc/920b29a/interactive/modk-add.html
 
-//bash web-resource op-codes
+[[web-op-codes,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: {resource-url}/op-codes
 // https://en.bitcoin.it/wiki/Script
 
-//bash web-resource target-change
+[[web-target-change,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: {resource-url}/target-change
 // https://petertodd.org/assets/commitments/52ccc4802bd563076cbd25ec4c1ba88152098cb6aa356ba644c9e79a24182da5.txt
 
-//bash web-resource bernanke-ascii-art
+[[web-bernanke-ascii-art,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: {resource-url}/bernanke-ascii-art
 // https://tradeblock.com/bitcoin/tx/930a2114cdaa86e1fac46d15c74e81c09eee1d4150ff9d48e76cb0697d8e1d72
 
-//bash web-resource install
+[[web-install,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: {resource-url}/install
 // https://bitcoin.org/en/full-node
 
-//bash web-resource download
+[[web-download,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: {resource-url}/download
 // https://bitcoincore.org/en/download/
