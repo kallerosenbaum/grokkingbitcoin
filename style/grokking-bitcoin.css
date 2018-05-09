@@ -26,6 +26,10 @@ div>p,.literalblock,.listingblock,.imageblock>.title,div>.tableblock,.dlist,.oli
     width: 75%;
 }
 
+.fullwidth {
+    width: 100%;
+}
+
 .literalblock {
     font-size: 0.9em;
 }
