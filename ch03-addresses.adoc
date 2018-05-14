@@ -9,19 +9,19 @@ This chapter covers
 * Protecting against expensive typing errors
 
 After this chapter, the spreadsheet will have gotten rid of personal
-names. The are replaced with hashes of public keys. This is useful
-from a privacy perspective. No one can easily see who's
+names. The names will be replaced with hashes of public keys. This is
+useful from a privacy perspective. No one can easily see who's
 paying who. This makes it harder for others to extract information
 from the spreadsheet on how much cookies a certain coworker eats. Lisa
-also finds this very useful, because she don't have to maintain a
+also finds this very useful, because she doesn't have to maintain a
 table of names and public keys.
 
-.Bitcoin addresses
-image::{imagedir}/visual-toc-addresses.svg[{big-width}]
-
-Coworkers then invent cookie token addresses which protects them from
+Coworkers then invent cookie token addresses that protect them from
 losing money due to typing errors. Cookie token addresses are used
 between users to pay each other, pretty much like an email address.
+
+.Cookie token addresses are exactly the same as Bitcoin addresses. They are mainly used by wallet software.
+image::{imagedir}/visual-toc-addresses.svg[{big-width}]
 
 === Cookie eating habits undisclosed
 
@@ -32,7 +32,7 @@ at spying on your habits in order to "adjust" your premium.
 ****
 
 Alice and many other coworkers have a health insurance at Acme
-Insurances. Acme have "persuaded" John to hand over a copy of the
+Insurances. Acme has "persuaded" John to hand over a copy of the
 spreadsheet to them. Acme figure that they can adjust premiums or hold
 workers' cookie eating habits against them in an eventual insurance
 dispute.
@@ -65,14 +65,14 @@ image::{imagedir}/replace-names-with-public-keys.svg[{big-width}]
 
 It is now hard to see how many cookies Chloe has eaten without knowing
 her public key. If this new spreadsheet is given to Acme Insurances
-they will be able to see what payments the different public keys have
-made. They will see both sender public key and recipient public key of
-each payment.
+they will not be able to see _who_ the senders and
+recipients are. They will only see the sender public key and recipient
+public key of each payment.
 
 Lisa can now delete her cumbersome table of names and pubic keys. But
-when she does that, users can no longer use names when they make
-payments. They must instead use the public key of the sender and
-the public key of the recipient.
+when she does that, users should no longer use names when they make
+payments. They must instead use the public key of the sender and the
+public key of the recipient.
 
 .Old style
 ****
@@ -101,7 +101,7 @@ Faiza. The company wants to send her 100 CT as a welcome gift. How
 can the company send 100 CT to Faiza?
 
 The company needs a public key to send the 100 CT to. Since Faiza
-haven't used cookie tokens yet, she needs to create a public key and
+hasn't used cookie tokens yet, she needs to create a public key and
 give it to the company.
 
 .Faiza creates her public key and gives it to the company. The company creates a payment with Faiza's public key as the recipient.
@@ -109,9 +109,9 @@ image::{imagedir}/payment-process-pubkey.svg[{full-width}]
 
 Faiza creates a private and a public key. This is done in exactly the
 same way as in <<_improving_cookie_token_security,chapter 2>>, but the
-public key is not handed over to Lisa. Now that Lisa don't have the
+public key is not handed over to Lisa. Now that Lisa doesn't have the
 table of names and public keys, there's no point in giving the public
-key to Lisa any more. She don't need it. Instead, Faiza hands the
+key to Lisa any more. She doesn't need it. Instead, Faiza hands the
 public key to the one who wants to pay her cookie tokens, the company.
 
 The company creates a message that asks Lisa to move 100 CT from `037e944a...36de9496` to `029a726c...ad8f436d`.
@@ -159,6 +159,13 @@ Let's summarize what we have done so far:
 These changes have improved privacy as well as simplified Lisa's
 work. At the end of this chapter we will discuss more about how to
 further improve privacy.
+
+The email to Lisa in this example probably reveals, _to Lisa_, who the
+sender is (the company in this case), because of the "From:" field in
+the email. For now, we can assume that Lisa doesn't reveal or use this
+personal information in any way.  We use email in this example in
+place of Bitcoin's peer to peer network. The Bitcoin network,
+introduced in <<ch08>>, does not use any personal information.
 
 Please take a moment to think about what Acme Insurances can figure
 out from the spreadsheet now. What information can they get if they
@@ -478,11 +485,11 @@ Hex encoding is a very inefficient way to represent bytes of data. It
 requires two characters for each byte. We only use 16 different
 characters, where each character represent 4 bits, 0000 to 1111.
 
-What if we could use more different characters to represent
-data. There are plenty of such encoding schemes. The most widely known
-is base64. In base64, each character represent 6 bits of data, but to
-do that we would need characters besides just letters and
-digits. Base64 uses the following alphabet:
+What if we could use more different characters to represent data?
+There are plenty of such encoding schemes. The most widely known is
+base64. In base64, each character represent 6 bits of data, but to do
+that we would need characters besides just letters and digits. Base64
+uses the following alphabet:
 
  ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
 
@@ -520,7 +527,7 @@ way to encode and decode data. For the rest of you, please
 continue. It's fun.
 
 In base64, each character represents exactly 6 bits which makes it
-straight forward to encode and decode data. But with base58 each
+straightforward to encode and decode data. But with base58 each
 character represents slightly less than 6 bits, but more than 5
 bits. We need to encode data differently.
 
@@ -755,8 +762,8 @@ addresses, @~1~ with balance 5 cookie tokens and @~2~ with 8 cookie
 tokens. His total balance is 13 CT so he should afford to pay 10 CT
 for a cookie. Give an example of how he could pay 10 CT to the cafe?
 
-. Is it possible to deduce what addresses were involved in a certain
-payment by looking at just the spreadsheet?
+. Is it possible to deduce what cookie token addresses were involved
+in a certain payment by looking at just the spreadsheet?
 +
 image::{imagedir}/exercise-deduce-address-or-pubkey.svg[{full-width}]
 

@@ -1318,6 +1318,8 @@ Less important todos:
 
 Explain nothing-up-my-sleeve in ch04.
 
+Explain why double SHA256 in "some-well-known-hash-functions" in ch2
+
 Section on pruning
 
 payment channel

@@ -37,13 +37,14 @@ tokens", CT. Cookie tokens can be exchanged for cookies in the cafe.
 .Bitcoin, the currency
 ****
 [.movingtarget]
-A cookie token correspond to a bitcoin, the currency unit of
-Bitcoin. Bitcoin got its first price point 2010 when someone bought
-two pizzas for 10,000 BTC. That money would get you 12,000,000 pizzas
-as of January 2018.
+
+A cookie token corresponds to a bitcoin, the currency
+unit of Bitcoin. Bitcoin got its first price point 2010 when someone
+bought two pizzas for 10,000 BTC. That money would get you 12,000,000
+pizzas as of January 2018.
 ****
 
-.The spreadsheet have a column for the sender, a column for the recipient and a column for the amount of cookie tokens transferred. New cookie token transfers are appended at the end of the spreadsheet.
+.The spreadsheet has a column for the sender, a column for the recipient and a column for the amount of cookie tokens transferred. New cookie token transfers are appended at the end of the spreadsheet.
 image::{imagedir}/cookie-sheet-basic.svg[{half-width}]
 
 This spreadsheet is stored on Lisa's computer. The spreadsheet is
@@ -85,7 +86,7 @@ a price you both agree on. Lisa will then add a row to the spreadsheet
 accordingly.
 
 [role="important"]
-Lisa have promised never to remove or change anything in the
+Lisa has promised never to remove or change anything in the
 spreadsheet, just add to it. What happens in the spreadsheet, stays in
 the spreadsheet!
 
@@ -99,7 +100,7 @@ image::{imagedir}/lisa-is-rewarded.svg[{half-width}]
 [.inbitcoin]
 .Money supply curve
 ****
-Bitcoin use the same schedule for issuance as the cookie token
+Bitcoin uses the same schedule for issuance as the cookie token
 spreadsheet. All new bitcoins are created as rewards to the nodes
 securing the Bitcoin ledger, the blockchain, just as Lisa is rewarded
 for securing the cookie token spreadsheet.
@@ -126,7 +127,7 @@ amount of cookies.
 Lisa basically performs the same work as miners in the Bitcoin
 network. She verifies payments and updates the ledger, the Bitcoin
 blockchain. Let's make it clear how the concepts in the spreadsheet
-corresponds to concepts in Bitcoin:
+correspond to concepts in Bitcoin:
 
 [%autowidth,options="header"]
 .How key ingredients of the cookie token system and the Bitcoin system relates.
@@ -196,12 +197,12 @@ fingerprint, of your favorite cat picture.
 [.gbinfo]
 .Bits? Bytes? Hex?
 ****
-A _bit_ is the smallest unit in a computer. It can take two different
-values, 0 or 1. Like a light bulb, it can be either on or off. A
-_byte_ is eight bits, that together can take 256 different values. We
-often use _hexadecimal_, or _hex_, encoding when we display numbers in
-this book. Each byte is printed as two hex digits each in the range
-0-f where a=10 and f=15.
+A _bit_ is the smallest unit of information in a computer. It can take
+two different values, 0 or 1. Like a light bulb, it can be either on
+or off. A _byte_ is eight bits, that together can take 256 different
+values. We often use _hexadecimal_, or _hex_, encoding when we display
+numbers in this book. Each byte is printed as two hex digits each in
+the range 0-f where a=10 and f=15.
 
 image::{imagedir}/bits-bytes-hex.svg[]
 ****
@@ -212,7 +213,9 @@ image::{imagedir}/hashing-a-cat.svg[{big-width}]
 The output, the hash, is a 256 bit number. 256 bits equals 32 bytes
 because 1 byte consists of 8 bits. It means that to store the number
 in a file, the file will be 32 bytes big, which is tiny compared to
-the size of the 1.21 Megabyte cat picture.
+the size of the 1.21 Megabyte cat picture. The particular
+cryptographic hash function used in this example is called SHA256 and
+is the most commonly used one in Bitcoin.
 
 The word "hash" means something that is chopped into small pieces or
 mixed up. It is actually a very good description of what a
@@ -264,7 +267,7 @@ image::{imagedir}/integrity-check-2.svg[{full-width}]
 [.gbinfo]
 .Extremely sure?
 ****
-There is a tiny chance that the cat picture has changed even thought
+There is a tiny chance that the cat picture has changed even though
 the hashes match. But as we will see later, that chance is so small it
 can be ignored.
 ****
@@ -325,14 +328,14 @@ of that probability.
 ==== Properties of a cryptographic hash function
 
 A cryptographic hash function is a function that takes any digital
-input data and produces a fixed-length output. In the example with the
-cat picture on your hard drive, the input is the cat picture of 1.21
-MB and the output is a 256 bit number. The function will output the
-exact same hash each time the same input is used. But it will output a
-totally different value when even the slightest variation of the input
-is used. The output of a cryptographic hash function is often referred
-to as a _hash_ or a _digest_. I am using term _hash_ here, but either
-is equally valid.
+input data, called a _pre-image_, and produces a fixed-length output,
+called a _hash_. In the example with the cat picture on your hard
+drive, the pre-image is the cat picture of 1.21 MB and the hash is a
+256 bit number. The function will output the exact same hash each time
+the same pre-image is used. But it will output a totally different
+hash when even the slightest variation of that pre-image is used. The
+hash is also commonly referred to as a _digest_. I am using term
+_hash_ here, but either is equally valid.
 
 Let us have a look at what properties you can expect from a
 cryptographic hash function. We will illustrate the properties using
@@ -346,8 +349,8 @@ basic properties:
 . Slightly different inputs will produce very different hashes.
 . The hash is always of the same fixed size. For SHA256 it is 256
   bits.
-. Trial-and-error is the only known way to find an input that gives a
-certain hash.
+. Brute force, trial-and-error, is the only known way to find an input
+that gives a certain hash.
 
 .A cryptographic hash function, SHA256, in action. The input "Hello!" will give you the same output every time, but the slightly modified input "Hello" will give you a totally different output.
 image::{imagedir}/cryptographic-hashing.svg[{big-width}]
@@ -361,12 +364,16 @@ which are desirable for cryptographic hash functions:
 .Different desirable properties for cryptographic hash functions. For collision resistance, X can be anything, as long as the two _different_ inputs give the same output X.
 image::{imagedir}/hash-properties.svg[{big-width}]
 
-Collision resistance:: It's hard to find two different inputs that
-give _the same_ hash.
-Pre-image resistance:: It's hard to find an input that gives _a
-certain_ hash.
-Second-pre-image resistance:: It's hard to find an input that gives
-_the same hash as a certain other input_.
+Collision resistance:: You have only the cryptographic hash function
+at hand. It's hard to find two _different_ inputs that _result in the
+same hash_.
+
+Pre-image resistance:: You have the hash function and a hash. It's
+hard to find _the pre-image of that hash_.
+
+Second-pre-image resistance:: You have the hash function and a
+pre-image (and thus the hash of that pre-image). It's hard to find _another
+pre-image with the same hash_.
 
 ==== Illustration of "hard"
 
@@ -414,8 +421,8 @@ a| image:{imagedir}/grumpy-cat-drawing.jpg[{thumb}] | dee6a5d3...db479561 | nope
 .How big is 2^256^?
 ****
 2^256^ is about 3*10^77^ which is almost the number of atoms in the
-universe. To find a pre-image to SHA256 is like picking an atom in the
-universe and hope it's the correct one.
+universe. To find a pre-image of a SHA256 hash is like picking an atom
+in the universe and hope it's the correct one.
 ****
 
 As you can see, we are not very successful. Let us think about how
@@ -447,8 +454,9 @@ image::{imagedir}/2ndcol-double-sha256.svg[{big-width}]
 
 There are several different cryptographic hash functions. Some
 cryptographic hash functions are not considered cryptographically
-secure any more.
+secure.
 
+.A few different cryptographic hash functions are used in Bitcoin. Some old ones have been deemed insecure.
 [%autowidth]
 |===
 | Name | Bits | Secure so far? | Used in Bitcoin?
@@ -512,15 +520,17 @@ cryptographic hash.
 . What are the decimal and the binary representations of the
 hexadecimal data `061a`? The bytes should be interpreted as
 non-negative numbers when converting to decimal number.
-. Can you modify the text "`cat`" so that the modified text gets the
-same cryptographic hash as "`cat`"?
+. Can you, in practice, modify the text "`cat`" so that the modified
+text gets the same cryptographic hash as "`cat`"?
 
 ===== Dig in
 
 [start=6]
-. Our simplistic hash function from the section <<cryptographic_hashing>>
-is not a _cryptographic_ hash function. Which two of the four properties
-of a cryptographic hash function is it lacking?
+. Our simplistic hash function from the section
+<<cryptographic_hashing>>, repeated for you below, is not a
+_cryptographic_ hash function. Which two of the four properties of a
+cryptographic hash function is it lacking? The four properties are
+also repeated below.
 +
 image::{imagedir}/simplistic-hash-algorithm-exercise.svg[{half-width}]
 +
@@ -529,14 +539,14 @@ image::{imagedir}/simplistic-hash-algorithm-exercise.svg[{half-width}]
 .. Slightly different inputs will produce very different hashes.
 .. The hash is always of the same fixed size. For SHA256 it is 256
   bits.
-.. Trial-and-error is the only known way to find an input that gives a
-certain hash.
+.. Brute force, trial-and-error, is the only known way to find an input
+that gives a certain hash.
 
 . Let's go back to the example where you had a cat picture on your
 hard drive and had written down the cryptographic hash of the picture
 on a piece of paper. Suppose that someone wanted to change the cat
 picture on your hard drive without you noticing. What variant of
-property 4 is important to have in order to stop the attacker from
+property 4 above is important to have in order to stop the attacker from
 succeeding?
 +
 image::{imagedir}/hash-properties.svg[{big-width}]
@@ -671,8 +681,11 @@ digital signatures relies heavily on this one-way feature. Also,
 running the private key through the public key derivation function
 multiple times will always result in the same public key.
 
-How the public key derivation function works is a hard topic covered
-in <<ch04>>. Luckily, you do not have to be a cryptography expert to
+You may have noticed that the public key is 33 bytes (66 hex digits)
+long. This is longer than the private key which is only 32 bytes (64
+hex digits) long. The reason for "extra" byte and how the public key
+derivation function works is a hard topic covered in
+<<ch04>>. Luckily, you do not have to be a cryptography expert to
 understand how digital signatures work from a user's perspective.
 
 ===== Two ways to use the key pair
@@ -711,9 +724,9 @@ she has the public key belonging to Johns private key. This feature is
 used for _digital signatures_. It is not a good idea to use the
 private key to encrypt secret messages because the public key is,
 well, public. Anyone with the public key can decrypt the
-message. Digital signatures, on the other hand, doesn't need any
-secret messages. We'll explore digital signatures deeper soon. But
-first some recap and orientation.
+message. Digital signatures, on the other hand, don't need any secret
+messages. We'll explore digital signatures deeper soon. But first some
+recap and orientation.
 
 ==== Recap on key pairs
 
@@ -886,7 +899,7 @@ him that she got a message signed with Johns private key asking her to
 send money to this new coworker, Melissa. She even shows him the
 message and signature. Of course there is no Melissa at the office,
 eventhough a lot of new employees have started at the company
-lately. Lisa don't care about names anymore, only public keys and
+lately. Lisa doesn't care about names anymore, only public keys and
 signatures. But she needs the name in order to lookup the correct
 public key in the table.
 
@@ -1112,7 +1125,8 @@ have the keys from the previous exercise. Now you want to send a message in a bo
 ----
 +
 Please explain how you would sign the message so that Fred can be sure
-that the message is actually from you.
+that the message is actually from you. Explain what steps you and fred
+take in the process.
 
 . Are the names in the spreadsheet really needed anymore? Can we
 replace them with something else? If that is possible, suggest how a

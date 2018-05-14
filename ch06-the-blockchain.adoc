@@ -21,7 +21,7 @@ thing called the _blockchain_. The blockchain contains transactions
 that are secured from tampering by hashing and signing the set of
 transactions in a clever way. This technique makes it easy to provide
 cryptographic proof of fraud if Lisa deletes or replaces
-transactions. All verifiers keeps their own copies of the blockchain
+transactions. All verifiers keep their own copies of the blockchain
 and they can now fully verify the blockchain to ensure that Lisa
 doesn't remove already confirmed transactions.
 
@@ -144,7 +144,7 @@ The digital signature in the block header introduces some problems,
 and we will fix those problems in <<ch07>> by replacing the digital
 signatures with something called proof-of-work.
 
-==== builds a block
+==== Lisa builds a block
 
 Lisa creates a new block roughly every 10 minutes containing some
 unconfirmed transactions. She writes this block into a new file on a
@@ -198,12 +198,14 @@ private key known only to Lisa.
 image::{imagedir}/lisa-signs-block.svg[{half-width}]
 
 [.inbitcoin]
+.Proof of work
 ****
 Bitcoin blocks are not signed this way. They are "signed" with
 proof-of-work described in <<ch07>>.
 ****
 
-Lisa uses her private block-signing key to sign the block header. This digital signature commits to
+Lisa uses her private block-signing key to sign the block header. This
+digital signature commits to
 
 * the previous block id, which means that she commits to the whole
   blockchain before this new block.
@@ -408,8 +410,9 @@ Each block's signature reinforces the signatures of the previous
 blocks. This will become very important when we replace the signatures
 with proof-of-work in the next chapter.
 
-The verifiers can also easily see what's new since last block and update
-their UTXO sets accordingly. The news are right there in the block.
+The verifiers can also easily see what's new since last block and
+update their UTXO sets accordingly. The new transactions are right
+there in the block.
 
 The blockchain also provides some nice extra features that we will
 discuss further on, for example the merkle tree.
@@ -486,8 +489,8 @@ the wallet or not. The filter will tell the full node to send all
 transactions concerning @~a~ and @~b~, but it will also tell the full
 node to send transactions that are not relevant to John's wallet to
 obfuscate what addresses actually belongs to the wallet. While bloom
-filters doesn't have much to do with the blockchain, we still dedicate
-a subsection to bloom filters here because they are used heavily by
+filters don't have much to do with the blockchain, we still dedicate a
+subsection to bloom filters here because they are used heavily by
 lightweight wallets.
 
 In step 2, transactions are sent to John's wallet as well as block
@@ -497,7 +500,7 @@ verify that the transaction is actually in the block. Something more
 is required, a _partial merkle tree_ that proves that one or more
 transactions are included in the block.
 
-The above two steps was performed as a synchronizing phase just after
+The above two steps were performed as a synchronizing phase just after
 the wallet connected to the cafe's full node. After this, as Lisa
 creates new blocks and the cafe's full node picks them up, the
 corresponding block headers are sent to the wallet together with all
@@ -690,7 +693,7 @@ node:
 * all data items in signature scripts (public key and signature x 2 = 4)
 * all data items of the outputs (2)
 
-The probability that all 9 tests is negative is (1-(5/8)^3^)^9^≈
+The probability that all 9 tests are negative is (1-(5/8)^3^)^9^≈
 0.08. This means that almost all, 92/100, transactions will be sent to
 the wallet. This shows that having only 3 zeroes of eight bits in the
 bloom filter will not help reduce the data very much, but it protects
@@ -841,10 +844,12 @@ this simple one.
 How can the full node provide a proof to the wallet that Tx~2~ is
 included in the block? It can do so by providing a _partial merkle
 tree_ that connects the hash of Tx~2~ to the merkle root in the block
-header. This includes two actions from the full node:
+header. The partial merkle tree is a pruned version of the full merkle
+tree with only the neccesary parts needed prove that Tx2 is part of
+the tree. The full nodes sends two things to the wallet:
 
-1. Send the block header and the partial merkle tree to the wallet
-2. Send Tx~2~ to the wallet
+1. the block header and the partial merkle tree
+2. Tx~2~
 
 Let's construct the partial merkle tree. The full node knows the
 number of transactions in the block and therefore it knows the shape
@@ -855,8 +860,8 @@ root and moves downwards in the tree, left branch first.
 .The full node constructs a partial merkle tree that connects Tx~2~ to the merkle root in the block header.
 image::{imagedir}/partial-merkle-tree.svg[{full-width}]
 
-The hash functions has been taken out of the diagram to make it easier
-to read. The partial merkle tree consists of
+The hash functions have been taken out of the diagram to make it
+easier to read. The partial merkle tree consists of
 
 * a number indicating the total number of transactions in the block
 * a list of flags
@@ -886,8 +891,8 @@ The steps are outlined in the following table.
 
 This ordering of the steps is called _depth first_, meaning that we
 always move downwards in the tree as far as we can before moving
-sideways. But we will not go down in branches of the tree that does
-not contain any interesting transactions. This is noted in the list of
+sideways. But we will not go down in branches of the tree that do not
+contain any interesting transactions. This is noted in the list of
 flags as ✘. We stop at ✘ because we don't want to send unnecessary
 data to the wallet, hence the term _partial_ merkle tree.
 
@@ -1018,12 +1023,12 @@ roughly increases _by a constant term_ of 32 bytes.
 
 ==== Security of lightweight wallets
 
-Lightweight wallets seems like a nice touch to the cookie token
+Lightweight wallets seem like a nice touch to the cookie token
 system. It certainly is, but users of lightweight wallets should be
 aware of what they are missing out on compared to the full nodes.
 
-Full nodes verify the full history of the blockchain and knows for
-sure that the money a transaction spends really exists and that the
+Full nodes verify the full history of the blockchain and know for sure
+that the money a transaction spends really exists and that the
 signatures are valid.
 
 A lightweight wallet knows the whole chain of block headers. It will
@@ -1037,7 +1042,7 @@ block. But there are a lot of things it cannot verify. For example:
 * that the spent outputs are not already spent.
 * that it receives all relevant transactions.
 
-The lightweight wallet also don't know what rules the full node is
+The lightweight wallet also doesn't know what rules the full node is
 following. The full node may have adopted a rule that pays double the
 reward to Lisa. A typical full node would consider any block that pays
 too much to Lisa as invalid, because that's not a rule he signed up
@@ -1058,7 +1063,7 @@ block, for example a block that contains a transaction that spends an
 output that doesn't exist. When the full node receives this block it
 should verify the block and drop it, because it is invalid. But there
 might be occasions when the full node, deliberately or accidentally,
-don't detect the error. Perhaps the cafe is in cahoots with Lisa to
+doesn't detect the error. Perhaps the cafe is in cahoots with Lisa to
 fool John, who knows? The cafe and Lisa can, at least temporarily,
 make John believe that he has received money that he didn't receive.
 
@@ -1068,7 +1073,7 @@ being fooled by a full node:
 * Connect to multiple full nodes simultaneously. All full nodes that
   John's wallet is connected to must take active part in the
   conspiracy in order to fool John. Most lightweight wallets in
-  Bitcoin does this automatically.
+  Bitcoin do this automatically.
 
 .John's wallet is connected to multiple full nodes. Hopefully they don't all collude to fool John.
 image::{imagedir}/connect-multiple-nodes.svg[{half-width}]
@@ -1076,7 +1081,7 @@ image::{imagedir}/connect-multiple-nodes.svg[{half-width}]
 [.inbitcoin]
 .Trusted node
 ****
-Many Bitcoin wallets supports connecting to a trusted node. Ask the
+Many Bitcoin wallets support connecting to a trusted node. Ask the
 development team of your wallet software if unsure.
 ****
 

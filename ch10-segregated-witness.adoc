@@ -1078,8 +1078,10 @@ size T gives us
 T \leq \frac {4*10^{6}} {4-3r}
 ++++
 
-Inserting various r into this formula gives us different maximum total block sizes:
+Inserting various r into this formula gives us different maximum total
+block sizes:
 
+.Maximum block sizes for different ratios of witness data.
 |===
 | r [witness bytes/total bytes] | Max total block size [bytes]
 

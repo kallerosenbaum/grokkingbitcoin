@@ -16,7 +16,7 @@ binary form of '06' is `0000 0110` and the binary form of `1a` is
 1010`.
 5. No. If it was possible, the function would not be second-pre-image
 resistant.
-6. Property 2 and 4 are lacking:
+6. Property 2 and 4 are lacking.
 7. Second-preimage-resistance is stopping the attacker. He needs to
 find an input that gives the same hash as a certain other input, the
 cat picture.
@@ -64,8 +64,8 @@ wouldn't have to contain any names and look something like this:
 === Chapter 3
 
 1. The public key hash is made short because a) It makes the
-spreadsheet smaller in size and b) it is shorter, and thus easier, to
-write for a user.
+spreadsheet smaller in size and b) It makes cookie token addresses
+(and Bitcoin addresses) shorter to write for a user.
 
 2. No. She is very trustworthy. She will not tamper with the
 spreadsheet.
@@ -88,8 +88,10 @@ email to Lisa.
 
 6. The 4 byte checksum.
 
-7. He must make two separate payments. For example: Payment 1 spends 2
-CT from @~1~ and payment 2 spends 8 CT from @~2~.
+7. He must make two separate payments. For example: Payment 1 pays 2
+CT from @~1~ to the cafe and payment 2 pays 8 CT from @~2~ to
+cafe. Another way is to first pay 2 CT from @~1~ to @~2~ and then pay
+10 CT from @~2~ to cafe.
 
 8. Yes it is. Put the version byte `00` in front and base58check
 encode them to get the addresses.
@@ -104,7 +106,7 @@ probably cookie purchases.
 11. The bad guy cannot steal cookie tokens, because he needs the
 public key in order to exploit the flaw in the public key derivation
 function. The spreadsheet contains public key hashes, they can't get
-the public key, see exercise 11.
+the public key.
 
 12. The bad guy needs the private key in order to sign fraudulent
 emails to Lisa. Eventhough he can reverse RIPEMD160, he'd still need
@@ -210,24 +212,24 @@ stack and put the result back on top. Then we will push the number 10
 to the stack and compare the two top items. If equal, "OK" will be
 pushed to the stack.
 
-14. I have to run a full node that verifies everything in the
-spreadsheet from the very first transaction up to the transaction
-containing my money from Faiza. I need to verify (among other things)
-that:
+14. Yes. My full node verifies everything in the spreadsheet from the
+very first transaction up to the transaction containing my money from
+Faiza. It verifies (among other things) that:
 +
-* Lisa created the expected number of coinbase transactions with the correct amounts in them.
-* for each transaction, the sum of outputs doesn't exceed the sum of
-  inputs.
+* Lisa created the expected number of coinbase transactions with the
+  correct amounts in them.
+* for each transaction in the spreadsheet, the value sum of outputs
+  doesn't exceed the value sum of inputs.
 * All signatures from Faiza's payment back to all coinbase
   transactions are OK.
 
 15. If there are several UTXOs to the same PKH, it means that as soon
 as one of them is spent, the security of the other UTXOs to the same
-PKH will be degraded. This is because we remove layer of security, the
-cryptographic hash function. From that point we rely solely on public
-key derivation function to be secure. Users can avoid that problem by
-using unique addresses for all incoming payments. Then all UTXOs would
-be for different public key hashes.
+PKH will be degraded. This is because we remove a layer of security,
+the cryptographic hash function. From that point we rely solely on
+public key derivation function to be secure. You can avoid that
+problem by using unique addresses for all your incoming payments. Then
+all your UTXOs would have different public key hashes.
 
 === Chapter 6
 
@@ -309,16 +311,17 @@ image::{imagedir}/ch06-ex-solution-14.svg[{full-width}]
 1. She single handedly decides what transactions get confirmed.
 
 2. The probability of censorship will decrease because all miners must
-decide to censor my transactions, otherwise my transactions will slip
-through because some miner decides to confirm it.
+cooperatively decide to censor a transaction in order to
+succeed. Otherwise my transactions will eventually get confirmed by
+some non-colluding miner.
 
 3. Miners can cheat with random numbers. You can't prove whether a miner
 cheated or not.
 
-4. If the block id of a block is lower than the target in the block
-header, and the target is the agreed upon target.
+4. Verify that the block id of a block is lower than the target in the
+block header, and that the target is the agreed upon target.
 
-5. By repeatedly increasing the nonce and hash (double SHA256) the
+5. By repeatedly increasing the nonce and hashing (double SHA256) the
 block header until the block id (the block header hash) is lower than
 the target.
 
@@ -328,12 +331,12 @@ necessarily the same as the branch with most blocks.
 7. A miner with hashrate 100 Mhash/s can perform 100,000,000 tries per
 second to find a valid proof of work.
 
-8. The target will decrease. If the 2016 blocks took 15 days instead
+8. The target will increase. If the 2016 blocks took 15 days instead
 of the goal of 14 days, it means that it's too hard to find blocks, so
-we need to increase the difficulty, which means decrease the target.
+we need to decrease the difficulty, which means increase the target.
 
-9. 50%. But if you plan to give up your try at some point, should
-things not go as planned, your chances will decrease a bit.
+9. 50%. But if you plan to give up at some point, your chances will
+decrease.
 
 10. The small block will reach the other miners more quickly than the
 big block because a smaller block travels a computer network faster

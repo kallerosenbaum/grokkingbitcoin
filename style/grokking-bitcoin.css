@@ -15,12 +15,12 @@ body {
 
 
 /* Uncomment this to make stats needing update blink */
-/*
+
 .movingtarget {
     animation: blinker 0.5s infinite alternate;    
 }
 @keyframes blinker { to { opacity: 0; } }
-*/
+
 
 div>p,.literalblock,.listingblock,.imageblock>.title,div>.tableblock,.dlist,.olist,.ulist,.stemblock,.admonitionblock {
     width: 75%;

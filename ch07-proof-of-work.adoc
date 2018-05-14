@@ -28,7 +28,7 @@ as small as possible to be able to upload them as quickly as possible
 to the shared folder. This incentivizes miners to exclude transactions
 which was exactly what we wanted to avoid. To give miners an incentive
 to include a transaction, the transaction may pay a _transaction fee_
-that goes to the miner that produces a block that confirms the
+that goes to the miner who produces a block that confirms the
 transaction.
 
 This new proof of work system replaces the digital signatures in the
@@ -81,7 +81,7 @@ image::{imagedir}/2ndcol-acme-forces-lisa.svg[]
 
 Another possibility of censorship would be that Acme Insurances forces
 or bribes Lisa to drop suspicious cookie-buying transactions, because
-Acme don't want people to get ill from obesity. A sick person means
+Acme doesn't want people to get ill from obesity. A sick person means
 huge losses for Acme.
 
 What if we could have several people like Lisa so that we don't rely
@@ -112,7 +112,7 @@ image::{imagedir}/three-miners-collisions.svg[{big-width}]
 If they all just do what Lisa did, they would produce a block every 10
 minutes which results in three different blocks with about the same
 transactions in each of the three blocks. The major difference between
-the three conflicting blocks are the coinbase transaction and the
+the three conflicting blocks is the coinbase transaction and the
 signatures. The coinbase of Tom's blocks would pay the block reward to
 Tom's CT address, while the coinbase of Lisa's blocks would pay the
 block reward to Lisa's CT address.
@@ -260,6 +260,7 @@ same way as the first split. It will be resolved by
 * delayed by two simultaneous blocks, one on each branch.
 * a new split will be introduced on either of the two new branches.
 
+[[probability-of-splits]]
 ==== Probability of splits
 
 Eventually, one branch of a split will win. The likelihood that two
@@ -309,7 +310,7 @@ P(A|B) = (1-((S-1)/S)^Na^) * (1-((S-1)/S)^Nb^) / (1-((S-1)/S)^Na+Nb^)
 [.gbinfo]
 .Scientific notation
 ****
-5.6e-4 = 0.00056
+5.6e-4 = 0.00056 +
 2.1e-7 = 0.00000021
 
 Xe-Y is shorthand for +
@@ -598,7 +599,7 @@ manipulated.
 ==== Comparing with lucky numbers
 
 The blockchain will grow in the same way as before, but the drawing of
-lucky numbers are replaced by hashing the block header.
+lucky numbers is replaced by hashing the block header.
 
 .The blockchain works just as when lucky numbers were used.
 image::{imagedir}/three-miners-proof-of-work.svg[{full-width}]
@@ -680,7 +681,7 @@ options are used, the merkle root will have to be recalculated because
 the transaction data is changed. When the merkle root has been
 updated, the header has changed.
 
-Once any of these changes has been made to the block, the header will
+Once any of these changes have been made to the block, the header will
 have changed so that the nonce can be reset to `0` and the miner can
 begin hashing again.
 
@@ -734,7 +735,7 @@ blocks. His computer is slightly faster than the competitors', so he
 expects to produce more blocks per day than for example Qi.
 
 After Lisa's and Rashid's added hashrate, the total hashrate in the
-cookie token system have increased significantly. Now we have
+cookie token system has increased significantly. Now we have
 
 [role="inbitcoin movingtarget"]
 .Total hashrate of Bitcoin
@@ -799,7 +800,8 @@ will discuss blockchain security further in <<security>>.
 ==== What's fixed?
 
 We have fixed the hard problem of forcing "honest lucky numbers" in an
-interesting way. Let's see what issues from <<>> we have left:
+interesting way. Let's see what issues from <<probability-of-splits>>
+we have left:
 
 * [line-through]#You can cheat with lucky numbers. You can’t prove
   that you actually did draw an honest lucky number.#
@@ -1291,7 +1293,7 @@ they mine at a net loss.
 
 Tom and Lisa should think twice before starting to attack the system,
 eventhough they can. Just the fact the there are two miners that
-together controls more than 50% of the total hashrate could be enough
+together control more than 50% of the total hashrate could be enough
 to trigger a price drop, because people get nervous about _mining
 centralization_, meaning that a few people controls a large portion of
 the total hashrate. They don't even have to attack the system to make
@@ -1581,7 +1583,7 @@ Proof of work replaces the block signatures that we introduced in
 <<ch06>> and they can now be removed from our concept mapping table.
 
 [%autowidth]
-.The block signatures has been replaced by the Bitcoin concept proof of work. Lisa has transformed into one of several miners.
+.The block signatures have been replaced by the Bitcoin concept proof of work. Lisa has transformed into one of several miners.
 |===
 | Cookie Tokens | Bitcoin | Covered in
 
@@ -1701,7 +1703,7 @@ In this chapter you learned that
 * The recipient of cookie tokens, or bitcoins, select how many
   confirmations are needed, to keep the risk of double spends low.
 
-* A miners get as much block rewards it deserves. The more hashrate it
+* A miner get as much block rewards it deserves. The more hashrate it
   puts into the system the bigger share of the rewards it gets.
 
 * The stronger a chain is, the more accumulated proof of work it has,

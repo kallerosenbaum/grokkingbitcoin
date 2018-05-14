@@ -65,6 +65,11 @@ There are a number of problems with this old approach:
 .Bad stuff Lisa *could* do. She wouldn't, but she could.
 image::{imagedir}/lisa-could-steal.svg[{big-width}]
 
+Note that Lisa can't create any new money, other than the 7200 CT per
+day as agreed. If she tries to steal more than what's available on a
+PKH, someone verifying the spreadsheet will notice that the total
+amount of money gets too big in the spreadsheet. Lisa will get busted.
+
 [.inbitcoin]
 .Minimize trust
 ****
@@ -82,6 +87,7 @@ she verifies that people don't spend money they don't have and how to
 spend from multiple addresses at the same time. She invents the cookie
 token _transaction_ to solve the three problems outlined above.
 
+[[pay-using-a-transaction]]
 === Pay using a transaction
 
 Transactions will replace both how a user's wallet sends a payment to
@@ -103,7 +109,7 @@ and asks John to accept it. He clicks OK, and the wallet signs the
 transaction. John's wallet then sends the signed transaction as an
 attachment in an otherwise empty email to Lisa.
 
-The transaction contains information on where to send money. But it
+The transaction contains information about where to send money. But it
 also contains information on _what money_ to spend by referencing
 specific "coins", called _unspent transaction outputs_, that John has
 received in previous transactions.
@@ -153,11 +159,17 @@ wants to spend these unspent transaction outputs.
 image::{imagedir}/txid.svg[]
 ****
 
-A transaction input references a previous transaction using its
-_transaction id_ (txid). The txid of a transaction is the double
-SHA256 hash of the transaction. It is called a transaction _id_
-because this hash is often used to refer to the transaction, as in the
-case with inputs in the picture above.
+A transaction input references a previous transaction using the
+previous transaction's _transaction id_ (txid). The txid of a
+transaction is the double SHA256 hash of the transaction. It is called
+a transaction _id_ because this hash is often used to refer to the
+transaction, as in the case with inputs in the picture above.
+
+NOTE: The rationale for using double SHA256 here is not entirely
+clear, but doing this prevents something called a length-extension
+attack. The creator of Bitcoin probably used double SHA256 as a
+security measure to not have to think about these kind of attacks. For
+details, please see <<web-length-extension-attack>>.
 
 His first input, with index 0, contains
 
@@ -238,8 +250,8 @@ will become invalid.
 
 We sign a cleaned version of the transaction to make verification
 easier. You can not put a signature in input 0 and _then_ sign
-input 1. Verification would become hard if the person verifying don't
-know in what order the signatures were made. If you make _all_
+input 1. Verification would become hard if the person verifying
+doesn't know in what order the signatures were made. If you make _all_
 signatures from a cleaned transaction and _then_ add all signatures to
 it, then it doesn't matter in what order the signatures were made.
 
@@ -276,9 +288,9 @@ attachment in an email. Lisa picks up the transaction and verifies that
   create new money out of thin air.
 * the signatures are correct
 
-Note that Lisa don't have to calculate the balance of the
-PKH anymore, but she needs to check that the spent output exist and
-that it's not already spent.
+Note that Lisa doesn't have to calculate the balance of the PKH
+anymore, but she needs to check that the spent output exist and that
+it's not already spent.
 
 How does she check that an output of a transaction is unspent? Doesn't
 she have to search through the spreadsheet to look for transactions
@@ -318,7 +330,7 @@ that all outputs that the transaction spends are in the UTXO set. If
 not, it means that John is trying to spend money that either
 
 * never existed in the spreadsheet.
-* or are already spent. We usually refer to this as a double spend
+* or is already spent. We usually refer to this as a double spend
   attempt.
 
 For each input in John's transaction, she uses her UTXO set to look up
@@ -414,7 +426,7 @@ effectively tries to steal 10 CT from the cafe.
 .Lisa cannot steal someone else's money anymore. The signatures will become invalid and disclose her immoral act.
 image::{imagedir}/lisa-steals-from-transaction.svg[{half-width}]
 
-Now, since Lisa have changed the contents of John's transaction, the
+Now, since Lisa has changed the contents of John's transaction, the
 signatures of that transaction will no longer be valid. Anyone with
 access to the spreadsheet will be able to notice this because
 everything is super-transparent in the spreadsheet.
@@ -594,6 +606,12 @@ In the example above, the only acceptable signature script is a valid
 signature followed by the public key corresponding to the PKH in the
 pubkey script.
 
+Using a programming language like Script in the transactions makes
+them very flexible. We will se several different types of Script
+programs throughout this book. If there was no programming language,
+all use cases would have to be invented up-front. The Script language
+lets people come up with new use cases as they please.
+
 [.inbitcoin]
 .Operators
 ****
@@ -620,7 +638,7 @@ output. Suppose that your signature script is
  Hello!
 
 Run the program to convince yourself that it works, and that all
-signature scripts that doesn't give the specific hash fails.
+signature scripts that don't give the specific hash fails.
 
 ==== Why signature script and pubkey script?
 
@@ -697,7 +715,7 @@ address.
 
 But what if the recipient would like her money secured by something
 other than a single private key? Suppose that Faiza, Ellen and John
-wants to raise money for charity from their coworkers.
+want to raise money for charity from their coworkers.
 
 They could use a normal p2pkh address that their supporters donate
 cookie tokens to. They can let, say, Faiza have control over the
@@ -780,17 +798,17 @@ the stack is "OK", the spending of the output is authorized.
 image::{imagedir}/flyer-scriptpubkey.svg[]
 ****
 
-Coworkers that want to donate cookie tokens need to write the
-pubkey script above into their transaction outputs. There are a few problems
-with this:
+A coworker that wants to donate cookie tokens to the charity needs to
+get her wallet to write the pubkey script above into the dontation
+transaction's outputs. There are a few problems with this:
 
-* The coworkers' wallets only knows how to make p2pkh outputs. The
-  wallets need to be modified to understand multi-signature outputs
-  and to include a user interface to make this kind of output
-  understandable to users.
-* Senders usually don't need to know how the money is protected. They
-  don't care if it's multi-signature, p2pkh, or anything else. They
-  just want to pay.
+* The coworker's wallet only knows how to make p2pkh outputs. The
+  wallet need to be modified to understand multi-signature outputs and
+  to include a user interface to make this kind of output
+  understandable to its user.
+* A sender usually doesn't need to know how the recipient's money is
+  protected. The sender doesn't care if it's multi-signature, p2pkh,
+  or anything else. They just want to pay.
 * Transactions usually need to pay a fee to get processed (more on
   this in <<ch07>>). This fee depends on how big, in bytes, the
   transaction is. A big pubkey script causes the sender to pay a
@@ -816,7 +834,7 @@ the sender. The sender then makes a payment to that hash, and leave it
 up to the recipient to provide the script later when the recipient
 wants to spend the money.
 
-Suppose, still, that Faiza, Ellen and John wants to raise money for
+Suppose, still, that Faiza, Ellen and John want to raise money for
 charity and they want a multi-signature setup to protect their money.
 
 [.inbitcoin]
@@ -1148,10 +1166,10 @@ reverting will not notice, because the spreadsheet is still valid
 according to the rules.
 
 Suppose that Lisa reverts Johns transaction from
-<<_pay_using_a_transaction>>. Lisa simply removes John's transaction
+<<pay-using-a-transaction>>. Lisa simply removes John's transaction
 from the spreadsheet. No one has spent any of the outputs of johns
 transaction yet, so the spreadsheet doesn't contain any transactions
-that becomes invalid when John's transaction is deleted.
+that become invalid when John's transaction is deleted.
 
 An already running verifier, for example the Cafe, will not notice
 this, because they just watch the spreadsheet for added transactions
@@ -1316,8 +1334,8 @@ would their CT values be?
 
 . Why is the signature scripts of a transaction cleaned when your wallet signs the transaction?
 
-. Where are the pubkey scripts located in a transaction and what does
-it contain?
+. Where are the pubkey scripts located in a transaction and what do
+they contain?
 
 . What is required from a Script program (signature script + pubkey
 script) for and input to be considered authentic?
@@ -1347,19 +1365,19 @@ numbers in the signature script whose sum is 10 in order to spend the
 money. There is an operator called OP_ADD that takes the top two items
 from the stack and puts back the sum of those items.
 
-. Suppose that you receive money from Faiza in a confirmed
-transaction, but you want to make sure that Lisa doesn't make any
-errors, deliberately or accidentally. What do you have to do to make
-sure the money from Faiza is real?
+. Suppose that you run a full node and receive money from Faiza in a
+confirmed transaction. Can you trust that the money from Faiza is
+real?
 
-. Public keys are visible in inputs that spend p2pkh outputs. What is
-the drawback of that?  What can users do to avoid that drawback.
+. A public key is visible in the input that spends a p2pkh
+output. What is the drawback of that if you have multiple UTXOs for
+the same PKH? What can you do to avoid that drawback.
 
 === Recap
 
 In this chapter you learned that
 
-* Transaction have inputs and outputs, which lets you spend multiple
+* Transactions have inputs and outputs, which lets you spend multiple
   "coins" and pay to multiple recipients in a single transaction.
 
 * The outputs of the transactions are "programmable". The sender

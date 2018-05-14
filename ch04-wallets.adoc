@@ -10,11 +10,11 @@ This chapter covers
 
 So far we have done nothing to improve the user experience for the
 coworkers using the cookie token spreadsheet. It has actually become
-worse for users because the emails to Lisa now needs more information
+worse for users because the emails to Lisa now need more information
 than in the beginning. On top of that users should take extra steps to
 use multiple addresses to preserve their privacy.
 
-We will build a mobile app, called a Wallet, that takes care of many
+We will build a mobile app, called a Wallet, which takes care of many
 of the common tasks users want to perform. The wallet will create new
 addresses, store the private keys, simplify how addresses are
 transferred between users and automate the payment process.
@@ -23,10 +23,10 @@ transferred between users and automate the payment process.
 image::{imagedir}/visual-toc-wallets.svg[{big-width}]
 
 The developers also introduce a new way to generate keys, called
-hierarchical deterministic wallets, so that backups becomes dead
-simple; You only need to to backup a single random number, called a
-seed, once and for all. We will take a really deep dive into how
-private and public keys are created.
+hierarchical deterministic wallets, so that backups become dead
+simple; You only need to backup a single random number, called a seed,
+once and for all. We will take a really deep dive into how private and
+public keys are created.
 
 This chapter will not change anything at all regarding Lisa's work or
 the spreadsheet. We only focus on users here.
@@ -38,10 +38,13 @@ the spreadsheet. We only focus on users here.
 ****
 There are several different wallets for Bitcoin. Some popular wallets are
 
+[.movingtarget]
 * Bitcoin Core
 * Electrum
-* Copay
-* Breadwallet
+* GreenBits
+* Bread (BRD)
+
+A comprehensive list is available at <<web-bitcoin-wallets>>.
 ****
 
 A group of software developers at the company builds a mobile app,
@@ -97,7 +100,8 @@ image::{imagedir}/hello-qr.png[]
 . The cafe asks its wallet to create a new address and request 10 CT
 to that address. This new address and the amount is displayed on the
 screen as a QR code. The QR code contains information on how much to
-pay, so that John don't have to type that in manually.
+pay, so that John doesn't have to type that in manually.
+
 . John points his phone's camera at the QR code to scan the payment
 details. It scans the _payment URI_ (Uniform Resource Identifier)
 +
@@ -153,7 +157,7 @@ image::{imagedir}/wallet-update-balance.svg[{big-width}]
 Unconfirmed means that the transaction is created and sent to the
 Bitcoin network, but it is not yet part of the Bitcoin blockchain. You
 should not trust a payment until it's part of the blockchain. The same
-goes for cookie token payments, don't trust payments that is not in
+goes for cookie token payments, don't trust payments that are not in
 the spreadsheet.
 ****
 
@@ -193,9 +197,8 @@ image::{imagedir}/wallet-backup-private-keys.svg[{half-width}]
 The text file is emailed to John's email address. Can you see any
 problems with this? Yes, the biggest problem is that the keys have now
 left the privacy of the wallet application and are now sent into the
-wild. Anyone with access to the email server or any intermediary
-network equipment can get hold of the private keys without John
-noticing.
+wild. Anyone with access to the email server or any other systems
+involved might be able to get the private keys without John noticing.
 
 .Problems
 ****
@@ -232,7 +235,7 @@ John loses his phone, he needs the password and the backup file to
 restore his private keys.
 
 If John loses his phone he can easily install the wallet app on
-another phone. John sends the backup file to the app and enter his
+another phone. John sends the backup file to the app and enters his
 password, and the keys are decrypted from the backup file and added to
 his wallet app.
 
@@ -321,7 +324,8 @@ was needed.
 Forgotten password:: Passwords that are rarely used, as is the case
 with backup passwords, will eventually be forgotten. They can be
 written down on paper and stored in a safe place to mitigate this
-issue. They can also be stored by some password manager software.
+issue. They can also be stored by some password manager software like
+LastPass and KeePass.
 
 ****
 image::{imagedir}/2ndcol-technology-advancements.svg[]
@@ -356,7 +360,8 @@ there are better solutions.
 .BIP32
 ****
 This section will describe a standard called BIP32. This standard is
-widely used by various Bitcoin wallet software.
+widely used by various Bitcoin wallet software. The BIPs are available
+on-line at <<web-bips>>.
 ****
 
 One of the brighter developers, who is a cryptographer, comes up with
@@ -394,7 +399,7 @@ from. The master private key has two "child" keys, one that represents
 the shopping account (left) and one that represents the savings
 account (right). Each of these children has, in turn, their own
 children. The shopping account key has five children and the savings
-account key has three children. These eight children has no children
+account key has three children. These eight children have no children
 of their own, which is why we call them _leaves_ of the tree. The
 leaves are the private keys that Rita actually use to store cookie
 tokens, so an address is generated from each of these eight private
@@ -440,17 +445,17 @@ chain code.
 .An extended private key consists of a private key and a chain code.
 image::{imagedir}/xprv.svg[{half-width}]
 
-The private key is indistinguishable from an old type
-private key generated directly from a random number generator. It can
-be used to derive a public key and a cookie token address. You usually
-only make addresses out of leaves, but you could use internal keys as
-well to make addresses. The other part of the extended private key
-(xprv) is the chain code. A chain code is the rightmost 256 bits of a
-512 bit hash. You will see soon how that hash is created. The purpose
-of the chain code is to provide entropy when generating a child
-xprv. The master xprv doesn't differ from other xprvs, but we give it
-a special name because it is the ancestor of all keys in the tree. It
-is, however, created differently.
+The private key is indistinguishable from an old type private key
+generated directly from a random number generator. It can be used to
+derive a public key and a cookie token address. You usually only make
+addresses out of leaves, but you could use internal keys as well to
+make addresses. The other part of the extended private key (xprv) is
+the chain code. A chain code is the rightmost 256 bits of a 512 bit
+hash, hence the right half hash icon in the picture. You will see soon
+how that hash is created. The purpose of the chain code is to provide
+entropy when generating a child xprv. The master xprv doesn't differ
+from other xprvs, but we give it a special name because it is the
+ancestor of all keys in the tree. It is, however, created differently.
 
 ****
 image::{imagedir}/2ndcol-create-seed.svg[]
@@ -462,7 +467,8 @@ generate 128 bits of random data, but it could just as well be 256
 bits or 512 bits depending on the level of security you want. 128 bits
 is enough for most users. You will see later how the choice of seed
 size will affect the backup process; Longer seed means more writing on
-a piece of paper during backup.
+a piece of paper during backup. We will get back to that in
+<<back-to-backup>>.
 
 Steps 2 and 3 deserve their own subsections.
 
@@ -523,7 +529,7 @@ The process starts with a parent xprv.
 
 . The desired index is appended to the parent public key
 . The public key and index becomes the input to HMAC-SHA512. The
-parent chain code acts as a source of entropy to the hashing
+parent chain code acts as a source of entropy to the hash
 function. The simplest way to think of it is that the three pieces of
 data are just hashed together.
 ****
@@ -531,7 +537,7 @@ image::{imagedir}/2ndcol-key-tree.svg[]
 ****
 [start=3]
 . The 512 bit hash value is split in half:
-** The left 256 bits is added, with normal addition modulo 2^256^, to
+** The left 256 bits is added, with normal addition (modulo 2^256^), to
 the parent private key. The sum becomes the child private key.
 ** The right 256 bits becomes the child chain code
 . The child private key and the child chain code together form the
@@ -539,6 +545,15 @@ child xprv.
 
 This same process is used for all children and grandchildren of the
 master xprv until we have all keys Rita wanted in her wallet.
+
+You may be wondering why we need the addition at all, why not simply
+use the right 256 bits as the child private key? The 512 bit hash is
+calculated from the public key and the chain code, collectively called
+the extended public key (xpub), and an index. We will see later how
+the xpub can be used in less secure environments, like a web server,
+to generate a corresponding tree of _public_ keys. We need to add the
+parent private key to the right 256 bits to make it impossible for
+someone with the extended public key to generate child private keys.
 
 === Where were we?
 
@@ -565,14 +580,23 @@ We have covered the first five items, but we are not quite finished
 with backups yet. We have just covered extended private key
 derivation, which is the groundwork for better backups.
 
+[[back-to-backup]]
 === Back to backup
+
+.But the key paths?
+[.inbitcoin]
+****
+To restore your keys you also need the paths of your keys. In Bitcoin
+those paths are standardized in BIP44. If your wallet uses that
+standard, you implicitly know the paths of your keys.
+****
 
 We want a safe and easy way to back up the private keys. We have
 created a hierarchical deterministic wallet to generate any number of
 private keys from a single seed. What is the minimum that Rita needs
 to backup in order to restore all keys in her wallet, should she lose
-it?  Right, the seed. As long as her seed is safe, she can always
-recreate all her keys.
+it?  Right, the seed (and the tree structure, see margin). As long as
+her seed is safe, she can always recreate all her keys.
 
 Suppose that Rita's 128 bit (16 byte) seed is
 
@@ -582,7 +606,7 @@ Suppose that Rita's 128 bit (16 byte) seed is
 image::{imagedir}/backup-seed.svg[]
 ****
 
-It is a lot easier to write these 32 hex digits to a piece of paper
+It is a lot easier to write these 32 hex digits on a piece of paper
 than it would be to write her eight private keys. But the biggest win
 is that Rita can write this down once and lock it into a safe. As long
 as that paper is safe, her wallet is safe from accidental loss. She
@@ -849,9 +873,9 @@ This can just as well be written as
 \text{"m/1/1"}-\text{"left half hash of index 1"}=\text{"m/1"}
 ++++
  
-Mallory has everything she need to calculate the left half hash for any
-child index of `M/1` she pleases, but she don't know which index her
-stolen private key has so she starts testing with index 0:
+Mallory has everything she needs to calculate the left half hash for
+any child index of `M/1` she pleases, but she doesn't know which index
+her stolen private key has so she starts testing with index 0:
 
 [stem] 
 ++++
@@ -1210,7 +1234,7 @@ bitcoin from your friend to your Bitcoin address
 to your friend. Hint in Bitcoin, the URI starts with `bitcoin:`
 instead of `ct:`. Otherwise they are the same.
 
-. How many coin flips does does a random password of 10 characters
+. How many coin flips does a random password of 10 characters
 correspond to? The password is selected from an alphabet of 64
 characters.
 

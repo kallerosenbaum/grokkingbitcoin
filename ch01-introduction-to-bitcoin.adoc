@@ -33,15 +33,16 @@ called bitcoin with lowercase b. Commonly used symbols for bitcoin are
 {btc}, BTC and XBT. We will mostly use BTC in this book.
 ****
 
-Bitcoin is an electronic cash system. It allows for people to move
+Bitcoin is a digital cash system. It allows for people to move
 bitcoins, the currency unit of Bitcoin, between each other without
 using a bank or any other trusted third party. It resembles
-traditional bank notes and coins in that way, but it is purely
-electronic and used over the Internet. The Bitcoin currency is not
-tied to any specific _fiat currency_ like the US dollar or the Chinese
-Renminbi; It has free floating exchange rates against all fiat
-currencies. You can buy and sell bitcoins for fiat currencies on
-several exchanges.
+traditional bank notes and coins in that way, but it is purely digital
+and used over the Internet. The Bitcoin currency is not tied to any
+specific _fiat currency_ like the US dollar or the Chinese Renminbi;
+It has free floating exchange rates against all fiat currencies. You
+can buy and sell bitcoins for fiat currencies online using one of
+several exchanges, for example kraken.com, bitstamp.net and
+coinbase.com.
 
 No government or company is controlling Bitcoin. Instead, thousands of
 computers around the globe, the Bitcoin network, collectively keep the
@@ -49,15 +50,16 @@ system working day and night, seven days a week. You don't need to
 register or sign up anywhere to use Bitcoin, you just need a computer
 program, like a mobile app to use it.
 
-Satoshi Nakamoto, a pseudonym whose identity is unknown, published a
-scientific paper on an e-mail list for cryptography related
-discussions in October 2008. The title of the paper was "Bitcoin: A
-Peer-to-Peer Electronic Cash System", see <<web-bitcoin-paper>>, and it
-described the vital parts of Bitcoin. Later, in January 2009, Nakamoto
-published the first software program to implement the described
-system. Bitcoin didn't get much attention then, apart from within a
-very limited set of cryptography experts. But gradually, as the system
-proved itself to be working, more people got interested in it.
+Satoshi Nakamoto published a scientific paper on an e-mail list for
+cryptography related discussions in October 2008. The title of the
+paper was "Bitcoin: A Peer-to-Peer Electronic Cash System", see
+<<web-bitcoin-paper>>, and it described the vital parts of
+Bitcoin. The name Satoshi Nakamoto is a pseudonym for person or group
+that wants to be anonymous. Later, in January 2009, Nakamoto published
+the first software program to implement the described system. Bitcoin
+didn't get much attention then, apart from within a very limited set
+of cryptography experts. But gradually, as the system proved itself to
+be working, more people got interested in it.
 
 [.movingtarget]
 
@@ -69,7 +71,7 @@ are involved in Bitcoin development.
 Anyone can use or participate in the Bitcoin network without special
 permission from a bank or similar institution. Thanks to this
 _permissionless_ nature of Bitcoin, a lot of Bitcoin related
-technology have emerged over the years. Bitcoin users can be roughly
+technology has emerged over the years. Bitcoin users can be roughly
 categorized in to several groups.
 
 .The Bitcoin network and some of its different kinds of users.
@@ -80,7 +82,7 @@ image::{imagedir}/actors.svg[{full-width}]
 ****
 The Bitcoin network doesn't distinguish between users. No user is more
 important than any other user. It doesn't matter who they are or what
-they do, everyone participates on the same terms.
+they do, everyone participate on the same terms.
 ****
 
 End users:: These are people using Bitcoin for their day-to-day
@@ -103,11 +105,11 @@ Bitcoin developers:: People working, often for free, with the computer
 programs that the participants of the Bitcoin network are running.
 
 The Bitcoin network's job is to process Bitcoin payments. The network
-consists of thousands of computers that we call nodes. Any of the
-actors mentioned above can also participate actively in the Bitcoin
-network by running their own Bitcoin node. You must run your own node
-if you don't want to trust others to provide you with correct
-financial information.
+consists of thousands of computers around the world. We call those
+computers Bitcoin nodes or just nodes. Any of the actors mentioned
+above can also participate actively in the Bitcoin network by running
+their own Bitcoin node. You must run your own node if you don't want
+to trust others to provide you with correct financial information.
 
 === The big picture
 
@@ -128,8 +130,8 @@ Bitcoin users.
 
 Suppose that Alice wants to make a payment of 1 BTC to Bob. The
 payment starts with Alice creating a transaction and sending it to the
-Bitcoin network. A transaction is instructions to the Bitcoin network
-on how to move the money.
+Bitcoin network. A transaction is a set of instructions to the Bitcoin
+network on how to move the money.
 
 .A Bitcoin payment. The payment is processed in 4 steps.
 [[payment-overview]]
@@ -253,7 +255,7 @@ previous transactions, and new transactions are appended to it every
 now and then. The computers in the Bitcoin network constantly try to
 keep their copies of the blockchain up to date with each other.
 
-It is not as straight forward as it may seem to update the blockchain
+It is not as straightforward as it may seem to update the blockchain
 with Alice's transaction. Alice's transaction is not the only
 transaction that goes on. There are possibly thousands of transactions
 in-flight at the same time in the Bitcoin network. If all nodes would
@@ -267,9 +269,10 @@ image::{imagedir}/transactions-unordered.svg[{full-width}]
 [.gbinfo]
 .Why is ordering important?
 ****
-If transactions come in different order, it's very hard to verify if
-two copies of the blockchain are equal. Integrity checks are much
-easier with strict ordering.
+You *could* store transactions in different order, as long as later
+transactions only spend previous transactions. But then it's very hard
+to verify if two copies of the blockchain are equal. Integrity checks
+are much easier with strict ordering.
 ****
 
 To coordinate the ordering of transactions, one node takes the lead
@@ -288,8 +291,8 @@ New transactions are added to the end of the blockchain only. It grows
 only from the end.
 ****
 
-As nodes see this block they update their copy of the blockchain
-according to the message and passes the message on to its
+As nodes see this block, they update their copy of the blockchain
+according to the message, and pass the message on to its
 neighbors. Alice's transaction was one of the transactions in the
 block and is now part of the blockchain.
 
@@ -340,7 +343,7 @@ received one bitcoin. Alice also use a wallet. Her wallet will also be
 notified of her own transaction.
 
 Besides sending and receiving transactions, Bob's and Alice's wallets
-also manages their private keys for them. The private keys are used to
+also manage their private keys for them. The private keys are used to
 create digital signatures. Alice created her digital signature with
 one of her private keys. When Bob later wants to spend the money he
 received to his Bitcoin address, he needs to create a transaction and
@@ -350,7 +353,7 @@ address.
 === Problems with money today
 
 Bitcoin would not be this widespread if it didn't solve real problems
-for real people. Bitcoin solves several problems with the traditional
+for real people. Bitcoin solves several problems of the traditional
 financial system. Let us look at some commonly discussed problem
 areas.
 
@@ -428,9 +431,9 @@ exceeding 100,000 € as part of a financial rescue program in 2013.
 
 Worth noting here is that bank notes and coins are usually not
 affected. As long as there is cash, people can trade freely and
-privately. In some parts of the world, cash is being phased out, which
-means that soon you will not be able to buy a chewing gum without
-being recorded by someone.
+privately. In some parts of the world, for example Sweden and Canada,
+cash is being phased out, which means that soon you will not be able
+to buy a chewing gum without being recorded by someone.
 
 ==== Inflation
 
@@ -518,11 +521,11 @@ or convenient you want it.
 ****
 
 To contrast the above, moving fiat currency within the borders of a
-nation state is usually very convenient. For example, you can hand over cash
-directly to the recipient, or transfer money using some mobile app
-made specifically for the currency. As long as you stay within one
-country and one currency, fiat currencies usually does a pretty
-good job.
+nation state is usually very convenient. For example, you can hand
+over cash directly to the recipient, or transfer money using some
+mobile app made specifically for the currency. As long as you stay
+within one country and one currency, fiat currencies usually do a
+pretty good job.
 
 === The Bitcoin approach
 
@@ -559,16 +562,16 @@ certain geographical location.
 - [ ] Borders
 ****
 
-With a decentralized system like Bitcoin it is extremely hard to
-control how and by whom the system is used. No matter where or who
-they are, or whom they are sending money to, the Bitcoin system will
-treat all users equally. There is no central point in the Bitcoin
-system that can be exploited to censor payments, deny users service or
-seize funds.
+With a decentralized system like Bitcoin, with several thousand of
+nodes spread around the globe, it is extremely hard to control how and
+by whom the system is used. No matter where or who they are, or whom
+they are sending money to, the Bitcoin system will treat all users
+equally. There is no central point in the Bitcoin system that can be
+exploited to censor payments, deny users service or seize funds.
 
 Bitcoin is permissionless, which means that you don't need to ask
 anyone for permission to participate. Anyone with a computer and an
-Internet connection can setup a Bitcoin node and take an active role
+Internet connection can set up a Bitcoin node and take an active role
 in the Bitcoin network. No questions asked. No registration.
 
 It is nearly impossible to change the rules of the currency without
@@ -630,10 +633,10 @@ image::{imagedir}/borderless.svg[{big-width}]
 There is no difference between sending a bitcoin to someone in the
 same room or sending it to someone on another continent. The
 experience is the same: Money is sent directly to the recipient, who
-will see the payment nearly instantaneously and after 10-60 minutes
-the recipient can be _sure_ that the money is hers. Once settled,
-there is no way of reversing the transfer without the recipient's
-consent.
+will see the payment nearly instantaneously and within about 60
+minutes the recipient can be _sure_ that the money is hers. Once
+settled, there is no way of reversing the transfer without the
+recipient's consent.
 
 === How is Bitcoin used?
 
@@ -663,13 +666,15 @@ that you store in a safe. That piece of paper is now your savings
 account, your savings _wallet_. You can then send sending bitcoins to
 your wallet. As long as your private key is kept safe, your money is
 safe. There are a lot of different saving schemes you can chose from
-to find the right balance between security and convenience.
+to find the right balance between security and convenience. For
+example, you can keep them unencrypted in your mobile phone for easy
+access, or store them encrypted on paper in a vault with armed guards.
 
 ==== Cross-border payments
 
 As noted before, it is very expensive (say 15%) to move money from one
 country to another, especially if you move money to a poor country and
-the recipient don't have a bank account. It is becoming increasingly
+the recipient doesn't have a bank account. It is becoming increasingly
 popular to use Bitcoin to circumvent this expensive and slow legacy
 system. It is usually cheaper to exchange SEK for bitcoins in Sweden,
 and transfer the bitcoins to your friend in the Philippines. Your
@@ -686,7 +691,7 @@ typically charge a few percent for the service, but it will still be
 cheaper than traditional remittance services.
 
 Of course, if the recipient can make good use of Bitcoin where he
-lives, there is no need for middle-men that takes a cut of the
+lives, there is no need for a middle-man that takes a cut of the
 money. You would send bitcoins directly to your friend. This is what
 Bitcoin is all about. Exchanges and other such service companies are
 just bridges between the old legacy world and the new Bitcoin world.
@@ -708,7 +713,7 @@ card details with great care. They probably store the details in a
 database. Think about that; For every debit card purchase you make,
 your card details will be stored in that merchant's database. It is
 quite likely that _one_ of the databases gets hacked and your card
-details are stolen. The more merchants that stores your details, the
+details are stolen. The more merchants that store your details, the
 higher the risk.
 
 With Bitcoin, you don't have that problem, because you don't send any
@@ -727,6 +732,7 @@ tempting to try to buy when it is low and sell when it is high.
 image::{imagedir}/bitcoin-price.png[{half-width}]
 
 [.movingtarget]
+
 In November 2013, the price climbed from about $100 (US dollars) to
 over $1100 in a few weeks. This was clearly a so called _bubble_,
 where people were afraid of missing out on a great rise, so they
@@ -734,10 +740,13 @@ bought in, driving the price further up, until it eventually started
 dropping again. The drop to 50% of its peak value was just as quick as
 its rise. This has happened many times already. Fluctuations like this
 is rarely driven by any specific news or technological advancements,
-but from speculation.
+but from speculation. It does happen that some government or big
+corporation makes a negative statement that creates fear in the
+market, but those events tend to have a limitied effect on the value
+of bitcoin.
 
 Speculation can be fun, if you can afford to lose, but it is more like
-a lottery than something to make a living off of.
+a lottery than something to make a living from.
 
 The volatility in Bitcoin price seems contradictory to the claims of
 non-inflationary property; A 50% drop in market value seems pretty
@@ -818,9 +827,9 @@ bitcoins are matched with users wanting to buy bitcoins.
 
 Different markets can have different market prices depending on the
 supply and demand on that market. For example, in countries like
-Venezuela where the government try to hinder the Bitcoin market, the
+Venezuela where the government tries to hinder the Bitcoin market, the
 supply will be low. But the demand is high, because people want to
-escape from their hyperinflating currency. These factors drives the
+escape from their hyperinflating currency. These factors drive the
 Bitcoin price up in that market compared to for example the US and
 European markets where people can trade more freely.
 
@@ -839,7 +848,7 @@ depends mostly on how big (in bytes) the transaction is. High-value
 transactions are not bigger than low-value transactions, so the fee is
 about the same for both kinds of transactions. If that fee is a
 significant share of the actual payment you want to make, it is not
-economically feasible to pay with ordinary Bitcoin transactions.
+economically viable to pay with ordinary Bitcoin transactions.
 
 |===
 | Amount | Fee | Fee % | Feasible
@@ -849,9 +858,11 @@ economically feasible to pay with ordinary Bitcoin transactions.
 | 0.001 BTC | 0.005 BTC | 500% | No
 |===
 
-There are however very promising emerging technologies, for example
-the Lightning Network, that is built on top of Bitcoin that allows for
-cheap, instantaneous micropayments of fractions of a cent.
+There are however very promising emerging technologies that build on
+top of Bitcoin. One example is the Lightning Network, that allows for
+cheap, instantaneous micropayments of tiny fractions of a
+bitcoin. Using Lightning Network, you can pay just a few satoshis (1
+satoshi = 0.00000001 BTC) at a very low fee.
 
 ===== Instant payments
 
