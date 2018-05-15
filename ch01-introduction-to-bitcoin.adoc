@@ -920,6 +920,7 @@ price per coin. Note that the market cap will most likely have changed
 a lot when you read this. I include it only to give you a glimpse of
 Bitcoin's position relative to the other cryptocurrencies.
 
+[.movingtarget]
 .Market capitalization of a few cryptocurrencies as of 2018-01-15.
 [cols="2,3,1",options="header"]
 |===
@@ -939,7 +940,7 @@ Bitcoin's position relative to the other cryptocurrencies.
 | Anonymity
 | 6
 
-| image:{imagedir}/zcash-logo.svg[role="smallheight"]
+| image:{imagedir}/zcash-logo.png[role="smallheight"]
 | Anonymity
 | 2
 
