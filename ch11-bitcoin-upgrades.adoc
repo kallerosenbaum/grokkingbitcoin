@@ -1307,45 +1307,4 @@ c7529d5a timestamp
 a3895517 target
 4412ae89 nonce
 
-Todo:
-
-Update stats with css class "movingtarget"
-
-Add a tutorial on how to use the RPC interface.
-
-
-Less important todos: 
-
-Explain nothing-up-my-sleeve in ch04.
-
-Explain why double SHA256 in "some-well-known-hash-functions" in ch2
-
-Section on pruning
-
-payment channel
-
-lightning
-
-
-Open questions:
-
-* Does anyone here know why the sequence of other inputs are zeroed
-  when signing with SIGHASH_NONE or SIGHASH_SINGLE? Doesn't that
-  interfere with relative lock time and RBF opt-in?
-
-Closed questions:
-
-* Why do Bernanke outputs have values >0? Do they have to?
-** No they don't have to. There's no policy agains value >0 today, and
-   there (probably) weren't any back then.
-
-* Can we really save storage and or bandwidth between full nodes with segwit?
-** Yes, but not right now. Witnessless mode is not implemented.
-
-* How can you make a relative lock-time transaction that is not opt-in RBF?
-** opt-in RBF is seq<0xffffffff-1 while rel-lock-time is 0x7fffffff-0x00000000
-
-* Is it possible that there are other yet unknown ways to malleate a signature than the "-S" trick? Or maybe even known ones? I refer only to inherent ECDSA signature malleability.
-** Yes it's possible according to wumpus in bitcoin-core-dev
 ////
-
