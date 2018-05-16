@@ -19,7 +19,7 @@ body {
 .movingtarget {
     animation: blinker 0.5s infinite alternate;    
 }
-@keyframes blinker { to { opacity: 0; } }
+@keyframes blinker { to { opacity: 0.5; } }
 
 
 div>p,.literalblock,.listingblock,.imageblock>.title,div>.tableblock,.dlist,.olist,.ulist,.stemblock,.admonitionblock {

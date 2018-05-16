@@ -8,6 +8,7 @@ Pontus Lindblom for helping with reviews
 David A Harding for answering several of my and other's endless questions
 Pieter Wuille for the same reason as Harding
 (Luke-Jr?)
+Dan Allen for his tireless work on asciidoctor which I used to write this book.
 
 All Manning reviewers for all their valuable feedback.
 
