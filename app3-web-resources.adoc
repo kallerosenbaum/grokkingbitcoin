@@ -53,6 +53,10 @@ Web resource {counter:webresourceid}:: {resource-url}/length-extension-attack
 Web resource {counter:webresourceid}:: {resource-url}/op-codes
 // https://en.bitcoin.it/wiki/Script
 
+[[web-bloom-filter-privacy,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: {resource-url}/bloom-filter-privacy
+// https://eprint.iacr.org/2014/763.pdf
+
 [[web-target-change,Web resource {counter:webresourceid}]]
 Web resource {counter:webresourceid}:: {resource-url}/target-change
 // https://petertodd.org/assets/commitments/52ccc4802bd563076cbd25ec4c1ba88152098cb6aa356ba644c9e79a24182da5.txt

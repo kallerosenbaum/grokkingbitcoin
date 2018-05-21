@@ -743,6 +743,35 @@ anywhere from 3 to 6 since both John's addresses could have generated
 the same set of indexes. But it should help you get an idea on how big
 a bloom filter must be.
 
+===== Problems with bloom filters
+
+Bloom filters have been broadly used by many lightweight wallets, but
+there are issues with them:
+
+Privacy issues:: A node that receives bloom filters from a lightweight
+client can, with pretty high precision, determine what addresses
+belong to a wallet. The more bloom filters collected, the higher the
+accuracy. Please see <<web-bloom-filter-privacy>> for exact
+details.
+
+Performance issues:: When a full node first receives a bloom filter
+from a lightweight client, the node needs to scan the whole blockchain
+for matching transactions. This scanning is very processing and disk
+intensive and can take several minutes, depending on the hardware of
+the full node. This can be used maliciously to attack full nodes so
+that they become unresponsive, a so callde DoS-attack (Denial of
+Service attack).
+
+New BIPs, BIP157 and BIP158, have been proposed that aim to solve
+these issues, but they have not been widely implemented and
+tested yet. The general idea is to reverse the process so that a full
+node sends a filter to the lightweight wallet for each block. This
+filter contains information about what addresses are affected by the
+block. The lightweight client checks if its addresses match the
+filter, and if so downloads the whole block. The block can be
+downloaded from any source, not just the full node that sent the
+filter.
+
 [[periscope]]
 ==== Where were we?
 
