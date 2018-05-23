@@ -942,6 +942,7 @@ have discussed all different uses for sequence numbers in this
 chapter, and it's hard to keep track of them. Let's summarize the
 meaning of different values of the sequence numbers:
 
+[[table-sequence-numbers]]
 .Sequence numbers are used to enable or disable various features. [.big]#✔#=enabled, [.big]#✘# disabled.
 [cols=">1,3*^3",options="header"]
 |===

@@ -72,3 +72,7 @@ Web resource {counter:webresourceid}:: {resource-url}/install
 [[web-download,Web resource {counter:webresourceid}]]
 Web resource {counter:webresourceid}:: {resource-url}/download
 // https://bitcoincore.org/en/download/
+
+[[web-getting-started,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: {resource-url}/getting-started
+// https://bitcoin.org/en/getting-started

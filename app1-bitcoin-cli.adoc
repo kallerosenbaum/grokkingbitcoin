@@ -5,28 +5,149 @@ This appendix continues where <<run-your-own-full-node>> ended. We
 will use the node that we installed to setup a Bitcoin wallet and
 learn how to explore the Bitcoin blockchain using `bitcoin-cli`, the
 command line tool of Bitcoin Core. We will also use the tool to create
-a Bitcoin wallet to send and receive Bitcoin with.
+a Bitcoin wallet to send and receive Bitcoin.
 
 Note that this appendix will not go into great depth on what
-`bitcoin-cli` is capable of.
+`bitcoin-cli` is capable of. This should only be regarded as a source
+of inspiration and provide you with the basics to get started. You are
+encouraged to explore your node further yourself.
+
+=== Communicating with `bitcoind`
+
+When `bitcoind` starts, it also starts a web server that listens on
+port `8332` by default. When you use `bitcoin-cli`, it will connect to
+the web server and send your command to the web server over `http` and
+display relevant parts of the response to you.
+
+For example, suppose that you want to know the block id of the genesis
+block (the block at height 0) and issue the following command:
+
+----
+$ ./bitcoin-cli getblockhash 0
+----
+
+`bitcoin-cli` creates a http `POST` request with body:
+
+----
+{"method":"getblockhash","params":[0],"id":1}
+----
+
+and sends it to the web server that `bitcoind` runs. The `method`
+property of the request body is the command that you want to execute
+and the argument `0` is passed to the web server as an array with a
+single element.
+
+The web server processes the http request by looking up the block hash
+in the blockchain and replies with an http response with a body
+
+----
+{"result":"00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09","error":null,"id":"1"}
+----
+
+`bitcoin-cli` then displayed the value of the "result" property on
+your terminal.
+
+----
+000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f
+----
+
+This bodies of the http requests follows a standard called JSON-RPC
+which describes how a client can call functions on a remote
+process. JSON stands for JavaScript Object Notation and is a very
+common way to express data in a both human readable form and machine
+readable form. RPC stands for Remote Procedure Call and is a wide term
+to describe calling functions of a remote process. In short
+`bitcoin-cli` uses JSON-RPC over HTTP.
+
+==== Using curl
+
+Since the communication with `bitcoind` happens through `http`, any
+program capable of sending `http POST` requests, such as the command
+line tool `curl`, can be used to communicate with `bitcoind`. However,
+to use other tools than `bitcoin-cli`, you need to setup a username
+and password to use as authentication to the web server.
+
+[.gbinfo]
+.More parameters
+****
+There are a lot of options in Bitcoin Core. Run `./bitcoind --help` to
+get a complete list.
+****
+
+Open, or create if non-existent, Bitcoin Core's configuration file
+`~/.bitcoin/bitcoin.conf` and add the lines
+
+----
+rpcuser=<a username that you select>
+rpcpassword=<a password that you select>
+----
+
+When you have modified and saved the `~/.bitcoin/bitcoin.conf` file,
+you need to restart your node to make your changes effective.
+
+Now you can try to do `getblockhash` using `curl`:
+
+[.fullwidth]
+----
+curl --user kalle --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockhash", "params": [1000] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+Enter host password for user 'kalle':
+{"result":"00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09","error":null,"id":"curltest"}
+----
+
+Remember to change the username from `kalle` to the username you
+configured in `bitcoin.conf`.
+
+This command will prompt you for the password. Enter the password and
+hit return. The reply from the web server will be the same as when you
+used `bitcoin-cli` but you will need to scan through the response body
+yourself to spot the result, which is the hash of block 0.
 
 === Graphical user interface?
 
-Bitcoin Core comes with a graphical user interface (GUI). To use the
-GUI version of Bitcoin Core, you need to stop the current node and
-start the GUI version, called `bitcoin-qt`:
+Bitcoin Core comes with a graphical user interface (GUI).
 
+This appendix mainly deals with the command-line interface
+`bitcoin-cli` for controlling and querying your running
+`bitcoind`. But if you want to use Bitcoin Core as a Bitcoin wallet
+(and not just as a full node), it can be really useful to familiarize
+yourself with the GUI version. The GUI version of Bitcoin Core allows
+you to perform most common tasks that's expected from a Bitcoin wallet,
+but to access the full set of features of Bitcoin Core you'll need to
+use `bitcoin-cli`.
+
+To use the GUI version of Bitcoin Core, you need to stop the current
+node and start the GUI version, called `bitcoin-qt`:
+
+.Why "-qt"?
+[.gbinfo]
+****
+The Bitcoin Core GUI is built using a GUI programming library called
+QT, hence the name, `bitcoin-qt`.
+****
 ----
 $ ./bitcoin-cli stop
 Bitcoin server stopping
 $ ./bitcoin-qt &
 ----
 
-If `bitcoind` didn't finish shutting down before you started
+If `bitcoind` didn't have time to finish shutdown before you started
 `bitcoin-qt`, you will get an error message from `bitcoin-qt`. If so,
-click `OK` and try again.
+click `OK` and try running `./bitcoin-qt &` again in a few seconds.
 
-=== Explore the blockchain
+`bitcoin-qt` uses the same data directory as `bitcoind`, which means
+that `bitcoin-qt` will use the already downloaded and verified
+blockchain and the same wallet seed as `bitcoind`. It's just the user
+interface that differs.
+
+By default, `bitcoin-qt` will not start the web server to accept
+JSON-RPC requests as `bitcoind` does. So in order to use `bitcoin-cli`
+with `bitcoin-qt`, please start `bitcoin-qt` as follows instead:
+
+----
+$ ./bitcoin-qt -server &
+----
+
+=== Getting to know `bitcoin-cli`
 
 We have started Bitcoin Core in the background by running
 
@@ -34,95 +155,617 @@ We have started Bitcoin Core in the background by running
  $ ./bitcoind &
 ----
 
-We are now ready to start using `bitcoin-cli`. Let's begin with the
-`getblockchaininfo` command:
-
-[.fullwidth]
-----
-$ ./bitcoin-cli getblockchaininfo
-{
-  "chain": "main",
-  "blocks": 521749,
-  "headers": 521749,
-  "bestblockhash": "0000000000000000000c5314618cb173b6bad57cfd0bb394db2544842263711e",
-  "difficulty": 4022059196164.954,
-  "mediantime": 1525777123,
-  "verificationprogress": 0.9999960673911281,
-  "initialblockdownload": false,
-  "chainwork": "000000000000000000000000000000000000000001b1988a6da7a1e0c6602e80",
-  "size_on_disk": 190963680566,
-  "pruned": false,
-  "softforks": [
-    {
-      "id": "bip34",
-      "version": 2,
-      "reject": {
-        "status": true
-      }
-    },
-    {
-      "id": "bip66",
-      "version": 3,
-      "reject": {
-        "status": true
-      }
-    },
-    {
-      "id": "bip65",
-      "version": 4,
-      "reject": {
-        "status": true
-      }
-    }
-  ],
-  "bip9_softforks": {
-    "csv": {
-      "status": "active",
-      "startTime": 1462060800,
-      "timeout": 1493596800,
-      "since": 419328
-    },
-    "segwit": {
-      "status": "active",
-      "startTime": 1479168000,
-      "timeout": 1510704000,
-      "since": 481824
-    }
-  },
-  "warnings": ""
-}
-----
-
-The above command outputs a lot of information. Some of this is
-self-explanatory, but if you need guidance on what any of this means,
-use the `help` command followed by the command you want help with:
-
-[.fullwidth]
-----
-$ ./bitcoin-cli help getblockchaininfo
-getblockchaininfo
-Returns an object containing various state info regarding blockchain processing.
-
-Result:
-{
-  "chain": "xxxx",              (string) current network name as defined in BIP70 (main, test, regtest)
-  "blocks": xxxxxx,             (numeric) the current number of blocks processed in the server
-  "headers": xxxxxx,            (numeric) the current number of headers we have validated
-...
-}
-----
-
-The most useful help command is to run the `help` command without any
-arguments. That will give you a list of all available commands and a
-short explainer. Run
+The most important command to know is the `help` command. Run it
+without any arguments to get a list of all available commands:
 
 ----
 $ ./bitcoin-cli help
 ----
 
 You will get a pretty long list of commands grouped by subject, for
-example `Blockchain`, `Mining`, and `Wallet`.
+example `Blockchain`, `Mining`, and `Wallet`. Some of the listed
+commands are somewhat self explanatory but if you want to know more
+about a specific command you can run `help` with the command name as
+argument. For example:
 
+[.fullwidth]
+----
+$ ./bitcoin-cli help getblockhash
+getblockhash height
+
+Returns hash of block in best-block-chain at height provided.
+
+Arguments:
+1. height         (numeric, required) The height index
+
+Result:
+"hash"         (string) The block hash
+
+Examples:
+> bitcoin-cli getblockhash 1000
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockhash", "params": [1000] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+----
+
+There are two ways to invoke `bitcoin-cli`:
+
+Using positional arguments:: The meanings of the arguments are based
+on their relative positions. For example `./bitcoin-cli getblockhash
+1200`. This is the most common way to use `bitcoin-cli`
+
+Using named arguments:: The arguments are named on the command line to
+make them unambiguous. For example `./bitcoin-cli -named getblockhash
+height=1200`. This is sometimes useful when the command takes optional
+arguments and you want to specify the second optional argument but not
+the first. We will use named arguments when we send bitcoins later.
+
+////
+We provide a list of assorted commands that are useful when working
+with a node:
+
+.List of some of the most useful commands. Examples are provided when appropriate.
+[role="widetable",cols="m,m,",options="autowidth"]
+|===
+| Command | Arguments | Description
+
+.2+| *help* | command | If no argument, lists all commands otherwise displays help about the given command name
+2+m| help getblockchaininfo
+
+| *stop* | | Stops the node
+
+| *getbestblockhash* | | Displays the block id of the tip of the strongest chain
+
+.2+| *getblock* | *blockhash* verbose | Prints the given block and all its contained txids
+2+m| getblock 000000000000000000294519ea020e14417bf7e2f79a56b871eb30e3775b98ee
+
+| *getblockchaininfo* | | Shows various information about the current blockchain
+
+.2+| *getblockhash* | *height* | Prints the block hash of the block at the given height
+2+m| getblockhash 522957
+
+.2+| *getblockheader* | *hash* verbose | Prints information about the block header with the given hash.
+2+m| getblockheader 000000000000000000294519ea020e14417bf7e2f79a56b871eb30e3775b98ee
+
+.2+| *gettxout* | *hash* *index* | Print an unspent transaction output
+2+m| gettxout 000000000000000000294519ea020e14417bf7e2f79a56b871eb30e3775b98ee 0
+
+| *getnetworkhashps* | nblocks height | Guesstimate the total network hash rate of the last nblocks from height and backwards.
+
+| *getnetworkinfo* | | Print various information about the peer-to-peer network
+
+| *estimatesmartfee* | *nblocks* mode | Estimates what fee rate (BTC/kB) is required to get a transaction into a block withing nblocks blocks. The mode can be `ECONOMICAL` (lower estimates, but possibly too low) or `CONSERVATIVE` (higher estimates, but mostly correct, this is default).
+
+| *getwalletinfo* | | Prints information about the wallet, such as balance, wallet file name, number of transactions. 
+|===
+////
+
+=== Get to work
+
+We will create an encrypted wallet and backup the wallet. When the
+wallet is backed up, we will receive some bitcoins and then pass the
+money on to another address. All using `bitcoin-cli`.
+
+==== Create an encrypted wallet
+
+When `bitcoind` (or `bitcoin-qt`) starts, it will automatically create
+a wallet for you. However, this wallet is unencrypted, which means
+that it's stored in clear on your hard drive. Let's have a look at it:
+
+----
+$ ./bitcoin-cli getwalletinfo
+{
+  "walletname": "wallet.dat",
+  "walletversion": 159900,
+  "balance": 0.00000000,
+  "unconfirmed_balance": 0.00000000,
+  "immature_balance": 0.00000000,
+  "txcount": 0,
+  "keypoololdest": 1527068317,
+  "keypoolsize": 1000,
+  "keypoolsize_hd_internal": 1000,
+  "paytxfee": 0.00000000,
+  "hdmasterkeyid": "aca4498fdaa5460528f9e842e8defa2d07bcf529"
+}
+----
+
+The output from the `getwalletinfo` command shows us various
+information about the wallet currently being used. The name of the
+wallet file is `wallet.dat`. This file is by default located in
+`~/.bitcoin/`. It contains the wallet seed, that's used to derive key
+pairs as discussed in <<ch04>>, but also some metadata about the
+wallet.
+
+The `balance` is how much confirmed bitcoins you have, while the
+`unconfirmed_balance` is the sum of incoming unconfirmed payments, not
+including confirmed payments. The `immature_balance` is only relevant
+for miners, and denotes the amount of newly created bitcoins, that
+can't be spent until after 100 blocks due to a consensus rule.
+
+Please refer to the help section on `getwalletinfo` for more details
+about the output.
+
+In order to create an encrypted wallet you need to create a _new_
+wallet using the command `encryptwallet`:
+
+[.fullwidth]
+----
+$ ./bitcoin-cli -stdin encryptwallet
+secretpassword<ENTER>
+<CTRL-D>
+wallet encrypted; Bitcoin server stopping, restart to run with encrypted wallet. The keypool has been flushed and a new HD seed was generated (if you are using HD). You need to make a new backup.
+----
+
+The above command command creates a new encrypted wallet. The `-stdin`
+option is used to read arguments from standard input, which in this
+case means that you type the password in your terminal window after the
+command is started. End your input by hitting Enter and Ctrl-D. The
+reason of using `-stdin` is that we don't want the password to be
+written in the command itself because most shell interpreters, such as
+bash, keeps a history of commands in a file. The `-stdin` option
+ensures that the password does not end up in any such history files.
+
+It's important to create a new encrypted wallet instead of just
+encrypting the already existing wallet. This is because the old wallet
+may already have been compromised on your hard drive. As noted by the
+output, `bitcoind` has stopped. Bitcoin Core can't currently switch to
+a new wallet file while running. Let's start `bitcoind` again and look
+at the wallet:
+
+----
+$ ./bitcoind &
+$ ./bitcoin-cli getwalletinfo
+{
+  "walletname": "wallet.dat",
+  "walletversion": 159900,
+  "balance": 0.00000000,
+  "unconfirmed_balance": 0.00000000,
+  "immature_balance": 0.00000000,
+  "txcount": 0,
+  "keypoololdest": 1527068552,
+  "keypoolsize": 1000,
+  "keypoolsize_hd_internal": 1000,
+  "unlocked_until": 0,
+  "paytxfee": 0.00000000,
+  "hdmasterkeyid": "6533b67b39ccc76c6906c11b2e6efb2c258e2a47"
+}
+----
+
+Your walletname is still the same, which means that your old
+unencrypted `wallet.dat` was overwritten by the new encrypted
+`wallet.dat`. However, for safety, your old unencrypted seed is kept
+in the new encrypted wallet, in case you had actual funds in the old
+wallet, or if you accidentally receive funds to that old wallet in the
+future. You can also compare the `hdmasterkeyid` and see that it has
+changed. `hdmasterkeyid` is the SHA256+RIPEMD160 hash of your xpub. It
+can be used as a fingerprint for your wallet.
+
+==== Backup the wallet
+
+We have created an encrypted wallet, and before we start using it we
+need to backup the wallet. In <<ch04>> we talked about mnemonic
+sentences, as defined in BIP39, that made backups of a hierarchical
+deterministic wallet seed really simple. However, this feature is
+_not_ implemented in Bitcoin Core. There are a few reasons for this,
+the main reasons are that the mnemonic sentence lacks information
+about:
+
+* version of seed format
+
+* "birthday", which is when the seed was created. Without a birthday
+  you have to scan the whole blockchain to find your old
+  transactions. With a birthday you'd only have to scan the blockchain
+  from the birthday and forward.
+
+* the derivation paths to use for restoration. This is somewhat
+  remedied by using standard derivation paths, but not all wallets
+  implement the standard.
+
+* Other arbitrary metadata, such as labels on addresses.
+
+The Bitcoin Core team has chosen to let their wallet file format also
+be the backup. So in order to backup your Bitcoin Core wallet, you
+need to keep a backup of the `wallet.dat` file safe. Be careful not to
+copy the file using your operating system's copy facilities, such as
+the Linux command `cp`, directly if `bitcoind` or `bitcoin-qt` is
+running. If you do that, your backup might be in an inconsistent state
+because `bitcoind` might be writing data to it while you copy. To make
+sure you get a consistent copy of the file, please run the command
+
+----
+$ ./bitcoin-cli backupwallet ~/walletbackup.dat
+----
+
+This will instruct `bitcoind` to save a copy of the wallet file to
+`walletbackup.dat` in your home directory, but you can change the name
+and path of the file to anything you like. The backup file will be an
+exact copy of the original `wallet.dat` file. Move the
+`walletbackup.dat` file to a safe place, for example a USB memory in
+bank deposit box, or on a computer at your brother's apartment. Just
+remember this: The backup is protected by the password that you
+selected when you encrypted the wallet. Therefore it is really
+important that you
+
+* chose a password with enough entropy
+* don't lose your backup.
+
+==== Receive money
+
+You have created an encrypted, backed up wallet. Great! Let's put some
+bitcoins into your wallet. To do that you need a Bitcoin address to
+receive the bitcoins to, so let's get one:
+
+----
+$ ./bitcoin-cli -named getnewaddress address_type=bech32
+bc1q3l3qvwpmyvfg67p5qswx30pjsqcgxydeked56x
+----
+
+The above command creates a bech32 p2wpkh address for you. If you
+prefer another type of address, you can change `bech32` to `legacy` to
+get a p2pkh address or `p2sh-segwit` to get a p2wpkh nested in p2sh
+address. Please head back to <<recap-of-payment-types>> to refresh
+your memory on the different payment and address types.
+
+Now, let's use another wallet to send bitcoin to that address. Please
+be careful to not send money to the address printed in this book,
+though the author would happily accept it, but to an address that you
+generate yourself with your full node wallet.
+
+This opens the question on how to actually get bitcoins to send to
+your wallet. There are several ways to get bitcoin:
+
+[.gbinfo]
+.On the web
+****
+Please visit <<web-getting-started>> to find out more about how to get
+bitcoins where you live.
+****
+
+* Buy bitcoins on an exchange
+* Ask a friend who has bitcoins if she can give or sell you some
+* Earn bitcoins as payment for your labor
+* Mine bitcoins
+
+I will leave it up to you how you get hold of bitcoins and just assume
+that you somehow will get bitcoins into the address you created above.
+
+When you have made the payment to your new address, please check your
+wallet again:
+
+----
+$ ./bitcoin-cli getunconfirmedbalance
+0.00500000
+----
+
+This shows that you have a pending incoming payment of 5 mBTC (0.005
+BTC). We now have to wait until it's confirmed in the
+blockchain. Meanwhile, we can dig into the transactions by running the
+`listtransactions` command:
+
+[.fullwidth]
+----
+$ ./bitcoin-cli listtransactions
+[
+  {
+    "account": "",
+    "address": "bc1q3l3qvwpmyvfg67p5qswx30pjsqcgxydeked56x",
+    "category": "receive",
+    "amount": 0.00500000,
+    "label": "",
+    "vout": 1,
+    "confirmations": 0,
+    "trusted": false,
+    "txid": "30bca6feaf58b811c1c36a65c287f4bd393770c23a4cc63c0be00f28f62ef170",
+    "walletconflicts": [
+    ],
+    "time": 1527068938,
+    "timereceived": 1527068938,
+    "bip125-replaceable": "yes"
+  }
+]
+----
+
+We can see that the transaction has 0 confirmations and that it pays
+us 0.005 BTC. We also see that the txid of this transaction is
+`30bca6feaf58b811c1c36a65c287f4bd393770c23a4cc63c0be00f28f62ef170`.
+
+Let's take a closer look at the transaction using the command `getrawtransaction`:
+
+[.fullwidth]
+----
+$ ./bitcoin-cli getrawtransaction 30bca6feaf58b811c1c36a65c287f4bd393770c23a4cc63c0be00f28f62ef170 1
+{
+  "txid": "30bca6feaf58b811c1c36a65c287f4bd393770c23a4cc63c0be00f28f62ef170",
+  "hash": "30bca6feaf58b811c1c36a65c287f4bd393770c23a4cc63c0be00f28f62ef170",
+  "version": 1,
+  "size": 222,
+  "vsize": 222,
+  "locktime": 523985,
+  "vin": [
+    {
+      "txid": "7614149b575053426914ed7dafd5f81eb9d4544965253a9b50d19a8ec5b86cff",
+      "vout": 0,
+      "scriptSig": {
+        "asm": "3044022044a707325cfd09f41ac232ae7f06c31721f894a70bee2153fbfb0e643d20ffd602207c9c68803f72f93c3c240533325a35e9415338f9629196afa9fbb584d22a1c29[ALL] 035a1a39c06ab2f5a38c017ad93dd17fdbca23b06f6c115853df06b8de59765b14",
+        "hex": "473044022044a707325cfd09f41ac232ae7f06c31721f894a70bee2153fbfb0e643d20ffd602207c9c68803f72f93c3c240533325a35e9415338f9629196afa9fbb584d22a1c290121035a1a39c06ab2f5a38c017ad93dd17fdbca23b06f6c115853df06b8de59765b14"
+      },
+      "sequence": 4294967293
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.00399777,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 0cec13fbeb631c410a8cf2bafeb13166e5b37a36 OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a9140cec13fbeb631c410a8cf2bafeb13166e5b37a3688ac",
+        "reqSigs": 1,
+        "type": "pubkeyhash",
+        "addresses": [
+          "12BKvJ1kknZZN2TqU7wMkmYJN5oxfxCHML"
+        ]
+      }
+    },
+    {
+      "value": 0.00500000,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "0 8fe206383b23128d7834041c68bc3280308311b9",
+        "hex": "00148fe206383b23128d7834041c68bc3280308311b9",
+        "reqSigs": 1,
+        "type": "witness_v0_keyhash",
+        "addresses": [
+          "bc1q3l3qvwpmyvfg67p5qswx30pjsqcgxydeked56x"
+        ]
+      }
+    }
+  ],
+  "hex": "0100000001ff6cb8c58e9ad1509b3a25654954d4b91ef8d5af7ded1469425350579b141476000000006a473044022044a707325cfd09f41ac232ae7f06c31721f894a70bee2153fbfb0e643d20ffd602207c9c68803f72f93c3c240533325a35e9415338f9629196afa9fbb584d22a1c290121035a1a39c06ab2f5a38c017ad93dd17fdbca23b06f6c115853df06b8de59765b14fdffffff02a1190600000000001976a9140cec13fbeb631c410a8cf2bafeb13166e5b37a3688ac20a10700000000001600148fe206383b23128d7834041c68bc3280308311b9d1fe0700"
+}
+----
+
+This command prints the whole transaction in a human-readable (well at
+least developer-readable) form. Let's start from the top and go
+through the most relevant parts of this transaction. The `txid` is the
+transaction id of this transaction. The `hash` is the double SHA256
+hash of the whole transaction, including the witness.
+
+The `size` of the transaction is 222 bytes, and `vsize` (virtual size)
+is also 222 vbytes. `vsize` is the number of weight units of the
+transaction divided by 4, so the virtual size of a non-segwit
+transaction (which this is, because it only spends non-segwit outputs)
+is equal to its actual size.
+
+There is no lock time on the transaction.
+
+Next comes the list of inputs. This transaction has a single input
+that spends output at index `0` (`vout`) of transaction with `txid`
+`7614149b575053426914ed7dafd5f81eb9d4544965253a9b50d19a8ec5b86cff`. This
+input spends a p2pkh output.
+
+The sequence number of the input is `4294967293`, which is `fffffffd`
+in hex code. This means that locktime is enabled (<=`fffffffe`), but
+not used since `locktime` is 0, and that the transaction is (was
+before it got confirmed) replaceable (<=`fffffffd`) according to
+BIP125. The meaning of the sequence number was summarized in
+<<table-sequence-numbers>>.
+
+After the list of inputs comes the list of transaction outputs. This
+transaction has a list of 2 outputs. The first output pays 0.00399777
+BTC to a p2pkh address that we haven't seen before. This is _probably_
+a change output. The second output sends 0.005 BTC to the p2wpkh
+address we created above.
+
+Let's see if the transaction is confirmed yet. You can check for
+example with `getbalance`. If it shows `0.00500000` it means that that
+the transaction has confirmed:
+
+----
+$ ./bitcoin-cli getbalance
+0.00500000
+----
+
+Cool, the money is confirmed! It's yours! Let's move on.
+
+==== Send money
+
+We have received some bitcoins. Now we want to send bitcoins to
+someone else. To send bitcoins, you can use the `sendtoaddress`
+command. We need to make a few decisions first:
+
+* What address to send to: bc1qr5kue8tugz8jm0srf6kgflal8c298lg64mp6c6
+* How much money to send: 0.001 BTC
+* How urgent the transaction is: Non-urgent (we're happy if it confirms within 20 blocks)
+
+I will send the bitcoins to address
+`bc1qr5kue8tugz8jm0srf6kgflal8c298lg64mp6c6`, but you should get
+another address to send to. If you have no other wallet, you can
+create a new address in Bitcoin Core to send to just for experimental
+purposes.
+
+[.fullwidth]
+----
+$ ./bitcoin-cli -named sendtoaddress address="bc1qr5kue8tugz8jm0srf6kgflal8c298lg64mp6c6" amount=0.001 conf_target=20 estimate_mode=ECONOMICAL
+error code: -13
+error message:
+Error: Please enter the wallet passphrase with walletpassphrase first.
+----
+
+Oh, dear! We got an error. As indicated by the error message, this is
+because the private keys are encrypted in the `wallet.dat`
+file. Bitcoin Core needs the private keys to sign the transaction. To
+make the private keys accessible, you need to decrypt them. You do
+that using the `walletpassphrase` command with the `-stdin` option to
+prevent the passphrase from being stored by your command line
+interpreter, for example bash.
+
+----
+$ ./bitcoin-cli -stdin walletpassphrase
+secretpassword<ENTER>
+300<ENTER>
+<CTRL-D>
+----
+
+The last argument `300` is the number of seconds to keep the wallet
+unlocked. After 300 seconds, the wallet will be locked again.
+
+[.fullwidth]
+----
+$ ./bitcoin-cli -named sendtoaddress address="bc1qr5kue8tugz8jm0srf6kgflal8c298lg64mp6c6" amount=0.001 conf_target=20 estimate_mode=ECONOMICAL
+7b4157483edae7d30bfa9a2672c9729370eaf8f6e32c4ff2bc2ece1b982658bf
+----
+
+The command output a txid for the newly created transaction. This
+means that it went well. Let's list our transactions again:
+
+[.fullwidth]
+----
+$ ./bitcoin-cli listtransactions 
+[
+  {
+    "account": "",
+    "address": "bc1q3l3qvwpmyvfg67p5qswx30pjsqcgxydeked56x",
+    "category": "receive",
+    "amount": 0.00500000,
+    "label": "",
+    "vout": 1,
+    "confirmations": 1,
+    "blockhash": "0000000000000000003882bb3554816a68ee175057c58fa7c03bc1a1eedb0e3c",
+    "blockindex": 1067,
+    "blocktime": 1527070201,
+    "txid": "30bca6feaf58b811c1c36a65c287f4bd393770c23a4cc63c0be00f28f62ef170",
+    "walletconflicts": [
+    ],
+    "time": 1527068938,
+    "timereceived": 1527068938,
+    "bip125-replaceable": "no"
+  },
+  {
+    "account": "",
+    "address": "bc1qr5kue8tugz8jm0srf6kgflal8c298lg64mp6c6",
+    "category": "send",
+    "amount": -0.00100000,
+    "vout": 0,
+    "fee": -0.00000141,
+    "confirmations": 0,
+    "trusted": true,
+    "txid": "7b4157483edae7d30bfa9a2672c9729370eaf8f6e32c4ff2bc2ece1b982658bf",
+    "walletconflicts": [
+    ],
+    "time": 1527070565,
+    "timereceived": 1527070565,
+    "bip125-replaceable": "no",
+    "abandoned": false
+  }
+]
+----
+
+The new transaction is the last one of the two. It is not yet
+confirmed, as indicated by `"confirmations": 0`. The fee we paid was
+141 satoshis. We will look into this transaction in detail:
+
+[.fullwidth]
+----
+$ ./bitcoin-cli getrawtransaction 7b4157483edae7d30bfa9a2672c9729370eaf8f6e32c4ff2bc2ece1b982658bf 1
+{
+  "txid": "7b4157483edae7d30bfa9a2672c9729370eaf8f6e32c4ff2bc2ece1b982658bf",
+  "hash": "e5fd28d1a2a0f1741a4ec465375ae0aa5619f5b82f42026d3566018d4b81690b",
+  "version": 2,
+  "size": 223,
+  "vsize": 141,
+  "locktime": 523988,
+  "vin": [
+    {
+      "txid": "30bca6feaf58b811c1c36a65c287f4bd393770c23a4cc63c0be00f28f62ef170",
+      "vout": 1,
+      "scriptSig": {
+        "asm": "",
+        "hex": ""
+      },
+      "txinwitness": [
+        "3045022100e718670f69693b884c21d15a3e78a8e8e33b7e2b68c51510b9531a7980b5626c02206ff5ed5d897851bd25e76b00f84f0e2e25df3c86394880650012de515af18bf501",
+        "038fa2827f90fc158e80845424fc67dfb493263669919d986608caf11237ff8876"
+      ],
+      "sequence": 4294967294
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.00100000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "0 1d2dcc9d7c408f2dbe034eac84ffbf3e1453fd1a",
+        "hex": "00141d2dcc9d7c408f2dbe034eac84ffbf3e1453fd1a",
+        "reqSigs": 1,
+        "type": "witness_v0_keyhash",
+        "addresses": [
+          "bc1qr5kue8tugz8jm0srf6kgflal8c298lg64mp6c6"
+        ]
+      }
+    },
+    {
+      "value": 0.00399859,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "0 a642a2a405470abdc8db9c08f77e3f79d17cf3ee",
+        "hex": "0014a642a2a405470abdc8db9c08f77e3f79d17cf3ee",
+        "reqSigs": 1,
+        "type": "witness_v0_keyhash",
+        "addresses": [
+          "bc1q5ep29fq9gu9tmjxmnsy0wl3l08gheulw4nau0c"
+        ]
+      }
+    }
+  ],
+  "hex": "0200000000010170f12ef6280fe00b3cc64c3ac2703739bdf487c2656ac3c111b858affea6bc300100000000feffffff02a0860100000000001600141d2dcc9d7c408f2dbe034eac84ffbf3e1453fd1af319060000000000160014a642a2a405470abdc8db9c08f77e3f79d17cf3ee02483045022100e718670f69693b884c21d15a3e78a8e8e33b7e2b68c51510b9531a7980b5626c02206ff5ed5d897851bd25e76b00f84f0e2e25df3c86394880650012de515af18bf50121038fa2827f90fc158e80845424fc67dfb493263669919d986608caf11237ff8876d4fe0700"
+}
+----
+
+The first thing to note is that the `size` and `vsize` differ. That's
+because this is a segwit transaction. The fee was 141 satoshis, as
+shown by the `listtransactions` command above, and the vsize is 141
+vbytes. The fee-rate was selected by Bitcoin Core to be 141 sat/vbyte,
+or 0.00001000 BTC/kB as displayed by Bitcoin Core (1 kB = 1000
+vbytes).
+
+The locktime of this transaction is set to 523988 which was the height
+of the strongest chain at the time of transaction creation, which
+means that the transaction cannot be mined until block height
+523989. This is to reduce the attractiveness of an attack where a
+miner deliberately tries to reorg the blockchain and include your
+transaction into a block height that's already been mined.
+
+The transaction has a single input that spends output `1` of
+transaction
+`30bca6feaf58b811c1c36a65c287f4bd393770c23a4cc63c0be00f28f62ef170`. We
+recognize this output from the section where we paid 0.005 BTC to our
+Bitcoin Core wallet. Since that output was a p2wpkh output, the
+signature script (`scriptSig`) is empty, and the `txinwitness`
+contains the signature and pubkey.
+
+The sequence number of the input is 4294967294 which equals
+'fffffffe'. This means that the transaction has locktime enabled, but
+is not replaceable using BIP125 (Opt-in replace by fee).
+
+We have two outputs: The first one is the actual payment of
+0.001 BTC. The other is the change of 0.00399859 back to an address of
+our own. Let's check our balance again:
+
+----
+ ./bitcoin-cli getbalance
+0.00399859
+----
+
+Yep, there it is. We've spent our only TXO (of 0.005 BTC) and created
+a new TXO of 0.00399859 to ourselves. So
+
+----
+Spent:   0.005
+Pay:    -0.001
+Fee:    -0.00000141
+========================
+Change: -0.00399859
+----
+
+It sums up perfectly.
 
 ////
 
@@ -185,7 +828,7 @@ Closed questions:
   blockchain. There is also a `"test"` blockchain that is commonly
   used for experimentation where the money has no real value.
 | blocks | 521749 | The amount of blocks downloaded and verified.
-| headers | 521749 | The amount of headers downloaded, this can be greater than tne above property, expecially during initial blockchain download.
+| headers | 521749 | The amount of headers downloaded, this can be greater than the above property, especially during initial blockchain download.
 | bestblockhash | "0000000000000000000c5314618cb173b6bad57cfd0bb394db2544842263711e" | The hash of the latest block of the strongest branch
 | difficulty | 4022059196164.954 | The difficulty to generate a new proof of work
 | initialblockdownload | false | This means that the initial blockchain download (IBD) is finished. If `true`, it means that IBD is ongoing.
