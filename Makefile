@@ -10,13 +10,16 @@ all: full chunked
 full: setup
 	$(AD) -v -b html5 $(MAIN) -o $(OUTPUTDIR)/$(BASE_NAME).html
 
-chunked: $(ALLCHAPTERS) $(ALLAPPENDIXES)
+chunked: fm $(ALLCHAPTERS) $(ALLAPPENDIXES)
 
 $(ALLCHAPTERS): ch% : setup
 	$(AD) -r ./hacks/sectnumoffset-treeprocessor.rb -a sectnumoffset=$$(($*-1)) -a ch$* -b html5 $(MAIN) -o $(OUTPUTDIR)/$(BASE_NAME)-$*.html
 
 $(ALLAPPENDIXES): app% : setup
-	$(AD) --trace -r ./hacks/sectnumoffset-treeprocessor.rb -a sectnumoffset=$$(($*-1)) -a app$* -b html5 $(MAIN) -o $(OUTPUTDIR)/$(BASE_NAME)-app$*.html
+	$(AD) -r ./hacks/sectnumoffset-treeprocessor.rb -a sectnumoffset=$$(($*-1)) -a app$* -b html5 $(MAIN) -o $(OUTPUTDIR)/$(BASE_NAME)-app$*.html
+
+fm:
+	$(AD) -a fm -b html5 $(MAIN) -o $(OUTPUTDIR)/$(BASE_NAME)-fm.html
 
 setup: builddir links
 
