@@ -4,17 +4,269 @@
 [preface]
 == Preface
 
+Bitcoin is changing the world.
+
+The world has seen several major improvements to human life. Among
+them are vaccine, electricity, radio, cars, and the Internet. Some of
+these technologies start out as rich man's games, but eventually they
+will trickle down to the general public and bring huge benefits to
+Earths population. Bitcoin is right there among them. Soon.
+
+This is what makes me super-excited about Bitcoin. Luckily, I'm
+fortunate enough to live in a pretty open society. I have never had
+problems conducting in financial transactions without someone knocking
+on my door. I've never felt that I need to spend my money
+_immediately_, because otherwise hyperinflation will eat my lunch. I
+have never been blocked from withdrawing money from my bank account
+because my government want to avoid a bank run. But that also makes it
+harder for me to grok why Bitcoin is important. Bitcoin is mostly
+theoretical to me, but when I hear reports from less fortunate people
+living under opressive or incompetent regimes about how Bitcoin makes
+their lives better, it gets very real. Bitcoin will give people an
+opportunity to opt-out of the system they were previously held
+hostage in.
+
+Satoshi Nakamoto, a pseudonym for a person or a group that wants to
+remain unknown, published a scientific paper on a
+cryptography-oriented e-mail list in October 2008. The title of the
+paper was "Bitcoin: A Peer-to-Peer Electronic Cash System", see
+<<web-bitcoin-paper>>, and it described the vital parts of Bitcoin, a
+money system where there's no central authority to issue money or
+process transactions. Later, in January 2009, Nakamoto published the
+first software program to implement the described system. Bitcoin
+didn’t get much attention then, apart from within a very limited set
+of cryptography experts. Gradually, as the system proved itself to be
+working, more people got interested in it. But the resistance against
+Bitcoin has been and still is far bigger and louder than the adopters,
+as is the case with all ground-breaking new technology.
+
+[.movingtarget]
+
+As of 2018, hundreds of millions of people are aware of Bitcoin,
+millions of people are using Bitcoin and tens of thousands of people
+are working on developing Bitcoin related technology. Thousands of
+people are involved in Bitcoin development.
+
+When I started exploring Bitcoin in 2013, it took me a lot of time to
+get a decent understanding of the technology. That's not because I'm
+remarkably stupid, it's because Bitcoin is a complex system. It's not
+just a fancy database, it's a mishmash of of economy, mathematics,
+technology, and Anthropology.
+
+I started a technical blog about Bitcoin in 2015, and I guess Manning
+liked my content, because they emailed me and asked if I was
+interested in writing a book about "blockchain". Since my passion is
+with Bitcoin, not just the blockchain (which is a tiny part of
+Bitcoin), I replied and thanked them for their interest in me and said
+that I'd be interested in writing a book about Bitcoin. The project
+started and it turned out to be far harder and time consuming than I
+thought.
+
+The book started out as a more typical technical description of
+Bitcoin, but it's hard to teach one topic without the full context of
+Bitcoin. For example, to explain how a Bitcoin transaction is
+digitally signed requires knowledge of what a Bitcoin transacion is
+and in turn how transactions are linked together and stored in the
+Bitcoin blockchain. The cognitive load would simply be too
+overwhelming. It became clear that I needed to do something else. I
+discussed it with my wife and we came up with the idea of conceptually
+building Bitcoin from the ground up. We start with a really simple
+spreadsheet system that anyone can understand and we let that system
+evolve into Bitcoin. Each chapter adds new new pieces of technology to
+the system.
+
+Grokking Bitcoin will be released under the Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA
+4.0) license no later than three months from publication. Releasing
+under an open source license was a requirement I had for writing the
+book. This is my way of giving back to the Bitcoin community that has
+given me so much over the years. However, there are other reasons: It
+will probably benefit sales because the book will be more widespread
+and people can browse through the content before buying.
+
+I hope you enjoy reading it as much as I suffered writing it.
+
 [dedication]
 == Acknowlegements
+
+A lot of people have been involved in this book. I'd like to thank
+them all. This is a non-exhaustive list of people that has been extra
+helpful, sorted by distance from home:
+
+Linnéa Rosenbaum for valuable discussions on various topics.
+
+Jonathan Jogenfors for proofreading the cryptography related content.
+
+Andreas Antonopoulos for helping out with open sourcing the book and
+the vegetarian restaurant analogy in chapter 11.
+
+Pontus Lindblom for helping with chapter 1 review
+
+Christina Taylor for winging this project and keeping me busy. Work
+work work.
+
+Bert Bates for helping with the pedagogics of the book.
+
+David Harding, Pieter Wuille and Murch for helping me sort out my and
+other's questions, mainly on Twitter and
+https://bitcoin.stackexchange.com.
+
+Dan Allen for his tireless work on asciidoctor, the tool I used to
+write this book.
+
+All Manning reviewers for all their valuable feedback:
+
+// List of manning reviewers who want's to be named
+
+If I left someone out, I'm sorry, but thank you too.
 
 [preface]
 == About this book
 
+=== Who should read this book
+
+This book is intended for techically interested people wanting to
+understand Bitcoin on a deep technical level. The book does not
+require any programming skills, but a basic understanding of some
+technical concepts are benefitial, for example databases, computer
+networks, computer programs, and web servers.
+
+The primary goal of the book is that *you will be able to decide for
+yourself wether you trust Bitcoin or not*. That primary goal is hard
+to achieve, because you need to really learn about most concepts in
+Bitcoin, such as digital signatures, proof-of-work, and peer-to-peer
+networks. Some secondary goals falls out naturally from the primary
+goal:
+
+* Install and use a Bitcoin wallet on your phone, and understand what
+  you're doing.
+* Engage in technical debates.
+* Make informed decisions on how to store your private keys depending
+  on Bitcoin amounts stored and required level of security and
+  convenience.
+* Run a full Bitcoin node to engage in financial transactions without
+  trusting a third party.
+
+=== How this book is organized
+
+This book consists of 11 chapters and three appendices.
+
+1. An overview of Bitcoin. You'll learn what Bitcoin is, why it
+matters and roughly how it operates.
+2. Cryptographic hash functions and digital signatures. These are the
+fundamental building blocks needed for the rest of this book. We also
+lay the groundwork for a fictive money system, cookie tokens, that
+we'll build upon to explain different topics.
+3. Bitcoin addresses. What is a Bitcoin address, why are they needed
+and how are they created and used.
+4. Wallets. We go through how a Bitcoin wallet keeps track of your
+secret keys and how multiple secret keys can be generated from a
+single huge random number, called a seed. Backups are also discussed.
+5. Transactions. We explore the anatomy of a Bitcoin transaction and
+how they are digitally signed and processed.
+6. The blockchain. Transactions are stored in a database that we call
+the blockchain. We walk you through how the blockchain is structured
+and how it can be used to add privacy to wallets through the use of
+Bloom filters.
+7. Proof of work. The blockchain is updated with new transaction
+through a process called proof of work. This is used to select who
+gets to decide which new transactions to add to the blockchain.
+8. The Bitcoin network. Bitcoin has no central point of control, we
+will see how that's possible with a peer to peer network. We also
+explain how to take active part in the Bitcoin network by running your
+own _node_.
+9. Transactions revisited. We circle back to transactions and discover
+some bells and whistles that are important for various applications.
+10. Segregated witness. In 2017, Bitcoin was upgraded with a major
+improvement to transaction reliability and blockchain capacity. This
+chapter gives you all the details.
+11. Bitcoin upgrades. We will go through _soft forks_ and _hard forks_
+and how soft forks together with a careful deployment plan can be used
+to safely upgrade the system.
+
+I suggest that you read chapters 2-8 sequentially where we will build
+the cookie token system from the ground up. Each chapter will add the
+technology discussed to the cookie token system and in chapter 8 we
+will have built Bitcoin, basically. Chapters 9, 10 and 11 can then be
+read out-of-order, or some of those chapters may be skipped. I do
+however recommend to read chapter 11 carefully, because I think it is
+the essence of Bitcoin. If you get chapter 11, you grok Bitcoin.
+
+Each chapter, except <<ch01>>, contains exercises. They are there for
+you to assess your skills. Each batch of exercises is divided into an
+easier section called "Warm up", used for shorter fact checks, and a
+tougher section "Dig in" that requires more thinking. The difficulty
+of some exercises, especially in the "Dig in" sections, can be
+dreadful, so please don't feel put off if you get stuck on some of
+them. If you get stuck, I suggest that you consult <<app2>> for
+answers.
+
+=== About the Code
+
+There's not much code in this book. None actually. But there are some
+linux commands in <<ch08>> and <<app1>>. A command is prefixed by a
+dollar sign and a space, `$ `, as follows:
+
+----
+$ cd ~/.bitcoin
+----
+
+When a command is too long to fit on a single line we break the line
+with a backslash `\` where the line is broken and indent the next line
+by 4 characters as follows:
+
+----
+$ ./bitcoin-cli getrawtransaction \
+    30bca6feaf58b811c1c36a65c287f4bd393770c23a4cc63c0be00f28f62ef170 1
+----
+
+Line breaks like this works in most linux command line interpreters,
+so you can copy paste the command into your terminal if you wish. The
+output from commands are not line-breaked with backslash, they are
+instead just wrapped as needed.
+
+Throughout the book we write data in `fixed-width` font, for example
+`7af24c99`. We usually don't explicitly write out what encoding
+(decimal numbers, hexadecimal strings, base64 strings, base58 strings
+and so forth) we use, because it's often obvious what encoding is
+used.
+
+=== Author online
+
+
+=== Other author resources
+
+If you have specific questions about Bitcoin that you didn't find the
+answer to in this book, I really recommend
+https://bitcoin.stackexchange.com which is a platform for questions
+and answers where good answers get upvoted by readers.
+
+I can also highly recommend the Bitcoin Developer Reference,
+https://bitcoin.org/en/developer-reference, for more comprehensive
+documentation of Bitcoin.
+
+However, the Bitcoin Core source code, available on
+https://github.com/bitcoin/bitcoin, is the most accurate source of
+information. It is the reference implementation of the Bitcoin
+protocol, and reading that source code is sometimes the only way to
+find answers to your questions.
+
 [preface]
 == About the author
 
+Kalle Rosenbaum is a software developer working on various software
+projects for 20 years. His passion for Bitcoin began in 2013 and has
+continued uninterrupted since then. Kalle started a Bitcoin
+consultancy company in 2015 and has worked in the Bitcoin industry
+since. He also wanted to write about Bitcoin so he started a technical
+blog which discusses various technical topics of Bitcoin.
+
 [dedication]
 == Dedication
+
+To the love of my life, my wife, Linnéa. Smart, faithful, real.
+
+... and to all awesome Bitcoiners everywhere.
 
 [preface]
 == About the cover illustration
