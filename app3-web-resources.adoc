@@ -1,13 +1,14 @@
 [appendix]
-[[web-resources]]
+[[app3]]
 
-// The resource URLs should be under the control of Manning. The URLs should
-// redirect to the relevant page. Before production, this attribute should be
-// set to a Manning URL, preferably one that the author has access to make changes
-// to. Especially the redirects. Each URL listed below should have a comment
-// with the URL to redirect to.
+// The resource URLs should be under the control of Manning. The URLs
+// should redirect to the relevant page. Before production, the
+// attribute, resource-url, should be set to a Manning URL, preferably
+// one that the author has access to make changes to. Especially the
+// redirects. Each URL listed below should have a comment with the URL
+// to redirect to.
 
-//:resource-url: http://manning.com/grokking-bitcoin/resources
+//:resource-url: https://manning.com/grokking-bitcoin/resources
 :resource-url: http://www.rosenbaum.se
 
 == Web resources
@@ -15,6 +16,22 @@
 [[web-bitcoin-paper,Web resource {counter:webresourceid}]]
 Web resource {counter:webresourceid}:: {resource-url}/bitcoin-paper
 // https://bitcoin.org/bitcoin.pdf
+
+[[web-stackexchange,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: {resource-url}/stackexchange
+// https://bitcoin.stackexchange.com
+
+[[web-dev-ref,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: {resource-url}/dev-ref
+// https://bitcoin.org/en/developer-reference
+
+[[web-bitcoin-source,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: {resource-url}/bitcoin-source
+// https://github.com/bitcoin/bitcoin
+
+[[web-book-source,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: {resource-url}/book-source
+// ????  https://git.manning.com/agileauthor/rosenbaum
 
 [[web-financial-inclusion,Web resource {counter:webresourceid}]]
 Web resource {counter:webresourceid}:: {resource-url}/financial-inclusion
@@ -43,7 +60,6 @@ Web resource {counter:webresourceid}:: {resource-url}/bitcoin-wallets
 [[web-elliptic-curve-calculator,Web resource {counter:webresourceid}]]
 Web resource {counter:webresourceid}:: {resource-url}/elliptic-curve-calculator
 // https://cdn.rawgit.com/andreacorbellini/ecc/920b29a/interactive/modk-add.html
-
 
 [[web-length-extension-attack,Web resource {counter:webresourceid}]]
 Web resource {counter:webresourceid}:: {resource-url}/length-extension-attack

@@ -50,24 +50,6 @@ system working day and night, seven days a week. You don't need to
 register or sign up anywhere to use Bitcoin, you just need Internet
 access and a computer program, like a mobile app to use it.
 
-Satoshi Nakamoto published a scientific paper on an e-mail list for
-cryptography related discussions in October 2008. The title of the
-paper was "Bitcoin: A Peer-to-Peer Electronic Cash System", see
-<<web-bitcoin-paper>>, and it described the vital parts of
-Bitcoin. The name Satoshi Nakamoto is a pseudonym for person or group
-that wants to remain unknown. Later, in January 2009, Nakamoto
-published the first software program to implement the described
-system. Bitcoin didn't get much attention then, apart from within a
-very limited set of cryptography experts. But gradually, as the system
-proved itself to be working, more people got interested in it.
-
-[.movingtarget]
-
-As of 2018, hundreds of millions of people are aware of Bitcoin,
-millions of people are using Bitcoin and 10s of thousands of people
-are working on developing Bitcoin related technology. 100s of people
-are involved in Bitcoin development.
-
 Anyone can use or participate in the Bitcoin network without special
 permission from a bank or similar institution. Thanks to this
 _permissionless_ nature of Bitcoin, a lot of Bitcoin related

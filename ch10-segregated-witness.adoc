@@ -959,6 +959,7 @@ This way of nesting a segwit payment inside a p2sh payment can also be
 used for p2wsh payments in a similar fashion, a so-called _p2wsh
 nested in p2sh_.
 
+[[recap-of-payment-types]]
 === Recap of payment types
 
 We have talked about several types of payments. Let's summarize the most common ones:

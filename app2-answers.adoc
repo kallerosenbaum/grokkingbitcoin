@@ -1,5 +1,5 @@
 [appendix]
-[[answers]]
+[[app2]]
 == Answers to exercises
 :imagedir: {baseimagedir}/answers
 
