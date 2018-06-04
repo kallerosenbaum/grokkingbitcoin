@@ -420,7 +420,7 @@ a| image:{imagedir}/grumpy-cat-drawing.jpg[{thumb}] | dee6a5d3...db479561 | nope
 [.gbinfo]
 .How big is 2^256^?
 ****
-2^256^ is about 3*10^77^ which is almost the number of atoms in the
+2^256^ is about 10^77^ which is almost the number of atoms in the
 universe. To find a pre-image of a SHA256 hash is like picking an atom
 in the universe and hope it's the correct one.
 ****
