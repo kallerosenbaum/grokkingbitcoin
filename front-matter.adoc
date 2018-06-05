@@ -110,8 +110,8 @@ Kaufmann, Matko Hrvatin, Greg Wild. Thanks.
 
 A lot of people on various forums on the Internet has been very
 helpful during my research. The ones that stand out the most are David
-Harding, Pieter Wuille and Mark Erhardt. Thank you for all Twitter
-conversations and great answers on Bitcoin Stack Exchange,
+Harding, Pieter Wuille and Mark "Murch" Erhardt. Thank you for all
+Twitter conversations and great answers on Bitcoin Stack Exchange,
 <<web-stackexchange>>.
 
 I have written this book using asciidoctor, which is text markup
