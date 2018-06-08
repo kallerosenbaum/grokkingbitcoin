@@ -393,6 +393,7 @@ This time, the cafe decides that it needs to wait until the
 transaction is included in a valid block. This brings us to the next
 phase, including the transaction in a block in the blockchain.
 
+[[include-the-transaction-in-a-block]]
 ==== Include the transaction in a block
 
 Let's recall some of our miners in this system. At the end of
@@ -421,17 +422,23 @@ Now Rashid wants to get his block to the other miners as quickly as
 possible to minimize the risk of some other miner getting a block out
 before Rashid's block.
 
-He creates an `inv` message and sends it to all his peers: Tom, Cafe
-and Qi. Rashid's peers will send back a `getdata` message, and Rashid will
-reply with the actual block. The message exchange between Rashid and
-Qi will look like this:
+[.inbitcoin]
+.BIP130
+****
+This process is defined in BIP130 that replaces an old block
+propagation mechanism that used `inv` messages.
+****
+
+He creates a `headers` message and sends it to all his peers: Tom,
+Cafe and Qi. Rashid's peers will send back a `getdata` message, and
+Rashid will reply with the actual block. The message exchange between
+Rashid and Qi will look like this:
 
 .Rashid's node sends Rashid's block to Qi's node
 image::{imagedir}/block-rashid-qi.svg[{half-width}]
 
-The pattern looks familiar, but this time the `inv` message contains a
-block id instead of a transaction id. The actual block is sent in a
-`block` message containing the full block.
+The actual block is sent in a `block` message containing the full
+block.
 
 ****
 image::{imagedir}/2ndcol-rashid-sends-block.svg[]
@@ -439,28 +446,28 @@ image::{imagedir}/2ndcol-rashid-sends-block.svg[]
 
 Let's continue the block propagation throughout the peer to peer
 network. Rashid has sent his block to Tom, Cafe and Qi. Now, those
-three nodes will verify the block and, if valid, send out `inv`
-messages to all their peers that might not already have it. Qi and Tom
-happens to send their `inv` messages at the same time.
+three nodes will verify the block and, if valid, send out `headers`
+messages to all their peers that might not already have it.
 
-.All but Lisa has the block. Tom, Cafe and Qi send `inv` messages.
-image::{imagedir}/tom-cafe-qi-sends-inv.svg[{half-width}]
+.All but Lisa has the block. Tom, Cafe and Qi send `headers` messages.
+image::{imagedir}/tom-cafe-qi-sends-headers.svg[{half-width}]
 
-As you can see, Tom and Qi has sent an inv to one another. That's not
-a problem; since they both have the block, they will just ignore the
-`inv` received from peers. Lisa will request the block from one of her
-peers just like Qi requested the block from Rashid. This concludes the
-propagation of this block. Almost. The lightweight wallets need to be
-informed about the block.
+Qi and Tom happens to send their `headers` messages to each other at
+the same time. That's not a problem; since they both have the block,
+they will just ignore the `headers` received from peers. Lisa will
+request the block from one of her peers just like Qi requested the
+block from Rashid. This concludes the propagation of this
+block. Almost. The lightweight wallets need to be informed about the
+block.
 
 ==== Notify wallets
 
-Tom's node is connected to John's wallet so Tom sends an `inv` to
-John. Likewise, The cafe's full node sends an `inv` to the cafe's
-lightweight wallet. Tom's and the cafe's full nodes will not test the
-block against the bloom filters in any way. They will just send the
-`inv` unconditionally, but the lightweight wallets will not request
-the full blocks.
+Tom's node is connected to John's wallet so Tom sends a `headers`
+message to John. Likewise, The cafe's full node sends a `headres` to
+the cafe's lightweight wallet. Tom's and the cafe's full nodes will
+not test the block against the bloom filters in any way. They will
+just send the `headers` unconditionally, but the lightweight wallets
+will not request the full blocks.
 
 As we recall from <<ch06>>, lightweight wallets don't download the
 full blocks. Most of the time John's wallet is only interested in the
@@ -781,7 +788,8 @@ figure, but the most essential stuff is there:
 
 Protocol version:: The version of the network protocol, or "language",
 that peers use to talk to each other. Selma and Qi will use version
-70012 because that's the highest version Qi will understand.
+70012 because that's the highest version Qi will understand. Selma
+knows all protocol versions up to her own version.
 User agent:: This is shown as Software "identification" in the figure
 because "User agent" is a bit of a cryptic word. It is used to hint
 the other node what software you are running, but it can be anything.
@@ -891,49 +899,85 @@ empty UTXO set and go through all historic blocks from block 0, and
 update the UTXO set with the information in the transactions in the
 blocks.
 
-Selma selects one of her peers, Tom, to download blocks from. Selma
-knows that Tom has 487224 blocks, so he should be able to send Selma
-the first three blocks after block 0. That is blocks at height 1, 2
-and 3. This is how Selma's node requests the blocks from Tom's node:
+The process is as follows:
+
+1. Download all historic block headers from one peer and verify the
+proof-of-work
+2. Download all blocks on the strongest chain from multiple peers in
+parallel.
+
+Selma selects one of her peers, Tom, to download all block headers
+from. This is how Selma's node downloads the block headers from Tom's
+node:
+
+[.gbinfo]
+.Simplified
+****
+The `getheaders` message actually contains a list of some block ids
+from Selma's blockchain, so that Tom can find a common block that they
+both have in case Tom doesn't have Selma's tip. Let's not bother with
+that.
+****
+
+.Selma downloads block headers from Tom by repeatedly sending a `getheaders` message with her latest block id.
+image::{imagedir}/getheaders-selma-tom.svg[{big-width}]
+
+She sends a `getheaders` message containing Selma's latest block id,
+which happens to be the genesis block, block `0`. Tom sends back a
+list of 2000 block headers, each block header is 80 bytes. Selma
+verifies the proof of work of each header and requests a new batch of
+headers from Tom. This process continues until Selma receives a batch
+of less than 2000 headers from Tom, which is a signal that Tom has no
+more headers to give Selma.
+
+// TODO: Mention below that Selma doesn't wait for all headers, but for headers with
+// enough total PoW before starting download.
+
+When Selma has received all headers from Tom, she determines what
+branch is the strongest and starts downloading actual block data
+belonging to that branch from her peers. She can download block data
+from multiple peers at the same time to speed things up. This is her
+communication with Rashid's node:
+
+[.inbitcoin]
+.Bigger batches
+****
+In this example Selma requests three blocks at a time, but in reality,
+Bitcoin Core would request a list of at most 16 block per batch.
+****
 
 .Selma downloads blocks from Tom by repeatedly sending a `getblocks` message with her latest block id.
-image::{imagedir}/getblocks-selma-tom.svg[{big-width}]
-
-It starts with Selma who sends a `getblocks` message to Tom. The
-`getblocks` message contains Selma's latest block id, which happens to
-be the genesis block, block `0`.
-
-Tom sends back an `inv` with a bunch of block id:s coming immediately
-after Selma's best block id. In this example Tom sends three hashes,
-but in reality, Bitcoin Core would send a list of at most 500
-block ids.
+image::{imagedir}/getblocks-selma-rashid.svg[{big-width}]
 
 [.gbinfo]
 .Initial download
 ****
-Initial blockchain download takes several hours, even days, depending
-on the performance of your hardware and Internet speed.
+[.movingtarget]
+
+Initial blockchain download, about 200 GB as of writing, takes several
+hours, even days, depending on the performance of your hardware and
+Internet speed.
 ****
 
-Selma receives the `inv` and requests the actual blocks based on the
-list she got from Tom using a `getdata` message. Tom sends back the
-actual blocks in `block` messages, one by one. When he has sent the
-very last of those blocks, he will finish by sending an `inv`
-containing Tom's current chain tip block id. This `inv` is used by
-Selma to determine if there are more blocks to fetch from Tom. The
-initial `version` message from Tom contained a `height` value of
-487223. Selma could of course use that information to determine if
-there are more blocks, but only in the beginning. At the time Selma
-has downloaded all block up to height 487223, Tom has probably
-received more fresh blocks from his peers. In fact, in this example,
-he has already received block `487224` by the time Selma has received
-the first three blocks from Tom. This is why Tom advertises his
-current best chain tip after sending each batch of blocks.
+It starts with Selma who sends a `getdata` message to Rashid. This
+message specifies what blocks she wants to download from
+Rashid. Rashid sends back the requested blocks in `block` messages,
+one by one. Note that she downloads only part of the blocks from
+Rashid. She also downloads blocks from Tom in prallel, which is why
+there are gaps in the sequence of requested block. The process is
+repeated until Selma doesn't want any more blocks from Rashid.
+
+At the time Selma has downloaded all blocks up to height 487224,
+Rashid has probably received more fresh blocks from his peers. Suppose
+that he has received block `487225` by the time Selma has received the
+first 100 blocks from Rashid. Rashid would then send out a `headers`
+message to his peers, including Selma, as described in
+<<include-the-transaction-in-a-block>>. That way, Selma will be aware
+of all new blocks appearing during her initial synchronization and can
+later request them from any peer.
 
 As Selma receives blocks, she verifies them, updates her UTXO set and
-adds them to her own blockchain. If there are more blocks to download
-from any peer, she will repeat this process until she's up-to-date
-with, or ahead of, everyone else.
+adds them to her own blockchain. 
 
 [[validating-early-blocks]]
 ===== Validating early blocks
@@ -1003,15 +1047,18 @@ node installed.
 
 This section requires that you
 
-* have a fairly modern computer running a Linux operating system.
-* have lots of available disk space. As of writing, about 150 GB is needed.
+[.movingtarget]
+* have a computer with at least 2GB of RAM running a Linux operating
+  system.
+* have lots of available disk space. As of writing, about 200 GB is needed.
 * have an Internet connection without a limited data plan.
 * know how to start and use a command-line terminal.
 
-If you don't have a Linux operating system, you can still use these
+If you don't have a Linux operating system, you may still use these
 instructions, but you will have to install the version of Bitcoin Core
-that's appropriate for your system. We'll help you select the correct
-file to download a bit further down.
+that's appropriate for your system, and the commands will look
+different. However, I suggest that you visit <<web-install>> to get
+up-to-date instructions for your non-linux operating system.
 
 The general process for getting your own node running is:
 
@@ -1037,9 +1084,9 @@ $ wget https://bitcoincore.org/bin/bitcoin-core-0.16.0/bitcoin-0.16.0-x86_64-lin
 
 As the file name `bitcoin-0.16.0-x86_64-linux-gnu.tar.gz` indicates,
 we download version 0.16.0 for 64 bit (`x86_64`) linux
-(`linux-gnu`). When you are reading this, new version of Bitcoin Core
-have probably been released. Consult <<web-download>> to get
-the right version of Bitcoin Core. Also, if you use another operating
+(`linux-gnu`). When you are reading this, new versions of Bitcoin Core
+have probably been released. Consult <<web-download>> to get the
+latest version of Bitcoin Core. Also, if you use another operating
 system or computer architecture, please select the file that's right
 for you.
 
@@ -1413,6 +1460,10 @@ and download the blockchain for you.
 
 ==== Initial blockchain download
 
+****
+image::{imagedir}/2ndcol-sync.svg[]
+****
+
 This process will take time. Depending on your internet connection,
 processor and disk, it can vary from several days down to a few hours.
 
@@ -1627,7 +1678,8 @@ Core, but before starting the software?
 . What types of sources for peer addresses are available to a newly
 started node?
 
-. How would a full node know when it's finished syncing?
+. How would a full node know if any newly created blocks are available
+for download when it's finished syncing?
 
 ==== Dig in
 
@@ -1640,40 +1692,40 @@ Which node owners do you need to threaten to prevent Lisa from getting
 any blocks but the ones Lisa creates herself?
 
 [start=12]
-. Suppose that Qi just received two transactions with transaction
-id:s TXID~1~ and TXID~2~, and one block with block ID BKID. Now she
-wants to inform Rashid about these new items. She don't know if Rashid
-already has these items. What does she do.
+. Suppose that Qi just received two transactions with transaction id:s
+TXID~1~ and TXID~2~, and one block with block ID BKID. Now she wants
+to inform Rashid about these new items. She doesn't know if Rashid
+already knows about these items. What does she do.
 
 . Suppose that the current Bitcoin network looks like this:
 +
 image::{imagedir}/ex-network-badly-connected.svg[{half-width}]
 +
-When Qi creates a valid 1MB block, the cafe will experience a long
-delay before it gets the block. The cafe does not know where the next
-block will come from. What can the cafe do to improve the time it
-takes to receive blocks?
+When Qi creates a valid 1MB block, the cafe will experience a delay
+before it gets the block. What can the cafe do to improve the time it
+takes to receive blocks from Qi?
 
 [start=14]
 . Suppose that you are running a full node and experience a power
 outage for 18 minutes. When power comes back you start your node
 again. During those 18 minutes, two blocks, B~1~ and B~2~, have been
 created. Your latest block is B~0~. What will your node do after
-reconnecting to the network? You can assume that no new blocks are
-found during synchronization. Use the following table of message
-types and fill in the template below:
+reconnecting to the network? For simplicity, you can assume that no
+new blocks are found during synchronization and you only have one
+peer. Use the following table of message types to fill out the
+template below:
 
 [%autowidth]
 |===
 | type | data | purpose
 
 | `block` | full block | sends a block to a peer
-| `getblocks` | block id | Ask a peer for subsequent blocks ids after the given block id
+| `getheaders` | block id | Ask a peer for subsequent block headers after the given block id
 | `getdata` | tx ID:s or block ID:s | Request data from a peer
-| `inv` | tx ID:s or block ID:s | Inform a peer about stuff you have
+| `headers` | list of headers | Sends a list of headers to a peer
 |===
 
-image::{imagedir}/ex-getblocks-power-outage.svg[{half-width}]
+image::{imagedir}/ex-getblocks-power-outage.svg[{big-width}]
 
 === Recap
 

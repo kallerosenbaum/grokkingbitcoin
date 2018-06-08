@@ -332,6 +332,7 @@ Suppose that John is chatting with Fadime on a public forum on the
 Internet. They don't know each other and have no reason to trust one
 another. But they both want to trade.
 
+[.gbinfo]
 .Atomic
 ****
 In compute science, the word _atomic_ means that a process either

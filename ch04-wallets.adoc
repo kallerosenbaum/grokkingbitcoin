@@ -671,8 +671,9 @@ each group encodes a number in the range 0-2047. Eleven bits can
 encode 2^11^=2048 different values, remember?
 
 The 12 numbers are looked up in a standardized word list of 2048 words
-numbered from 0 to 2047. It contains commonly used English words. All
-12 numbers are looked up and the result is the mnemonic sentence.
+numbered from 0 to 2047. It can be found in BIP39 at <<web-bips>> and
+contains commonly used English words. All 12 numbers are looked up and
+the result is the mnemonic sentence.
 
 ****
 image:{imagedir}/backup-mnemonic-phone.svg[]

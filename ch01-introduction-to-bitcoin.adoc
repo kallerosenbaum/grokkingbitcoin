@@ -817,10 +817,17 @@ Each transaction needs to pay a fee to be processed. The fee is not
 related to the amount sent, but to how big the transaction is in
 bytes. This is because the network's cost for processing a transaction
 depends mostly on how big (in bytes) the transaction is. High-value
-transactions are not bigger than low-value transactions, so the fee is
-about the same for both kinds of transactions. If that fee is a
-significant share of the actual payment you want to make, it is not
-economically viable to pay with ordinary Bitcoin transactions.
+transactions are not bigger (in bytes) than low-value transactions, so
+the fee is about the same for both kinds of transactions. The fee
+required for a transaction also depends on supply and demand for
+available space in the blockchain. The blockchain can't handle more
+than roughly 12MB of transactions per hour, which means that miners
+will sometimes have to prioritize transactions. Paying a higher fee
+will probably give your transaction a higher priority.
+
+If the fee is a significant share of the actual payment you want to
+make, it is not economically viable to pay with ordinary Bitcoin
+transactions.
 
 |===
 | Amount | Fee | Fee % | Feasible

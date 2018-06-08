@@ -77,6 +77,10 @@ Web resource {counter:webresourceid}:: {resource-url}/bloom-filter-privacy
 Web resource {counter:webresourceid}:: {resource-url}/target-change
 // https://petertodd.org/assets/commitments/52ccc4802bd563076cbd25ec4c1ba88152098cb6aa356ba644c9e79a24182da5.txt
 
+[[web-lightinig-network,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: {resource-url}/lightinig-network
+// https://dev.lightning.community/resources/index.html
+
 [[web-bernanke-ascii-art,Web resource {counter:webresourceid}]]
 Web resource {counter:webresourceid}:: {resource-url}/bernanke-ascii-art
 // https://tradeblock.com/bitcoin/tx/930a2114cdaa86e1fac46d15c74e81c09eee1d4150ff9d48e76cb0697d8e1d72

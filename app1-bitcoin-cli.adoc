@@ -798,8 +798,11 @@ Remove hard part of "Throttle privacy and data traffic"?
 
 Todo:
 
+Headers-first block download
+
 Update stats with css class "movingtarget"
 
+Check all URLs in web resources
 
 
 Less important todos: 

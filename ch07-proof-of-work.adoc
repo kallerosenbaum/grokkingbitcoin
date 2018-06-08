@@ -832,53 +832,43 @@ blocks being produced per hour.
 
 The target in the block header is agreed upon by everyone. But not
 because they had a meeting where they decided what target to use. The
-target is _calculated_ after every 2016 blocks. Remember that each
-block contains a coinbase transaction that creates 50 new cookie
-tokens. We want one block per 10 minutes on average, to keep the pace
-of newly minted cookie tokens at the desired rate. That's 2016 blocks
-in two weeks.
+target is _recalculated_ after every 2016 blocks. This period of 2016
+blocks is called a _retarget period_. Remember that each block
+contains a coinbase transaction that creates 50 new cookie tokens. We
+want one block per 10 minutes on average, to keep the pace of newly
+minted cookie tokens at the desired rate. That's two weeks for 2016
+blocks.
 
 [role="important"]
-If the 2016 blocks took more than 2 weeks to produce, the
-target must be increased to increase the probability that a block
-header hash will meet the target. We make it less difficult. If the
-2016 blocks took less than 2 weeks to produce, the target must be
-decreased to decrease the probability of meeting the target. We
-increase the difficulty.
 
-The new target is calculated as
+If the last retarget period was more than 2 weeks long, the target
+must be increased to increase the probability that a block header hash
+will meet the target. We make it less difficult. If the retarget
+period was less than 2 weeks long, the target must be decreased to
+decrease the probability of meeting the target. We increase the
+difficulty.
+
+The new target, stem:[N], is calculated as stem:[N=O*F], where
+stem:[O] is the old target and stem:[F] is a target change factor that
+depends on the last retarget period as follows:
+
+.Adjusting the target based on the last 2016 blocks. The goal is 2016 blocks in two weeks.
+image::{imagedir}/retarget.svg[{big-width}]
+
+Generally, the new target, stem:[N], is calculated from stem:[O] and
+the duration, stem:[T], of the last retarget period as:
 
 [stem]
 ++++
-new\ target=old\ target*\frac{time\ to\ produce\ last\ 2016\ blocks}{2\ weeks}
+N=
+O*\left\{
+\begin{array}{ll}
+\frac{1}{4} & \mbox{if } T \lt 0.5 \\
+\frac{T}{2} & \mbox{if } 0.5 \leq T \leq 8 \\
+4 & \mbox{if } 8 \lt T
+\end{array}
+\right.
 ++++
-
-.Adjusting the target based on the last 2016 blocks. The goal is an average of 2016 blocks in two weeks.
-[%autowidth,role="widetable"]
-|===
-| Actual time | Target change factor | Why?
-
-| 8 weeks | 8/2=4x | It took way too long to produce 2016 blocks. We
-  must make it easier to find a valid proof of work by increasing the
-  target by a factor 4.
-| 4 weeks | 4/2=2x | It took too long to produce 2016 blocks. We must
-  make it easier to find a valid proof of work by increasing the
-  target by a factor 2.
-| 2 weeks | 2/2=1x | The target seems good, let's keep it.
-| 1 week | 1/2=0.5x | It took only half the desired time. Blocks are
-  too fast. Make it harder to find a valid proof of work by decreasing
-  the target proportionally
-| 0.5 weeks | 0.5/2=0.25x | Way too fast. Make it even harder by
-  lowering the threshold by a factor 0.25.
-| 0.25 weeks | 0.5/2=0.25x | This is really fast. We cannot change the
-  target enough because of limits in target change. We must not
-  decrease the target more than a factor 1/4.
-| 9 weeks | 8/2=4x | We must not increase the target more than a
-  factor 4.
-|===
-
-The period of 2016 block on which the next target is calculated is
-called a _retarget period_. 
 
 The target cannot change more than by a factor 4 or less than by a
 factor 1/4 to protect against certain double spend attacks against
@@ -989,7 +979,14 @@ new targets to be different. Recall the retarget formula:
 
 [stem]
 ++++
-new\ target=old\ target*\frac{time\ to\ produce\ last\ 2016\ blocks}{2\ weeks}
+N=
+O*\left\{
+\begin{array}{ll}
+\frac{1}{4} & \mbox{if } T \lt 0.5 \\
+\frac{T}{2} & \mbox{if } 0.5 \leq T \leq 8 \\
+4 & \mbox{if } 8 \lt T
+\end{array}
+\right.
 ++++
 
 Since the new targets are different, it means that the new difficulty
@@ -1514,17 +1511,27 @@ _some_ point the block subsidy is not incentive enough to mine.
 When that happens, transaction fees will help give efficient miners
 revenue. If John wants his transactions confirmed, he must pay a fee
 big enough so that one or more miners are willing to include his
-transaction. This is a free market for block space at play.
+transaction. This is a market for block space at play.
+
+[.gbinfo]
+.Lightning Network
+****
+For more information about the Lightning network, please visit
+<<web-lightinig-network>>. Unfortunately there's no room in this book
+for this very interesting and complex topic.
+****
 
 We can only speculate on where the fee levels will be in the
 future. Some people argue that Bitcoin's fees are already too high for
 the way they want to use Bitcoin today. As transaction fees go up,
-some use cases for Bitcoin will have to find other ways to work. New
-systems are being developed "on top" of Bitcoin that enables people to
-lump together a nearly infinite number of transactions into one or two
-single transactions. One such system, the Lightning Network, is of
-particular interest, because it is being actively developed and
-deployed.
+some current use cases for Bitcoin, for example payments with tiny
+amounts, will have to find other ways to work. New systems are being
+developed "on top" of Bitcoin that enable people to lump together a
+nearly infinite number of payments into just a few, usually one or
+two, single transactions. One such system, the Lightning Network, is
+of particular interest. If a million payments can be made with a
+single Bitcoin transaction, all those user transactions can share the
+cost of the transaction fee.
 
 === Summary
 

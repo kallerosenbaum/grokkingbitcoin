@@ -90,15 +90,6 @@ First, I'd like to thank my wife, Linnéa, for all valuable discussions
 and your consistent encouragement. Walking with you has been
 absolutely fantastic.
 
-I'd also like to thank Jonathan Jogenfors and Pontus Lindblom for
-reviewing some chapters covering their respective fields of expretise.
-
-I got help from Andreas Antonopoulos when negotiating the open source
-terms for this book. Your encouragement during that process was
-gold. Thank you! And also, thank you for the "vegetarian restaurant"
-analogy. And also, thank you for all your amazing talks, a major
-source of inspiration for me.
-
 Christina Taylor at Manning, my dear development editor. Thank you for
 keeping me busy and winging this project. Work work work. Thank you
 also to Bert Bates for your very valuable input on the pedagogy.
@@ -108,11 +99,20 @@ their professionalism. Ozren Harlovic, Rebecca Rinehart, Candace
 Gillhoolley, Ana Romac, Michael Stephens, Erin Twohey, Christopher
 Kaufmann, Matko Hrvatin, Greg Wild. Thanks.
 
+I'd also like to thank Jonathan Jogenfors and Pontus Lindblom for
+reviewing some chapters covering their respective fields of expretise.
+ 
 A lot of people on various forums on the Internet has been very
 helpful during my research. The ones that stand out the most are David
-Harding, Pieter Wuille and Mark "Murch" Erhardt. Thank you for all
+A. Harding, Pieter Wuille and Mark "Murch" Erhardt. Thank you for all
 Twitter conversations and great answers on Bitcoin Stack Exchange,
 <<web-stackexchange>>.
+
+I got help from Andreas M. Antonopoulos when negotiating the open
+source terms for this book. Your encouragement during that process was
+gold. Thank you! And also, thank you for the "vegetarian restaurant"
+analogy. And also, thank you for all your amazing talks, a major
+source of inspiration for me.
 
 I have written this book using asciidoctor, which is text markup
 language. Thank you Dan Allen for your hard work on asciidoctor. It's

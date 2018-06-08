@@ -615,7 +615,7 @@ transfers, by writing a message and a _digital signature_ in an
 email. For example:
 
 .John needs to digitally sign his payment request and include the signature in the email.
-image:{imagedir}/note-to-lisa.svg[{quart-width}]
+image::{imagedir}/note-to-lisa.svg[{quart-width}]
 
 Suppose that there is a new guy at the office, John. The company has
 given him some CT as a welcome gift when he started. Now John wants to

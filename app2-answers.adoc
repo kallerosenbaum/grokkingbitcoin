@@ -352,7 +352,15 @@ block is 1.5 weeks, the first 1008 blocks takes 1 week and the next
 
 [stem]
 ++++
-new\ target=old\ target*\frac{1.5\ weeks}{2\ weeks}=old\ target*\frac{3}{4}
+N=
+O*\left\{
+\begin{array}{ll}
+\frac{1}{4} & \mbox{if } T \lt 0.5 \\
+\frac{T}{2} & \mbox{if } 0.5 \leq T \leq 8 \\
+4 & \mbox{if } 8 \lt T
+\end{array}
+=O*\frac{1.5}{2}=O*\frac{3}{4}
+\right.
 ++++
 
 [start=12]
@@ -409,23 +417,22 @@ to avoid being tricked to run some malicious software.
 9. DNS servers, Asking trusted friends, hard-coded addresses shipped
 with Bitcoin Core.
 
-10. When the node has all blocks up to and including the last `inv` of
-each peer she downloads from.
+10. The node's peers will announce any new blocks by sending `headers`
+messages to the node, even during its synchronization process.
 
 11. You need to convince the cafe, Qi and Tom to hide blocks from
 Lisa. You can bribe them or threaten them.
 
-12. She sends an `inv` message to Rashid's node containing:
-+
- tx=<TXID~1~>
- tx=<TXID~2~>
- block=<BKID>
+12. She sends an `inv` message to Rashid's node containing the two
+transaction IDs and a headers message containing the new block's
+header.
 
 13. The cafe can connect to more nodes to shorten the paths
 from Qi. It can for example connect to Tom's node or directly to Qi's
 node.
 
-14. My node will start the synchronization process as follows:
+14. Your node starts the synchronization process which will look like
+this:
 +
 image::{imagedir}/ch08-solution-ex-getblocks-power-outage.svg[{full-width}]
 
