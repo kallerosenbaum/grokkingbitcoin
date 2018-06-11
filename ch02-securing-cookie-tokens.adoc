@@ -171,7 +171,9 @@ We will add a lot of fancy stuff to this system and a new version will
 be released in every chapter. For example, at the end of this chapter
 we will release version 2.0 that solves the problem of the imposter
 using digital signatures. Every chapter will take us closer to the end
-result, Bitcoin.
+result, Bitcoin. But please be aware that this is not at all how
+Bitcoin evolved in reality, we just use this made up system to be able
+to explain each important topic in isolation.
 
 [id=cryptographic_hashing]
 === Cryptographic hashes
