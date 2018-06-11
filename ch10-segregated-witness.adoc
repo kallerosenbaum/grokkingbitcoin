@@ -440,7 +440,8 @@ addresses are composed and encoded using Bech32.
 ****
 
 But segwit defines a new address type that is encoded using _Bech32_
-instead of base58check. Suppose that your segwit address is
+instead of base58check. Suppose that your wallet created the following
+segwit address:
 
  bc1qeqzjk7vume5wmrdgz5xyehh54cchdjag6jdmkj
 
@@ -466,10 +467,12 @@ the transaction output:
 * A witness program. In this case, the witness program is a public key
   hash, `c8052b799cde68ed8da8150c4cdef4ae3176cba8`
 
-You give the address `bc1qeqzjk7vume5wmrdgz5xyehh54cchdjag6jdmkj` to
-Amy, by showing her a QR code. She has a modern wallet that
-understands this address format, so she scans this address and
-extracts the version and witness program:
+This information is not directly extractable from the address, because
+it is encoded using bech32. You give the address
+`bc1qeqzjk7vume5wmrdgz5xyehh54cchdjag6jdmkj` to Amy, by showing her a
+QR code. She has a modern wallet that understands this address format,
+so she scans your address and extracts the version and witness program
+as follows:
 
 .Amy decodes the segwit address to get the witness version and the witness program.
 image::{imagedir}/bech32-decode.svg[{full-width}]
@@ -482,11 +485,14 @@ reader to read BIP173.
 
 This is done in multiple steps. The data part of the address is
 converted, character by character into numbers using a _base32_ lookup
-table. The first of these numbers is the witness version, 0. The last
-six numbers is the checksum. The checksum is now verified and no
-errors are detected. Then the witness program is extracted by writing
-each number as a 5 bit number and rearrange them in groups of 8
-bits. Each groups then represents a byte of the witness program.
+table. The first one of these numbers is the witness version, `0`. The
+following numbers except the last six numbers is the witness
+program. The last six numbers is the checksum. The checksum is then
+verified, no errors were detected in this example. Then the witness
+program is extracted by writing each number as a 5 bit number and
+rearrange them in groups of 8 bits. Each such group represents a byte
+of the witness program. Amy extracts the witness program as
+`c8052b799cde68ed8da8150c4cdef4ae3176cba8`.
 
 Amy creates a transaction with a new kind of pubkey script that we are
 not used to:

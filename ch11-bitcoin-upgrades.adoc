@@ -6,16 +6,13 @@ This chapter covers
 
 * Understanding hard forks and soft forks
 * Upgrading Bitcoin safely
-* Letting users decide rules instead of miners
+* Understanding that users make the rules
 
-[WARNING]
-
-This chapter is hard. To understand this chapter you should be
-confortable with concepts like the blockchain (<<ch06>>) ,
-proof-of-work (<<ch07>>) and the peer-to-peer network (<<ch08>>). If
-you had difficulties with these chapters, I suggest that you revisit
-them before continuing with this chapter. Of course, you can just try
-to read on anyway.
+To understand this chapter you should be confortable with concepts
+like the blockchain (<<ch06>>) , proof-of-work (<<ch07>>) and the
+peer-to-peer network (<<ch08>>). If you had difficulties with these
+chapters, I suggest that you revisit them before continuing with this
+chapter. Of course, you can just try to read on anyway.
 
 When Bitcoin's consensus rules change, it can happen in two
 ways. Either via a soft fork or via a hard fork. These two types of
