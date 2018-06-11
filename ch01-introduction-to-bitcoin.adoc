@@ -937,8 +937,10 @@ I encourage you to look up these cryptocurrencies as they all provide
 interesting new features beyond Bitcoin. There are hundreds of other
 alt-coins. Some alt-coins, for example the ones above, provide some
 unique features that are not available in Bitcoin, and some provide
-little to nothing innovative. Anyone can create an alt-coin by taking
-any existing cryptocurrency software and modify it to her needs.
+little to nothing innovative.
+
+Anyone can create an alt-coin by taking any existing cryptocurrency
+software and modify it to her needs.
 
 .Network effect
 ****
@@ -946,19 +948,25 @@ image::{imagedir}/network-effect.svg[]
 ****
 
 Let's say that Sheila wants to start an alt-coin, Wowcoin. She takes
-the Bitcoin software and changes the max money supply to 11,000,000,
-instead of Bitcoin's 21,000,000, coins and starts. When Wowcoin is
-started she will be very lonely, because no one else is using her
-alt-coin. If she wants Wowcoin to have some real value, she has got to
-convince other people to start using her alt-coin. If she's not
-providing anything innovative, she's going to have a hard time getting
-other people on-board, since they are pretty happy with what Bitcoin
-is already providing. Everybody else is using Bitcoin, so why would
-you use Wowcoin? Think of it as starting a new internet, that you call
-Wownet. People on Wownet will not be able to use services on the
-Internet. Conversely, people on the Internet will not be able to use
-your service if you are on Wownet. So why would anyone use Wownet? We
-call it the network effect; People tend to go where other people are.
+the Bitcoin software and changes the maximum money supply to
+11,000,000, instead of Bitcoin's 21,000,000, coins and starts. When
+Wowcoin is started she will be very lonely, because no one else is
+using her alt-coin. If she wants Wowcoin to have some real value, she
+has got to convince other people to start using her alt-coin. If she's
+not providing anything innovative, she's going to have a hard time
+getting other people on-board, since they are pretty happy with what
+Bitcoin is already providing. Everybody else is using Bitcoin, so why
+would you use Wowcoin? Think of it as starting a new internet, that
+you call Wownet. People on Wownet will not be able to use services on
+the Internet. Conversely, people on the Internet will not be able to
+use your service if you are on Wownet. So why would anyone use Wownet?
+We call it the network effect; People tend to go where other
+people are.
+
+While there are some interesting alt-coins out there, it's really hard
+to tell which of these will survive long-term. Also picking one or a
+few alt-coins to cover in this book would seem like an arbitrary
+choice. Consequently, I focus solely on Bitcoin in this book.
 
 === Recap
 
