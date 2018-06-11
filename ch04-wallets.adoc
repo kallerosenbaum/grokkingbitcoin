@@ -975,8 +975,8 @@ them, so we simplify by using the solutions to stem:[y^2 = x^3 + 7
 [.inbitcoin]
 .Bitcoin uses this curve
 ****
-This specific curve is called secp256k1 and is used in Bitcoin. There
-are plenty of other curves with similar properties.
+This specific elliptic curve is called secp256k1 and is used in
+Bitcoin. There are plenty of other curves with similar properties.
 ****
 
 .Whole number solutions to the elliptic curve  stem:[y^2 = x^3 + 7 \mod{11}]. Each such solution is a public key.
@@ -991,12 +991,14 @@ form a curve like this:
 image::{imagedir}/elliptic-curve-crypt-image00.png[]
 ****
 
-A solution to the equation above is called a _point on the curve_. We
-can now calculate a public key from a private key. To do this we start
-in a special point, stem:[G=(6,5)], on the curve. stem:[G] is somewhat
-arbitrarily chosen, but it is widely known by everybody to be the
-starting point for public key derivation. *The public key is the
-private key multiplied by stem:[G]*.
+The equations above are examples of a class of equations called
+_elliptic curves_ and a solution is ofter referred to as a _point on
+the curve_. We can now calculate a public key, which is a point on the
+curve, from a private key. To do this we start in a special point,
+stem:[G=(6,5)], on the curve. stem:[G] is somewhat arbitrarily chosen,
+but it is widely known by everybody to be the starting point for
+public key derivation. *The public key is the private key multiplied
+by stem:[G]*.
 
 Suppose that your private key is stem:[5]. Then your public key is
 stem:[5G].
@@ -1034,12 +1036,6 @@ image::{imagedir}/point-doubling.svg[{half-width}]
 The process is almost the same as adding two different points but the
 slope of the line is calculated differently.
 
-[.gbinfo]
-.Multiplication
-****
-Multiplication is performed by a sequence of adding and doubling operations.
-****
-
 Using these two basic operations, adding and doubling, we can derive
 the multiplication of 5 and G. In binary form, 5 is
 
@@ -1074,21 +1070,19 @@ just remember it.
 previously remembered point stem:[2*G]. Since there is a `1` in front
 of the stem:[2^2*G] term, we add this result to the result of step 1.
 
-==== Why is this secure?
+In short, multiplication is performed by a sequence of adding and
+doubling operations.
 
-[.gbinfo]
-.Division is hard
-****
-Multiplication on elliptic curves is easy, but division is terribly
-hard. This is what makes public key derivation a one-way function.
-****
+
+==== Why is this secure?
 
 The multiplication process is pretty easy to complete, it takes just
 about 256 steps for a 256 bit private key. But to reverse this process
 is a totally different story. There is no known way to get the private
 key by point "division" (for example point stem:[(6,6)] "divided by"
 stem:[G]). The only known way is to try different private keys and see
-if the public key is what you are looking for.
+if the public key is what you are looking for. This is what makes
+public key derivation a one-way function.
 
 ==== xpub derivation
 

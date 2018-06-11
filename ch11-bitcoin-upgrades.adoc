@@ -8,7 +8,7 @@ This chapter covers
 * Upgrading Bitcoin safely
 * Understanding that users make the rules
 
-To understand this chapter you should be confortable with concepts
+To understand this chapter you should be comfortable with concepts
 like the blockchain (<<ch06>>) , proof-of-work (<<ch07>>) and the
 peer-to-peer network (<<ch08>>). If you had difficulties with these
 chapters, I suggest that you revisit them before continuing with this
@@ -974,7 +974,7 @@ all users and miners at the same time.
 
 ===== Lessons learned
 
-The events that occurred during segwit deployment was not
+The events that occurred during segwit deployment were not
 anticipated. Few people thought that miners would refuse to adopt
 BIP141. Yet, that's what happened.
 
@@ -1148,7 +1148,7 @@ experience with user-activated soft forks.
 ==== Warm up
 
 . A soft fork is a change of the consensus rules, but what
-characterizes a the changes made in a soft fork?
+characterizes the changes made in a soft fork?
 
 . Suppose that a hard fork causes a blockchain split and the New
 branch have 51% of the hash rate. Further suppose that the hash rate
@@ -1160,7 +1160,7 @@ the event occur?
 .. What can the developers of Bitcoin New do to prevent the event from
 happening?
 
-. Suppose that an Old node causes a blockchain split during a soft
+. Suppose that an Old node causes a blockchain split due to a soft
 fork where 80% of the hash rate runs Bitcoin New. Will the Old branch
 of the split last for long? Explain your answer.
 
@@ -1172,8 +1172,8 @@ have to wait before your rules start being enforced?
 
 [start=5]
 . Suppose that a fork changes the consensus rules such that Old nodes
-can create blocks invalid to New nodes, and New nodes can create block
-invalid to Old nodes:
+can create blocks invalid to New nodes, and New nodes can create
+blocks invalid to Old nodes:
 +
 .Some blocks are only valid on Old nodes and some blocks are only valid on New nodes.
 image::{imagedir}/ex-hard-soft-fork.svg[{quart-width}]
@@ -1216,14 +1216,14 @@ it hard to convince other users to install your software. What would
 happen on the flag-day if just a small percentage (<30%) of the
 economy chooses to run your software?
 
-. Suppose that you want to make a user-activated soft fork. Lot's of
+. Suppose that you want to make a user-activated soft fork. Lots of
 other users seem to like your soft fork. Say that 80% of the economy
 install your fork. Why would miners (even those that don't like your
-change) switch to the New rules during a user-activated soft fork?
+change) switch to the New rules during this user-activated soft fork?
 
-. In the previous exercise, your soft fork had support from 80% of
-the economy. Suppose also that a majority of the hash rate decides to
-follow your New rules. What happens with the non-mining users that
+. In the previous exercise, your soft fork had support from 80% of the
+economy. Suppose also that a majority of the hash rate decides to
+follow your New rules. What happens with the non-mining nodes that
 don't run your fork?
 
 === Recap

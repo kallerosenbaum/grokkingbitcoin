@@ -645,7 +645,7 @@ reasons:
 
 What really _is_ tested by the node are the following items:
 
-.Several things in a transaction are tested through the bloom filter to determine if the tx is possibly interesting 
+.Several things in a transaction are tested through the bloom filter to determine if the transaction is possibly interesting 
 image::{imagedir}/bloom-filter-what-to-test.svg[{half-width}]
 
 The node will test
@@ -1008,7 +1008,8 @@ about 800 bytes. This far less data than sending the block header and
 all 12 transactions, which would be about 3,000 bytes.
 
 Let's check some rough numbers on how the merkle proof compare in size
-to the full block as the number of transactions grows.
+to the full block as the number of transactions (tx is short for
+transaction) grows.
 
 [%autowidth,options="header",cols=">,>,>,>"]
 .Size of merkle proofs compared to the block size for different block sizes

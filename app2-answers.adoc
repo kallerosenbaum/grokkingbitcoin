@@ -67,17 +67,14 @@ wouldn't have to contain any names and look something like this:
 spreadsheet smaller in size and b) It makes cookie token addresses
 (and Bitcoin addresses) shorter to write for a user.
 
-2. No. She is very trustworthy. She will not tamper with the
-spreadsheet.
-
-3. Yes you can. There is a base58check decoding algorithm that does
+2. Yes you can. There is a base58check decoding algorithm that does
 that.
 
-4. It's used by a payer to translate the recipient's address into a
+3. It's used by a payer to translate the recipient's address into a
 public key hash. The payer needs to write the recipient's PKH in the
 email to Lisa.
 
-5. Let's base58 encode `0047` step by step:
+4. Let's base58 encode `0047` step by step:
   a. Remove leading `00` bytes. There is one, which leaves us with `47`
   b. Convert to decimal number: `47` in hex is `4*16+7=71` in decimal
   c. Divide by `71` by `58`: `71/58=1*58+13`. Quotient is `1`, remainder is `13`
@@ -86,29 +83,29 @@ email to Lisa.
   f. Add a '1' for the removed `00` byte in step a, which results in `E21`
   g. Reverse, `12E`. Done
 
-6. The 4 byte checksum.
+5. The 4 byte checksum.
 
-7. He must make two separate payments. For example: Payment 1 pays 2
+6. He must make two separate payments. For example: Payment 1 pays 2
 CT from @~1~ to the cafe and payment 2 pays 8 CT from @~2~ to
 cafe. Another way is to first pay 2 CT from @~1~ to @~2~ and then pay
 10 CT from @~2~ to cafe.
 
-8. Yes it is. Put the version byte `00` in front and base58check
+7. Yes it is. Put the version byte `00` in front and base58check
 encode them to get the addresses.
 
-9. No, because the spreadsheet contains public key hashes. Since
+8. No, because the spreadsheet contains public key hashes. Since
 cryptographic hash functions are one-way functions, you can't go from
 public key hash to public key.
 
-10. They can look at the amounts. Many of the 10 CT payments are
+9. They can look at the amounts. Many of the 10 CT payments are
 probably cookie purchases.
 
-11. The bad guy cannot steal cookie tokens, because he needs the
+10. The bad guy cannot steal cookie tokens, because he needs the
 public key in order to exploit the flaw in the public key derivation
 function. The spreadsheet contains public key hashes, they can't get
 the public key.
 
-12. The bad guy needs the private key in order to sign fraudulent
+11. The bad guy needs the private key in order to sign fraudulent
 emails to Lisa. Eventhough he can reverse RIPEMD160, he'd still need
 to pre-image attack SHA256 and reverse the public key derivation
 function to get to a working private key.

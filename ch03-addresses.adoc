@@ -506,10 +506,10 @@ just detects them when they happen. Notice how some characters look
 very similar in some fonts, lI (minor L, capital I), 0O (zero and
 capital Oh). We also need a format that can be easily copy-and-pasted
 by users, meaning that special characters, like `+` and `/` should not
-be allowed because they will prevent you from marking the whole data
-by double-clicking it. If we remove those 6 characters we reduce the
-possibility of typing errors. But now we only have 58 characters left,
-so we need another type of encoding.
+be allowed because they will prevent you from marking the whole
+address by double-clicking it. If we remove those 6 characters we
+reduce the possibility of typing errors. But now we only have 58
+characters left, so we need another type of encoding.
 
 .Base58 encoding and decoding
 ****
@@ -738,7 +738,6 @@ release a new version, 3.0, of the cookie token system.
 . The public key hash (PKH) is shorter, only 160 bits, than the public
 key? We made it shorter by using RIPEMD160. Why do we want it shorter?
 There are two good reasons.
-. Can you convince Lisa to reverse payments?
 . Base58check encoding is used to create a cookie token (Bitcoin)
 address from a PKH. Can you reverse that process to create a PKH from
 an address?
@@ -756,7 +755,7 @@ image::{imagedir}/base58.svg[]
 ****
 image::{imagedir}/exercise-johns-money.svg[]
 ****
-[start=7]
+[start=6]
 . Imagine that John wants a cookie from the cafe. He has two
 addresses, @~1~ with balance 5 cookie tokens and @~2~ with 8 cookie
 tokens. His total balance is 13 CT so he should afford to pay 10 CT
@@ -778,7 +777,7 @@ cafe's addresses?
 image::{imagedir}/address-creation-exercise.svg[]
 ****
 
-[start=11]
+[start=10]
 . Suppose that there was a serious flaw in the public key derivation
 function, so that anyone can calculate the private key from a
 public key. What prevents a bad guy from stealing your money?

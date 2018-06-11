@@ -1439,9 +1439,9 @@ stuck pending in <<ch09>>.
 [.inbitcoin]
 .Fees in Bitcoin
 ****
-As of writing, a transaction fee of 4 sat/byte is normally required
-to get your transaction into one of the next six blocks. A normal tx,
-500 bytes, would cost 0.00002{btc}, or about 20 cent.
+As of writing, a transaction fee of 4 sat/byte is normally required to
+get your transaction into one of the next six blocks. A normal
+transaction, 500 bytes, would cost 0.00002{btc}, or about 20 cent.
 ****
 
 For Lisa, when deciding whether to include a transaction or not, all

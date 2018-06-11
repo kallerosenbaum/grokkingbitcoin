@@ -1721,7 +1721,7 @@ template below:
 
 | `block` | full block | sends a block to a peer
 | `getheaders` | block id | Ask a peer for subsequent block headers after the given block id
-| `getdata` | tx ID:s or block ID:s | Request data from a peer
+| `getdata` | txid:s or block ID:s | Request data from a peer
 | `headers` | list of headers | Sends a list of headers to a peer
 |===
 

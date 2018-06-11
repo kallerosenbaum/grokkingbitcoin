@@ -324,7 +324,7 @@ If you change the input, the hash will change, even though there is a
 chance that the hash will remain 99. After all, there are just 256
 different possible outputs of this simple hash function. With real
 cryptographic hash functions, as the one we used to hash the cat
-picture, the chance is unimaginably small. We will soon get a glimpse
+picture, this chance is unimaginably small. We will soon get a glimpse
 of that probability.
 
 ==== Properties of a cryptographic hash function
@@ -334,10 +334,11 @@ input data, called a _pre-image_, and produces a fixed-length output,
 called a _hash_. In the example with the cat picture on your hard
 drive, the pre-image is the cat picture of 1.21 MB and the hash is a
 256 bit number. The function will output the exact same hash each time
-the same pre-image is used. But it will output a totally different
-hash when even the slightest variation of that pre-image is used. The
-hash is also commonly referred to as a _digest_. I am using term
-_hash_ here, but either is equally valid.
+the same pre-image is used. But it will, with extremely high
+probability, output a totally different hash when even the slightest
+variation of that pre-image is used. The hash is also commonly
+referred to as a _digest_. I am using term _hash_ here, but either is
+equally valid.
 
 Let us have a look at what properties you can expect from a
 cryptographic hash function. We will illustrate the properties using
