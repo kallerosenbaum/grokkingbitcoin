@@ -506,10 +506,10 @@ just detects them when they happen. Notice how some characters look
 very similar in some fonts, lI (minor L, capital I), 0O (zero and
 capital Oh). We also need a format that can be easily copy-and-pasted
 by users, meaning that special characters, like `+` and `/` should not
-be allowed because they will prevent you from marking the whole data
-by double-clicking it. If we remove those 6 characters we reduce the
-possibility of typing errors. But now we only have 58 characters left,
-so we need another type of encoding.
+be allowed because they will prevent you from marking the whole
+address by double-clicking it. If we remove those 6 characters we
+reduce the possibility of typing errors. But now we only have 58
+characters left, so we need another type of encoding.
 
 .Base58 encoding and decoding
 ****

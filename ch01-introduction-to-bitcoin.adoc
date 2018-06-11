@@ -113,7 +113,8 @@ Bitcoin users.
 
 Suppose that Alice wants to make a payment of 1 BTC to Bob. The
 payment starts with Alice creating a _transaction_ and sending it to
-the Bitcoin network.
+the Bitcoin network. The process goes through four steps and we will
+explain each step a bit further in the following subsections.
 
 .A Bitcoin payment. The payment is processed in 4 steps.
 [[payment-overview]]
@@ -126,15 +127,16 @@ Bitcoin doesn't use names or any other personal information, but we
 use names in this first example for simplicity.
 ****
 
-This figure will follow us in each intro of chapter 2 through 8 where
+This figure will follow us in each intro of chapters 2 through 8 where
 we point out what in this figure we will cover in the chapter. Now,
 let's follow Alice's payment from Alice to Bob:
 
 1. Alice creates and signs a transaction that moves 1 bitcoin from her
 to Bob. She then sends it to the Bitcoin network.
 2. The computers in the network, the Bitcoin nodes, check that Alice
-actually has the money to spend and that the tx is authentic. They
-then pass the transaction on to their neighbors, called peers.
+actually has the money to spend and that the transaction is
+authentic. They then pass the transaction on to their neighbors,
+called peers.
 3. Each computer updates its own copy of the Bitcoin blockchain, the
 ledger, with the new payment information.
 4. The network notifies Bob that he has received 1 bitcoin.
