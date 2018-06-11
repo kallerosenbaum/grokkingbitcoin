@@ -430,10 +430,11 @@ image::{imagedir}/atomic-swaps-2.svg[{full-width}]
 
 John broadcasts his swap transaction. John's swap transaction spends
 Fadime's contract transaction output by providing S and his
-signature. Again, note that John is spending a p2sh output, which
-means that the first thing that happens is that the redeem script that
-John provided in the signature script, will be hashed and compared to the
-hash in the pubkey script. Then the actual redeem script will be run.
+signature. Again, note that John is spending a p2sh output. That means
+that the first thing that happens during script validation is that the
+redeem script that John provided in the signature script, will be
+hashed and compared to the hash in the pubkey script. Then the actual
+redeem script will be run.
 
 We won't go through the program in detail. But when the redeem script
 starts running, the stack will have "1" on top. This means "true" in
@@ -730,7 +731,7 @@ You may recall from <<_transaction_fees>> that the transaction fee is
 the sum of the input values minus the sum of the output values. The
 "fee per byte" that miners care about is calculated by dividing that
 fee with the size of the transaction. In this case 1,000 satoshis
-divided by 225 bytes, which is about 4.4 sat/byte.
+divided by 226 bytes, which is about 4.4 sat/byte.
 
 If no miner is willing to include the transaction for that fee, your
 transaction will be stuck waiting for confirmation. If the transaction
@@ -868,13 +869,16 @@ any of the inputs or outputs change, the signature will become
 invalid.
 
 This behavior of signatures can be changed using a parameter in the
-signature.
+signature, called SIGHASH type. There are three ways to commit to
+outputs (ALL, SINGLE and NONE) and two ways to commit to inputs
+(ANYONECANPAY set or unset). Any combination of an input SIGHASH type
+and an output SIGHASH type can be used which makes 6 different
+combinations as the figure above shows.
 
 .A signature can commit to different parts of the transaction depending on the so called SIGHASH types. The greyed out parts are not included by the signature.
 image::{imagedir}/sign-transaction-combos.svg[{big-width}]
 
-There are three ways to commit to outputs and two ways to commit to
-inputs. For the outputs, you can commit to
+For the outputs, you can commit to
 
 * all outputs (ALL). No one gets to change any outputs.
 * a single output at the same index as the input (SINGLE). I only care
@@ -889,10 +893,7 @@ For the inputs you can commit to
 * only the current input (ANYONECANPAY is set). Other inputs may be
   changed, removed or added. I don't care who pays. Anyone can pay.
 
-Any combination of a input SIGHASH type and output SIGHASH type can be
-used which makes 6 different combinations as in the figure.
-
-For the vast majority of signatures, ALL in combination with unset
+For the vast majority of signatures, ALL in combination with an unset
 ANYONECANPAY is used to commit to the whole transaction. This is what
 we are used to from all the chapters in this book. Other types are
 really rare, and used primarily for specialized digital contracts.
@@ -945,20 +946,19 @@ meaning of different values of the sequence numbers:
 
 [[table-sequence-numbers]]
 .Sequence numbers are used to enable or disable various features. [.big]#✔#=enabled, [.big]#✘# disabled.
-[cols=">1,3*^3",options="header"]
+[cols=">1,3*^3",options="header",role="widetable"]
 |===
-<| Sequence value (descending order)
+<| Sequence value
 <| locktime, any input
 <| Replace by fee (BIP125), any input
 <| relative lock time on input (BIP68). Tx version 2 required.
 
-| `ffffffff` | [.big]#✘# | [.big]#✘# | [.big]#✘#
+| `00000000`-`7fffffff` | [.big]#✔# | [.big]#✔# | [.big]#✔#
+| `80000000`-`fffffffd` | [.big]#✔# | [.big]#✔# | [.big]#✘#
 | `fffffffe` | [.big]#✔# | [.big]#✘# | [.big]#✘#
-| `fffffffd` | [.big]#✔# | [.big]#✔# | [.big]#✘#
-| `80000000` | [.big]#✔# | [.big]#✔# | [.big]#✘#
-| `7fffffff` | [.big]#✔# | [.big]#✔# | [.big]#✔#
-| `00000000` | [.big]#✔# | [.big]#✔# | [.big]#✔#
+| `ffffffff` | [.big]#✘# | [.big]#✘# | [.big]#✘#
 |===
+
 
 === Exercises
 

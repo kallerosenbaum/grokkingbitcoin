@@ -116,19 +116,20 @@ sense. From now on we will only use the term _fork_ to mean a change
 of consensus rules.
 
 As an analogy of soft and hard forks, imagine a popular vegetarian
-restaurant where lots of vegetarians go to eat. Think of the
-restaurant as a miner, the guests as full nodes and the meals served
-as blocks. The restaurant produces meals that guests eat - the miner
-produces blocks that full nodes accept.
+restaurant where lots of vegetarians go to eat. This restaurant only
+have one dish on their menu. Think of the restaurant as a miner, the
+guests as full nodes and the meals served as blocks. The restaurant
+produces meals that guests eat - the miner produces blocks that
+full nodes accept.
 
-Imagine that the restaurant changes their meals as follows.
+Imagine that the restaurant changes their dish as follows.
 
 ****
 image::{imagedir}/hard-vs-soft-fork-restaurant.svg[]
 ****
 
 [%autowidth]
-.The restaurant can make a hard fork by start serving meat dishes and a soft fork by restricting the food to vegan.
+.The restaurant can make a hard fork by adding meat to their dish or a soft fork by restricting the food to vegan.
 |===
 | Restaurant serves | Will guests accept it? | Fork type | Why
 
