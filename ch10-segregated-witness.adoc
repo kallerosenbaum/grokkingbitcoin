@@ -60,6 +60,15 @@ Let's see what _may_ happen when you broadcast Tx~2~:
 .Your transaction is being modified by Qi on its way through the network. 
 image::{imagedir}/tx2-malleated.svg[{big-width}]
 
+[.gbinfo]
+.Malleability?
+****
+The word malleate means to form for example metal with a hammer. This
+term is used in cryptography to mean changing a signature without
+making the signature invalid or changing encrypted message without
+making the message totally garbled.
+****
+
 Qi wants to mess things up. When she receives your transaction Tx~2~,
 she modifies it in a certain way, into Tx~2M~, so that Tx~2M~ is still
 valid and has the same effect as the original transaction, Tx~2~. We

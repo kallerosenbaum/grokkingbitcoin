@@ -859,7 +859,13 @@ her _connectivity_. The more peers you are connected to, the better
 your connectivity. A high degree of connectivity decreases the risk of
 missing out on information due to misbehaving peers. Also, information
 propagates quicker if nodes have higher connectivity. A typical full
-node in Bitcoin has about 100 active connections at the same time.
+node in Bitcoin has about 100 active connections at the same
+time. Only eight (by default) of those are so-called outbound
+connections, which means that the connections are initiated by that
+node. The rest are in-bound connection, initiated by other nodes. As a
+consequence, a full node that is not reachable on port 8333 from the
+Internet, for example due to a firewall, will not get more than eight
+connections in total.
 
 ==== Step 3 - Synchronize
 

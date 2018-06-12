@@ -563,9 +563,21 @@ compares this to the target:
  target:
  00000000926eb900000000000000000000000000000000000000000000000000
 
-Wow, this block id is less than the target! Qi has finally found a
-nonce that results in a block id less than the target. Great, now she
-will publish the block to the shared folder.
+Wow, this block id is less than the target! Qi has performed a great
+deal of work to find a nonce that results in a block id less than the
+target. She has created a block with a valid proof of work. Great, now
+she will publish the block to the shared folder.
+
+It's important to realize that all miners build their own unique
+blocks. For example, Tom is working on his own block concurrently with
+Qi (and Lisa), but his set of transactions is different than Qi's,
+because his coinbase transaction pays the block reward to himself,
+while Qi's coinbase transaction pays the block reward to Qi. This
+difference will cause the merkle roots in their respective block
+headers to differ. So if Tom sets Qi's winning nonce `492781982` on
+his own block, he most probably won't meet the target. Other things
+that probably differ between their blocks could be the ordering of
+transactions, or the timestamp.
 
 ==== Why is this good?
 
@@ -614,7 +626,7 @@ will vary from miner to miner. More on that in
 Instead of drawing a random number each second the miners draw a
 number about every 0.02 microsecond through cryptographic hashing. At
 the same time the lucky number limit, or target, is set to the 256 bit
-number `00000000926e…`=926eb9*2^200^ instead of just `556`.
+number `00000000926e…`=926eb9*2^200^ instead of just `555`.
 
 .Comparing the lucky number system with the proof of work system.
 |===
