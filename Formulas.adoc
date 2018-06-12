@@ -1,24 +1,6 @@
 = Formulas
 :stem: latexmath
 
-[stem] 
-++++
-q=attacker's\ hashrate \\
-p=honest\ hashrate \\
-z=blocks\ to\ catch\ up \\
-q_{z}=
-\left\{
-\begin{array}{ll}
-1 & \mbox{if } p \leq q \\
-(\frac{q}{p})^z & \mbox{if } q \gt p \\
-\end{array}
-\right.
-++++
-
-image::images/ch07/formula7_4.png[]
-
-
-
 
 [stem]
 ++++
