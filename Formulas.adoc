@@ -14,6 +14,8 @@ O*\left\{
 \right.
 ++++
 
+7.1
+
 [stem]
 ++++
 N=
@@ -24,6 +26,46 @@ O*\left\{
 4 & \mbox{if } 8 \lt T
 \end{array}
 \right.
+++++
+
+7.2
+
+
+[stem]
+++++
+N=
+O*\left\{
+\begin{array}{ll}
+\frac{1}{4} & \mbox{if } T \lt 0.5 \\
+\frac{T}{2} & \mbox{if } 0.5 \leq T \leq 8 \\
+4 & \mbox{if } 8 \lt T
+\end{array}
+\right.
+++++
+
+7.3
+
+[stem] 
+++++
+q=attacker's\ hashrate \\
+p=honest\ hashrate \\
+z=blocks\ to\ catch\ up \\
+q_{z}=
+\left\{
+\begin{array}{ll}
+1 & \mbox{if } p \leq q \\
+(\frac{q}{p})^z & \mbox{if } q \gt p \\
+\end{array}
+\right.
+++++
+
+7.4
+
+
+[stem]
+++++
+p=\frac{555+1}{1,000,000}=\frac{556}{1,000,000} \\
+difficulty=\frac{1}{p}=\frac{1,000,000}{556}
 ++++
 
 ////
