@@ -7,7 +7,7 @@ This repository contains the source code for Grokking Bitcoin. The book is writt
 The book build is only tested on a single linux system, please report any problems you encounter when building. The following software is needed:
 
 * Asciidoctor 1.5.7 or later
-* GNU Make
+* GNU Make (Not stictly needed, but convenient. See below how to build without it)
 
 ## Build
 
@@ -38,6 +38,22 @@ To build both chunked and full versions:
 ```shell
 make
 ```
+
+### Build without GNU Make
+
+If you don't have GNU Make, you can still build the html book by using `asciidoctor` directly:
+
+```shell
+asciidoctor -b html5 grokking-bitcoin.adoc
+```
+
+This will build the full book in a single html file. To build an individual chapter, for example chapter 4, run:
+
+```shell
+asciidoctor -r ./hacks/sectnumoffset-treeprocessor.rb -a sectnumoffset=$((4-1)) -a ch4 -b html5 grokking-bitcoin.adoc -o grokking-bitcoin-4.html
+```
+
+To build another chapter, replace each occurance of `4` with your desired chapter number. You can also consult `Makefile` to learn how to build chapters and the full book.
 
 ## Book structure
 
