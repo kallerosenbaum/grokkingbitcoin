@@ -14,6 +14,7 @@ O*\left\{
 \right.
 ++++
 
+////
 latexmath:[$N=
 O*\left\{
 \begin{array}{ll}
@@ -38,3 +39,5 @@ O*\left\{
 =O*\frac{1.5}{2}=O*\frac{3}{4}
 \right.
 ++++
+
+////
