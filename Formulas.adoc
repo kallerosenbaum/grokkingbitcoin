@@ -14,7 +14,17 @@ O*\left\{
 \right.
 ++++
 
-7.1
+
+[stem]
+++++
+p=\frac{555+1}{1,000,000}=\frac{556}{1,000,000} \\
+difficulty=\frac{1}{p}=\frac{1,000,000}{556}
+++++
+
+
+image::images/ch07/formula7_1.png[]
+
+
 
 [stem]
 ++++
@@ -28,7 +38,8 @@ O*\left\{
 \right.
 ++++
 
-7.2
+
+image::images/ch07/formula7_2.png[]
 
 
 [stem]
@@ -43,7 +54,10 @@ O*\left\{
 \right.
 ++++
 
-7.3
+
+image::images/ch07/formula7_3.png[]
+
+
 
 [stem] 
 ++++
@@ -59,7 +73,10 @@ q_{z}=
 \right.
 ++++
 
-7.4
+image::images/ch07/formula7_4.png[]
+
+
+
 
 
 [stem]
