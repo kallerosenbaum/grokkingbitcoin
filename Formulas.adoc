@@ -14,6 +14,19 @@ O*\left\{
 \right.
 ++++
 
+----
+N=
+O*\left\{
+\begin{array}{ll}
+\frac{1}{4} & \mbox{if } T \lt 0.5 \\
+\frac{T}{2} & \mbox{if } 0.5 \leq T \leq 8 \\
+4 & \mbox{if } 8 \lt T
+\end{array}
+=O*\frac{1.5}{2}=O*\frac{3}{4}
+\right.
+----
+
+
 
 [stem]
 ++++
