@@ -965,7 +965,7 @@ A public key in Bitcoin is a whole number solution to the equation
 
 [stem]
 ++++
-y^2 = x^3 + 7 \mod{(2^{256}-4294966319)}
+y^2 = x^3 + 7 \mod{(2^{256}-4294968273)}
 ++++
 
 There are astronomically many such solutions, about stem:[2^{256}] of

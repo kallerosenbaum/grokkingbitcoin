@@ -108,7 +108,7 @@ give it to the company.
 image::{imagedir}/payment-process-pubkey.svg[{full-width}]
 
 Faiza creates a private and a public key. This is done in exactly the
-same way as in <<_improving_cookie_token_security,chapter 2>>, but the
+same way as in <<improving-cookie-token-security>>, but the
 public key is not handed over to Lisa. Now that Lisa doesn't have the
 table of names and public keys, there's no point in giving the public
 key to Lisa any more. She doesn't need it. Instead, Faiza hands the

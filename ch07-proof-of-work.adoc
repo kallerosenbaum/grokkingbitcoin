@@ -372,7 +372,7 @@ image::{commonimagedir}/periscope.gif[]
 This chapter is about _proof of work_. We haven't introduced that term
 properly yet, but we will do that in the next section.
 
-In our overview of Bitcoin in <<_step_3_the_blockchain>>, we showed
+In our overview of Bitcoin in <<step-3-the-blockchain>>, we showed
 that one miner takes the lead and decides what transactions go into
 the next block and in what order. Bitcoin use proof of work to
 decide who gets to take the lead.
@@ -456,7 +456,7 @@ which means that this block's proof of work is valid.
 The target is a number agreed upon by all full nodes and miners. This
 target will change every now and then according to some common
 rules. Such a change is called a _retarget_ and will be described
-later in <<_difficulty_adjustments>>. For now we can just regard it as
+later in <<difficulty-adjustments>>. For now we can just regard it as
 a fixed number that must be set in the block header.
 
 ==== Produce a valid proof of work
@@ -620,7 +620,7 @@ image::{imagedir}/three-miners-proof-of-work.svg[{full-width}]
 ****
 0.02 microseconds is just an example of how long a "try" can take. It
 will vary from miner to miner. More on that in
-<<_miners_have_to_move_out>> and <<_difficulty_adjustments>>.
+<<miners-have-to-move-out>> and <<difficulty-adjustments>>.
 ****
 
 Instead of drawing a random number each second the miners draw a
@@ -697,6 +697,7 @@ Once any of these changes have been made to the block, the header will
 have changed so that the nonce can be reset to `0` and the miner can
 begin hashing again.
 
+[[miners-have-to-move-out]]
 === Miners have to move out
 
 The company thinks the proof of work system is nice and all, but they
@@ -835,6 +836,7 @@ we have left:
 There is only one problem left in the list. We will fix that in the
 next section.
 
+[[difficulty-adjustments]]
 === Difficulty adjustments
 
 Now that we have added more miners and more hashrate to the system,
@@ -1308,6 +1310,7 @@ centralization_, meaning that a few people controls a large portion of
 the total hashrate. They don't even have to attack the system to make
 cookie tokens less valuable.
 
+[[mitigating-miner-centralization]]
 ===== Mitigating miner centralization
 
 What can people do to counter Tom's and Lisa's power? They can start
@@ -1345,6 +1348,7 @@ inefficient miner, will find that it is not worth to mine anymore and
 close down its mining computers. The market will push out the
 inefficient miners in favor of the efficient miners.
 
+[[transaction-fees]]
 === Transaction fees
 
 We have put in place a system with multiple miners that each produce

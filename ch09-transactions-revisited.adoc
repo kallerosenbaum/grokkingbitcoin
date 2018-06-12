@@ -727,7 +727,7 @@ transaction fee is not sufficient.
 .You pay for your book and set the transaction fee to 0.00001 BTC
 image::{imagedir}/rbf-1.svg[{big-width}]
 
-You may recall from <<_transaction_fees>> that the transaction fee is
+You may recall from <<transaction-fees>> that the transaction fee is
 the sum of the input values minus the sum of the output values. The
 "fee per byte" that miners care about is calculated by dividing that
 fee with the size of the transaction. In this case 1,000 satoshis

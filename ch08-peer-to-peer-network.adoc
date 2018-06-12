@@ -231,7 +231,7 @@ see what network messages are being used. We will assume that the peer
 to peer network is already set up. We will come back to how the
 network is _bootstrapped_ later in this chapter.
 
-In <<_lightweight_wallets>>, we said that wallets are allowed to
+In <<lightweight-wallets>>, we said that wallets are allowed to
 connect to full nodes and get information about all block headers and
 transactions concerning them, using bloom filters and merkle paths.
 
@@ -352,7 +352,7 @@ image::{imagedir}/cafe-connected-to-node.svg[{half-width}]
 This is a common setup that gives the cafe the full security of a full
 node combined with the flexibility and mobility of a lightweight
 wallet. We described this setup in
-<<_security_of_lightweight_wallets>>.
+<<security-of-lightweight-wallets>>.
 
 The Cafe's full node has just verified Johns transaction. Now it
 want's to inform its neighbors about this new transaction. It is
@@ -369,7 +369,7 @@ image::{imagedir}/2ndcol-bloom-filter.svg[]
 ****
 
 The wallet is a lightweight wallet, which uses bloom filters described
-in <<_bloom_filters_obfuscate_addresses>>. The full node will test the
+in <<bloom-filters-obfuscate-addresses>>. The full node will test the
 transaction against the bloom filter, and if it matches, an `inv`
 message will be sent to the wallet. If no match, it will not send an
 `inv` message.
@@ -397,7 +397,7 @@ phase, including the transaction in a block in the blockchain.
 ==== Include the transaction in a block
 
 Let's recall some of our miners in this system. At the end of
-<<_mitigating_miner_centralization>> we had 10 different miners, but
+<<mitigating-miner-centralization>> we had 10 different miners, but
 let's go back in time and pretend that Qi, Tom, Lisa and Rashid are
 the only miners in this system right now.
 

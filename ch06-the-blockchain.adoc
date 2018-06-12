@@ -417,6 +417,7 @@ there in the block.
 The blockchain also provides some nice extra features that we will
 discuss further on, for example the merkle tree.
 
+[[lightweight-wallets]]
 === Lightweight wallets
 
 Coworkers that want to verify the blockchain to make sure that they
@@ -507,9 +508,10 @@ corresponding block headers are sent to the wallet together with all
 transactions concerning John's addresses in about the same way as
 above.
 
-The next two subsections will discuss bloom filters and merkle trees
-respectively.
+This section will discuss bloom filters. Merkle trees are explained in
+<<merkle-trees>>.
 
+[[bloom-filters-obfuscate-addresses]]
 ==== Bloom filters, obfuscate addresses
 
 John's wallet contains two addresses: @~a~ and @~b~, but John doesn't
@@ -616,7 +618,9 @@ positive_ match.
 
 The result of this is that the node will send Tx~2~ and Tx~3~ to the
 wallet. How the transactions are sent is a totally different story,
-described in the next subsection.
+described in <<merkle-trees>>.
+
+WARNING: Feel free to skip this part and jump to <<periscope>>.
 
 The above is a simplification of what really happens. We only tested
 public key hashes of the transaction outputs above, which would
@@ -675,8 +679,6 @@ wallet. More unrelated transactions means more wasted data traffic,
 but also improves privacy.
 
 Let's do some back-of-the-envelope calculations.
-
-WARNING: Feel free to skip this part and jump to <<periscope>>.
 
 The bloom filter in the example above has 8 bits of which 5 are
 ones. A single hash function's output has the probability 5/8 to hit
@@ -773,7 +775,7 @@ downloaded from any source, not just the full node that sent the
 filter.
 
 [[periscope]]
-==== Where were we?
+=== Where were we?
 
 ****
 image::{commonimagedir}/periscope.gif[]
@@ -796,7 +798,7 @@ the potentially interesting transactions will be sent to John's
 wallet.
 
 [id=merkle-trees]
-==== Merkle trees
+=== Merkle trees
 
 Now that the full node has determined what transactions to send to the
 wallet it needs to send the new block header and all transactions that
@@ -814,16 +816,16 @@ wallet only gets Tx~2~ and Tx~3~ from the full node. The wallet cannot
 recreate the merkle root in the block header. It needs more
 information to verify that the transactions are included in the block.
 
-First of all, remember that we want to save data traffic, so simply
-sending all transactions in the block is not good enough.
+Remember that we want to save data traffic, so simply sending all
+transactions in the block is not good enough.
 
-===== Create the merkle root
+==== Create the merkle root
 
 It's time to reveal how Lisa created the merkle root. Suppose that
-Lisa needs to create the block header above. She needs to make the
-combined hash of all transactions that we call the merkle root. The
-merkle root is calculated by creating a hierarchy of cryptographic
-hashes, a _merkle tree_.
+Lisa needs to create the block header above. She needs to calculate
+the combined hash of all transactions that we call the merkle
+root. The merkle root is calculated by creating a hierarchy of
+cryptographic hashes, a _merkle tree_.
 
 .Lisa creates a merkle root from the transactions in a block.
 image::{imagedir}/merkle-tree.svg[{big-width}]
@@ -860,25 +862,54 @@ if someone tampers with the transactions in it, the signature becomes
 invalid.
 
 [[create-proof]]
-===== Prove that a transaction is in a block
+==== Prove that a transaction is in a block
 
 The full node wants to send Tx~2~ and Tx~3~ to John's wallet, because
 it thinks those transactions might be interesting to John's wallet.
 
 The full node wants to prove to the wallet that both Tx~2~ and Tx~3~
 are included in the block. But let's begin with proving only a single
-transaction, Tx~2~. We will do a bigger, more complex example after
-this simple one.
+transaction, Tx~2~. We will do a bigger, more complex example later in
+this chapter.
 
 How can the full node provide a proof to the wallet that Tx~2~ is
 included in the block? It can do so by providing a _partial merkle
-tree_ that connects the hash of Tx~2~ to the merkle root in the block
-header. The partial merkle tree is a pruned version of the full merkle
-tree with only the neccesary parts needed prove that Tx2 is part of
-the tree. The full nodes sends two things to the wallet:
+tree_ that connects Tx~2~ to the merkle root in the block header. The
+general idea is to send the bare minimum to the lightweight wallet but
+enough to verify that Tx~2~ is in the block. In our example the the
+node will send the following stuff to the lightweight wallet:
 
-1. the block header and the partial merkle tree
-2. Tx~2~
+.The bare minimum to prove Tx~2~ is in the block. The full node sends this to the wallet.
+image::{imagedir}/partial-merkle-tree-overview-create.svg[{half-width}]
+
+The lightweight wallet will then use that information to verify that
+Tx~2~ is in the block by calculating the intermediary hashes towards
+the root:
+
+.The lightweight wallet verifies that Tx~2~ is in the block by reconstructing the merkle root.
+image::{imagedir}/partial-merkle-tree-overview-verify.svg[{half-width}]
+
+The hash functions have been taken out of the diagram to make it
+easier to read. The wallet can now be certain that Tx~2~ is in the
+block.
+
+==== How it actually works
+
+[WARNING]
+
+The following describes in detail how a partial merkle tree is created
+and how it is verified. You can skip this part and jump to
+<<security-of-lightweight-wallets>>.
+
+===== Create the partial merkle tree
+
+The partial merkle tree is a pruned version of the full merkle
+tree with only the neccesary parts needed prove that Tx2 is part of
+the tree. The full nodes sends three things to the wallet:
+
+1. The block header
+2. The partial merkle tree
+3. Tx~2~
 
 Let's construct the partial merkle tree. The full node knows the
 number of transactions in the block and therefore it knows the shape
@@ -889,8 +920,7 @@ root and moves downwards in the tree, left branch first.
 .The full node constructs a partial merkle tree that connects Tx~2~ to the merkle root in the block header.
 image::{imagedir}/partial-merkle-tree.svg[{full-width}]
 
-The hash functions have been taken out of the diagram to make it
-easier to read. The partial merkle tree consists of
+The partial merkle tree consists of
 
 * a number indicating the total number of transactions in the block
 * a list of flags
@@ -1051,7 +1081,8 @@ transactions, while the block size grows _linearly_ with the number of
 transactions. When the block _doubles_ in size, the merkle proof size
 roughly increases _by a constant term_ of 32 bytes.
 
-==== Security of lightweight wallets
+[[security-of-lightweight-wallets]]
+=== Security of lightweight wallets
 
 Lightweight wallets seem like a nice touch to the cookie token
 system. It certainly is, but users of lightweight wallets should be
@@ -1067,7 +1098,7 @@ wallet receives a transaction and a merkle proof, it can check that the
 transaction is contained in the block and that Lisa signed that
 block. But there are a lot of things it cannot verify. For example:
 
-* that the Script programs in the transaction all returns "OK", this
+* that the Script programs in the transaction all return "OK", this
   usually means verifying the signatures of all inputs.
 * that the spent outputs are not already spent.
 * that it receives all relevant transactions.

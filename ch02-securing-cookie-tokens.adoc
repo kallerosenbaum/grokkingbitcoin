@@ -604,6 +604,7 @@ digital signature in the email and the attached cat picture. If any of
 the signature or the cat picture has changed since you created the
 signature, the verification will fail.
 
+[[improving-cookie-token-security]]
 ==== Improving cookie token security
 
 It's time to move back to our cookie token spreadsheet. The company is

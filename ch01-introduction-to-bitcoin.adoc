@@ -220,6 +220,7 @@ _relaying_. Alice's transaction would shortly have traveled the whole
 network while being verified by each node along the way. The
 blockchain has not been updated yet, that's the next step.
 
+[[step-3-the-blockchain]]
 ==== Step 3 - The blockchain
 
 [.inbitcoin]
@@ -693,6 +694,7 @@ With Bitcoin, you don't have that problem, because you don't send any
 sensitive information to the merchant, or anyone else. You transfer
 the amount of money that you agreed upon, and nothing more.
 
+[[speculation]]
 ==== Speculation
 
 The world is full of people wanting to get rich quick. Bitcoin can be
@@ -793,7 +795,7 @@ in the blockchain.
 image::{imagedir}/market.svg[]
 ****
 
-As you could read in section <<_speculation>>, the price of a bitcoin
+As you could read in section <<speculation>>, the price of a bitcoin
 can fluctuate quite dramatically. But where is this price actually
 coming from? There are several Bitcoin exchanges, mostly Internet
 based. They resemble stock markets, where users wanting to sell

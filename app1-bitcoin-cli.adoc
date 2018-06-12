@@ -804,6 +804,8 @@ Update stats with css class "movingtarget"
 
 Check all URLs in web resources
 
+Spellcheck
+
 
 Less important todos: 
 
