@@ -752,13 +752,14 @@ then represent the transfer of ownership for that car.
 
 Bitcoin payments are public records but they are not tied to persons
 in any way. They are tied to long strings of numbers called public
-keys. The car manufacturer has made its public key publicly available
-on their website, in newspapers and advertisement, to tie the public
-key to the identity of the manufacturer. Anyone can then verify that
-the manufacturer has transferred ownership of the car to the new
-owner. The new owner can show that she owns the car by proving that
-she owns the private key belonging to the public key that the
-manufacturer transferred ownership to.
+keys, explained in detail in <<ch02>>. The car manufacturer has made
+its public key publicly available on their website, in newspapers and
+advertisement, to tie the public key to the identity of the
+manufacturer. Anyone can then verify that the manufacturer has
+transferred ownership of the car to the new owner. The new owner can
+show that she owns the car by proving that she owns the private key
+belonging to the public key that the manufacturer transferred
+ownership to.
 
 The new owner can sell the car to someone else and transfer ownership
 by sending the very same bitcoins she got from the manufacturer to the
@@ -851,21 +852,24 @@ satoshi = 0.000,000,01 BTC) at a fee of, for example, 1 satoshi.
 
 ===== Instant payments
 
-Bitcoin payments takes time to confirm. A typical payment will confirm
-within 20 minutes. The recipient will see the payment immediately, but
-he shouldn't trust the payment until it is confirmed by the Bitcoin
-network. This limitation can also be fixed by systems built on top of
-Bitcoin, for example the Lightning Network.
+Bitcoin payments take time to confirm. The recipient sees the payment
+immediately, but shouldn't trust the payment until it is confirmed by
+the Bitcoin network, which typically happens within 20
+minutes. Trusting an unconfirmed transaction can be risky, because the
+sender can make the transaction invalid by sending the same bitcoins
+to herself instead. This is known as _double spending_.
 
-The confirmation time of Bitcoin is nowhere near the confirmation
-times of VISA or MasterCard, where a merchant must wait for weeks
-[<<web-chargebacks>>] before
-being sure that the transaction is not reversed. Merchants usually
-take on some risk to avoid having their customers wait weeks before
-delivering the goods or service. Bitcoin cuts this waiting period
-significantly, but it is still too long for truly instant payments.
+The confirmation time can add friction in brick and mortar shops,
+because the customer don't want to wait 20 minutes before getting her
+coffee. This may not a big issue in some on-line shops, where the shop
+can wait 20 minutes before sending the goods to the customer, but some
+on-line services, for example pay-per-view, could find the
+confirmation time problematic.
 
-===== Savings you can not afford to lose
+This limitation can also be fixed by systems built on top of Bitcoin,
+for example the Lightning Network.
+
+===== Savings you can't afford to lose
 
 Bitcoin is probably the most secure money there is, but it is still in
 its infancy. Things _could_ go bad with Bitcoin, for example:
@@ -919,7 +923,7 @@ Bitcoin's position relative to the other cryptocurrencies.
 | 231
 
 | image:{imagedir}/ethereum-logo.png[role="smallheight"]
-| Smart contracts, run unstoppable software
+| Run software on a decentralized abstract computer
 | 129
 
 | image:{imagedir}/monero-logo.png[role="smallheight"]

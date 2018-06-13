@@ -405,8 +405,8 @@ The Bitcoin New branch will become the stronger branch and therefore,
 the remaining Bitcoin Old will abandon their branch and start working
 on the same branch as the Bitcoin New nodes. However, as soon as a
 Bitcoin Old node creates a block that is invalid on New nodes, it will
-will lose out on the block reward, because it will not be accepted on
-the Bitcoin New branch.
+lose out on the block reward, because it will not be accepted on the
+Bitcoin New branch.
 
 ==== Differences between hard and soft forks
 

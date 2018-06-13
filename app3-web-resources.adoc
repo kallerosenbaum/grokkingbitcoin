@@ -45,10 +45,6 @@ Web resource {counter:webresourceid}:: {resource-url}/wikileaks-blockade
 Web resource {counter:webresourceid}:: {resource-url}/cyprus-seizure
 // https://www.bloomberg.com/news/articles/2013-07-30/cyprus-sets-levy-on-bank-of-cyprus-uninsured-depositors-at-47-5-
 
-[[web-chargebacks,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/chargebacks
-// https://www.dalpay.com/en/support/chargebacks.html
-
 [[web-bips,Web resource {counter:webresourceid}]]
 Web resource {counter:webresourceid}:: {resource-url}/bips
 // https://github.com/bitcoin/bips/blob/master/README.mediawiki

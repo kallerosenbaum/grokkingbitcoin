@@ -61,9 +61,9 @@ by Acme Insurances to reject certain blocks. What's the point of proof
 of work, if the system can be censored at the block level any way?
 Proof of work made the _transactions_ censorship resistant, because it
 allowed users to send their transactions to multiple miners. But the
-_blocks_ containing the transactions are still subject to censorship by
-whoever has administrator privileges of the shared folder. Simply put,
-we are not yet censorship resistant. As long as you have a single
+_blocks_ containing the transactions are still subject to censorship
+by whomever has administrator privileges of the shared folder. Simply
+put, we are not yet censorship resistant. As long as you have a single
 entity that can decide what blocks or transactions to allow, we are
 not censorship resistant.
 
@@ -131,7 +131,7 @@ The same thing goes here as for blocks; a single node cannot hinder
 transactions from reaching the whole network. Another very pleasant
 effect of using the peer to peer network for transactions is that the
 recipient of the transaction can be notified that a transaction is
-"pending", or about to be confirmed. We will see how this work a bit
+"pending", or about to be confirmed. We will see how this works a bit
 later.
 
 === How do peers talk?
@@ -571,7 +571,8 @@ The Bitcoin peer to peer network is huge. As of writing:
 * Each bitcoin is worth around $10,000
 * 250,000 transaction per day
 * An estimate of 150,000 BTC, value $660M, being moved daily
-* Total mining hashrate is about 25 Ehash/s, 25*10^18^ hash/s.
+* Total mining hashrate is about 25 Ehash/s, 25*10^18^ hash/s. A
+  typical desktop computer can do about 25 Mhash/s.
 * Transaction fees paid each day totals around 50 BTC. Which averages
   36,000 satoshis per transaction, or about $2 per transaction.
 * People in all corners of the world use Bitcoin to get around

@@ -347,9 +347,11 @@ This seems like a nice scheme. But there are issues with it:
 * You can cheat with lucky numbers. You can't prove that you actually
   did draw an honest lucky number.
 * For every new miner, the system becomes more censorship resistant,
-  but also more vulnerable to private key theft. A stolen block
-  signing private key will give the thief access to create blocks by
-  cheating with lucky numbers and collect rewards for herself.
+  but also more vulnerable to private key theft; More computers
+  containing private keys means higher probability that a key gets
+  stolen. A stolen block signing private key will give the thief
+  access to create blocks by cheating with lucky numbers and collect
+  rewards for herself.
 * For each new miner, the risk that one of the miners cheats with
   lucky numbers increases.
 * You can not just add new miners to the system. You need to lower the
@@ -425,10 +427,11 @@ image::{imagedir}/valid-pow-example.svg[{half-width}]
 .Target in Bitcoin
 ****
 Target is written in the block header as 4 bytes, `ABCD`, and the 32
-byte target is calculated as `BCD` * 2^8*(`A`-3)^. It's `BCD` with
-`A-3` zero bytes after it. The target in Qi's block is written as
-`1c926eb9`, meaning `926eb9` with 25 zero bytes after (`1c-3`=`19`, hex
-code for 25).
+byte target is calculated as `BCD` * 2^8*(`A`-3)^. That's `BCD` with
+`A-3` zero bytes after it. It's this awkward because we must be able
+to express a wide range of targets, 1-2^256, with only 32 bits. The
+target in Qi's block is written as `1c926eb9`, meaning `926eb9` with
+25 zero bytes after (`1c-3`=`19`, hex code for 25).
 ****
 
 The nonce in this block header is `492781982`. This value is selected
@@ -1449,8 +1452,9 @@ high fee. If there's no hurry, he can pay a very low fee, but he needs
 to be cautious. If he pays a too small fee, no miner will be willing
 to confirm his transaction.
 
-We will talk more about fees, and how you can change them if they get
-stuck pending in <<ch09>>.
+We will talk more about fees in <<ch09>>, and how you can change the
+fee of a transaction if it gets stuck pending, also known as
+fee-bumping.
 
 [.inbitcoin]
 .Fees in Bitcoin

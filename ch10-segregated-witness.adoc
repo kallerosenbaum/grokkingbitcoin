@@ -272,9 +272,9 @@ It would be nice if we could solve this somehow.
 ==== Script upgrades are hard
 
 Sometimes it is desirable to extend the script language with new
-operations. For example `OP_CHECKSEQUENCEVERIFY` and
-`OP_CHECKLOCKTIMEVERIFY` were introduced in the language during 2015
-and 2016. Let's have a look at how `OP_CHECKLOCKTIMEVERIFY`, CLTV, was
+operations. For example `OP_CHECKSEQUENCEVERIFY` (`OP_CSV`) and
+`OP_CHECKLOCKTIMEVERIFY` (`OP_CLTV`) were introduced in the language
+during 2015 and 2016. Let's have a look at how `OP_CLTV`, was
 introduced.
 
 We will start with what `OP_` codes actually are. They are nothing but
@@ -292,10 +292,11 @@ When Bitcoin was created, a number of "NOP" operators,
 just ignore it and move on".
 
 These NOPs can be used to extend the script language, but only to a
-certain extent. The CLTV operator is actually `OP_NOP2`, or byte
-`b1`. CLTV was introduced by releasing a version of Bitcoin Core that
-redefines how `OP_NOP2` works. But it needs to be done in a compatible
-way so that we don't break compatibility with old, non-upgraded nodes.
+certain extent. The `OP_CLTV` operator is actually `OP_NOP2`, or byte
+`b1`. `OP_CLTV` was introduced by releasing a version of Bitcoin Core
+that redefines how `OP_NOP2` works. But it needs to be done in a
+compatible way so that we don't break compatibility with old,
+non-upgraded nodes.
 
 Let's go back to the example from <<absolute-time-locked-outputs>>
 where you gave your daughter allowance in advance that she can cash
@@ -356,7 +357,7 @@ born from Bitcoin's blockchain in <<ch11>>.
 You may be wondering what the `OP_DROP` instruction is for. `OP_DROP`
 takes the top item on the stack and
 discards it. `OP_CHECKLOCKTIMEVERIFY` is designed to behave exactly
-like `OP_NOP2` when it succeeds. If CLTV would be designed without
+like `OP_NOP2` when it succeeds. If `OP_CLTV` would be designed without
 taking old nodes into account, it would probably remove the top item
 from the stack. But since we need to take old nodes into account, we
 cannot do that. That's why we must add the extra `OP_DROP` after
@@ -492,15 +493,20 @@ We won't go into details on the checksum. We encourage the interested
 reader to read BIP173.
 ****
 
-This is done in multiple steps. The data part of the address is
-converted, character by character into numbers using a _base32_ lookup
-table. The first one of these numbers is the witness version, `0`. The
-following numbers except the last six numbers is the witness
-program. The last six numbers is the checksum. The checksum is then
-verified, no errors were detected in this example. Then the witness
-program is extracted by writing each number as a 5 bit number and
-rearrange them in groups of 8 bits. Each such group represents a byte
-of the witness program. Amy extracts the witness program as
+This is done in multiple steps:
+
+1. The human-readable part and the data part are separated
+2. The data part of the address is converted, character by character
+into numbers using a _base32_ lookup table. The first one of these
+numbers is the witness version, `0`. The following numbers except the
+last six numbers is the witness program. The last six numbers is the
+checksum.
+3. The checksum is verified, no errors were detected in this example.
+4. The witness program is rewritten by writing each number as a 5
+bit number.
+5. Rearrange the bits in groups of 8 bits. Each such group represents
+a byte of the witness program.
+6. Amy extracts the witness program as
 `c8052b799cde68ed8da8150c4cdef4ae3176cba8`.
 
 Amy creates a transaction with a new kind of pubkey script that we are

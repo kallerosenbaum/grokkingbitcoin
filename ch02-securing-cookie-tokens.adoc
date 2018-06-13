@@ -850,11 +850,11 @@ image::{imagedir}/2ndcol-encrypted-hash.svg[]
 ****
 
 [role="important"]
-John encrypted the hash of the message with his
-_private_ key. This encrypted hash is the signature. So if Lisa
-decrypts the signature (B) with John's _public_ key \(C), the result
-should be the a hash that equals the hash of the message (A) in the
-email.
+
+John encrypted the hash of the message with his _private_ key. This
+encrypted hash is the signature. So if Lisa decrypts the signature (B)
+with John's _public_ key \(C), the result should be a hash that equals
+the hash of the message (A) in the email.
 
 Lisa takes the signature (B) and decrypts it with the public key \(C)
 she looked up in her table of public keys. The decryption outputs a
@@ -864,6 +864,11 @@ takes the message (A), exactly as written, and hashes that message
 just like John did when he created the signature. This message hash is
 then compared with the decrypted signature. The message hash and the
 decrypted signature match, which means that the signature is valid.
+
+Note that this process only works of John and Lisa use the exact same
+digital signature scheme. This must be agreed on beforehand, but it's
+usually standardized. In Bitcoin everyone knows exactly what elliptic
+curve digital signature scheme to use.
 
 Lisa can now be sure that no one is trying to fool her. She updates
 the spreadsheet with John's transfer:

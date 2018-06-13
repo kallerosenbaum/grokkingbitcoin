@@ -22,11 +22,12 @@ transferred between users and automate the payment process.
 .Bitcoin wallets
 image::{imagedir}/visual-toc-wallets.svg[{big-width}]
 
-The developers also introduce a new way to generate keys, called
-hierarchical deterministic wallets, so that backups become dead
-simple; You only need to backup a single random number, called a seed,
-once and for all. We will take a really deep dive into how private and
-public keys are created.
+We will discuss different approaches to wallet backups. The developers
+introduce a new way to generate keys, called hierarchical
+deterministic wallets, so that backups become dead simple; You only
+need to backup a single random number, called a seed, once and
+for all. We will take a really deep dive into how private and public
+keys are created.
 
 This chapter will not change anything at all regarding Lisa's work or
 the spreadsheet. We only focus on users here.
@@ -64,7 +65,7 @@ his app. Writing it by hand is cumbersome and error prone, so it would
 be nice if John could scan the details with his camera instead.
 Make a payment:: The app should be able to send an email to Lisa with
 the digitally signed payment details.
-Keep track of funds:: The user wants to know how much cookies she can
+Keep track of funds:: The user wants to know how many cookies she can
 afford. The app should display the total amount of cookie tokens the
 user has.
 Backup private keys:: When private keys are created in the app, they
@@ -103,7 +104,9 @@ screen as a QR code. The QR code contains information on how much to
 pay, so that John doesn't have to type that in manually.
 
 . John points his phone's camera at the QR code to scan the payment
-details. It scans the _payment URI_ (Uniform Resource Identifier)
+details. It scans the _payment URI_ (Uniform Resource Identifier, a
+general specification on how to identify stuff, for example a web URL
+is an example of a URI)
 +
  ct:19UzNFW4Fq8wm8mtWmoPZAzE3tcB9tZVtN?amount=10
 +
@@ -254,11 +257,11 @@ eight characters among the 64 characters
 
  ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
 
-Since 2^6^=64, each character in the password represents 6 bits of
-entropy. If you select the eight characters randomly (no
-cherry-picking, please!), say `E3NrkbA7`, the eight character password
-would have 6*8=48 bits of entropy. This is equivalent in strength to
-48 coin flips.
+Each character in the password would then represents 6 bits of
+entropy, because there are 64=2^6^ possible characters. If you select
+the eight characters randomly (no cherry-picking, please!), say
+`E3NrkbA7`, the eight character password would have 6*8=48 bits of
+entropy. This is equivalent in strength to 48 coin flips.
 
 image::{imagedir}/coinflip-vs-password-entropy.svg[{quart-width}]
 

@@ -10,11 +10,11 @@ This chapter covers
 
 After this chapter, the spreadsheet will have gotten rid of personal
 names. The names will be replaced with hashes of public keys. This is
-useful from a privacy perspective. No one can easily see who's
-paying who. This makes it harder for others to extract information
-from the spreadsheet on how much cookies a certain coworker eats. Lisa
-also finds this very useful, because she doesn't have to maintain a
-table of names and public keys.
+useful from a privacy perspective. No one can easily see who's paying
+whom. This makes it harder for others to extract information from the
+spreadsheet on how much cookies a certain coworker eats. Lisa also
+finds this very useful, because she doesn't have to maintain a table
+of names and public keys.
 
 Coworkers then invent cookie token addresses that protect them from
 losing money due to typing errors. Cookie token addresses are used
@@ -303,8 +303,8 @@ No.
 Now that we've strengthened the security of our cookie token
 spreadsheet, let's think about privacy again. Has this improved
 privacy? Is it harder for Acme Insurances to figure out information
-about who's paying who now compared to when we used public keys in the
-spreadsheet? The answer is no. There is practically a 1-to-1
+about who's paying whom now compared to when we used public keys in
+the spreadsheet? The answer is no. There is practically a 1-to-1
 correspondence between the public keys and the public key
 hashes. Using public key hashes does not hide personal information
 more than using plain public keys.

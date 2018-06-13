@@ -248,7 +248,8 @@ signatures) will be hashed by the signing algorithm. So if anything
 changes in the transaction, any signature made for this transaction
 will become invalid.
 
-We sign a cleaned version of the transaction to make verification
+We sign a cleaned version of the transaction, which means that there
+are no signatures in any of the inputs, to make verification
 easier. You can not put a signature in input 0 and _then_ sign
 input 1. Verification would become hard if the person verifying
 doesn't know in what order the signatures were made. If you make _all_
