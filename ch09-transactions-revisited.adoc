@@ -1,5 +1,5 @@
 [[ch09]]
-== Transactions revisited - Bells and whistles
+== Transactions revisited
 :imagedir: {baseimagedir}/ch09
 
 This chapter covers

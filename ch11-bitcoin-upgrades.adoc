@@ -1,5 +1,5 @@
 [[ch11]]
-== Bitcoin upgrades - change consensus rules
+== Bitcoin upgrades
 :imagedir: {baseimagedir}/ch11
 
 This chapter covers

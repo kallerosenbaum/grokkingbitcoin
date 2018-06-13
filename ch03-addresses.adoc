@@ -1,5 +1,5 @@
 [[ch03]]
-== Addresses - Adding privacy
+== Addresses
 :imagedir: {baseimagedir}/ch03
 
 This chapter covers

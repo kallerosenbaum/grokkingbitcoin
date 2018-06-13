@@ -1,10 +1,10 @@
 [[ch02]]
-== Digital signatures - Securing cookie tokens
+== Cryptographic hash functions and digital signatures
 :imagedir: {baseimagedir}/ch02
 This chapter covers
 
 * Creating a simple money system, Cookie Tokens
-* Understanding cryptographic hashes
+* Understanding cryptographic hash functions
 * Authenticating payments using digital signatures
 * Keeping your secrets secret
 

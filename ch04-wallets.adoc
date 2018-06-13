@@ -1,5 +1,5 @@
 [[ch04]]
-== Wallets - Managing keys
+== Wallets
 :imagedir: {baseimagedir}/ch04
 
 This chapter covers

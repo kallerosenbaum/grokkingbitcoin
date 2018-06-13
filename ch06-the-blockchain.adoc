@@ -1,5 +1,5 @@
 [[ch06]]
-== The blockchain - Further reducing trust in Lisa
+== The blockchain
 :imagedir: {baseimagedir}/ch06
 
 This chapter covers

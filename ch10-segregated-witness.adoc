@@ -1,5 +1,5 @@
 [[ch10]]
-== Segregated witness - Fixing malleability and more
+== Segregated witness
 :imagedir: {baseimagedir}/ch10
 
 This chapter covers

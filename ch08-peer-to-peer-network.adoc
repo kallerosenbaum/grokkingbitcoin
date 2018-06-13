@@ -1,5 +1,5 @@
 [[ch08]]
-== Peer to peer network - Ditch shared folder and email
+== Peer to peer network
 :imagedir: {baseimagedir}/ch08
 This chapter covers
 

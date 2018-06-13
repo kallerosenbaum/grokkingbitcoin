@@ -1,5 +1,5 @@
 [[ch07]]
-== Proof of work - Resist censorship
+== Proof of work
 :imagedir: {baseimagedir}/ch07
 This chapter covers
 

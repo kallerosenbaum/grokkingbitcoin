@@ -1,5 +1,5 @@
 [[ch05]]
-== Transactions - Reducing trust in Lisa
+== Transactions
 :imagedir: {baseimagedir}/ch05
 
 This chapter covers
