@@ -920,7 +920,7 @@ used to either
 * improve privacy by decreasing the size of the bloom filter to get
   more false positives without increasing data traffic.
 
-==== Upgradeable script
+==== Upgradable script
 
 The version byte is used for future upgrades of the script
 language. Before segwit, we had to use the `OP_NOPs` to introduce new
@@ -1277,7 +1277,7 @@ witness commitment to commit to the transaction fees in the block, in
 addition to the witness root hash, by making a merkle tree of all
 transaction fees. Suggest how that merkle root could be committed to in
 the block without breaking compatibility with old nodes. You don't
-have to think about future upgradeability after this change, because
+have to think about future upgradability after this change, because
 that's more complex. Use the figure below as a hint.
 +
 image::{imagedir}/segwit-coinbase-tx.svg[{big-width}]

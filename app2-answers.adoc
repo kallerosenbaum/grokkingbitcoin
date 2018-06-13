@@ -653,7 +653,7 @@ to `LOCKED_IN` and 2016 blocks later to `ACTIVE`.
 
 9. A portion (30%) of the economy starts rejecting blocks that don't
 comply with your soft fork. This means that you will cause a
-blockchain split that remans as long as a majority of miners support
+blockchain split that remains as long as a majority of miners support
 the Old branch.
 
 10. When most of the economy start rejecting Old blocks, miners

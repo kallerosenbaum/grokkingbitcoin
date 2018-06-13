@@ -608,7 +608,7 @@ signature followed by the public key corresponding to the PKH in the
 pubkey script.
 
 Using a programming language like Script in the transactions makes
-them very flexible. We will se several different types of Script
+them very flexible. We will see several different types of Script
 programs throughout this book. If there was no programming language,
 all use cases would have to be invented up-front. The Script language
 lets people come up with new use cases as they please.
@@ -800,7 +800,7 @@ image::{imagedir}/flyer-scriptpubkey.svg[]
 ****
 
 A coworker that wants to donate cookie tokens to the charity needs to
-get her wallet to write the pubkey script above into the dontation
+get her wallet to write the pubkey script above into the donation
 transaction's outputs. There are a few problems with this:
 
 * The coworker's wallet only knows how to make p2pkh outputs. The

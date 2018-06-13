@@ -19,7 +19,7 @@ on my door. I've never felt that I need to spend my money
 _immediately_, because otherwise hyperinflation will eat my lunch. But
 that also makes it harder for me to grok why Bitcoin is
 important. Bitcoin is mostly theoretical to me, but when I hear
-reports from less fortunate people living under opressive or
+reports from less fortunate people living under oppressive or
 incompetent regimes about how Bitcoin makes their lives better, it
 gets very real. Bitcoin will give people an opportunity to opt-out of
 the system they were previously held hostage in.
@@ -74,7 +74,7 @@ Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA
 under an open source license was a requirement I had for writing the
 book. This is my way of giving back to the Bitcoin community that has
 given me so much over the years. However, there are other less
-philantropic reasons: Open sourcing the will probably benefit sales
+philanthropic reasons: Open sourcing the will probably benefit sales
 because the book will get more exposure and people can browse through
 the content before buying.
 
@@ -82,7 +82,7 @@ I hope you enjoy reading Grokking Bitcoin as much as I suffered
 writing it.
 
 [dedication]
-== Acknowlegements
+== Acknowledgments
 
 I have a lot of people to thank for making this book possible.
 
@@ -100,7 +100,7 @@ Gillhoolley, Ana Romac, Michael Stephens, Erin Twohey, Christopher
 Kaufmann, Matko Hrvatin, Greg Wild. Thanks.
 
 I'd also like to thank Jonathan Jogenfors and Pontus Lindblom for
-reviewing some chapters covering their respective fields of expretise.
+reviewing some chapters covering their respective fields of expertise.
  
 A lot of people on various forums on the Internet has been very
 helpful during my research. The ones that stand out the most are David
@@ -131,10 +131,10 @@ If I left someone out, I'm terribly sorry, thank you too.
 
 === Who should read this book
 
-This book is intended for techically interested people wanting to
+This book is intended for technically interested people wanting to
 understand Bitcoin on a deep technical level. The book does not
 require any programming skills, but a basic understanding of some
-technical concepts are benefitial, for example databases, computer
+technical concepts are beneficial, for example databases, computer
 networks, computer programs, and web servers.
 
 The primary goal of the book is that *you will be able to decide for
@@ -245,7 +245,7 @@ and so forth) we use, because it's often obvious from the context.
 If you have specific questions about Bitcoin that you didn't find the
 answer to in this book, I really recommend Bitcoin Stack Exchange,
 <<web-stackexchange>>, which is a platform for questions and answers
-where good answers get upvoted by readers.
+where good answers get up-voted by readers.
 
 I can also recommend the Bitcoin Developer Reference, <<web-dev-ref>>,
 for more comprehensive documentation of Bitcoin.

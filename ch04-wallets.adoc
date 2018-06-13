@@ -995,7 +995,7 @@ image::{imagedir}/elliptic-curve-crypt-image00.png[]
 ****
 
 The equations above are examples of a class of equations called
-_elliptic curves_ and a solution is ofter referred to as a _point on
+_elliptic curves_ and a solution is often referred to as a _point on
 the curve_. We can now calculate a public key, which is a point on the
 curve, from a private key. To do this we start in a special point,
 stem:[G=(6,5)], on the curve. stem:[G] is somewhat arbitrarily chosen,

@@ -803,7 +803,7 @@ increases the risk of natural splits increases. Imagine if three
 thousand people would start mining in their basements. It would
 increase the block rate by 1,000 times. Each and every second several
 miners would find a valid proof of work and publish a block. We would
-get splitss on almost every block height. This makes transactions in
+get splits on almost every block height. This makes transactions in
 recent blocks less reliable, because those blocks can more easily
 become split off from the main chain if they happens to appear only in
 non-strongest branches.
@@ -1306,7 +1306,7 @@ electricity bill. They need to shut down their mining business because
 they mine at a net loss.
 
 Tom and Lisa should think twice before starting to attack the system,
-eventhough they can. Just the fact the there are two miners that
+even though they can. Just the fact the there are two miners that
 together control more than 50% of the total hashrate could be enough
 to trigger a price drop, because people get nervous about _mining
 centralization_, meaning that a few people controls a large portion of

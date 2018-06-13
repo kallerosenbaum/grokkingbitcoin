@@ -1134,7 +1134,7 @@ have the keys from the previous exercise. Now you want to send a message in a bo
 ----
 +
 Please explain how you would sign the message so that Fred can be sure
-that the message is actually from you. Explain what steps you and fred
+that the message is actually from you. Explain what steps you and Fred
 take in the process.
 
 . Are the names in the spreadsheet really needed anymore? Can we

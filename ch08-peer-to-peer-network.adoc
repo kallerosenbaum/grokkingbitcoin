@@ -463,7 +463,7 @@ block.
 ==== Notify wallets
 
 Tom's node is connected to John's wallet so Tom sends a `headers`
-message to John. Likewise, The cafe's full node sends a `headres` to
+message to John. Likewise, The cafe's full node sends a `headers` to
 the cafe's lightweight wallet. Tom's and the cafe's full nodes will
 not test the block against the bloom filters in any way. They will
 just send the `headers` unconditionally, but the lightweight wallets
@@ -970,7 +970,7 @@ It starts with Selma who sends a `getdata` message to Rashid. This
 message specifies what blocks she wants to download from
 Rashid. Rashid sends back the requested blocks in `block` messages,
 one by one. Note that she downloads only part of the blocks from
-Rashid. She also downloads blocks from Tom in prallel, which is why
+Rashid. She also downloads blocks from Tom in parallel, which is why
 there are gaps in the sequence of requested block. The process is
 repeated until Selma doesn't want any more blocks from Rashid.
 
@@ -1046,7 +1046,7 @@ available at <<web-install>>.
 
 This section will walk you through setting up your own Bitcoin Core
 full node on a Linux operating system. It is intended for readers
-confortable with the linux operating system and command line.
+comfortable with the linux operating system and command line.
 
 We have seen how a Bitcoin full node is downloaded, started, and
 synchronized in theory. This section will help you get your own full
@@ -1111,7 +1111,7 @@ step.
 This section will show you how to verify that the downloaded `.tar.gz`
 file is not tampered with in any way. That file is digitally signed by
 the Bitcoin Core team's private key. The verification process
-involoves the following steps:
+involves the following steps:
 
 . Download the signature file
 . Verify that the hash of the `.tar.gz` file matches the hash in the
@@ -1183,7 +1183,7 @@ H7vuHfDxjUkN/8Jll9ta
 
 The signed message in the upper part of the file lists a number of
 files along with their respective SHA256 hashes. The listed files are
-all installation packages for all operating systems and architechtures
+all installation packages for all operating systems and architectures
 that Bitcoin Core is released for. The lower part of the file is the
 signature of the the message in the upper part. The signature commits
 to the whole message and thus to all the hashes and files listed in
@@ -1253,7 +1253,7 @@ You: Thank you, it matches mine, bye!
 
 Donna: You're welcome, bye!
 
-Donna's statement further stengthens your trust in this key. You think
+Donna's statement further strengthens your trust in this key. You think
 you have collected enough evidence that this is in fact the
 correct key.
 
@@ -1453,7 +1453,7 @@ Here you have a number of executable programs:
 * `test_bitcoin` lets you test run a test suite.
 
 In this tutorial, we will run `bitcoind`, which stands for "Bitcoin
-Daemon". In unix systems like Linux, the word Daemon is used for
+Daemon". In Unix systems like Linux, the word Daemon is used for
 computer programs that runs in the background.
 
 Let's start the Bitcoin Core daemon in the background and see what happens:
@@ -1607,7 +1607,7 @@ image::{imagedir}/running-a-full-node.svg[{full-width}]
 
 ==== System changes
 
-Our table of concept mapppings between the cookie token system and
+Our table of concept mappings between the cookie token system and
 Bitcoin has become tiny:
 
 [%autowidth]

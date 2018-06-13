@@ -761,7 +761,7 @@ from a lightweight client, the node needs to scan the whole blockchain
 for matching transactions. This scanning is very processing and disk
 intensive and can take several minutes, depending on the hardware of
 the full node. This can be used maliciously to attack full nodes so
-that they become unresponsive, a so callde DoS-attack (Denial of
+that they become unresponsive, a so called DoS-attack (Denial of
 Service attack).
 
 New BIPs, BIP157 and BIP158, have been proposed that aim to solve
@@ -904,7 +904,7 @@ and how it is verified. You can skip this part and jump to
 ===== Create the partial merkle tree
 
 The partial merkle tree is a pruned version of the full merkle
-tree with only the neccesary parts needed prove that Tx2 is part of
+tree with only the necessary parts needed prove that Tx2 is part of
 the tree. The full nodes sends three things to the wallet:
 
 1. The block header

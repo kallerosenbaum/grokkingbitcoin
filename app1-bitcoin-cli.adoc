@@ -798,8 +798,6 @@ Remove hard part of "Throttle privacy and data traffic"?
 
 Todo:
 
-Fix Table of contents to remove subtitles or rephrase them.
-
 Update stats with css class "movingtarget"
 
 Check all URLs in web resources

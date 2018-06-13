@@ -252,8 +252,9 @@ locks can be time based or height based.
 [.inbitcoin]
 .BIP65
 ****
-This BIP describes in detail the Script operator, OP_CHECKLOCK-TIMEVERIFY that implements the
-absolute time locked output.
+This BIP describes in detail the Script operator,
+OP_CHECKLOCK-TIMEVERIFY that implements the absolute time locked
+output.
 ****
 
 Suppose that you want to give your daughter 1 BTC allowance on the
@@ -875,7 +876,7 @@ outputs (ALL, SINGLE and NONE) and two ways to commit to inputs
 and an output SIGHASH type can be used which makes 6 different
 combinations as the figure above shows.
 
-.A signature can commit to different parts of the transaction depending on the so called SIGHASH types. The greyed out parts are not included by the signature.
+.A signature can commit to different parts of the transaction depending on the so called SIGHASH types. The grayed out parts are not included by the signature.
 image::{imagedir}/sign-transaction-combos.svg[{big-width}]
 
 For the outputs, you can commit to
