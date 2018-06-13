@@ -451,13 +451,13 @@ virtually nothing.
 |Yugoslavia | 1992-1994 | 313*10^6^
 |Peru | 1990 | 397
 |Ukraine | 1992-1994 | 285
-|Venezuela | 2016-2017 | 120
+|Venezuela | 2012- | 120
 |===
 
 Zimbabwe is one of the most extreme cases of inflation throughout
 history, but still today some countries suffer from very high
 inflation. One of them is Venezuela where its currency, the bolívar,
-experienced a 480% inflation during 2016, and during 2017 it suffered
+experienced a 800% inflation during 2016, and during 2017 it suffered
 from about 4,000% inflation. A staggering 15,000% inflation is forecast
 for 2018.
 
@@ -704,7 +704,7 @@ tempting to try to buy when it is low and sell when it is high.
 
 [.movingtarget]
 .Price in USD since beginning of Bitcoin
-image::{imagedir}/bitcoin-price.png[{half-width}]
+image::{imagedir}/bitcoin-price.svg[{big-width}]
 
 [.movingtarget]
 
@@ -713,9 +713,10 @@ over $1100 in a few weeks. This was clearly a so called _bubble_,
 where people were afraid of missing out on a great rise, so they
 bought in, driving the price further up, until it eventually started
 dropping again. The drop to 50% of its peak value was just as quick as
-its rise. This has happened many times already. Fluctuations like this
-is rarely driven by any specific news or technological advancements,
-but from speculation.
+its rise. The same pattern was repeated late 2017 but on a greater
+magnitude. This has happened many times already. Fluctuations like
+this are rarely driven by any specific news or technological
+advancements, but from speculation.
 
 It does happen that some government or big corporation makes a
 negative statement that creates fear in the market, but those events
@@ -848,7 +849,7 @@ There are however very promising emerging technologies being built on
 top of Bitcoin. One example is the Lightning Network, that allows for
 cheap, instantaneous micropayments of tiny fractions of a
 bitcoin. Using Lightning Network, you can pay just 100 satoshis (1
-satoshi = 0.000,000,01 BTC) at a fee of, for example, 1 satoshi.
+satoshi = 0.000,000,01 BTC) at a fee of 1 satoshi.
 
 ===== Instant payments
 
@@ -911,7 +912,7 @@ a lot when you read this. I include it only to give you a glimpse of
 Bitcoin's position relative to the other cryptocurrencies.
 
 [.movingtarget]
-.Market capitalization of a few cryptocurrencies as of 2018-01-15.
+.Market capitalization of a few cryptocurrencies as of 2018-06-13.
 [cols="2,3,1",options="header"]
 |===
 | Currency
@@ -920,23 +921,23 @@ Bitcoin's position relative to the other cryptocurrencies.
 
 | image:{imagedir}/bitcoin-logo.png[role="smallheight"]
 | Global money, included for reference
-| 231
+| 111
 
 | image:{imagedir}/ethereum-logo.png[role="smallheight"]
 | Run software on a decentralized abstract computer
-| 129
+| 48
 
 | image:{imagedir}/monero-logo.png[role="smallheight"]
 | Anonymity
-| 6
+| 1.9
 
 | image:{imagedir}/zcash-logo.png[role="smallheight"]
 | Anonymity
-| 2
+| 0.8
 
 | image:{imagedir}/namecoin-logo.svg[role="smallheight"]
 | Naming system, complements domain name system, DNS
-| 0.1
+| 0.02
 |===
 
 I encourage you to look up these cryptocurrencies as they all provide

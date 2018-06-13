@@ -796,13 +796,12 @@ Remove "Hardened extended private key derivation"?
 
 Remove hard part of "Throttle privacy and data traffic"?
 
+
 Todo:
 
 Update stats with css class "movingtarget"
 
 Check all URLs in web resources
-
-Spellcheck
 
 
 Less important todos: 

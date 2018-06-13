@@ -334,7 +334,10 @@ X * 10^-Y^
 .Splits
 ****
 [.movingtarget]
-Splits in Bitcoin are a bit more probable than in this example, but still occurs only about once per day.
+
+Splits in Bitcoin occurs less than once per month, and the trend is
+that it becomes more rare over time due to more efficient transport
+mechanisms.
 ****
 
 A split of branch length 1 is quite likely to happen, but a branch of
@@ -756,8 +759,8 @@ cookie token system has increased significantly. Now we have
 [role="inbitcoin movingtarget"]
 .Total hashrate of Bitcoin
 ****
-As of writing, the total hashrate of Bitcoin is about 8
-Exahash/s. That's 8*10^18^ hash/s.
+As of writing, the total hashrate of Bitcoin is about 36
+Exahash/s. That's 36*10^18^ hash/s.
 ****
 
 |===
@@ -1324,7 +1327,8 @@ have a whole new situation.
 [role="inbitcoin movingtarget"]
 .Bitcoin's hashrate distribution
 ****
-As of writing, Bitcoin's 8 Exahash/s are distributed as follows
+As of writing, Bitcoin's 36 Exahash/s are distributed as follows
+(source: blockchain.info):
 
 image::{imagedir}/chart-hashrate-distribution-bitcoin.png[]
 
