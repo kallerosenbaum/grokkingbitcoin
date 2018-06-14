@@ -1,7 +1,7 @@
 [appendix]
 [[app2]]
 == Answers to exercises
-:imagedir: {baseimagedir}/answers
+:imagedir: {baseimagedir}/app2
 
 === Chapter 2
 

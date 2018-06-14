@@ -15,11 +15,10 @@ body {
 
 
 /* Uncomment this to make stats needing update blink */
-
-.movingtarget {
-    animation: blinker 0.5s infinite alternate;    
-}
-@keyframes blinker { to { opacity: 0.5; } }
+//.movingtarget {
+//    animation: blinker 0.5s infinite alternate;    
+//}
+//@keyframes blinker { to { opacity: 0.5; } }
 
 
 div>p,.literalblock,.listingblock,.imageblock>.title,div>.tableblock,.dlist,.olist,.ulist,.stemblock,.admonitionblock {
@@ -84,23 +83,15 @@ table.tableblock>caption.title {
     font-weight: bold;
 }
 
-.gbinfo::before,.inbitcoin::before,.gbminiex::before {
+.gbinfo::before,.inbitcoin::before {
     float: right;
     position: relative;
     top: -10px;
     right: -10px;
 }
 
-.gbfaq::before {
-    content:url(images/q-a-thumb.png);   
-}
-
 .gbinfo::before {
     content:url(images/light-bulb-thumb.png);   
-}
-
-.gbminiex::before {
-    content:url(images/question-mark-thumb.png);   
 }
 
 .inbitcoin::before {

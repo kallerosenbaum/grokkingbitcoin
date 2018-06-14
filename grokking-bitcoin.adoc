@@ -20,9 +20,7 @@
 :full-width: width='100%'
 :big-width: width='75%'
 :half-width: width='50%'
-:third-width: width='30%'
 :quart-width: width='25%'
-:tiny-height: height='10%'
 :thumb: width='40%'
 :btc: image:{commonimagedir}/btc-sans.png[BTC,role="btc"]
 
