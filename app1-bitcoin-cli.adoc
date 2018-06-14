@@ -799,7 +799,7 @@ Remove hard part of "Throttle privacy and data traffic"?
 
 Todo:
 
-Update stats with css class "movingtarget"
+Update stats with css class "movingtarget" (done 2018-06-13)
 
 Check all URLs in web resources
 

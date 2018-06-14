@@ -34,7 +34,7 @@ ifdef::fm,chall[include::front-matter.adoc[]]
 
 ifdef::ch1,chall[include::ch01-introduction-to-bitcoin.adoc[]]
 
-ifdef::ch2,chall[include::ch02-securing-cookie-tokens.adoc[]]
+ifdef::ch2,chall[include::ch02-hash-functions-and-signatures.adoc[]]
 
 ifdef::ch3,chall[include::ch03-addresses.adoc[]]
 
