@@ -9,10 +9,13 @@
     page-break-after: always;
 }
 
-body {
+/*body {
     font-size: 13px;    
 }
 
+p {
+    font-size: 1.1em;
+}*/
 
 /* Uncomment this to make stats needing update blink */
 //.movingtarget {
@@ -66,6 +69,7 @@ table.tableblock>caption.title {
 .sidebarblock {
     width: 24%;
     float: right;
+    clear: right;
     padding: 0.25em;
     margin-bottom: 0.25em;
     page-break-inside: avoid
@@ -86,7 +90,7 @@ table.tableblock>caption.title {
 .gbinfo::before,.inbitcoin::before {
     float: right;
     position: relative;
-    top: -10px;
+    top: 0px;
     right: -10px;
 }
 
@@ -98,7 +102,7 @@ table.tableblock>caption.title {
     content:url(images/bitcoinLogoThumb.png);   
 }
 
-.inbitcoin>.content>.title,.gbinfo>.content>.title,.gbfaq>.content>.title,.gbminiex>.content>.title {
+.inbitcoin>.content>.title,.gbinfo>.content>.title {
     text-align: left;
 }
 

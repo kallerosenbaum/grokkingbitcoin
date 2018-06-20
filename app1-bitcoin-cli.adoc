@@ -799,9 +799,11 @@ Remove hard part of "Throttle privacy and data traffic"?
 
 Todo:
 
+Open up port forwardings for node to increase connectivity and serve
+others. Discuss implications of only having out-bound connections.
+
 Update stats with css class "movingtarget" (done 2018-06-13)
 
-Check all URLs in web resources
 
 
 Less important todos: 

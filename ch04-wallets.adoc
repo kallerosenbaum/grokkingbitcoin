@@ -317,13 +317,16 @@ process also introduces new problems:
 
 ****
 image::{imagedir}/2ndcol-remember-two-things.svg[]
-'''
-image::{imagedir}/2ndcol-forgotten-password.svg[]
 ****
 
 More things to secure:: John now needs to keep track of two things, a
 backup file and a password. In the first version, only a backup file
 was needed.
+
+****
+image::{imagedir}/2ndcol-forgotten-password.svg[]
+****
+
 Forgotten password:: Passwords that are rarely used, as is the case
 with backup passwords, will eventually be forgotten. They can be
 written down on paper and stored in a safe place to mitigate this
@@ -333,6 +336,7 @@ LastPass and KeePass.
 ****
 image::{imagedir}/2ndcol-technology-advancements.svg[]
 ****
+
 Technology advancements:: As time passes, new more advanced hardware
 and software is built that makes password cracking faster. This means
 that if your eight character password was safe five years ago, it's
