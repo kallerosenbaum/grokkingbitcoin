@@ -9,6 +9,22 @@
     page-break-after: always;
 }
 
+body {
+    font-family: sans, sans-serif;
+    
+}
+
+p {
+    font-size: 1.25em;
+    text-align: justify;
+    line-height: 1.2em;
+}
+
+h1, h2, h3, #toctitle, .sidebarblock>.content>.title, h4, h5, h6 {
+    color: #000055;
+    font-weight: bold;
+	       
+}
 /*body {
     font-size: 13px;    
 }
@@ -77,6 +93,11 @@ table.tableblock>caption.title {
 
 .sidebarblock p {
     font-size: 0.9em;
+    text-align: left;
+}
+
+.sidebarblock>.content>.title {
+    font-size: 1em;
 }
 
 .gbnew img {
