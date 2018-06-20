@@ -1367,10 +1367,16 @@ confirm, but eventually one of the non-censoring miners will find a
 valid proof of work for a block that contains the transaction and
 publish that block.
 
-All good.
+All good. But there are two problems with this:
 
-But there's another problem (as usual). The more transactions you put
-into a block, the bigger it gets.
+* Bigger blocks are slower
+* Block size is limited
+
+These two properties have some implications on miners' transaction
+selection. We will start with the first of these two and then discuss
+what effect the block size limit will have.
+
+==== Bigger blocks are slower
 
 Suppose that Lisa and Tom finds valid proof of work for their
 respective blocks at the same time. Lisa's block is 200kB bytes and
@@ -1426,7 +1432,7 @@ transaction fee. He constructs his transaction as follows:
 image::{imagedir}/transaction-fee.svg[{full-width}]
 
 When John created a similar transaction in <<ch05>>, the sum of the
-inputs were equal to the sum of the outputs. He didn't pay any
+inputs was equal to the sum of the outputs. He didn't pay any
 transaction fee.
 
 .Half a CT?
@@ -1499,6 +1505,42 @@ money) and the transaction fees.
 
 When the block is setup correctly she starts working to find a valid
 proof of work for this block.
+
+==== Block size is limited
+
+Blocks are not allowed to be infinitely large. Simply put, the maximum
+block size is 1,000,000 bytes, but there are nuances to that as will
+be discussed in <<block-size-limit>>. This means that if there are
+more transactions waiting to be confirmed than there is block space
+available, miners will have to chose which transactions to include in
+the block and which transactions to exclude from the block.
+
+The transaaction fee will play an important role in this situation
+too, because a higher transaction fee will give miners more incentive
+to include the transaction in a block instead of some other
+transactions. The fee is used to compete against other transactions
+for block space, in addition to paying for the lost
+competitiveness. This situation is known as a _fee market_.
+
+.In a fee market, transactions compete for block space. The numbers in the transactions are fee level in CT/byte
+image::{imagedir}/tx-fees-block-limit.svg[{big-width}]
+
+If there is more block space available than there are transaction data
+waiting to be confirmed, transactions don't compete with each other in
+the same sense:
+
+.When there is no fee market, transactions don't compete with eachother. They just have to pay for the lost competitiveness.
+image::{imagedir}/tx-fees-no-block-limit.svg[{big-width}]
+
+In this situation, any transaction that bears their cost of lost
+competitiveness will get confirmed.
+
+[.movingtarget]
+
+As of writing, we see fee markets emerging from time to time during
+spikes of interest in Bitcoin, but there are still moments where there
+are little to no waiting transactions, in which case the fee will be
+very low, typically 1 satoshi/byte, 0.000,000,01 BTC/byte.
 
 ==== When block subsidy is 0
 
