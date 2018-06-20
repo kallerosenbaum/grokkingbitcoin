@@ -1515,7 +1515,7 @@ more transactions waiting to be confirmed than there is block space
 available, miners will have to chose which transactions to include in
 the block and which transactions to exclude from the block.
 
-The transaaction fee will play an important role in this situation
+The transaction fee will play an important role in this situation
 too, because a higher transaction fee will give miners more incentive
 to include the transaction in a block instead of some other
 transactions. The fee is used to compete against other transactions
@@ -1529,7 +1529,7 @@ If there is more block space available than there are transaction data
 waiting to be confirmed, transactions don't compete with each other in
 the same sense:
 
-.When there is no fee market, transactions don't compete with eachother. They just have to pay for the lost competitiveness.
+.When there is no fee market, transactions don't compete with each other. They just have to pay for the lost competitiveness.
 image::{imagedir}/tx-fees-no-block-limit.svg[{big-width}]
 
 In this situation, any transaction that bears their cost of lost
