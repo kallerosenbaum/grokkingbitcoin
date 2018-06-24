@@ -10,8 +10,7 @@
 }
 
 body {
-    font-family: sans, sans-serif;
-    
+    font-family: sans, sans-serif;    
 }
 
 p {
@@ -23,8 +22,12 @@ p {
 h1, h2, h3, #toctitle, .sidebarblock>.content>.title, h4, h5, h6 {
     color: #000055;
     font-weight: bold;
-	       
 }
+
+#toc ul {
+    font-family: sans, sans-serif; /*unset;/*"Open Sans","DejaVu Sans",sans-serif;*/
+}
+
 /*body {
     font-size: 13px;    
 }

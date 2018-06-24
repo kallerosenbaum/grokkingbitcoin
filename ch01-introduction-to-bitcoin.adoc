@@ -42,7 +42,7 @@ specific _fiat currency_ like the US dollar or the Chinese Renminbi;
 It has free floating exchange rates against all fiat currencies. You
 can buy and sell bitcoins for fiat currencies online using one of
 several exchanges, for example kraken.com, bitstamp.net and
-coinbase.com.
+localbitcoins.com.
 
 No government or company is controlling Bitcoin. Instead, thousands of
 computers around the globe, the Bitcoin network, collectively keep the
@@ -81,31 +81,24 @@ remittance services or tipping services.
 Exchanges:: A commercial service people can use to exchange their
 local currency to and from bitcoin.
 Protocols on top:: Systems can be built on top of bitcoin. Payment
-networks, specialized tokens and decentralized exchanges are all
-examples of _protocols_ that operate "on top" of Bitcoin to perform
-certain tasks.
-Bitcoin developers:: People working, often for free, with the computer
-programs that the participants of the Bitcoin network are running.
+network protocols, specialized tokens and decentralized exchanges are
+all examples of _protocols_ that operate "on top" of Bitcoin to
+perform certain tasks.
+Bitcoin developers:: People working, often for free, with the open
+source computer programs that the participants of the Bitcoin network
+are using.
 
-The Bitcoin network's job is to process Bitcoin payments. The network
-consists of thousands of computers around the world. We call those
-computers Bitcoin nodes or just nodes. Any of the actors mentioned
-above can also participate actively in the Bitcoin network by running
-their own Bitcoin node. You must run your own node if you don't want
-to trust others to provide you with correct financial information.
+The Bitcoin network's job is to process Bitcoin payments, to secure
+the ledger of who owns what from unauthorized modifications, and to
+get new bitcoins into circulation at the predetermined rate. The
+network consists of thousands of computers around the world. We call
+those computers Bitcoin nodes or just nodes. Any of the actors
+mentioned above can also participate actively in the Bitcoin network
+by running their own Bitcoin node. You must run your own node if you
+don't want to trust others to provide you with correct financial
+information.
 
 === The big picture
-
-.The periscope
-****
-image::{commonimagedir}/periscope.gif[]
-****
-
-We will use the figures from this subsection every now and then
-throughout the book to help you with orientation. It's easy to lose
-track of the big picture and what the goal of the current
-topic is. Look for the periscope picture and section headers like
-"Where were we?".
 
 The Bitcoin network is a network of computers running Bitcoin
 software. The Bitcoin network verifies and confirms payments between
@@ -113,8 +106,9 @@ Bitcoin users.
 
 Suppose that Alice wants to make a payment of 1 BTC to Bob. The
 payment starts with Alice creating a _transaction_ and sending it to
-the Bitcoin network. The process goes through four steps and we will
-explain each step a bit further in the following subsections.
+the Bitcoin network. The process goes through four steps, that we'll
+outline here, and explain each step a bit further in the following
+subsections.
 
 .A Bitcoin payment. The payment is processed in 4 steps.
 [[payment-overview]]
@@ -127,9 +121,9 @@ Bitcoin doesn't use names or any other personal information, but we
 use names in this first example for simplicity.
 ****
 
-This figure will follow us in each intro of chapters 2 through 8 where
-we point out what in this figure we will cover in the chapter. Now,
-let's follow Alice's payment from Alice to Bob:
+This diagram will follow us in each intro of chapters 2 through 8
+where we point out what in this figure we will cover in the
+chapter. Now, let's follow Alice's payment from Alice to Bob:
 
 1. Alice creates and signs a transaction that moves 1 bitcoin from her
 to Bob. She then sends it to the Bitcoin network.
@@ -159,8 +153,8 @@ one step per section.
 [.gbinfo]
 .Transaction
 ****
-A transaction is a payment. Sometimes we also say transfer. We will
-use the terms interchangeably. We cover transactions in <<ch05>> and <<ch09>>.
+A transaction is a payment. We will use the terms interchangeably. We
+cover transactions in <<ch05>> and <<ch09>>.
 ****
 
 Step 1 of the process is when Alice asks the network to move 1 bitcoin
@@ -185,8 +179,8 @@ The Bitcoin _transaction_ is a piece of data specifying
 We discuss digital signatures in-depth in <<ch02>>.
 ****
 
-The digital signature is created from the transaction and a huge
-secret number, called a _private key_, that only Alice has
+The digital signature is created from the transaction itself and a
+huge secret number, called a _private key_, that only Alice has
 access to. The result is a digital signature that only the owner of
 the private key could have created.
 
@@ -214,11 +208,11 @@ Invalid transactions are dropped. They will not reach further than the
 first node.
 ****
 
-If all checks pass, a node will forward the transaction to the nodes
-it is connected to in the Bitcoin network. This is known as
-_relaying_. Alice's transaction would shortly have traveled the whole
-network while being verified by each node along the way. The
-blockchain has not been updated yet, that's the next step.
+If all checks pass, a node will forward the transaction to its peers
+in the Bitcoin network. This is known as _relaying_. Alice's
+transaction would shortly have traveled the whole network while being
+verified by each node along the way. The blockchain has not been
+updated yet, that's the next step.
 
 [[step-3-the-blockchain]]
 ==== Step 3 - The blockchain
@@ -264,9 +258,9 @@ only from the end.
 ****
 
 As nodes see this block, they update their copy of the blockchain
-according to the message, and pass the message on to its
-neighbors. Alice's transaction was one of the transactions in the
-block and is now part of the blockchain.
+according to the message, and pass the block on to its peers. Alice's
+transaction was one of the transactions in the block and is now part
+of the blockchain.
 
 Why would a node want to take the lead? It's because the node that
 takes the lead is rewarded with newly minted bitcoins and transaction
@@ -340,10 +334,10 @@ environment.
 
 Without a bank account and basic bank services like on-line payments,
 people can not expand their businesses outside of their local
-community. A tailor will not be able to offer services on the Internet
-to increase its customer base. A person living in a rural area may
-have to travel half a day just to pay a utility bill or top-up their
-prepaid mobile phone.
+community. A merchant will not be able to offer goods or services on
+the Internet to increase its customer base. A person living in a rural
+area may have to travel half a day to pay a utility bill or top-up
+their prepaid mobile phone.
 
 .Problems
 ****
@@ -391,14 +385,15 @@ happening.
 - [ ] *Privacy issues*
 ****
 
-We have seen lots of examples where these abilities are misused to
+We have seen lots of examples where these abilities are abused to
 disable someone's ability to transact. For example, the non-profit
 organization WikiLeaks was put under a blockade in 2010, see
 <<web-wikileaks-blockade>>, where all donations through traditional
 channels were blocked after pressure from the US government on the
 major payment networks, like Visa and MasterCard. We have also seen
-how Cyprus seized 47.5% [<<web-cyprus-seizure>>] of all bank deposits
-exceeding 100,000 € as part of a financial rescue program in 2013.
+how Cyprus seized 47.5%, see <<web-cyprus-seizure>>, of all bank
+deposits exceeding 100,000 € as part of a financial rescue program in
+2013.
 
 Worth noting here is that bank notes and coins are usually not
 affected. As long as there is cash, people can trade freely and
@@ -542,16 +537,18 @@ they are sending money to, the Bitcoin system will treat all users
 equally. There is no central point in the Bitcoin system that can be
 exploited to censor payments, deny users service or seize funds.
 
+[.important]
 Bitcoin is permissionless, which means that you don't need to ask
 anyone for permission to participate. Anyone with a computer and an
 Internet connection can set up a Bitcoin node and take an active role
 in the Bitcoin network. No questions asked. No registration.
 
-It is nearly impossible to change the rules of the currency without
-broad consensus. If a node does not obey the rules it will be ignored
-by the rest. For example, one rule is that the money supply of Bitcoin
-is limited to 21,000,000 bitcoins. That limit is nearly impossible to
-change because of decentralization.
+It is nearly impossible to change the rules of Bitcoin without broad
+consensus. If a node does not obey the rules it will be ignored by the
+rest. For example, one rule is that the money supply of Bitcoin is
+limited to 21,000,000 bitcoins. That limit is nearly impossible to
+change because of decentralization; There's no one to thread or bribe
+into chaning the rules.
 
 [id=limited_supply]
 ==== Limited supply
@@ -779,8 +776,8 @@ image::{imagedir}/proof-of-existence.svg[]
 ****
 
 A digital document has a "fingerprint", a cryptographic hash, that
-anyone can calculate from that document. It is nearly impossible to
-create a different document with the same fingerprint. This
+anyone can calculate from that document. It is practically impossible
+to create a different document with the same fingerprint. This
 fingerprint can be attached to a Bitcoin payment. It is irrelevant
 where the money goes; The important thing is that the fingerprint is
 recorded in the Bitcoin blockchain. You "anchor" the document in the
@@ -821,22 +818,23 @@ financial activity. At least not yet.
 
 Each transaction needs to pay a fee to be processed. The fee is not
 related to the amount sent, but to how big the transaction is in
-bytes. This is because the network's cost for processing a transaction
-depends mostly on how big (in bytes) the transaction is. High-value
-transactions are not bigger (in bytes) than low-value transactions, so
-the fee is about the same for both kinds of transactions. The fee
-required for a transaction also depends on supply and demand for
-available space in the blockchain. The blockchain can't handle more
-than roughly 12MB of transactions per hour, which means that miners
-will sometimes have to prioritize transactions. Paying a higher fee
-will probably give your transaction a higher priority.
+bytes. This is because the Bitcoin network's cost for processing a
+transaction depends mostly on how big (in bytes) the
+transaction is. High-value transactions are not bigger (in bytes) than
+low-value transactions, so the fee is about the same for both kinds of
+transactions. The fee required for a transaction also depends on
+supply and demand for available space in the blockchain. The
+blockchain can't handle more than roughly 12MB of transactions per
+hour, which means that miners will sometimes have to prioritize
+transactions. Paying a higher fee will probably give your transaction
+a higher priority.
 
 If the fee is a significant share of the actual payment you want to
 make, it is not economically viable to pay with ordinary Bitcoin
 transactions.
 
 |===
-| Amount | Fee | Fee % | Feasible
+| Amount to transfer | Fee | Fee % | Feasible
 
 | 2 BTC | 0.003 BTC | 0.15% | Yes
 | 0.002 BTC | 0.001 BTC | 50% | Probably not
@@ -862,13 +860,14 @@ to herself instead. This is known as _double spending_.
 
 The confirmation time can add friction in brick and mortar shops,
 because the customer don't want to wait 20 minutes before getting her
-coffee. This may not a big issue in some on-line shops, where the shop
-can wait 20 minutes before sending the goods to the customer, but some
-on-line services, for example pay-per-view, could find the
+coffee. This may not be a big issue in some on-line shops, where the
+shop can wait 20 minutes before sending the goods to the customer, but
+some on-line services, for example pay-per-view, could find the
 confirmation time problematic.
 
 This limitation can also be fixed by systems built on top of Bitcoin,
-for example the Lightning Network.
+for example the Lightning Network, especially when the amount to pay
+is small.
 
 ===== Savings you can't afford to lose
 
@@ -882,8 +881,7 @@ You are in charge of the security of your bitcoins. Only you. Be
 careful!
 ****
 
-* You lose your private keys, the secret data needed to spend your
-  money.
+* You lose your private keys, the secret you need to spend your money.
 * Your private keys get stolen by some bad guy.
 * The government in your location may try to crack down on Bitcoin
   users by imprisonment or other means of force.
@@ -944,7 +942,8 @@ I encourage you to look up these cryptocurrencies as they all provide
 interesting new features beyond Bitcoin. There are hundreds of other
 alt-coins. Some alt-coins, for example the ones above, provide some
 unique features that are not available in Bitcoin, and some provide
-little to nothing innovative.
+little to nothing innovative. Some alt-coins may even be outright
+scams. Stay vigilant.
 
 Anyone can create an alt-coin by taking any existing cryptocurrency
 software and modify it to her needs.
@@ -986,8 +985,9 @@ In this chapter you learned that
   savings.
 * A network of computers, the Bitcoin network, verifies and keeps
   records of all payments.
-* A transaction goes through four steps: Send transaction, verify
-  transaction, add transaction to blockchain, notify recipient wallet.
+* A transaction goes through the steps: Send transaction, verify
+  transaction, add transaction to the blockchain, notify recipient and
+  sender wallet.
 * It solves problems with inflation, borders, segregation and privacy
   by providing limited supply, decentralization and borderlessness.
 * There are several alternative cryptocurrencies apart from Bitcoin,
