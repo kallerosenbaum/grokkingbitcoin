@@ -346,7 +346,8 @@ block size and remove segregated witness from the code. This would
 make the Bitcoin Old chain compatible with Bitcoin New nodes, so they
 would be vulnerable to wipe-out. In order to protect against Bitcoin
 New being wiped out in a reorg, they _added wipe-out protection_ by
-requiring the forking block to be greater than 1,000,000 bytes (1 MB).
+requiring the first block of the split to be bigger than 1,000,000
+bytes (1 MB).
 
 .Bitcoin Cash protects against wipe-out by requiring the first block after the chain split to be >1MB.
 image::{imagedir}/bitcoin-cash-hard-fork.svg[{big-width}]
@@ -539,7 +540,7 @@ dramatically.
 When pay-to-script-hash, p2sh, was introduced in 2012, the Bitcoin
 community had no experience in upgrading. They had to come up with a
 way to avoid a blockchain split. They implemented soft fork
-_signal-ling_ using the coinbase; New miners signal support for p2sh by
+_signalling_ using the coinbase; New miners signal support for p2sh by
 putting the string `/P2SH/` into the coinbase of the blocks they
 produce.
 
@@ -645,10 +646,10 @@ During step 1, nothing has changed. Only Old rules are in effect. But
 when 750 of the last 1000 blocks have version 2, we enter the next
 step. Here, nodes running the soft fork start ensuring that every new
 block of version 2 has the height in the coinbase. If not, the block
-is dropped. On reason for this is there might be nodes deliberately or
-accidentally using block version 2 for other purposes than this soft
-fork. The 75% rule removes "false positives" when evaluating the 95%
-rule.
+is dropped. One reason for this is there might be nodes deliberately
+or accidentally using block version 2 for other purposes than this
+soft fork. The 75% rule removes "false positives" when evaluating the
+95% rule.
 
 From this point, some Old miner _could_ cause a chain split by
 creating a block of version 2 that violates the "height in coinbase"
@@ -659,7 +660,7 @@ image::{imagedir}/soft-fork-bip34-chain-split.svg[{big-width}]
 
 The Old miners would build on top of that block while the New miners
 would build on top of the previous block. However, the New miners
-_probably_ (depending on the amount of "false" version 2 signaling)
+_probably_, depending on the amount of "false" version 2 signaling,
 have more hash rate and will outperform the Old miners and wipe out
 their Old branch.
 
@@ -727,7 +728,7 @@ decided to change the way the block version bytes are
 interpreted. Block versions that has the top 3 bits set to exactly
 `001` will be treated differently.
 
-First of all, all such block versions are greater that 4 because the
+First of all, all such block versions are greater than 4 because the
 smallest such block version is `20000000` which is a lot bigger than
 `00000004`, so the blocks using BIP9 will always support the already
 deployed BIP34, 66 and 65. Good.
@@ -838,7 +839,7 @@ image::{imagedir}/segwit-lets-deploy.svg[]
 
 The deployment of segregated witness, described in <<ch10>>, also used
 BIP9 for its deployment, but things didn't work out as anticipated. It
-started out the same way as with csv above. The parameters selected
+started out the same way as with `csv` above. The parameters selected
 for this deployment was:
 
 ----
@@ -872,7 +873,7 @@ known as _Segwit2x_. This was a proposal to first activate segwit _and
 then_ increase the maximum block weight via a hard fork. This proposal
 would use BIP9 with version bit 4 to signal support. Bitcoin Core
 didn't show any interest in this proposal, but the Bitcoin Core
-software repository was forked under the name btc1 by a group of
+software repository was copied under the name btc1 by a group of
 people where the proposal was implemented. The threshold would be 80%
 of the last 2016 blocks in order to lock in segwit.
 
@@ -914,7 +915,7 @@ image::{imagedir}/2ndcol-bip91-kumbaya.svg[]
 ****
 
 We had the stalled segwit deployment, an alternate segwit2x fork
-coming that many miners seem to want and a group of impatient users
+coming that many miners seemed to want and a group of impatient users
 wanting to enforce segwit using BIP148.
 
 To avoid a timeout of the segwit deployment, which would further delay
