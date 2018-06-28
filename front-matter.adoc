@@ -1,6 +1,54 @@
 [preface]
 == Foreword
 
+What is the difference between Bitcoin and the various monies used in
+multiplayer games?  Each is defined by software, created out of nothing, 
+and can have prices comparable to traditional currencies.  To a casual
+observer, they seem much the same.
+
+But there is an important difference in how they are designed that
+affects every aspect of their respective systems: whereas game
+currencies try to stop cheating by reactively banning users suspected of
+abuse, Bitcoin proactively prevents various types of cheating by making
+them either impossible, impractical, or less profitable than honest
+behavior.
+
+*Grokking Bitcoin* describes exactly how Bitcoin accomplishes that.  As
+you learn about hash functions, digital signatures, proof of work, and
+many other technical concepts, you'll see over and over that Bitcoin
+effectively prevents cheating without requiring the global banning of
+any user.
+
+The book then demonstrates the many benefits of this key feature.  As
+you learn about addresses, wallets, miners, and nodes, you'll discover
+that---if no one can cheat effectively---then it's safe to allow
+everyone to participate in every part of the protocol, leaving no one in
+a trusted position of authority over the system.  And with no one
+holding a trusted position, there's no need for identities in the first
+place, so the book goes on to show how it's possible for anyone to use
+the public Bitcoin block chain with a degree of privacy.
+
+A decentralized system that doesn't use identities or depend upon trust
+is quite different from the everyday systems of which most of us are
+familiar.  Author Kalle Rosenbaum turns this liability into an asset by
+starting the explanation of each part of Bitcoin using a centralized,
+trusted, or identity-dependent system that any reader can intuitively
+understand.  He then transforms that basic system step by step into the
+decentralized, trustless, and pseudonymous system implemented in
+Bitcoin.  With each step filled with clear explanations and many
+excellent illustrations, even the most highly technical topic is made
+accessible to the interested layperson.
+
+I think Bitcoin not only needs books like *Grokking Bitcoin* but it also
+needs an active group of users who read those books and who come to
+understand the technical principles upon which Bitcoin is built.  For
+during these early days of what I hope will be the long history of
+Bitcoin, users are often asked to evaluate proposed changes to the
+system---changes that may affect the security and privacy of their
+bitcoins.  Those who have read this book will understand how the system
+prevents cheating and will be able to help ensure future changes
+preserve that essential feature and its many benefits.
+
 [preface]
 == Preface
 
