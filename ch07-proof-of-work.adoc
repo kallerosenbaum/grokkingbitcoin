@@ -653,19 +653,26 @@ chain with the *most accumulated proof of work* that is considered the
 best branch to follow. In the lucky numbers case, nodes simply
 followed the longest chain. The accumulated proof of work for a
 blockchain is the sum of the _difficulties_ of each block in the
-chain. The _difficulty, d~B~, of a block, B,_ is calculated as
+chain.
+
+The difficulty of a block is a measurement of how many times harder it
+is to find a valid proof of work for that block compared to finding
+it for the genesis block.
+
+More exactly, the _difficulty of block B_ is calculated as
 
 [stem]
 ++++
-d_B=\frac{target\ of\ the\ genesis\ block}{target\ of\ B}=\frac{(2^5-1)*256^{26}}{target\ of\ B}
+\frac{target\ of\ the\ genesis\ block}{target\ of\ B}=\frac{(2^{16}-1)*256^{26}}{target\ of\ B}
 ++++
 
-//image::{imagedir}/calculate-difficulty.svg[{half-width}]
+The target of the genesis block is divided by the target of B, which
+makes the difficulty of the genesis block exactly 1.
 
 The gist of this is that the higher the target of a block, the lower
 the difficulty of that block, and the lower the target, the higher the
-difficulty. So, we sum the difficulties of all blocks to get the
-accumulated proof of work.
+difficulty. So, we sum all blocks' difficulties in the blockchain to
+get the chain's accumulated proof of work.
 
 From now on we will refer to the branch with most accumulated work as
 the _strongest branch_, or _strongest chain_. Another commonly used
