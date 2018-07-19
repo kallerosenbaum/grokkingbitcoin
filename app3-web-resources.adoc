@@ -13,82 +13,110 @@
 
 == Web resources
 
+// author, title, date, website name, URL
+
 [[web-bitcoin-paper,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/bitcoin-paper
+Web resource {counter:webresourceid}:: Satoshi Nakamoto, “Bitcoin: A
+Peer-to-Peer Electronic Cash System”, 2008,
+{resource-url}/bitcoin-paper
 // https://bitcoin.org/bitcoin.pdf
 
 [[web-stackexchange,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/stackexchange
+Web resource {counter:webresourceid}:: Bitcoin Stack Exchange,
+{resource-url}/stackexchange
 // https://bitcoin.stackexchange.com
 
 [[web-dev-ref,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/dev-ref
+Web resource {counter:webresourceid}:: Bitcoin Developer Reference,
+bitcoin.org, {resource-url}/dev-ref
 // https://bitcoin.org/en/developer-reference
 
 [[web-bitcoin-source,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/bitcoin-source
+Web resource {counter:webresourceid}:: Bitcoin's souce code
+repository, {resource-url}/bitcoin-source
 // https://github.com/bitcoin/bitcoin
 
 [[web-book-source,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/book-source
+Web resource {counter:webresourceid}:: Kalle Rosenbaum, source code
+for Grokking Bitcoin, Manning, {resource-url}/book-source
 // ????  https://git.manning.com/agileauthor/rosenbaum
 
 [[web-financial-inclusion,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/financial-inclusion
+Web resource {counter:webresourceid}:: "Financial Inclusion Data /
+Global Findex", 2014, worldbank.org,
+{resource-url}/financial-inclusion
 // http://datatopics.worldbank.org/financialinclusion/
 
 [[web-wikileaks-blockade,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/wikileaks-blockade
+Web resource {counter:webresourceid}:: "Reception of WikiLeaks",
+Wikipedia, {resource-url}/wikileaks-blockade
 // https://en.wikipedia.org/wiki/Reception_of_WikiLeaks#Response_from_the_financial_industry
 
 [[web-cyprus-seizure,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/cyprus-seizure
+Web resource {counter:webresourceid}:: USA Today, On the seizure of
+deposits in Cyprus, 2013, usatoday.com, {resource-url}/cyprus-seizure
 // https://www.bloomberg.com/news/articles/2013-07-30/cyprus-sets-levy-on-bank-of-cyprus-uninsured-depositors-at-47-5-
 
 [[web-bips,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/bips
+Web resource {counter:webresourceid}:: Bitcoin improvement proposals
+(BIPs), {resource-url}/bips
 // https://github.com/bitcoin/bips/blob/master/README.mediawiki
 
 [[web-bitcoin-wallets,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/bitcoin-wallets
+Web resource {counter:webresourceid}:: Choose your Bitcoin wallet,
+bitcoin.org,{resource-url}/bitcoin-wallets
 // https://bitcoin.org/en/choose-your-wallet
 
 [[web-elliptic-curve-calculator,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/elliptic-curve-calculator
+Web resource {counter:webresourceid}:: Andrea Corbellini, Elliptic
+Curve point addition, {resource-url}/elliptic-curve-calculator
 // https://cdn.rawgit.com/andreacorbellini/ecc/920b29a/interactive/modk-add.html
 
 [[web-length-extension-attack,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/length-extension-attack
+Web resource {counter:webresourceid}:: On why double SHA256 is used in
+Bitcoin, {resource-url}/length-extension-attack
 // https://crypto.stackexchange.com/questions/50017/why-hashing-twice
 
 [[web-op-codes,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/op-codes
+Web resource {counter:webresourceid}:: Complete list of Script
+operators in Bitcoin, Bitcoin Wiki, {resource-url}/op-codes
 // https://en.bitcoin.it/wiki/Script
 
 [[web-bloom-filter-privacy,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/bloom-filter-privacy
+Web resource {counter:webresourceid}:: Arthur Gervais,
+Ghassan O. Karame, Damian Gruber, Srdjan Capkun, "On the Privacy
+Provisions of Bloom Filters in Lightweight Bitcoin Clients", 2014,
+Cryptology ePrint Archive, {resource-url}/bloom-filter-privacy
 // https://eprint.iacr.org/2014/763.pdf
 
 [[web-target-change,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/target-change
+Web resource {counter:webresourceid}:: Peter Todd, "What attack does
+the difficulty drop rate limiter prevent?", petertodd.org,
+{resource-url}/target-change
 // https://petertodd.org/assets/commitments/52ccc4802bd563076cbd25ec4c1ba88152098cb6aa356ba644c9e79a24182da5.txt
 
 [[web-lightinig-network,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/lightinig-network
+Web resource {counter:webresourceid}:: Lightning resources,
+{resource-url}/lightinig-network
 // https://dev.lightning.community/resources/index.html
 
 [[web-bernanke-ascii-art,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/bernanke-ascii-art
+Web resource {counter:webresourceid}:: A blockchain explorer showing
+the ascii-art transaction discussed in <<ch09>>,
+{resource-url}/bernanke-ascii-art
 // https://tradeblock.com/bitcoin/tx/930a2114cdaa86e1fac46d15c74e81c09eee1d4150ff9d48e76cb0697d8e1d72
 
 [[web-install,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/install
+Web resource {counter:webresourceid}:: Instructions for running a full
+node, bitcoin.org, {resource-url}/install
 // https://bitcoin.org/en/full-node
 
 [[web-download,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/download
+Web resource {counter:webresourceid}:: Bitcoin Core download page,
+bitcoincore.org, {resource-url}/download
 // https://bitcoincore.org/en/download/
 
 [[web-getting-started,Web resource {counter:webresourceid}]]
-Web resource {counter:webresourceid}:: {resource-url}/getting-started
+Web resource {counter:webresourceid}:: Guide for getting started with
+Bitcoin, bitcoin.org, {resource-url}/getting-started
 // https://bitcoin.org/en/getting-started
