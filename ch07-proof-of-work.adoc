@@ -208,6 +208,13 @@ longer than the other branch. She's better off abandoning her short
 branch and move over to the longer branch. Now everyone is working on
 the same branch again and the tie is resolved.
 
+When Qi switches over to the new branch, she will mark all
+transactions of her old branch, that's not already in the new branch,
+as pending. They become up for grabs for future blocks on the new
+branch. Nodes maintain a pool of pending transactions, generally
+called the _memory pool_, or _mempool_. To mark a transaction as
+pending means to put it in the mempool.
+
 [.gbinfo]
 ****
 The UTXO set is built from a single chain. It cannot be built from
