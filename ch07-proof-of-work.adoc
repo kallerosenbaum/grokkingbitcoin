@@ -1159,9 +1159,9 @@ The sequence of events in this example is:
 | 1, 2 | 0-0 | Lisa starts mining on her secret branch containing her
 double spend transaction. She also sends out a payment to the honest
 miners.
-| 3 | 0-1 | Lisa finds a block. If she published this block, the cafe
-  will notice the double spend attack and not give Lisa the cafe. She
-  keeps it secret.
+| 3 | 0-1 | Lisa finds a block. If she publishes this block, the other
+miners wouldn't confirm the honest transaction because it spends
+already spent outputs. She keeps the block secret.
 | 4 | 1-1 | The honest payment, C, gets its first confirmation. The
   cafe will wait for 5 more blocks before deal.
 | 5, 6, 7, 8, 9 | 5-4 | Lisa keeps up OK, but she is one block behind
