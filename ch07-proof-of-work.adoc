@@ -939,8 +939,8 @@ image::{imagedir}/timestamps-diff.svg[{full-width}]
 * The timestamp must be strictly later than the _median_ of the
   previous 11 timestamps. This median is commonly referred to as
   _median time past_ of the block..
-* The timestamp must be at most two hours before or after the cafe's
-  clock. This rule does not apply when verifying old blocks.
+* The timestamp must be at most two hours in the future according to
+  the cafe's clock.
 
 These rules ensure that no one manipulates the timestamps of their
 blocks to influence the next target calculation. Imagine if the last
@@ -993,18 +993,18 @@ image::{imagedir}/strength-length.svg[{big-width}]
 
 .Timestamps
 ****
-Timestamps must not differ more than 2 hours from the clock on the
+Timestamps must not be more than 2 hours ahead of the clock on the
 wall.
 ****
 
-This is a very unlikely scenario, but we need to take it into account,
-because it probably will happen, at least in Bitcoin. A split happens
-right before a retarget and the two blocks' timestamps differ by four
-hours which is the theoretical maximum. Next, two new blocks are
-produced at the same time, one on each branch. These new blocks have
-been retargeted based on different histories. The last timestamps in
-the respective retarget periods differ by four hours, which causes the
-new targets to be different. Recall the retarget formula:
+This is an unlikely scenario, but we need to consider it because it
+will probably happen, at least in Bitcoin. A split happens right
+before a retarget, and the two blocks' timestamps differ by four
+hours. Next, two new blocks are produced at the same time, one on each
+branch. These new blocks have been retargeted based on different
+histories. The last timestamps in the respective retarget periods
+differ by four hours, which causes the new targets to be
+different. Recall the retarget formula:
 
 [stem]
 ++++
