@@ -650,7 +650,7 @@ Bitcoin Core software and a signature that signs the contents of the
 image::{imagedir}/core-signs-program.svg[{big-width}]
 
 Selma has downloaded both the program itself, in a file called
-`bitcoin-0.16.0-x86_64-linux-gnu.tar.gz` and the signature file called
+`bitcoin-0.17.0-x86_64-linux-gnu.tar.gz` and the signature file called
 `SHA256SUMS.asc`. In order to verify that the program is in fact
 signed by the Bitcoin Core private key, she needs to know the
 corresponding public key. But how can she know what this key is?
@@ -880,7 +880,7 @@ very latest block available. This process is called _synchronization_,
 _sync_, or _initial blockchain download_.
 
 Remember in step 2, when Selma received a `version` message from Qi's
-node that stated `height=487224`? Selma will use that information now
+node that stated `height=545104`? Selma will use that information now
 to determine where to fetch historic blocks from.
 
 Selma only has a single block, namely the genesis block. The genesis
@@ -892,10 +892,10 @@ peers:
 |===
 | Node | Height
 
-| Qi | 487224
-| Rashid | 487224
-| Cafe | 487225
-| Tom | 487223
+| Qi | 545104
+| Rashid | 545104
+| Cafe | 545105
+| Tom | 545105
 |===
 
 Selma wants all those blocks. She needs to download them all from her
@@ -974,9 +974,9 @@ Rashid. She also downloads blocks from Tom in parallel, which is why
 there are gaps in the sequence of requested block. The process is
 repeated until Selma doesn't want any more blocks from Rashid.
 
-At the time Selma has downloaded all blocks up to height 487224,
+At the time Selma has downloaded all blocks up to height 545105,
 Rashid has probably received more fresh blocks from his peers. Suppose
-that he has received block `487225` by the time Selma has received the
+that he has received block `545105` by the time Selma has received the
 first 100 blocks from Rashid. Rashid would then send out a `headers`
 message to his peers, including Selma, as described in
 <<include-the-transaction-in-a-block>>. That way, Selma will be aware
@@ -1005,12 +1005,12 @@ transactions to be able to update the UTXO set accordingly.
 
 Bitcoin Core ships with a preconfigured hard coded block id of a block
 a number of weeks back from release date in the blockchain. For
-Bitcoin Core 0.16.0, that block is
+Bitcoin Core 0.17.0, that block is
 
- height: 506067
- hash: 0000000000000000005214481d2d96f898e3d5416e43359c145944a909d242e0
+ height: 534292
+ hash: 0000000000000000002e63058c023a9a1de233554f28c7b21380b6c9003f36a8
 
-Which is about 5,000 blocks back in the blockchain at release
+Which is about 10,000 blocks back in the blockchain at release
 date. This is of course a configuration parameter and the above block
 is just a default reasonable value. Selma could have changed this when
 starting her node, or she could have verified with friends and other
@@ -1083,14 +1083,14 @@ image::{imagedir}/download-bitcoin-core.svg[]
 To run your own full Bitcoin node, you need the software program
 to run. In this example we will download Bitcoin Core from
 <<web-download>>. As of writing the latest version of Bitcoin
-Core is `0.16.0`. Let's download it:
+Core is `0.17.0`. Let's download it:
 
 ----
-$ wget https://bitcoincore.org/bin/bitcoin-core-0.16.0/bitcoin-0.16.0-x86_64-linux-gnu.tar.gz
+$ wget https://bitcoincore.org/bin/bitcoin-core-0.17.0/bitcoin-0.17.0-x86_64-linux-gnu.tar.gz
 ----
 
-As the file name `bitcoin-0.16.0-x86_64-linux-gnu.tar.gz` indicates,
-we download version 0.16.0 for 64 bit (`x86_64`) linux
+As the file name `bitcoin-0.17.0-x86_64-linux-gnu.tar.gz` indicates,
+we download version 0.17.0 for 64 bit (`x86_64`) linux
 (`linux-gnu`). When you are reading this, new versions of Bitcoin Core
 have probably been released. Consult <<web-download>> to get the
 latest version of Bitcoin Core. Also, if you use another operating
@@ -1136,12 +1136,12 @@ Download the signature file `SHA256SUMS.asc` from the same server as
 you downloaded the program from:
 
 ----
-$ wget https://bitcoincore.org/bin/bitcoin-core-0.16.0/SHA256SUMS.asc
+$ wget https://bitcoincore.org/bin/bitcoin-core-0.17.0/SHA256SUMS.asc
 ----
 
 This file will be used to verify that the downloaded `.tar.gz` file is
 signed by the Bitcoin Core team. Note that this file is for version
-0.16.0 only. If you use another version of Bitcoin Core, please select
+0.17.0 only. If you use another version of Bitcoin Core, please select
 the correct signature file at <<web-download>>.
 
 The actual contents of this file looks like this (the actual hashes
@@ -1151,33 +1151,33 @@ have been shortened in this listing):
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
 
-f513...7012  bitcoin-0.16.0-aarch64-linux-gnu.tar.gz
-59f9...c3ea  bitcoin-0.16.0-arm-linux-gnueabihf.tar.gz
-d7c1...fb59  bitcoin-0.16.0-i686-pc-linux-gnu.tar.gz
-ade8...a88c  bitcoin-0.16.0-osx64.tar.gz
-df00...2ee7  bitcoin-0.16.0-osx.dmg
-8cbe...ee40  bitcoin-0.16.0.tar.gz
-7558...6a29  bitcoin-0.16.0-win32-setup.exe
-60d6...f424  bitcoin-0.16.0-win32.zip
-6d93...a16d  bitcoin-0.16.0-win64-setup.exe
-4270...03ef  bitcoin-0.16.0-win64.zip
-e632...6477  bitcoin-0.16.0-x86_64-linux-gnu.tar.gz
+1e43...35ed  bitcoin-0.17.0-aarch64-linux-gnu.tar.gz
+a4ff...7585  bitcoin-0.17.0-arm-linux-gnueabihf.tar.gz
+967a...f1b7  bitcoin-0.17.0-i686-pc-linux-gnu.tar.gz
+e421...5d61  bitcoin-0.17.0-osx64.tar.gz
+0aea...ac58  bitcoin-0.17.0-osx.dmg
+98ef...785e  bitcoin-0.17.0.tar.gz
+1f40...8ee7  bitcoin-0.17.0-win32-setup.exe
+402f...730d  bitcoin-0.17.0-win32.zip
+b37f...0b1a  bitcoin-0.17.0-win64-setup.exe
+d631...0799  bitcoin-0.17.0-win64.zip
+9d6b...5a4f  bitcoin-0.17.0-x86_64-linux-gnu.tar.gz
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.11 (GNU/Linux)
 
-iQIcBAEBCAAGBQJak7CDAAoJEJDIAZ42wulkBkkP+gO/ZTnBMKkB+aUh/IgxUo/k
-ntWuMDIMJnQRnhT0Q/x4Qj+Ft3g1jtwux7+U+xqtzoXvV66V3kPASp6e2S0nWLoR
-LGuiPsEdomUhnGv+0Tpb4KhNhRaDsV2cqu6ycYAPgI+DoSPkAn1H4hyiFESqbG9e
-ekdb/inEpplup7d7eUg9/sWO0pe8JOCukxcG/pW3cbpHY5ECm6xTjpAMv/g9ZY/a
-PEdIqzpTjENa1z+HZvj0p+BovUUXaobTx93o3kMegrXYpClSYJahltzi5i6oZyzf
-caaziGoHrhWrI93A0hXo5co3288i60+CDZfYMTZARxytbjpwC5qnkqU1Cn3UZ7/r
-z69/Lj/Un7lP633CUFtIPrAxwlLoDfmWjGo9pSqLgwU6OvGi9zoQk6FTMYyfXUwx
-IishFHvW8VjGFT6H+d5VD8DrY14USuuEY3Jo+0euho54JDXWygoDasZuzhmdVck6
-36MrVgeiIX50kVeiQ5nleQqzr/N/QQX5aadXfi5w23urdfzU6/MgnaMHwQ9xjsLf
-rL13WoD+cw/eX9e7jkPloKwxzPaJMWlTQZTmR4ABP8ATax3Ob8HbRqt0SbqtxYSu
-AjW1CtbjFjjTNjpEtUXk8MpwvbROlAtwXjeQamIp44yGLltXTQOsyicsnXOqXXZq
-H7vuHfDxjUkN/8Jll9ta
-=ayUM
+iQIcBAEBCAAGBQJbtIOFAAoJEJDIAZ42wulk5aQP/0tQp+EwFQPtSJgtmjYucw8L
+SskGHj76SviCBSfCJ0LKjBdnQ4nbrIBsSuw0oKYLVN6OIFIp6hvNSfxin1S8bipo
+hCLX8xB0FuG4jVFHAqo8PKmF1XeB7ulfOkYg+qF3VR/qpkrjzQJ6S/nnrgc4bZu+
+lXzyUBH+NNqqlMeTRzYW92g0zGMexig/ZEMqigMckTiFDrTUGkQjJGzwlIy73fXI
+LZ/KtZYDUw82roZINXlp4oNHDQb8qT5R1L7ACvqmWixbq49Yqgt+MAL1NG5hvCSW
+jiVX4fasHUJLlvVbmCH2L42Z+W24VCWYiy691XkZ2D0+bmllz0APMSPtgVEWDFEe
+wcUeLXbFGkMtN1EDCLctQ6/DxYk3EM2Ffxkw3o5ehTSD6LczqNC7wG+ysPCjkV1P
+O4oT4AyRSm/sP/o4qxvx/cpiRcu1BQU5qgIJDO+sPmCKzPn7wEG7vBoZGOeybxCS
+UUPEOSGan1Elc0Jv4/bvbJ0XLVJPVC0AHk1dDE9zg/0PXof9lcFzGffzFBI+WRT3
+zf1rBPKqrmQ3hHpybg34WCVmsvG94Zodp/hiJ3mGsxjqrOhCJO3PByk/F5LOyHtP
+wjWPoicI2pRin2Xl/YTVAyeqex519XAnYCSDEXRpe+W4BdzFoOJwm5S6eW8Q+wkN
+UtaRwoYjFfUsohMZ3Lbt
+=H8c2
 -----END PGP SIGNATURE-----
 ----
 
@@ -1192,12 +1192,12 @@ the message.
 ===== Verify the hash of the downloaded file
 
 The file you downloaded is named for example
-`bitcoin-0.16.0-x86_64-linux-gnu.tar.gz` so you expect that the SHA256
+`bitcoin-0.17.0-x86_64-linux-gnu.tar.gz` so you expect that the SHA256
 hash of that file matches `e632...6477` exactly. Let's check:
 
 ----
-$ sha256sum bitcoin-0.16.0-x86_64-linux-gnu.tar.gz 
-e6322c69bcc974a29e6a715e0ecb8799d2d21691d683eeb8fef65fc5f6a66477  bitcoin-0.16.0-x86_64-linux-gnu.tar.gz
+$ sha256sum bitcoin-0.17.0-x86_64-linux-gnu.tar.gz 
+9d6b472dc2aceedb1a974b93a3003a81b7e0265963bd2aa0acdcb17598215a4f  bitcoin-0.17.0-x86_64-linux-gnu.tar.gz
 ----
 
 The above command calculates the SHA256 hash of our downloaded
@@ -1394,7 +1394,7 @@ It's time to actually verify the signature of `SHA256SUMS.asc` file.
 
 ----
 $ gpg --verify SHA256SUMS.asc 
-gpg: Signature made Mon 26 Feb 2018 08:00:19 AM CET
+gpg: Signature made Wed 03 Oct 2018 10:53:25 AM CEST
 gpg:                using RSA key 90C8019E36C2E964
 gpg: Good signature from "Wladimir J. van der Laan (Bitcoin Core binary release signing key) <laanwj@gmail.com>" [full]
 ----
@@ -1426,14 +1426,14 @@ steps. The process then will be:
 Let's unpack the software:
 
 ----
-tar -zxvf bitcoin-0.16.0-x86_64-linux-gnu.tar.gz
+tar -zxvf bitcoin-0.17.0-x86_64-linux-gnu.tar.gz
 ----
 
-This will create a directory called `bitcoin-0.16.0`. Go into the
-directory `bitcoin-0.16.0/bin` and have a look:
+This will create a directory called `bitcoin-0.17.0`. Go into the
+directory `bitcoin-0.17.0/bin` and have a look:
 
 ----
-$ cd bitcoin-0.16.0/bin
+$ cd bitcoin-0.17.0/bin
 $ ls
 bitcoin-cli  bitcoind  bitcoin-qt  bitcoin-tx  test_bitcoin
 ----
@@ -1456,10 +1456,11 @@ In this tutorial, we will run `bitcoind`, which stands for "Bitcoin
 Daemon". In Unix systems like Linux, the word Daemon is used for
 computer programs that runs in the background.
 
-Let's start the Bitcoin Core daemon in the background and see what happens:
+Let's start the Bitcoin Core daemon in the background (using the `-daemon` argument) and see what happens:
 
 ----
-$ ./bitcoind &
+$ ./bitcoind -daemon
+Bitcoin server starting
 ----
 
 This starts your node. It will automatically start connecting to peers
@@ -1481,22 +1482,22 @@ the progress:
 $ ./bitcoin-cli getblockchaininfo
 {
   "chain": "main",
-  "blocks": 274041,
-  "headers": 519862,
-  "bestblockhash": "0000000000000001fd843fd5a908994e15ae6fad3be1af29693744342bc8bc6d",
-  "difficulty": 707408283.0514966,
-  "mediantime": 1386628158,
-  "verificationprogress": 0.08967128107998179,
+  "blocks": 207546,
+  "headers": 549398,
+  "bestblockhash": "00000000000003a6a5f2f360f02a3b8e4c214d27bd8e079a70f5fb630a0817c5",
+  "difficulty": 3304356.392990344,
+  "mediantime": 1352672365,
+  "verificationprogress": 0.0249296506976196,
   "initialblockdownload": true,
-  "chainwork": "00000000000000000000000000000000000000000000063ea31ee628115f842a",
-  "size_on_disk": 15175410363,
+  "chainwork": "0000000000000000000000000000000000000000000000202ad90c17ec6ea33c",
+  "size_on_disk": 11945130882,
   "pruned": false,
   "softforks": [
     {
       "id": "bip34",
       "version": 2,
       "reject": {
-        "status": true
+        "status": false
       }
     },
     {
@@ -1534,9 +1535,9 @@ $ ./bitcoin-cli getblockchaininfo
 
 This command shows a lot of information about the blockchain. We can
 note that we have downloaded and verified blocks up to height
-274041. Bitcoin Core will downloaded block headers prior to the full
+`207546`. Bitcoin Core will downloaded block headers prior to the full
 blocks in order to verify proof of work. This node has downloaded
-headers up to height `519862`, which are all headers there is at this
+headers up to height `549398`, which are all headers there is at this
 time. Another interesting thing is the `initialblockdownload` field,
 which is will remain `true` until the initial block download is
 finished.

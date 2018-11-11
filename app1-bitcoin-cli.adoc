@@ -71,7 +71,8 @@ There are a lot of options in Bitcoin Core. Run `./bitcoind --help` to
 get a complete list.
 ****
 
-Open, or create if non-existent, Bitcoin Core's configuration file
+Stop the node with `./bitcoin-cli stop`. Open, or create if
+non-existent, Bitcoin Core's configuration file
 `~/.bitcoin/bitcoin.conf` and add the lines
 
 ----
@@ -80,7 +81,7 @@ rpcpassword=<a password that you select>
 ----
 
 When you have modified and saved the `~/.bitcoin/bitcoin.conf` file,
-you need to restart your node to make your changes effective.
+start your node again using `./bitcoind -daemon`.
 
 Now you can try to do `getblockhash` using `curl` (the backslash `\`
 character means that the command continues on the next line):
@@ -152,7 +153,7 @@ $ ./bitcoin-qt -server &
 We have started Bitcoin Core in the background by running
 
 ----
- $ ./bitcoind &
+ $ ./bitcoind -daemon
 ----
 
 The most important command to know is the `help` command. Run it
@@ -203,89 +204,44 @@ the first. We will see examples of this later.
 We will create an encrypted wallet and backup the wallet. Then we will
 receive some bitcoins and pass that money on to another address while
 dissecting the transactions for details. All using `bitcoin-cli`.
-////
-(Alternative way to do it)
-==== Create an encrypted wallet
-
-When `bitcoind` (or `bitcoin-qt`) starts, it will automatically create
-a wallet for you. However, this wallet is not encrypted, which means
-that its private keys and its seed are stored in clear on your hard
-drive. Let's have a look at some data about the wallet:
-
-----
-$ ./bitcoin-cli getwalletinfo
-{
-  "walletname": "wallet.dat",        // <1>
-  "walletversion": 159900,
-  "balance": 0.00000000,             // <2>
-  "unconfirmed_balance": 0.00000000, // <3>
-  "immature_balance": 0.00000000,    // <4>
-  "txcount": 0,
-  "keypoololdest": 1527068317,
-  "keypoolsize": 1000,
-  "keypoolsize_hd_internal": 1000,
-  "paytxfee": 0.00000000,
-  "hdmasterkeyid": "aca4498fdaa5460528f9e842e8defa2d07bcf529"
-}
-----
-<1> The name of the wallet file is `wallet.dat`. This file is by
-default located in `~/.bitcoin/`. It contains the wallet seed, that's
-used to derive key pairs as discussed in <<ch04>>, but also some
-metadata about the wallet.
-<2> The `balance` is how much confirmed bitcoins you have.
-<3> The `unconfirmed_balance` is the sum of incoming unconfirmed
-payments, not including confirmed payments
-<4> The `immature_balance` is only relevant for miners, and denotes
-the amount of newly created bitcoins, that can't be spent until after
-100 blocks passed.
-
-The output from the `getwalletinfo` command shows us various
-information about the wallet currently being used. Please refer to the
-help section on `getwalletinfo` for more details about the output.
-
-In order to create an encrypted wallet you need to create a _new_
-wallet using the command `encryptwallet`:
-
-...
-
-////
 
 ==== Create an encrypted wallet
 
 When `bitcoind` (or `bitcoin-qt`) starts, it will automatically create
-a wallet for you. However, this wallet is not encrypted, which means
-that its private keys and its seed are stored in clear on your hard
-drive. Let's have a look at some data about the wallet:
+a wallet for you, and store it in the file
+`~/.bitcoin/wallet.dat`. However, this wallet is not encrypted, which
+means that its private keys and its seed, used to derive key pairs as
+discussed in <<ch04>>, are stored in clear on your hard drive. Let's
+have a look at some data about the wallet:
 
 ----
 $ ./bitcoin-cli getwalletinfo
 {
-  "walletname": "wallet.dat", 
-  "walletversion": 159900,
+  "walletname": "",
+  "walletversion": 169900,
   "balance": 0.00000000,
   "unconfirmed_balance": 0.00000000,
   "immature_balance": 0.00000000,
   "txcount": 0,
-  "keypoololdest": 1527068317,
+  "keypoololdest": 1541941001,
   "keypoolsize": 1000,
   "keypoolsize_hd_internal": 1000,
   "paytxfee": 0.00000000,
-  "hdmasterkeyid": "aca4498fdaa5460528f9e842e8defa2d07bcf529"
+  "hdseedid": "bb989ad4e23f7bb713eab0a272eaef3d4857f5e3",
+  "hdmasterkeyid": "bb989ad4e23f7bb713eab0a272eaef3d4857f5e3",
+  "private_keys_enabled": true
 }
 ----
 
 The output from the `getwalletinfo` command shows us various
-information about the wallet currently being used. The name of the
-wallet file is `wallet.dat`. This file is by default located in
-`~/.bitcoin/`. It contains the wallet seed, that's used to derive key
-pairs as discussed in <<ch04>>, but also some metadata about the
-wallet.
+information about the wallet currently being used. The `walletname` is
+empty, which is the default name for the automatically created wallet.
 
-The `balance` is how much confirmed bitcoins you have, while the
-`unconfirmed_balance` is the sum of incoming unconfirmed payments, not
-including confirmed payments. The `immature_balance` is only relevant
-for miners, and denotes the amount of newly created bitcoins, that
-can't be spent until after 100 blocks passed.
+The `balance` is how much confirmed bitcoins you have (including
+unconfirmed outgoing transactions), while the `unconfirmed_balance` is
+the sum of incoming unconfirmed payments. The `immature_balance` is
+only relevant for miners, and denotes the amount of newly created
+bitcoins, that can't be spent until after 100 blocks passed.
 
 Please refer to the help section on `getwalletinfo` for more details
 about the output.
@@ -319,30 +275,36 @@ a new wallet file while running. Let's start `bitcoind` again and look
 at the wallet:
 
 ----
-$ ./bitcoind &
+$ ./bitcoind -daemon
+Bitcoin server starting
 $ ./bitcoin-cli getwalletinfo
 {
-  "walletname": "wallet.dat",
-  "walletversion": 159900,
+  "walletname": "",
+  "walletversion": 169900,
   "balance": 0.00000000,
   "unconfirmed_balance": 0.00000000,
   "immature_balance": 0.00000000,
   "txcount": 0,
-  "keypoololdest": 1527068552,
+  "keypoololdest": 1541941063,
   "keypoolsize": 1000,
   "keypoolsize_hd_internal": 1000,
   "unlocked_until": 0,
   "paytxfee": 0.00000000,
-  "hdmasterkeyid": "6533b67b39ccc76c6906c11b2e6efb2c258e2a47"
+  "hdseedid": "590ec0fa4cec43d9179e5b6f7b2cdefaa35ed282",
+  "hdmasterkeyid": "590ec0fa4cec43d9179e5b6f7b2cdefaa35ed282",
+  "private_keys_enabled": true
 }
 ----
 
-Your walletname is still the same, which means that your old
-unencrypted `wallet.dat` was overwritten by the new encrypted
-`wallet.dat`. However, for safety, your old seed is kept in the new
-encrypted wallet, in case you had actual funds in the old wallet, or
-if you accidentally receive funds to that old wallet in the
-future.
+Your old unencrypted `wallet.dat` has been overwritten by the new
+encrypted `wallet.dat`. However, for safety, your old seed is kept in
+the new encrypted wallet, in case you had actual funds in the old
+wallet, or if you accidentally receive funds to that old wallet in the
+future. The `unlocked_until` value of `0` means that the private parts
+of your wallet is locked by the password you entered when you
+encrypted the wallet. From now on, wou need to unlock the private
+parts of your wallet in order to access them. We will do that when we
+send bitcoin further down this chapter.
 
 ==== Backup the wallet
 
@@ -394,7 +356,7 @@ receive the bitcoins to, so let's get one:
 
 ----
 $ ./bitcoin-cli -named getnewaddress address_type=bech32
-bc1q3l3qvwpmyvfg67p5qswx30pjsqcgxydeked56x
+bc1q2r9mql4mkz3z7yfxvef76yxjd637r429620j75
 ----
 
 The above command creates a bech32 p2wpkh address for you. If you
@@ -444,19 +406,18 @@ blockchain. Meanwhile, we can dig into the transaction by running the
 $ ./bitcoin-cli listtransactions
 [
   {
-    "account": "",
-    "address": "bc1q3l3qvwpmyvfg67p5qswx30pjsqcgxydeked56x",
+    "address": "bc1q2r9mql4mkz3z7yfxvef76yxjd637r429620j75",
     "category": "receive",
     "amount": 0.00500000,
     "label": "",
     "vout": 1,
     "confirmations": 0,
     "trusted": false,
-    "txid": "30bca6feaf58b811c1c36a65c287f4bd393770c23a4cc63c0be00f28f62ef170",
+    "txid": "ebfd0d14c2ea74ce408d01d5ea79636b8dee88fe06625f5d4842d2a0ba45c195",
     "walletconflicts": [
     ],
-    "time": 1527068938,
-    "timereceived": 1527068938,
+    "time": 1541941483,
+    "timereceived": 1541941483,
     "bip125-replaceable": "yes"
   }
 ]
@@ -464,43 +425,45 @@ $ ./bitcoin-cli listtransactions
 
 We can see that the transaction has 0 confirmations and that it pays
 us 0.005 BTC. We also see that the txid of this transaction is
-`30bca6feaf58b811c1c36a65c287f4bd393770c23a4cc63c0be00f28f62ef170`.
+`ebfd0d14c2ea74ce408d01d5ea79636b8dee88fe06625f5d4842d2a0ba45c195`.
 
-Let's take a closer look at the transaction using the command `getrawtransaction`:
+Let's take a closer look at the transaction using the command
+`getrawtransaction`:
 
 [.fullwidth]
 ----
 $ ./bitcoin-cli getrawtransaction \
-    30bca6feaf58b811c1c36a65c287f4bd393770c23a4cc63c0be00f28f62ef170 1
+    ebfd0d14c2ea74ce408d01d5ea79636b8dee88fe06625f5d4842d2a0ba45c195 1
 {
-  "txid": "30bca6feaf58b811c1c36a65c287f4bd393770c23a4cc63c0be00f28f62ef170",
-  "hash": "30bca6feaf58b811c1c36a65c287f4bd393770c23a4cc63c0be00f28f62ef170",
+  "txid": "ebfd0d14c2ea74ce408d01d5ea79636b8dee88fe06625f5d4842d2a0ba45c195",
+  "hash": "ebfd0d14c2ea74ce408d01d5ea79636b8dee88fe06625f5d4842d2a0ba45c195",
   "version": 1,
-  "size": 222,
-  "vsize": 222,
-  "locktime": 523985,
+  "size": 223,
+  "vsize": 223,
+  "weight": 892,
+  "locktime": 549655,
   "vin": [
     {
-      "txid": "7614149b575053426914ed7dafd5f81eb9d4544965253a9b50d19a8ec5b86cff",
+      "txid": "8a4023dbcf57dc7f51d368606055e47636fc625a512d3481352a1eec909ab22f",
       "vout": 0,
       "scriptSig": {
-        "asm": "3044022044a707325cfd09f41ac232ae7f06c31721f894a70bee2153fbfb0e643d20ffd602207c9c68803f72f93c3c240533325a35e9415338f9629196afa9fbb584d22a1c29[ALL] 035a1a39c06ab2f5a38c017ad93dd17fdbca23b06f6c115853df06b8de59765b14",
-        "hex": "473044022044a707325cfd09f41ac232ae7f06c31721f894a70bee2153fbfb0e643d20ffd602207c9c68803f72f93c3c240533325a35e9415338f9629196afa9fbb584d22a1c290121035a1a39c06ab2f5a38c017ad93dd17fdbca23b06f6c115853df06b8de59765b14"
+        "asm": "3045022100cc095e6b7c0d4c42a1741371cfdda4f1b518590f1af0915578d3966fee7e34ea02205fc1e976edcf4fe62f16035a5389c661844f7189a9eb45adf59e061ac8cc6fd3[ALL] 030ace35cc192cedfe2a730244945f1699ea2f6b7ee77c65c83a2d7a37440e3dae",
+        "hex": "483045022100cc095e6b7c0d4c42a1741371cfdda4f1b518590f1af0915578d3966fee7e34ea02205fc1e976edcf4fe62f16035a5389c661844f7189a9eb45adf59e061ac8cc6fd30121030ace35cc192cedfe2a730244945f1699ea2f6b7ee77c65c83a2d7a37440e3dae"
       },
       "sequence": 4294967293
     }
   ],
   "vout": [
     {
-      "value": 0.00399777,
+      "value": 0.00313955,
       "n": 0,
       "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 0cec13fbeb631c410a8cf2bafeb13166e5b37a36 OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a9140cec13fbeb631c410a8cf2bafeb13166e5b37a3688ac",
+        "asm": "OP_DUP OP_HASH160 6da68d8f89dced72d4339959c94a4fcc872fa089 OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a9146da68d8f89dced72d4339959c94a4fcc872fa08988ac",
         "reqSigs": 1,
         "type": "pubkeyhash",
         "addresses": [
-          "12BKvJ1kknZZN2TqU7wMkmYJN5oxfxCHML"
+          "1AznBDM2ZfjYNoRw3DLSR9NL2cwwqDHJY6"
         ]
       }
     },
@@ -508,17 +471,17 @@ $ ./bitcoin-cli getrawtransaction \
       "value": 0.00500000,
       "n": 1,
       "scriptPubKey": {
-        "asm": "0 8fe206383b23128d7834041c68bc3280308311b9",
-        "hex": "00148fe206383b23128d7834041c68bc3280308311b9",
+        "asm": "0 50cbb07ebbb0a22f11266653ed10d26ea3e1d545",
+        "hex": "001450cbb07ebbb0a22f11266653ed10d26ea3e1d545",
         "reqSigs": 1,
         "type": "witness_v0_keyhash",
         "addresses": [
-          "bc1q3l3qvwpmyvfg67p5qswx30pjsqcgxydeked56x"
+          "bc1q2r9mql4mkz3z7yfxvef76yxjd637r429620j75"
         ]
       }
     }
   ],
-  "hex": "0100000001ff6cb8c58e9ad1509b3a25654954d4b91ef8d5af7ded1469425350579b141476000000006a473044022044a707325cfd09f41ac232ae7f06c31721f894a70bee2153fbfb0e643d20ffd602207c9c68803f72f93c3c240533325a35e9415338f9629196afa9fbb584d22a1c290121035a1a39c06ab2f5a38c017ad93dd17fdbca23b06f6c115853df06b8de59765b14fdffffff02a1190600000000001976a9140cec13fbeb631c410a8cf2bafeb13166e5b37a3688ac20a10700000000001600148fe206383b23128d7834041c68bc3280308311b9d1fe0700"
+  "hex": "01000000012fb29a90ec1e2a3581342d515a62fc3676e455606068d3517fdc57cfdb23408a000000006b483045022100cc095e6b7c0d4c42a1741371cfdda4f1b518590f1af0915578d3966fee7e34ea02205fc1e976edcf4fe62f16035a5389c661844f7189a9eb45adf59e061ac8cc6fd30121030ace35cc192cedfe2a730244945f1699ea2f6b7ee77c65c83a2d7a37440e3daefdffffff0263ca0400000000001976a9146da68d8f89dced72d4339959c94a4fcc872fa08988ac20a107000000000016001450cbb07ebbb0a22f11266653ed10d26ea3e1d54517630800"
 }
 ----
 
@@ -529,15 +492,15 @@ transaction id of this transaction. The `hash` is the double SHA256
 hash of the whole transaction, including the witness. For non-segwit
 transactions, `hash` is equal to `txid`.
 
-The `size` of the transaction is 222 bytes, and `vsize` (virtual size)
-is also 222 vbytes. `vsize` is the number of weight units of the
-transaction divided by 4, so the virtual size of a non-segwit
+The `size` of the transaction is 223 bytes, and `vsize` (virtual size)
+is also 223 vbytes. `vsize` is the number of weight units (`892`), of
+the transaction divided by 4, so the virtual size of a non-segwit
 transaction (which this is, because it only spends non-segwit outputs)
 is equal to its actual `size`.
 
-The locktime of this transaction is set to 523985 which was the height
+The locktime of this transaction is set to `549655` which was the height
 of the strongest chain at the time of transaction creation. This means
-that the transaction cannot be mined until block height 523986. This
+that the transaction cannot be mined until block height 549656. This
 is to reduce the attractiveness of an attack where a miner
 deliberately tries to reorg the blockchain and include your
 transaction into a block height that's already been mined.
@@ -545,7 +508,7 @@ transaction into a block height that's already been mined.
 Next comes the list of inputs. This transaction has a single input
 that spends output at index `0` (`vout`) of the transaction with
 `txid`
-`7614149b575053426914ed7dafd5f81eb9d4544965253a9b50d19a8ec5b86cff`. This
+`8a4023dbcf57dc7f51d368606055e47636fc625a512d3481352a1eec909ab22f`. This
 input spends a p2pkh output.
 
 The sequence number of the input is `4294967293`, which is `fffffffd`
@@ -555,7 +518,7 @@ BIP125. The meaning of the sequence number was summarized in
 <<table-sequence-numbers>>.
 
 After the list of inputs comes the list of transaction outputs. This
-transaction has a list of 2 outputs. The first output pays 0.00399777
+transaction has a list of 2 outputs. The first output pays 0.00313955
 BTC to a p2pkh address that we haven't seen before. This is _probably_
 a change output. The second output sends 0.005 BTC to the p2wpkh
 address we created above.
@@ -577,21 +540,21 @@ We have received some bitcoins. Now we want to send bitcoins to
 someone else. To send bitcoins, you can use the `sendtoaddress`
 command. We need to make a few decisions first:
 
-* What address to send to: bc1qr5kue8tugz8jm0srf6kgflal8c298lg64mp6c6
+* What address to send to: bc1qu456w7a5mawlg35y00xu03wp8wc7d65t7uulqm
 * How much money to send: 0.001 BTC
 * How urgent the transaction is: Not urgent (we're happy if it
   confirms within 20 blocks)
 
-I will send the bitcoins to address
-`bc1qr5kue8tugz8jm0srf6kgflal8c298lg64mp6c6`, but you should get
-another address to send to. If you have no other wallet, you can
+I will send the bitcoins to address `bc1qu456...ulqm`, but you should
+get another address to send to. If you have no other wallet, you can
 create a new address in Bitcoin Core to send to just for experimental
-purposes.
+purposes. I've obfuscated my address below so that you don't send to
+my address by mistake.
 
 [.fullwidth]
 ----
 $ ./bitcoin-cli -named sendtoaddress \
-    address="bc1qr5kue8tugz8jm0srf6kgflal8c298lg64mp6c6" \
+    address="bc1qu456w7a5mawlgXXXXXXu03wp8wc7d65t7uulqm" \
     amount=0.001 conf_target=20 estimate_mode=ECONOMICAL
 error code: -13
 error message:
@@ -621,9 +584,9 @@ again in case we forget to lock it manually. Let's retry our
 [.fullwidth]
 ----
 $ ./bitcoin-cli -named sendtoaddress \
-    address="bc1qr5kue8tugz8jm0srf6kgflal8c298lg64mp6c6" \
+    address="bc1qu456w7a5mawlgXXXXXXu03wp8wc7d65t7uulqm" \
     amount=0.001 conf_target=20 estimate_mode=ECONOMICAL
-7b4157483edae7d30bfa9a2672c9729370eaf8f6e32c4ff2bc2ece1b982658bf
+a13bcb16d8f41851cab8e939c017f1e05cc3e2a3c7735bf72f3dc5ef4a5893a2
 ----
 
 The command output a txid for the newly created transaction. This
@@ -638,40 +601,38 @@ The wallet is now locked. Let's list our transactions again:
 
 [.fullwidth]
 ----
-$ ./bitcoin-cli listtransactions 
+$ ./bitcoin-cli listtransactions
 [
   {
-    "account": "",
-    "address": "bc1q3l3qvwpmyvfg67p5qswx30pjsqcgxydeked56x",
+    "address": "bc1q2r9mql4mkz3z7yfxvef76yxjd637r429620j75",
     "category": "receive",
     "amount": 0.00500000,
     "label": "",
     "vout": 1,
     "confirmations": 1,
-    "blockhash": "0000000000000000003882bb3554816a68ee175057c58fa7c03bc1a1eedb0e3c",
-    "blockindex": 1067,
-    "blocktime": 1527070201,
-    "txid": "30bca6feaf58b811c1c36a65c287f4bd393770c23a4cc63c0be00f28f62ef170",
+    "blockhash": "000000000000000000240eec03ac7499805b0f3df34a7d5005670f3a8fa836ca",
+    "blockindex": 311,
+    "blocktime": 1541946325,
+    "txid": "ebfd0d14c2ea74ce408d01d5ea79636b8dee88fe06625f5d4842d2a0ba45c195",
     "walletconflicts": [
     ],
-    "time": 1527068938,
-    "timereceived": 1527068938,
+    "time": 1541941483,
+    "timereceived": 1541941483,
     "bip125-replaceable": "no"
   },
   {
-    "account": "",
-    "address": "bc1qr5kue8tugz8jm0srf6kgflal8c298lg64mp6c6",
+    "address": "bc1qu456w7a5mawlg35y00xu03wp8wc7d65t7uulqm",
     "category": "send",
     "amount": -0.00100000,
-    "vout": 0,
+    "vout": 1,
     "fee": -0.00000141,
     "confirmations": 0,
     "trusted": true,
-    "txid": "7b4157483edae7d30bfa9a2672c9729370eaf8f6e32c4ff2bc2ece1b982658bf",
+    "txid": "a13bcb16d8f41851cab8e939c017f1e05cc3e2a3c7735bf72f3dc5ef4a5893a2",
     "walletconflicts": [
     ],
-    "time": 1527070565,
-    "timereceived": 1527070565,
+    "time": 1541946631,
+    "timereceived": 1541946631,
     "bip125-replaceable": "no",
     "abandoned": false
   }
@@ -684,71 +645,75 @@ confirmed, as indicated by `"confirmations": 0`. The fee we paid was
 
 [.fullwidth]
 ----
-$ ./bitcoin-cli getrawtransaction \
-    7b4157483edae7d30bfa9a2672c9729370eaf8f6e32c4ff2bc2ece1b982658bf 1
+$ ./bitcoin-cli getrawtransaction a13bcb16d8f41851cab8e939c017f1e05cc3e2a3c7735bf72f3dc5ef4a5893a2 1
 {
-  "txid": "7b4157483edae7d30bfa9a2672c9729370eaf8f6e32c4ff2bc2ece1b982658bf",
-  "hash": "e5fd28d1a2a0f1741a4ec465375ae0aa5619f5b82f42026d3566018d4b81690b",
+  "txid": "a13bcb16d8f41851cab8e939c017f1e05cc3e2a3c7735bf72f3dc5ef4a5893a2",
+  "hash": "554a3a3e57dcd07185414d981af5fd272515d7f2159cf9ed9808d52b7d852ead",
   "version": 2,
-  "size": 223,
+  "size": 222,
   "vsize": 141,
-  "locktime": 523988,
+  "weight": 561,
+  "locktime": 549665,
   "vin": [
     {
-      "txid": "30bca6feaf58b811c1c36a65c287f4bd393770c23a4cc63c0be00f28f62ef170",
+      "txid": "ebfd0d14c2ea74ce408d01d5ea79636b8dee88fe06625f5d4842d2a0ba45c195",
       "vout": 1,
       "scriptSig": {
         "asm": "",
         "hex": ""
       },
       "txinwitness": [
-        "3045022100e718670f69693b884c21d15a3e78a8e8e33b7e2b68c51510b9531a7980b5626c02206ff5ed5d897851bd25e76b00f84f0e2e25df3c86394880650012de515af18bf501",
-        "038fa2827f90fc158e80845424fc67dfb493263669919d986608caf11237ff8876"
+        "30440220212043afeaf70a97ea0aa09a15749ab94e09c6fad427677610286666a3decf0b022076818b2b2dc64b1599fd6b39bb8c249efbf4c546e334bcd7e1874115da4dfd0c01",
+        "020127d82280a939add393ddbb1b8d08f0371fffbde776874cd69740b59e098866"
       ],
       "sequence": 4294967294
     }
   ],
   "vout": [
     {
-      "value": 0.00100000,
+      "value": 0.00399859,
       "n": 0,
       "scriptPubKey": {
-        "asm": "0 1d2dcc9d7c408f2dbe034eac84ffbf3e1453fd1a",
-        "hex": "00141d2dcc9d7c408f2dbe034eac84ffbf3e1453fd1a",
+        "asm": "0 4bf041f271bd94385d6bcac8487adf6c9a862d10",
+        "hex": "00144bf041f271bd94385d6bcac8487adf6c9a862d10",
         "reqSigs": 1,
         "type": "witness_v0_keyhash",
         "addresses": [
-          "bc1qr5kue8tugz8jm0srf6kgflal8c298lg64mp6c6"
+          "bc1qf0cyrun3hk2rshttetyys7kldjdgvtgs6ymhzz"
         ]
       }
     },
     {
-      "value": 0.00399859,
+      "value": 0.00100000,
       "n": 1,
       "scriptPubKey": {
-        "asm": "0 a642a2a405470abdc8db9c08f77e3f79d17cf3ee",
-        "hex": "0014a642a2a405470abdc8db9c08f77e3f79d17cf3ee",
+        "asm": "0 e569a77bb4df5df446847bcdc7c5c13bb1e6ea8b",
+        "hex": "0014e569a77bb4df5df446847bcdc7c5c13bb1e6ea8b",
         "reqSigs": 1,
         "type": "witness_v0_keyhash",
         "addresses": [
-          "bc1q5ep29fq9gu9tmjxmnsy0wl3l08gheulw4nau0c"
+          "bc1qu456w7a5mawlg35y00xu03wp8wc7d65t7uulqm"
         ]
       }
     }
   ],
-  "hex": "0200000000010170f12ef6280fe00b3cc64c3ac2703739bdf487c2656ac3c111b858affea6bc300100000000feffffff02a0860100000000001600141d2dcc9d7c408f2dbe034eac84ffbf3e1453fd1af319060000000000160014a642a2a405470abdc8db9c08f77e3f79d17cf3ee02483045022100e718670f69693b884c21d15a3e78a8e8e33b7e2b68c51510b9531a7980b5626c02206ff5ed5d897851bd25e76b00f84f0e2e25df3c86394880650012de515af18bf50121038fa2827f90fc158e80845424fc67dfb493263669919d986608caf11237ff8876d4fe0700"
+  "hex": "0200000000010195c145baa0d242485d5f6206fe88ee8d6b6379ead5018d40ce74eac2140dfdeb0100000000feffffff02f3190600000000001600144bf041f271bd94385d6bcac8487adf6c9a862d10a086010000000000160014e569a77bb4df5df446847bcdc7c5c13bb1e6ea8b024730440220212043afeaf70a97ea0aa09a15749ab94e09c6fad427677610286666a3decf0b022076818b2b2dc64b1599fd6b39bb8c249efbf4c546e334bcd7e1874115da4dfd0c0121020127d82280a939add393ddbb1b8d08f0371fffbde776874cd69740b59e09886621630800"
 }
 ----
 
-The first thing to note is that the `size` and `vsize` differ. That's
-because this is a segwit transaction. The fee was 141 satoshis, as
-shown by the `listtransactions` command above, and the vsize is 141
+The first thing to note is that the `txid` and `hash` differ.  That's
+because this is a segwit transaction. As you may recall from <<ch10>>,
+the witness is not included in the txid - that's how we avoid
+transaction malleability - but the `hash` in the output above
+includes it. We note that the `size` and `vsize` differ too, which is
+expected from a segwit transaction. The fee was 141 satoshis, as shown
+by the `listtransactions` command above, and the vsize is 141
 vbytes. The fee-rate was thus selected by Bitcoin Core to be 1
 sat/vbyte.
 
 The transaction has a single input that spends output `1` of
 transaction
-`30bca6feaf58b811c1c36a65c287f4bd393770c23a4cc63c0be00f28f62ef170`. We
+`ebfd0d14c2ea74ce408d01d5ea79636b8dee88fe06625f5d4842d2a0ba45c195`. We
 recognize this output from the section where we paid 0.005 BTC to our
 Bitcoin Core wallet. Since that output was a p2wpkh output, the
 signature script (`scriptSig`) is empty, and the `txinwitness`
@@ -758,25 +723,25 @@ The sequence number of the input is 4294967294 which equals
 'fffffffe'. This means that the transaction has locktime enabled, but
 is not replaceable using BIP125 (Opt-in replace by fee).
 
-We have two outputs: The first one is the actual payment of
-0.001 BTC. The other is the change of 0.00399859 back to an address of
-our own. Let's check our balance to see if the transaction is
-confirmed:
+We have two outputs: The first one is the change of 0.00399859 back to
+an address of our own. The other is the actual payment of 0.001 BTC.
+Let's check our balance:
 
 ----
  ./bitcoin-cli getbalance
 0.00399859
 ----
 
-Yep, there it is. We've spent our only TXO (of 0.005 BTC) and created
-a new TXO of 0.00399859 to ourselves. So
+Yep, there it is. `getbalance` will show change outputs from
+unconfirmed transction. We've spent our only UTXO (of 0.005 BTC) and
+created a new UTXO of 0.00399859 to ourselves. So
 
 ----
 Spent:   0.005
 Pay:    -0.001
 Fee:    -0.00000141
 ===================
-Change: -0.00399859
+Change:  0.00399859
 ----
 
 It sums up perfectly.
