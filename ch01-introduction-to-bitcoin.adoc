@@ -453,7 +453,7 @@ Zimbabwe is one of the most extreme cases of inflation throughout
 history, but still today some countries suffer from very high
 inflation. One of them is Venezuela where its currency, the bolívar,
 experienced a 800% inflation during 2016, and during 2017 it suffered
-from about 4,000% inflation. A staggering 15,000% inflation is forecast
+from about 4,000% inflation. A staggering 834,000% inflation is forecast
 for 2018.
 
 ==== Borders
@@ -847,7 +847,7 @@ There are however very promising emerging technologies being built on
 top of Bitcoin. One example is the Lightning Network, that allows for
 cheap, instantaneous micropayments of tiny fractions of a
 bitcoin. Using Lightning Network, you can pay just 100 satoshis (1
-satoshi = 0.000,000,01 BTC) at a fee of 1 satoshi.
+satoshi = 0.000,000,01 BTC) at a fee of as little as 1 satoshi.
 
 ===== Instant payments
 
@@ -923,19 +923,19 @@ Bitcoin's position relative to the other cryptocurrencies.
 
 | image:{imagedir}/ethereum-logo.png[role="smallheight"]
 | Run software on a decentralized abstract computer
-| 48
+| 22
 
 | image:{imagedir}/monero-logo.png[role="smallheight"]
 | Anonymity
-| 1.9
+| 1.7
 
 | image:{imagedir}/zcash-logo.png[role="smallheight"]
 | Anonymity
-| 0.8
+| 0.7
 
 | image:{imagedir}/namecoin-logo.svg[role="smallheight"]
 | Naming system, complements domain name system, DNS
-| 0.02
+| 0.008
 |===
 
 I encourage you to look up these cryptocurrencies as they all provide

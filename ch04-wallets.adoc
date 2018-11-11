@@ -43,7 +43,7 @@ There are several different wallets for Bitcoin. Some popular wallets are
 * Bitcoin Core
 * Electrum
 * GreenBits
-* Bread (BRD)
+* BRD (Bread)
 
 A comprehensive list is available at <<web-bitcoin-wallets>>.
 ****

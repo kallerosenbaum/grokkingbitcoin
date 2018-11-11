@@ -566,15 +566,15 @@ do it.
 The Bitcoin peer to peer network is huge. As of writing:
 
 [.movingtarget]
-* It consists of about 10,000 publicly accessible full nodes.
+* There are about 10,000 publicly accessible full nodes. 
 * Bitcoin's money supply is about 17,100,000 BTC.
 * Each bitcoin is worth around $6,500
-* 200,000 transaction per day
-* An estimate of 130,000 BTC, value $830M, being moved daily
-* Total mining hashrate is about 36 Ehash/s, 36*10^18^ hash/s. A
+* 250,000 transaction per day
+* An estimate of 100,000 BTC, value $630M, being moved daily
+* Total mining hashrate is about 50 Ehash/s, 50*10^18^ hash/s. A
   typical desktop computer can do about 25 Mhash/s.
-* Transaction fees paid each day totals around 20 BTC. Which averages
-  10,000 satoshis per transaction, or about $0.65  per transaction.
+* Transaction fees paid each day totals around 17 BTC. Which averages
+  6,800 satoshis per transaction, or 40 cents.
 * People in all corners of the world use Bitcoin to get around
 problems in their day-to-day life.
 

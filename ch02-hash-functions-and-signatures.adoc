@@ -41,7 +41,7 @@ tokens", CT. Cookie tokens can be exchanged for cookies in the cafe.
 A cookie token corresponds to a bitcoin, the currency unit of
 Bitcoin. Bitcoin got its first price point 2010 when someone bought
 two pizzas for 10,000 BTC. That money would get you 6,000,000 pizzas
-as of June 2018.
+as of November 2018.
 ****
 
 .The spreadsheet has a column for the sender, a column for the recipient and a column for the amount of cookie tokens transferred. New cookie token transfers are appended at the end of the spreadsheet.
