@@ -72,8 +72,10 @@ image::{imagedir}/blockchain-overview.svg[{big-width}]
 
 [.inbitcoin]
 ****
+[.movingtarget]
+
 The Bitcoin blockchain contains hundreds of thousands of blocks. At
-the time of writing, the chain tip had height 479936.
+the time of writing, the chain tip had height 550836.
 ****
 
 The blockchain consists of blocks where each block references the
