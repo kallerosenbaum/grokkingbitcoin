@@ -315,8 +315,7 @@ the block and verify it. To verify a block involves verifying that
 
 * the block header signature is valid. The signature is verified using
   Lisa's public key obtained from the bulletin board or intranet.
-* the previous block header is the expected, the block id of block 20
-  in this case.
+* the previous block exists. It's the header of block 20 in this case.
 * all transactions in the block are valid. The same verification as in
   <<ch05>> is used, by using a private UTXO set.
 * the combined hash of all transactions matches the merkle root in the
