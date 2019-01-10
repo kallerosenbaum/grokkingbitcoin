@@ -476,7 +476,7 @@ blockchain. However, every now and then there are transactions that
 are relevant to John's wallet in the blocks, and the wallet wants
 proof that those transactions are actually included in the block. In
 this particular block, Rashid's block, we have John's transaction as
-the third, and last, transaction of the block.
+the fourth, and last, transaction of the block.
 
 .Tom sends a `merkleblock` containing a merkle proof that John's transaction is in the block.
 image::{imagedir}/john-requests-merkleblock.svg[{big-width}]
@@ -495,7 +495,7 @@ John's wallet will verify that
   merkle tree.
 * The txid of John's transaction is included in the partial merkle
   tree. He doesn't care about the irrelevant transaction that is used
-  to obfuscate what belongs to John..
+  to obfuscate what belongs to John.
 
 John's wallet is now sure that his transaction is contained in the new
 block. The wallet can display a message to John saying "Your
@@ -1193,7 +1193,7 @@ the message.
 
 The file you downloaded is named for example
 `bitcoin-0.17.0-x86_64-linux-gnu.tar.gz` so you expect that the SHA256
-hash of that file matches `e632...6477` exactly. Let's check:
+hash of that file matches `9d6b...5a4f` exactly. Let's check:
 
 ----
 $ sha256sum bitcoin-0.17.0-x86_64-linux-gnu.tar.gz 
@@ -1691,7 +1691,7 @@ for download when it's finished syncing?
 ==== Dig in
 
 [start=11]
-. the Bitcoin peer to peer network consists of the following nodes:
+. The Bitcoin peer to peer network consists of the following nodes:
 +
 image::{imagedir}/ex-network-lie-to-lisa.svg[{half-width}]
 +
