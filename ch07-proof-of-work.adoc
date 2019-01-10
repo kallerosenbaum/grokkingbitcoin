@@ -1477,6 +1477,7 @@ fee-bumping.
 [.inbitcoin]
 .Fees in Bitcoin
 ****
+[.movingtarget]
 As of writing, a transaction fee of 4 sat/byte is normally required to
 get your transaction into one of the next six blocks. A normal
 transaction, 500 bytes, would cost 0.00002{btc}, or about 20 cent.
