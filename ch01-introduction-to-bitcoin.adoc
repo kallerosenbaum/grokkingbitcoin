@@ -462,10 +462,10 @@ Moving value across national borders using national, or _fiat_,
 currency is hard, expensive and sometimes even forbidden. If you want
 to send 1,000 Swedish crowns (SEK) from Sweden to a person in the
 Philippines, you can use a service like Western Union for the
-transfer. At the time I investigated this, 1,000 SEK was worth 5,305
+transfer. At the time I investigated this, 1,000 SEK was worth 5,374
 Philippine Pesos (PHP) or 109 US dollars.
 
-.Cost of sending 5305 PHP from Sweden to Philippines
+.Cost of sending 5,374 PHP from Sweden to Philippines
 |===
 | Send from | Receive to | Received by recipient | Fees | Fees %
 
