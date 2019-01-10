@@ -2,7 +2,7 @@ import java.util.Random;
 
 class BlockGenerationSim {
     public static final void main(String[] args) {
-	long rounds = 1000000000L;
+	long rounds = 1000000L;
 	int randomspan = 1800;
 	int[] dice = new int[3];
 	int divider = 1; // dice[0] is one side and dice[1] and dice[2] on the other side
@@ -13,30 +13,58 @@ class BlockGenerationSim {
 	int noBlocksAtAll = 0;
 	int noResolution = 0;
 	Random random = new Random();
+	int[] splitLengths = {0, 0, 0,0,0,0,0,0,0};
 	for (long round = 0; round < rounds; round++) {
-	    int sideAWins = 0;
-	    int sideBWins = 0;
-	    for (int i = 0; i < dice.length; i++) {
-		dice[i] = random.nextInt(randomspan);
-		if (dice[i] == 0) {
-		    if (i < divider) {
-			sideAWins++;
-		    } else {
-			sideBWins++;
-		    }	  
-		} 
-	    }
-	    if (sideAWins == 0 && sideBWins == 0) {
-		noBlocksAtAll++;
-	    } else if (sideAWins > 0 && sideBWins > 0) {
-		noResolution++;
+	    boolean resolved = false;
+	    int splitLength = 0;
+	    while (!resolved) {		
+		int sideAWins = 0;
+		int sideBWins = 0;
+
+		for (int i = 0; i < dice.length; i++) {
+		    dice[i] = random.nextInt(randomspan);
+		    if (dice[i] == 0) {
+			if (i < divider) {
+			    sideAWins++;
+			} else {
+			    sideBWins++;
+			}	  
+		    } 
+		}
+		if (splitLength == 0) {
+		    if (sideAWins+sideBWins > 1) {
+			splitLength++;
+			continue;
+		    }
+		    if (sideAWins+sideBWins == 0) {
+			continue;
+		    }
+		    if (sideAWins+sideBWins == 1) {
+			splitLengths[0] += 1;
+			resolved = true;
+			continue;
+		    }
+		}
+
+		if (sideAWins > 0 && sideBWins > 0) {
+		    splitLength++;
+		} else {
+		    splitLengths[splitLength] += 1;
+		    resolved = true;
+		}
 	    }
 	}
 	
 	System.out.println("Rounds: " + rounds);
-	System.out.println("No blocks: " + noBlocksAtAll);
-	System.out.println("No resolution in " + noResolution + " cases of " + (rounds - noBlocksAtAll));
-	System.out.println("Probability of no resolution if any block is found is " + ((double)noResolution/((rounds - noBlocksAtAll))));
+
+	int sum = 0;
+	for (int i = 0; i < splitLengths.length; i++) {
+	    System.out.println("Length " + i + ": " + splitLengths[i]);
+	    sum += splitLengths[i];
+	}
+	System.out.println("Total splits (including 0 length): " + sum);
+	//	System.out.println("Probability of no resolution if any block is found is " + ((double)noResolution/((rounds - noBlocksAtAll))));
+
 	/*
 	long twoweeks=2*7*24*60*60L;
 	double tryinterval=0.5;

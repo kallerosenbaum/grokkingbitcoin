@@ -4,6 +4,14 @@ for file in *.svg; do inkscape -z -e `basename -s .svg $file`.png -w 1000 $file 
 for file in *.svg; do inkscape -z -y 1.0 -e `basename -s .svg $file`.png -w 1000 $file ; done;
 
 #To convert eps to svg (pdf2svg can't read from stdin so we need to make it two-step)
+
+for f in *.eps; do
+	epstopdf $f
+	basefile=${f%.eps}
+	pdf2svg $basefile.pdf $basefile.svg
+	rm $basefile.pdf
+done
+
 epstopdf foo.eps
 pdf2svg foo.pdf foo.svg
 
