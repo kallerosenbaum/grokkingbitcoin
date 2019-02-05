@@ -645,7 +645,8 @@ confirmed, as indicated by `"confirmations": 0`. The fee we paid was
 
 [.fullwidth]
 ----
-$ ./bitcoin-cli getrawtransaction a13bcb16d8f41851cab8e939c017f1e05cc3e2a3c7735bf72f3dc5ef4a5893a2 1
+$ ./bitcoin-cli getrawtransaction \
+    a13bcb16d8f41851cab8e939c017f1e05cc3e2a3c7735bf72f3dc5ef4a5893a2 1
 {
   "txid": "a13bcb16d8f41851cab8e939c017f1e05cc3e2a3c7735bf72f3dc5ef4a5893a2",
   "hash": "554a3a3e57dcd07185414d981af5fd272515d7f2159cf9ed9808d52b7d852ead",
