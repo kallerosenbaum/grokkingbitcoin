@@ -670,7 +670,7 @@ More exactly, the _difficulty of block B_ is calculated as
 
 [stem]
 ++++
-\frac{target\ of\ the\ genesis\ block}{target\ of\ B}=\frac{(2^{16}-1)*256^{26}}{target\ of\ B}
+\frac{\mathrm{target\ of\ the\ genesis\ block}}{\mathrm{target\ of\ }B}=\frac{(2^{16}-1)*256^{26}}{\mathrm{target\ of\ }B}
 ++++
 
 The target of the genesis block is divided by the target of B, which
@@ -1228,9 +1228,9 @@ The probability, q~z~, is calculated as
 
 [stem] 
 ++++
-q=attacker's\ hashrate \\
-p=honest\ hashrate \\
-z=blocks\ to\ catch\ up \\
+q=\mathrm{attackerʼs\ hashrate} \\
+p=\mathrm{honest\ hashrate} \\
+z=\mathrm{blocks\ to\ catch\ up} \\
 q_{z}=
 \left\{
 \begin{array}{ll}
