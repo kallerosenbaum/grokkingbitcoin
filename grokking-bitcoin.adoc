@@ -1,4 +1,5 @@
 = Grokking Bitcoin
+Kalle Rosenbaum
 :doctype: book
 :linkcss:
 :stylesdir: style

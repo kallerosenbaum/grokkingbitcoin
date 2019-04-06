@@ -1,4 +1,4 @@
-AD=asciidoctor
+AD=~/.rvm/gems/ruby-2.6.0/gems/asciidoctor-1.5.7/bin/asciidoctor
 BASE_NAME=grokking-bitcoin
 MAIN=$(BASE_NAME).adoc
 OUTPUTDIR=build
