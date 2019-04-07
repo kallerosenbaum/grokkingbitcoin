@@ -1,8 +1,7 @@
 [[ch01]]
 == Introduction to Bitcoin
 :imagedir: {baseimagedir}/ch01
-:n: {imagedir}/
-:un: {imagedir}/
+:n: {imagedir}
 
 * Getting to know Bitcoin
 
