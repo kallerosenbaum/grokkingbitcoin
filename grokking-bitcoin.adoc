@@ -5,7 +5,7 @@ Kalle Rosenbaum
 :stylesdir: style
 :sectnums:
 :toc: left
-:toclevels: 30
+:toclevels: 3
 :icons: font
 :baseimagedir: images
 :commonimagedir: {baseimagedir}/common
