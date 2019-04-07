@@ -113,12 +113,13 @@ table.tableblock>caption.title {
 .gbinfo::before,.inbitcoin::before {
     float: right;
     position: relative;
-    top: 0px;
+    top: -10px;
     right: -10px;
 }
 
 .gbinfo::before {
-    content:url(images/light-bulb-thumb.png);   
+    content:url(images/bulb6-trimmed.svg);
+    top: -30px;
 }
 
 .inbitcoin::before {
