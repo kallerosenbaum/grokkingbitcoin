@@ -249,7 +249,7 @@ their copy of the blockchain as they received transactions, the copies
 wouldn’t remain copies for long because transactions can come in
 different orders on different nodes, as <<txs-unordered>> shows.
 
-.Figure 1.5 Transactions arrive in different orders at different nodes. If all nodes wrote their transactions to the blockchain in order of arrival, the different nodes’ blockchains would differ.
+.Transactions arrive in different orders at different nodes. If all nodes wrote their transactions to the blockchain in order of arrival, the different nodes’ blockchains would differ.
 [[txs-unordered]]
 image::{imagedir}/01-05.svg[{big-width}]
 
@@ -298,10 +298,10 @@ there are even specialized hardware wallet devices.
 
 Before step 4 of the payment process, the nodes in the network update
 their local copy of the blockchain. Now, the network needs to notify
-Alice and Bob that the transaction went through, as figure
+Alice and Bob that the transaction went through, as
 <<wallet-connection>> shows.
 
-[id=wallet-connection]
+[[wallet-connection]]
 .Bob’s wallet has asked a node to notify the wallet upon activity at Bob’s Bitcoin address. Alice pays to Bob’s address, and the node has just written the transaction to the blockchain, so it notifies Bob’s wallet.
 image::{imagedir}/01-07.svg[{full-width}]
 
@@ -544,7 +544,6 @@ geographical location.
 .Centralized and decentralized services
 image::{imagedir}/01-09.svg[{half-width}]
 
-[.inbitcoin]
 .Problems fixed
 ****
 - [*] *Segregation*
@@ -576,7 +575,6 @@ bribe to change these rules.
 [id=limited_supply]
 ==== Limited supply
 
-[.inbitcoin]
 .Problems fixed
 ****
 - [*] Segregation
@@ -608,7 +606,6 @@ every four years.
 
 ==== Borderless
 
-[.inbitcoin]
 .Problems fixed
 ****
 - [*] Segregation
@@ -755,7 +752,7 @@ more people and institutions start using it to store their wealth, it
 will probably stabilize in the long run, and its deflationary property
 will emerge over time.
 
-==== Non-currency uses
+==== Noncurrency uses
 
 Bitcoin is digital cash, but this form of cash can be used for things
 beyond money. This section covers two common uses, but there are
