@@ -1,7 +1,6 @@
 [[ch01]]
 == Introduction to Bitcoin
 :imagedir: {baseimagedir}/ch01
-:n: {imagedir}
 
 * Getting to know Bitcoin
 
@@ -48,14 +47,14 @@ online using one of several exchanges, such as kraken.com, bitstamp.net,
 or localbitcoins.com.
 
 No government or company controls Bitcoin. Instead, thousands of
-computers around the globe—the __Bitcoin network__, shown in
+computers around the globe—the _Bitcoin network_, shown in
 <<actors>>—collectively keep the system working 24/7. You don’t need
 to register or sign up anywhere to use Bitcoin, you just need internet
 access and a computer program, like a mobile app, to use it.
 
 .The Bitcoin network and its ecosystem.
 [[actors]]
-image::{imagedir}/actors.svg[{big-width}]
+image::{imagedir}/01-01.svg[{big-width}]
 
 Anyone can use or participate in the Bitcoin network without special
 permission from a bank or similar institution. Thanks to Bitcoin’s
@@ -100,7 +99,7 @@ The Bitcoin network’s job is to process Bitcoin payments, secure the
 ledger of who owns what from unauthorized modifications, and get new
 bitcoins into circulation at the predetermined rate. The network
 consists of thousands of computers around the world. We call these
-computers __Bitcoin nodes__, or just __nodes__. Any of the actors
+computers _Bitcoin nodes_, or just _nodes_. Any of the actors
 mentioned previously can also participate actively in the Bitcoin
 network by running their own Bitcoin node. You must run your own node if
 you don’t want to trust others to provide you with correct financial
@@ -122,7 +121,7 @@ we’ll cover in the chapter.
 
 .A Bitcoin payment. The payment is processed in four steps.
 [[payment-overview]]
-image::{imagedir}/payment-overview.svg[{full-width}]
+image::{imagedir}/01-02.svg[{full-width}]
 
 [.inbitcoin]
 .I thought Bitcoin was anonymous!
@@ -138,10 +137,10 @@ Bob. She then sends the transaction to the Bitcoin network.
 
 2. The computers in the network—the Bitcoin nodes—check that Alice actually
 has the money to spend and that the transaction is authentic. They then
-pass the transaction to their neighbors, called __peers__.
+pass the transaction to their neighbors, called _peers_.
 
-3. Each computer updates its own copy of the __Bitcoin blockchain__, or the
-__ledger__, with the new payment information.
+3. Each computer updates its own copy of the _Bitcoin blockchain_, or the
+_ledger_, with the new payment information.
 
 4. The network notifies Bob that he has received 1 bitcoin.
 
@@ -163,7 +162,7 @@ one step per section.
 [.gbinfo]
 .Transaction
 ****
-A _transaction_ is a __payment__. The terms are interchangeable. We
+A _transaction_ is a _payment_. The terms are interchangeable. We
 cover transactions in <<ch05>> and <<ch09>>.
 ****
 
@@ -175,7 +174,7 @@ proves it’s really Alice requesting that the money be moved.
 
 [[bitcoin-payment]]
 .Alice creates a transaction, signs it, and sends it to one or more Bitcoin nodes in the Bitcoin network.
-image::{imagedir}/payment-overview-step-1.svg[{half-width}]
+image::{imagedir}/01-03.svg[{half-width}]
 
 The Bitcoin _transaction_ is a piece of data specifying
 
@@ -193,7 +192,7 @@ We’ll discuss digital signatures in depth in <<ch02>>.
 ****
 
 The digital signature is created from the transaction and a huge
-secret number, called a __private key__, that only Alice has
+secret number, called a _private key_, that only Alice has
 access to. The result is a digital signature that only the private
 key’s owner could have created.
 
@@ -212,7 +211,7 @@ this by consulting its local copy of the blockchain and verifying that
 
 [[overview-bitcoin-network]]
 .Alice has sent her transaction to a node in the network. The node verifies the transaction and forwards it to other nodes. Eventually, the transaction will reach all nodes in the network.
-image::{imagedir}/payment-overview-step-2.svg[{full-width}]
+image::{imagedir}/01-04.svg[{full-width}]
 
 [.inbitcoin]
 .Invalid transactions
@@ -221,7 +220,7 @@ Invalid transactions are dropped. They won’t reach further than the first node
 ****
 
 If all checks pass, a node forwards the transaction to its peers in
-the Bitcoin network. This is known as __relaying__. Alice’s
+the Bitcoin network. This is known as _relaying_. Alice’s
 transaction will shortly have traveled the entire network while each
 node verifies it along the way. The blockchain hasn’t been updated
 yet; that’s the next step.
@@ -252,17 +251,17 @@ different orders on different nodes, as <<txs-unordered>> shows.
 
 .Figure 1.5 Transactions arrive in different orders at different nodes. If all nodes wrote their transactions to the blockchain in order of arrival, the different nodes’ blockchains would differ.
 [[txs-unordered]]
-image::{imagedir}/transactions-unordered.svg[{big-width}]
+image::{imagedir}/01-05.svg[{big-width}]
 
 To coordinate the ordering of transactions, one node takes the lead,
 saying “I want to add these two transactions to the blockchain in the
-order Y, X!” This message, known as a __block__, is sent out on the
+order Y, X!” This message, known as a _block_, is sent out on the
 network by that leader (<<step-3>>), in the same way that Alice sent the
 transaction.
 
 .One node takes the lead and tells the others in what order to add transactions. The other nodes verify the block and update their blockchain copies accordingly.
 [[step-3]]
-image::{imagedir}/payment-overview-step-3.svg[{big-width}]
+image::{imagedir}/01-06.svg[{big-width}]
 
 [.gbinfo]
 .The blockchain is append-only
@@ -293,7 +292,7 @@ digging for gold. We’ll discuss this process further in <<ch07>>.
 
 Bob and Alice are Bitcoin network users, and they both need a computer
 program to interact with the network. Such a program is called a
-__Bitcoin wallet__. Several types of Bitcoin wallets are available for
+_Bitcoin wallet_. Several types of Bitcoin wallets are available for
 different devices, such as mobile phones and desktop computers, and
 there are even specialized hardware wallet devices.
 
@@ -304,7 +303,7 @@ Alice and Bob that the transaction went through, as figure
 
 [id=wallet-connection]
 .Bob’s wallet has asked a node to notify the wallet upon activity at Bob’s Bitcoin address. Alice pays to Bob’s address, and the node has just written the transaction to the blockchain, so it notifies Bob’s wallet.
-image::{imagedir}/payment-overview-step-4.svg[{full-width}]
+image::{imagedir}/01-07.svg[{full-width}]
 
 [.inbitcoin]
 .Wallet duties
@@ -376,7 +375,7 @@ preferences, or skin color.
 ==== Privacy issues
 
 ****
-image::{imagedir}/privacy-issue-mastercard.svg[]
+image::{imagedir}/u01-02.svg[]
 ****
 
 When it comes to electronic payments such as credit cards or bank
@@ -427,7 +426,7 @@ _Inflation_ means the purchasing power of a currency decreases
 
 .Inflation
 [[inflation-apples]]
-image::{imagedir}/inflation.svg[{big-width}]
+image::{imagedir}/01-08.svg[{big-width}]
 
 .Problems
 ****
@@ -442,7 +441,7 @@ peaking at 80 billion percent per month during a few months in 2008.
 That’s an average daily inflation rate of nearly 100%. Prices roughly
 doubled every day.
 
-Extreme cases of inflation like this are called __hyperinflation__,
+Extreme cases of inflation like this are called _hyperinflation_,
 and are usually driven by a rapid increase in the money
 supply. Governments sometimes increase the money supply as a tool to
 extract value from the population and pay for expenses such as the
@@ -480,7 +479,7 @@ rate in 2017. A staggering 1,370,000% inflation rate is forecast for
 
 ==== Borders
 
-Moving value across national borders using national, or __fiat__,
+Moving value across national borders using national, or _fiat_,
 currency is hard, expensive, and sometimes even forbidden. If you want
 to send 1,000 Swedish crowns (SEK) from Sweden to a person in the
 Philippines, you can use a service like Western Union for the transfer.
@@ -531,7 +530,7 @@ Instead of a central organization such as the US Federal Reserve
 controlling the currency, control of Bitcoin is distributed among
 thousands of computers, or nodes. No single node or group of nodes has
 more privileges or obligations than any other. This equality between
-nodes makes Bitcoin __decentralized__, as opposed to _centralized_
+nodes makes Bitcoin _decentralized_, as opposed to _centralized_
 systems, such as banks or the Google search engine
 (<<centalized-decentralized>>).
 
@@ -543,7 +542,7 @@ geographical location.
 
 [[centalized-decentralized]]
 .Centralized and decentralized services
-image::{imagedir}/centralized-decentralized.svg[{half-width}]
+image::{imagedir}/01-09.svg[{half-width}]
 
 [.inbitcoin]
 .Problems fixed
@@ -594,12 +593,12 @@ every so often by a company or state. Bitcoin is resistant to high
 inflation because you can’t increase the money supply at will.
 
 Bitcoin’s money supply isn’t fixed today. It’s increasing, at a
-diminishing rate, according to a __predetermined__ schedule and will
+diminishing rate, according to a _predetermined_ schedule and will
 eventually stop increasing around the year 2140. See <<supply-curve>>.
 
 [[supply-curve]]
 .The supply of bitcoins approaches 21 million over time. The increase is barely visible during the last 100 years before 2140.
-image::{imagedir}/money-supply.svg[{big-width}]
+image::{imagedir}/01-10.svg[{big-width}]
 
 [.movingtarget]
 
@@ -625,7 +624,7 @@ as <<borderless>> illustrates.
 
 [[borderless]]
 .Bitcoin is borderless
-image::{imagedir}/borderless.svg[{big-width}]
+image::{imagedir}/01-11.svg[{big-width}]
 
 There is no difference between sending a bitcoin to someone in the
 same room or sending it to someone on another continent. The
@@ -685,7 +684,7 @@ services.
 
 [[remittance-company]]
 .A remittance company uses Bitcoin to transfer money from Sweden to the Philippines.
-image::{imagedir}/remittance-company.svg[{big-width}]
+image::{imagedir}/u01-04.svg[{big-width}]
 
 Of course, if recipients can make good use of Bitcoin where they live,
 there’s no need for a middleman that takes a cut of the money. You can
@@ -696,7 +695,7 @@ between the old legacy world and the new Bitcoin world.
 ==== Shopping
 
 ****
-image::{imagedir}/shopping-cart.png[]
+image::{imagedir}/shoppingcart.svg[]
 ****
 
 The most obvious use case for Bitcoin is shopping. Bitcoin’s
@@ -721,7 +720,7 @@ the amount of money you agreed on and nothing more.
 ==== Speculation
 
 The world is full of people wanting to get rich quick. Bitcoin can be
-alluring to them because of its price __volatility__, or tendency to
+alluring to them because of its price _volatility_, or tendency to
 change. Looking at the history of bitcoin’s price, as shown in
 <<btc-price>>, it’s tempting to try to buy when it’s low and sell when
 it’s high.
@@ -729,12 +728,12 @@ it’s high.
 [.movingtarget]
 [[btc-price]]
 .Price in USD since the beginning of Bitcoin
-image::{imagedir}/bitcoin-price.svg[{big-width}]
+image::{imagedir}/01-12.svg[{big-width}]
 
 [.movingtarget]
 
 In November 2013, the price climbed from about $100 USD to more than
-$1100 in a few weeks. This was clearly a so-called __bubble__, in which
+$1100 in a few weeks. This was clearly a so-called _bubble_, in which
 people were afraid of missing out on a great rise, so they bought in,
 driving the price further up, until it eventually started dropping
 again. The drop to 50% of its peak value was just as quick as its rise.
@@ -765,7 +764,7 @@ others, including those not yet invented.
 ===== Ownership
 
 ****
-image::{imagedir}/transfer-ownership.svg[]
+image::{imagedir}/u01-06.svg[]
 ****
 
 Bitcoin lets you embed small pieces of data with payments. This data
@@ -775,8 +774,8 @@ new car owner, containing the chassis number. This payment will then
 represent the transfer of ownership for that car.
 
 Bitcoin payments are public records, but they aren’t tied to people in
-any way. They’re tied to long strings of numbers called __public
-keys__, explained in detail in <<ch02>>. The car manufacturer has made
+any way. They’re tied to long strings of numbers called _public
+keys_, explained in detail in <<ch02>>. The car manufacturer has made
 its public key available on its website, in newspapers, and in
 advertisements to tie the key to the manufacturer’s identity. Anyone
 can then verify that the manufacturer has transferred ownership of the
@@ -797,10 +796,10 @@ ownership of a car, you can prove that a document existed prior to a
 certain point in time.
 
 ****
-image::{imagedir}/proof-of-existence.svg[]
+image::{imagedir}/u01-07.svg[]
 ****
 
-A digital document has a __fingerprint__: a cryptographic hash that
+A digital document has a _fingerprint_: a cryptographic hash that
 anyone can calculate from that document. Creating a different document
 with the same fingerprint is practically impossible. This fingerprint
 can be attached to a Bitcoin payment. Where the money goes is
@@ -815,7 +814,7 @@ the blockchain.
 ==== How is Bitcoin valued?
 
 ****
-image::{imagedir}/market.svg[]
+image::{imagedir}/u01-08.svg[]
 ****
 
 As you read in the <<speculation>>, a bitcoin’s price can
@@ -921,7 +920,7 @@ speculation.
 
 * Weaknesses arise in the cryptography Bitcoin uses.
 
-Although all these risks are __possible__, most of them are unlikely.
+Although all these risks are _possible_, most of them are unlikely.
 This list is somewhat ordered with the most likely at the top. Always
 weigh the risks before putting money on the line, and select your
 security measures accordingly. This book will help you understand the
@@ -933,7 +932,7 @@ risks and how to secure your money.
 This book will cover Bitcoin, but several other so-called
 _crypto­currencies_ exist, and new ones pop up all the time.
 Cryptocurrencies other than Bitcoin are often referred to as
-__alt-coins__, meaning __alternative coins__. I’ll list a few alt-coins
+_alt-coins_, meaning _alternative coins_. I’ll list a few alt-coins
 along with their purpose and market capitalization, or _market cap_
 (<<altcoins-table>>). The market cap is the product of the money supply (number
 of coins) and the current market price per coin. Note that the market
@@ -998,7 +997,7 @@ to go where other people are.
 
 .Network effect
 [[network-effect]]
-image::{imagedir}/network-effect.svg[{half-width}]
+image::{imagedir}/u01-09.svg[{half-width}]
 
 Although some interesting alt-coins are out there, it’s hard to tell
 which of these will survive long-term. Also, picking one or a few
