@@ -102,6 +102,12 @@ table.tableblock>caption.title {
     font-size: 1em;
 }
 
+.sidebarblock>.content>.imageblock img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .gbnew img {
     width:50px;
 }
@@ -124,6 +130,13 @@ table.tableblock>caption.title {
 
 .inbitcoin::before {
     content:url(images/bitcoinLogoThumb.png);   
+}
+
+.periscope::before {
+    content:url(images/periscope.svg);    
+    position: relative;
+    top: 25px;
+    right: -90px;
 }
 
 .inbitcoin>.content>.title,.gbinfo>.content>.title {
