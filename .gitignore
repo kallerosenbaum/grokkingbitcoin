@@ -19,3 +19,4 @@ graph_original.png
 notes/keyconversion/node_modules/
 notes/keyconversion/signature.sign
 style/asciidoctor.css
+images/*/*.svg
