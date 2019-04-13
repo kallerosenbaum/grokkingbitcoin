@@ -374,6 +374,7 @@ preferences, or skin color.
 [id=privacy-issues]
 ==== Privacy issues
 
+[.unboxed]
 ****
 image::{imagedir}/u01-02.svg[]
 ****
@@ -639,6 +640,7 @@ to what we know now.
 
 ==== Savings
 
+[.unboxed]
 ****
 image::{imagedir}/vault.png[]
 ****
@@ -691,6 +693,7 @@ between the old legacy world and the new Bitcoin world.
 
 ==== Shopping
 
+[.unboxed]
 ****
 image::{imagedir}/shoppingcart.svg[]
 ****
@@ -760,6 +763,7 @@ others, including those not yet invented.
 
 ===== Ownership
 
+[.unboxed]
 ****
 image::{imagedir}/u01-06.svg[]
 ****
@@ -792,6 +796,7 @@ Using the same technique to store data in a Bitcoin payment to transfer
 ownership of a car, you can prove that a document existed prior to a
 certain point in time.
 
+[.unboxed]
 ****
 image::{imagedir}/u01-07.svg[]
 ****
@@ -810,6 +815,7 @@ the blockchain.
 
 ==== How is Bitcoin valued?
 
+[.unboxed]
 ****
 image::{imagedir}/u01-08.svg[]
 ****

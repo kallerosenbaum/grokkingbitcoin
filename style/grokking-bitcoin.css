@@ -90,7 +90,12 @@ table.tableblock>caption.title {
     clear: right;
     padding: 0.25em;
     margin-bottom: 0.25em;
-    page-break-inside: avoid
+    page-break-inside: avoid;
+    background: white;
+}
+
+.unboxed {
+    border: none;
 }
 
 .sidebarblock p {

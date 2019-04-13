@@ -400,6 +400,7 @@ even try. We’ll look at second-pre-image resistance as an example of
 what _hard_ means, but a similar example can be made for any of the
 three variants.
 
+[.unboxed]
 ****
 image::{imagedir}/u02-03.svg[]
 ****
@@ -498,6 +499,7 @@ input.
 
 image::{imagedir}/u02-06.svg[{big-width}]
 
+[.unboxed]
 ****
 image::{imagedir}/u02-05.svg[]
 ****
@@ -513,7 +515,7 @@ cryptographic hash function, which is represented here by a paper
 shredder; the cryptographic hash is represented by a pile of paper
 strips.
 
-.Toolbox
+[.unboxed]
 ****
 image::{imagedir}/u02-07.svg[]
 ****
@@ -564,6 +566,7 @@ image::{imagedir}/u02-10.svg[{big-width}]
 
 === Digital signatures
 
+[.unboxed]
 ****
 image::{imagedir}/u02-11.svg[]
 ****
@@ -663,6 +666,7 @@ and updates the spreadsheet.
 
 ==== Preparation: John generates a key pair
 
+[.unboxed]
 ****
 image::{imagedir}/u02-12.svg[]
 ****
@@ -684,6 +688,7 @@ operating systems. The random number is now John’s private key. The
 private key is then transformed into a public key using a public-key
 derivation function.
 
+[.unboxed]
 ****
 image:{imagedir}/u02-13.svg[]
 ****
@@ -783,6 +788,7 @@ key.
 
 ==== John signs his payment
 
+[.unboxed]
 ****
 image::{imagedir}/u02-17.svg[]
 ****
@@ -832,6 +838,7 @@ the email to Lisa.
 
 ==== Lisa verifies the signature
 
+[.unboxed]
 ****
 image::{imagedir}/u02-18.svg[]
 ****
@@ -1104,6 +1111,7 @@ except when executing signed cookie token transfers. If Lisa wanted
 to, she could steal anyone’s cookie tokens just by adding a transfer
 to the spreadsheet. But she wouldn’t do that—or would she?
 
+[.unboxed]
 ****
 image::{imagedir}/u02-21.svg[]
 ****
