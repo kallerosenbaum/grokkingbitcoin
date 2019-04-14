@@ -91,11 +91,8 @@ table.tableblock>caption.title {
     padding: 0.25em;
     margin-bottom: 0.25em;
     page-break-inside: avoid;
-    background: white;
-}
-
-.unboxed {
-    border: none;
+    background: none;
+    border-style: hidden;
 }
 
 .sidebarblock p {
@@ -119,6 +116,10 @@ table.tableblock>caption.title {
 
 .important p {
     font-weight: bold;
+}
+
+.inbitcoin,.gbinfo {
+    border-style: solid;
 }
 
 .gbinfo::before,.inbitcoin::before {
