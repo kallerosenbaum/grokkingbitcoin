@@ -15,3 +15,5 @@ done
 epstopdf foo.eps
 pdf2svg foo.pdf foo.svg
 
+#Emacs regexp search for combination of formatting characters
+ctrl+meta+s [*`_]\{2,\}

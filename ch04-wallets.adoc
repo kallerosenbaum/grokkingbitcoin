@@ -928,7 +928,7 @@ steals all the money from the online sales account. Not good.
 
 Now think about what would happen if Mallory had the master xpub. She
 could use the same technique to derive the master xprv from the master
-xpub and **m/1/1**. Mallory can re-create all the private keys of all
+xpub and `m/1/1`. Mallory can re-create all the private keys of all
 accounts in the entire wallet. Can you do something to prevent such a
 catastrophic scenario? Yes, with _yet another key-derivation
 function_! This new key-derivation function is called _hardened xprv
