@@ -29,7 +29,7 @@ image::{imagedir}/04-01.svg[{big-width}]
 We’ll discuss different approaches to wallet backups. We’ll also look
 at a new way to generate keys, called _hierarchical deterministic
 wallets_ (HD wallets), so backups become dead simple; you only need to
-back up a single random number, called a __seed__, once and
+back up a single random number, called a _seed_, once and
 for all. We’ll finish the chapter with an optional deep dive into the
 math behind public key derivation.
 
@@ -37,8 +37,6 @@ This chapter won’t change anything regarding Lisa’s work or the
 spreadsheet. We focus only on users here.
 
 === First wallet version
-
-
 
 [.inbitcoin]
 .Bitcoin wallets
@@ -265,13 +263,10 @@ password; the keys are decrypted from the backup file and added to his
 wallet app.
 
 
-////////////////////////you are here/////////////////
-
-
 ==== A few words on password strength
 
-A password’s strength is measured in __entropy__. The higher the
-entropy, the harder it is to guess the password. The word __entropy__,
+A password’s strength is measured in _entropy_. The higher the
+entropy, the harder it is to guess the password. The word _entropy_,
 as used in information security, comes from thermodynamics and means
 disorder or uncertainty. Suppose you construct a password of 8
 characters from among the following 64 characters:
@@ -283,7 +278,7 @@ image::{imagedir}/u04-03.svg[]
 ****
 
 Each character in the password would then represent 6 bits of entropy
-because there are 64 = 2^6^ possible characters. If you select the + 8
+because there are 64 = 2^6^ possible characters. If you select the 8
 characters randomly (no cherry-picking, please!), say `E3NrkbA7`, the
 eight-character password will have 6 × 8 = 48 bits of entropy. This is
 equivalent in strength to 48 coin flips.
@@ -403,10 +398,10 @@ situation and bring totally new features to wallets.
 
 
 [role="important"]
-She realizes that if all private keys in a wallet were generated from +
-a single random number called a __random seed__, the whole wallet +
-could be backed up by writing down the seed on a piece of paper +
-and storing it in a safe place (<<fig0407>>).
+She realizes that if all private keys in a wallet were generated from
+a single random number called a _random seed_, the whole wallet
+could be backed up by writing down the seed on a piece of paper and
+storing it in a safe place (<<fig0407>>).
 
 [[fig0407]]
 .Backing up a seed. This is how you want to make backups.
@@ -437,9 +432,9 @@ image::{imagedir}/04-08.svg[{half-width}]
 
 The keys are organized as a tree, but it’s a tree turned upside down
 because that’s how computer geeks typically draw their trees. Anyway,
-the root key of the tree (at the top) is called the __master private
-key__. It’s the key from which all the rest of the keys are
-derived. The master private key has two __child keys__: one that
+the root key of the tree (at the top) is called the _master private
+key_. It’s the key from which all the rest of the keys are
+derived. The master private key has two _child keys_: one that
 represents the shopping account (left, in <<fig0408>>) and one that
 represents the savings account (right). Each of these children has, in
 turn, its own children. The shopping account key has five children,
@@ -448,11 +443,6 @@ have no children of their own, which is why they’re called _leaves_ of
 the tree. The leaves are the private keys Rita uses to store cookie
 tokens, so an address is generated from each of these eight private
 keys.
-
-Computer programmers often use the term _index_ to denote a
-position in a list. It’s usually zero-based, meaning the first item in
-the list has index 0, the second item has index 1, and so on. We’ll
-use zero-based indexes throughout this book.
 
 [.gbinfo]
 .Indexes
@@ -483,7 +473,7 @@ tree grows up (um, down) from.
 
 2. The _master extended private key_ is derived from the seed.
 
-3. The descendant__ extended private keys__ of the master extended
+3. The descendant_ extended private keys_ of the master extended
 private key are derived.
 
 An _extended private key_ (xprv) contains two items: a private key and a
@@ -537,7 +527,7 @@ image::{imagedir}/04-11.svg[{big-width}]
 An HMAC needs two inputs: a value to hash and a key. You don’t have or
 need a key for the master xprv because you have all the entropy you
 need in the seed.  In <<fig0411>>, you input `CT seed` to give the
-HMAC __something__. A key is needed later, when you derive children of
+HMAC _something_. A key is needed later, when you derive children of
 the master xprv.
 ****
 
@@ -549,9 +539,9 @@ From a user’s perspective, you can regard HMAC-SHA512 as a normal
 cryptographic hash function but with multiple inputs. The hash value
 is split into the left 256 bits and the right 256 bits. The left 256
 bits become the master private key, which is a normal private key;
-it’s called the _*master*_ private key because all other private keys
+it’s called the _master_ private key because all other private keys
 are derived from this single private key (and the chain code). The
-right 256 bits become the __*chain code*__, used in the next step to
+right 256 bits become the _chain code_, used in the next step to
 derive children from the master xprv.
 
 ==== Deriving a child extended private key
@@ -674,7 +664,7 @@ is 128 bits long. What if you could encode those bits in a more
 human-friendly way? You can!
 
 Rita’s wallet can display the seed as a sequence of 12 English words,
-called a __mnemonic sentence__:
+called a _mnemonic sentence_:
 
  Seed: 16432a207785ec5c4e5a226e3bde819d
  Mnemonic: bind bone marine upper gain comfort
@@ -749,7 +739,7 @@ image::{imagedir}/04-15.svg[{big-width}]
 
 The decoding uses the 4-bit checksum to make sure it’s correct. If Rita
 accidentally writes the last word as `deposit` instead of `depend`,
-the checksum check will __probably __fail because she wrote the wrong
+the checksum check will _probably_ fail because she wrote the wrong
 word at the end. If she types `depends` instead of `depend`, the
 decoding will definitely fail because there’s no word `depends` in the
 word list.
@@ -781,13 +771,13 @@ its website and delivering those cookies to coworkers’ cubicles.
 
 For privacy reasons, the web server needs to be able to present a new
 cookie token address for every sale, but where does it get the
-addresses? The cafe could create an xprv for an __online sales__
+addresses? The cafe could create an xprv for an _online sales_
 account in its HD wallet and put that xprv on the web server, as
 <<fig0416>> shows.
 
 [[fig0416]]
 .The cafe copies its online sales xprv to the web server.
-image::{imagedir}/04-16.svg[{half-width}]
+image::{imagedir}/04-16.svg[{big-width}]
 
 The web server can now create new addresses as the orders pour in.
 Great! But what if Mallory, the gangster, gains access to the web
@@ -861,7 +851,7 @@ image::{imagedir}/04-20.svg[{big-width}]
 
 Normal addition is used for the private key. You add a 256-bit number
 to the parent private key to get the child private key. But to keep
-the result within 256-bit numbers, you use addition __modulo 2__^256^.
+the result within 256-bit numbers, you use addition _modulo_ 2^256^.
 
 The addition used to derive the child public key isn’t exactly what most
 people (including me) are used to. For now, let’s just say this addition
@@ -888,7 +878,7 @@ Suppose Mallory somehow steals the private key `m/1/1`, which contains
 only 10 CT. This might seem harmless because that private key has so
 little money in it. But it could be worse than that. If Mallory has
 also managed to get the xpub for the online sales account from the web
-server, she can __calculate the online sales xprv__, as <<fig0421>>
+server, she can _calculate the online sales xprv_, as <<fig0421>>
 shows.
 
 [[fig0421]]
@@ -940,9 +930,9 @@ Now think about what would happen if Mallory had the master xpub. She
 could use the same technique to derive the master xprv from the master
 xpub and **m/1/1**. Mallory can re-create all the private keys of all
 accounts in the entire wallet. Can you do something to prevent such a
-catastrophic scenario? Yes, with __yet another key-derivation
-function__! This new key-derivation function is called __hardened xprv
-derivation__.
+catastrophic scenario? Yes, with _yet another key-derivation
+function_! This new key-derivation function is called _hardened xprv
+derivation_.
 
 Suppose the cafe wants to prevent Mallory from accessing the master
 xprv, even if she got the master xpub and a private key in the online
@@ -960,7 +950,7 @@ image::{imagedir}/04-22.svg[{big-width}]
 
 The apostrophe in `m/1'` isn’t a typo: it’s used to denote hardened
 key derivation. The difference is that with hardened key derivation,
-you hash the __private __key instead of the public key. An attacker
+you hash the _private_ key instead of the public key. An attacker
 can’t do the “minus” trick anymore because the hash is derived from
 the parent private key. Mallory can’t calculate the left-half hash to
 subtract from the child private key because she doesn’t have the
@@ -978,7 +968,7 @@ key `m/1'` on the online sales web server, which would be
 insecure. Using nonhardened leaf keys in the online sales account
 makes the cafe vulnerable to an attacker stealing `m/1'/1` and
 `M/1'`. If that happens, all funds in the account will be stolen. With
-hardened xprv, you solve the case of a stolen `M `and `m/1'/1` but not
+hardened xprv, you solve the case of a stolen `M` and `m/1'/1` but not
 the case with a stolen `M/1'` and `m/1'/1`.
 
 [[public-key-math]]
@@ -986,8 +976,8 @@ the case with a stolen `M/1'` and `m/1'/1`.
 
 This section digs deeper into the math behind public keys. We’ll start
 by looking at how a public key is derived from a private key using
-__public key multiplication__. Later subsections will show why child
-xpub derivation, using __public key addition__, works, and how public
+_public key multiplication_. Later subsections will show why child
+xpub derivation, using _public key addition_, works, and how public
 keys are encoded in Bitcoin.
 
 ==== Public key multiplication
@@ -1036,8 +1026,8 @@ image::{imagedir}/u04-21.svg[]
 ****
 
 The previous equations are examples of a class of equations called
-__elliptic curves__, and a solution is often referred to as a __point
-on the curve__. You can now calculate a public key, which is a point
+_elliptic curves_, and a solution is often referred to as a _point
+on the curve_. You can now calculate a public key, which is a point
 on the curve, from a private key. To do this, start at a special
 point, stem:[G=(6,5)], on the curve. stem:[G] is somewhat arbitrarily
 chosen, but it’s widely known by everybody to be the starting point
@@ -1214,8 +1204,7 @@ can now create as many addresses as needed without using any private
 keys. The private keys are kept in the cafe’s wallet and never touch
 the web server.
 
-.The cafe's hierarchical deterministic wallet. They use key hardening to isolate different branches of the tree from each other.
-image::{imagedir}/u04-22.svg[{big-width}]
+image::{imagedir}/u04-22.svg[{full-width}]
 
 ==== System changes
 
@@ -1295,16 +1284,14 @@ at least four.
 
 . What does an xpub consist of?
 
-Exercises <<ex0407>> and <<ex0408>> assume that you read
+Exercises 4.7 and 4.8 assume that you read
 <<hardened-key-derivation>>. If you skipped that section, you can
 skip these exercises, too.
 
-[[ex0407]]
 [start=7]
 . Suppose you want to make a hardened xprv with index `7` from
 `m/2/1`. What information do you need to create `m/2/1/7'`?
 
-[[ex0408]]
 . Can you derive xpub `M/2/1/7'` from `M/2/1`? If not, how would
 you derive `M/2/1/7'`?
 
@@ -1323,10 +1310,9 @@ private key `m/4/1`, but plenty of money on other addresses under the
 same xprv. Would you be able to steal any money?
 
 If you didn’t read the section “Deriving hardened private keys,” you can
-skip exercise <<ex0411>>.
+skip exercise 4.11.
 
-[start=4.11]
-[[ex0411]]
+[start=11]
 . Suggest a better approach your victim could have used to prevent you
 from stealing all the money.
 
