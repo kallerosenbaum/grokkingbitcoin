@@ -5,39 +5,46 @@
 This chapter covers
 
 * Automating payments
-* Generating keys from a "seed"
-* Making simple and secure key backups
 
-So far we have done nothing to improve the user experience for the
-coworkers using the cookie token spreadsheet. It has actually become
-worse for users because the emails to Lisa now need more information
-than in the beginning. On top of that users should take extra steps to
-use multiple addresses to preserve their privacy.
+* Creating and managing keys
 
-We will build a mobile app, called a Wallet, which takes care of many
-of the common tasks users want to perform. The wallet will create new
-addresses, store the private keys, simplify how addresses are
-transferred between users and automate the payment process.
+* Making simple, secure key backups
 
+So far, we’ve done nothing to improve the user experience for the
+company’s coworkers using the cookie token spreadsheet. The situation
+has become worse for users because emails to Lisa now need more
+information than in the beginning. On top of this, users should take
+extra steps to use multiple addresses to preserve their privacy.
+
+In this chapter, we’ll build a mobile app, called a _wallet_
+(<<fig0401>>), that handles many of the common tasks users want to
+perform. This wallet will create new addresses, store private keys,
+simplify how addresses are transferred between users, and automate the
+payment process.
+
+[[fig0401]]
 .Bitcoin wallets
-image::{imagedir}/visual-toc-wallets.svg[{big-width}]
+image::{imagedir}/04-01.svg[{big-width}]
 
-We will discuss different approaches to wallet backups. The developers
-introduce a new way to generate keys, called hierarchical
-deterministic wallets, so that backups become dead simple; You only
-need to backup a single random number, called a seed, once and
-for all. We will take a really deep dive into how private and public
-keys are created.
+We’ll discuss different approaches to wallet backups. We’ll also look
+at a new way to generate keys, called _hierarchical deterministic
+wallets_ (HD wallets), so backups become dead simple; you only need to
+back up a single random number, called a __seed__, once and
+for all. We’ll finish the chapter with an optional deep dive into the
+math behind public key derivation.
 
-This chapter will not change anything at all regarding Lisa's work or
-the spreadsheet. We only focus on users here.
+This chapter won’t change anything regarding Lisa’s work or the
+spreadsheet. We focus only on users here.
 
-=== First Wallet version
+=== First wallet version
+
+
 
 [.inbitcoin]
 .Bitcoin wallets
 ****
-There are several different wallets for Bitcoin. Some popular wallets are
+Several different +
+wallets are available for Bitcoin. Some popular ones are
 
 [.movingtarget]
 * Bitcoin Core
@@ -45,379 +52,415 @@ There are several different wallets for Bitcoin. Some popular wallets are
 * GreenBits
 * BRD (Bread)
 
-A comprehensive list is available at <<web-bitcoin-wallets>>.
+See <<web-bitcoin-wallets>> for a comprehensive list.
 ****
 
-A group of software developers at the company builds a mobile app,
-called a wallet, to simplify common tasks for themselves and other
-users. The tasks that the group identifies as the most common are:
+Among you and your coworkers, a group of software developers builds a
+mobile app called a _wallet_ to simplify common tasks for themselves
+and other users. The group identifies the following tasks as the most
+common:
 
-Create new addresses:: Users need to create new CT addresses every now
-and then. They may want to use different addresses for different
-purposes, or even different addresses for all payments for privacy and
-security reasons.
+
+Create new addresses:: Users must create new cookie token addresses
+every now and then. They might want to use different addresses for
+different purposes or even different addresses for all payments for
+privacy and security reasons.
+
 Manage private keys:: For each address created, the wallet needs to
-store and manage the corresponding private key. Keeping the private
-keys safe from intruders is a delicate task.
+store and manage the corresponding private key. Keeping private keys
+safe from intruders is a delicate task.
+
 Transfer payment details from payee to payer:: When John wants to buy
-a cookie, he needs to get the cafe's address and amount into
-his app. Writing it by hand is cumbersome and error prone, so it would
+a cookie, he needs to get the cafe’s address and the payment amount into
+his app. Writing it by hand is cumbersome and error-prone, so it would
 be nice if John could scan the details with his camera instead.
+
 Make a payment:: The app should be able to send an email to Lisa with
 the digitally signed payment details.
-Keep track of funds:: The user wants to know how many cookies she can
-afford. The app should display the total amount of cookie tokens the
-user has.
-Backup private keys:: When private keys are created in the app, they
+
+Keep track of funds:: Users want to know how many cookies they can
+afford. The app should display the total number of cookie tokens a user
+has.
+
+Back up private keys:: When private keys are created in the app, they
 only exist in the app. If the mobile phone is lost or broken, the
 private keys are gone. You know by now what happens when you lose your
-keys, don't you? We need some backup facility for the private keys.
+keys, don’t you? You need a backup facility for private keys.
 
-The development team builds a first version of the app. They call the
-app the "wallet". The term "wallet" is not perfect because the app
-doesn't really contain money. It contains the keys needed to spend
-your money. The actual money is stored in the spreadsheet. The app is
-more akin to a physical key-ring, but the term "wallet" is widely used
-in the Bitcoin world for all things that store private keys so we may
-just as well get over it and move on. Anyway, we will go through the
-features of this wallet.
+The development team builds an initial version of the app and calls it
+the wallet. The term _wallet_ isn’t perfect because the app doesn’t
+really contain money. It contains the keys needed to spend money. The
+actual money is stored in the spreadsheet. The app is more akin to a
+physical keyring; but the term _wallet_ is widely used in the Bitcoin
+world for all things that store private keys, so we should get over it
+and move on. Let’s go through this wallet’s features.
 
-Suppose, once again, that John wants to buy a cookie in the cafe. Both
-John and the cafe are using this new app.
+Suppose, once again, that John wants to buy a cookie in the cafe
+(<<fig0402>>). Both John and the cafe are using this new app.
 
-.John buys a cookie using the wallet app. The cafe generates a key and displays a QR code with payment details to John. John scans the payment details and taps "OK" to approve the payment. John's wallet sends an email to Lisa.
-image::{imagedir}/wallet-payment-process.svg[{full-width}]
+[[fig0402]]
+.John buys a cookie using the wallet app. The cafe generates a key and displays to John a QR code with payment details. John scans the payment details and taps OK to approve the payment. John’s wallet sends an email to Lisa.
+image::{imagedir}/04-02.svg[{full-width}]
 
 The process goes through several steps:
 
 .QR codes
 ****
-QR code stands for Quick Response Code. It is a way to make text scan-able.
-This QR code says "Hello":
+Quick response (QR) codes are a way to make text scan-able. This QR code
+says “Hello”:
 
-image::{imagedir}/hello-qr.png[]
+image::{imagedir}/u04-01.svg[]
 ****
 
 . The cafe asks its wallet to create a new address and request 10 CT
-to that address. This new address and the amount is displayed on the
+to that address. This new address and the amount are displayed on the
 screen as a QR code. The QR code contains information on how much to
-pay, so that John doesn't have to type that in manually.
+pay, so John doesn’t have to type that in manually.
 
-. John points his phone's camera at the QR code to scan the payment
-details. It scans the _payment URI_ (Uniform Resource Identifier, a
-general specification on how to identify stuff, for example a web URL
-is an example of a URI)
-+
+. John points his phone’s camera at the QR code to scan the payment
+details. It scans the _payment URI_ (uniform resource identifier, a
+general specification on how to identify stuff; a web URL is an
+example of a URI):
+
  ct:19UzNFW4Fq8wm8mtWmoPZAzE3tcB9tZVtN?amount=10
-+
-which tells John's phone to launch the cookie token wallet (`ct:`) and pay 10 (`amount=10`) cookie tokens to the address `19UzNFW4Fq8wm8mtWmoPZAzE3tcB9tZVtN`.
 
-. John's wallet displays the payment details to John. John checks that they are reasonable and clicks OK.
+This tells John’s phone to launch the cookie token wallet (`ct:`) and
+pay 10 (`amount=10`) cookie tokens to the address
+`19UzNFW4Fq8wm8mtWmoPZAzE3tcB9tZVtN`.
+
+. John’s wallet displays the payment details to John, who checks that
+they’re reasonable and clicks OK.
 
 [.inbitcoin]
 .BIP21
 ****
-BIP stands for Bitcoin Improvement Proposal. BIPs are used to
-communicate ideas among Bitcoin developers. Some BIPs gets adopted in
-various Bitcoin software projects, some don't. All BIPs are available
-at <<web-bips>>.
+BIPs (Bitcoin Improvement Proposals) are used to communicate ideas
+among developers. Some BIPs are adopted in Bitcoin software projects;
+others aren’t. All BIPs are available at <<web-bips>>.
 
-Bitcoin has adopted BIP21 as a common way to transfer payment details
-from one wallet to another by using a special form of URI. The
-difference from the cookie token example is that in Bitcoin the
-payment details start with `bitcoin:` instead of `ct:`
+Bitcoin adopted BIP21 as a way to transfer payment details from one
+wallet to another using a URI. Bitcoin URIs start with `bitcoin:`
+instead of `ct:`.
 ****
 
 [start=4]
-. John's wallet creates an email to Lisa that looks just the same as
-before. The wallet automatically selects an address to send from and
-signs the message with the correct private key. On Lisa's side,
-nothing has changed. She verifies and execute the payment exactly as
+. John’s wallet creates an email to Lisa that looks the same as
+before.  The wallet automatically selects an address to send from and
+signs the message with the correct private key. On Lisa’s side,
+nothing has changed. She verifies and executes the payment exactly as
 before.
 
-Let's take a closer look at what John's wallet does in step 4.
+Let’s take a closer look at what John’s wallet does in step 4
+(<<fig0403>>). The wallet does the same thing a user would do manually
+in the earlier examples.
 
-.John has just clicked OK in his wallet to approve the payment. The wallet takes care of the rest for John. It selects a key with enough funds and signs a message to Lisa. The signed message is then automatically emailed to Lisa.
-image::{imagedir}/johns-wallet-payment-process.svg[{big-width}]
+[[fig0403]]
+.John has just clicked OK in his wallet to approve the payment. The wallet takes care of the rest. It selects a key with enough funds and signs a message to Lisa. It then automatically emails the signed message to Lisa.
+image::{imagedir}/04-03.svg[{big-width}]
 
-The wallet does the exact same thing as users would do manually
-before. Notice that the wallet manages three key pairs. Two with funds
-and one with no funds. With this new wallet, users can have as many
-addresses they want, which is good for privacy. The wallet will keep
-track of them for the user.
+Notice that the wallet manages three key pairs: two with funds and one
+with no funds. With this new wallet, users can have as many addresses
+as they want, which is good for privacy. The wallet will keep track of
+them for the user.
 
-The cafe's wallet, as well as John's wallet, will check the spreadsheet
+The cafe’s wallet, as well as John’s wallet, will check the spreadsheet
 every now and then to see if there are any new payments concerning any
-of the wallet's keys, either as a sender or as a recipient, or
-both.
+of the wallet’s keys, as a sender, a recipient, or both (<<fig0404>>).
 
-.John's and the cafe's wallets check the spreadsheet every few seconds. If a new payment either incoming or outgoing is found, the wallet updates the balance of the concerned keys and notifies its user.
-image::{imagedir}/wallet-update-balance.svg[{big-width}]
+[[fig0404]]
+.John’s and the cafe’s wallets check the spreadsheet every few seconds. If a new payment, either incoming or outgoing, is found, the wallet updates the balance of the concerned keys and notifies its user.
+image::{imagedir}/04-04.svg[{big-width}]
 
 [.inbitcoin]
 .Unconfirmed transactions
 ****
-Unconfirmed means that the transaction is created and sent to the
-Bitcoin network, but it is not yet part of the Bitcoin blockchain. You
-should not trust a payment until it's part of the blockchain. The same
-goes for cookie token payments, don't trust payments that are not in
-the spreadsheet.
+_Unconfirmed_ means a transaction is created and sent to the Bitcoin
+network, but it isn’t yet part of the Bitcoin blockchain. You shouldn’t
+trust a payment until it’s part of the blockchain. The same goes for
+cookie token payments—don’t trust payments that aren’t in the
+spreadsheet.
 ****
 
-Even though John knows about the payment before it is confirmed by
-Lisa in the spreadsheet, his wallet will not update the balance until
-it's actually confirmed. Why? Lisa may not approve the payment. It can
-be because the payment has been corrupt during transfer or because the
-email ended up in Lisa's spam folder so she doesn't see it. If the
-wallet would have updated the balance without first seeing it in the
-spreadsheet, it would possibly give false information to John. The
-wallet could of course be kind enough to inform John that a payment is
-pending waiting for confirmation.
+Even though John knows about the payment before Lisa confirms it in
+the spreadsheet, his wallet won’t update the balance until it’s
+confirmed.  Why? Lisa might not approve the payment. Maybe the payment
+became corrupted during transfer, or the email ended up in Lisa’s spam
+folder, so she doesn’t see it.
+
+If the wallet updates the balance without first seeing it in the
+spreadsheet, it could give false information to John. The wallet
+could, of course, be kind enough to inform John that a payment is
+pending confirmation.
 
 === Private key backups
 
-The development team created a feature to backup the private keys of
-the wallet. The idea is that the wallet creates a text file, the
-backup file, with all private keys in it and sends the backup file to
-an email address that the user chooses.
+The development team creates a feature to back up the wallet’s private
+keys. The idea is that the wallet creates a text file, the backup file,
+with all private keys in it and sends this file to an email address the
+user chooses.
 
 [.gbinfo]
-.Why backup?
+.Why back up?
 ****
-Your keys hold your money. If you lose your keys you lose your
-money. A proper backup is NOT optional. You must take immediate active
-steps to make sure your keys are backed up, otherwise you will sooner
-or later lose your money.
+Your keys hold your money. If you lose your keys, you lose your
+money. A proper backup is _not_ optional. You must take immediate,
+active steps to make sure your keys are backed up; otherwise you will
+sooner or later lose your money.
 ****
 
-Imagine that John wants to backup his private keys. The wallet
-collects all keys ever created by the wallet and writes them into a
-text file.
+Imagine that John wants to back up his private keys. The wallet collects
+all the keys it has ever created and writes them into a text file
+(<<fig0405>>).
 
-.John backs up his private keys. They are sent in a text file to his email address.
-image::{imagedir}/wallet-backup-private-keys.svg[{half-width}]
+[[fig0405]]
+.John backs up his private keys. They’re sent in a text file to his email address.
+image::{imagedir}/04-05.svg[{half-width}]
 
-The text file is emailed to John's email address. Can you see any
-problems with this? Yes, the biggest problem is that the keys have now
-left the privacy of the wallet application and are now sent into the
-wild. Anyone with access to the email server or any other systems
+The text file is emailed to John’s email address. Can you see any
+problems with this? Yes, the biggest problem is that the keys have
+left the privacy of the wallet application and are being sent into the
+wild.  Anyone with access to the email server or any other systems
 involved might be able to get the private keys without John noticing.
 
 .Problems
 ****
-1. Risk of theft
-2. Excessive backups
+* Risk of theft
+* Excessive backups
 ****
 
-But there is also another problem. As soon as John creates a new
-address after the backup is made, that new address is not
-backed up. This means that John must make a new backup that includes
-the new key. For every new key, a new backup must be made. It becomes
-tiresome for the user to keep doing backups for every address.
+But another problem exists. As soon as John creates a new address
+after the backup is made, this new address isn’t backed up. John must
+make a new backup that includes the new key. For every new key, he
+must make a new backup. Doing backups for every address becomes
+tiresome for the user.
 
-Let's propose a few different simple solutions to the two problems:
+Let’s look at a few simple solutions to these two problems:
 
 1. Automatically send a backup when an address is created. This
 increases the risk of theft because you send more backups.
-2. Pre-create 100 addresses and make a backup of that. Then repeat
-when the first 100 addresses are used. This also increases the risk of
-theft, but not as much as solution 1.
-3. Encrypt the backup with a password. This would secure the backed up
-keys from theft..
 
-A combination of solutions 2 and 3 seems like a good strategy; You
+2. Pre-create 100 addresses, and make a backup of them. Repeat when
+the first 100 addresses are used. This also increases the risk of
+theft, but not as much as solution 1.
+
+3. Encrypt the backup with a password. This will secure the backed-up
+keys from theft.
+
+A combination of solutions 2 and 3 seems like a good strategy; you
 seldom need to do a backup, and the backups are secured by a strong
 password.
 
-.John backs up his private keys. They are sent in a file encrypted with a password that john enters into his phone.
-image::{imagedir}/wallet-backup-encrypted-private-keys.svg[{half-width}]
+The process is similar to the previous process, but this time John
+enters a password that’s used to encrypt the private keys
+(<<fig0406>>).  If John loses his phone, he needs the password and the
+backup file to restore his private keys.
 
-The process is very similar to the previous process, but this time
-John enters a password that is used to encrypt the private keys. If
-John loses his phone, he needs the password and the backup file to
-restore his private keys.
+[[fig0406]]
+.John backs up his private keys. They’re sent in a file encrypted with a password that John enters into his phone.
+image::{imagedir}/04-06.svg[{half-width}]
 
-If John loses his phone he can easily install the wallet app on
+If John loses his phone, he can easily install the wallet app on
 another phone. John sends the backup file to the app and enters his
-password, and the keys are decrypted from the backup file and added to
-his wallet app.
+password; the keys are decrypted from the backup file and added to his
+wallet app.
+
+
+////////////////////////you are here/////////////////
+
 
 ==== A few words on password strength
 
-.Entropy
-****
-image::{imagedir}/2ndcol-entropy.svg[]
-****
-
-The strength of a password is measured in _entropy_. The higher the
-entropy, the harder it is to guess the password. The word "entropy",
-as used in information security, comes for thermodynamics and means
-disorder or uncertainty. Suppose that you construct a password of
-eight characters among the 64 characters
+A password’s strength is measured in __entropy__. The higher the
+entropy, the harder it is to guess the password. The word __entropy__,
+as used in information security, comes from thermodynamics and means
+disorder or uncertainty. Suppose you construct a password of 8
+characters from among the following 64 characters:
 
  ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
 
-Each character in the password would then represents 6 bits of
-entropy, because there are 64=2^6^ possible characters. If you select
-the eight characters randomly (no cherry-picking, please!), say
-`E3NrkbA7`, the eight character password would have 6*8=48 bits of
-entropy. This is equivalent in strength to 48 coin flips.
+****
+image::{imagedir}/u04-03.svg[]
+****
 
-image::{imagedir}/coinflip-vs-password-entropy.svg[{quart-width}]
+Each character in the password would then represent 6 bits of entropy
+because there are 64 = 2^6^ possible characters. If you select the + 8
+characters randomly (no cherry-picking, please!), say `E3NrkbA7`, the
+eight-character password will have 6 × 8 = 48 bits of entropy. This is
+equivalent in strength to 48 coin flips.
+
+****
+image::{imagedir}/u04-02.svg[]
+****
 
 Suppose instead that you select random words from a dictionary of
-2^11^=2048 words. How many words do you need to use to beat the 48 bit
-entropy of your eight character password above? 4 words would not be
-enough, because 4*11=44 bits of entropy. But 5 words corresponds to 55
-bits of entropy, which beats the entropy of the password.
+2^11^= 2,048 words. How many words do you need to use to beat the
+48-bit entropy of your eight-character password? Four words wouldn’t
+be enough because 4 × 11 = 44 bits of entropy. But five words
+corresponds to 55 bits of entropy, which beats the password’s entropy.
 
-The real entropy of a password also depends on what an attacker knows
-about the password. For example, suppose an attacker, Mallory, steals
-John's encrypted backup file and tries to perform a brute-force attack
-on it. A brute-force attack means that the attacker makes repeated
-password guesses over and over until she finds the correct
-password. If Mallory knows that the length of the password is exactly
-8 and that the characters are chosen from the 64 characters above, the
-entropy is 48 bits.
+A password’s real entropy also depends on what an attacker knows about
+the password. For example, suppose an attacker, Mallory, steals John’s
+encrypted backup file and tries to perform a brute-force attack
+on it. A _brute-force_ attack means the attacker makes repeated
+password guesses, over and over, until they find the correct
+password. If Mallory knows the password’s length is exactly 8 and the
+characters are chosen from the 64 characters mentioned, the entropy is
+48 bits. If she happens to know that the second character is `3`, the
+entropy drops to 6 × 7 = 42 bits. On the other hand, if Mallory
+doesn’t know how many characters the password has, it will be harder
+for her, meaning the entropy will be higher.
 
-If she happens to know that the second character is `3`, your entropy
-will drop down to 6*7=42 bits.
-
-On the other hand, if Mallory doesn't know how many characters your
-password has, it will be harder for her, meaning the entropy will be a
-bit higher.
-
-The above is only true if your password selection is truly random. If
-John selects, by cherry-picking, the password `j0Hn4321` the entropy
+This is true only if password selection is truly random. If John uses
+cherry-picking to select the password `j0Hn4321`, the entropy
 decreases dramatically. Typical password brute-force attack programs
 first try a lot of known words and names in different variations
-before trying more "random" looking passwords. John is a well known
-name so an attacker will try a lot of different variations of that
-name as well as a lot of other names and words. For example:
+before trying more “random-looking” passwords. John is a well-known
+name, so an attacker will try a lot of different variations of that
+name as well as many other names and words. For example:
 
- butter122 ... waLk129 ... go0die muh4mm@d
- john John JOhn JOHn JOHN j0hn j0Hn
- jOhn jOHn jOHN ... ... ... john1 ...
- ... john12 J0hn12 ... ... j0Hn321 ...
- j0Hn4321
+----
+butter122 … waLk129 … go0die muh4mm@d
+john John JOhn JOHn JOHN j0hn j0Hn
+jOhn jOHn jOHN … john1 …
+… john12 J0hn12 … j0Hn321 …
+j0Hn4321
+----
 
-Bingo! Suppose that there are 1,000,000 common words and names and
-that each word can come in 100,000 variations, on average. That is 100
-billion different passwords to test, which corresponds to about 37
-bits of entropy. 100 billion tries will take a high-end desktop
-computer a few days to perform. Let's say, for simplicity, that it
-takes 1 day. If John uses a truly random password, the entropy for the
-attacker is around 48 bits. Then it would take around 2,000 days, or
-about 5.5 years to crack the password.
+Bingo! Suppose there are 1,000,000 common words and names, and each word
+can come in 100,000 variations, on average. That’s 100 billion different
+passwords to test, which corresponds to about 37 bits of entropy; 100
+billion tries will take a high-end desktop computer a few days to
+perform. Let’s say, for simplicity, that it takes one day. If John uses
+a truly random password, the entropy for the attacker is around 48 bits.
+It would take around 2,000 days, or about 5.5 years, to crack the
+password.
 
-==== Problems with password encrypted backups
+==== Problems with password-encrypted backups
 
-The process with password encrypted backups works pretty well, but the
-process also introduces new problems:
-
-****
-image::{imagedir}/2ndcol-remember-two-things.svg[]
-****
-
-More things to secure:: John now needs to keep track of two things, a
-backup file and a password. In the first version, only a backup file
-was needed.
+The process for password-encrypted backups works pretty well, but it
+also introduces new problems:
 
 ****
-image::{imagedir}/2ndcol-forgotten-password.svg[]
+image::{imagedir}/u04-04.svg[]
+****
+
+More things to secure:: John now needs to keep track of two things: a
+backup file and a password. In the first version, only a backup file was
+needed.
+
+****
+image::{imagedir}/u04-05.svg[]
 ****
 
 Forgotten password:: Passwords that are rarely used, as is the case
-with backup passwords, will eventually be forgotten. They can be
-written down on paper and stored in a safe place to mitigate this
-issue. They can also be stored by some password manager software like
-LastPass and KeePass.
+with backup passwords, will eventually be forgotten. You can write them
+down on paper and store them in a safe place to mitigate this issue. You
+can also store them using password-manager software, such as LastPass or
+KeePass.
 
 ****
-image::{imagedir}/2ndcol-technology-advancements.svg[]
+image::{imagedir}/u04-06.svg[]
 ****
 
-Technology advancements:: As time passes, new more advanced hardware
-and software is built that makes password cracking faster. This means
-that if your eight character password was safe five years ago, it's
-not good enough today. Passwords needs more entropy as technology
-improves. You can re-encrypt you backup files every two years with a
-stronger password, but that is a complicated process that not many
-users will manage.
+Technology advancements:: As time passes, new, more advanced hardware
+and software is built that makes password cracking faster. If your
+eight-character password was safe five years ago, it’s not good enough
+today. Passwords need more entropy as technology improves. You can
+re-encrypt your backup files every two years with a stronger password,
+but that’s a complicated process that few users will manage.
 
 ****
-image::{imagedir}/2ndcol-randomness-is-hard.svg[]
+image::{imagedir}/u04-07.svg[]
 ****
-Randomness is hard:: Coming up with random passwords is really
-hard. When the app asks John for a password, he needs to come up with
-a password on the spot. He doesn't have time to flip a coin 48 times
-to produce a good password. He will most likely make something up with
-far less entropy. One way to deal with this is to have the wallet give
-John a generated password. But that password is likely harder to
-remember than a self-invented password, which will increase the
-likelihood of a forgotten password.
 
-It seems that we haven't really come up with a good way of dealing
-with backups yet. Let's not settle with this half-bad solution,
-there are better solutions.
+Randomness is hard:: Coming up with random passwords is really hard.
+When the app asks John for a password, he needs to produce one on the
+spot. He doesn’t have time to flip a coin 48 times to produce a good
+password. He will most likely make up something with far less entropy.
+One way to deal with this is to have the wallet give John a generated
+password. But this password is likely harder to remember than a
+self-invented password, which will increase the likelihood of a
+forgotten password.
+
+It seems you haven’t yet come up with a good way of dealing with
+backups. Let’s not settle for this half-bad solution—there are better
+approaches.
 
 === Hierarchical deterministic wallets
 
 [.inbitcoin]
 .BIP32
 ****
-This section will describe a standard called BIP32. This standard is
-widely used by various Bitcoin wallet software. The BIPs are available
-on-line at <<web-bips>>.
+This section describes a standard called BIP32, which is widely used
+by various Bitcoin wallet software. The BIPs are available online from
+<<web-bips>>.
 ****
 
-One of the brighter developers, who is a cryptographer, comes up with
-a new way to handle key creation to improve the backup situation which
-also brings totally new features to wallets.
+One of the brighter developers at the company, a cryptographer, comes
+up with a new way to handle key creation to improve the backup
+situation and bring totally new features to wallets.
+
+
 
 [role="important"]
-She realizes that if all private keys in a wallet were
-generated from a single random number called a _random seed_, the
-whole wallet can be backed up once and for all by writing down the
-seed on a piece of paper and store it in a safe place.
+She realizes that if all private keys in a wallet were generated from +
+a single random number called a __random seed__, the whole wallet +
+could be backed up by writing down the seed on a piece of paper +
+and storing it in a safe place (<<fig0407>>).
 
-.Backing up a seed. This is how we want to make backups.
-image::{imagedir}/backup-seed-phone.svg[{big-width}]
+[[fig0407]]
+.Backing up a seed. This is how you want to make backups.
+image::{imagedir}/04-07.svg[{big-width}]
 
-She talks to some other cryptographers and they decide on a
-strategy. They are going to make a _hierarchical deterministic
-wallet_, or HD wallet. This basically means that keys are organized as
-a tree, where one key is the root of the tree and that root can have
+She talks to some other cryptographers, and they decide on a strategy.
+They’re going to make an HD wallet. Basically, keys are organized as a
+tree, in which one key is the root of the tree, and this root can have
 any number of child keys. Each child key can in turn have a large
 number of children of its own, and so on.
-
-Suppose that Rita wants to organize her keys based on purposes and
-generate 5 keys to use for shopping at the cafe, and another 3 keys to
-use as a savings account. Her keys could be organized like this:
-
-.Rita creates two accounts with 5 addresses in the shopping account and three addresses in the savings account.
-image::{imagedir}/hd-wallet-key-tree-simple.svg[{half-width}]
-
-The keys are organized as a tree, but it's a tree turned up-side down
-because that's how computer geeks typically draw their trees. Anyway,
-the root key of the tree (at the top) is called the _master private
-key_. It is the key that all the rest of the keys are derived
-from. The master private key has two "child" keys, one that represents
-the shopping account (left) and one that represents the savings
-account (right). Each of these children has, in turn, their own
-children. The shopping account key has five children and the savings
-account key has three children. These eight children have no children
-of their own, which is why we call them _leaves_ of the tree. The
-leaves are the private keys that Rita actually use to store cookie
-tokens, so an address is generated from each of these eight private
-keys.
 
 [.inbitcoin]
 .BIP44
 ****
-There is a standard, BIP44, in Bitcoin that describes what branches of
-the tree is used for which purposes. For now, let's use Rita's chosen
-organization of keys.
+BIP44, Multi-Account Hierarchy for Deterministic Wallets, describes
+which branches of the tree are used for which purposes. For now, let’s
+use Rita’s chosen key organization.
+****
+
+Suppose Rita wants to organize her keys based on their purpose and
+generate five keys to use for shopping at the cafe and another three
+keys to use as a savings account. <<fig0408>> shows how her keys could
+be organized.
+
+[[fig0408]]
+.Rita creates two accounts, with five addresses in the shopping account and three addresses in the savings account.
+image::{imagedir}/04-08.svg[{half-width}]
+
+The keys are organized as a tree, but it’s a tree turned upside down
+because that’s how computer geeks typically draw their trees. Anyway,
+the root key of the tree (at the top) is called the __master private
+key__. It’s the key from which all the rest of the keys are
+derived. The master private key has two __child keys__: one that
+represents the shopping account (left, in <<fig0408>>) and one that
+represents the savings account (right). Each of these children has, in
+turn, its own children. The shopping account key has five children,
+and the savings account key has three children. These eight children
+have no children of their own, which is why they’re called _leaves_ of
+the tree. The leaves are the private keys Rita uses to store cookie
+tokens, so an address is generated from each of these eight private
+keys.
+
+Computer programmers often use the term _index_ to denote a
+position in a list. It’s usually zero-based, meaning the first item in
+the list has index 0, the second item has index 1, and so on. We’ll
+use zero-based indexes throughout this book.
+
+[.gbinfo]
+.Indexes
+****
+Computer programmers often use the term _index_ to denote a position
+in a list. It’s usually zero-based, meaning the first item in the list
+has index 0, the second item has index 1, and so on. We’ll use
+zero-based indexes throughout this book.
 ****
 
 Note how the keys in the tree are numbered. Each set of children is
@@ -425,167 +468,157 @@ numbered from 0 and upwards. This is used to give each key a unique
 identifier. For example the first, _index_ 0, savings key is denoted
 `m/1/0`. `m` is special and refers to the master private key.
 
-INFO: Computer programmers often use the term _index_ to denote a
-position within a list. It is usually 0-based (zero-based), meaning
-that the first item in the list has index 0, the second item has index
-1, and so on. We will use 0-based indexes throughout this book.
+How is a tree structure like this accomplished? Let’s look closer at
+the creation of some parts of the tree.
 
-How is a tree structure like this accomplished? Let's have a closer
-look at the creation of `m/1/0` and `m/1/1`.
+Three important processes are performed to create the tree, as
+<<fig0409>> shows:
 
-.Create the first two of Rita's three savings keys. A random seed is used to create a master extended private key (master xprv). This extended private key (xprv) is then used to create child extended private keys (child xprv).
-image::{imagedir}/hd-wallet-key-tree-overview.svg[{big-width}]
-
-Three important processes are performed to create the tree:
+[[fig0409]]
+.Creating the first two of Rita’s three savings keys. A random seed is used to create a master extended private key, which is then used to create child extended private keys.
+image::{imagedir}/04-09.svg[{big-width}]
 
 1. A random seed of 128 bits is generated. This seed is what the whole
-tree grows up (erm, down) from.
+tree grows up (um, down) from.
 
 2. The _master extended private key_ is derived from the seed.
 
-3. The descendant extended private keys of the master extended private
-key are derived.
+3. The descendant__ extended private keys__ of the master extended
+private key are derived.
 
-An extended private key (xprv) contains two items: A private key and a
-chain code.
+An _extended private key_ (xprv) contains two items: a private key and a
+chain code (<<fig0410>>).
 
-.An extended private key consists of a private key and a chain code.
-image::{imagedir}/xprv.svg[{half-width}]
+[[fig0410]]
+.An xprv consists of a private key and a chain code.
+image::{imagedir}/04-10.svg[{half-width}]
 
-The private key is indistinguishable from an old type private key
-generated directly from a random number generator. It can be used to
-derive a public key and a cookie token address. You usually only make
-addresses out of leaves, but you could use internal keys as well to
-make addresses. The other part of the extended private key (xprv) is
-the chain code. A chain code is the rightmost 256 bits of a 512 bit
-hash, hence the right half hash icon in the picture. You will see soon
-how that hash is created. The purpose of the chain code is to provide
-entropy when generating a child xprv. The master xprv doesn't differ
-from other xprvs, but we give it a special name because it is the
-ancestor of all keys in the tree. It is, however, created differently.
+The private key is indistinguishable from an old-type private key
+generated directly from a random number generator. You can use it to
+derive a public key and a cookie token address. You usually make
+addresses only out of leaves, but you could use internal keys as well.
+The other part of the xprv is the chain code. A chain code is the
+rightmost 256 bits of a 512-bit hash, hence the right-half hash icon
+in the figure. You’ll see soon how that hash is created. The chain
+code’s purpose is to provide entropy when generating a child xprv. The
+master xprv doesn’t differ from other xprvs, but we give it a special
+name because it’s the ancestor of all keys in the tree. It is,
+however, created differently.
 
 ****
-image::{imagedir}/2ndcol-create-seed.svg[]
+image::{imagedir}/u04-08.svg[]
 ****
 
-In step 1, the random seed is created in the same way as when we
-created private keys in <<ch02,chapter 2>>. In this example we
-generate 128 bits of random data, but it could just as well be 256
-bits or 512 bits depending on the level of security you want. 128 bits
-is enough for most users. You will see later how the choice of seed
-size will affect the backup process; Longer seed means more writing on
-a piece of paper during backup. We will get back to that in
-<<back-to-backup>>.
+In step 1, the random seed is created in the same way as when you
+created private keys in <<ch02>>. In this example, you generate 128
+bits of random data, but it could just as well be 256 bits depending
+on the level of security you want—128 bits are enough for most users.
+You’ll see later how the choice of seed size will affect the backup
+process; a longer seed means more writing on a piece of paper during
+backup. We’ll get back to this in <<back-to-backup>>.
 
 Steps 2 and 3 deserve their own subsections.
 
-==== Derive a master extended private key
+==== Deriving a master extended private key
 
 ****
-image::{imagedir}/2ndcol-derive-master-xprv.svg[]
+image::{imagedir}/u04-09.svg[]
 ****
 
-We will look deeper into how the master extended private key is
-generated.
+Let’s look deeper into how to generate the master xprv (<<fig0411>>).
 
-.Deriving Rita's master xprv. The seed is hashed with HMAC-SHA512. The resulting hash of 512 bits is split into left 256 bits that becomes the master private key and the right 256 bits that becomes the chain code.
-image::{imagedir}/hd-wallet-derive-master-xprv.svg[{big-width}]
+[[fig0411]]
+.Deriving Rita’s master xprv. The seed is hashed with HMAC-SHA512. The resulting hash of 512 bits is split into the left 256 bits, which become the master private key, and the right 256 bits, which become the chain code.
+image::{imagedir}/04-11.svg[{big-width}]
 
 [.gbinfo]
-.What is "CT seed"?
+.“CT seed”?
 ****
-HMAC needs two inputs, a value to hash and a "key". We don't have or
-need a key for the master xprv because we have all the
-entropy we need in the seed. So here we just input "CT seed" to give
-it _something_. A key is needed later when we derive children of
+An HMAC needs two inputs: a value to hash and a key. You don’t have or
+need a key for the master xprv because you have all the entropy you
+need in the seed.  In <<fig0411>>, you input `CT seed` to give the
+HMAC __something__. A key is needed later, when you derive children of
 the master xprv.
 ****
 
 To create the master private key, the seed is hashed using HMAC-SHA512
-that produces a 512 bit hash value. HMAC-SHA512 is a special
-cryptographic hash function that besides the normal single input also
-takes a “key”. From a user's perspective we can just regard
-HMAC-SHA512 as a normal cryptographic hash function but with multiple
-inputs. The hash value is split into the left 256 bits and the right
-256 bits. The left 256 bits becomes the master private key, which is a
-normal private key, but we call it the _master_ private key because
-all other private keys are derived from this single private key (and
-the chain code). The right 256 bits becomes the _chain code_. This
-chain code will be used by the next step where we derive children from
-the master xprv.
+(HMAC is short for Hash Based Message Authentication Code), which
+produces a 512-bit hash value. HMAC-SHA512 is a special cryptographic
+hash function that, besides the normal single input, also takes a key.
+From a user’s perspective, you can regard HMAC-SHA512 as a normal
+cryptographic hash function but with multiple inputs. The hash value
+is split into the left 256 bits and the right 256 bits. The left 256
+bits become the master private key, which is a normal private key;
+it’s called the _*master*_ private key because all other private keys
+are derived from this single private key (and the chain code). The
+right 256 bits become the __*chain code*__, used in the next step to
+derive children from the master xprv.
 
-==== Derive a child extended private key
+==== Deriving a child extended private key
 
 ****
-image::{imagedir}/2ndcol-derive-child-xprv.svg[]
+image::{imagedir}/u04-10.svg[]
 ****
 
-We have just created Rita's master xprv. It's time to
-derive the child xprv that groups together her three
-savings keys. The direct children of an xprv can be
-derived in any order. We chose to derive the savings account key,
-`m/1`, first.
+You just created Rita’s master xprv. It’s time to derive the child xprv
+that groups together her three savings keys. The direct children of an
+xprv can be derived in any order. Let’s derive the savings account key,
+`m/1`, first. The process for deriving a child xprv from a parent xprv
+is as follows (<<fig0412>>):
 
-The process for deriving an xprv from a parent xprv is as follows.
+[[fig0412]]
+.Deriving a child xprv from a parent xprv. The parent’s public key and chain code and the desired index are hashed together. The parent private key is added to the left half of the hash, and the sum becomes the child private key. The right half becomes the child chain code.
+image::{imagedir}/04-12.svg[{full-width}]
 
-.Deriving a child xprv from a parent xprv. The public key and chain code of the parent and the desired index are hashed together. The parent private key is added to the left half of the hash and the sum becomes the child private key. The right half becomes the child chain code.
-[[hd-wallet-derive-child-xprv]]
-image::{imagedir}/hd-wallet-derive-child-xprv.svg[{full-width}]
-
-The process starts with a parent xprv.
-
-. The desired index is appended to the parent public key
-. The public key and index becomes the input to HMAC-SHA512. The
-parent chain code acts as a source of entropy to the hash
-function. The simplest way to think of it is that the three pieces of
-data are just hashed together.
+. The desired index is appended to the parent public key.
+. The public key and index become the input to HMAC-SHA512. The parent
+chain code acts as a source of entropy to the hash function. To
+simplify, think of it as three pieces of data are hashed together.
 ****
-image::{imagedir}/2ndcol-key-tree.svg[]
+image::{imagedir}/u04-11.svg[]
 ****
 [start=3]
-. The 512 bit hash value is split in half:
-** The left 256 bits is added, with normal addition (modulo 2^256^), to
+. The 512-bit hash value is split in half:
+** The left 256 bits are added, with normal addition (modulo 2^256^), to
 the parent private key. The sum becomes the child private key.
-** The right 256 bits becomes the child chain code
-. The child private key and the child chain code together form the
-child xprv.
+** The right 256 bits become the child chain code.
+. The child private key and the child chain code together form the child
+xprv.
 
 This same process is used for all children and grandchildren of the
-master xprv until we have all keys Rita wanted in her wallet.
+master xprv until you have all the keys Rita wanted in her wallet.
 
-You may be wondering why we need the addition at all, why not simply
-use the right 256 bits as the child private key? The 512 bit hash is
-calculated from the public key and the chain code, collectively called
-the extended public key (xpub), and an index. We will see later how
-the xpub can be used in less secure environments, like a web server,
-to generate a corresponding tree of _public_ keys. We need to add the
-parent private key to the right 256 bits to make it impossible for
-someone with the extended public key to generate child private keys.
+You might be wondering why you need the addition—why not use the left
+256 bits as the child private key? The 512-bit hash is calculated from
+the public key and the chain code—collectively called the _extended
+public key_ (xpub)—and an index. You’ll see later how to use the xpub
+in less secure environments, such as a web server, to generate a
+corresponding tree of _public_ keys. You need to add the parent
+private key to the left 256 bits to make it impossible for someone
+with the xpub to generate child private keys.
 
+[.periscope]
 === Where were we?
 
-Let's recall why we are here. We want to create a wallet app that
-makes the lives easier for the end users:
+Let’s recall why you’re here: to create a wallet app that makes life
+easier for end users (<<fig0413>>).
 
-.We are working on making a great wallet for users.
-image::{imagedir}/periscope-wallets.svg[{full-width}]
+[[fig0413]]
+.You’re working on making a great wallet for users.
+image::{imagedir}/04-13.svg[{full-width}]
 
-****
-image::{commonimagedir}/periscope.gif[]
-****
+The main duties of a wallet are to
 
-The main duties of a wallet are
+* Manage private keys
+* Create new addresses
+* Transfer payment details from payee to payer
+* Make a payment
+* Keep track of funds
+* Back up private keys
 
-* manage private keys
-* create new addresses 
-* transfer payment details from payee to payer
-* make a payment
-* keep track of funds
-* backup private keys
-
-We have covered the first five items, but we are not quite finished
-with backups yet. We have just covered extended private key
-derivation, which is the groundwork for better backups.
+We’ve covered the first five items, but we aren’t quite finished with
+backups. We just looked at xprv derivation, which is the groundwork for
+better backups.
 
 [[back-to-backup]]
 === Back to backup
@@ -593,279 +626,277 @@ derivation, which is the groundwork for better backups.
 .But the key paths?
 [.inbitcoin]
 ****
-To restore your keys you also need the paths of your keys. In Bitcoin
-those paths are standardized in BIP44. If your wallet uses that
-standard, you implicitly know the paths of your keys.
+To restore keys, you also need their paths. In Bitcoin, those paths
+are standardized in BIP44. If a wallet uses that standard, you
+implicitly know the keys’ paths.
 ****
 
-We want a safe and easy way to back up the private keys. We have
-created a hierarchical deterministic wallet to generate any number of
-private keys from a single seed. What is the minimum that Rita needs
-to backup in order to restore all keys in her wallet, should she lose
-it?  Right, the seed (and the tree structure, see margin). As long as
-her seed is safe, she can always recreate all her keys.
+You want a safe, easy way to back up private keys. You’ve created an HD
+wallet to generate any number of private keys from a single seed. What’s
+the minimum Rita needs to back up to restore all keys in her wallet,
+should she lose it? Right: the seed (and the tree structure, see
+margin). As long as her seed is safe, she can always re-create all her
+keys.
 
-Suppose that Rita's 128 bit (16 byte) seed is
+Suppose Rita’s 128-bit (16-byte) seed is
 
  16432a207785ec5c4e5a226e3bde819d
 
 ****
-image::{imagedir}/backup-seed.svg[]
+image::{imagedir}/u04-13.svg[]
 ****
 
-It is a lot easier to write these 32 hex digits on a piece of paper
-than it would be to write her eight private keys. But the biggest win
-is that Rita can write this down once and lock it into a safe. As long
-as that paper is safe, her wallet is safe from accidental loss. She
-can even create new keys, from the same seed, without having to make
-another backup.
+It’s a lot easier to write these 32-hex digits on a piece of paper than
+it would be to write her eight private keys. But the biggest win is that
+Rita can write this down once and lock it in a safe. As long as that
+paper is safe, her wallet is safe from accidental loss. She can even
+create new keys from the same seed without having to make another
+backup.
 
-But it is still quite difficult to write this down without any
-typos. What if Rita makes a typo and then lose her wallet? She will
-not be able to restore any of her keys!
-
-We need something even simpler that's more compatible with how humans
-work.
+But it’s still difficult to write this down without any typos. What if
+Rita makes a typo and then loses her wallet? She won’t be able to
+restore any of her keys! You need something even simpler that’s more
+compatible with how humans work.
 
 ==== Mnemonic sentences
 
 [.inbitcoin]
 .BIP39
 ****
-Most Bitcoin wallets use mnemonic sentences for backup. It is standardized in
-BIP39. Before that wallets typically used password protected files
-with all keys, which caused a lot of headache.
+Most Bitcoin wallets use mnemonic sentences for backup. This is
+standardized in BIP39. Before that, wallets typically used
+password-protected files with all keys, which caused a lot of
+headache.
 ****
 
-The developers recall how the seed is just a sequence of bits. For
-example, Rita's seed is 128 bits long. What if we could encode those
-bits in a more human friendly way? We can!
+Recall that the seed is a sequence of bits. For example, Rita’s seed
+is 128 bits long. What if you could encode those bits in a more
+human-friendly way? You can!
 
-Rita's wallet can display the seed as a sequence of 12 English words, called a _mnemonic sentence_:
+Rita’s wallet can display the seed as a sequence of 12 English words,
+called a __mnemonic sentence__:
 
- seed: 16432a207785ec5c4e5a226e3bde819d
- mnemonic: bind bone marine upper gain comfort
+ Seed: 16432a207785ec5c4e5a226e3bde819d
+ Mnemonic: bind bone marine upper gain comfort
            defense dust hotel ten parrot depend
 
-.Backups made easy!
 ****
-image:{imagedir}/backup-mnemonic.svg[]
+image:{imagedir}/u04-14.svg[]
 ****
 
 [role="important"]
-This mnemonic sentence _encodes_ the seed in a human
-readable way. It's much more approachable to write down those 12 words
-than it is to write down cryptic hex code. If Rita loses her wallet
-she can install the wallet app on another phone and restore the seed
-from those 12 words. All Rita's private keys can be regenerated from
-that seed.
+This mnemonic sentence encodes the seed in a human-readable way. It’s
+much more approachable to write down 12 words than it is to write down
+cryptic hex code. If Rita loses her wallet, she can install the wallet
+app on another phone and restore the seed from those 12 words. Rita
+can regenerate all her private keys from that seed.
 
-==== Encode seed into mnemonic sentence 
+==== Encoding a seed into a mnemonic sentence
 
-WARNING: We are going to explore how this encoding works. It's really
-fun, but if you think this goes too deep, you can just accept the
-above paragraph and skip to section <<extended-public-keys>>.
+WARNING: We’re going to explore how this encoding works. It’s really fun, but if
+you think this section goes too deep, you can accept the previous
+paragraph and skip to <<extended-public-keys>>.
 
-The encoding starts with the random seed:
+The encoding starts with the random seed, as shown in <<fig0414>>. The
+seed is hashed with SHA256, and the first 4 bits of the hash—in this
+case, `0111`—are appended to the seed. Those 4 bits act as a checksum.
+You then arrange the bits into 12 groups of 11 bits, where each group
+encodes a number in the range 0 to 2047. Eleven bits can encode
+2^11^ = 2,048 different values, remember?
 
-.Encoding a random seed as a 12 word mnemonic sentence. The seed is checksummed and every group of 11 bits are looked up in a word list of 2048 words.
-image::{imagedir}/mnemonic-sentence.svg[{full-width}]
+[[fig0414]]
+.Encoding a random seed as a 12-word mnemonic sentence. The seed is checksummed, and every group of 11 bits is looked up in a word list of 2,048 words.
+image::{imagedir}/04-14.svg[{full-width}]
 
-The seed is hashed with SHA256 and the first four bits of the hash, in
-this case `0111`, is appended to the seed. Those four bits act as a
-checksum. We then arrange the bits into 12 groups of eleven bits where
-each group encodes a number in the range 0-2047. Eleven bits can
-encode 2^11^=2048 different values, remember?
-
-The 12 numbers are looked up in a standardized word list of 2048 words
-numbered from 0 to 2047. It can be found in BIP39 at <<web-bips>> and
-contains commonly used English words. All 12 numbers are looked up and
-the result is the mnemonic sentence.
+The 12 numbers are looked up in a standardized word list of 2,048
+words numbered from 0 to 2047. You can find this list in BIP39 from
+<<web-bips>>; it contains commonly used English words. After looking
+up all 12 numbers, the result is the mnemonic sentence.
 
 ****
-image:{imagedir}/backup-mnemonic-phone.svg[]
+image:{imagedir}/u04-15.svg[]
 ****
 
-The mnemonic sentence is not a sentence that means anything in
-particular. It's just 12 random words, just like the hex encoded seed
-is 32 random hex digits.
+The sentence doesn’t mean anything in particular. It’s 12 random words,
+just like the hex-encoded seed is 32 random hex digits.
 
-Rita's wallet shows the mnemonic sentence to her and she writes the 12
+Rita’s wallet shows the mnemonic sentence to her, and she writes the 12
 words down on a piece of paper. She puts the paper in a safe place and
 gets on with her life.
 
-==== Decode mnemonic sentence into seed
+==== Decoding a mnemonic sentence into a seed
 
 ****
-image::{imagedir}/2ndcol-drop-phone-ocean.svg[]
+image::{imagedir}/u04-16.svg[]
 ****
 
-The next day, she drops her phone into the ocean and it disappears
-into the deep. She lost her wallet! But Rita is not very
-concerned. She buys a new phone and installs the wallet app. She
-instructs her app to restore from a backup. The wallet asks her for her mnemonic sentence. She writes
+The next day, Rita drops her phone into the ocean, and it disappears
+into the deep. She lost her wallet! But Rita isn’t very concerned. She
+buys a new phone and installs the wallet app. She instructs her app to
+restore from a backup. The wallet asks her for her mnemonic sentence.
+She writes
 
  bind bone marine upper gain comfort
  defense dust hotel ten parrot depend
 
 into the wallet app. The app decodes the sentence by reversing the
-encoding process and her keys can be regenerated from the decoded
-seed.
+encoding process; Rita can regenerate her keys from the decoded seed,
+as <<fig0415>> shows.
 
-.Decoding a mnemonic sentence into the seed.
-image::{imagedir}/restore-backup.svg[{big-width}]
+[[fig0415]]
+.Decoding a mnemonic sentence into the seed
+image::{imagedir}/04-15.svg[{big-width}]
 
-The decoding makes use of the four bit checksum to make sure that it
-is correct. If she accidentally writes the last word as `deposit`
-instead of `depend`, the checksum check would *probably* fail because
-she wrote the wrong word at the end. If she types `depends` instead of
-`depend`, the decoding would definitely fail because there is no word
-`depends` in the word list.
+The decoding uses the 4-bit checksum to make sure it’s correct. If Rita
+accidentally writes the last word as `deposit` instead of `depend`,
+the checksum check will __probably __fail because she wrote the wrong
+word at the end. If she types `depends` instead of `depend`, the
+decoding will definitely fail because there’s no word `depends` in the
+word list.
 
-The checksum is pretty weak. 4 bits make only 16 possible
-checksums. That means that a wrongly written mnemonic sentence, where
-all words exist in the word list, would have a probability 1/16 to not
-be detected. This seems pretty bad. But the probability that you write
-such a sentence is very small, because your misspelled words have to
-exist in the word list. This reduces the risk of an invalid mnemonic
-sentence being restored.
+The checksum is pretty weak—4 bits make only 16 possible checksums. A
+wrongly written mnemonic sentence, in which all words exist in the
+word list, would have a 1/16 probability of not being detected. This
+seems bad. But the probability that you’d write such a sentence is
+small, because your misspelled words have to exist in the word
+list. This reduces the risk of an invalid mnemonic sentence being
+restored.
 
 [id=extended-public-keys]
 === Extended public keys
 
-Rita created her wallet from a random seed of 128 bits, which she
-backed up with a 12 word mnemonic sentence. Her wallet can create any
-number of private keys from that seed. She can organize them into
-different "accounts" as she pleases. Very nice. But the hierarchical
-deterministic wallets have another feature that we haven't
-mentioned yet. You can create a tree of public keys and chain codes
-without knowing any of the private keys.
-
-.Order cookies
 ****
-image::{imagedir}/online-cookie-shop.svg[]
+image::{imagedir}/u04-17.svg[]
 ****
 
-Suppose that the cafe uses a hierarchical deterministic wallet. They
-want to start selling cookies on their web site and deliver the
-cookies to the coworker's cubicle.
+Rita created her wallet from a random 128-bit seed, which she backed
+up with a 12-word mnemonic sentence. Her wallet can create any number
+of private keys from that seed. She can organize them into different
+“accounts” as she pleases. Very nice. But HD wallets have another
+feature: you can create a tree of public keys and chain codes without
+knowing any of the private keys.
 
-The web server needs to be able to present a new cookie token address
-to every customer for privacy reasons, but where does it get the
-addresses from? The cafe could create an xprv for an
-"on-line sales" account in its hierarchical deterministic wallet and
-put that xprv on the web server.
+Suppose the cafe uses an HD wallet. It wants to start selling cookies on
+its website and delivering those cookies to coworkers’ cubicles.
 
-.The cafe copies its "on-line sales" xprv to the web server.
-image::{imagedir}/cafe-hd-wallet.svg[{half-width}]
+For privacy reasons, the web server needs to be able to present a new
+cookie token address for every sale, but where does it get the
+addresses? The cafe could create an xprv for an __online sales__
+account in its HD wallet and put that xprv on the web server, as
+<<fig0416>> shows.
 
-The web server can now create new addresses as the orders
-pours in. Great. But what if Mallory, the gangster, gains access to
-the web server's hard drive where the xprv is stored? She can steal
-all money in any of the addresses in the "on-line sales" account. She
-cannot steal from any other addresses in the tree. For example, she
-cannot calculate any key in the "Counter sales" account, because she
-doesn't have access to the master extended private key. The master
-xprv is needed to calculate the Counter sales account key and all its
+[[fig0416]]
+.The cafe copies its online sales xprv to the web server.
+image::{imagedir}/04-16.svg[{half-width}]
+
+The web server can now create new addresses as the orders pour in.
+Great! But what if Mallory, the gangster, gains access to the web
+server’s hard drive? She can steal all the money in any of the addresses
+in the online sales account. She can’t steal from any other addresses in
+the tree. For example, she can’t calculate any key in the _counter
+sales_ account because she doesn’t have access to the master xprv, which
+is needed to calculate the counter sales account key and all its
 children.
 
-Typical web servers are prone to hacking attempts because they are
-usually accessible from the whole world. Storing money on the web
-server would probably attract a lot of hacking attempts. Sooner or
-later someone succeeds to get access to the hard drive of the web
-server and steal the xprv.
+Typical web servers are prone to hacking attempts because they’re
+usually accessible from anywhere in the world. Storing money on the
+web server would probably attract a lot of hacking attempts. Sooner or
+later, someone would succeed in getting access to the web server’s
+hard drive, and steal the xprv.
 
 For this reason, the cafe wants to avoid having any private keys on
-the web server. Thanks to the hierarchical deterministic wallet, this
-is perfectly possible by using _extended public keys_.
+the web server. Thanks to the HD wallet, this is possible by using
+xpubs (<<fig0417>>).
 
-.An extended public key consists of a public key and a chain code
-image::{imagedir}/xpub.svg[{half-width}]
+[[fig0417]]
+.An xpub consists of a public key and a chain code.
+image::{imagedir}/04-17.svg[{half-width}]
 
-An extended public key (xpub) is similar to an extended private key
-but the xpub contains a public key and a chain code, while the xprv
-contains a private key and a chain code. An xprv shares the chain code
-with the extended public key (xpub). You can create an xpub from an
-xprv, but you cannot create the xprv from the xpub. This is because
-public key derivation is a one-way function; A public key can be
-derived from a private key, but a private key cannot be derived from a
-public key.
+An xpub is similar to an xprv, but the xpub contains a public key and
+a chain code, whereas the xprv contains a private key and a chain
+code. An xprv shares the chain code with the xpub. You can create an
+xpub from an xprv, but you can’t create the xprv from the xpub. This
+is because public key derivation is a one-way function; a public key
+can be derived from a private key, but a private key can’t be derived
+from a public key.
 
-The cafe puts the xpub `M/1` on the the web server. By convention, we
-use capital `M` to denote an xpub path and `m` to denote an xprv
-path. `M/1` and `m/1` have the same chain code, but `M/1` doesn't have
-the private key, only the public key. You can create the whole xpub
-tree from the master xpub, which means that you can generate any and
-all addresses without the need for any private key. You can create
-addresses, but not spend money from those addresses.
+The cafe puts the xpub `M/1` on the web server. By convention, we use
+`M` to denote an xpub path and `m` to denote an xprv path. `M/1` and
+`m/1` have the same chain code, but `M/1` doesn’t have the private key,
+only the public key. You can create the whole xpub tree from the master
+xpub (<<fig0418>>), which means you can generate any and all addresses
+without any private key. You can create addresses, but not spend money
+from those addresses.
 
-.Generating the tree of xpubs from the master xpub. The general pattern is the same as when generating xprvs, but the child derivation function differs.
-image::{imagedir}/hd-wallet-xpub-tree.svg[{big-width}]
+[[fig0418]]
+.Generating the tree of xpubs from the master xpub. The general pattern is the same as when generating xprvs, but the child-derivation function differs.
+image::{imagedir}/04-18.svg[{big-width}]
 
-This looks exactly as when we generated the tree of extended private
-keys. The difference here is that we have no private keys at all. The
-xpubs are generated differently than the extended private keys. Please
-compare to the xprv derivation in the margin.
+This looks exactly like when you generated the tree of xprvs. The
+difference is that you have no private keys. As <<fig0419>> shows, the
+xpubs are generated differently than the xprvs. Please compare this to
+the xprv derivation.
 
-.Extended public key derivation. The private key addition from the xprv derivation is replaced by public key "multiplication".
-image::{imagedir}/hd-wallet-derive-child-xpub.svg[{full-width}]
+[[fig0419]]
+.Xpub derivation. The private key addition from the xprv derivation is replaced by public key “addition.”
+image::{imagedir}/04-19.svg[{full-width}]
 
 .xprv derivation
 ****
-image::{imagedir}/2ndcol-hd-wallet-derive-child-xprv.svg[]
+image::{imagedir}/u04-18.svg[]
 ****
 
-This resembles xprv derivation. The difference is in what we do with
-the left 256 bits of the 512 bit hash. To calculate the child public
-key we treat the left 256 bits as if it was a private key and derive a
-public key from it. This public key is then "added" to the parent
-public key using the special public key addition operation. The result
-is the child public key. Let's compare the child public key derivation
-to the child private key derivation. We do this from the point after
-generating the left 256 bits of the HMAC-SHA256 hash.
+This resembles xprv derivation. The difference is what you do with the
+left 256 bits of the 512-bit hash. To calculate the child public key,
+you treat the left 256 bits as if they were a private key and derive a
+public key from them. This public key is then added to the parent
+public key using the special _public key addition_ operation. The
+result is the child public key. Let’s compare the child public key
+derivation to the child private key derivation (<<fig0420>>) from the
+point after generating the left 256 bits of the HMAC-SHA256 hash.
 
-.Plus on the private side have a corresponding "plus" on the public side. Parent private key plus some value is the child private key. Parent public key plus the public key derived from the same value is the child public key.
-image::{imagedir}/hd-addition.svg[{big-width}]
+[[fig0420]]
+.The plus on the private side has a corresponding plus on the public side. The parent private key plus some value is the child private key. The parent public key plus the public key derived from the same value is the child public key.
+image::{imagedir}/04-20.svg[{big-width}]
 
-Normal addition is used for the private key. We add a 256 bit number
+Normal addition is used for the private key. You add a 256-bit number
 to the parent private key to get the child private key. But to keep
-the result within 256 bit numbers, we use addition _modulo 2^256^_.
+the result within 256-bit numbers, you use addition __modulo 2__^256^.
 
-The "addition" used to derive the child public key is not exactly what
-most people (including the author) are used to. For now let's just say
-that this addition works. We will dig deeper into _public key
-multiplication_ in <<public-key-multiplication>>.
+The addition used to derive the child public key isn’t exactly what most
+people (including me) are used to. For now, let’s just say this addition
+works. We’ll dig deeper into that in <<public-key-math>>.
 
-[id=hardened-key-derivation]
-=== Hardened private key derivation
+[[hardened-key-derivation]]
+=== Deriving hardened private keys
+
+WARNING: This section is challenging. If you had a hard time
+understanding xprv derivation and xpub derivation, I suggest skipping
+this section and jumping to <<public-key-math>>. You don’t need this
+section to understand the rest of this book.
 
 This section will explain how to prevent a potential security issue
 with normal xprv derivation.
 
-WARNING: This section is pretty hard. If you had a hard time
-understanding extended private key derivation and extended public key
-derivation, I suggest that you skip this section and jump to
-<<public-key-multiplication>>. You don't need it to understand the
-rest of this book.
+The cafe’s online business works well. People are ordering cookies
+like crazy! The online sales account grows, with a new public key for
+every order. The xpub for the online sales account sits on the web
+server, and the xprv is present only in the cafe’s wallet (and in a
+locked-away mnemonic sentence).
 
-The cafe's on-line business works well. People are ordering cookies
-like crazy! The on-line sales account grows with a new key pair for
-every order. The xpub for the on-line sales account sits on the web
-server and the xprv is only present in the cafe's wallet (and in a
-locked away mnemonic sentence).
+Suppose Mallory somehow steals the private key `m/1/1`, which contains
+only 10 CT. This might seem harmless because that private key has so
+little money in it. But it could be worse than that. If Mallory has
+also managed to get the xpub for the online sales account from the web
+server, she can __calculate the online sales xprv__, as <<fig0421>>
+shows.
 
-Suppose that the private key `m/1/1` that only contains 10 CT was
-somehow stolen by Mallory. This may seem harmless because that
-private key has so little money in it. But it may be worse than
-that. If Mallory has also managed to get the xpub for the on-line
-sales account from the web server, she can _calculate the on-line
-sales xprv_.
-
-.Mallory has stolen the private key `m/1/1` from the cafe and the parent xpub from the web server. She can now steal all money in the on-line sales account.
-image::{imagedir}/steal-xprv.svg[{full-width}]
+[[fig0421]]
+.Mallory has stolen the private key `m/1/1` from the cafe and the parent xpub from the web server. She can now steal all the money in the online sales account.
+image::{imagedir}/04-21.svg[{full-width}]
 
 Remember how the xprv derivation function used normal addition to
-calculate a child private key from a parent private key:
+calculate a child private key from a parent private key?
 
 [stem] 
 ++++
@@ -874,16 +905,16 @@ calculate a child private key from a parent private key:
 
 // "m/1" + "left half hash of index 1" = "m/1/1"
 
-This can just as well be written as
+You can write this just as well as
 
 [stem] 
 ++++
 \text{"m/1/1"}-\text{"left half hash of index 1"}=\text{"m/1"}
 ++++
- 
-Mallory has everything she needs to calculate the left half hash for
-any child index of `M/1` she pleases, but she doesn't know which index
-her stolen private key has so she starts testing with index 0:
+
+Mallory has everything she needs to calculate the left-half hash for any
+child index of `M/1` she pleases, but she doesn’t know which index her
+stolen private key has, so she starts testing with index 0:
 
 [stem] 
 ++++
@@ -891,160 +922,169 @@ her stolen private key has so she starts testing with index 0:
 ++++
 
 She derives the public key from this private key and notices that it
-doesn't match "M/1", so `0` wasn't the correct index. She then tries index `1`:
+doesn’t match `M/1`, so `0` wasn’t the correct index. She then tries
+index `1`:
 
 [stem] 
 ++++
 \text{"m/1/1"} - \text{"left half hash of index 1"} = \text{"another private key"}
 ++++
 
-This private key derives to the public key `M/1`. Bingo! She has now
-calculated the private key `m/1` for the on-line sales account. Since
-the xprv shares the chain code with the xpub she also has the xprv for
-`m/1` and she can calculate the whole private key tree for the on-line
-sales account. Mallory steals all the money from the on-line sales
-account. Not good.
+This private key derives to the public key `M/1`. Bingo! She has
+calculated the private key `m/1` for the online sales account. The xprv
+shares the chain code with the xpub, so she also has the xprv for `m/1`,
+and she can calculate the private key tree for the account. Mallory
+steals all the money from the online sales account. Not good.
 
 Now think about what would happen if Mallory had the master xpub. She
 could use the same technique to derive the master xprv from the master
-xpub and `m/1/1`. This means that Mallory can recreate all private keys
-of all "accounts" in the whole wallet. Can we do something to prevent
-such a catastrophic scenario? Yes, with _yet another key derivation
-function_! This new key derivation function is called _hardened
-extended private key derivation_.
+xpub and **m/1/1**. Mallory can re-create all the private keys of all
+accounts in the entire wallet. Can you do something to prevent such a
+catastrophic scenario? Yes, with __yet another key-derivation
+function__! This new key-derivation function is called __hardened xprv
+derivation__.
 
-Suppose that the cafe wants to prevent Mallory from accessing the
-master xprv, even if she got the master xpub and a private key in the
-on-line sales account. The cafe can then generate the xprv for the
-on-line sales account using hardened extended private key derivation:
+Suppose the cafe wants to prevent Mallory from accessing the master
+xprv, even if she got the master xpub and a private key in the online
+sales account. The cafe can generate the xprv for the online sales
+account using hardened xprv derivation, as <<fig0422>> shows.
 
 .Normal child xprv derivation
 ****
-image::{imagedir}/2ndcol-hd-wallet-derive-child-xprv.svg[]
+image::{imagedir}/u04-19.svg[]
 ****
 
-.Derive a hardened child xprv for the on-line sales account. We use the parent private key as input to the hash function instead of the public key.
-image::{imagedir}/hd-wallet-derive-hardened-child-xprv.svg[{big-width}]
+[[fig0422]]
+.Deriving a hardened child xprv for the online sales account. You use the parent private key as input to the hash function instead of the public key.
+image::{imagedir}/04-22.svg[{big-width}]
 
-The apostrophe in `m/1'` is not a typo. The apostrophe is used to
-denote hardened key derivation. The difference is that with hardened
-key derivation we hash the _private key_ instead of the
-public key. This means that an attacker cannot do the "minus" trick
-anymore because the hash is derived from the parent private key. She
-cannot calculate the left half hash to subtract from the child private
-key because she doesn't have the parent private key. The result will
-look like this:
+The apostrophe in `m/1'` isn’t a typo: it’s used to denote hardened
+key derivation. The difference is that with hardened key derivation,
+you hash the __private __key instead of the public key. An attacker
+can’t do the “minus” trick anymore because the hash is derived from
+the parent private key. Mallory can’t calculate the left-half hash to
+subtract from the child private key because she doesn’t have the
+parent private key. <<fig0423>> illustrates the result.
 
-.The master xpub cannot be used to generate any child keys at all because `m/0'` and `m/1'` are hardened keys.
-image::{imagedir}/cafes-wallet-hardened.svg[{big-width}]
+[[fig0423]]
+.The master xpub can’t be used to generate any child keys because `m/0'` and `m/1'` are hardened keys.
+image::{imagedir}/04-23.svg[{big-width}]
 
-This also means that you cannot derive a hardened child xpub from a
-parent xpub. You must have the parent xprv to generate any children at
-all, public or private. The children of `m/1'` cannot be derived as
-hardened private keys, because that would require the cafe to put the
-private key `m/1'` on the on-line sales web server which would be
-insecure. Using non-hardened leaf keys in the on-line sales account
+This also means you can’t derive a hardened child xpub from a parent
+xpub. You must have the parent xprv to generate any children, public
+or private. The children of `m/1'` can’t be derived as hardened
+private keys because that would require the cafe to put the private
+key `m/1'` on the online sales web server, which would be
+insecure. Using nonhardened leaf keys in the online sales account
 makes the cafe vulnerable to an attacker stealing `m/1'/1` and
-`M/1'`. If that happens, all funds in the on-line sales account will
-be stolen. With hardened xprv, we solve the case of a stolen `M` and
-`m/1'/1`, but not the case with a stolen `M/1'` and `m/1'/1`.
+`M/1'`. If that happens, all funds in the account will be stolen. With
+hardened xprv, you solve the case of a stolen `M `and `m/1'/1` but not
+the case with a stolen `M/1'` and `m/1'/1`.
 
-[[public-key-multiplication]]
-=== Public key multiplication
+[[public-key-math]]
+=== Public key math
 
-Let's dig deeper in to public key multiplication. Public key
-multiplication is used to derive public keys from private keys.
+This section digs deeper into the math behind public keys. We’ll start
+by looking at how a public key is derived from a private key using
+__public key multiplication__. Later subsections will show why child
+xpub derivation, using __public key addition__, works, and how public
+keys are encoded in Bitcoin.
 
-WARNING: We will try to explain it in simple terms, but if you think
-this is too much, you can skip this section and jump to <<ch04-summary>>
+==== Public key multiplication
+
+WARNING: I’ll try to explain this topic in simple terms, but if you think it’s
+too much, you can skip this section and jump to <<ch04-recap>>.
 
 .Normal public key derivation
 ****
-image::{imagedir}/2ndcol-private-key-derivation.svg[]
+image::{imagedir}/u04-20.svg[]
 ****
 
-To understand how the public key multiplication works, we should go
-back to when we derived a public key from a private key in
-<<ch02,chapter 2>>. We didn't really tell you _how_ the public key was
-derived. We will make an attempt here instead.
+Think back to when you derived a public key from a private key in
+<<ch02>>. I didn’t really tell you _how_ the public key was derived.
+I’ll make an attempt here instead.
 
-A public key in Bitcoin is a whole number solution to the equation
+A public key in Bitcoin is a whole-number solution to this equation:
 
 [stem]
 ++++
 y^2 = x^3 + 7 \mod{(2^{256}-4294968273)}
 ++++
 
-There are astronomically many such solutions, about stem:[2^{256}] of
-them, so we simplify by using the solutions to stem:[y^2 = x^3 + 7
-\mod{11}] instead:
+Many such solutions exist, about stem:[2^{256}] of them, so let’s
+simplify by using the solutions to stem:[y^2 = x^3 + 7 \mod{11}]
+instead (<<fig0424>>).
 
 [.inbitcoin]
 .Bitcoin uses this curve
 ****
-This specific elliptic curve is called secp256k1 and is used in
-Bitcoin. There are plenty of other curves with similar properties.
+This specific elliptic curve is called _secp256k1_ and is used in
+Bitcoin. Plenty of other curves have similar properties.
 ****
 
-.Whole number solutions to the elliptic curve  stem:[y^2 = x^3 + 7 \mod{11}]. Each such solution is a public key.
-image::{imagedir}/curve-solutions.svg[{half-width}]
+[[fig0424]]
+.Whole-number solutions to the elliptic curve stem:[y^2 = x^3 + 7 \mod{11}]. Each such solution is a public key.
+image::{imagedir}/04-24.svg[{half-width}]
 
 [.gbinfo]
 .Curve? I see only dots.
 ****
-We call it a "curve", because in the continuous, real number world, the solutions
-form a curve like this:
+It’s called a _curve_ because in the continuous, real-number world,
+the solutions form a curve like this:
 
-image::{imagedir}/elliptic-curve-crypt-image00.png[]
+image::{imagedir}/u04-21.svg[]
 ****
 
-The equations above are examples of a class of equations called
-_elliptic curves_ and a solution is often referred to as a _point on
-the curve_. We can now calculate a public key, which is a point on the
-curve, from a private key. To do this we start in a special point,
-stem:[G=(6,5)], on the curve. stem:[G] is somewhat arbitrarily chosen,
-but it is widely known by everybody to be the starting point for
-public key derivation. *The public key is the private key multiplied
-by stem:[G]*.
+The previous equations are examples of a class of equations called
+__elliptic curves__, and a solution is often referred to as a __point
+on the curve__. You can now calculate a public key, which is a point
+on the curve, from a private key. To do this, start at a special
+point, stem:[G=(6,5)], on the curve. stem:[G] is somewhat arbitrarily
+chosen, but it’s widely known by everybody to be the starting point
+for public key derivation. _The public key is the private key
+multiplied by stem:[G]._
 
-Suppose that your private key is stem:[5]. Then your public key is
-stem:[5G].
+Suppose your private key is stem:[5]. Then your public key is stem:[5G].
 
-To calculate this multiplication, we need two basic public key
+To calculate this multiplication, you need two basic public key
 operations: addition and doubling, where doubling can be seen as
 adding a point to itself.
 
-To add two points, you draw a straight line that "wraps around" the
-edges of the diagram that intersects your two points and one third
-point. This third point is the negative result of the addition. To get
-the final result of the addition you need to take the symmetric point
-at the same x value.
+To add two points (<<fig0425>>), you draw a straight line that “wraps
+around” the edges of the diagram and that intersects your two points
+and one third point. This third point is the negative result of the
+addition. To get the final result of the addition, take the symmetric
+point at the same stem:[x] value.
 
-.Point addition. We add stem:[(x, y)=(6,5)] to stem:[(2, 2)] by drawing a straight line through them that will intersect a third point. 
-image::{imagedir}/point-addition.svg[{half-width}]
+[[fig0425]]
+.Point addition. You add stem:[(x, y)=(6,5)] to stem:[(2, 2)] by drawing a straight line through them that will intersect a third point.
+image::{imagedir}/04-25.svg[{half-width}]
 
 [.gbinfo]
 .Is there always a third point?
 ****
-Yes, there's always a line that intersects a third point. It's one of the important properties of the curve.
+Yes, there’s always a line that intersects a third point. It’s one of
+the curve’s important properties.
 ****
 
-The result of stem:[(6, 5) + (2, 2)] is stem:[(7, 8)]. The straight line between the
-two points cross the point stem:[(7, 3)]. The complement point to stem:[(7, 3)] is
-stem:[(7, 8)], which is the result of the addition.
+The result of stem:[(6, 5) + (2, 2)] is stem:[(7, 8)]. The straight
+line between the two points crosses the point stem:[(7, 3)]. The
+complement point to stem:[(7, 3)] is stem:[(7, 8)], which is the
+result of the addition.
 
-To double a point is to add it to itself, but there's no slope to be
-calculated from a single point. In this special case, the slope is
-calculated from the single point stem:[P=(6,5)] as stem:[3*x^2*(2y)^{-1} \mod{11} = 2]. 
+To double a point (<<fig0426>>) is to add it to itself, but there’s no
+slope to be calculated from a single point. In this special case, you
+calculate the slope from the single point stem:[P=(6,5)] as
+stem:[3*x^2*(2y)^{-1} \mod{11} = 2]. The process is almost the same as
+adding two different points, but you calculate the slope of the line
+differently.
 
-.Point doubling. To "double" a point P draw a line through P with a special slope that is calculated from P. The line crosses another point, stem:[(3,10)]. The complement point stem:[(3, 1)] is our doubling result.
-image::{imagedir}/point-doubling.svg[{half-width}]
+[[fig0426]]
+.Point doubling. To double a point P, draw a line through P with a special slope that’s calculated from P. The line crosses another point, stem:[(3,10)]. The complement point stem:[(3, 1)] is the doubling result.
+image::{imagedir}/04-26.svg[{half-width}]
 
-The process is almost the same as adding two different points but the
-slope of the line is calculated differently.
-
-Using these two basic operations, adding and doubling, we can derive
-the multiplication of 5 and G. In binary form, 5 is
+Using these two basic operations, adding and doubling, you can derive
+the multiplication of stem:[5] and stem:[G]. In binary form, stem:[5] is
 
 [stem]
 ++++
@@ -1058,59 +1098,62 @@ Your public key is then
 5G = 1*2^2*G + 0*2^1*G + 1*2^0*G
 ++++
 
-We start in G and calculate the resulting public key point by taking
+Start in stem:[G] and calculate the resulting public key point by taking
 terms from right to left:
 
 [.gbinfo]
 .Elliptic curve calculator
 ****
-There is a nice elliptic curve calculator in <<web-elliptic-curve-calculator>>
-that you can play with to get a better feel for how this works.
+There’s a nice elliptic curve calculator at
+<<web-elliptic-curve-calculator>> that you can play with to get a
+better feel for how this works.
 ****
 
-1. Calculate stem:[2^0*G = 1*G = G]. Easy, now remember this point.
-2. Calculate stem:[2^1*G = 2*G]. This is a point "doubling" of the
-previously remembered point G from step 1. Remember the point. Since
-there is a 0 in front of stem:[2^1*G], we don't do anything with it,
-just remember it.
+1. Calculate stem:[2^0*G = 1*G = G]. Easy. Now remember this point.
+2. Calculate stem:[2^1*G = 2*G]. This is a point doubling of the
+previously remembered point _G_ from step 1. Remember the point. Because
+there is a 0 in front of stem:[2^1*G], you don’t do anything with
+it—just remember it.
 3. Calculate stem:[2^2*G = 2*2*G], which is a doubling of the
-previously remembered point stem:[2*G]. Since there is a `1` in front
-of the stem:[2^2*G] term, we add this result to the result of step 1.
+previously remembered point stem:[2*G]. Because there is a 1 in front of
+the stem:[2^2*G] term, you add this result to the result of step 1.
 
 In short, multiplication is performed by a sequence of adding and
 doubling operations.
 
-
 ==== Why is this secure?
 
-The multiplication process is pretty easy to complete, it takes just
-about 256 steps for a 256 bit private key. But to reverse this process
-is a totally different story. There is no known way to get the private
-key by point "division" (for example point stem:[(6,6)] "divided by"
+The multiplication process is pretty easy to complete; it takes about
+256 steps for a 256-bit private key. But to reverse this process is a
+totally different story. No known way exists to get the private key by
+point “division” (for example, point stem:[(6,6)] “divided by”
 stem:[G]). The only known way is to try different private keys and see
-if the public key is what you are looking for. This is what makes
-public key derivation a one-way function.
+if the public key is what you’re looking for. This is what makes
+public-key derivation a one-way function.
 
-==== xpub derivation
+==== Xpub derivation
 
-We have seen how an ordinary public key is derived from a private key
-through public key multiplication. But how can adding the parent
-public key with the public key derived from the left 256 bits become
-the child public key?
+You’ve seen how an ordinary public key is derived from a private key
+through public-key multiplication. But how can adding the parent public
+key with the public key derived from the left 256 bits make the child
+public key? See <<fig0427>>.
 
-.child public key is derived by adding the parent public key with the public key derived from the left 256 bits.
-image::{imagedir}/derive-child-xpub.svg[{half-width}]
+[[fig0427]]
+.The child public key is derived by adding the parent public key with the public key derived from the left 256 bits.
+image::{imagedir}/04-27.svg[{half-width}]
 
-We can convince ourselves that it works by looking at both normal
-public key derivation and child public key derivation in the same
-picture:
+You can convince yourself that it works by looking at both normal
+public-key derivation and child public-key derivation in the same
+picture: see <<fig0428>>.
 
-.Xpub derivation and normal public key derivation. A normal public key is the start point G multiplied by a private key. A child public key is the parent public key "added" to the public key derived from left half hash.
-image::{imagedir}/derive-pubkey-and-child-xpub.svg[{big-width}]
+[[fig0428]]
+.Xpub derivation and normal public-key derivation. A normal public key is the starting point _G_ multiplied by a private key. A child public key is the parent public key added to the public key derived from the left-half hash.
+image::{imagedir}/04-28.svg[{big-width}]
 
 The nice thing with elliptic curves is that the special public key
-"add" operation works a bit like normal add. The same goes for the
-special public key "multiplication". We can thus solve some equations:
+“add” operation works a bit like normal add. The same goes for the
+special public key “multiplication.” You can thus solve some
+equations:
 
 [stem]
 ++++
@@ -1118,69 +1161,71 @@ c=p+h \\
 C=Gh+Gp=G(h+p)=Gc
 ++++
 
-The result, stem:[C=Gc], is exactly how you would derive the public key stem:[C]
-from the private key stem:[c].
+The result, stem:[C=Gc], is exactly how to derive the public key
+stem:[C] from the private key stem:[c].
 
 ==== Public key encoding
 
-Do you remember how John's public key just looked just like a big number?
+Do you remember how John’s public key looked like a big number?
 
  035541a13851a3742489fdddeef21be13c1abb85e053222c0dbf3703ba218dc1f3
 
-That doesn't look like a pair of coordinates, does it? This is because
-the public key is encoded in a certain way. Because of the symmetry,
-there is exactly two points for every value of x, one with even y
-value and one with odd y value.
+That doesn’t look like a pair of coordinates, does it? The public key is
+encoded in a certain way. Because of the symmetry, exactly two points
+exist for every value of stem:[x], one with an even stem:[y] value and one
+with an odd stem:[y] value (<<fig0429>>).
 
-.Each point on the curve has a symmetric point at the same x value
-image::{imagedir}/2ndcol-point-symmetry.svg[]
+[[fig0429]]
+.Each point on the curve has a symmetric point at the same stem:[x] value.
+image::{imagedir}/04-29.svg[]
 
-This means that you don't need to store y values, only whether the y
-value is even or odd. We do this by prefixing the x value with `02`
-(even) or `03` (odd). In John's case the y value happens to be odd, so
-he gets the prefix `03`.
+You don’t need to store stem:[y] values, only whether the stem:[y]
+value is even or odd. You do this by prefixing the stem:[x] value with
+`02` (even) or `03` (odd). In John’s case, the stem:[y] value happens
+to be odd, so the prefix is `03`.
 
-This is the reason why public keys are 33 bytes and not 32 bytes. It's
-a 256 bit number, the x-coordinate, prefixed by a byte specifying the
-odd/even property.
+This is why public keys are 33 bytes and not 32 bytes. It’s a 256-bit
+number—the stem:[x]-coordinate—prefixed by a byte specifying the odd/even
+property.
 
-Looking at the curve above, there is a single point stem:[x=5,
-y=0]. That doesn't look symmetric, but it's actually a so called
-double-root to the curve, it is two points with the same y
-value 0. They are symmetric because they are at equal distance from
-"5.5" from the symmetry line. In this very special case, both these
-points will use `02`, because 0 is even.
+The curve in the figure has a single point stem:[x=5, y=0]. This
+doesn’t look symmetric, but it’s a so-called _double-root_ to the
+curve—it’s two points with the same stem:[y] value 0. They’re symmetric
+because they’re at equal distance 5.5 from the symmetry line. In this
+special case, both these points will use `02` because 0 is even.
 
-[[ch04-summary]]
-=== Summary
+[[ch04-recap]]
+=== Recap
 
-Let's look back at what we have learned in this chapter
+Let’s look back at what you’ve learned in this chapter. An HD wallet
+generates a tree of keys from a random seed. It can use key hardening
+to isolate different branches of the tree from each other.
+
+****
+image::{imagedir}/u04-23.svg[]
+****
+
+Users back up their keys by writing the random seed in the form of 12
+to 24 English words on a piece of paper and lock it up safely.
+
+The cafe accepts cookie tokens in its online shop. It only puts the
+xpub for the online sales account, `M/1'`, on the web server, which
+can now create as many addresses as needed without using any private
+keys. The private keys are kept in the cafe’s wallet and never touch
+the web server.
 
 .The cafe's hierarchical deterministic wallet. They use key hardening to isolate different branches of the tree from each other.
-image::{imagedir}/summary-hd-wallet.svg[{big-width}]
-
-****
-image::{imagedir}/2ndcol-backup-mnemonic-phone.svg[]
-****
-
-The wallet generates a tree of keys from a random seed. The users
-backup their keys by writing the random seed in the form of 12-24
-English words on a piece of paper and lock it up safely.
-
-The cafe accepts cookie tokens on its on-line shop. It only puts the
-xpub for the "on-line sales" account, `M/1'`, on the web server. The
-web server can now create as many addresses it needs to but without
-using any private keys. The private keys are kept in the cafe's wallet
-and never touches the web server.
+image::{imagedir}/u04-22.svg[{big-width}]
 
 ==== System changes
 
-Our concept table is not updated in this chapter either. The wallets
-described in this chapter works pretty much as in Bitcoin, but our
-wallets will send an email to Lisa instead of sending a transaction
-across the global Bitcoin network. We'll get to that in the next
-chapter.
+Our concept table (<<tab0401>>) isn’t updated in this chapter. The
+wallets described in this chapter work basically as they do in
+Bitcoin, but they send an email to Lisa instead of sending a
+transaction across the global Bitcoin network. We’ll get to that in
+the next chapter.
 
+[[tab0401]]
 [%autowidth]
 .Nothing new in the concept table
 |===
@@ -1193,33 +1238,35 @@ chapter.
 | Lisa | A miner | <<ch07>>
 |===
 
-Let's have a release party! Cookie tokens 4.0, fresh from the lab!
+Let’s have a release party! Cookie tokens 4.0, fresh from the lab!
 
+[[tab0402]]
 [%autowidth,role="widetable"]
 .Release notes, cookie tokens 4.0
 |===
 |Version|Feature|How
 
 .3+|image:{commonimagedir}/new.png[role="gbnew"]*4.0*
-|It is now easy to make payments and create new addresses.
-|Mobile app "Wallet"
+|Easy to make payments and create new addresses
+|Mobile app “wallet”
 
-|Simplify backups
-|HD wallets are generated from a seed. Only the seed, 12-24 English
- words, needs to be backed up.
+|Simplified backups
+|HD wallets are generated from a seed. Only the seed, 12 to 24 English
+words, needs to be backed up.
 
-|Create addresses in insecure environments
-|HD wallets can generate trees of public keys without ever seeing any of the private keys
+|Creating addresses in insecure environments
+|HD wallets can generate public key trees without ever seeing any of
+the private keys.
 
 .2+|3.0
 |Safe from expensive typing errors
 |Cookie token addresses
 |Privacy improvements
-|PKH is stored in spreadsheet instead of personal names.
+|A PKH is stored in the spreadsheet instead of a personal name.
 
 |2.0
 |Secure payments
-|Digital signatures solves the problem with the imposter
+|Digital signatures solve the problem with imposters.
 |===
 
 === Exercises
@@ -1227,90 +1274,103 @@ Let's have a release party! Cookie tokens 4.0, fresh from the lab!
 ==== Warm up
 
 ****
-image::{imagedir}/exercise-1.png[{big-width}]
+image::{imagedir}/u04-24.svg[{big-width}]
 ****
 
-. Suppose that you use a bitcoin wallet app and want to receive 50
-bitcoin from your friend to your Bitcoin address
-`155gWNamPrwKwu5D6JZdaLVKvxbpoKsp5S`. Construct a payment URI to give
-to your friend. Hint in Bitcoin, the URI starts with `bitcoin:`
-instead of `ct:`. Otherwise they are the same.
+. Suppose you use a bitcoin wallet app and want to receive 50 BTC
+from your friend to your Bitcoin address
+`155gWNamPrwKwu5D6JZdaLVKvxbpoKsp5S`. Construct a payment URI to give to
+your friend. Hint: in Bitcoin, the URI starts with `bitcoin:` instead of
+`ct:`. Otherwise, they’re the same.
 
 . How many coin flips does a random password of 10 characters
-correspond to? The password is selected from an alphabet of 64
-characters.
+correspond to? The password is selected from a 64-character alphabet.
 
-. Name a few problems with password protected backups. There are at
-least four.
+. Name a few problems with password-protected backups. There are
+at least four.
 
-. How is the seed created in a hierarchical deterministic wallet?
+. How is the seed created in an HD wallet?
 
-. What does an extended private key consist of?
+. What does an xprv consist of?
 
-. What does an extended public key consist of?
+. What does an xpub consist of?
 
-. Suppose that you want to make a hardened extended private key with
-index `7` from `m/2/1`. What information do you need to create
-`m/2/1/7'`?
+Exercises <<ex0407>> and <<ex0408>> assume that you read
+<<hardened-key-derivation>>. If you skipped that section, you can
+skip these exercises, too.
 
-. Can you derive xpub `M/2/1/7'` from `M/2/1`? If not, how would you
-derive `M/2/1/7'`?
+[[ex0407]]
+[start=7]
+. Suppose you want to make a hardened xprv with index `7` from
+`m/2/1`. What information do you need to create `m/2/1/7'`?
+
+[[ex0408]]
+. Can you derive xpub `M/2/1/7'` from `M/2/1`? If not, how would
+you derive `M/2/1/7'`?
 
 ==== Dig in
 
 [start=9]
-. Suppose that you are bad and have the master xpub of a clueless
-victim. You have also ripped him of his private key `m/4/1` that
-contains 1 bitcoin. Assume you also know that this private key has
-this specific path. Describe how you would go about calculating the
-master xprv. Use any of these hints:
+. Suppose you’re a bad guy and have the master xpub of a clueless
+victim. You’ve also stolen the private key `m/4/1` that contains 1 BTC.
+Assume you also know this private key has this specific path. Describe
+how you’d go about calculating the master xprv. Use these hints:
 +
-image::{imagedir}/exercise-key-derivation-types.svg[{full-width}]
+image::{imagedir}/u04-25.svg[{full-width}]
 
 . Suppose instead that your clueless victim had 0 bitcoins on the
-private key `m/4/1`. Would you be able to steal any money from him
-then?
+private key `m/4/1`, but plenty of money on other addresses under the
+same xprv. Would you be able to steal any money?
 
-. Suggest a better approach that your victim could have used to
-prevent you from stealing all his money.
+If you didn’t read the section “Deriving hardened private keys,” you can
+skip exercise <<ex0411>>.
+
+[start=4.11]
+[[ex0411]]
+. Suggest a better approach your victim could have used to prevent you
+from stealing all the money.
 
 ****
-image::{imagedir}/exercise-counter-sales-tree.svg[]
+image::{imagedir}/u04-26.svg[]
 ****
+
 [start=12]
-. Say that the cafe owner wants its employees to have access to the
-counter sales account, because they must be able to create a new
-address for each sale. But they must not have access to the private
-keys, because the owner don't trust the employees to handle them
-securely. Suggest how we can achieve this. Hint: a wallet can import
-an xpub.
+. Say the cafe owner wants employees to have access to the counter
+sales account because they must be able to create a new address for
+each sale. But they must not have access to the private keys because
+the owner doesn’t trust the employees to handle them securely. Suggest
+how to achieve this. Hint: a wallet can import an xpub.
 
-. Suppose that you work at the cafe and have loaded an xpub into your
-wallet. Your colleague Anita has also loaded the same xpub into her
-wallet. So you can both request payments from customers that goes into
-the same account. How can you notice when Anita have received money
-into a previously empty key. Hint: you can create keys ahead of time.
+. Suppose you work at the cafe and have loaded an xpub into your
+wallet. Your colleague Anita has loaded the same xpub into her wallet.
+You can both request payments from customers that go into the same
+account. How would you notice when Anita has received money into a
+previously empty key? Hint: you can create keys ahead of time.
 
-=== Recap
-
-In this chapter you learned that
+=== Summary
 
 * You usually use a mobile app, called a wallet, to send and receive
-  money, cookie tokens or bitcoins.
-* The wallet is responsible for creating and storing your keys, scan
-  or show payment details, send payments, show your balance and backup
-  your keys. You don't have to do that manually.
-* Backup is hard to do right. Password protected backups suffer from
-  problems with forgotten passwords, technology improvements, humans
-  suck as random number generators.
-* With hierarchical deterministic wallets, you backup your random seed
-  and store that seed in a safe place. Do it only once.
-* The seed can be encoded using a mnemonic sentence, which makes it
-  easier for you to write down the seed.
-* HD wallets generate multiple private keys from its seed and organize
-  them in a tree structure to improve your privacy.
-* The tree, or any branch of the tree, of public keys can be generated
-  from an extended public key. This is very useful for insecure
-  environments like web servers.
-* Hardened private key derivation keeps "accounts"
-  compartmentalized. They confine an attacker to a single account.
+money—cookie tokens or bitcoins.
+
+* The wallet creates and stores keys, scans or shows payment details,
+sends payments, shows your balance, and backs up keys. You don’t have to
+do any of this manually.
+
+* Backups are hard to do right. Password-protected backups suffer from
+problems with forgotten passwords, technology improvements, and humans
+being lousy random number generators.
+
+* With HD wallets, you back up your random seed and store that seed in a
+safe place. Do it only once.
+
+* The seed can be encoded using a mnemonic sentence, which makes it easier
+to write down the seed.
+
+* HD wallets generate multiple private keys from a seed and organize them
+in a tree structure to improve privacy.
+
+* The tree of public keys—or any of its branches—can be generated from an
+xpub. This is useful for insecure environments such as web servers.
+
+* Hardened private key derivation keeps “accounts” compartmental­ized. It
+confines an attacker to a single account.
