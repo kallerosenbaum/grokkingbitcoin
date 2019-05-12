@@ -50,7 +50,7 @@ div>p,.literalblock,.listingblock,.imageblock>.title,div>.tableblock,.dlist,.oli
     width: 100%;
 }
 
-.literalblock {
+.literalblock,listingblock {
     font-size: 0.9em;
 }
 .literalblock>.title {
