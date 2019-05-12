@@ -4,6 +4,7 @@ buildbook/asciidoc-manning-templates/
 chapter-tips.adoc
 *.pdf
 *.html
+!notes/errata.html
 !docinfo.html
 *.xml
 
