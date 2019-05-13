@@ -21,7 +21,7 @@ to steal other peoples money, because anyone can now verify all
 payments in the spreadsheet.
 
 .Bitcoin transactions
-image::{imagedir}/visual-toc-transactions.svg[{big-width}]
+image::{imagedir}/05-01.svg[{big-width}]
 
 We will go deep on transactions and explore how transactions are
 programmable, meaning that they are very flexible in what you can do
@@ -63,7 +63,7 @@ There are a number of problems with this old approach:
   going to assume that Lisa is as greedy as everyone else.
 
 .Bad stuff Lisa *could* do. She wouldn't, but she could.
-image::{imagedir}/lisa-could-steal.svg[{big-width}]
+image::{imagedir}/05-02.svg[{big-width}]
 
 Note that Lisa can't create any new money, other than the 7200 CT per
 day as agreed. If she tries to steal more than what's available on a
@@ -102,7 +102,7 @@ transaction instead. The purpose of the transaction is to pay 10 CT to
 the Cafe's CT address.
 
 .The payment process is the same for users, but very different for Lisa and the spreadsheet.
-image::{imagedir}/wallet-payment-process-transactions.svg[{big-width}]
+image::{imagedir}/05-03.svg[{big-width}]
 
 John scans the cafe's payment URI and his wallet creates a transaction
 and asks John to accept it. He clicks OK, and the wallet signs the
@@ -141,7 +141,7 @@ Let's dive in and have a closer look at how John's transaction is
 created.
 
 .John's wallet prepares to pay 10 CT for a cookie. He uses both his keys with funds to cover the cost. He pays himself the change of 3 CT to a fresh address. The transaction is not yet signed.
-image::{imagedir}/transaction.svg[{big-width}]
+image::{imagedir}/05-04.svg[{big-width}]
 
 John's wallet has created a new transaction. The new transaction has
 two _inputs_ and two _outputs_. Inputs specify what outputs of
@@ -156,7 +156,7 @@ transaction 1 and transaction 2 that payed money to John. Now John
 wants to spend these unspent transaction outputs.
 
 ****
-image::{imagedir}/txid.svg[]
+image::{imagedir}/u05-01.svg[]
 ****
 
 A transaction input references a previous transaction using the
@@ -233,7 +233,7 @@ John must prove that he has both the private key for PKH~1~ and the
 private key for PKH~2~.
 
 .John's wallet signs the transaction. Each input gets its own signature. The public key is also needed in the inputs because anyone should be able to verify the signature.
-image::{imagedir}/sign-transaction.svg[{big-width}]
+image::{imagedir}/05-05.svg[{big-width}]
 
 Each of the inputs needs to be signed individually. For example, the
 private key corresponding to PKH~1~ must be used to sign the input at
@@ -313,7 +313,7 @@ that she calls the _unspent transaction output set_ (UTXO set). It is
 a set of all _unspent transaction outputs_ (UTXOs).
 
 .Lisa verifies that John doesn't double spend by using her UTXO set.
-image::{imagedir}/utxo-set.svg[{big-width}]
+image::{imagedir}/05-06.svg[{big-width}]
 
 An entry in the UTXO set consists of a transaction id (txid), an index
 (idx) and the actual transaction output. She keeps her UTXO set
@@ -344,7 +344,7 @@ Lisa needs to verify the signatures of both inputs of John's
 transaction.
 
 .Lisa verifies the first signature of John's transaction.
-image::{imagedir}/verify-signatures.svg[{full-width}]
+image::{imagedir}/05-07.svg[{full-width}]
 
 She has already looked up the unspent transaction outputs in her UTXO
 set, so she grabs the PKH from the output spent by the first input and
@@ -358,7 +358,7 @@ Lisa then adds the transaction to the spreadsheet. She has now
 _confirmed_ the transaction.
 
 .Lisa adds the transaction to the spreadsheet and removes the spent outputs from the UTXO set.
-image::{imagedir}/utxo-set-update.svg[{big-width}]
+image::{imagedir}/05-08.svg[{big-width}]
 
 When she confirms the transaction, she must remove the newly spent
 outputs from the UTXO set and add the outputs of John's transaction to
@@ -425,7 +425,7 @@ a recipient of an output of John's transaction PKH~C~ to PKH~L~. She
 effectively tries to steal 10 CT from the cafe.
 
 .Lisa cannot steal someone else's money anymore. The signatures will become invalid and disclose her immoral act.
-image::{imagedir}/lisa-steals-from-transaction.svg[{half-width}]
+image::{imagedir}/05-09.svg[{half-width}]
 
 Now, since Lisa has changed the contents of John's transaction, the
 signatures of that transaction will no longer be valid. Anyone with
@@ -447,7 +447,7 @@ public key is revealed in the input of the spending transaction. Look
  at John's transaction again:
  
 .The input reveals the public key. We made extra effort to avoid just that in chapter 3.
-image::{imagedir}/input-reveals-pubkey.svg[{big-width}]
+image::{imagedir}/05-10.svg[{big-width}]
 
 [.gbinfo]
 .Don't reuse addresses
@@ -501,7 +501,7 @@ of this program. This other part, the signature and the public key in
 John's transaction, is called signature script.
 
 .The signature script is the first part of a program. The pubkey script in the spent output is the second part. If the complete program results in "OK", then the payment is authorized to spend the output.
-image::{imagedir}/script.svg[{big-width}]
+image::{imagedir}/05-11.svg[{big-width}]
 
 This tiny program, written in a programming language called Script,
 contains the instructions to Lisa on how to verify that the spending
@@ -521,7 +521,7 @@ can take stuff off from the top of the stack.
 
 Let's start
 
-image::{imagedir}/execute-script-1.svg[{big-width}]
+image::{imagedir}/05-12.svg[{big-width}]
 
 The first (top) item in the program is a signature. A signature is
 just data. When we encounter ordinary data, we will put it on the
@@ -530,7 +530,7 @@ encounters a public key which is also just data. She puts that on the
 stack as well. The stack now contains a signature and a public key,
 with the public key being on top.
 
-image::{imagedir}/execute-script-2.svg[{full-width}]
+image::{imagedir}/05-13.svg[{full-width}]
 
 The next item in the program is `OP_DUP`. This is not just data, this
 is an operator. An operator makes calculations based on items on the
@@ -547,7 +547,9 @@ stack and hashes it and puts the resulting PKH on top of the
 stack. This happens to be John's PKH~1~ because it was John's public
 key that was hashed.
 
-image::{imagedir}/execute-script-3.svg[{full-width}]
+image::{imagedir}/05-14.svg[{full-width}]
+
+image::{imagedir}/05-15.svg[{full-width}]
 
 The next item is just data. It's PKH~1~, which is the rightful
 recipient of the 8 CT. Data is just put on top of the stack, so Lisa
@@ -563,7 +565,7 @@ matches the PKH that was set as recipient in the output.
 
 .John's cleaned transaction
 ****
-image:{imagedir}/2ndcol-unsigned-tx.svg[]
+image:{imagedir}/u05-02.svg[]
 ****
 
 The last operator, `OP_CHECKSIG`, means "Verify that the top public
@@ -588,7 +590,7 @@ and there is an "OK". Lisa now knows that John's input with index 0 is
 good.
 
 .The first input is verified.
-image::{imagedir}/script-ok.svg[{half-width}]
+image::{imagedir}/05-16.svg[{half-width}]
 
 Lisa does the same checks for the other input, with index 1, of John's
 transaction. If that program also ends with "OK", then the whole
@@ -677,17 +679,14 @@ contains some operators an a PKH, but we can still view it as a public
 key on a conceptual level. The same goes for the signature script that
 can be viewed as a signature on a conceptual level.
 
+[.periscope]
 === Where were we?
-
-****
-image::{commonimagedir}/periscope.gif[]
-****
 
 This chapter covers most aspects of transactions. Look at this picture
 from <<ch01>> to recall how a typical transaction is sent:
 
 .This chapter covers transactions. Right now we are exploring different ways to authenticate transactions.
-image::{imagedir}/periscope-transactions.svg[{half-width}]
+image::{imagedir}/05-17.svg[{half-width}]
 
 We have gone through the anatomy of the transaction and now we are
 discussing different ways to authenticate, "sign", transactions.
@@ -724,7 +723,7 @@ private key, so only she can spend the funds. There are a few problems
 with this approach:
 
 ****
-image::{imagedir}/flyer-p2pkh-address.svg[]
+image::{imagedir}/u05-04.svg[]
 ****
 
 . If Faiza dies, the money might be lost forever. Ellen and John will
@@ -751,7 +750,7 @@ They can create one private key each and demand that two of the three keys
 must sign the transaction.
 
 .Multisignature setup between Faiza, Ellen and John. Two of the three keys are needed to spend money.
-image::{imagedir}/multisig-transaction.svg[{half-width}]
+image::{imagedir}/05-18.svg[{half-width}]
 
 This brings some good properties to their charity fund raising account:
 
@@ -773,14 +772,16 @@ need an extra dummy item first in the signature script.
 ****
 
 .A program that enforces 2 signatures out of 3 possible keys. The secret sauce is OP_CHECKMULTISIG.
-image::{imagedir}/multisig-program.svg[{half-width}]
+image::{imagedir}/05-19.svg[{half-width}]
 
 The `OP_CHECKMULTISIG` operator instructs Lisa to verify that the two
 signatures in the signature script are made with the keys in the
 pubkey script. Lisa follows the instructions and runs the program as
 follows:
 
-image::{imagedir}/execute-multisig.svg[{big-width}]
+image::{imagedir}/05-20.svg[{big-width}]
+
+image::{imagedir}/05-21.svg[{big-width}]
 
 The top 8 data items in the program are put on the stack and then the
 only operator, `OP_CHECKMULTISIG` is run. `OP_CHECKMULTISIG` takes a
@@ -796,7 +797,7 @@ on the stack. This is where the program ends. Since the top item on
 the stack is "OK", the spending of the output is authorized.
 
 ****
-image::{imagedir}/flyer-scriptpubkey.svg[]
+image::{imagedir}/u05-05.svg[]
 ****
 
 A coworker that wants to donate cookie tokens to the charity needs to
@@ -847,7 +848,7 @@ because running the program would leave the top stack item with "OK".
 ****
 
 .Overview of pay-to-script-hash. The pubkey script is very simple. The signature script is special, because it contains a data item that contains program.
-image::{imagedir}/p2sh-overview.svg[{big-width}]
+image::{imagedir}/05-22.svg[{big-width}]
 
 You need new software in order to verify this transaction in full. We
 will talk about how this transaction is verified by new software in a
@@ -875,7 +876,7 @@ Let's pretend the cafe runs old software to verify this transaction in
 the spreadsheet. Old software will do what it has always been doing;
 Push the stuff in the signature script and then run the pubkey script:
 
-image::{imagedir}/execute-p2sh-old-client.svg[{full-width}]
+image::{imagedir}/05-23.svg[{full-width}]
 
 The program is finished and the top item on the stack is `true`, or
 "OK". This means that the payment is valid according to this old
@@ -920,13 +921,13 @@ after step 2. Let's call this the "saved stack". If the first seven
 steps result in "OK", then the stack is replaced by the saved stack
 and the top item, the redeem script, is taken off the stack:
 
-image::{imagedir}/execute-p2sh-new-client-1.svg[{big-width}]
+image::{imagedir}/05-24.svg[{big-width}]
 
 This redeemScript is a data item that contains a program as previously
 described. This program is now entered into the program area and
 begins to execute.
 
-image::{imagedir}/execute-p2sh-new-client-2.svg[{full-width}]
+image::{imagedir}/05-25.svg[{full-width}]
 
 It executes from now on as if it was an old style payment.
 
@@ -948,7 +949,7 @@ redeemScript, specifically
  04e214163b3b927c3d2058171dd66ff6780f8708
 
 ****
-image::{imagedir}/flyer-pay-to-what.svg[]
+image::{imagedir}/u05-06.svg[]
 ****
 
 How do Faiza, Ellen and John ask people to pay them? What do they
@@ -977,7 +978,7 @@ cookie token addresses. It uses the base58check encoding scheme just
 as normal p2pkh addresses did.
 
 .Create a p2sh address. The difference from normal addresses is the version which is 5 for p2sh addresses instead of 0.
-image::{imagedir}/p2sh-address-encoding.svg[{big-width}]
+image::{imagedir}/05-26.svg[{big-width}]
 
 This process is almost the same as for pay-to-public-key-hash, p2pkh,
 addresses. The only difference is that the version is changed from
@@ -991,7 +992,7 @@ and checksummed script hash of Faiza's, Ellen's and John's
 redeemScript.
 
 .Encode a versioned and checksummed script hash with base58. The result will _always_ start with the character `3`.
-image::{imagedir}/base58-encode-p2sh.svg[{big-width}]
+image::{imagedir}/05-27.svg[{big-width}]
 
 This last remainder '2' will translate to `3` in the character lookup
 table of base58. This `3` character will become the first character
@@ -1000,7 +1001,7 @@ all p2sh addresses to start with a '3'. That's how users identify them
 as p2sh addresses and not for example a p2pkh address.
 
 ****
-image::{imagedir}/flyer-p2sh-address.svg[]
+image::{imagedir}/u05-07.svg[]
 ****
 
 Faiza, Ellen and John can now print
@@ -1031,7 +1032,7 @@ We still haven't covered all the contents of a transaction. There are
 a few more pieces of information in the transactions: version, lock
 time and sequence numbers.
 
-image::{imagedir}/sequence-number-lock-time.svg[{half-width}]
+image::{imagedir}/u05-08.svg[{half-width}]
 
 Version:: Each transaction has a version. There are two versions
 as of writing, 1 and 2.
@@ -1050,13 +1051,15 @@ fundamentals of Bitcoin.
 
 === Rewards and coin creation
 
+****
+image::{imagedir}/u05-09.svg[]
+****
+
 You might be wondering where all the cookie tokens come from in the
 first place. Remember in <<ch02>> when we described how Lisa gets
 rewarded 7,200 new cookie tokens every day? She would insert a new row
 in the spreadsheet every day paying 7,200 new cookie tokens to
-herself:
-
-image::{imagedir}/lisa-is-rewarded.svg[{quart-width}]
+herself.
 
 She still rewards herself 7,200 cookie tokens per day, but in a
 slightly different way. Every day she adds a special transaction to
@@ -1071,7 +1074,7 @@ covered in <<ch07>>.
 ****
 
 .Lisa rewards herself every day with a coinbase transaction.
-image::{imagedir}/coinbase-transaction.svg[{big-width}]
+image::{imagedir}/05-28.svg[{big-width}]
 
 The input of the coinbase transaction is called the _coinbase_. The
 only way to create new coins is to add a coinbase transaction to the
@@ -1085,7 +1088,7 @@ transactions. The transactions form a _transaction graph_. They are
 interconnected through the txids.
 
 .The transaction graph. All transactions descend from one or more coinbase transactions.
-image::{imagedir}/transaction-graph.svg[{full-width}]
+image::{imagedir}/05-29.svg[{full-width}]
 
 John's transaction stems from four different coinbase transactions. To
 verify John's transaction, you need to follow all txids from John's
@@ -1227,7 +1230,7 @@ others. It solves the problem by making all signatures public in the
 spreadsheet.
 
 .The payment process. A wallet creates a transaction that Lisa verifies and appends to the spreadsheet.
-image::{imagedir}/wallet-payment-process-transactions.svg[{big-width}]
+image::{imagedir}/u05-10.svg[{big-width}]
 
 Users' wallets create and sign transactions that Lisa verifies and
 appends to the spreadsheet.
@@ -1238,7 +1241,7 @@ the input spending the output must provide the first part of the
 program.
 
 .A transaction spending output 1 of another transactions. The program consists of a signature script followed by a pubkey script.
-image::{imagedir}/script.svg[{big-width}]
+image::{imagedir}/u05-11.svg[{big-width}]
 
 The program is run by Lisa. If the program ends with "OK", then the
 spending of _that_ output is authorized. If the programs of all inputs
@@ -1257,7 +1260,7 @@ these two things for now.
 ==== System changes
 
 ****
-image::{imagedir}/toolbox.svg[]
+image::{imagedir}/u05-12.svg[]
 ****
 
 We will add transactions and transaction id to our toolbox. Our
