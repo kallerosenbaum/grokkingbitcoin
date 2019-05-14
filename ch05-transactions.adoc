@@ -25,7 +25,7 @@ anyone can now verify all payments in the spreadsheet.
 image::{imagedir}/05-01.svg[{big-width}]
 
 In this chapter, we’ll go deep on transactions and explore how they’re
-__programmable__, meaning they’re flexible as far as what you can do
+_programmable_, meaning they’re flexible as far as what you can do
 with them. For example, multisignature transactions can require two
 signatures out of three possible signatures, to spend money shared among
 three people.
@@ -82,7 +82,7 @@ everyone can verify everything.
 
 Lisa hates that people distrust her. She knows there’s not much she can
 do to change her coworkers’ level of trust. An interesting alternative
-is to __minimize the trust needed__. She concludes that the best way to
+is to _minimize the trust needed_. She concludes that the best way to
 do this is to make the process super-transparent so everyone can verify
 payments. At the same time, she’ll improve how she verifies that people
 don’t spend money they don’t have and how to spend from multiple
@@ -146,8 +146,8 @@ Let’s dive in and look closer at how John’s transaction is created.
 .John’s wallet prepares to pay 10 CT for a cookie. He uses two keys with funds to cover the cost. He pays himself the change of 3 CT to a fresh address. The transaction isn’t yet signed.
 image::{imagedir}/05-04.svg[{big-width}]
 
-John’s wallet has created a new transaction (figure 5.4). It has two
-_*inputs*_ and two __*outputs*__. Inputs specify which outputs of
+John’s wallet has created a new transaction (<<fig0504>>). It has two
+_inputs_ and two _outputs_. Inputs specify which outputs of
 previous transactions to spend. Outputs specify where the money goes.
 
 ===== Inputs
@@ -168,7 +168,7 @@ often used to refer to the transaction, as in the case with inputs in
 <<fig0504>>.
 
 NOTE: The rationale for using double SHA256 here isn’t entirely clear, but
-doing so prevents something called a __length-extension attack__.
+doing so prevents something called a _length-extension attack_.
 Bitcoin’s creator probably used double SHA256 as a security measure in
 order to not have to think about these kinds of attacks. For details,
 see <<web-length-extension-attack>>.
@@ -213,7 +213,7 @@ process your transaction.
 
 For a transaction to be valid, the sum of the input amounts must be
 greater than or equal to the sum of the output amounts. The
-difference, if any, is called a __transaction fee__, which we’ll
+difference, if any, is called a _transaction fee_, which we’ll
 discuss in <<ch07>>. For now, John pays no transaction fee, so his
 output sum matches the input sum exactly.
 
@@ -329,8 +329,8 @@ double spends by consulting her UTXO set.
 Before Lisa adds John’s transaction to the spreadsheet, she makes sure
 all outputs that the transaction spends are in the UTXO set. If not,
 then John is trying to spend money that either never existed in the
-spreadsheet or is already spent (usually referred to as a __double-spend
-attempt__).
+spreadsheet or is already spent (usually referred to as a _double-spend
+attempt_).
 
 For each input in John’s transaction, Lisa uses her UTXO set to look up
 the txid and the output index. If all spent outputs are present in the
@@ -344,7 +344,7 @@ of John’s transaction inputs.
 image::{imagedir}/05-07.svg[{big-width}]
 
 She grabs the PKH from the output spent by the first input and verifies
-that it matches the hash of the public key in the input (figure 5.7).
+that it matches the hash of the public key in the input (<<fig0507>>).
 She verifies the signature in the input using the public key, the
 signature, and the transaction, and then verifies the second input’s
 signature the same way. Both are good.
@@ -366,10 +366,11 @@ can be re-created at any time, notably by anyone with read access to the
 spreadsheet.
 ****
 
-Lisa keeps the UTXO set up to date by updating it as figure 5.8
+Lisa keeps the UTXO set up to date by updating it as <<fig0508>>
 illustrates for every incoming transaction. If she loses the UTXO set,
-she can re-create it from the spreadsheet by starting with an empty UTXO
-set and reapplying all transactions in the spreadsheet to it, one by
+she can re-create it from the spreadsheet by starting with an empty
+UTXO set and reapplying all transactions in the spreadsheet to it, one
+by
 one.
 
 It isn’t only Lisa who can create a UTXO set. Anyone with access to the
@@ -399,7 +400,7 @@ verify that Lisa is doing her job. These verifiers are important to the
 system because they make sure updates to the spreadsheet obey the
 agreed-on rules.
 
-In Bitcoin, these verifiers are called __full nodes__. Lisa is also a
+In Bitcoin, these verifiers are called _full nodes_. Lisa is also a
 full node (a verifier), but she does more than a full node—she updates
 the spreadsheet. A full node is also called a _verifying node_ or, more
 casually, a _node_ in Bitcoin.
@@ -442,7 +443,7 @@ transaction’s input when an output is spent. Look at John’s
 transaction again in <<fig0510>>.
 
 [[fig0510]]
-.The input reveals the public key. We made an extra effort to avoid this in chapter 3.
+.The input reveals the public key. We made an extra effort to avoid this in <<ch03>>.
 image::{imagedir}/05-10.svg[{big-width}]
 
 [.gbinfo]
@@ -489,7 +490,7 @@ balance of any PKH. Bitcoin is also a value-based system.
 I haven’t been totally honest about what a transaction contains. A
 transaction’s output doesn’t contain a PKH, but part of a small computer
 program that _contains_ a PKH. This part of the program is called a
-__pubkey script__. The input that spends the output contains the other
+_pubkey script_. The input that spends the output contains the other
 part of this program. This other part, the signature and the public key
 in John’s transaction, is called a _signature script_ (<<fig0511>>).
 
@@ -536,9 +537,9 @@ keys and a signature on the stack.
 .Copying the public key on the stack, and adding a PKH
 image::{imagedir}/05-13.svg[{full-width}]
 
-The next item is also an operator, `OP_HASH160` (also shown in figure
-5.13). This means “Take the top item off the stack and hash it using
-SHA256+RIPEMD160, and put the result on the stack.”
+The next item is also an operator, `OP_HASH160` (also shown in
+<<fig0513>>). This means “Take the top item off the stack and hash it
+using SHA256+RIPEMD160, and put the result on the stack.”
 
 Cool. Lisa takes the top public key from the stack, hashes it, and puts
 the resulting PKH on top of the stack. This happens to be John’s PKH~1~
@@ -549,7 +550,7 @@ rightful recipient of the 8 CT. Lisa puts PKH~1~ on the stack.
 
 [[fig0514]]
 .Adding PKH~1~ to the stack and comparing the two PKH items
-image::{imagedir}/05-14.svg[{full-width}]
+image::{imagedir}/05-14.svg[{big-width}]
 
 Next up is another operator, `OP_EQUALVERIFY`. This means “Take the top
 two items from the stack and compare them. If they’re equal, continue to
@@ -655,7 +656,7 @@ they’re named in the Bitcoin Core source code.
 
 You might wonder why we call the output script part _pubkey script_ when
 it usually doesn’t contain a public key. Likewise, the input script is
-called __signature script__, but it doesn’t only contain a signature.
+called _signature script_, but it doesn’t only contain a signature.
 
 The pubkey script in Bitcoin transactions used to contain an actual
 public key, and the signature script used to contain the signature only.
@@ -840,6 +841,12 @@ _pay-to-script-hash_ (p2sh).
 We’ve discussed how p2pkh hides the public key from the sender, who gets
 a hash of the public key to pay to instead of the public key itself.
 
+[.inbitcoin]
+.BIP16
+****
+This type of payment was introduced in 2012 in BIP16.
+****
+
 p2sh takes this idea even further—it hides the script program. Instead
 of giving a big, complicated pubkey script to the sender, you give them
 just the hash of the script. The sender then makes a payment to that
@@ -849,12 +856,6 @@ the recipient wants to spend the money.
 Suppose again that Faiza, Ellen, and John want to raise money for
 charity, and they want a multisignature setup to protect their money
 (<<fig0522>>).
-
-[.inbitcoin]
-.BIP16
-****
-This type of payment was introduced in 2012 in BIP16.
-****
 
 [[fig0522]]
 .Overview of p2sh. The pubkey script is simple. The signature script is special because it contains a data item that contains a program.
@@ -915,8 +916,8 @@ transaction is spending a p2sh output. It looks for this pattern:
 
 If the pubkey script has this exact pattern—the p2sh pattern—the
 software will treat the program differently. First, it will perform the
-same seven steps as the old software, shown in figure 5.23, but it will
-save the stack after step 2. Let’s call this the __saved stack__. If the
+same seven steps as the old software, shown in <<fig0523>>, but it will
+save the stack after step 2. Let’s call this the _saved stack_. If the
 first seven steps result in `OK`, then the stack is replaced by the
 saved stack; and the top item, `redeemScript`, is taken off the stack
 (<<fig0524>>).
@@ -984,7 +985,7 @@ In both cases, if the donor erroneously makes a p2pkh payment using
 the printed hash or address, no one can spend the money because no
 private key corresponds to this false PKH.
 
-These two options seem neither safe nor practical. Instead, + let’s
+These two options seem neither safe nor practical. Instead, let’s
 introduce a new address format for p2sh, the _p2sh address_
 (<<fig0526>>). This format is similar to normal p2pkh addresses. It
 uses the base58check encoding scheme, just as normal addresses did.
@@ -1038,6 +1039,7 @@ future date.
 [[lock-time-and-sequence-numbers]]
 === More stuff in transactions
 
+[.bigside]
 ****
 image::{imagedir}/u05-08.svg[]
 ****
@@ -1088,7 +1090,7 @@ Rewards in Bitcoin are paid using coinbase transactions roughly every
 covered in <<ch07>>.
 ****
 
-The coinbase transaction’s input is called the __coinbase__. The only
+The coinbase transaction’s input is called the _coinbase_. The only
 way to create new coins is to add a coinbase transaction to the
 spreadsheet. New coins are created as rewards to Lisa for performing her
 valuable work.
@@ -1096,7 +1098,7 @@ valuable work.
 [role="important"]
 All transactions can be traced back to one or more coinbase
 transactions by following the txid references in transaction inputs. The
-transactions form a__ transaction graph__ (<<fig0529>>). They’re
+transactions form a _transaction graph_ (<<fig0529>>). They’re
 interconnected through the txids.
 
 [[fig0529]]
@@ -1190,7 +1192,7 @@ invalid when John’s transaction is deleted.
 An already-running verifier—for example, the cafe—won’t notice because
 it just watches the spreadsheet for added transactions at the end. It
 has already verified John’s transaction and updated its private UTXO
-set. The cafe trusts Lisa to not delete transactions, so it never +
+set. The cafe trusts Lisa to not delete transactions, so it never
 re-verifies the spreadsheet
 
 Furthermore, suppose a new coworker, Vera, starts to build her own
@@ -1298,7 +1300,7 @@ contains transactions, with a blockchain.
 Let’s release version 5.0 of the cookie token system (<<tab0502>>).
 
 [[tab0502]]
-[%autowidth,options="header"]
+[%autowidth,options="header",role="widetable"]
 .Release notes, cookie tokens 5.0
 |===
 |Version|Feature|How
