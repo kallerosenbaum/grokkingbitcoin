@@ -1230,7 +1230,7 @@ the next chapter.
 Let’s have a release party! Cookie tokens 4.0, fresh from the lab!
 
 [[tab0402]]
-[%autowidth,role="widetable"]
+[%autowidth,role="widetable",role="widetable"]
 .Release notes, cookie tokens 4.0
 |===
 |Version|Feature|How
@@ -1309,8 +1309,8 @@ image::{imagedir}/u04-25.svg[{full-width}]
 private key `m/4/1`, but plenty of money on other addresses under the
 same xprv. Would you be able to steal any money?
 
-If you didn’t read the section “Deriving hardened private keys,” you can
-skip exercise 4.11.
+If you didn’t read <<hardened-key-derivation>>, you can skip exercise
+4.11.
 
 [start=11]
 . Suggest a better approach your victim could have used to prevent you

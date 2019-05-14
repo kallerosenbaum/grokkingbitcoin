@@ -248,7 +248,7 @@ function.
 .Hashing a modified cat picture. Can you spot the difference? The cryptographic hash function certainly did.
 image::{imagedir}/02-07.svg[{big-width}]
 
-This hash turns out completely different than the first hash. Let's
+This hash turns out completely different than the first hash. Let’s
 compare them:
 
  Old hash: dee6a5d375827436ee4b47a930160457901dce84ff0fac58bf79ab0edb479561
@@ -301,6 +301,7 @@ minutes—a new hash of the entire payment history is created. If someone
 tries to change the data, anyone verifying the hash of the modified data
 will notice.
 
+[[how-does-a-cryptographic-hash-function-work]]
 ==== How does a cryptographic hash function work?
 
 The real answer is complex, so I won’t go into exact detail. But to
@@ -538,10 +539,10 @@ gets the same cryptographic hash as “cat”?
 ===== Dig in
 
 [start=6]
-. The simplistic hash function from the section “How does a
-cryptographic hash function work?”, repeated for you as follows, isn’t
-a _cryptographic_ hash function. Which two of the four properties of a
-cryptographic hash function is it lacking?
+. The simplistic hash function from
+<<how-does-a-cryptographic-hash-function-work>>, repeated for you as
+follows, isn’t a _cryptographic_ hash function. Which two of the four
+properties of a cryptographic hash function is it lacking?
 +
 image::{imagedir}/u02-09.svg[{half-width}]
 +
@@ -1082,7 +1083,7 @@ spreadsheet. It’s time to release version 2.0 of the cookie token
 spreadsheet system (<<tab0206>>).
 
 [[tab0206]]
-[%autowidth,options="header"]
+[%autowidth,options="header",role="widetable"]
 .Release notes, cookie tokens 2.0
 |===
 |Version|Feature|How

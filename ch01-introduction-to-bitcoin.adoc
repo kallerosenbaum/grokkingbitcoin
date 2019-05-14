@@ -63,7 +63,7 @@ over the years. We can roughly categorize participants in this Bitcoin
 ecosystem into several groups:
 
 [.inbitcoin]
-.Bitcoin doesn't care
+.Bitcoin doesn’t care
 ****
 The Bitcoin network doesn’t distinguish between users. No user is more
 important than any other user. It doesn’t matter who they are or what
@@ -890,7 +890,7 @@ This limitation can also be fixed by systems built on top of Bitcoin—for
 example, the Lightning Network—especially when the payment amount is
 small.
 
-===== Savings you can't afford to lose
+===== Savings you can’t afford to lose
 
 Bitcoin is probably the most secure money there is, but it’s still in
 its infancy. Things _could_ go bad with Bitcoin, as in the following
