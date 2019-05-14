@@ -10,17 +10,21 @@
 }
 
 body {
-    font-family: sans, sans-serif;    
+    font-family: serif, sans, sans-serif;
 }
 
 p {
-    font-size: 1.25em;
+    /*font-size: 1.25em;*/
     line-height: 1.2em;
 }
 
 h1, h2, h3, #toctitle, .sidebarblock>.content>.title, h4, h5, h6 {
     color: #000055;
     font-weight: bold;
+}
+
+*:not(pre)>code {
+    font-size: 0.8em;
 }
 
 #toc ul {
@@ -93,6 +97,10 @@ table.tableblock>caption.title {
     page-break-inside: avoid;
     background: none;
     border-style: hidden;
+}
+
+.bigside {
+    width: 50%;
 }
 
 .sidebarblock p {
