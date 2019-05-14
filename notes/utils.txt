@@ -15,5 +15,5 @@ done
 epstopdf foo.eps
 pdf2svg foo.pdf foo.svg
 
-#Emacs regexp search for combination of formatting characters
-ctrl+meta+s [*`_]\{2,\}
+# Find all weird formatting stemming from RTF files
+grep '[*`_]\{2,\}' ch05-transactions.adoc|grep -v '^****$'
