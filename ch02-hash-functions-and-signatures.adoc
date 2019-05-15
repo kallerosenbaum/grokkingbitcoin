@@ -1088,7 +1088,7 @@ spreadsheet system (<<tab0206>>).
 |===
 |Version|Feature|How
 
-|image:{commonimagedir}/new.png[role="gbnew"]*2.0*
+|image:{commonimagedir}/new.png[role="gbnew"]2.0
 |Secure payments
 |Digital signatures solve the problem with imposters.
 
