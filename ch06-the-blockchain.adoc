@@ -208,6 +208,7 @@ over 144 blocks: there are 144 blocks in 24 hours, and 144*50 CT =
 Before Lisa is finished with the block, she must sign it using a private
 key only she knows, as shown in <<fig0606>>.
 
+[[fig0606]]
 .Lisa signs a block with her block-signing private key. The public key is well known among the coworkers.
 image::{imagedir}/06-06.svg[{half-width}]
 
@@ -294,6 +295,7 @@ The transaction order isn’t important as long as all transactions spend
 outputs already present in the blockchain or in the block being built.
 For example, the block in <<fig0608>> is perfectly fine.
 
+[[fig0608]]
 .Transactions must be ordered in _spending order_. Otherwise, there are no restrictions.
 image::{imagedir}/06-08.svg[{half-width}]
 
