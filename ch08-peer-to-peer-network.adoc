@@ -1,168 +1,173 @@
 [[ch08]]
-== Peer to peer network
+== Peer-to-peer network
 :imagedir: {baseimagedir}/ch08
 This chapter covers
 
-* Removing last central authority, the shared folder
-* Following a transaction in the peer to peer network
-* Leaving the silly cookie tokens
-* Bootstrapping the peer to peer network
+* Removing the last central authority: the shared folder
 
-Let's talk about the elephant in the room: The shared folder. All
-blocks the miners produce must pass through the shared folder on their
-way to other full nodes and miners. This chapter will remove the
-central shared folder and replace it with a decentralized peer to peer
-network. A peer to peer network lets full nodes (including miners)
-send blocks directly to each other. When nodes are allowed to talk
-directly to each other, we no longer need a central point of authority
-for communication.
+* Following a transaction in the peer-to-peer network
 
-Another issue we haven't talked much about is how wallets send their
-transactions via email to the miners. When a new miner joins the
-system, all wallets need to update their list of miners. Not cool. Now
-when we have this nice peer to peer network of nodes, wallets can use
-this network to broadcast their transactions to all miners without
-knowing who or where they are.
+* Leaving behind the silly cookie tokens
 
-.Bitcoin's peer to peer network
-image::{imagedir}/visual-toc-peer-to-peer-network.svg[{big-width}]
+* Bootstrapping the peer-to-peer network
 
-We will follow a transaction's path through the network, both as an
-unconfirmed transaction, and eventually as part of a mined block. It
-will start in John's wallet and end as a confirmed transaction in the
-cafe's wallet.
+Let’s talk about the elephant in the room: the shared folder. All blocks
+the miners produce must pass through the shared folder on their way to
+other full nodes and miners. This chapter will remove the central shared
+folder and replace it with a decentralized _peer-to-peer network_
+(<<fig0801>>). The peer-to-peer network lets full nodes (including
+miners) send blocks directly to each other. When nodes can talk directly
+to each other, we no longer need a central point of authority for
+communication.
 
-We no longer need the cookie token system to help us understand
-Bitcoin at this point in the chapter. We will talk only about Bitcoin
-from now on. There are practically no differences between the cookie
-token system and Bitcoin any more so it doesn't make sense to keep
-talking about cookie tokens, when in fact we want to learn about
-Bitcoin.
+Another issue we haven’t talked much about is how wallets send
+transactions via email to the miners. When a new miner joins the system,
+all wallets need to update their miner list. Not cool. With this nice
+peer-to-peer network of nodes, wallets can broadcast their transactions
+to all miners without knowing who or where they are.
 
-The last topic in this chapter will cover how a new node connects to
-the network and becomes part of the peer to peer network. This is far
-from trivial. How does it find nodes to connect to? How does it
-download the blockchain up to the latest block? We will sort all
-that out.
+[[fig0801]]
+.Bitcoin’s peer-to-peer network
+image::{imagedir}/08-01.svg[{big-width}]
+
+We’ll follow a transaction’s path through the network, both as an
+unconfirmed transaction and, eventually, as part of a mined block. The
+transaction will start in John’s wallet and end as a confirmed
+transaction in the blockchain with Bob’s wallet being notified about it.
+
+After following the transaction through the system, you’ll no longer
+need the cookie token system to help you understand Bitcoin. We’ll talk
+only about Bitcoin from that point forward. Practically no differences
+exist between the cookie token system and Bitcoin anymore, so it doesn’t
+make sense to keep talking about cookie tokens when, in fact, you want
+to learn about Bitcoin!
+
+The last topic in this chapter will cover how a new node connects to and
+becomes part of the peer-to-peer network. This is far from trivial. How
+does it find nodes to connect to? How does it download the blockchain up
+to the latest block? We’ll sort all that out. Toward the end of the
+chapter, you’ll learn how to set up a full node of your own.
 
 === The shared folder
 
-The shared folder administrator is a central authority. He ultimately
-gets to decide what blocks are allowed to be stored in the shared
-folder. He also gets to decide who is allowed to read from the shared
-folder and write to it.
+The shared folder administrator, Luke, is a central authority
+(<<fig0802>>). He ultimately gets to decide which blocks can be stored
+in the shared folder. He also gets to decide who can read from and
+write to the shared folder.
 
-.The shared folder is a central point of authority
-image::{imagedir}/shared-folder-problem.svg[{big-width}]
+[[fig0802]]
+.The shared folder is a central point of authority.
+image::{imagedir}/08-02.svg[{big-width}]
 
-So far we have just assumed that the shared folder administrator is a
-totally neutral good guy, but what if he's not, or what if he's forced
-by Acme Insurances to reject certain blocks. What's the point of proof
-of work, if the system can be censored at the block level any way?
-Proof of work made the _transactions_ censorship resistant, because it
-allowed users to send their transactions to multiple miners. But the
-_blocks_ containing the transactions are still subject to censorship
-by whomever has administrator privileges of the shared folder. Simply
-put, we are not yet censorship resistant. As long as you have a single
-entity that can decide what blocks or transactions to allow, we are
-not censorship resistant.
+So far, we’ve assumed Luke is a totally neutral good guy—but what if he
+isn’t, or what if he’s forced by Acme Insurances to reject certain
+blocks? What’s the point of proof of work if the system can be censored
+at the block level? Proof of work made the _transactions_
+censorship-resistant because it let users send their transactions to
+multiple miners. But the _blocks_ containing the transactions can still
+be censored by whoever has administrator privileges over the shared
+folder. Simply put, the system isn’t yet censorship-resistant. As long
+as a single entity can decide which blocks or transactions to allow, the
+system isn’t censorship-resistant.
 
-There is yet another problem with the shared folder. Imagine that a
-block of size 1MB has been created by Rashid, and he has just
-published it to the shared folder. Everyone watching the shared
-folder, all full nodes, will download Rashid's block at the same
-time. If we have 100 full nodes, the total amount of data we need to
-send from the shared folder to the different nodes would be
-100 MB. This will cause _block propagation_, the transfer of a block
-from the creator of the block to all other nodes, to be terribly
-slow. The more nodes, the slower the block propagation.
+The shared folder poses yet another problem. Imagine that Rashid has
+created a 1 MB block and published it to the shared folder. Everyone
+watching the shared folder, all full nodes, will download Rashid’s block
+at the same time. If you have 100 full nodes, the total amount of data
+you need to send from the shared folder to the different nodes is 
+100 MB. This will cause _block propagation_—the transfer of a block
+from its creator to all other nodes—to be terribly slow. The more nodes,
+the slower the block propagation.
 
-=== Let's build a peer to peer network
+=== Let’s build a peer-to-peer network
 
 What if the full nodes and miners could talk directly to each other
-instead of relying on the central shared folder. They could send the
-blocks directly to one another in a _peer to peer network_.
+instead of relying on the central shared folder? They could send the
+blocks directly to one another in a peer-to-peer network (<<fig0803>>).
 
-.In a peer to peer network, blocks are being passed on from one node to another. Much like how gossip spreads among people.
-image::{imagedir}/basic-network.svg[{big-width}]
+[[fig0803]]
+.In a peer-to-peer network, blocks are passed from one node to another, much as gossip spreads among people.
+image::{imagedir}/08-03.svg[{big-width}]
 
-Think of the peer to peer network as a large number of people. One
-person does not know everyone else, but he may know 5 people. When
-something interesting happens, for example he finds a block, he tells
-his 5 friends about it who in turn tell all their friends, and so on
-until everybody knows about this new block. We call this type of
-networks _gossip networks_ for apparent reasons.
+Think of the peer-to-peer network as a large number of people. One
+person doesn’t know everyone else, but might know three people. When
+something interesting happens—for example, Rashid finds a block—he tells
+his three friends about it, who in turn tell all their friends, and so
+on until everybody knows about this new block. We call such networks
+_gossip networks_ for apparent reasons.
 
 [.gbinfo]
 .Relay
 ****
-To relay a received block means to pass the block on to others.
+To _relay_ a received block means to pass the block on to others.
 ****
 
 [role="important"]
-Blocks can no longer be easily stopped. A node can chose
-not to pass a block on, or _relay_ it, to its peers, but the peers are
-connected to several other peers who will gladly relay the block to
-them. A single node can't do much to censor information.
 
-Suppose that Rashid finds a block and he wants to get this block out
-to all nodes.
+Blocks can no longer be easily stopped. A node can choose not to pass a
+block on, or _relay_ it, to its peers, but the peers are connected to
+several other peers that will gladly relay the block to them. A single
+node can’t do much to censor information.
 
+Suppose Rashid finds a block, and he wants to get this block out to
+all nodes. Rashid sends his block to Qi, Tom, and the cafe. For some
+reason, the cafe doesn’t forward the block to Lisa (<<fig0804>>). But
+Lisa has several peers in this network. She’s connected to Tom
+and Qi. Tom will tell Lisa about this new block and send it
+to her. The cafe can’t hide information from Lisa as long as she’s
+well-connected—that is, has many different peers.
+
+[[fig0804]]
 .If the cafe refuses to relay a block to Lisa, someone else will do it.
-image::{imagedir}/nodes-tolerate-bad-actors.svg[{big-width}]
+image::{imagedir}/08-04.svg[{big-width}]
 
-Rashid sends his block to Qi, Tom and Cafe. For some reason, the cafe
-doesn't forward the block to Lisa. But Lisa has several peers in this
-network. She is connected to Tom and Qi. Tom will tell Lisa about this
-new block and send it to her. The cafe can't hide information from
-Lisa as long as Lisa is well connected, has many different peers.
-
-Now that we have this nice network, wallets can use it to get their
-transactions sent to the miners. Then they don't have to keep track of
+Now that you have this nice network, wallets can use it to get their
+transactions sent to miners. Then they won’t have to keep track of
 miner email addresses anymore. The transactions will be broadcast over
-the peer to peer network and within seconds reach all full nodes. That
-includes miners because they are also full nodes. This was mentioned
-in <<ch01>> with this figure:
+the peer-to-peer network and reach all full nodes within seconds. This
+includes the miners, because they’re also full nodes. We covered this
+briefly in <<ch01>>, as repeated in <<fig0805>>.
 
-.Transactions travel the peer to peer network just like blocks do. Wallets don't need to know the miners anymore.
-image::{imagedir}/transactions-over-p2p-network.svg[{big-width}]
+[[fig0805]]
+.Transactions travel the peer-to-peer network just like blocks do. Wallets no longer need to know the miners.
+image::{imagedir}/08-05.svg[{big-width}]
 
-The same thing goes here as for blocks; a single node cannot hinder
-transactions from reaching the whole network. Another very pleasant
-effect of using the peer to peer network for transactions is that the
-recipient of the transaction can be notified that a transaction is
-"pending", or about to be confirmed. We will see how this works a bit
-later.
+The same thing goes here as for blocks: a single node can’t hinder
+transactions from spreading across the network. Another pleasant
+effect of using the peer-to-peer network for transactions is that a
+transaction’s recipient can be notified that the transaction is
+_pending_, or is about to be confirmed. We’ll look at how this works
+a bit later.
 
 === How do peers talk?
 
 [.gbinfo]
 .TCP
 ****
-When you open a web page on http://bitcoin.org, your web browser will
-make a TCP connection to bitcoin.org and download a web page through
-that connection and display it to you.
+When you open a web page on https://bitcoin.org, your web browser will
+make a TCP connection to bitcoin.org, download a web page through that
+connection, and display it to you.
 ****
 
-Let's have a look at how the communication between two peers
-happen. We will look specifically at how Tom connects to Lisa and how
-they communicate across their communication channel called a TCP
-(Transmission Control Protocol) connection.
+Let’s look at how the communication between two peers happens. We’ll
+look specifically at how Tom connects to Lisa and how they communicate
+across their communication channel, called a Transmission Control
+Protocol (TCP) connection (<<fig0806>>).
 
-.Tom and Lisa communicates over the Internet through a communication channel
-image::{imagedir}/tom-lisa-communication.svg[{half-width}]
+[[fig0806]]
+.Tom and Lisa communicate over the internet through a communication channel.
+image::{imagedir}/08-06.svg[{half-width}]
 
-Suppose that Tom's node knows about Lisa's node. We will explain in
-<<bootstrapping-the-network>> how Tom learns about other nodes. For
-now let's just assume that he's got the IP (Internet Protocol) address
-and _port_ of Lisa's node. Now he wants to connect to Lisa's node in
-order to communicate with it. All computers on the Internet have an IP
-address. That is how one computer can send information to another
-computer on the Internet. A computer program that listens for incoming
-connections must listen on a specific _port_ number of that IP
-address. Lisa's computer has the IP address 142.12.233.96 and runs a
-cookie token program that listens for incoming connections on port
-8333.
+Suppose Tom’s node knows about Lisa’s node. I’ll explain in
+<<bootstrapping-the-network>> how Tom learns about other nodes. For now,
+let’s assume he has the _IP address_ and _port_ of Lisa’s node. He now
+wants to connect to Lisa’s node to communicate with it. All computers on
+the internet have an Internet Protocol (IP) address, which is how one
+computer can send information to another. A computer program that
+listens for incoming connections must listen on a specific port number
+of its computer’s IP address. Lisa’s computer has the IP address
+142.12.233.96 and runs a cookie token program that listens for incoming
+connections on port 8333.
 
 [.inbitcoin]
 .Port 8333
@@ -171,427 +176,451 @@ Port 8333 is the default listening port in Bitcoin Core, the most
 widely used full node software.
 ****
 
-.Tom's computer program sets up a TCP connection to Lisa's computer program. After this they can send and receive data between each other.
-image::{imagedir}/tcp-connection.svg[{half-width}]
-
-Tom's node connects to Lisa's node through the IP address
+Tom’s node connects to Lisa’s node through the IP address
 142.12.233.96 and TCP port 8333. His node (computer program) starts by
-asking its operating system to initiate a connection to Lisa. The
-operating system sends a message to Lisa's computer saying that he
-wants to talk to a computer program on Lisa's port 8333. Her computer
-knows that a program is actually listening on port 8333, so it sends
-back a "Sure, welcome" message. Tom's computer acknowledges that by
-sending back a "OK, cool. Let's talk..." message.
+asking its operating system (OS) to initiate a connection to Lisa
+(<<fig0807>>). The OS sends a message to Lisa’s computer saying that
+Tom wants to talk to a computer program on Lisa’s port 8333. Her
+computer knows a program is listening on port 8333, so it sends back a
+“Sure, welcome” message.  Tom’s computer acknowledges this by sending
+back an “OK, cool. Let’s talk …” message.
 
-The node software on Tom's and Lisa's computers were not involved in
-this handshake, it was carried out by their operating systems, for
-example Linux, Windows or Mac OS. When the handshake sequence is
-finished the connection is handed over to the node software by the
-operating system. Lisa's and Tom's nodes can now speak freely to each
-other. Tom can send data to Lisa and Lisa can send data to Tom over
-this communication channel, or TCP connection.
+[[fig0807]]
+.Tom’s computer program sets up a TCP connection to Lisa’s computer program. After this, they can send and receive data between each other.
+image::{imagedir}/08-07.svg[{half-width}]
+
+The node software on Tom’s and Lisa’s computers wasn’t involved in this
+exchange—it was carried out by their OSs, such as Linux, Windows, or
+macOS. When the message sequence is finished, the OS hands the
+connection over to the node software. Lisa’s and Tom’s nodes can now
+speak freely to each other. Tom can send data to Lisa, and Lisa can send
+data to Tom over this communication channel, or _TCP connection_.
 
 [[the-network-protocol]]
 === The network protocol
 
-Tom and Lisa can now send and receive data over a communication channel. For example
+Tom and Lisa can now send and receive data over a communi­cation
+channel. But if Tom’s node speaks a language that Lisa’s node doesn’t
+understand, the communication won’t be meaningful (<<fig0808>>). The
+nodes must have a common language: a _protocol_.
 
+[[fig0808]]
 .Lisa must be able to understand what Tom writes on the channel.
-image::{imagedir}/need-protocol.svg[{half-width}]
+image::{imagedir}/08-08.svg[{half-width}]
 
-But if Tom's node speaks a language that Lisa's node don't understand,
-the communication will not be meaningful. The nodes need to have a
-common language, a _protocol_.
-
-The Cookie Token network protocol defines a set of different message
-types that are allowed. A typical message in the Cookie token (well,
-Bitcoin) network is the `inv` message:
+The cookie token network protocol defines a set of message types that
+are allowed. A typical message in the cookie token (well, Bitcoin)
+network is the `inv` message (<<fig0809>>).
 
 [.gbinfo]
-.This is abstract
+.This is an abstraction
 ****
-The real network messages does not look exactly like these, we provide
-an abstract view of the messages. The exact format of the network
-messages is out of scope of this book.
+Real network messages don’t look exactly like these; I provide an
+abstract view of the messages. The exact format of the network
+messages is out of the scope of this book.
 ****
 
-.A typical network message.
-image::{imagedir}/protocol-inv-example.svg[{big-width}]
+[[fig0809]]
+.A typical network message
+image::{imagedir}/08-09.svg[{big-width}]
 
-The `inv`, short for _inventory_, message is used by a node to inform
-other nodes about something it has. In the example above, Tom's node
-informs Lisa's node that Tom has three things to offer Lisa, two
-transactions and a block. The message contains an id for each of the
-items.
+A node uses the `inv`—short for _inventory_—message to inform other
+nodes about something it has. In <<fig0809>>, Tom’s node informs
+Lisa’s node that Tom has three things to offer Lisa: two transactions
+and a block. The message contains an ID for each of these items.
 
 ==== John sends the transaction
 
-Let's follow a transaction through the network from start to end, to
-see what network messages are being used. We will assume that the peer
-to peer network is already set up. We will come back to how the
-network is _bootstrapped_ later in this chapter.
+Let’s follow a transaction through the network from start to end to see
+what network messages are being used. We’ll assume the peer-to-peer
+network is already set up. We’ll come back to how the network is
+_bootstrapped_ later in this chapter.
 
-In <<lightweight-wallets>>, we said that wallets are allowed to
-connect to full nodes and get information about all block headers and
-transactions concerning them, using bloom filters and merkle paths.
+In <<lightweight-wallets>>, we said that wallets can connect to full
+nodes and get information about all block headers and transactions
+concerning them using bloom filters and merkle proofs (<<fig0810>>).
 
+[[fig0810]]
 .Lightweight wallets communicate with nodes using the Bitcoin network protocol.
-image::{imagedir}/spv-node-exchange.svg[{half-width}]
+image::{imagedir}/08-10.svg[{big-width}]
 
-We didn't go into detail then how this communication actually
-works. That communication use the same protocol as the nodes use when
-they communicate with each other. The wallets and the full nodes
-(including miners) all speak the same "language".
+I didn’t go into detail then about how this communication works. It uses
+the same protocol the nodes use when they communicate with each other.
+The wallets and the full nodes (including miners) all speak the same
+“language.”
 
-Suppose that John wants to buy a cookie from the cafe. John's wallet
-is connected to Tom's node with a TCP connection. He scans the payment
-URI from the cafe's wallet. John's wallet creates and signs a
-transaction. You know the drill. Then it's time to send the
-transaction to Tom's node:
+Suppose John wants to buy a cookie from the cafe. John’s wallet is
+connected to Tom’s node with a TCP connection. He scans the payment URI
+from the cafe’s wallet. John’s wallet creates and signs a transaction.
+You know the drill. Then it’s time to send the transaction to Tom’s node
+(<<fig0811>>).
 
-.The transaction is sent to Tom's node through a TCP connection.
-image::{imagedir}/john-sends-tx.svg[{half-width}]
+[[fig0811]]
+.The transaction is sent to Tom’s node through a TCP connection.
+image::{imagedir}/08-11.svg[{half-width}]
 
-This actually happens in a three-step process. John's wallet doesn't
-just send the transaction unsolicited. He first informs Tom's node
-that there is a transaction to be fetched.
+This happens in a three-step process. John’s wallet doesn’t just send
+the transaction unsolicited: it first informs Tom’s node that there’s a
+transaction to be fetched (<<fig0812>>).
 
-.Tom's node is informed about John's transaction so that Tom can fetch it.
-image::{imagedir}/tx-john-tom.svg[{big-width}]
+[[fig0812]]
+.Tom’s node is informed about John’s transaction so that Tom can fetch it.
+image::{imagedir}/08-12.svg[{big-width}]
 
-The first message is an `inv` message as described in the previous
-section. The `inv` is sent from John's wallet to Tom's full node. Tom
-checks if he already has the transaction. He does not, because John's
-wallet has just created it and hasn't sent it to anyone yet. Tom's
-node wants to get this transaction so he requests it with a `getdata`
-message that looks just like an `inv` message, but it has a different
-meaning. `getdata` means "I want this stuff" while `inv` means "I have
-this stuff".
+The first message is an `inv` message, as described in the previous
+section. John’s wallet sends the `inv` to Tom’s full node. Tom checks if
+he already has the transaction. He doesn’t, because John’s wallet just
+created it and hasn’t sent it to anyone yet. Tom’s node wants to get
+this transaction, so he requests it with a `getdata` message that looks
+just like an `inv` message but with a different meaning: `getdata`
+means “I want this stuff,” whereas `inv` means “I have this stuff.”
 
-John's wallet receives the `getdata` message and sends a `tx` message
-containing the whole transaction to Tom's node. Tom will verify the
-transaction and keep it. He will also relay this transaction to his
+John’s wallet receives the `getdata` message and sends a `tx` message
+containing the entire transaction to Tom’s node. Tom will verify the
+transaction and keep it. He’ll also relay this transaction to his
 network neighbors.
 
-You may ask, why doesn't John's wallet simply send the whole
-transaction immediately? Why go though the hassle with `inv` and
-`getdata`? This will become clear later, but it's because nodes may
-already have the transaction, so we save bandwidth by only sending
-transaction hashes instead of whole transactions.
+You might ask, “Why doesn’t John’s wallet send the entire transaction
+immediately? Why go through the hassle with `inv` and `getdata`?” This
+will become clear later, but it’s because nodes might already have the
+transaction; we save bandwidth by sending only transaction hashes
+instead of entire transactions.
 
 ==== Tom forwards the transaction
 
-If the transaction is valid, Tom's node will inform his neighbors
-about this new transaction using an `inv` message, just like John's
-wallet did when it informed Tom's node about the transaction.
+If the transaction is valid, Tom’s node will inform his neighbors about
+it (<<fig0813>>) using an `inv` message, just like John’s wallet did
+when it informed Tom’s node about the transaction.
 
-.Tom forwards the transaction to his friends.
-image::{imagedir}/tom-sends-tx.svg[{big-width}]
+[[fig0813]]
+.Tom forwards the transaction to his peers.
+image::{imagedir}/08-13.svg[{big-width}]
 
-The process is exactly the same for these three message exchanges as
-John used when he first sent the transaction to Tom. Lisa, Qi and
-Rashid will get an `inv` message from Tom.
+The process is the same for these three message exchanges as the one
+John used when he first sent the transaction to Tom (<<fig0814>>). Lisa,
+Qi, and Rashid will get an `inv` message from Tom.
 
-.Tom's node sends the transaction to Qi's node by using the familiar three-step process
-image::{imagedir}/tx-tom-qi.svg[{big-width}]
+[[fig0814]]
+.Tom’s node sends the transaction to Qi’s node using the familiar three-step process.
+image::{imagedir}/08-14.svg[{big-width}]
 
-When Lisa, Qi and Rashid has received the transaction, they too will
-inform their peers about the transaction after they have
-verified it. Qi's and Rashid's nodes are a bit slower so it takes them
-a while to verify the transaction, we will get back to them later.
-
+[.bigside]
 ****
-image::{imagedir}/2ndcol-lisa-sends-inv.svg[]
+image::{imagedir}/u08-01.svg[]
 ****
 
-Lisa was quick verifying the transaction so she will be the first of
-the three to relay it. She already knows that she received the
-transaction from Tom, so she will not inform Tom's node with an `inv`
-message. But Lisa doesn't know that Qi already has the transaction and
-she doesn't know if the cafe has it. So she will send an `inv` to
-those two nodes. The cafe's node will send back a `getdata`, because
-it has not yet seen this transaction. Qi's node already has this
-transaction and will not reply with anything. She will remember that
-Lisa has it, though.
+When Lisa, Qi, and Rashid have received the transaction, they too will
+inform their peers about it after they’ve verified it. Qi’s and Rashid’s
+nodes are a bit slower, so it takes them a while to verify the
+transaction; we’ll get back to them later.
 
-.Lisa's node sends an inv to Qi's node, but Qi's node already has the transaction
-image::{imagedir}/tx-lisa-qi.svg[{big-width}]
+Lisa was quick to verify the transaction, so she’ll be the first of the
+three to relay it. She already knows that she received the transaction
+from Tom, so she won’t inform Tom’s node with an `inv` message. But Lisa
+doesn’t know that Qi already has the transaction, and she doesn’t know
+if the cafe has it. She’ll send an `inv` to those two nodes. The cafe’s
+node will send back a `getdata` because it hasn’t yet seen this
+transaction. Qi’s node already has this transaction and won’t reply with
+anything (<<fig0815>>). She’ll remember that Lisa has it, though.
 
-Now Qi has just finished verifying the transaction. She knows that
-Lisa's node has this transaction, so she doesn't have to send and
-`inv` to Lisa's node. But she doesn't know if Rashid has it. So she
-sends an `inv` to Rashid's node.
+[[fig0815]]
+.Lisa’s node sends an inv to Qi’s node, but Qi’s node already has the transaction.
+image::{imagedir}/08-15.svg[{big-width}]
 
+[.bigside]
 ****
-image::{imagedir}/2ndcol-rashid-sends-inv.svg[]
+image::{imagedir}/u08-02.svg[]
 ****
 
-Rashid was the slowest node when verifying John's transaction so when
-it's time for him to send an `inv` to his neighbors, he has already
-received an `inv` from Qi's node. And he also knows from earlier that
-Tom already has the transaction. He will just send an `inv` to the
-cafe's node who will ignore the `inv`, because they already have the
+Qi has just finished verifying the transaction. She knows that Lisa’s
+node has it, so she doesn’t have to send an `inv` to Lisa’s node. But
+she doesn’t know if Rashid has it, so she sends an `inv` to Rashid’s
+node.
+
+Rashid’s was the slowest node when verifying John’s transaction, so when
+it’s time for him to send an `inv` to his neighbors, he’s already
+received an `inv` from Qi’s node. And he also knows from earlier that
+Tom already has the transaction. He’ll just send an `inv` to the cafe’s
+node, which will ignore the `inv` because it already has the
 transaction.
 
-==== Cafe's lightweight wallet is notified
+==== The cafe’s lightweight wallet is notified
 
-We said earlier that a good thing with letting transactions travel the
-peer to peer network is that the recipient wallet can get a very quick
-notification of the pending transaction. Now is the time to explore
-this.
+I said earlier that a good thing about letting transactions travel the
+peer-to-peer network is that the recipient wallet can get a quick
+notification of the pending transaction. Let’s explore this now.
 
-The cafe's full node has received the transaction and verified it. The
+The cafe’s full node has received the transaction and verified it. The
 cafe also has a lightweight wallet on a mobile phone that it uses to
-send and receive money. They are concerned with security, so they have
-configured their lightweight wallet to only connect to their own full
-node, their _trusted node_.
+send and receive money. The cafe is concerned with security, so it
+configured this lightweight wallet to connect only the cafe’s own full
+node, its _trusted node_ (<<fig0816>>).
 
-.The cafe's lightweight wallet has a TCP connection to their own full node
-image::{imagedir}/cafe-connected-to-node.svg[{half-width}]
+[[fig0816]]
+.The cafe’s lightweight wallet has a TCP connection to its own full node.
+image::{imagedir}/08-16.svg[{half-width}]
 
-This is a common setup that gives the cafe the full security of a full
-node combined with the flexibility and mobility of a lightweight
-wallet. We described this setup in
-<<security-of-lightweight-wallets>>.
+This common setup gives the cafe the complete security of a full node
+combined with the flexibility and mobility of a lightweight wallet. I
+described this setup in <<security-of-lightweight-wallets>>.
 
-The Cafe's full node has just verified Johns transaction. Now it
-want's to inform its neighbors about this new transaction. It is
-connected to Lisa's node, Rashid's node and the cafe's lightweight
-wallet. The full node already knows that Lisa's and Rashid's nodes
-have this transaction so it doesn't send an `inv` to those two
-nodes. The full node does not know that the wallet has the
-transaction, but it will not simply send an `inv` message to the
-wallet.
+The cafe’s full node has just verified John’s transaction. It now wants
+to inform its neighbors about this new transaction. It’s connected to
+Lisa’s node, Rashid’s node, and the cafe’s lightweight wallet. The full
+node already knows that Lisa’s and Rashid’s nodes have this transaction,
+so it doesn’t send an `inv` to those two nodes. The full node doesn’t
+know whether the wallet has the transaction, but it won’t immediately
+send an `inv` message to the wallet.
 
+[.biside]
 .Bloom filter
 ****
-image::{imagedir}/2ndcol-bloom-filter.svg[]
+image::{imagedir}/u08-03.svg[]
 ****
 
-The wallet is a lightweight wallet, which uses bloom filters described
-in <<bloom-filters-obfuscate-addresses>>. The full node will test the
-transaction against the bloom filter, and if it matches, an `inv`
-message will be sent to the wallet. If no match, it will not send an
+The wallet is a lightweight wallet, which uses bloom filters,
+described in <<bloom-filters-obfuscate-addresses>>. The full node will
+test the transaction against the bloom filter and, if it matches, send
+an `inv` message to the wallet. If there’s no match, it won’t send an
 `inv` message.
 
-John's transaction is actually for the cafe, so the bloom filter will
-match the transaction and the full node sends an `inv`. The wallet
-will request the actual transaction using `getdata`:
+John’s transaction is for the cafe, so the bloom filter will match the
+transaction, and the full node will send an `inv`. The wallet will
+request the actual transaction using `getdata`, as <<fig0817>> shows.
 
-.The cafe's wallet gets John's transaction from their trusted node after being checked against the bloom filter.
-image::{imagedir}/tx-cafenode-cafe.svg[{half-width}]
+[[fig0817]]
+.The cafe’s wallet gets John’s transaction from the cafe’s trusted node after the transaction is checked against the bloom filter.
+image::{imagedir}/08-17.svg[{half-width}]
 
 The wallet has now received the transaction. It can show a message to
-the cafe owner that a transaction is "pending". The cafe owner has a
-choice here: He can chose to trust that the transaction, a so-called
-0-conf transaction, will get confirmed eventually, or he can wait
-until the transaction is confirmed. If the cafe accepts the 0-conf
-transaction, it means that they trust that John has paid enough
-transaction fee and that it will not be double spent.
+the cafe owner that a transaction is pending. The cafe owner has a
+choice: trust that the transaction—a so-called _0-conf
+transaction_—will be confirmed eventually, or wait until the
+transaction is confirmed. If the cafe accepts the 0-conf transaction,
+then it trusts that John has paid a high enough transaction fee and that
+the transaction won’t be double spent.
 
-This time, the cafe decides that it needs to wait until the
-transaction is included in a valid block. This brings us to the next
-phase, including the transaction in a block in the blockchain.
+This time, the cafe decides that it needs to wait until the transaction
+is included in a valid block. This brings us to the next phase:
+including the transaction in a block in the blockchain.
 
 [[include-the-transaction-in-a-block]]
-==== Include the transaction in a block
+==== Including the transaction in a block
 
-Let's recall some of our miners in this system. At the end of
-<<mitigating-miner-centralization>> we had 10 different miners, but
-let's go back in time and pretend that Qi, Tom, Lisa and Rashid are
-the only miners in this system right now.
-
+[.bigside]
 ****
-image::{imagedir}/2ndcol-rashid-sends-inv.svg[]
+image::{imagedir}/u08-04.svg[]
 ****
 
-The transaction has reached all these miners during transaction
-propagation. John's wallet used to send the transaction via email to
-all miners. Now he just sends it to any of the full nodes, and the
-transaction will propagate across the whole peer to peer
-network. Miners can now chose to include Johns transaction in the
-blocks they are mining. Suppose that the transaction includes a nice
-transaction fee so that some or all miners are willing to include it
-and that Rashid is the next miner to find a valid proof of work for
-his block, which happens to contain John's transaction.
+Let’s recall some of the miners in this system. At the end of
+<<mitigating-miner-centralization>>, there were 10 different
+miners; but let’s go back in time and pretend Qi, Tom, Lisa, and Rashid
+are the only miners in this system right now.
 
-.Rashid's block containing John's transaction
-image::{imagedir}/2ndcol-rashids-block-valid.svg[{half-width}]
+The transaction reached all these miners during transaction propagation.
+John’s wallet used to send the transaction via email to all miners. Now,
+he sends it to any of the full nodes, and propagates across the entire
+peer-to-peer network. Miners can choose to include John’s transaction in
+the blocks they’re mining. Suppose the transaction includes a
+transaction fee so that some or all miners are willing to include it,
+and that Rashid is the next miner to find a valid proof of work for his
+block, which happens to contain John’s transaction (<<fig0818>>).
 
-Now Rashid wants to get his block to the other miners as quickly as
-possible to minimize the risk of some other miner getting a block out
-before Rashid's block.
+[[fig0818]]
+.Rashid’s block containing John’s transaction
+image::{imagedir}/08-18.svg[{half-width}]
+
+Rashid wants to get his block to the other miners as quickly as possible
+to minimize the risk of some other miner getting a block out before
+Rashid’s block.
 
 [.inbitcoin]
 .BIP130
 ****
-This process is defined in BIP130 that replaces an old block
-propagation mechanism that used `inv` messages.
+This process is defined in BIP130, which replaces an old
+block-propagation mechanism that used `inv` messages.
 ****
 
-He creates a `headers` message and sends it to all his peers: Tom,
-Cafe and Qi. Rashid's peers will send back a `getdata` message, and
+He creates a `headers` message and sends it to all his peers: Tom, the
+cafe, and Qi. Rashid’s peers will send back a `getdata` message, and
 Rashid will reply with the actual block. The message exchange between
-Rashid and Qi will look like this:
+Rashid and Qi will look like the one in <<fig0819>>.
 
-.Rashid's node sends Rashid's block to Qi's node
-image::{imagedir}/block-rashid-qi.svg[{half-width}]
+[[fig0819]]
+.Rashid’s node sends Rashid’s block to Qi’s node.
+image::{imagedir}/08-19.svg[{half-width}]
 
-The actual block is sent in a `block` message containing the full
-block.
-
+[.bigside]
 ****
-image::{imagedir}/2ndcol-rashid-sends-block.svg[]
+image::{imagedir}/u08-05.svg[]
 ****
 
-Let's continue the block propagation throughout the peer to peer
-network. Rashid has sent his block to Tom, Cafe and Qi. Now, those
-three nodes will verify the block and, if valid, send out `headers`
-messages to all their peers that might not already have it.
+The actual block is sent in a `block` message containing the full block.
 
-.All but Lisa has the block. Tom, Cafe and Qi send `headers` messages.
-image::{imagedir}/tom-cafe-qi-sends-headers.svg[{half-width}]
+Let’s continue the block propagation throughout the peer-to-peer
+network. Rashid has sent his block to Tom, the cafe, and Qi. Now, these
+three nodes will verify the block and, if it’s valid, send out `headers`
+messages to all their peers who might not already have it (<<fig0820>>).
 
-Qi and Tom happens to send their `headers` messages to each other at
-the same time. That's not a problem; since they both have the block,
-they will just ignore the `headers` received from peers. Lisa will
-request the block from one of her peers just like Qi requested the
-block from Rashid. This concludes the propagation of this
-block. Almost. The lightweight wallets need to be informed about the
-block.
+Qi and Tom happen to send their `headers` messages to each other at the
+same time. This isn’t a problem; because they both have the block,
+they’ll ignore the `headers` received from peers. Lisa will request the
+block from one of her peers just like Qi requested the block from
+Rashid.
 
-==== Notify wallets
+[[fig0820]]
+.All but Lisa have the block. Tom, the cafe, and Qi send `headers` messages.
+image::{imagedir}/08-20.svg[{big-width}]
 
-Tom's node is connected to John's wallet so Tom sends a `headers`
-message to John. Likewise, The cafe's full node sends a `headers` to
-the cafe's lightweight wallet. Tom's and the cafe's full nodes will
-not test the block against the bloom filters in any way. They will
-just send the `headers` unconditionally, but the lightweight wallets
-will not request the full blocks.
+This concludes the propagation of this block—almost. The lightweight
+wallets need to be informed about the block.
 
-As we recall from <<ch06>>, lightweight wallets don't download the
-full blocks. Most of the time John's wallet is only interested in the
-block headers so that they can verify the proof of work of the
-blockchain. However, every now and then there are transactions that
-are relevant to John's wallet in the blocks, and the wallet wants
-proof that those transactions are actually included in the block. In
-this particular block, Rashid's block, we have John's transaction as
-the fourth, and last, transaction of the block.
+==== Notifying wallets
 
-.Tom sends a `merkleblock` containing a merkle proof that John's transaction is in the block.
-image::{imagedir}/john-requests-merkleblock.svg[{big-width}]
+Tom’s node is connected to John’s wallet, so Tom sends a `headers`
+message to John. Likewise, the cafe’s full node sends a `headers`
+message to the cafe’s lightweight wallet. Tom’s and the cafe’s full
+nodes won’t test the block against the bloom filters in any way. They
+will send the `headers` message unconditionally, but the lightweight
+wallets won’t request the full blocks.
+
+As you might recall from <<ch06>>, lightweight wallets don’t download
+the full blocks. Most of the time, John’s wallet is only interested in
+the block headers so it can verify the blockchain’s proof of work. But
+every now and then, transactions that are relevant to John’s wallet
+are in the blocks, and the wallet wants proof that those transactions
+are included in the block. To find out if there are any relevant
+transactions, he sends a `getdata` message to Tom, requesting a
+`merkleblock` message for the block.
 
 John gets a `merkleblock` message containing the block header and a
-partial merkle tree connecting his transaction id to the merkle root
-in the block header. Here is a little repetition from <<ch06>>:
+partial merkle tree connecting his transaction ID (txid) to the merkle
+root in the block header (<<fig0821>>).
 
-.The merkleblock contains a block header and a partial merkle tree.
-image::{imagedir}/verify-merkle-proof.svg[{big-width}]
+[[fig0821]]
+.Tom sends a `merkleblock` containing a merkle proof that John’s transaction is in the block.
+image::{imagedir}/08-21.svg[{big-width}]
 
-John's wallet will verify that
+<<fig0822>> gives a little repetition from <<ch06>>.
 
-* the block header is correct and has a valid proof of work.
-* the merkle root in the header can be reconstructed using the partial
-  merkle tree.
-* The txid of John's transaction is included in the partial merkle
-  tree. He doesn't care about the irrelevant transaction that is used
-  to obfuscate what belongs to John.
+[[fig0822]]
+.The `merkleblock` message contains a block header and a partial merkle tree.
+image::{imagedir}/08-22.svg[{big-width}]
 
-John's wallet is now sure that his transaction is contained in the new
-block. The wallet can display a message to John saying "Your
-transaction has 1 confirmation".
+John’s wallet will verify that
 
-The cafe's lightweight wallet will also be notified in the same way:
+* The block header is correct and has a valid proof of work.
 
-.The cafe requests a `merkleblock` from their trusted full node
-image::{imagedir}/cafewallet-requests-merkleblock.svg[{big-width}]
+* The merkle root in the header can be reconstructed using the partial
+merkle tree.
 
+* The txid of John’s transaction is included in the partial merkle tree.
+He doesn’t care about the irrelevant transaction that’s used to
+obfuscate what belongs to John.
+
+[.bigside]
 ****
-image::{imagedir}/2ndcol-bloom-filter-tradeoff.svg[]
+image::{imagedir}/u08-06.svg[]
 ****
 
-Because the cafe's wallet uses a trusted node, privacy is not much of
-an issue. The wallet can use a really big bloom filter to reduce the
-amount of irrelevant transactions which in turn will reduce mobile
-data traffic. The sparser the bloom filter, the less extra obfuscation
+John’s wallet is now sure his transaction is contained in the new block.
+The wallet can display a message to John saying, “Your transaction has 1
+confirmation.”
+
+The cafe’s lightweight wallet will be notified the same way.
+
+Because the cafe’s wallet uses a trusted node, privacy isn’t much of an
+issue (<<fig0823>>). The wallet can use a big bloom filter to reduce the
+number of irrelevant transactions, which in turn will reduce mobile data
+traffic. The sparser the bloom filter, the less extra obfuscation +
 traffic will be sent to the wallet.
 
-The owner of the cafe feels comfortable handing over the cookie to
-John now. John eats his cookie. The deal is done.
+[[fig0823]]
+.The cafe requests a merkle block from its trusted full node.
+image::{imagedir}/08-23.svg[{big-width}]
+
+The cafe’s owner feels comfortable handing the cookie over to
+John now.  John eats his cookie. The deal is done.
 
 ==== More confirmations
 
-As time passes, more blocks will be mined by the miners. Those blocks
-will all propagate the network and end up on all full nodes. The
-lightweight wallets will get `merkleblock` versions to save bandwidth.
+As time passes, more blocks will be mined by the miners. These blocks
+will all propagate the network and end up on every full node. The
+lightweight wallets will get merkle blocks to save bandwidth.
 
-.As more blocks arrive, John's transaction becomes safer and safer
-image::{imagedir}/further-confirmations.svg[{big-width}]
+For each new block coming in, John’s transaction will be buried under
+more and more proof of work (<<fig0824>>). This makes John’s transaction
+harder and harder to double spend. For each new block, the transaction
+will get one more confirmation.
 
-For each new block coming in, John's transaction will be buried under
-more and more proof of work. This makes John's transaction harder and
-harder to double spend. For each new block the transaction will get
-one more confirmation.
+[[fig0824]]
+.As more blocks arrive, John’s transaction becomes safer and safer.
+image::{imagedir}/08-24.svg[{big-width}]
 
 === Leaving the cookie token system
 
-I don't think the cookie token system will help us understand Bitcoin
-any more. It's time to let go of the cookie tokens and start talking
-solely about Bitcoin from now on. We have developed the cookie token
-system to a point where there are no differences from Bitcoin. Look at
-our concept mapping table
+I don’t think the cookie token system will add any more to your
+understanding of Bitcoin. It’s time to let go of the cookie tokens and
+start talking solely about Bitcoin. We’ve developed the cookie token
+system to a point where there are no differences from
+Bitcoin. <<tab0801>> shows the concept mapping table.
 
+[[tab0801]]
 [%autowidth]
-.The shared folder is ditched in favor of a peer to peer network
+.The shared folder is ditched in favor of a peer-to-peer network.
 |===
-| Cookie Tokens | Bitcoin | Covered in
+| Cookie tokens | Bitcoin | Covered in
 
 | 1 cookie token | 1 bitcoin | <<ch02>>
 | *[.line-through]#The shared folder#* | *[.line-through]#The Bitcoin network#* | *[.line-through]#<<ch08>>#*
 |===
 
 The last cookie token concept that differs from Bitcoin, the shared
-folder, has been eliminated. Let's have a look at how it all happened.
+folder, has been eliminated. Let’s look at how it all happened, in
+<<fig0825>>.
 
-.The cookie token system evolution.
-image::{imagedir}/cookie-token-evolution.svg[{full-width}]
+We’ll keep our friends at the office a while longer. John will probably
+have to buy a few more cookies, but he’ll use Bitcoin to do it.
 
-We will keep our friends at the office a while longer. John will
-probably have to buy a few more cookies, but he will use Bitcoin to
-do it.
+[[fig0825]]
+.The cookie token system’s evolution
+image::{imagedir}/08-25.svg[{full-width}]
 
 [[bitcoin-at-a-glance]]
 ==== Bitcoin at a glance
 
-The Bitcoin peer to peer network is huge. As of writing:
+The Bitcoin peer-to-peer network is huge. As of this writing:
 
 [.movingtarget]
-* There are about 10,000 publicly accessible full nodes. 
-* Bitcoin's money supply is about 17,100,000 BTC.
-* Each bitcoin is worth around $6,500
-* 250,000 transaction per day
-* An estimate of 100,000 BTC, value $630M, being moved daily
-* Total mining hashrate is about 50 Ehash/s, 50*10^18^ hash/s. A
-  typical desktop computer can do about 25 Mhash/s.
-* Transaction fees paid each day totals around 17 BTC. Which averages
-  6,800 satoshis per transaction, or 40 cents.
-* People in all corners of the world use Bitcoin to get around
-problems in their day-to-day life.
+* There are about 10,000 publicly accessible full nodes.
 
-Moving on.
+* Bitcoin’s money supply is about 17,400,000 BTC.
 
-=== Where were we
+* Each bitcoin is worth around $6,500.
 
-****
-image::{commonimagedir}/periscope.gif[]
-****
+* Bitcoin processes about 250,000 transactions per day.
 
-This chapter is about Bitcoin's peer to peer network. The first half
-of the chapter described the network in action after it has been
-set up, as illustrated by this picture from <<ch01>>:
+* An estimate of 100,000 BTC, valued at $630 million, is moved daily.
 
+* The total mining hashrate is about 50 Ehash/s, or 50 × 10^18^ hash/s. +
+A typical desktop computer can do about 25 Mhash/s.
+
+* The transaction fees paid each day total around 17 BTC. This averages to
+6,800 satoshis per transaction, or about $0.40 per transaction.
+
+* People in all corners of the world use Bitcoin to get around problems in
+their day-to-day lives.
+
+[.periscope]
+=== Where were we?
+
+This chapter is about Bitcoin’s peer-to-peer network. The first half of
+the chapter described the network in action after it’s been set up, as
+illustrated by <<fig0826>>, repeated from <<ch01>>.
+
+[[fig0826]]
 .The Bitcoin network distributes blocks (and transactions) to all participants.
-image::{imagedir}/periscope-bitcoin-network.svg[{quart-width}]
+image::{imagedir}/08-26.svg[{half-width}]
 
 The second half of this chapter will look at how a new node joins the
 network.
@@ -599,126 +628,132 @@ network.
 [[bootstrapping-the-network]]
 === Bootstrapping the network
 
-The scenario in <<the-network-protocol>> assumed that all nodes
-involved were already connected to each other. But how does a new node
-start? How would it find other nodes to connect to? How would it
-download the full blockchain from the genesis block, block 0, and up
-to the latest block? How does it know what the latest block is?
+The scenario in <<the-network-protocol>> assumed that all nodes involved
+were already connected to each other. But how does a new node start? How
+would it find other nodes to connect to? How would it download the full
+blockchain from the genesis block, block 0, up to the latest block? How
+does it know what the latest block is?
 
-Let's sort it out.
+Let’s sort it out.
 
-Suppose that Selma wants to start her own full node. This is how it
-would typically happen:
+Suppose Selma wants to start her own full node. This is how it would
+typically happen (<<fig0827>>):
 
-.Running a full node involves, downloading and running the software, connect to other nodes, download old blocks and enter normal operation
-image::{imagedir}/running-a-full-node.svg[{full-width}]
+1. Selma downloads, verifies, and starts the full node computer program.
 
-1. Selma downloads, verifies and starts the full node computer program
-2. The computer program connects to some nodes
-3. Selma's node downloads blocks from her peers
-4. Selma's node enters normal mode of operation
+2. The computer program connects to some nodes.
+
+3. Selma’s node downloads blocks from her peers.
+
+4. Selma’s node enters a normal mode of operation.
+
+[[fig0827]]
+.Running a full node involves downloading and running the software, connecting to other nodes, downloading old blocks, and entering normal operation.
+image::{imagedir}/08-27.svg[{full-width}]
 
 [[step-1]]
-==== Step 1 - Run the software
+==== Step 1—Run the software
 
+[.bigside]
 ****
-image::{imagedir}/step-1-run-software.svg[]
+image::{imagedir}/u08-08.svg[]
 ****
 
 Selma needs a computer program to run a full node. The most commonly
-used such program is _Bitcoin Core_. There are several others, for
-example libbitcoin, bcoin, Bitcoinj and btcd. We will only focus on
-Bitcoin Core, but you are encouraged to explore the others yourself.
+used such program is Bitcoin Core. Several others are available, such as
+libbitcoin, bcoin, bitcoinj, and btcd. We’ll focus only on Bitcoin Core,
+but you’re encouraged to explore the others yourself.
 
-To download Bitcoin Core, Selma visits their main web page,
-bitcoincore.org, and finds a download a link there. But there is a
-potential problem: Selma isn't sure that the program she downloads is
-actually the version that the developers behind Bitcoin Core
-released. Someone could have fooled Selma to download the program from
-bitconcore.org instead of bitcoincore.org, or someone might have
+To download Bitcoin Core, Selma visits its web page,
+https://bitcoincore.org, and finds a download link there. But she
+encounters a potential problem: Selma isn’t sure the program she
+downloads is actually the version the developers behind Bitcoin Core
+released. Someone could have fooled Selma into downloading the program
+from bitconcore.org instead of bitcoincore.org, or someone might have
 hacked bitcoincore.org and replaced the downloadable files with
 alternative programs.
 
-The Bitcoin Core team therefore signs all released versions of their
-program with a private key, let's call it the Bitcoin Core key. They
-provide the signatures in a downloadable file, usually named
-`SHA256SUMS.asc`. This file contains the hash value of the released
+The Bitcoin Core team therefore signs all released versions of the
+program with a private key—let’s call it the _Bitcoin Core
+key_. They provide the signature in a downloadable file, named
+SHA256SUMS.asc. This file contains the hash value of the released
 Bitcoin Core software and a signature that signs the contents of the
-`SHA256SUMS.asc` file:
+SHA256SUMS.asc file (<<fig0828>>).
 
-.The Bitcoin Core team signs the released program with their private key
-image::{imagedir}/core-signs-program.svg[{big-width}]
+[[fig0828]]
+.The Bitcoin Core team signs the released program with their private key.
+image::{imagedir}/08-28.svg[{big-width}]
 
-Selma has downloaded both the program itself, in a file called
-`bitcoin-0.17.0-x86_64-linux-gnu.tar.gz` and the signature file called
-`SHA256SUMS.asc`. In order to verify that the program is in fact
-signed by the Bitcoin Core private key, she needs to know the
-corresponding public key. But how can she know what this key is?
+Selma has downloaded both the program, in a file called
+bitcoin-0.17.0-x86_64-linux-gnu.tar.gz, and the signature file,
+SHA256SUMS.asc. To verify that the program is in fact signed by the
+Bitcoin Core private key, she needs to know the corresponding public
+key. But how can she know what this key is?
 
-This is a hard problem. Remember when Lisa used to sign blocks with
-her private key? How would the full nodes verify that the blocks are
-actually signed by Lisa? They used multiple sources to fetch Lisa's
-public key, for example the bulletin board at the entrance of the
-office, the company's intranet, and asking colleagues. The same
-applies here; You shouldn't trust a single source, but use at least
-two different sources. The key that currently is being used to sign
-Bitcoin Core releases is named
+This is a hard problem. Remember when Lisa used to sign blocks with her
+private key? How would the full nodes verify that the blocks were
+actually signed by Lisa? They used multiple sources to fetch Lisa’s
+public key—for example, looking at the bulletin board at the entrance of
+the office, checking the company’s intranet, and asking colleagues. The
+same applies here; you shouldn’t trust a single source, but should use
+at least two different sources. The key that’s currently being used to
+sign Bitcoin Core releases is named
 
  Wladimir J. van der Laan (Bitcoin Core binary release signing key) <laanwj@gmail.com>
 
-and has the _fingerprint_, 160 bit SHA1 hash of the key:
+and has the following 160-bit SHA1 hash, called _fingerprint_:
 
  01EA 5486 DE18 A882 D4C2  6845 90C8 019E 36C2 E964
 
-This book can serve as _one_ of Selma's sources. She decides to
+This book can serve as _one_ of Selma’s sources. She decides to
 
-* get the fingerprint of the key from https://bitcoincore.org.
-* verify the fingerprint with the Grokking Bitcoin book.
-* verify the fingerprint with a fiend.
-* download the actual key from a _key server_.
+* Get the fingerprint of the key from https://bitcoincore.org.
+
+* Verify the fingerprint with the _Grokking Bitcoin_ book.
+
+* Verify the fingerprint with a friend.
 
 [.gbinfo]
 .Where to get the key
 ****
-It doesn't really matter where you get the actual public key from, but
-it's important to verify that the fingerprint of the public key is
-what you expect.
+It doesn’t really matter where you get the actual public key, but it’s
+important to verify that its fingerprint is what you expect.
 ****
 
-The fingerprints she got from the three sources match, so she
-downloads the public key from a key server. A key server is a computer
-on the Internet that provides a repository of keys. Key servers are
-commonly used to download keys identified by the key's
-fingerprint. Selma doesn't trust the key server so she needs to verify
-that the fingerprint of the downloaded key actually matches the
-expected fingerprint, which it does.
+The fingerprints from the three sources match, so Selma downloads the
+public key from a _key server_. A key server is a computer on the
+internet that provides a repository of keys. Key servers are commonly
+used to download keys identified by the key’s fingerprint. Selma doesn’t
+trust the key server, so she needs to verify that the fingerprint of the
+downloaded key matches the expected fingerprint, which it does.
 
-Now when she has the Bitcoin Core public key, she can verify the
-signature of the `SHA256SUMS.asc` file.
-
-.Selma verifies the Bitcoin Core signature and that the hash in the signature file matches the hash of the actual program.
-image::{imagedir}/selma-verifies-program.svg[{big-width}]
+Now, when she has the Bitcoin Core public key, she can verify the
+signature of the SHA256SUMS.asc file (<<fig0829>>).
 
 She uses the Bitcoin Core public key to verify the signature in the
 signature file. She must also verify that the program has the same
-hash-value as stated in `SHA256SUMS.asc`. The signature is valid and
-the hashes match, which means that she can be sure that the software
-she is about to run is authentic.
+hash value as stated in SHA256SUMS.asc. The signature is valid, and
+the hashes match, which means Selma can be sure the software she’s
+about to run is authentic.
+
+[[fig0829]]
+. Selma verifies the Bitcoin Core signature and that the hash in the signature file matches the hash of the actual program.
+image::{imagedir}/08-29.svg[{big-width}]
 
 Selma starts the program on her computer.
 
-==== Step 2 - Connect to nodes
+==== Step 2—Connect to nodes
 
 ****
-image::{imagedir}/step-2-connect.svg[]
+image::{imagedir}/u08-09.svg[]
 ****
 
-When Selma's full node program starts, it is not connected to any
-other nodes. She's not part of the Bitcoin network yet. In this step
-the node will try to find peers to connect to.
+When Selma’s full node program starts, it isn’t connected to any other
+nodes. She’s not part of the Bitcoin network yet. In this step, the node
+will try to find peers to connect to.
 
 To connect to a peer, the full node needs the IP address and the TCP
-port for that peer, for example
+port for that peer. For example:
 
  IP: 142.12.233.96 port: 8333
 
@@ -728,424 +763,434 @@ An IP address and port are often written as
 
 ===== Finding initial peers
 
-Where does Selma's node find initial addresses of other peers? There are
-several sources available:
+Where does Selma’s node find initial addresses of other peers? Several
+sources are available (<<fig0830>>):
 
-.Selma's full node has three different types of sources to find initial peers
-image::{imagedir}/initial-peer-addresses.svg[{big-width}]
+* Configure the full node with custom peer addresses. Selma can get an
+address by asking a friend who’s running a full node.
 
-1. Configure the full node with custom peer addresses. Selma can get
-an address by asking a friend who's running a full node.
-2. Use the Domain Name System, DNS, to lookup initial peer addresses
-   to connect to.
-3. Use "hard coded" peer addresses in the full node program itself.
+* Use the Domain Name System (DNS) to look up initial peer addresses to
+connect to.
+
+* Use hardcoded peer addresses in the full node program.
+
+[[fig0830]]
+.Selma’s full node has three different types of sources to find initial peers.
+image::{imagedir}/08-30.svg[{big-width}]
 
 [role="important"]
-Selma's node should not initially connect to just one
-single node. If that single node is malicious, you have no way of
-knowing it. If you connect to multiple nodes initially, you can verify
-that they all send data consistent with each other. If not, one or
-more nodes are deliberately lying to you or they have themselves been
-fooled.
 
-The preferred way to find initial node addresses is to look them up in
-the DNS system. DNS is a global name lookup system, used to lookup IP
+Selma’s node shouldn’t initially connect to just one node. If that
+single node is malicious, she’d have no way of knowing it. If you
+connect to multiple nodes initially, you can verify that they all send
+data consistent with each other. If not, one or more nodes are
+deliberately lying to you, or they themselves have been fooled.
+
+The default way of finding initial node addresses is to look them up in
+the DNS system. DNS is a global name lookup system, used to look up IP
 numbers from computer names. For example, when you visit
-`https://bitcoin.org` with your web browser, it will use DNS to lookup
-the IP number of the name `bitcoin.org`. The Bitcoin Core software does
-the same. The names to lookup are hard coded into Bitcoin Core, just
-like the hard coded IP addresses and ports. There are several DNS
-seeds coded into the software. A lookup of a DNS seed can return
-several IP addresses on each lookup and every new lookup may return a
-different set of IP addresses. The last, third, option is used as a
-last resort.
+https://bitcoin.org with your web browser, it will use DNS to look up
+the IP number of the name bitcoin.org. The Bitcoin Core software does
+the same. Names to look up are hardcoded into Bitcoin Core, just like
+the hardcoded IP addresses and ports. Several DNS seeds are coded into
+the software. A lookup of a DNS seed can return several IP addresses,
+and every new lookup might return a different set of IP addresses. The
+final, third option is used as a last resort.
 
-Note from the picture above that the DNS lookups do not return a port
-number. The other two methods of finding initial peers usually include
-a port number. The DNS response can only return IP addresses, so the
-nodes on these IP addresses are assumed to listen on the default port
-that Bitcoin Core listens on, which is `8333`.
+Note from <<fig0830>> that DNS lookups don’t return port numbers. The
+other two methods of finding initial peers usually include one, but
+the DNS response can return only IP addresses. The nodes on these IP
+addresses are assumed to listen on the default port that Bitcoin Core
+listens on, which is 8333.
 
 ===== Handshaking
 
+[.bigside]
 ****
-image::{imagedir}/initial-connection-simple.svg[]
+image::{imagedir}/u08-10.svg[]
 ****
 
-Suppose that Selma's node chooses to connect to Qi's node,
-`1.234.63.203:4567`, and to `47.196.31.246:8333`. She sets up a TCP
-connection to each of the two nodes and sends an initial message to
-both of them on the new TCP connections. Let's look at how she talks
-to Qi's node.
+Suppose Selma’s node chooses to connect to Qi’s node, 1.234.63.203:4567,
+and to Rashid’s node, 47.196.31.246:8333. Selma sets up a TCP connection
+to each of the two nodes and sends an initial message to both of them on
+the new TCP connections. Let’s look at how she talks to Qi’s node
+(<<fig0831>>).
 
-.Selma exchanges `version` message with Qi.
-image::{imagedir}/version-selma-qi.svg[{big-width}]
+[[fig0831]]
+.Selma exchanges a `version` message with Qi.
+image::{imagedir}/08-31.svg[{big-width}]
 
-The exchange, called a _handshake_, starts with Selma who sends a
-`version` message to Qi. The handshake is used to agree on a protocol
-version to use and tell each other what block heights they have. The
-`version` message contains a lot of information not shown in the
-figure, but the most essential stuff is there:
+The exchange, called a _handshake_, starts with Selma, who sends a
+`version` message to Qi. The handshake is used to agree on which
+protocol version to use and tell each other what block heights they
+have. The `version` message contains a lot of information not shown in
+the figure, but the most essential stuff is there:
 
-Protocol version:: The version of the network protocol, or "language",
+Protocol version:: The version of the network protocol, or “language,”
 that peers use to talk to each other. Selma and Qi will use version
-70012 because that's the highest version Qi will understand. Selma
-knows all protocol versions up to her own version.
-User agent:: This is shown as Software "identification" in the figure
-because "User agent" is a bit of a cryptic word. It is used to hint
-the other node what software you are running, but it can be anything.
-height:: This is the height of the tip of the best chain that the
-node has. This is used later in the synchronization step.
+70012 because that’s the highest version Qi will understand. Selma knows
+all protocol versions up to her own.
 
-Some other useful information of the `version` message is
+User agent:: This is shown as “software identification” in the figure
+because “user agent” is a bit cryptic. It’s used to hint to the other
+node what software you’re running, but it can be anything.
 
-Services:: A list of features that this node supports. For example
-bloom filtering used by lightweight clients.
+Height:: This is the height of the tip of the best chain the node has.
+
+Other useful information in the `version` message includes
+
+Services:: A list of features this node supports, such as bloom
+filtering used by lightweight clients.
+
 My address:: The IP address and port of the node sending the `version`
-message. Without it Qi wouldn't know what address to connect to if she
-restarts and wants to reconnect to Selma's node.
+message. Without it, Qi wouldn’t know what address to connect to if she
+restarts and wants to reconnect to Selma’s node.
 
-When Qi's node receives Selma's `version` message, she will reply with
-her own `version` message. She will also send a `verack` message
-immediately after the `version` message. The `verack` doesn't contain
-any information, it is used to acknowledge to Selma that Qi has
+When Qi’s node receives Selma’s `version` message, Qi will reply with
+her own `version` message. She’ll also send a `verack` message
+immediately after the `version` message. The `verack` doesn’t contain
+any information; rather, it’s used to acknowledge to Selma that Qi has
 received the `version` message.
 
-As soon as Selma's node receives Qi's `version` message, it will reply
-with a `verack` message back to Qi's node. The handshake is done. She
-does the same procedure with Rashid's node as well.
+As soon as Selma’s node receives Qi’s `version` message, it will reply
+with a `verack` message back to Qi’s node. The handshake is done. Selma
+also goes through the same procedure with Rashid’s node.
 
-===== Finding peers' peers
+===== Finding peers’ peers
 
-When Selma's node is connected to Rashid's node it will ask that node
-for other peer addresses to connect to. That way Selma will be able to
-expand her set of peers.
+When Selma’s node is connected to Rashid’s node, it will ask that node
+for other peer addresses to connect to. This way, Selma will be able to
+expand her set of peers (<<fig0832>>).
 
+[[fig0832]]
 .Selma asks her peers for more peer addresses to connect to.
-image::{imagedir}/selma-finds-more-peers.svg[{big-width}]
+image::{imagedir}/08-32.svg[{big-width}]
 
-Selma is only connected to two peers, Qi's node and Rashid's node. But
-she thinks that she needs more nodes to connect to. Being connected to
-only two nodes has some implications:
+Selma is only connected to two peers: Qi’s node and Rashid’s node. But
+she thinks she needs more nodes to connect to. Being connected to only
+two nodes has some implications:
 
 * Qi and Rashid can collude to hide transactions and blocks from Selma.
-* Qi's node could break and Selma is left with only Rashid's
-  node. Then Rashid can single handedly hide information from Selma.
-* Both Qi's and Rashid's node could break in which case Selma is
-  completely disconnected from the network until she connects to some
-  other nodes via the initial peer lookup mechanisms.
 
-This is how Selma asks Rashid for more peer addresses to connect to:
+* Qi’s node may break, leaving Selma with only Rashid’s node. Rashid can
+then singlehandedly hide information from Selma.
 
-.Selma requests more peer addresses from Rashid's node. He responds with a bunch.
-image::{imagedir}/addr-selma-rashid.svg[{big-width}]
+* Both Qi’s and Rashid’s nodes may break, in which case Selma will be
+completely disconnected from the network until she connects to some
+other nodes via the initial peer-lookup mechanisms.
+
+<<fig0833>> shows how Selma asks Rashid for more peer addresses to
+connect to.
+
+[[fig0833]]
+.Selma requests more peer addresses from Rashid’s node. He responds with a bunch.
+image::{imagedir}/08-33.svg[{big-width}]
 
 [.gbinfo]
 .Initial nodes
 ****
-Nodes disconnect from initial nodes (except manually configured nodes)
-after getting an `addr` message, to avoid overloading them. They are
+After getting an `addr` message, nodes disconnect from initial nodes
+(except manually configured ones) to avoid overloading them. They’re
 initial nodes for many other nodes.
 ****
 
-Selma sends a `getaddr` message to a peer, Rashid's node. Rashid
-responds with a set of IP addresses and TCP ports that Selma can use
-to connect to more peers. Rashid chooses what addresses to send to
-Selma, but it's usually the addresses that Rashid is already connected
-to, and possibly some addresses that Rashid collected from his peers
-but didn't use himself.
+Selma sends a `getaddr` message to a peer, Rashid’s node. Rashid
+responds with a set of IP addresses and TCP ports that Selma can use to
+connect to more peers. Rashid chooses which addresses to send to Selma,
+but it’s usually the addresses to which Rashid is already connected and
+possibly some that Rashid collected from his peers but didn’t use
+himself.
 
 Selma will connect to any number of the received addresses to increase
-her _connectivity_. The more peers you are connected to, the better
+her _connectivity_. The more peers you’re connected to, the better
 your connectivity. A high degree of connectivity decreases the risk of
 missing out on information due to misbehaving peers. Also, information
-propagates quicker if nodes have higher connectivity. A typical full
-node in Bitcoin has about 100 active connections at the same
-time. Only eight (by default) of those are so-called outbound
-connections, which means that the connections are initiated by that
-node. The rest are in-bound connection, initiated by other nodes. As a
-consequence, a full node that is not reachable on port 8333 from the
-Internet, for example due to a firewall, will not get more than eight
-connections in total.
+propagates more quickly if nodes have higher connectivity. A typical
+full node in Bitcoin has about 100 active connections at the same
+time.  Only eight (by default) of those are _outbound connections_,
+meaning connections initiated by that node. The rest are _inbound
+connections_ initiated by other nodes. Consequently, a full node that
+isn’t reachable on port 8333 from the internet—for example, due to a
+firewall—won’t get more than eight connections in total.
 
-==== Step 3 - Synchronize
+==== Step 3—Synchronize
 
 ****
-image::{imagedir}/2ndcol-sync.svg[]
+image::{imagedir}/u08-11.svg[]
 ****
 
-Now that Selma is well connected to, and part of, the Bitcoin network,
-it's time for her to download and verify the full blockchain up to the
-very latest block available. This process is called _synchronization_,
+Now that Selma is well-connected to, and part of, the Bitcoin network,
+it’s time for her to download and verify the full blockchain up to the
+latest block available. This process is called _synchronization_,
 _sync_, or _initial blockchain download_.
 
-Remember in step 2, when Selma received a `version` message from Qi's
-node that stated `height=545104`? Selma will use that information now
-to determine where to fetch historic blocks from.
+Selma has only a single block: the genesis block. The genesis block is
+hardcoded in the Bitcoin Core software, so all nodes have this block
+when they start.
 
-Selma only has a single block, namely the genesis block. The genesis
-block is hard coded in the Bitcoin Core software, so all nodes have
-this block already when they start. Now she needs to download old
-blocks from other nodes. These are the claimed heights of Selma's
-peers:
-
-|===
-| Node | Height
-
-| Qi | 545104
-| Rashid | 545104
-| Cafe | 545105
-| Tom | 545105
-|===
-
-Selma wants all those blocks. She needs to download them all from her
-peers and verify them before being able to verify newly created
-blocks. This is because she has no idea of what the current UTXO set
-looks like. To build the current UTXO set, she needs to start with an
-empty UTXO set and go through all historic blocks from block 0, and
+She needs to download all historic blocks from her peers and verify
+them before she can verify newly created blocks. This is because she
+has no idea what the current unspent transaction output (UTXO) set
+looks like.  To build the current UTXO set, she needs to start with an
+empty UTXO set, go through all historic blocks from block 0, and
 update the UTXO set with the information in the transactions in the
 blocks.
 
 The process is as follows:
 
-1. Download all historic block headers from one peer and verify the
-proof-of-work
+1. Download all historic block headers from one peer, and verify the
+proof of work.
+
 2. Download all blocks on the strongest chain from multiple peers in
 parallel.
 
 Selma selects one of her peers, Tom, to download all block headers
-from. This is how Selma's node downloads the block headers from Tom's
-node:
+from.  <<fig0834>> shows how Selma’s node downloads the block headers
+from Tom’s node.
 
 [.gbinfo]
 .Simplified
 ****
-The `getheaders` message actually contains a list of some block ids
-from Selma's blockchain, so that Tom can find a common block that they
-both have in case Tom doesn't have Selma's tip. Let's not bother with
-that.
+The `getheaders` message contains a list of some block IDs from Selma’s
+blockchain so that Tom can find a common block they both have in case
+Tom doesn’t have Selma’s tip. Let’s not bother with that.
 ****
 
-.Selma downloads block headers from Tom by repeatedly sending a `getheaders` message with her latest block id.
-image::{imagedir}/getheaders-selma-tom.svg[{big-width}]
+She sends a `getheaders` message containing Selma’s latest block ID,
+which happens to be the genesis block, block 0. Tom sends back a list of
+2,000 block headers; each block header is 80 bytes. Selma verifies each
+header’s proof of work and requests a new batch of headers from Tom.
+This process continues until Selma receives a batch of fewer than 2,000
+headers from Tom, which is a signal that he has no more headers to give
+her.
 
-She sends a `getheaders` message containing Selma's latest block id,
-which happens to be the genesis block, block `0`. Tom sends back a
-list of 2000 block headers, each block header is 80 bytes. Selma
-verifies the proof of work of each header and requests a new batch of
-headers from Tom. This process continues until Selma receives a batch
-of less than 2000 headers from Tom, which is a signal that Tom has no
-more headers to give Selma.
+[[fig0834]]
+.Selma downloads block headers from Tom by repeatedly sending a `getheaders` message with her latest block ID.
+image::{imagedir}/08-34.svg[{big-width}]
+
 
 // TODO: Mention below that Selma doesn't wait for all headers, but for headers with
 // enough total PoW before starting download.
 
-When Selma has received all headers from Tom, she determines what
+When Selma has received all the headers from Tom, she determines which
 branch is the strongest and starts downloading actual block data
 belonging to that branch from her peers. She can download block data
-from multiple peers at the same time to speed things up. This is her
-communication with Rashid's node:
+from multiple peers at the same time to speed things up. <<fig0835>>
+shows her communication with Rashid’s node.
 
 [.inbitcoin]
 .Bigger batches
 ****
-In this example Selma requests three blocks at a time, but in reality,
-Bitcoin Core would request a list of at most 16 block per batch.
+In this example, Selma requests 3 blocks at a time, but in reality,
+Bitcoin Core would request a list of at most 16 blocks per batch.
 ****
 
-.Selma downloads blocks from Tom by repeatedly sending a `getblocks` message with her latest block id.
-image::{imagedir}/getblocks-selma-rashid.svg[{big-width}]
+It starts with Selma, who sends a `getdata` message to Rashid. This
+message specifies which blocks she wants to download from Rashid, who
+sends back the requested blocks in `block` messages, one by one. Note
+that Selma downloads only some of the blocks from Rashid. She also
+downloads blocks from Tom in parallel, which is why there are gaps in
+the sequence of requested blocks. The process repeats until Selma
+doesn’t want any more blocks from Rashid.
+
+[[fig0835]]
+.Selma downloads blocks from Rashid by repeatedly sending a `getdata` message with a list block IDs she wants the blocks for.
+image::{imagedir}/08-35.svg[{big-width}]
 
 [.gbinfo]
 .Initial download
 ****
 [.movingtarget]
 
-Initial blockchain download, about 200 GB as of writing, takes several
-hours, even days, depending on the performance of your hardware and
-Internet speed.
+The initial blockchain download, about 210 GB as of this writing, takes
+several hours, even days, depending on your hardware performance and
+internet speed.
 ****
 
-It starts with Selma who sends a `getdata` message to Rashid. This
-message specifies what blocks she wants to download from
-Rashid. Rashid sends back the requested blocks in `block` messages,
-one by one. Note that she downloads only part of the blocks from
-Rashid. She also downloads blocks from Tom in parallel, which is why
-there are gaps in the sequence of requested block. The process is
-repeated until Selma doesn't want any more blocks from Rashid.
+As Selma downloads blocks, Rashid will probably receive more fresh
+blocks from his peers. Suppose he has received a new block by the time
+Selma has received the first 100 blocks from Rashid. Rashid will then
+send out a `headers` message to his peers, including Selma, as
+described in <<include-the-transaction-in-a-block>>. This way, Selma
+will be aware of all new blocks appearing during her initial
+synchronization and can later request them from any peer.
 
-At the time Selma has downloaded all blocks up to height 545105,
-Rashid has probably received more fresh blocks from his peers. Suppose
-that he has received block `545105` by the time Selma has received the
-first 100 blocks from Rashid. Rashid would then send out a `headers`
-message to his peers, including Selma, as described in
-<<include-the-transaction-in-a-block>>. That way, Selma will be aware
-of all new blocks appearing during her initial synchronization and can
-later request them from any peer.
-
-As Selma receives blocks, she verifies them, updates her UTXO set and
+As Selma receives blocks, she verifies them, updates her UTXO set, and
 adds them to her own blockchain. 
 
 [[validating-early-blocks]]
-===== Validating early blocks
+===== Verifying early blocks
 
-The most time consuming part of verifying a block is verifying the
-transaction signatures. If you know of any block id that is part of a
+The most time-consuming part of verifying a block is verifying the
+transaction signatures. If you know of any block ID that’s part of a
 valid blockchain, you can skip verifying the signatures of all blocks
-prior to and including this block. This will greatly speed up the
-initial blockchain download up to that block:
+prior to and including this block (<<fig0836>>). This will greatly speed
+up the initial blockchain download up to that block.
 
-.Signatures of reasonably old transactions will not be verified to speed up initial block download
-image::{imagedir}/skip-sigvalidation-of-early-blocks.svg[{big-width}]
+[[fig0836]]
+.To speed up initial block download, signatures of reasonably old transactions won’t be verified.
+image::{imagedir}/08-36.svg[{big-width}]
 
-Of course, other stuff like verifying that no double spends occur, or
-that the block rewards are correct is still done. The syncing node
-must build its own UTXO set, so it still has to go through all
-transactions to be able to update the UTXO set accordingly.
+Of course, other stuff, like verifying that no double spends occur or
+that the block rewards are correct, is still done. The syncing node must
+build its own UTXO set, so it must still go through all transactions to
+be able to update the UTXO set accordingly.
 
-Bitcoin Core ships with a preconfigured hard coded block id of a block
-a number of weeks back from release date in the blockchain. For
-Bitcoin Core 0.17.0, that block is
+Bitcoin Core ships with a preconfigured, block ID of a block from some
+weeks back from the release date. For Bitcoin Core 0.17.0, that block is
 
  height: 534292
  hash: 0000000000000000002e63058c023a9a1de233554f28c7b21380b6c9003f36a8
 
-Which is about 10,000 blocks back in the blockchain at release
-date. This is of course a configuration parameter and the above block
+This is about 10,000 blocks back in the blockchain at release date. This
+is, of course, a configuration parameter, and the aforementioned block
 is just a default reasonable value. Selma could have changed this when
 starting her node, or she could have verified with friends and other
-sources she trusts that this block is in fact representing a "all
-valid transactions blockchain". She could also have disabled the
-feature completely to verify all transaction signatures since block 0.
+sources she trusts that this block is in fact representing an “all valid
+transactions blockchain.” She could also have disabled the feature to
+verify all transaction signatures since block 0.
 
-After a long while, she is finally on the same page as the other
-nodes. and ready to enter normal mode of operation.
+After a while, Selma is finally on the same page as the other nodes and
+ready to enter the normal mode of operation.
 
-==== Step 4 - Normal operation
+==== Step 4—Normal operation
 
-This step is easy, because we have already described it in
-<<the-network-protocol>>. Selma enters normal mode of operation. From
-now on she will participate in block propagation, transaction
-propagation and verify every transaction and block coming in.
+This step is easy because we already discussed it in
+<<the-network-protocol>>. Selma enters the normal mode of
+operation. From now on, she’ll participate in block propagation and
+transaction propagation, and verify every transaction and block coming
+in (<<fig0837>>).
 
-.Selma is finally an active part of the Bitcoin peer to peer network
-image::{imagedir}/selma-full-blown-node.svg[{half-width}]
+Selma is now running a full-blown full node.
 
-Selma is now running a full blown full node.
+[[fig0837]]
+.Selma is finally an active part of the Bitcoin peer-to-peer network.
+image::{imagedir}/08-37.svg[{half-width}]
 
 [[run-your-own-full-node]]
-=== Run your own full node
+=== Running your own full node
 
-.On-line instructions
+.Online instructions
 ****
-More detailed instructions for all major operating systems are
-available at <<web-install>>.
+More detailed instructions for all major OSs are available at
+<<web-install>>.
 ****
 
 [WARNING]
 
-This section will walk you through setting up your own Bitcoin Core
-full node on a Linux operating system. It is intended for readers
-comfortable with the linux operating system and command line.
+This section will walk you through setting up your own Bitcoin Core full
+node on a Linux OS. It’s intended for readers comfortable with the Linux
+OS and command line.
 
-We have seen how a Bitcoin full node is downloaded, started, and
-synchronized in theory. This section will help you get your own full
-node installed.
+You’ve seen how a Bitcoin full node is downloaded, started, and
+synchronized in theory. This section will help you install your own full
+node.
 
 This section requires that you
 
 [.movingtarget]
-* have a computer with at least 2GB of RAM running a Linux operating
-  system.
-* have lots of available disk space. As of writing, about 200 GB is needed.
-* have an Internet connection without a limited data plan.
-* know how to start and use a command-line terminal.
+* Have a computer with at least 2 GB of RAM running a Linux OS.
 
-If you don't have a Linux operating system, you may still use these
-instructions, but you will have to install the version of Bitcoin Core
-that's appropriate for your system, and the commands will look
-different. However, I suggest that you visit <<web-install>> to get
-up-to-date instructions for your non-linux operating system.
+* Have lots of available disk space. As of this writing, about 210 GB is
+needed.
 
-The general process for getting your own node running is:
+* Have an internet connection without a limited data plan.
 
-1. Download Bitcoin Core from https://bitcoincore.org/en/download/.
-2. Verify software.
+* Know how to start and use a command-line terminal.
+
+If you don’t have a Linux OS, you can still use these instructions;
+but you’ll have to install the version of Bitcoin Core that’s
+appropriate for your system, and the commands will look different. I
+suggest that you visit <<web-install>> to get up-to-date instructions
+for your non-Linux OS.
+
+The general process for getting your own node running is as follows:
+
+1. Download Bitcoin Core from https://bitcoincore.org/en/download.
+
+2. Verify the software.
+
 3. Unpack and start.
-4. Wait for initial blockchain download to finish.
 
-==== Download Bitcoin Core
+4. Wait for the initial blockchain download to finish.
+
+==== Downloading Bitcoin Core
 
 ****
-image::{imagedir}/download-bitcoin-core.svg[]
+image::{imagedir}/u08-12.svg[]
 ****
 
 To run your own full Bitcoin node, you need the software program
-to run. In this example we will download Bitcoin Core from
-<<web-download>>. As of writing the latest version of Bitcoin
-Core is `0.17.0`. Let's download it:
+to run.  In this example, you’ll download Bitcoin Core from
+<<web-download>>. As of this writing, the latest version of Bitcoin
+Core is 0.17.0. Let’s download it:
 
 ----
-$ wget https://bitcoincore.org/bin/bitcoin-core-0.17.0/bitcoin-0.17.0-x86_64-linux-gnu.tar.gz
+$ wget https://bitcoincore.org/bin/bitcoin-core-0.17.0/\
+    bitcoin-0.17.0-x86_64-linux-gnu.tar.gz
 ----
 
-As the file name `bitcoin-0.17.0-x86_64-linux-gnu.tar.gz` indicates,
-we download version 0.17.0 for 64 bit (`x86_64`) linux
-(`linux-gnu`). When you are reading this, new versions of Bitcoin Core
-have probably been released. Consult <<web-download>> to get the
-latest version of Bitcoin Core. Also, if you use another operating
-system or computer architecture, please select the file that's right
-for you.
+As the filename bitcoin-0.17.0-x86_64-linux-gnu.tar.gz indicates, the
+command downloads version 0.17.0 for 64-bit (x86_64) Linux
+(linux-gnu).  By the time you read this, new versions of Bitcoin Core
+will probably have been released. Consult <<web-download>> to get
+the latest version of Bitcoin Core. Also, if you use another OS or
+computer architecture, please select the file that’s right for you.
 
-==== Verify the the software
+==== Verifying the software
 
 [WARNING]
 
 This section is hard and requires a fair amount of work on the command
 line. If you just want to install and run the Bitcoin Core software
-for experimental purposes you can skip this section and jump to
-<<unpack-and-start>>. If not for experimental purposes please
-understand the risks explained in <<step-1>> before skipping this
-step.
+for experimental purposes, you can skip this section and jump to
+<<unpack-and-start>>. If you aren’t using it for experimental
+purposes, please understand the risks explained earlier in this
+chapter in <<step-1>> before skipping this step.
 
-This section will show you how to verify that the downloaded `.tar.gz`
-file is not tampered with in any way. That file is digitally signed by
-the Bitcoin Core team's private key. The verification process
+This section will show you how to verify that the downloaded .tar.gz
+file hasn’t been tampered with in any way. This file is digitally signed
+by the Bitcoin Core team’s private key. The verification process
 involves the following steps:
 
-. Download the signature file
-. Verify that the hash of the `.tar.gz` file matches the hash in the
-message part of the signature file
-. Download the Bitcoin Core team's public key
-. Install the public key as trusted on your computer
-. Verify the signature
+1. Download the signature file.
 
-Let's get started.
+2. Verify that the hash of the .tar.gz file matches the hash in the
+message part of the signature file.
 
-===== Download the signature file
+3. Download the Bitcoin Core team’s public key.
 
-To be able to verify that your downloaded Bitcoin Core package is
-actually from the Bitcoin Core team, you need to download the
-signature file named SHA256SUMS.asc. This figure from <<step-1>>
-explains how the SHA256SUMS.asc file is designed:
+4. Install the public key as trusted on your computer.
 
-.The Bitcoin Core team signs the released program with their private key
-image::{imagedir}/core-signs-program.svg[{big-width}]
+5. Verify the signature.
 
-Download the signature file `SHA256SUMS.asc` from the same server as
-you downloaded the program from:
+Let’s get started.
+
+===== Downloading the signature file
+
+To verify that your downloaded Bitcoin Core package is actually from
+the Bitcoin Core team, you need to download the signature file named
+SHA256SUMS.asc. <<fig0838>>, repeated from <<step-1>>, explains how
+the SHA256SUMS.asc file is designed.
+
+[[fig0838]]
+.The Bitcoin Core team signs the released program with their private key.
+image::{imagedir}/08-38.svg[{big-width}]
+
+Download the signature file SHA256SUMS.asc from the same server you
+downloaded the program from:
 
 ----
 $ wget https://bitcoincore.org/bin/bitcoin-core-0.17.0/SHA256SUMS.asc
 ----
 
-This file will be used to verify that the downloaded `.tar.gz` file is
+This file will be used to verify that the downloaded .tar.gz file is
 signed by the Bitcoin Core team. Note that this file is for version
 0.17.0 only. If you use another version of Bitcoin Core, please select
 the correct signature file at <<web-download>>.
 
-The actual contents of this file looks like this (the actual hashes
-have been shortened in this listing):
+The following listing shows what the contents of this file look like
+(the actual hashes have been shortened):
 
 ----
 -----BEGIN PGP SIGNED MESSAGE-----
@@ -1181,90 +1226,89 @@ UtaRwoYjFfUsohMZ3Lbt
 -----END PGP SIGNATURE-----
 ----
 
-The signed message in the upper part of the file lists a number of
-files along with their respective SHA256 hashes. The listed files are
-all installation packages for all operating systems and architectures
-that Bitcoin Core is released for. The lower part of the file is the
-signature of the the message in the upper part. The signature commits
-to the whole message and thus to all the hashes and files listed in
-the message.
+The signed message in the upper part of the file lists several files
+along with their respective SHA256 hashes. The listed files are
+installation packages for all OSs and architectures for which Bitcoin
+Core is released. The lower part of the file is the signature of the
+message in the upper part. The signature commits to the entire message
+and thus to all the hashes and files listed in the message.
 
-===== Verify the hash of the downloaded file
+===== Verifying the hash of the downloaded file
 
-The file you downloaded is named for example
-`bitcoin-0.17.0-x86_64-linux-gnu.tar.gz` so you expect that the SHA256
-hash of that file matches `9d6b...5a4f` exactly. Let's check:
+The file you downloaded is named bitcoin-0.17.0-x86_64-linux-gnu.tar.gz
+so you expect that the SHA256 hash of that file matches `9d6b…5a4f`
+exactly. Let’s check:
 
 ----
 $ sha256sum bitcoin-0.17.0-x86_64-linux-gnu.tar.gz 
 9d6b472dc2aceedb1a974b93a3003a81b7e0265963bd2aa0acdcb17598215a4f  bitcoin-0.17.0-x86_64-linux-gnu.tar.gz
 ----
 
-The above command calculates the SHA256 hash of our downloaded
-file. It does indeed match the hash in the `SHA256SUMS.asc` file. If
-they don't match, then something is wrong and you should halt
-installation and investigate what's wrong.
+This command calculates the SHA256 hash of your downloaded file. It does
+indeed match the hash in the SHA256SUMS.asc file. If they don’t match,
+then something is wrong, and you should halt the installation and
+investigate.
 
-===== Get the Bitcoin Core signing key
+===== Getting the Bitcoin Core signing key
 
 ****
-image::{imagedir}/download-key.svg[]
+image::{imagedir}/u08-13.svg[]
 ****
 
-To verify that the signature in the signature file is done by the
+To verify that the signature in the signature file was done using the
 Bitcoin Core signing key, you need the corresponding public key. As
 noted in <<step-1>>, you should convince yourself about what
-_fingerprint_ the Bitcoin Core key has and then download that key from
+fingerprint the Bitcoin Core key has and then download that key from
 any source.
 
-You could for example
+You could, for example,
 
-1. get the fingerprint of the Bitcoin Core team's key from
-  `bitcoincore.org`, the official website of the Bitcoin Core team.
-2. consult the book Grokking Bitcoin to verify the fingerprint.
-3. verify the fingerprint with a friend.
-4. download the public key from a key server.
+* Get the fingerprint of the Bitcoin Core team’s key from
+https://bitcoincore.org, the official website of the Bitcoin Core
+team.
 
-You start with finding the Bitcoin Core team's public key fingerprint
-on their website. You find the following fingerprint on their
-downloads page: `01EA5486DE18A882D4C2684590C8019E36C2E964`.
+* Consult the book _Grokking Bitcoin_ to verify the fingerprint.
 
-You will now consult the book Grokking Bitcoin to check if the
-fingerprint in that book matches the fingerprint from
-`bitcoincore.org`. Let's have a look in <<step-1>> of that book. It
-says:
+* Verify the fingerprint with a friend.
+
+Start by finding the Bitcoin Core team’s public key fingerprint on their
+website. You find the following fingerprint on the downloads page:
+
+ 01EA5486DE18A882D4C2684590C8019E36C2E964
+
+Now, consult the book _Grokking Bitcoin_ to check if the fingerprint
+in that book matches the fingerprint from
+https://bitcoincore.org. Look in the <<step-1>> of <<ch08>> of that
+book. It says
 
  01EA 5486 DE18 A882 D4C2  6845 90C8 019E 36C2 E964
 
 This is the same fingerprint (although formatted slightly
-different). The book and the website `bitcoincore.org` both claim that
-this key belong to the Bitcoin Core team. Let's not settle with
-that. You will also call a friend you trust and have him/her read the
-fingerprint to us.
+differently).  The book and the website https://bitcoincore.org both
+claim that this key belongs to the Bitcoin Core team. Let’s not settle
+for that. You’ll also call a friend you trust and have her read the
+fingerprint to you:
 
-You: Hello Donna! What's the fingerprint of the current Bitcoin Core
-signing key?
+*You:* “Hello, Donna! What’s the fingerprint of the current Bitcoin Core
+signing key?”
 
-Donna: Hi! I have verified that key myself a few months ago and I know
-that the fingerprint is `01EA 5486 DE18 A882 D4C2 6845 90C8 019E 36C2
-E964`.
+*Donna:* “Hi! I verified that key myself a few months ago, and I know
+the fingerprint is `01EA 5486 DE18 A882 D4C2 6845 90C8 019E 36C2 E964`.”
 
-You: Thank you, it matches mine, bye!
+*You:* “Thank you, it matches mine. Goodbye!”
 
-Donna: You're welcome, bye!
+*Donna:* “You’re welcome. Goodbye!”
 
-Donna's statement further strengthens your trust in this key. You think
-you have collected enough evidence that this is in fact the
-correct key.
+Donna’s statement further strengthens your trust in this key. You think
+you’ve collected enough evidence that this is, in fact, the correct key.
 
-Let's start downloading the key. To do this you can use a tool called
-`gpg`, which stands for GnuPG, which in turn stands for Gnu Privacy
-Guard. This is a program that conforms to a standard called OpenPGP,
-Pretty Good Privacy. This standard specifies how keys can be exchanged
-and how to do encryption and digital signatures in an
-interoperable way.
+Let’s start downloading the key. To do this, you can use a tool called
+gpg, which stands for GnuPG, which in turn stands for Gnu Privacy Guard.
+This program conforms to a standard called OpenPGP (Pretty Good
+Privacy). This standard specifies how keys can be exchanged and how to
+do encryption and digital signatures in an interoperable way.
 
-GnuPG is available on most linux computers by default. To download a
+GnuPG is available on most Linux computers by default. To download a
 public key with a certain fingerprint, you run the following `gpg`
 command:
 
@@ -1276,36 +1320,36 @@ gpg: Total number processed: 1
 gpg:               imported: 1
 ----
 
-Depending on the version of gpg you use, the output may vary. This
-downloads the public key from any available key server and verifies
-that the downloaded public key in fact has the fingerprint that you
-requested. The owner of this key is "Wladimir J. van der Laan (Bitcoin
-Core binary release signing key)".
+Depending on the version of gpg you use, the output can vary. This
+command downloads the public key from any available key server and
+verifies that the downloaded public key in fact has the fingerprint that
+you requested. The owner of this key is “Wladimir J. van der Laan
+(Bitcoin Core binary release signing key).”
 
-The above command downloads the key into gpg and adds it to your list
-of known keys. But the output of the above command, mentions that `no
-ultimately trusted keys found`. This means that this key is not signed
-by any key that you trust. You have only imported the key. In gpg,
-keys can sign other keys to certify that the signed key is legit.
+The prior command downloads the key into gpg and adds it to your list of
+known keys. But the output of this command mentions “no ultimately
+trusted keys found.” This means this key isn’t signed by any key that
+you trust. You’ve only imported the key. In gpg, keys can sign other
+keys to certify that the signed key is legit.
 
-===== Sign the public key as trusted on your computer
+===== Signing the public key as trusted on your computer
 
-You have verified that the key belongs to the Bitcoin Core team, and
-installed that key onto your system using `gpg`.
+You’ve verified that the key belongs to the Bitcoin Core team and
+installed that key onto your system using gpg.
 
-You will now sign that key with a private key that you own. You do
-that to remember this key as trusted. The Bitcoin Core team will
-probably release new versions of Bitcoin Core in the future. If GnuPG
-remembers this public key as trusted, you don't have to go through all
-these key verification steps again when you upgrade.
+You’ll now sign that key with a private key that you own. You do this to
+remember this key as trusted. The Bitcoin Core team will probably
+release new versions of Bitcoin Core in the future. If GnuPG remembers
+this public key as trusted, you won’t have to go through all these
+key-verification steps again when you upgrade.
 
-The process is:
+The process is as follows:
 
-1. Create a key of your own
-2. Sign the Bitcoin Core public key with your own private key
+1. Create a key of your own.
 
-To create a key of your own, GnuPG let's you create a key with the
-following command:
+2. Sign the Bitcoin Core public key with your own private key.
+
+GnuPG lets you create a key of your own with the following command:
 
 ----
 $ gpg --gen-key
@@ -1319,7 +1363,7 @@ GnuPG needs to construct a user ID to identify your key.
 ----
 
 GnuPG will ask for your name and email address. Answer these
-questions, they will be used to identify your key.
+questions; they’ll be used to identify your key:
 
 ----
 Real name: Kalle Rosenbaum
@@ -1330,10 +1374,13 @@ You selected this USER-ID:
 Change (N)ame, (E)mail, or (O)kay/(Q)uit? 
 ----
 
-Continue by pressing `O` (capital oh). Then you need to select a
-password to encrypt your private key with. Chose a password and make
-sure that you remember it. The key generation may take some time
-because it takes time to generate good random numbers for your key. When it's finished, you should see output like this:
+Continue by pressing O (capital letter “oh”). You then need to select a
+password with which to encrypt your private key. Choose a password, and
+make sure you remember it.
+
+Key generation might take a while, because it takes time to generate
+good random numbers for your key. When it’s finished, you should see
+output like this:
 
 ----
 public and secret key created and signed.
@@ -1345,8 +1392,8 @@ uid                      Kalle Rosenbaum <kalle@example.com>
 sub   rsa2048 2018-04-27 [E] [expires: 2020-04-26]
 ----
 
-Now you have a key of your own that you'll use to to sign keys that
-you trust. Let's sign the Bitcoin Core team key:
+You now have a key of your own that you’ll use to sign keys that you
+trust. Let’s sign the Bitcoin Core team key:
 
 ----
 $ gpg --sign-key 01EA5486DE18A882D4C2684590C8019E36C2E964
@@ -1371,12 +1418,12 @@ key "Kalle Rosenbaum <kalle@example.com>" (8DC7D3846BA6AB5E)
 Really sign? (y/N)
 ----
 
-Enter `y`. You will be prompted for your private key password. Enter
-it and press enter. The Bitcoin Core key should now be regarded as
-trusted by `gpg`. This will simplify the process when you upgrade your
-node in the future.
+Enter `y`. You’ll be prompted for your private key password. Enter it,
+and press Enter. The Bitcoin Core key should now be regarded as trusted
+by gpg. This will simplify the process when you upgrade your node in the
+future.
 
-Let's look at your newly signed key:
+Let’s look at your newly signed key:
 
 ----
 $ gpg --list-keys 01EA5486DE18A882D4C2684590C8019E36C2E964
@@ -1385,12 +1432,12 @@ pub   rsa4096 2015-06-24 [SC] [expires: 2019-02-14]
 uid           [  full  ] Wladimir J. van der Laan (Bitcoin Core binary release signing key) <laanwj@gmail.com>
 ----
 
-The word to look for is the `full` in square brackets. This means that
-gpg, and you, fully trust this key.
+The word to look for is `full` in square brackets. This means gpg, and
+you, fully trust this key.
 
-===== Verify the signature
+===== Verifying the signature
 
-It's time to actually verify the signature of `SHA256SUMS.asc` file.
+It’s time to verify the signature of the SHA256SUMS.asc file:
 
 ----
 $ gpg --verify SHA256SUMS.asc 
@@ -1399,38 +1446,44 @@ gpg:                using RSA key 90C8019E36C2E964
 gpg: Good signature from "Wladimir J. van der Laan (Bitcoin Core binary release signing key) <laanwj@gmail.com>" [full]
 ----
 
-It says that the signature is `Good` and that it's signed with a key
+It says that the signature is `Good` and that it’s signed with a key
 that you fully trust, `[full]`.
 
-To summarize, you have:
+To summarize, you’ve done the following:
 
-1. downloaded Bitcoin Core and the signature file
-2. verified that the hash of the `.tar.gz` file matches the stated hash
-  in `SHA256SUMS.asc`.
-3. downloaded a public key and verified that it belongs to Bitcoin Core
-4. signed that key with our own private key so that GnuPG and you remember that the
-  Bitcoin Core key is legit.
-5. verified the signature of the `SHA256SUMS.asc` file.
+1. Downloaded Bitcoin Core and the signature file
 
-When you later upgrade the program, you can skip several of the above
-steps. The process then will be:
+2. Verified that the hash of the .tar.gz file matches the stated hash in
+SHA256SUMS.asc
 
-1. Download Bitcoin Core and the signature file
-2. Verify that the hash of the `.tar.gz` file matches the stated hash
-  in `SHA256SUMS.asc`.
-3. Verify the signature of the `SHA256SUMS.asc` file.
+3. Downloaded a public key and verified that it belongs to Bitcoin Core
+
+4. Signed that key with your own private key so GnuPG and you remember that
+the Bitcoin Core key is legit
+
+5. Verified the signature of the SHA256SUMS.asc file
+
+When you later upgrade the program, you can skip several of these steps.
+The process will then be
+
+1. Download Bitcoin Core and the signature file.
+
+2. Verify that the hash of the .tar.gz file matches the stated hash in
+SHA256SUMS.asc.
+
+3. Verify the signature of the SHA256SUMS.asc file.
 
 [[unpack-and-start]]
-==== Unpack and start
+==== Unpacking and starting
 
-Let's unpack the software:
+Let’s unpack the software:
 
 ----
 tar -zxvf bitcoin-0.17.0-x86_64-linux-gnu.tar.gz
 ----
 
-This will create a directory called `bitcoin-0.17.0`. Go into the
-directory `bitcoin-0.17.0/bin` and have a look:
+This will create a directory called bitcoin-0.17.0. Go into the
+directory bitcoin-0.17.0/bin, and have a look:
 
 ----
 $ cd bitcoin-0.17.0/bin
@@ -1438,45 +1491,49 @@ $ ls
 bitcoin-cli  bitcoind  bitcoin-qt  bitcoin-tx  test_bitcoin
 ----
 
-Here you have a number of executable programs:
+Here you have several executable programs:
 
-* `bitcoin-cli` is a program you can use to extract information about
-  the node you are running as well as manage a built-in wallet that's
-  shipped with Bitcoin Core.
-* `bitcoind` is the program to use if you want to run the node in the
-  background without a graphical user interface.
-* `bitcoin-qt` is the program to run if you want a graphical user
-  interface for your node. This is mainly useful if you use the
-  build-in wallet.
-* `bitcoin-tx` is a small utility program to create and modify Bitcoin
-  transactions.
-* `test_bitcoin` lets you test run a test suite.
+* bitcoin-cli is a program you can use to extract information about the
+node you’re running as well as manage a built-in wallet that’s shipped
+with Bitcoin Core.
 
-In this tutorial, we will run `bitcoind`, which stands for "Bitcoin
-Daemon". In Unix systems like Linux, the word Daemon is used for
-computer programs that runs in the background.
+* bitcoind is the program to use if you want to run the node in the
+background without a graphical user interface (GUI).
 
-Let's start the Bitcoin Core daemon in the background (using the `-daemon` argument) and see what happens:
+* bitcoin-qt is the program to run if you want a GUI for your node. This
+is mainly useful if you use the built-in wallet.
+
+* bitcoin-tx is a small utility program to create and modify Bitcoin
+transactions.
+
+* test_bitcoin lets you test run a test suite.
+
+In this tutorial, you’ll run bitcoind, which stands for “Bitcoin
+daemon.” In UNIX systems such as Linux, the word _daemon_ is used for
+computer programs that run in the background.
+
+Let’s start the Bitcoin Core daemon in the background and see what
+happens:
 
 ----
 $ ./bitcoind -daemon
 Bitcoin server starting
 ----
 
-This starts your node. It will automatically start connecting to peers
-and download the blockchain for you.
+This starts your node. It will automatically begin connecting to peers
+and downloading the blockchain for you.
 
 ==== Initial blockchain download
 
 ****
-image::{imagedir}/2ndcol-sync.svg[]
+image::{imagedir}/u08-14.svg[]
 ****
 
 This process will take time. Depending on your internet connection,
-processor and disk, it can vary from several days down to a few hours.
+processor, and disk, it can vary from several days down to a few hours.
 
-You can use the `bitcoin-cli` program to query the running node about
-the progress:
+You can use the bitcoin-cli program to query the running node about
+the download progress, as in the following:
 
 ----
 $ ./bitcoin-cli getblockchaininfo
@@ -1533,18 +1590,17 @@ $ ./bitcoin-cli getblockchaininfo
 }
 ----
 
-This command shows a lot of information about the blockchain. We can
-note that we have downloaded and verified blocks up to height
-`207546`. Bitcoin Core will downloaded block headers prior to the full
-blocks in order to verify proof of work. This node has downloaded
-headers up to height `549398`, which are all headers there is at this
-time. Another interesting thing is the `initialblockdownload` field,
-which is will remain `true` until the initial block download is
-finished.
+This command shows a lot of information about the blockchain. Note that
+blocks have been downloaded and verified up to height 207546. Bitcoin
+Core will download block headers prior to the full blocks to verify
+proof of work. This node has downloaded headers up to height 54398,
+which are all the headers there are at this time. Another interesting
+thing is the `initialblockdownload` field, which will remain `true`
+until the initial block download is finished.
 
-Keep this daemon running. You will get back to this daemon in <<app1>>
-where we will give you a small tutorial on how to use `bitcoin-cli` to
-examine the blockchain and to use your built-in wallet.
+Keep this daemon running. You’ll get back to it in appendix A, where
+I’ll give you a small tutorial on how to use bitcoin-cli to examine the
+blockchain and use your built-in wallet.
 
 If you want to stop the node, issue the following command:
 
@@ -1552,107 +1608,108 @@ If you want to stop the node, issue the following command:
 $ ./bitcoin-cli stop
 ----
 
-You can start the node again whenever you like, and the node will
-start where it left off.
+You can start the node again whenever you like, and the node will begin
+where it left off.
 
-=== Summary
+=== Recap
 
-We have replaced the last central point of authority, the shared
-folder, with a peer to peer network. In a peer to peer network the
-full nodes communicate directly with each other. Each node is
-connected to several, potentially hundreds, other nodes. This makes it
-extremely hard to prevent blocks and transactions from propagating the
-network.
+We’ve replaced the last central point of authority, the shared folder,
+with a peer-to-peer network. In a peer-to-peer network, the full nodes
+communicate directly with each other. Each node is connected to several
+(potentially hundreds of) other nodes. This makes it extremely hard to
+prevent blocks and transactions from propagating the network.
 
 This chapter had two main parts:
 
-1. How transactions and blocks flows through the network.
-2. How new nodes join the network.
+* How transactions and blocks flow through the network
 
-==== Part 1: Following a transaction
+* How new nodes join the network
 
-In the fist part, we followed a transaction through the system. It
-started with John buying a cookie. His transaction got propagated
-across the peer to peer network and to the cafe's wallet:
+==== Part 1—Following a transaction
 
-.Johns transaction propagates to all participants
-image::{imagedir}/summary-tx-propagation.svg[{big-width}]
+In the first part of the chapter, we followed a transaction through the
+system. It started with John buying a cookie. His transaction was
+propagated across the peer-to-peer network and to the cafe’s wallet.
 
-The cafe will almost immediately see that a transaction is incoming,
-but it's not yet confirmed. The next stage is to mine the
-block. Rashid is the lucky miner who finds the next block containing
-John's transaction:
+image::{imagedir}/u08-15.svg[{big-width}]
 
-.Rashid's block containing John's transaction propagates to all participants
-image::{imagedir}/summary-block-propagation.svg[{big-width}]
+The cafe will almost immediately see that a transaction is incoming, but
+it’s not yet confirmed. The next stage is to mine the block. Rashid is
+the lucky miner who finds the next block containing John’s transaction.
 
-Rashid sends out the block to his peers who will relay the block to
-their peers and so on until the block has reached the whole
-network. Part of that propagation includes sending the block to
-lightweight wallets. The lightweight wallets will request
-`merkleblock` messages from the full node so that they don't have to
-download the full block.
+image::{imagedir}/u08-16.svg[{big-width}]
 
-==== Part 2: Joining the network
+Rashid sends out the block to his peers, who will relay it to their
+peers and so on until the block has reached the entire network. Part of
+this propagation includes sending the block to lightweight wallets.
+These lightweight wallets will request `merkleblock` messages from the
+full node so they don’t have to download the full block.
 
-Starting a new node involves fours steps.
+==== Part 2—Joining the network
 
-.Selma goes through four steps to join the network
-image::{imagedir}/running-a-full-node.svg[{full-width}]
+Starting a new node involves fours steps:
 
-1. Download and verify for example the Bitcoin Core software. Then start it.
-2. Connect to other nodes
-3. Download historic blocks
-4. Enter normal operation
+image::{imagedir}/u08-17.svg[{full-width}]
+
+1. Download and verify, for example, the Bitcoin Core software. Then
+start it.
+
+2. Connect to other nodes.
+
+3. Download historic blocks.
+
+4. Enter normal operation.
 
 ==== System changes
 
-Our table of concept mappings between the cookie token system and
-Bitcoin has become tiny:
+The table of concept mappings between the cookie token system and
+Bitcoin has become tiny (<<tab0802>>).
 
+[[tab0802]]
 [%autowidth]
-.The shared folder is ditched in favor of a peer to peer network
+.The shared folder has been ditched in favor of a peer-to-peer network.
 |===
-| Cookie Tokens | Bitcoin | Covered in
+| Cookie tokens | Bitcoin | Covered in
 
 | 1 cookie token | 1 bitcoin | <<ch02>>
 |===
 
-Since there are no technical differences between the cookie token
-system and the Bitcoin system, we will drop the cookie tokens and only
-work with Bitcoin from now on.
+Given that there are no longer any technical differences between the
+cookie token system and the Bitcoin system, we’ll drop the cookie tokens
+and work only with Bitcoin from now on.
 
-This will be the final release of the cookie token system. Another
-much more widely used system, Bitcoin, has taken the world by storm,
-and we have decided to ditch the cookie token project. Enjoy the last
-version.
+This will be the final release of the cookie token system. Another, much
+more widely used system, Bitcoin, has taken the world by storm, and
+we’ve decided to ditch the cookie token project. Enjoy the last version
+(<<tab0803>>).
 
+[[tab0803]]
 [%autowidth,options="header"]
 .Release notes, cookie tokens 8.0
 |===
 |Version|Feature|How
 
-.2+|image:{commonimagedir}/new.png[role="gbnew"]*8.0*
-| Censorship resistant. For real this time.
-| The shared folder is replaced by a peer to peer network.
+.2+|image:{commonimagedir}/new.png[role="gbnew"]8.0
+| Censorship-resistant; for real this time
+| Shared folder replaced by a peer-to-peer network
 
 | Transaction broadcasting
-| Transactions are broadcast to miners and others using the peer to
-  peer network.
+| Transactions broadcast to miners and others using the peer-to-peer
+network
 
-.2+|7.0
-| Censorship resistant
-| Multiple miners, "Lisas", enabled by proof of work
+.2+| 7.0
+| Censorship-resistant
+| Multiple miners, “Lisas,” enabled by proof of work
 
 | Anyone can join the mining race
 | Automatic difficulty adjustments
 
-.3+|6.0
+.3+| 6.0
 | Prevent Lisa from deleting transactions
 | Signed blocks in a blockchain
 
 | Fully validating nodes
-| Keeps a copy of the whole blockchain
+| Download and verify the entire blockchain.
 
 | Lightweight wallet saves data traffic
 | Bloom filters and merkle proofs
@@ -1674,81 +1731,78 @@ lightweight wallets?
 . How does a node notify a lightweight wallet about an incoming
 pending transaction?
 
-. Blocks are not sent in full to lightweight wallets. What part of
+. Blocks aren’t sent in full to lightweight wallets. What part of
 the block is always sent to the wallet?
 
-. Why do the cafe send a very big bloom filter to their trusted node?
+. Why does the cafe send a very big bloom filter to its trusted
+node?
 
-. What would a security conscious person do after downloading Bitcoin
-Core, but before starting the software?
+. What would a security-conscious person do after downloading
+Bitcoin Core but before starting the software?
 
-. What types of sources for peer addresses are available to a newly
-started node?
+. What types of sources for peer addresses are available to a
+newly started node?
 
 . How would a full node know if any newly created blocks are available
-for download when it's finished syncing?
+for download when it’s finished syncing?
+
+. The Bitcoin peer-to-peer network consists of the following
+nodes:
++
+image::{imagedir}/u08-18.svg[{half-width}]
++
+Which node owners do you need to threaten to prevent Lisa from getting
+any blocks but those she creates herself?
 
 ==== Dig in
 
-[start=11]
-. The Bitcoin peer to peer network consists of the following nodes:
-+
-image::{imagedir}/ex-network-lie-to-lisa.svg[{half-width}]
-+
-Which node owners do you need to threaten to prevent Lisa from getting
-any blocks but the ones Lisa creates herself?
-
 [start=12]
-. Suppose that Qi just received two transactions with transaction id:s
-TXID~1~ and TXID~2~, and one block with block ID BKID. Now she wants
-to inform Rashid about these new items. She doesn't know if Rashid
-already knows about these items. What does she do.
 
-. Suppose that the current Bitcoin network looks like this:
+
+. Suppose Qi just received two transactions with transaction IDs
+TXID~1~ and TXID~2~. She now wants to inform Rashid about these new
+transactions. She doesn’t know if Rashid already knows about them. What
+does she do?
+
+. Suppose you’re running a full node and experience a power
+outage for 18 minutes. When power comes back, you start your node again.
+During those 18 minutes, two blocks, B~1~ and B~2~, have been created.
+Your latest block is B~0~. What will your node do after reconnecting to
+the network? For simplicity, assume that no new blocks are found during
+synchronization, and that you have only one peer. Use this table of
+message types to fill out the following template:
 +
-image::{imagedir}/ex-network-badly-connected.svg[{half-width}]
-+
-When Qi creates a valid 1MB block, the cafe will experience a delay
-before it gets the block. What can the cafe do to improve the time it
-takes to receive blocks from Qi?
-
-[start=14]
-. Suppose that you are running a full node and experience a power
-outage for 18 minutes. When power comes back you start your node
-again. During those 18 minutes, two blocks, B~1~ and B~2~, have been
-created. Your latest block is B~0~. What will your node do after
-reconnecting to the network? For simplicity, you can assume that no
-new blocks are found during synchronization and you only have one
-peer. Use the following table of message types to fill out the
-template below:
-
 [%autowidth]
 |===
-| type | data | purpose
+| Type | Data | Purpose
 
-| `block` | full block | sends a block to a peer
-| `getheaders` | block id | Ask a peer for subsequent block headers after the given block id
-| `getdata` | txid:s or block ID:s | Request data from a peer
-| `headers` | list of headers | Sends a list of headers to a peer
+| `block` | Full block | Sends a block to a peer
+| `getheaders` | Block ID | Asks a peer for subsequent block headers after the given block ID
+| `getdata` | txids or block IDs | Requests data from a peer
+| `headers` | List of headers | Sends a list of headers to a peer
 |===
++
+image::{imagedir}/u08-20.svg[{full-width}]
 
-image::{imagedir}/ex-getblocks-power-outage.svg[{big-width}]
+=== Summary
 
-=== Recap
+* The peer-to-peer network makes blocks censorship-resistant.
 
-In this chapter you learned that
-
-* The peer to peer network makes blocks censorship resistant
 * A node connects to multiple peers to reduce their vulnerability for
-  information hiding.
-* The Bitcoin network protocol is the "language" nodes speak to
-  communicate.
-* Transactions are broadcast on the Bitcoin peer to peer network to
-  reach both miners and the recipient of the money early.
+information hiding.
+
+* The Bitcoin network protocol is the “language” nodes speak to
+communicate.
+
+* Transactions are broadcast on the Bitcoin peer-to-peer network to
+reach both miners and the recipient of the money early.
+
 * New nodes synchronize with the Bitcoin network to get up to date
-  with the other nodes. Takes hours or days.
-* Nodes do not need to stay on-line 24/7. They can drop out and come
-  back and sync up the latest stuff.
+with the other nodes. This takes hours or days.
+
+* Nodes don’t need to stay online 24/7. They can drop out and come
+back and sync up the latest stuff.
+
 * Signature verification can be skipped for older blocks to speed up
-  initial synchronization. This is useful if you know that a specific
-  block is valid.
+initial synchronization. This is useful if you know a specific block
+is valid.

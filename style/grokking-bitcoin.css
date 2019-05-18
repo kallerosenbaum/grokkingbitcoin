@@ -46,7 +46,7 @@ p {
 //@keyframes blinker { to { opacity: 0.5; } }
 
 
-div>p,.literalblock,.listingblock,.imageblock>.title,div>.tableblock,.dlist,.olist,.ulist,.stemblock,.admonitionblock {
+div>p,.imageblock>.title,div>.tableblock,.dlist,.olist,.ulist,.stemblock,.admonitionblock {
     width: 75%;
 }
 
@@ -54,13 +54,14 @@ div>p,.literalblock,.listingblock,.imageblock>.title,div>.tableblock,.dlist,.oli
     width: 100%;
 }
 
-.literalblock,listingblock {
-    width: 100%;
+.literalblock,.listingblock {
+    /*    width: 100%;*/
+    display: flow-root;
     font-size: 0.9em;
 }
-.literalblock>.title {
+/*.literalblock>.title {
     font-size: 0.9em;
-}
+}*/
 
 /* Don't set sublist width to 75%. */
 li>.olist,li>.ulist,td>.olist,td>.ulist {
