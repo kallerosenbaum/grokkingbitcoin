@@ -15,8 +15,7 @@ Kalle Rosenbaum
 :xrefstyle: short
 :docinfo: shared
 :docinfodir: {stylesdir}
-:chapter-label: chapter
-:section-label: section
+:listing-caption: Listing
 
 :full-width: width='100%'
 :big-width: width='75%'

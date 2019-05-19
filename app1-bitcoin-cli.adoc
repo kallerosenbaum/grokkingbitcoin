@@ -515,7 +515,7 @@ The sequence number of the input is `4294967293`, which is `fffffffd`
 in hex code. This means that locktime is enabled (<=`fffffffe`), and
 that the transaction is replaceable (<=`fffffffd`) according to
 BIP125. The meaning of the sequence number was summarized in
-<<table-sequence-numbers>>.
+<<tab0901>>.
 
 After the list of inputs comes the list of transaction outputs. This
 transaction has a list of 2 outputs. The first output pays 0.00313955
