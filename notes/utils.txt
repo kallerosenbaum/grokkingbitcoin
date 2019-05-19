@@ -16,4 +16,5 @@ epstopdf foo.eps
 pdf2svg foo.pdf foo.svg
 
 # Find all weird formatting stemming from RTF files
-grep '[*`_]\{2,\}' ch05-transactions.adoc|grep -v '^****$'
+grep '[*`_~]\{2,\}' *.adoc|grep -v ':\*\{4\}$'
+
