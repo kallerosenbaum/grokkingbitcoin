@@ -995,7 +995,7 @@ individual entities can block a system upgrade.
 
 [.important]
 
-As noted in <<trust-in-list>>, we pay miners to perform correct,
+As noted in <<trust-in-lisa>>, we pay miners to perform correct,
 honest transaction confirmations. We don’t pay them to _decide_ the
 rules, we pay them to _follow_ the rules. The rules are decided
 collectively by everyone, you and me, by running our Bitcoin software
