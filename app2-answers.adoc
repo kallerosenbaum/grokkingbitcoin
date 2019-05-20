@@ -5,348 +5,380 @@
 
 === Chapter 2
 
-==== Cryptographic hash functions
+. 256 bits.
 
-1. 256 bits
-2. 32 bytes
-3. A cryptographic hash function
-4. `061a` is `6*256 + (16+10) = 1536 + 26 = 1562` in decimal form. The
-binary form of '06' is `0000 0110` and the binary form of `1a` is
-`0001 1010` so the full binary representation is `0000 0110 0001
-1010`.
-5. No. If it was possible, the function would not be second-pre-image
-resistant.
-6. Property 2 and 4 are lacking.
-7. Second-preimage-resistance is stopping the attacker. He needs to
-find an input that gives the same hash as a certain other input, the
-cat picture.
+. 32 bytes.
 
-==== Digital signatures
+. A cryptographic hash function.
 
-1. The money supply increase rate will decrease over time because the
-reward to Lisa halves every 4 years. This means that the total amount
-of CT ever to be created is 21,000,000.
-2. The coworkers have read-access to the spreadsheet. They can watch
-the spreadsheet and verify that Lisa doesn't reward herself too much
-or too often.
-3. The private key is created using a random number generator of some
-sort. A very simple one is a coin that you flip 256 times to generate
-your 256 bit private key. You can also use your operating system's
+. `061a` is `6*256 + (16 + 10) = 1,536 + 26 = 1,562` in decimal
+form. The binary form of `06` is `0000 0110`, and the binary form of
+`1a` is `0001 1010`, so the full binary representation is `0000 0110
+0001 1010`.
+
+. No. If it was possible, the function wouldn’t be
+second-pre-image-resistant.
+
+. Properties 2 and 4 are lacking.
+
+. Second-pre-image resistance is stopping the attacker. The attacker
+needs to find an input that gives the same hash as a certain other
+input: the cat picture.
+
+. The money supply increase rate will decrease over time because the
+reward to Lisa halves every 4 years. This means the total amount of CT
+to ever be created will be about 21,000,000.
+
+. The coworkers have read access to the spreadsheet. They can watch
+the spreadsheet and verify that Lisa doesn’t reward herself too much or
+too often.
+
+. The private key is created using a random number generator of
+some sort. A simple one is a coin that you flip 256 times to generate
+your 256-bit private key. You can also use your operating system’s
 built-in random number generator.
-4. The private key.
-5. The message is hashed because we want signatures to be small and
-fixed in size. We don't want the signatures to be big just because the
-signed message is big.
-6. Mallory would need John's private key to steal cookies
-from him. She would also need his name, John, to write into the email
-to Lisa, but that's easily available in the spreadsheet.
-7. Fred can use my public key to encrypt the message and send the
-encrypted message to me. I can then decrypt that message using my
-private key.
-8. I sign the message using my private key and write the digital
-signature onto the note in the bottle. Fred can then verify that the
-signature is in fact made with my private key. He does that by using
-my public key to decrypt the signature and compare the decrypted hash
-with the actual hash of the message. If they match, he can be sure
-that the message is from me.
-9. The names in the spreadsheets act as identifiers for public keys,
-we could instead skip the names and use public keys directly in the
-spreadsheet. We will do that in the next chapter. An email to Lisa
-wouldn't have to contain any names and look something like this:
 
- Please more 10 CT from
- <my public key>
- to
- <recipient public key>
- Signature:
- <signature of above message made with my private key>
+. The private key.
+
+. The message is hashed because you want signatures to be small and
+fixed in size. You don’t want the signatures to be big just because the
+signed message is big.
+
+. Mallory would need John’s private key to steal cookies from him.
+She would also need his name, John, to write into the email to Lisa, but
+that’s easily available in the spreadsheet.
+
+. Fred can use your public key to encrypt the message and send the
+encrypted message to you. You can then decrypt that message using your
+private key.
+
+. You sign the message using your private key and write the digital
+signature onto the note in the bottle. Fred can then verify that the
+signature is in fact made with your private key. He does this by using
+your public key to decrypt the signature and comparing the decrypted
+hash with the actual hash of the message. If they match, he can be sure
+the message is from you.
+
 
 === Chapter 3
 
-1. The public key hash is made short because a) It makes the
-spreadsheet smaller in size and b) It makes cookie token addresses
-(and Bitcoin addresses) shorter to write for a user.
+. The PKH is made short because a) it makes the spreadsheet smaller
+in size and b) it makes cookie token addresses (and Bitcoin addresses)
+shorter to write for a user.
 
-2. Yes you can. There is a base58check decoding algorithm that does
-that.
+. Yes, you can. There’s a base58check decoding algorithm that does
+this.
 
-3. It's used by a payer to translate the recipient's address into a
-public key hash. The payer needs to write the recipient's PKH in the
-email to Lisa.
+. It’s used by a payer to translate the recipient’s address into a
+PKH. The payer needs to write the recipient’s PKH in the email to Lisa.
 
-4. Let's base58 encode `0047` step by step:
-  a. Remove leading `00` bytes. There is one, which leaves us with `47`
-  b. Convert to decimal number: `47` in hex is `4*16+7=71` in decimal
-  c. Divide by `71` by `58`: `71/58=1*58+13`. Quotient is `1`, remainder is `13`
-  d. Divide quotient `1` by `58`: `1/58=0*58+1`. Quotient is `0`, remainder is `1`
-  e. Lookup remainders `13` and `1`, result: `E` and `2`
-  f. Add a '1' for the removed `00` byte in step a, which results in `E21`
-  g. Reverse, `12E`. Done
+. Let’s base58-encode 0047 step by step:
++
+[arabic]
+.. Remove leading 00 bytes. There is one, which leaves you with 47.
 
-5. The 4 byte checksum.
+.. Convert to a decimal number: 47 in hex is 4 × 16 + 7 = 71 in decimal.
 
-6. He must make two separate payments. For example: Payment 1 pays 2
-CT from @~1~ to the cafe and payment 2 pays 8 CT from @~2~ to
-cafe. Another way is to first pay 2 CT from @~1~ to @~2~ and then pay
-10 CT from @~2~ to cafe.
+.. Divide 71 by 58: 71 = 1 × 58 + 13. The quotient is 1, and the remainder
+is 13.
 
-7. Yes it is. Put the version byte `00` in front and base58check
-encode them to get the addresses.
+.. Divide the quotient, 1, by 58: 1 = 0 × 58 + 1. The quotient is 0, and
+the remainder is 1.
 
-8. No, because the spreadsheet contains public key hashes. Since
-cryptographic hash functions are one-way functions, you can't go from
-public key hash to public key.
+.. Look up the remainders 13 and 1. Result: E and 2.
 
-9. They can look at the amounts. Many of the 10 CT payments are
+.. Add a 1 for the removed 00 byte in step 1, which results in E21.
+
+.. Reverse it: 12E. Done.
+
+. The 4-byte checksum.
+
+. He must make two separate payments. For example: payment 1 pays 2
+CT from @~1~ to the cafe, and payment 2 pays 8 CT from @~2~ to the cafe.
+Another way is to first pay 2 CT from @~1~ to @~2~ and then pay 10 CT
+from @~2~ to the cafe.
+
+. Yes it is. Base58check-encode the PKHs to get the addresses.
+
+. No, because the spreadsheet contains PKHs. Because cryptographic
+hash functions are one-way functions, you can’t go from PKH to public
+key.
+
+. They can look at the amounts. Many of the 10 CT payments are
 probably cookie purchases.
 
-10. The bad guy cannot steal cookie tokens, because he needs the
-public key in order to exploit the flaw in the public key derivation
-function. The spreadsheet contains public key hashes, they can't get
-the public key.
+. The bad guy can’t steal cookie tokens because he needs the public
+key to exploit the flaw in the public key derivation function. The
+spreadsheet contains PKHs; the bad guy can't get the public key from it.
 
-11. The bad guy needs the private key in order to sign fraudulent
-emails to Lisa. Eventhough he can reverse RIPEMD160, he'd still need
-to pre-image attack SHA256 and reverse the public key derivation
-function to get to a working private key.
+. The bad guy needs the private key to sign fraudulent emails to
+Lisa. Even though he can reverse RIPEMD160, he’d still need to pre-image
+attack SHA256 and reverse the public key derivation function to get to a
+working private key.
 
 === Chapter 4
 
-1. `bitcoin:155gWNamPrwKwu5D6JZdaLVKvxbpoKsp5S&amount=50`
+. `bitcoin:155gWNamPrwKwu5D6JZdaLVKvxbpoKsp5S?amount=50`
 
-2. Each character corresponds to 6 bits of entropy because 2^6^=64. 10 such characters make 60 bits of entropy, which corresponds to 60 coin flips.
+. Each character corresponds to 6 bits of entropy because 2^6^ = 64.
+Ten such characters make 60 bits of entropy, which corresponds to 60
+coin flips.
 
-3. Four problems:
-  ** Passwords are easily forgotten
-  ** Randomness is hard
-  ** Security of a password decreases as technology improves
-  ** You need to keep track of two items: The backup _and_ the
-   password. This increases the risk that the backup is lost.
+. The four problems:
 
-4. The seed is created by using a random number generator, for example a series of coin flips or the random number generator provided by your operating system.
+* Passwords are easily forgotten.
 
-5. An xprv consists of a private key and a chain code.
+* Randomness is hard.
 
-6. An xpub consists of a public key and a chain code.
+* The security of a password decreases as technology improves.
 
-7. The xprv at path `m/2/1` and the wanted index `7`.
+* You need to keep track of two items: the backup _and_ the
+password. This increases the risk that the backup is lost.
 
-8. No, you would need xprv `m/2/1` to derive xpub `M/2/1/7'`. You
-first derive hardened xprv `m/2/1/7'` from `m/2/1` using hardened
-extended private key derivation and then calculate the xpub `M/2/1/7'`
-from `m/2/1/7'`.
+. The seed is created by using a random number generator—for
+example, a series of coin flips or the random number generator provided
+by your operating system.
 
-9. You can use this procedure to get the master xprv:
-  .. Use master xpub `M` to derive xpub `M/4`.
-  .. Use `M/4` to derive the left half hash at index 1.
-  .. Subtract that left half hash from `m/4/1` to get private key `m/4`.
-  .. Subtract the left half hash of `M/4` from `m/4` to get private key `m`.
-  .. `m` together with the chain code of xpub `M` is the master xprv.
+. An xprv consists of a private key and a chain code.
 
-10. Yes, I'd be able to steal all funds in any addresses because I can
-calculate the master xprv.
+. An xpub consists of a public key and a chain code.
 
-11. The victim could have used hardening to generate `m/4'`
-instead. That way I wouldn't be able to get the master xprv. If I
-stole `m/4'/1` and master xpub, I would only be able to steal funds on
-the `m/4'/1` key. I would not be able to calculate the `M/4'` xpub.
+. The xprv at path `m/2/1` and the wanted index `7`.
 
-12. The employees can import the extended public key for the counter
-sales account. Then the employees will be able to generate any public
-keys under that account, and thus generate as many addresses as they
-need without ever having to know any private keys.
+. No, you would need xprv `m/2/1` to derive xpub `M/2/1/7'`. You
+first derive hardened xprv `m/2/1/7'` from `m/2/1` using hardened xprv
+derivation and then calculate the xpub `M/2/1/7'` from `m/2/1/7'`.
 
-13. My (and Anita's) wallet can generate 10 addresses ahead of time
-and monitor the spreadsheet for those addresses. If Anita gets paid on
-one of these addresses, probably the first of those 10, then my wallet
-wouldn't reuse that address when I request a payment from a
-customer. I would instead take the next unused address.
+. You can use the following procedure to get the master xprv:
++
+[arabic]
+.. Use master xpub `M` to derive xpub `M/4` and remember the left-half
+hash, L~4~.
+
+.. Use `M/4` to derive the left-half hash L~41~ at index 1.
+
+.. Subtract L~41~ from the private key `m/4/1` to get private key `m/4`.
+
+.. Subtract L~4~ from the private key `m/4` to get private key `m`.
+
+.. `m` together with the chain code of xpub `M` is the master xprv.
+
+. Yes, you’d be able to steal all funds in any addresses because
+you can calculate the master xprv.
+
+. The victim could have used hardening to generate `m/4'` instead.
+This way, you wouldn’t be able to get the master xprv. If you stole
+`m/4'/1` and the master xpub, you would only be able to steal funds on
+the `m/4'/1` key. You wouldn’t be able to calculate the `M/4'` xpub.
+
+. The employees can import the xpub for the counter sales account.
+They will then be able to generate any public keys under that account
+and thus generate as many addresses as they need without ever having to
+know any private keys.
+
+. Your (and Anita’s) wallet can generate 10 addresses ahead of time
+and monitor the spreadsheet for those addresses. If Anita gets paid to
+one of these addresses—probably the first of those 10—then your wallet
+won’t reuse that address when you request a payment from a customer. You
+would instead take the next unused address.
 
 === Chapter 5
 
-1. I would spend the 4 CT and the 7 CT outputs. The new outputs would
-be 10 CT to the cafe and 1 CT in change to an address that I control.
+. You would spend the 4 CT and the 7 CT outputs. The new outputs
+would be 10 CT to the cafe and 1 CT in change to an address you control.
 
-2. They are used in inputs to reference transactions to spend outputs
-from.
+. They’re used in inputs to reference transactions from which to
+spend outputs.
 
-3. Because you can't spend part of a transaction output. You either
-spend the output or you don't. If the output contains more value than
-you're paying, you need to give back change to yourself.
+. Because you can’t spend part of a transaction output. You either
+spend the output or you don’t. If the spent output contains more value
+than you’re paying, you need to give back change to yourself.
 
-4. In the signature scripts in the inputs.
+. In the signature scripts in the inputs.
 
-5. Because the verifiers need to know what public key to verify the
-signature with. You can't verify the signature with a public key hash,
-so you need to explicitly reveal the public key in the signature
-script.
+. Because the verifiers need to know what public key to verify the
+signature with. You can’t verify the signature with a PKH, so you need
+to explicitly reveal the public key in the signature script.
 
-6. The signature scripts are cleaned so that verifiers don't have to know the order in which the inputs are signed. It's easier if all inputs are clean from signatures when signing.
+. The signature scripts are cleaned so that verifiers don’t have to
+know the order in which the inputs are signed.
 
-7. Each output of a transaction contains a pubkey script. It contains
+. Each output of a transaction contains a pubkey script. It contains
 the second part of a script program. The first part will be provided
-later when the output is spent.
+later, when the output is spent.
 
-8. The script program must end with "OK" on top of the stack.
+. The Script program must end with OK on top of the stack.
 
-9. A p2sh address always starts with a `3`. You can also recognize it
-by base58 decoding it and looking at the first byte. If that byte is
-`05` it's a p2sh address.
+. A p2sh address always starts with a `3`. You can also recognize it
+by base58check-decoding it and looking at the first byte. If that byte
+is 05, it’s a p2sh address.
 
-10. I'll create a transaction with one input and three outputs:
+. You’ll create a transaction with one input and three outputs:
 +
-image::{imagedir}/ch05-ex-solution-10.svg[{full-width}]
+image::{imagedir}/appb-01.svg[{full-width}]
 
-11. 10,003 UTXOs. You remove two UTXOs by spending two outputs and you
-add five new UTXOs. The net effect on the UTXO set is thus +3 UTXOs.
+. 10,003 UTXOs. You remove two UTXOs by spending two outputs, and
+you add five new UTXOs. The net effect on the UTXO set is thus +3 UTXOs.
 
-12. The pubkey script can be for example `1`. The spending input can
-have an empty signature script. The full script program just puts a
-`1` on the stack. A result stack with non-zero on top means "OK".
+. The pubkey script can be, for example, `1`. The spending input
+can have an empty signature script. The full Script program just puts a
+`1` on the stack. A result stack with non-zero on top means OK.
 
-13. `OP_ADD 10 OP_EQUAL`. This will first add the two top items on the
-stack and put the result back on top. Then we will push the number 10
-to the stack and compare the two top items. If equal, "OK" will be
-pushed to the stack.
+. `OP_ADD 10 OP_EQUAL`. This will first add the two top items on
+the stack and put the result back on top. Then, you’ll push the number
+10 to the stack and compare the two top items. If they’re equal, OK will
+be pushed to the stack.
 
-14. Yes. My full node verifies everything in the spreadsheet from the
-very first transaction up to the transaction containing my money from
-Faiza. It verifies (among other things) that:
-+
+. Yes. Your full node verifies everything in the spreadsheet from
+the very first transaction up to the transaction containing your money
+from Faiza. It verifies (among other things) the following:
+
 * Lisa created the expected number of coinbase transactions with the
-  correct amounts in them.
-* for each transaction in the spreadsheet, the value sum of outputs
-  doesn't exceed the value sum of inputs.
-* All signatures from Faiza's payment back to all coinbase
-  transactions are OK.
+correct amounts in them.
 
-15. If there are several UTXOs to the same PKH, it means that as soon
-as one of them is spent, the security of the other UTXOs to the same
-PKH will be degraded. This is because we remove a layer of security,
-the cryptographic hash function. From that point we rely solely on
-public key derivation function to be secure. You can avoid that
-problem by using unique addresses for all your incoming payments. Then
-all your UTXOs would have different public key hashes.
+* For each transaction in the spreadsheet, the value sum of outputs
+doesn’t exceed the value sum of inputs.
+
+* All signatures from Faiza’s payment back to all coinbase transactions
+are OK.
+
+. If there are several UTXOs to the same PKH, then as soon as one
+of them is spent, the security of the other UTXOs to the same PKH will
+be degraded. This is because you remove a layer of security, the
+cryptographic hash function. From this point, you rely solely on the
+public key derivation function to be secure. You can avoid this problem
+by using unique addresses for all your incoming payments. Then, all your
+UTXOs will have different PKHs.
 
 === Chapter 6
 
-1. By the previous block's block id, which is the hash of the previous
-block's header.
+. By the previous block’s block ID, which is the hash of the
+previous block’s header.
 
-2. The merkle root of a block commits to all transactions in that block.
+. The merkle root of a block commits to all transactions in that
+block.
 
-3. Lisa's block signature commits to the previous block id, the merkle
-root and the timestamp. This in turn commits to the whole blockchain
-before this block and and all transactions in the block.
+. Lisa’s block signature commits to the timestamp, the merkle root
+(and indirectly all transactions in this block), and the previous block
+ID (and indirectly the whole blockchain before this block).
 
-4. The first transaction in each block is a coinbase transaction. This
-coinbase transaction creates 50 new cookie tokens. This will be cut in
-half every four years, so after next halving, only 25 cookie tokens
-will be created in each block.
+. The first transaction in each block is a coinbase transaction.
+This coinbase transaction creates 50 new cookie tokens and sends them to
+Lisa’s cookie token address.
 
-5. All transactions. The hash functions will all result in an index
-containing `1` because there are no zeroes in the bloom filter. Any
-item in the transaction that we test will be a positive.
+. All transactions. The hash functions will all result in an index
+containing `1` because there are no zeroes in the bloom filter. Any item
+in the transaction that you test will be a positive.
 
-6. In the input we will test:
-   * The txid together with the index that identifies the output to spend.
-   * All data items in the signature scripts
-   * All data items in the pubkey scripts
-   * The txid of the transaction
+. The following are tested:
 
-7. They are not pre-image resistant, collision resistant or
-second-preimage resistant. The outputs space is very small, typically
-just a few hundred to a few thousand numbers. It will only take a
-fraction of a second to find a pre-image of for example `172`.
+* The txid together with the index that identifies the output to spend
 
-8. The rightmost leaf must be copied to make an even number of
-leaves. The same goes for the next level, where the third hash needs
-to be copied.
+* All data items in the signature scripts
+
+* All data items in the pubkey scripts
+
+* The txid of the transaction
+
+. They aren’t pre-image resistant, collision resistant, or
+second-pre-image resistant. The output space is small—typically just a
+few hundred to a few thousand numbers. It will take only a fraction of a
+second to find a pre-image of, for example, `172`.
+
+. The rightmost leaf must be copied to make an even number of
+leaves. The same goes for the next level, where the third hash needs to
+be copied.
 +
-image::{imagedir}/ch06-ex-solution-8.svg[{full-width}]
+image::{imagedir}/appb-02.svg[{full-width}]
 
-9. If Lisa's private block signing key is stolen the thief can start
-double spending. Also if a bad guy replaces Lisa's block signing
-public key on one or more sources, like the bulletin board or the
-intranet, the bad guy can fool people in accepting blocks not signed
-by Lisa.
+. If Lisa’s private block-signing key is stolen, the thief can
+create blocks in Lisa’s name. Also, if a bad guy replaces Lisa’s
+block-signing public key on one or more sources, such as the bulletin
+board or the intranet, the bad guy can fool people into accepting blocks
+not signed by Lisa.
 
-10. Lisa can censor transactions and the shared folder administrator
+. Lisa can censor transactions, and the shared folder administrator
 can censor blocks.
 
-11. a) Yes, a new node that downloads all blocks from the shared
-folder will notice that there are two versions of the block. b) Yes,
-an old node that has already downloaded the original block will detect
-that there is an alternate version of the block.
+. a) Yes, a new node that downloads all blocks from the shared
+folder will notice that there are two versions of the block. b) Yes, an
+old node that has already downloaded the original block will detect that
+there is an alternate version of the block.
 
-12. The bits at indexes `1`, `5`, `6` and `7` are set to `1` and the
-other to `0`. The full node would NOT send this transaction to the
-full node. Nothing that is tested hashes to only `1`-bits. This was somewhat of a trick question, because the  is a 
+. The bits at indexes `1`, `5`, `6`, and `7` are set to 1 and the
+other to 0. The full node would _not_ send this transaction to the
+lightweight wallet. Nothing that’s tested hashes to only indexes where
+the bits are `1`. This was something of a trick question, because the
+spent txid and the output index of the spent transaction aren’t tested
+individually, so 1,6,6 will never be considered by the full node.
 +
-image::{imagedir}/ch06-ex-solution-12.svg[{full-width}]
+image::{imagedir}/appb-03.svg[{big-width}]
 
-13. The partial merkle tree is:
+. The partial merkle tree is
 +
  Number of tx: 3
  Flags: ✔✔✘✔✔✔
  Hashes 3 4 6
 
-14. The interesting transactions are number 7 and 13, or leafs number
-6 and 10 from the left. You have already seen the solution in
-<<bigger-trees>>, but we provide it here as well for reference.
+. The interesting transactions are numbers 7 and 13, or leaf numbers 6
+and 10 from the left. You’ve already seen the solution in
+<<bigger-trees>>, but I provide it here as well for reference.
++
+image::{imagedir}/appb-04.svg[{full-width}]
 
-image::{imagedir}/ch06-ex-solution-14.svg[{full-width}]
+. You need to verify the following:
 
-[start=15]
-. You need to verify that
-* the transaction's txid is in the list of hashes.
-* the root of the partial merkle tree matches the merkle root in the block header.
-* the block header is correctly signed.
+* The transaction’s txid is in the list of hashes.
+
+* The root of the partial merkle tree matches the merkle root in the block
+header.
+
+* The block header is correctly signed.
 
 === Chapter 7
 
-1. She single handedly decides what transactions get confirmed.
+. She single-handedly decides what transactions get confirmed.
 
-2. The probability of censorship will decrease because all miners must
-cooperatively decide to censor a transaction in order to
-succeed. Otherwise my transactions will eventually get confirmed by
-some non-colluding miner.
+. The probability of censorship will decrease because all miners
+must cooperatively decide to censor a transaction to succeed. Otherwise,
+your transactions will eventually be confirmed by some noncolluding
+miner.
 
-3. Miners can cheat with random numbers. You can't prove whether a miner
-cheated or not.
+. Miners can cheat with random numbers. You can’t prove whether a
+miner cheated.
 
-4. Verify that the block id of a block is lower than the target in the
-block header, and that the target is the agreed upon target.
+. Verify that the block ID of a block is lower than the target in
+the block header, and that the target is the agreed-on target.
 
-5. By repeatedly increasing the nonce and hashing (double SHA256) the
-block header until the block id (the block header hash) is lower than
+. By repeatedly changing the nonce and hashing (double SHA256) the
+block header until the block ID (the block header hash) is lower than
 the target.
 
-6. The branch with most accumulated proof of work. This is not
-necessarily the same as the branch with most blocks.
+. The branch with the most accumulated proof of work. This isn’t
+necessarily the same as the branch with the most blocks.
 
-7. A miner with hashrate 100 Mhash/s can perform 100,000,000 tries per
-second to find a valid proof of work.
+. A miner with a hashrate of 100 Mhash/s can perform 100,000,000
+tries per second to find a valid proof of work.
 
-8. The target will increase. If the 2016 blocks took 15 days instead
-of the goal of 14 days, it means that it's too hard to find blocks, so
-we need to decrease the difficulty, which means increase the target.
+. The target will increase. If the 2,016 blocks take 15 days instead
+of the goal of 14 days, then it’s too hard to find blocks, so you need
+to decrease the difficulty, which means increasing the target.
 
-9. 50%. But if you plan to give up at some point, your chances will
+. 50%. But if you plan to give up at some point, your chances will
 decrease.
 
-10. The small block will reach the other miners more quickly than the
-big block because a smaller block travels a computer network faster
-than a big block. The small block is probably also quicker to verify
-than the big block. Miners will probably download and verify the small
-block faster than the big block and continue their mining activity on
-top of the small block, which gives the small block a higher
-probability of becoming part of the strongest chain.
+. The small block will reach the other miners more quickly than the
+big block because a smaller block travels a computer network faster than
+a big block. The small block is probably also quicker to verify than the
+big block. Miners will probably download and verify the small block
+faster than the big block and continue their mining activity on top of
+the small block, which gives the small block a higher probability of
+becoming part of the strongest chain.
 
-11. The target will decrease by a factor 3/4. The time to produce 2016
-block is 1.5 weeks, the first 1008 blocks takes 1 week and the next
-1008 weeks takes 0.5 weeks. So the new target becomes
-
+. The target will decrease by a factor of 3/4. The time to produce
+2,016 blocks is 1.5 weeks; the first 1,008 blocks take 1 week, and the
+next 1,008 blocks take 0.5 weeks. So, the new target becomes
++
 [stem]
 ++++
 N=
@@ -360,311 +392,303 @@ O*\left\{
 \right.
 ++++
 
-[start=12]
-. Selma has the majority of the hash rate. As long as she plays by
-the same rules as everyone else, she's going to earn a lot of block
+. Selma has the majority of the hashrate. As long as she plays by
+the same rules as everyone else, she’s going to earn a lot of block
 rewards. When she breaks the rules by changing the target prematurely,
-all full nodes, except Selma's, will discard her blocks. Selma will
-continue working on her own branch of the blockchain with her new
-rules, while all the rest will work on the branch with the old
-rules. The branches will be mutually incompatible. The hashrate of the
-old branch will drop to 48%, but the system ticks on and everyone
-continues their daily lives as normal. Selma, on the other hand, will
-spend a lot of electricity and time on her new branch and no one will
-buy her block rewards. The value of her mined coins will probably drop
-dramatically since they are not following the consensus rules. Selma
-is a loser.
+all full nodes except Selma’s will discard her blocks. Selma will
+continue working on her own branch of the blockchain with her new rules,
+while all the rest will work on the branch with the old rules. The
+branches will be mutually incompatible. The hashrate of the old branch
+will drop to 48%, but the system will tick on, and everyone will
+continue their daily lives as normal. Selma, on the other hand, will
+spend a lot of electricity and time on her new branch, and no one will
+buy her block rewards. The value of her mined coins will probably be
+close to zero because she’s not following the rules. Selma is a loser.
 
-. The "fee per byte" metric used by most miners will be
-very low. For every byte of transaction data the miner puts in its
-block it will loose a little competitiveness because the block will
-get bigger and thus slower to transport over the network and to
-verify. If the fee per byte for the transaction isn't high enough to
-compensate for the lost competitiveness, the miner will probably not
-include it.
+. The fee-per-byte metric used by most miners will be very low. For
+every byte of transaction data the miner puts in its block, it will lose
+a little competitiveness because the block will get bigger and thus
+slower to transport over the network and to verify. If the fee per byte
+for the transaction isn’t high enough to compensate for the lost
+competitiveness, the miner probably won’t include it.
 
 === Chapter 8
 
-1. The shared folder is a bad idea because it gives the shared folder administrator absolute power over what blocks to allow.
+. The shared folder is a bad idea because it gives the shared folder
+administrator absolute power over what blocks to allow. Also, if the
+administrator decides to start mining, he can shut off all competition
+and have complete power of the system.
 
-2. To relay a block means to pass it on to other peers.
+. To relay a block or a transaction means to pass it on to peers.
 
-3. An `inv` message is used to announce to other peers that you have a
-certain block or transaction. `inv` stands for inventory.
+. An `inv` message is used to announce to peers that you have a
+certain block or transaction; `inv` stands for inventory.
 
-4. It will run the transaction through the bloom filter it got from
+. It will run the transaction through the bloom filter it got from
 the wallet. If any tested item in the transaction matches the filter,
-it will send the transaction should be sent to the lightweight wallet.
+the node will send the transaction to the lightweight wallet.
 
-5. The full node sends an `inv` to the lightweight wallet, after
-consulting the bloom filter. The wallet may then fetch the
-transaction if it doesn't already have it.
+. The full node sends an `inv` to the lightweight wallet after
+consulting the bloom filter. The wallet can then fetch the transaction
+if it doesn’t already have it.
 
-6. The block header.
+. The block header.
 
-7. Because the cafe doesn't have to obfuscate to their trusted node
-what addresses belongs to the wallet. They send a very big bloom
-filter to save data traffic on their mobile phone; A bloom filter that
-contains mostly zeroes will send almost no false positives.
+. Because the cafe doesn’t have to obfuscate to its trusted node
+what addresses belong to the wallet. It sends a very big bloom filter to
+save data traffic on its mobile phone; a bloom filter that contains
+mostly zeroes will send almost no false positives.
 
-8. She would verify the signature of the program using the public key
-she knows belongs to the Bitcoin Core development team. She does this
-to avoid being tricked to run some malicious software.
+. She would verify the signature of the program using the public key
+she knows belongs to the Bitcoin Core development team. She does this to
+avoid being tricked into running malicious software.
 
-9. DNS servers, Asking trusted friends, hard-coded addresses shipped
-with Bitcoin Core.
+. Using a DNS server to get a list of IP addresses for a DNS seed (a
+DNS name) configured in Bitcoin Core, asking trusted friends, and using
+hardcoded addresses shipped with Bitcoin Core.
 
-10. The node's peers will announce any new blocks by sending `headers`
-messages to the node, even during its synchronization process.
+. The node’s peers will announce any new blocks by sending
+`headers` messages to the node, even during its synchronization process.
 
-11. You need to convince the cafe, Qi and Tom to hide blocks from
+. You need to convince the cafe, Qi, and Tom to hide blocks from
 Lisa. You can bribe them or threaten them.
 
-12. She sends an `inv` message to Rashid's node containing the two
-transaction IDs and a headers message containing the new block's
-header.
+. She sends an `inv` message to Rashid’s node containing the two
+transaction IDs.
 
-13. The cafe can connect to more nodes to shorten the paths
-from Qi. It can for example connect to Tom's node or directly to Qi's
-node.
-
-14. Your node starts the synchronization process which will look like
-this:
+. Your node starts the synchronization process, which will look
+like this:
 +
-image::{imagedir}/ch08-solution-ex-getblocks-power-outage.svg[{full-width}]
+image::{imagedir}/appb-06.svg[{full-width}]
 
 === Chapter 9
 
-1. At least one of the inputs must have a sequence number < `ffffffff`.
+. At least one of the inputs must have a sequence number strictly
+less than `ffffffff`.
 
-2. The median of the timestamps of the 11 previous blocks must be
+. The median of the timestamps of the 11 previous blocks must be
 strictly later than 2019-12-25 00:00:00.
 
-3. In the sequence number. The actual lock time is located in the
-rightmost 16 bits of the sequence number.
+. In the rightmost 16 bits of the sequence number.
 
-4. `<2048> OP_CHECKSEQUENCEVERIFY OP_DROP`. Don't forget the OP_DROP
-afterwards, otherwise the <2048> would stay on the stack. This would
-problems in case OP_CSV succeeds.
+. Two transactions on each blockchain: one for the contract
+transaction and one for the swap transaction.
 
-5. 2 transactions on each blockchain. One for the contract transaction
-and one for the swap transaction.
+. With fake PKHs, the data must be stored forever in the UTXO set
+because Bitcoin nodes can’t distinguish between fake PKHs and real ones.
+The nodes won’t be able to tell if the output is unspendable or not.
+With an `OP_RETURN` output, the node knows that the output is
+unspendable and thus doesn’t have to keep it in the UTXO set.
 
-6. With fake public key hashes, the data must be stored forever in the
-UTXO set because Bitcoin nodes can't distinguish between fake public
-key hashes and real ones. The nodes will not be able to tell if the
-output is unspendable or not. With an OP_RETURN output, the node knows
-that the output is unspendable and thus doesn't have to keep it in the
-UTXO set.
+. Your first transaction paid a too-small fee and got stuck pending.
+You then want to replace it with a new transaction that pays a higher
+fee.
 
-7. Your first transaction paid a too small fee and got stuck
-pending. You then want to replace it with a new transaction that pays
-a higher fee.
+. Absolute lock time: a transaction is invalid until a certain block
+height or time. Relative lock time: an input of a transaction is invalid
+until the spent output has been confirmed for a certain number of blocks
+or a certain time period.
 
-8. Absolute lock time requires that a certain block height or point in
-time has passed before the transaction is valid. Relative lock time
-requires that a certain amount of time or blocks have passed since the
-spent output was confirmed.
-
-9. The redeem script contains two branches of code. The first branch
-will require that both You and Ruth sign to spend the 2 BTC. This can
-be done at any time. To spend the 2 BTC using the second branch
-requires that all of the following conditions are met:
+. The redeem script contains two branches of code. The first branch
+will require that both you and Ruth sign to spend the 2 BTC. This can be
+done at any time. To spend the 2 BTC using the second branch requires
+that all of the following conditions are met:
 +
 --
-* You have waited until new year's eve
-* Beth has signed the transaction
-* You or Ruth sings the transaction
+* You have waited until New Year’s Eve.
+* Beth has signed the transaction.
+* You or Ruth signs the transaction.
 
 To be precise, you and Ruth can spend using the first branch with the
 following signature script (excluding the redeem script):
 
  0 <your sig> <ruth sig> 1
 
-The second branch can be spent at earliest on new year's eve by:
+The second branch can be spent at the earliest on New Year’s Eve with
 
- 0 <your or ruths sig> <beth sig> 0 
+ 0 <your or ruths sig> <beth sig> 0
 
-The rightmost digit in both signature scripts above will select what
-branch to use, the rest just fulfills the requirement in the
-respective branch.
+The rightmost digit in both these signature scripts will select what
+branch to use; the rest fulfill the requirement in the respective
+branch.
 
-The time locked branch ensures that Beth has no power to collude with
-either You or Ruth before new year's eve.
+The time-locked branch ensures that Beth has no power to collude with
+either you or Ruth before New Year’s Eve.
 --
 
-10. No. The redeem script is not known to the nodes until an output is
-spent. And since you can't spend an OP_RETURN redeem script, nodes
+. No. The redeem script isn’t known to the nodes until the output is
+spent. And because you can’t spend an `OP_RETURN` redeem script, nodes
 will never know about the redeem script.
 
-11. A full node that receives a transaction will keep it in memory
-until it is included in a block. If a second, conflicting, transaction
-arrives, the node will drop that second transaction and not
-relay it. It will consider the first seen transaction as the "real"
-one and the second transaction as a "double spend attempt". Nodes
-(including miners) are not required to follow this policy, because it
-is just a policy.
+. A full node that receives a transaction will keep it in memory
+until it’s included in a block. If a second, conflicting transaction
+arrives, the node will drop that second transaction and not relay it. It
+will consider the first-seen transaction as the “real” one and the
+second transaction as a double-spend attempt. Nodes (including miners)
+aren’t required to follow this policy because it’s just a policy. The
+node will thus never know that this is an unspendable output.
 
-12. A miner can always select whatever valid transactions they want to
-include in their blocks. This means that all transactions are in a way
-"replaceable". A miner can offer replacement as a service; Upload a
-double spend transaction with a high fee via the miner's website to
-have it confirmed in their next winning block.
+. Miners can always select whatever valid transactions they want to
+include in their blocks. Thus all transactions are in a way replaceable.
+A miner can offer replacement as a service—that is, upload a
+double-spend transaction with a high fee via the miner’s website to have
+it confirmed in the miner’s next winning block.
 +
-It is of course simpler for normal users to replace a transaction that
-has opted in to RBF. But using services like the one above is simple
-enough for a motivated thief. The difference in security is therefore
-not as big as one might think.
+It is, of course, simpler for normal users to replace a transaction that
+has opted in to RBF. But using services like the aforementioned one is
+simple enough for a motivated thief. The difference in security
+therefore isn’t as big as you might think.
 
 === Chapter 10
 
-1. The signature script
+. The signature scripts.
 
-2. A transaction T~2~,that spends an output of an unconfirmed
-transaction, T~1~, can become invalid if the txid of T~1~ is changed
-while being broadcast. This causes a lot of problems for "smart
-contracts".
+. A transaction, T~2~, that spends an output of an unconfirmed
+transaction, T~1~, can become invalid if T~1~ is changed into T~1M~
+while being broadcast, and T~1M~ gets confirmed. This causes a lot of
+problems for contracts.
 
-3. The time to verify a legacy transaction increases 4 times when the
-number of inputs doubles. This is because you need
+. The time to verify a legacy transaction increases four times when
+the number of inputs doubles. This is because
 
-* to verify twice the number of signatures
-* each signature takes double the time to verify because the
-   transaction to hash has doubled in size.
+* You need to verify twice the number of signatures.
 
-4. In order to verify that the transaction is included in a block, the
-lightweight wallets need to calculate the transaction's txid. The
-wallet needs the signatures to calculate the txid, because they are
-included in the txid.
+* Each signature takes double the time to verify because the transaction
+to hash has doubled in size.
 
-5. The new behavior of `OP_NOP5` must, if it succeeds, be exactly
-like the old behavior of `OP_NOP5`. This means that it should have no
-effect at all if it succeeds.
+. To verify that the transaction is included in a block, the
+lightweight wallet needs to calculate the transaction’s txid. The wallet
+needs the signatures to calculate the txid because they’re included in
+the txid.
 
-6. a (p2wpkh) and b (p2wsh) are segwit addresses.
+. The new behavior of `OP_NOP5` must, if it succeeds, be exactly
+like the old behavior of `OP_NOP5`. This means it should have no effect
+on the stack if it succeeds.
 
-7. The witness version is used to make future upgrades easier. The
+. a (p2wpkh) and c (p2wsh) are segwit addresses. d is a p2sh
+address, but it might contain a nested p2wpkh or p2wsh payment in the
+redeem script. We can't say for sure. But the address is a p2sh address,
+not a segwit address.
+
+. The witness version is used to make future upgrades easier. The
 rule is that unknown witness versions are accepted. When a new witness
 version is deployed, old nodes will accept any payment that spends
 outputs with that new witness version. This avoids causing old and new
-nodes following different branches of the blockchain.
+nodes to follow different branches of the blockchain.
 
-8. All data items in the signature script are pushed to the
-stack. There are no such items in the signatures script, so nothing to
-do there. Then `00` will be pushed followed by `c805...cba8`. Then the
-script program is finished and the top item on the stack is
-checked. It's not zero, which means that the spending is valid.
+. All data items in the signature script are pushed to the stack.
+No such items exist in the signature script, so there’s nothing to do
+there. Then, `00` will be pushed followed by `c805…cba8`. The Script
+program is then finished, and the top item on the stack is checked. It’s
+not zero, which means the spending is valid.
 
-9. The new node will notice that the output is the "segwit
-pattern". It will also notice that the witness version is `00` and
-that the witness program is 20 bytes. This means that this is a p2wpkh
-output. To spend such an output the signature script must be empty and
-the witness must contain exactly a signature and the pubkey
-corresponding to `PKH~Y~`
+. The new node will notice that the output has the segwit pattern.
+It will also notice that the witness version is `00` and that the
+witness program is 20 bytes. That means this is a p2wpkh output. To
+spend such an output, the signature script must be empty, and the
+witness must contain exactly a signature and the pubkey corresponding to
+the witness program, `PKH~Y~`.The p2wpkh template is filled in using
+the signature and public key from the witness field and the PKH from the
+pubkey script (the witness program). The filled-in template is then run
+normally.
 
-10. The fee merkle root can be placed in the right branch under the
-witness commitment. But we also need to put the fee merkle root in the
+. The fee merkle root can be placed in the right branch under the
+witness commitment. But you also need to put the fee merkle root in the
 witness for the coinbase input so that old segwit nodes can verify the
 witness root hash.
 
-11. An old segwit node will verify the block exactly as before. The
-Witness reserved value can be anything as long as it equals the
-witness of the coinbase input. So the old node will be able to build
-the witness commitment, but it will not know that the witness reserved
-value is a fee merkle root. Old nodes will thus not be able to verify
-that the fee merkle tree.
+. An old segwit node will verify the block exactly as before. The
+witness reserved value will be taken from the witness of the coinbase
+input. Using the hash from the witness lets the old node build the
+witness commitment and compare it with the hash in the `OP_RETURN`
+output, but it won’t know that the witness reserved value is a fee
+merkle root. Old nodes thus won’t be able to verify the fee merkle tree.
 +
-A new segwit node will verify both the witness root hash and the fee
-merkle root. It knows that the new rule is in place and will always
-enforce the rule on all blocks. The node will create the fee merkle
-tree from the transactions in the block and combine the fee merkle
-root with the witness root hash to build the witness commitment. This
-witness commitment is then compared to the witness commitment in the
-coinbase's OP_RETURN output. Match means OK.
+A new node will do the same verification as an old node, but it will
+also calculate the fee merkle root and compare it to the hash in the
+coinbase’s witness.
 
 === Chapter 11
 
-1. A soft fork tightens the consensus rules. This means that blocks
-created by New nodes are guaranteed to be accepted by Old nodes.
+. A soft fork tightens the consensus rules. This means blocks
+created by Bitcoin New nodes are guaranteed to be accepted by Bitcoin
+Old nodes.
 
-2. .
-
+. &#x00a0;
++
+[loweralpha]
 .. The New branch will get wiped out by the Old branch.
-.. It will _eventually_ get wiped out when the Old branch catches up
-with the New branch and surpasses it. This can take quite a few blocks
-depending on the initial deficit.
-.. Bitcoin New could be equipped with wipe-out protection. For example
-require that the first block in the split must have a certain property
-that's not valid in the Old chain. Bitcoin Cash, for example, required
-that the first block is ≥1,000,000 bytes.
 
-3. No, it will be outperformed by the New branch and the Old branch
-will pretty quickly be wiped out, reorged.
+.. It will _eventually_ get wiped out when the Old branch catches
+up with the New branch and surpasses it. This can take quite a few
+blocks, depending on the initial deficit.
 
-4. 2016 blocks. The `LOCKED_IN` state is always one retarget period.
+.. Bitcoin New could be equipped with wipeout protection—for
+example, by requiring that the first block in the split have a certain
+property that’s not valid in the Old chain. Bitcoin Cash, for example,
+required that the first block be ≥1,000,000 bytes.
 
-5. Both. Old nodes can create a block that's not valid according to
-New nodes. Conversely, New nodes can create a block that's not valid
+. No, it will be outperformed by the New branch, and the Old branch
+will pretty quickly be wiped out, or reorged.
+
+. 2,016 blocks. The `LOCKED_IN` state is always one retarget
+period.
+
+. Both. Old nodes can create a block that’s not valid according to
+New nodes. Conversely, New nodes can create a block that’s not valid
 according to Old nodes.
 
-6. If the New nodes don't have a majority of the hash rate, the Old
+. If the New nodes don’t have a majority of the hashrate, the Old
 nodes can cause a lasting blockchain split. This would effectively
 result in two cryptocurrencies.
 
-7. Replay protection is desirable because a transaction intended for
-one branch of the split, should not risk ending up on both branches.
+. Replay protection is desirable because a transaction intended for
+one branch of the split shouldn’t risk ending up on the other branch.
 
-8. Yes. Suppose that the 11 timestamps before B~1~, sorted by value, are
+. Yes. Suppose the 11 timestamps before B~1~, sorted by value, are
 +
+--
 [subs="normal"]
  a ≤ b ≤ c ≤ d ≤ e ≤ MTP~1~ ≤ g ≤ h ≤ i ≤ j ≤ k
-+
-To calculate MTP~2~ of block B~2~ following B~1~, we add T~1~ to the
-above list. Since a timestamp of a block needs to be strictly later
-than the the MTP of the block, T~1~ must be sorted to the right of
-MTP~1~ in the list above, for example:
-+
+
+To calculate MTP~2~ of block B~2~ following B~1~, add T~1~ to this list.
+Because a timestamp of a block needs to be strictly later than the MTP
+of the block, T~1~ must be sorted to the right of MTP~1~ in the list.
+For example:
+
 [subs="normal"]
  a ≤ b ≤ c ≤ d ≤ e ≤ MTP~1~ ≤ g ≤ h ≤ T~1~ ≤ i ≤ j ≤ k
-+
-We must also remove the timestamp of the block with lowest height from
-the list of timestamps. If any of a, b, c, d, e, or MTP~1~ is removed
-the median value will move one step to the right, which is a value at
-most T~1~. In that case MTP~2~ is < timeout, for example:
-+
-[subs="normal"]
- a ≤ b ≤ c ≤ e ≤ MTP~1~ ≤ MTP~2~ ≤ h ≤ T~1~ ≤ i ≤ j ≤ k
-+
-g becomes MTP~2~.
-+
-If any of g, h, i, j or k is removed instead, we have added one value
-(T~1~) to the right of MTP~1~ and removed one value to the right of
-MTP~1~.  In this case MTP~2~=MTP~1~ and thus MTP~2~ < timeout. For
-example:
-+
-[subs="normal"]
- a ≤ b ≤ c ≤ d ≤ e ≤ MTP~2~ ≤ g ≤ h ≤ T~1~ ≤ j ≤ k
-+
-i is removed and T~1~ added, to the right of MTP~1~, so MTP~2~=MTP~1~.
-+
-So MTP of B~2~ is less than timeout, and all blocks (>95%) of the last
-2016 blocks signal support, which means that the deployment will move
-to `LOCKED_IN` and 2016 blocks later to `ACTIVE`.
 
-9. A portion (30%) of the economy starts rejecting blocks that don't
-comply with your soft fork. This means that you will cause a
-blockchain split that remains as long as a majority of miners support
-the Old branch.
+You must also remove the timestamp of the block with lowest height from
+the list of timestamps. No matter what timestamp you remove, MTP~2~ will
+be either MTP~1~ (if you remove a timestamp to the right of it), or the
+timestamp immediately to the right of MTP~1~ (if you remove a timestamp
+to the left of it) which can be either g or T~1~:
 
-10. When most of the economy start rejecting Old blocks, miners
-probably don't want to mine Old blocks, because the block rewards
-would become nearly worthless for them. It'd be hard for miners to
-sell their Old coins on an exchange or pay for electricity with
-them. If they switch to mine New blocks instead, there are plenty of
-options to exchange their block rewards for goods/services/other
-currencies.
+If MTP~2~ = MTP~1~, then MTP~2~ < timeout because MTP~1~ < timeout.
 
-11. The non-mining users using Old software would automatically switch
-to the New branch, once that branch is stronger than the Old
-branch. This is because the New branch is valid according to the Old
+If MTP~2~ = g, then MTP~2~ ≤ T~1~ < timeout.
+
+If MTP~2~ = T~1~ then MTP~2~ < timeout because T~1~ < timeout.
+
+So, the MTP of B~2~ is less than timeout in all cases, and all blocks
+(>95%) of the last 2,016 blocks signal support, which means the
+deployment will move to `LOCKED_IN` and—2,016 blocks later—to `ACTIVE`.
+--
+
+. A portion (<30%) of the economy starts rejecting blocks that
+don’t comply with your soft fork. This means you’ll cause a blockchain
+split that will remain as long as a majority of miners support the Old
+branch.
+
+. When most of the economy starts rejecting Old blocks, miners
+probably won’t want to mine Old blocks because the block rewards will
+become nearly worthless for them. It would be hard for miners to sell
+their Old coins on an exchange or pay for electricity with them. If they
+switch to mine New blocks instead, plenty of options exist for
+exchanging their block rewards for goods, services, or other currencies.
+
+. The nonmining users using Old software will automatically switch
+to the New branch once that branch is stronger than the Old branch. This
+is because, in a soft fork, the New branch is valid according to the Old
 software.
