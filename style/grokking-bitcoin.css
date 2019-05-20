@@ -81,9 +81,12 @@ li p {
 }
 
 table.tableblock>caption.title {
-    white-space: unset;
-    max-width: unset;
     font-size: 0.9em;    
+}
+
+table.tableblock.fit-content>caption.title {
+    white-space: unset;
+    width: unset;
 }
 
 .imageblock>.title {
