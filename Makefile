@@ -42,3 +42,7 @@ links:
 
 clean:
 	rm -rf $(OUTPUTDIR)
+
+cleanimgs:
+	rm -f images/*/*.svg
+	rm -f style/images/periscope.svg

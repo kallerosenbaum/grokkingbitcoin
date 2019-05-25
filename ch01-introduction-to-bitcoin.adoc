@@ -692,7 +692,7 @@ between the old legacy world and the new Bitcoin world.
 ==== Shopping
 
 ****
-image::{imagedir}/shoppingcart.svg[]
+image::{imagedir}/u01-05.svg[]
 ****
 
 The most obvious use case for Bitcoin is shopping. Bitcoin’s
@@ -962,7 +962,7 @@ position relative to other cryptocurrencies.
 | Privacy
 | 0.8
 
-| image:{imagedir}/namecoin-logo.svg[role="smallheight"]
+| image:{imagedir}/namecoin-logo.png[role="smallheight"]
 | Naming system; complements the domain name system (DNS)
 | 0.008
 |===
