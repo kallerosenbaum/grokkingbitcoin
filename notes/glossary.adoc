@@ -1,7 +1,0 @@
-== Glossary
-
-[glossary]
-bits::
-bytes::
-hex encoding::
-hodl::

@@ -1,6 +1,0 @@
-ch5, "New software". The last paragraph mentions that Lisa would
-gladly add such a transaction to the spreadsheet, but if she's using
-IsStandard(), she would only add transactions of a format she already
-knows about. Unknown script types, for example p2sh, would be
-ignored. This saves the day if Lisa runs old software.
-

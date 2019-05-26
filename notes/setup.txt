@@ -1,4 +1,0 @@
-sudo apt-get -qq -y install bison flex libffi-dev libxml2-dev libgdk-pixbuf2.0-dev libcairo2-dev libpango1.0-dev ttf-lyx
-sudo apt-get install cmake
-sudo gem install asciidoctor-mathematical
-sudo gem install asciidoctor-mathematical
