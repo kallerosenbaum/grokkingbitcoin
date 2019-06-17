@@ -9,9 +9,9 @@ Grokking Bitcoin is released in a commercial version and and open
 source version. The content is the same in the two versions, but there
 are some important differences between them:
 
-The commersial version is available in various online book stores and
+The commercial version is available in various online book stores and
 at
-[Manning's webside](https://www.manning.com/books/grokking-bitcoin). It
+[Manning's website](https://www.manning.com/books/grokking-bitcoin). It
 is professionally and _beautifully_ typeset and available as a print
 book as well as ePub, Kindle, and PDF formats. We strongly recommend
 to read the print version of this book. We have put a lot of hard work
