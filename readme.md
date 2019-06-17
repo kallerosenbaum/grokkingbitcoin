@@ -5,7 +5,7 @@ Bitcoin.
 
 ## About the open source version
 
-Grokking Bitcoin is released in a commercial version and and open
+Grokking Bitcoin is released in a commercial version and an open
 source version. The content is the same in the two versions, but there
 are some important differences between them:
 
@@ -60,7 +60,7 @@ The source is written to produce html output. Other target formats
 *could* be used as well, but no effort has been made to keep them
 working.
 
-## Dependencies
+### Dependencies
 
 The book build process is only tested on linux systems, please report
 any problems you encounter when building. The following software is
