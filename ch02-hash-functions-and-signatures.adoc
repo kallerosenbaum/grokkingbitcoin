@@ -711,7 +711,7 @@ decryption key.
 We can think of the private and public keys as a pair because they have
 a strong relationship: the public key can be used to encrypt messages
 that only the private key can decrypt, and the private key can encrypt
-messages that can only the public key can decrypt (<<enc-dec-public-private>>).
+messages that only the public key can decrypt (<<enc-dec-public-private>>).
 
 [[enc-dec-public-private]]
 .Encrypting and decrypting with the public and private keys. Left: Encrypt with the public key, and decrypt with the private key. Right: Encrypt with the private key, and decrypt with the public key.
