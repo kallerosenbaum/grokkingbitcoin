@@ -910,10 +910,10 @@ BIP148 was an attempt at forcing segwit deployment despite hesitant
 miners.
 
 Some groups, especially the Bitcoin Core team, thought this proposal
-was too risky. It could cause a chain split if a majority of the
-hashrate didn’t signal for segwit. But there was also a group of
-people wanting to move forward with BIP148 regardless. This caused
-some worry in the Bitcoin community.
+was too risky. It would cause a chain split if a miner published a
+non-segwit-signalling block. But there was also a group of people
+wanting to move forward with BIP148 regardless. This caused some worry
+in the Bitcoin community.
 
 ===== A proposal to bridge the groups
 

@@ -110,7 +110,7 @@ interested in writing a book about “blockchain.” Since my passion is
 Bitcoin—not only the blockchain, an overly hyped word for Bitcoin’s
 database—I replied and thanked Manning and said I’d be interested in
 writing a book about Bitcoin. I’ve struggled a few years trying to find
-a my place in the Bitcoin community, and this opportunity seemed like a
+a place in the Bitcoin community, and this opportunity seemed like a
 great fit. The project started, and it turned out to be far harder and
 far more time-consuming than I expected.
 

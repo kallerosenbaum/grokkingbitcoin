@@ -81,7 +81,7 @@ won’t be able to see who the senders and recipients +
 are. It will see only the sender and recipient public keys of each
 payment.
 
-Lisa can now delete her cumbersome table of names and pubic keys. But
+Lisa can now delete her cumbersome table of names and public keys. But
 when she does this, users should no longer use names when making
 payments. They must instead use the sender’s public key and the
 recipient’s public key (<<fig0304>>).

@@ -109,7 +109,7 @@ probably cookie purchases.
 
 . The bad guy can’t steal cookie tokens because he needs the public
 key to exploit the flaw in the public key derivation function. The
-spreadsheet contains PKHs; the bad guy can't get the public key from it.
+spreadsheet contains PKHs; the bad guy can’t get the public key from it.
 
 . The bad guy needs the private key to sign fraudulent emails to
 Lisa. Even though he can reverse RIPEMD160, he’d still need to pre-image
@@ -518,15 +518,15 @@ either you or Ruth before New Year’s Eve.
 
 . No. The redeem script isn’t known to the nodes until the output is
 spent. And because you can’t spend an `OP_RETURN` redeem script, nodes
-will never know about the redeem script.
+will never know about the redeem script. The node will thus never know
+that this is an unspendable output.
 
 . A full node that receives a transaction will keep it in memory
 until it’s included in a block. If a second, conflicting transaction
 arrives, the node will drop that second transaction and not relay it. It
 will consider the first-seen transaction as the “real” one and the
 second transaction as a double-spend attempt. Nodes (including miners)
-aren’t required to follow this policy because it’s just a policy. The
-node will thus never know that this is an unspendable output.
+aren’t required to follow this policy because it’s just a policy.
 
 . Miners can always select whatever valid transactions they want to
 include in their blocks. Thus all transactions are in a way replaceable.
@@ -567,7 +567,7 @@ on the stack if it succeeds.
 
 . a (p2wpkh) and c (p2wsh) are segwit addresses. d is a p2sh
 address, but it might contain a nested p2wpkh or p2wsh payment in the
-redeem script. We can't say for sure. But the address is a p2sh address,
+redeem script. We can’t say for sure. But the address is a p2sh address,
 not a segwit address.
 
 . The witness version is used to make future upgrades easier. The

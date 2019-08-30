@@ -808,7 +808,7 @@ Note how there’s nothing in the signature script. When we used p2sh in
 <<pay-to-script-hash>>, the signature script got really big because it
 contained two signatures and the redeem script, which in turn
 contained three public keys. With segwit, all data is contained in the
-witness instead..
+witness instead.
 
 ===== Verifying the p2wsh input
 

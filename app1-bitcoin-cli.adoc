@@ -536,8 +536,8 @@ confirms within 20 blocks)
 I’ll send the bitcoins to address `bc1qu456…5t7uulqm`, but you should
 get another address to send to. If you have no other wallet, you can
 create a new address in Bitcoin Core to send to just for experimental
-purposes. I've obfuscated my address below so that you don't send to my
-address by mistake.:
+purposes. I’ve obfuscated my address below so that you don’t send to my
+address by mistake.
 
 [.fullwidth]
 ----
@@ -714,7 +714,7 @@ the balance again:
 0.00399859
 ----
 
-Yep, there it is. I didn't have to wait for confirmation to see the
+Yep, there it is. I didn’t have to wait for confirmation to see the
 new balance, because `getbalance` always includes my own _outgoing_
 unconfirmed transactions. I’ve spent my only UTXO (of 0.005 BTC) and
 created a new UTXO of 0.00399859 to myself:
