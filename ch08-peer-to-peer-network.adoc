@@ -1593,7 +1593,7 @@ $ ./bitcoin-cli getblockchaininfo
 This command shows a lot of information about the blockchain. Note that
 blocks have been downloaded and verified up to height 207546. Bitcoin
 Core will download block headers prior to the full blocks to verify
-proof of work. This node has downloaded headers up to height 54398,
+proof of work. This node has downloaded headers up to height 549398,
 which are all the headers there are at this time. Another interesting
 thing is the `initialblockdownload` field, which will remain `true`
 until the initial block download is finished.
