@@ -609,7 +609,7 @@ in your email message. You then send the email to Fred.
 
 Step 3 is _verifying_. Fred receives your email, but he’s concerned
 the cat picture might be corrupt, so he wants to verify the signature.
-He uses the public key he got from you in step 3, the digital signature
+He uses the public key he got from you in step 1, the digital signature
 in the email, and the attached cat picture. If the signature or the cat
 picture has changed since you created the signature, the verification
 will fail.
