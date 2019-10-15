@@ -788,7 +788,7 @@ the popcorn guy. The only difference between your transaction and the
 popcorn guy’s transaction is that their outputs have a different witness
 program length. Your transaction had a 20-byte witness program because
 it was a SHA256+RIPEMD160 hash of a public key, and the popcorn guy’s
-transaction has a 32-byte witness program because that’s a double SHA256
+transaction has a 32-byte witness program because that’s a SHA256
 of a witness script.
 
 This transaction will be verified and eventually included in a block.
