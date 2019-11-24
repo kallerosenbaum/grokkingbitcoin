@@ -656,7 +656,7 @@ these questions, discloses that the transaction is for John.
 It has come to our attention that you live an unhealthy life. We have
 therefore promoted you to a higher risk category. Congratulations.
 
-Sincerely, +
+Sincerely,
 Acme Insurances
 ****
 
