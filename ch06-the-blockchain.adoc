@@ -1156,8 +1156,7 @@ by a full node:
 
 Connect to multiple full nodes simultaneously:: Most lightweight
 wallets in Bitcoin do this automatically. All full nodes that John’s
-wallet is connected to must take active part in the conspiracy in +
-order to fool John (<<fig0631>>).
+wallet is connected to must take active part in the conspiracy in order to fool John (<<fig0631>>).
 
 [[fig0631]]
 .John’s wallet is connected to multiple full nodes. Hopefully, they don’t all collude to fool John.
