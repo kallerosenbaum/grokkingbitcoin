@@ -67,8 +67,7 @@ ecosystem into several groups:
 ****
 The Bitcoin network doesn’t distinguish between users. No user is more
 important than any other user. It doesn’t matter who they are or what
-they do; everyone participates on the +
-same terms.
+they do; everyone participates on the same terms.
 ****
 
 End users:: People using Bitcoin for their day-to-day needs, such as
