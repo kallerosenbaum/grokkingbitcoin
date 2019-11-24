@@ -56,7 +56,7 @@ book will understand how the system prevents cheating and will be able
 to help ensure that future changes preserve that essential feature and
 its many benefits.
 
-—David A. Harding +
+—David A. Harding
 Contributor to Bitcoin documentation
 
 [preface]
