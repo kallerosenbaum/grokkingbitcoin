@@ -41,8 +41,7 @@ spreadsheet. We focus only on users here.
 [.inbitcoin]
 .Bitcoin wallets
 ****
-Several different +
-wallets are available for Bitcoin. Some popular ones are
+Several different wallets are available for Bitcoin. Some popular ones are
 
 [.movingtarget]
 * Bitcoin Core
