@@ -1404,7 +1404,7 @@ decides what program to put in the output. This dictates what’s needed
 to spend the money.
 
 * Anyone can verify the entire spreadsheet because all signatures are
-public. This greatly reduces trust in Lisa.
+public. This greatly reduces the required trust in Lisa.
 
 * Scripts can be used to enable multisignature capabilities—for
 example, three-of-seven capabilities. This is great for companies and
