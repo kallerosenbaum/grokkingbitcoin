@@ -72,16 +72,16 @@ $(B)/%.jpg: %.jpg
 clean:
 	rm -rf $(B)
 
-translate: lang/po/de_DE.po
-	po4a lang/po4a/po4a.cfg
-
-de_DE: % :
+de_DE: % : translate_%
 	cp Makefile $(L)/$*
 	rm -rf $(L)/$*/images $(L)/$*/style $(L)/$*hacks
 	ln -s ../../../lang/$*/images $(L)/$*/images
 	cp -r style $(L)/$*/style
 	cp -r hacks $(L)/$*/hacks
 	cd $(L)/$* && $(MAKE) all
+
+translate_%: lang/po4a/po/%.po
+	po4a lang/po4a/po4a.cfg
 
 pot: lang/po4a/po/grokking-bitcoin.pot
 
