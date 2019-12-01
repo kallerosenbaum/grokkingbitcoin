@@ -1,11 +1,13 @@
 AD=asciidoctor _1.5.8_
 BASE_NAME=grokking-bitcoin
 MAIN=$(BASE_NAME).adoc
-OUTPUTDIR=build
+B=build
 ALLCHAPTERS=ch1 ch2 ch3 ch4 ch5 ch6 ch7 ch8 ch9 ch10 ch11
 ALLAPPENDIXES=app1 app2 app3
 EPS := $(wildcard images/**/*.eps style/images/*.eps)
-ALLIMGS := $(patsubst %.eps,%.svg,$(EPS))
+ALLSVGS := $(patsubst %.eps,build/%.svg,$(EPS))
+ALLPNGS := $(patsubst %,$(B)/%,$(wildcard images/**/*.png))
+ALLJPGS := $(patsubst %,$(B)/%,$(wildcard images/**/*.jpg))
 ADOCS=grokking-bitcoin.adoc \
 front-matter.adoc \
 ch01-introduction-to-bitcoin.adoc \
@@ -23,57 +25,63 @@ app1-bitcoin-cli.adoc \
 app2-answers.adoc \
 app3-web-resources.adoc
 MASTERS := $(patsubst %,-m %,$(ADOCS))
+L=$(B)/lang
 
 all: imgs full chunked
 
-full: setup
-	$(AD) -v -b html5 $(MAIN) -o $(OUTPUTDIR)/$(BASE_NAME).html
+full: setup $(ADOCS)
+	$(AD) -v -b html5 $(MAIN) -o $(B)/$(BASE_NAME).html
 
-imgs: $(ALLIMGS)
+imgs: $(ALLSVGS) $(ALLPNGS) $(ALLJPGS)
 
 chunked: fm $(ALLCHAPTERS) $(ALLAPPENDIXES)
 
 $(ALLCHAPTERS): ch% : setup
-	$(AD) -r ./hacks/sectnumoffset-treeprocessor.rb -a sectnumoffset=$$(($*-1)) -a ch$* -b html5 $(MAIN) -o $(OUTPUTDIR)/$(BASE_NAME)-$*.html
+	$(AD) -r ./hacks/sectnumoffset-treeprocessor.rb -a sectnumoffset=$$(($*-1)) -a ch$* -b html5 $(MAIN) -o $(B)/$(BASE_NAME)-$*.html
 
 $(ALLAPPENDIXES): app% : setup
-	$(AD) -r ./hacks/sectnumoffset-treeprocessor.rb -a sectnumoffset=$$(($*-1)) -a app$* -b html5 $(MAIN) -o $(OUTPUTDIR)/$(BASE_NAME)-app$*.html
+	$(AD) -r ./hacks/sectnumoffset-treeprocessor.rb -a sectnumoffset=$$(($*-1)) -a app$* -b html5 $(MAIN) -o $(B)/$(BASE_NAME)-app$*.html
 
 fm:
-	$(AD) -a fm -b html5 $(MAIN) -o $(OUTPUTDIR)/$(BASE_NAME)-fm.html
+	$(AD) -a fm -b html5 $(MAIN) -o $(B)/$(BASE_NAME)-fm.html
 
-setup: builddir links
+setup: $(B) links
 
-builddir:
-	@mkdir -p $(OUTPUTDIR)
+$(B):
+	@mkdir -p $(B)
+	@mkdir -p $(B)/images
 
 links:
-	rm -f $(OUTPUTDIR)/images $(OUTPUTDIR)/style
-	ln -sfr images $(OUTPUTDIR)
-	ln -sfr style $(OUTPUTDIR)
+	rm -f $(B)/style
+	ln -sfr style $(B)
 
-%.svg: %.eps
-	epstopdf $<
-	pdf2svg $*.pdf $*.svg
-	rm $*.pdf
+$(B)/%.svg: %.eps
+	mkdir -p $(dir $@)
+	epstopdf $< $(B)/$*.pdf
+	pdf2svg $(B)/$*.pdf $@
+	rm $(B)/$*.pdf
+
+$(B)/%.png: %.png
+	mkdir -p $(dir $@)
+	cp $< $@
+
+$(B)/%.jpg: %.jpg
+	mkdir -p $(dir $@)
+	cp $< $@
 
 clean:
-	rm -rf $(OUTPUTDIR)
-
-cleanimgs:
-	rm -f images/*/*.svg
-	rm -f style/images/periscope.svg
+	rm -rf $(B)
 
 translate: lang/po/de_DE.po
 	po4a lang/po4a/po4a.cfg
 
-de_DE: %:
-	cp Makefile build/lang/$*
-	rm -rf build/lang/$*/images build/lang/$*/style build/lang/$*/hacks
-	ln -s ../../../lang/$*/images build/lang/$*/images
-	cp -r style build/lang/$*/style
-	cp -r hacks build/lang/$*/hacks
-	cd build/lang/$* && make all
+de_DE: % :
+	cp Makefile $(L)/$*
+	rm -rf $(L)/$*/images $(L)/$*/style $(L)/$*hacks
+	ln -s ../../../lang/$*/images $(L)/$*/images
+	cp -r style $(L)/$*/style
+	cp -r hacks $(L)/$*/hacks
+	cd $(L)/$* && $(MAKE) all
 
 pot: lang/po4a/po/grokking-bitcoin.pot
 
