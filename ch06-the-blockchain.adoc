@@ -919,7 +919,7 @@ merkle tree.  If you want, you can skip this part and jump to
 ===== Creating the partial merkle tree
 
 The partial merkle tree is a pruned version of the full merkle tree,
-containing only the parts needed to prove Tx~2~ is part of the tree. +
+containing only the parts needed to prove Tx~2~ is part of the tree.
 The full node sends three things to the wallet:
 
 1. The block header
@@ -1156,8 +1156,7 @@ by a full node:
 
 Connect to multiple full nodes simultaneously:: Most lightweight
 wallets in Bitcoin do this automatically. All full nodes that John’s
-wallet is connected to must take active part in the conspiracy in +
-order to fool John (<<fig0631>>).
+wallet is connected to must take active part in the conspiracy in order to fool John (<<fig0631>>).
 
 [[fig0631]]
 .John’s wallet is connected to multiple full nodes. Hopefully, they don’t all collude to fool John.
