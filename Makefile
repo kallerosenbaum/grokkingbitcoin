@@ -1,4 +1,4 @@
-AD=asciidoctor
+AD=asciidoctor _1.5.8_
 BASE_NAME=grokking-bitcoin
 MAIN=$(BASE_NAME).adoc
 OUTPUTDIR=build
@@ -48,9 +48,9 @@ builddir:
 	@mkdir -p $(OUTPUTDIR)
 
 links:
-	@rm -f $(OUTPUTDIR)/images $(OUTPUTDIR)/style
-	@ln -sfr images $(OUTPUTDIR)
-	@ln -sfr style $(OUTPUTDIR)
+	rm -f $(OUTPUTDIR)/images $(OUTPUTDIR)/style
+	ln -sfr images $(OUTPUTDIR)
+	ln -sfr style $(OUTPUTDIR)
 
 %.svg: %.eps
 	epstopdf $<
@@ -64,8 +64,16 @@ cleanimgs:
 	rm -f images/*/*.svg
 	rm -f style/images/periscope.svg
 
-translate:
+translate: lang/po/de_DE.po
 	po4a lang/po4a/po4a.cfg
+
+de_DE: %:
+	cp Makefile build/lang/$*
+	rm -rf build/lang/$*/images build/lang/$*/style build/lang/$*/hacks
+	ln -s ../../../lang/$*/images build/lang/$*/images
+	cp -r style build/lang/$*/style
+	cp -r hacks build/lang/$*/hacks
+	cd build/lang/$* && make all
 
 pot: lang/po4a/po/grokking-bitcoin.pot
 
