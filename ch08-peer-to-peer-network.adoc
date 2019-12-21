@@ -324,7 +324,7 @@ transaction. Qi’s node already has this transaction and won’t reply with
 anything (<<fig0815>>). She’ll remember that Lisa has it, though.
 
 [[fig0815]]
-.Lisa’s node sends an inv to Qi’s node, but Qi’s node already has the transaction.
+.Lisa’s node sends an `inv` to Qi’s node, but Qi’s node already has the transaction.
 image::{imagedir}/08-15.svg[{big-width}]
 
 [.bigside]
@@ -419,7 +419,7 @@ are the only miners in this system right now.
 
 The transaction reached all these miners during transaction propagation.
 John’s wallet used to send the transaction via email to all miners. Now,
-he sends it to any of the full nodes, and propagates across the entire
+he sends it to any of the full nodes, and it propagates across the entire
 peer-to-peer network. Miners can choose to include John’s transaction in
 the blocks they’re mining. Suppose the transaction includes a
 transaction fee so that some or all miners are willing to include it,
@@ -1036,7 +1036,7 @@ that the block rewards are correct, is still done. The syncing node must
 build its own UTXO set, so it must still go through all transactions to
 be able to update the UTXO set accordingly.
 
-Bitcoin Core ships with a preconfigured, block ID of a block from some
+Bitcoin Core ships with a preconfigured block ID of a block from some
 weeks back from the release date. For Bitcoin Core 0.17.0, that block is
 
  height: 534292
