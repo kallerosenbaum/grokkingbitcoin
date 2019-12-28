@@ -1106,7 +1106,7 @@ branch risks a wipeout.
 
 You can protect a hard fork against a wipeout by deliberately making the
 New branch incompatible with the Old branch. For example, Bitcoin Cash
-requires the first block after the split to have a base size ≥ 1,000,000
+requires the first block after the split to have a base size > 1,000,000
 bytes, which is invalid according to the Old rules. You can’t protect
 the Old branch in a soft fork from wipeout.
 

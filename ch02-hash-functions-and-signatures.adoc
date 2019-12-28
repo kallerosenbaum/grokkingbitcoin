@@ -546,8 +546,9 @@ properties of a cryptographic hash function is it lacking?
 +
 image::{imagedir}/u02-09.svg[{half-width}]
 +
+The four properties are also repeated as follows:
++
 [arabic]
-.. The four properties are also repeated as follows:
 .. The same input will always produce the same hash.
 .. Slightly different inputs will produce very different hashes.
 .. The hash is always of the same fixed size. For SHA256, it’s 256 bits.

@@ -587,7 +587,7 @@ It will also notice that the witness version is `00` and that the
 witness program is 20 bytes. That means this is a p2wpkh output. To
 spend such an output, the signature script must be empty, and the
 witness must contain exactly a signature and the pubkey corresponding to
-the witness program, `PKH~Y~`.The p2wpkh template is filled in using
+the witness program, `PKH~Y~`. The p2wpkh template is filled in using
 the signature and public key from the witness field and the PKH from the
 pubkey script (the witness program). The filled-in template is then run
 normally.
@@ -626,7 +626,7 @@ blocks, depending on the initial deficit.
 .. Bitcoin New could be equipped with wipeout protection—for
 example, by requiring that the first block in the split have a certain
 property that’s not valid in the Old chain. Bitcoin Cash, for example,
-required that the first block be ≥1,000,000 bytes.
+required that the first block be > 1,000,000 bytes.
 
 . No, it will be outperformed by the New branch, and the Old branch
 will pretty quickly be wiped out, or reorged.

@@ -123,7 +123,7 @@ invalid. Only one such trick is known, but we can’t rule out that there
 are others.
 
 The last approach is about changing the script program itself. You can
-do this in several ways. The one in figure 10.4 first duplicates
+do this in several ways. The one in <<fig1004>> first duplicates
 (`OP_DUP`) the top item on the stack and then immediately removes
 (`OP_DROP`) the duplicate from the stack; effectively, this change does
 nothing, and the whole program will run just fine.
@@ -206,8 +206,7 @@ of inputs, you roughly
 .Why 1 ms?
 ****
 The 1 ms time is just an example. The actual time to verify a
-transaction varies among nodes. The time 1 ms is just an example. The
-actual time to verify a transaction varies between nodes.
+transaction varies among nodes.
 ****
 
 If the time to verify the transaction with two inputs in <<fig1007>>
@@ -577,7 +576,7 @@ image::{imagedir}/10-15.svg[{full-width}]
 .Remember p2sh
 ****
 A segwit output is recognized by pattern matching, just like a p2sh
-output was in chapter 5.
+output was in <<ch05>>.
 ****
 
 The full node, which knows about segwit, looks for a pattern in the
@@ -828,7 +827,7 @@ this example is 32 bytes, which means this is a p2wsh output.
 image::{imagedir}/10-24.svg[{full-width}]
 
 Special rules apply when spending a p2wsh output. First, the data items
-in the spending input’s witness field are pushed onto the program stack
+in the spending input’s witness field are pushed onto the program stack.
 Then, the top item on the stack, the witness script, is verified against
 the witness program in the output (<<fig1025>>).
 
@@ -1024,24 +1023,30 @@ used for p2wsh payments in a similar fashion: a p2wsh nested in p2sh.
 [[recap-of-payment-types]]
 === Recap of payment types
 
-We’ve talked about several types of payments. Figures 10.30–10.35
+We’ve talked about several types of payments. <<fig1030>> through <<fig1035>>
 summarize the most common ones.
 
+[[fig1030]]
 .p2pkh: address format `1<some base58 characters>`
 image::{imagedir}/10-30.svg[{big-width}]
 
+[[fig1031]]
 .p2sh: address format `3<some base58 characters>`
 image::{imagedir}/10-31.svg[{big-width}]
 
+[[fig1032]]
 .p2wpkh: address format `bc1q<38 base32 characters>`
 image::{imagedir}/10-32.svg[{big-width}]
 
+[[fig1033]]
 .p2wsh: address format `bc1q<58 base32 characters>`
 image::{imagedir}/10-33.svg[{big-width}]
 
+[[fig1034]]
 .p2wpkh nested in p2sh: address format `3<some base58 characters>`
 image::{imagedir}/10-34.svg[{big-width}]
 
+[[fig1035]]
 .p2wsh nested in p2sh: address format `3<some base58 characters>`
 image::{imagedir}/10-35.svg[{big-width}]
 
@@ -1071,7 +1076,7 @@ decrease during such splits.
 Another potential problem with big blocks that attackers could exploit
 is that people with poor internet connections will be left out
 completely because they can’t keep up with the network, or they don’t
-have the required, processing power, RAM, or disk storage space needed
+have the required processing power, RAM, or disk storage space needed
 to run a full node. These people will need to switch to systems with
 less security, such as lightweight wallets, reducing the security of
 the whole network.

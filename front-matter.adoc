@@ -174,7 +174,7 @@ resource 2 in appendix C).
 I got help from Andreas M. Antonopoulos when negotiating the open source
 terms for this book. Your encouragement during that process was gold.
 Thank you! In addition, thanks for the “vegetarian restaurant” analogy
-used in chapter 11. Thank you also for your amazing talks; you are a
+used in <<ch11>>. Thank you also for your amazing talks; you are a
 major source of inspiration for me.
 
 I wrote this book using Asciidoctor, which is a text markup language.

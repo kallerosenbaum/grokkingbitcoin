@@ -80,7 +80,7 @@ rpcpassword=<a password that you select>
 ----
 
 After you’ve modified and saved the ~/.bitcoin/bitcoin.conf file, start
-your node using `./bitcoind -daemon`. to make the changes effective.
+your node using `./bitcoind -daemon`, to make the changes effective.
 
 Here’s how I called `getblockhash` using `curl` (the backslash `\`
 character means the command continues on the next line):
@@ -162,7 +162,7 @@ $ ./bitcoin-cli help
 You’ll get a long list of commands grouped by subject—for example,
 `Blockchain`, `Mining`, and `Wallet`. Some commands are
 self-explanatory, but if you want to know more about a specific command,
-you can run `help `with the command name as an argument. For example:
+you can run `help` with the command name as an argument. For example:
 
 ----
 $ ./bitcoin-cli help getblockhash
@@ -181,7 +181,7 @@ Examples:
 > curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockhash", "params": [1000] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 ----
 
-You can invoke `bitcoin-cli `in two ways:
+You can invoke `bitcoin-cli` in two ways:
 
 * _Using positional arguments_—The meanings of the arguments are based
 on their relative positions: for example, `./bitcoin-cli getblockhash
@@ -705,7 +705,7 @@ The sequence number of the input is 4294967294, which equals `fffffffe`.
 This means the transaction has lock time enabled but isn’t replaceable
 using BIP125 (opt-in replace-by-fee).
 
-I have two outputs. The first is the change of 0.00399859 back to an
+I have two outputs. The first is the change of 0.00399859 BTC back to an
 address I own. The other is the actual payment of 0.001 BTC. Let’s check
 the balance again:
 
