@@ -1,4 +1,4 @@
-AD=asciidoctor _1.5.8_
+AD=asciidoctor _1.5.8_ -b html5 $(ADOCLANG)
 BASE_NAME=grokking-bitcoin
 MAIN=$(BASE_NAME).adoc
 B=build
@@ -30,17 +30,17 @@ L=$(B)/lang
 all: imgs full chunked
 
 full: setup $(ADOCS)
-	$(AD) -v -b html5 $(MAIN) -o $(B)/$(BASE_NAME).html
+	$(AD) -v $(MAIN) -o $(B)/$(BASE_NAME).html
 
 imgs: $(ALLSVGS) $(ALLPNGS) $(ALLJPGS)
 
 chunked: fm $(ALLCHAPTERS) $(ALLAPPENDIXES)
 
 $(ALLCHAPTERS): ch% : setup
-	$(AD) -r ./hacks/sectnumoffset-treeprocessor.rb -a sectnumoffset=$$(($*-1)) -a ch$* -b html5 $(MAIN) -o $(B)/$(BASE_NAME)-$*.html
+	$(AD) -r ./hacks/sectnumoffset-treeprocessor.rb -a sectnumoffset=$$(($*-1)) -a ch$* $(MAIN) -o $(B)/$(BASE_NAME)-$*.html
 
 $(ALLAPPENDIXES): app% : setup
-	$(AD) -r ./hacks/sectnumoffset-treeprocessor.rb -a sectnumoffset=$$(($*-1)) -a app$* -b html5 $(MAIN) -o $(B)/$(BASE_NAME)-app$*.html
+	$(AD) -r ./hacks/sectnumoffset-treeprocessor.rb -a sectnumoffset=$$(($*-1)) -a app$* $(MAIN) -o $(B)/$(BASE_NAME)-app$*.html
 
 fm:
 	$(AD) -a fm -b html5 $(MAIN) -o $(B)/$(BASE_NAME)-fm.html
@@ -74,11 +74,12 @@ clean:
 
 de_DE: % : translate_%
 	cp Makefile $(L)/$*
-	rm -rf $(L)/$*/images $(L)/$*/style $(L)/$*hacks
+	rm -rf $(L)/$*/images $(L)/$*/style $(L)/$*hacks $(L)/$*/locale
 	ln -s ../../../lang/$*/images $(L)/$*/images
+	ln -s ../../../lang/locale $(L)/$*/locale
 	cp -r style $(L)/$*/style
 	cp -r hacks $(L)/$*/hacks
-	cd $(L)/$* && $(MAKE) all
+	cd $(L)/$* && $(MAKE) ADOCLANG="-a lang=de" all
 
 translate_%: lang/po4a/po/%.po
 	po4a lang/po4a/po4a.cfg

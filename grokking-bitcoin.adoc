@@ -15,6 +15,9 @@ Kalle Rosenbaum
 :xrefstyle: short
 :docinfo: shared
 :docinfodir: {stylesdir}
+ifdef::lang[]
+include::locale/attributes.adoc[]
+endif::[]
 :listing-caption: Listing
 
 :full-width: width='100%'
