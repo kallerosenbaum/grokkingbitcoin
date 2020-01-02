@@ -82,9 +82,9 @@ de_DE: % : translate_%
 	cd $(L)/$* && $(MAKE) ADOCLANG="-a lang=de" all
 
 translate_%: lang/po4a/po/%.po
-	po4a lang/po4a/po4a.cfg
+	po4a -o noimagetargets=1 lang/po4a/po4a.cfg
 
 pot: lang/po4a/po/grokking-bitcoin.pot
 
 lang/po4a/po/grokking-bitcoin.pot: $(ADOCS)
-	po4a-gettextize -M utf-8 -f asciidoc $(MASTERS) -p lang/po4a/po/grokking-bitcoin.pot
+	po4a-gettextize -M utf-8 -f asciidoc -o noimagetargets=1 $(MASTERS) -p lang/po4a/po/grokking-bitcoin.pot
