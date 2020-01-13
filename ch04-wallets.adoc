@@ -472,7 +472,7 @@ tree grows up (um, down) from.
 
 2. The _master extended private key_ is derived from the seed.
 
-3. The descendant_ extended private keys_ of the master extended
+3. The descendant _extended private keys_ of the master extended
 private key are derived.
 
 An _extended private key_ (xprv) contains two items: a private key and a
