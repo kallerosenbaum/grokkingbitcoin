@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" viewBox="252.5 192 655.5 378" width="655.5" height="378">
+  <defs>
+    <font-face font-family="Open Sans SemiBold" font-size="144" panose-1="2 11 7 6 3 8 4 2 2 4" units-per-em="1000" underline-position="-75.19531" underline-thickness="49.80469" slope="0" x-height="540.03906" cap-height="713.8672" ascent="1068.8477" descent="-292.96875" font-weight="600">
+      <font-face-src>
+        <font-face-name name="OpenSans-SemiBold"/>
+      </font-face-src>
+    </font-face>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.12.1 
+    <dc:date>2020-02-03 18:21:26 +0000</dc:date>
+  </metadata>
+  <g id="Canvas_1" stroke-dasharray="none" stroke-opacity="1" fill-opacity="1" fill="none" stroke="none">
+    <title>Canvas 1</title>
+    <g id="Canvas_1: Layer 1">
+      <title>Layer 1</title>
+      <g id="Group_13">
+        <g id="Group_11">
+          <g id="Graphic_3">
+            <path d="M 819 192 L 908 351 L 819 351 Z" fill="#731c13"/>
+          </g>
+          <g id="Graphic_5">
+            <path d="M 341.5 192 L 252.5 351 L 341.5 351 Z" fill="#731c13"/>
+          </g>
+          <g id="Graphic_8">
+            <path d="M 818.5 471.5 L 819 471.5 L 819 192 L 341.5 192 L 341.5 471.5 L 580 570 Z" fill="#b43e24"/>
+          </g>
+        </g>
+        <g id="Graphic_12">
+          <text transform="translate(415.57812 251.5)" fill="white">
+            <tspan font-family="Open Sans SemiBold" font-size="144" font-weight="600" fill="white" x="0" y="154">NEW</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
