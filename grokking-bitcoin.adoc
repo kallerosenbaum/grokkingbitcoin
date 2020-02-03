@@ -25,7 +25,7 @@ endif::[]
 :half-width: width='50%'
 :quart-width: width='25%'
 :thumb: width='40%'
-:btc: image:{commonimagedir}/btc-sans.png[BTC,role="btc"]
+:btc: image:{commonimagedir}/btc-sans.svg[BTC,role="btc"]
 
 ifndef::fm,ch1,ch2,ch3,ch4,ch5,ch6,ch7,ch8,ch9,ch10,ch11,app1,app2,app3[]
 :chall: 1
