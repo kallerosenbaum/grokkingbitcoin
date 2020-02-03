@@ -1234,7 +1234,7 @@ Let’s have a release party! Cookie tokens 4.0, fresh from the lab!
 |===
 |Version|Feature|How
 
-.3+|image:{commonimagedir}/new.png[role="gbnew"]4.0
+.3+|image:{commonimagedir}/new.svg[role="gbnew"]4.0
 |Easy to make payments and create new addresses
 |Mobile app “wallet”
 

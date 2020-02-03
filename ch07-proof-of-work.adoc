@@ -1708,7 +1708,7 @@ It’s time to release a shiny new version of the cookie token system
 |===
 |Version|Feature|How
 
-.2+|image:{commonimagedir}/new.png[role="gbnew"]7.0
+.2+|image:{commonimagedir}/new.svg[role="gbnew"]7.0
 | Censorship-resistant | Multiple miners, “Lisas,” enabled by proof of work
 | Anyone can join the mining race | Automatic difficulty adjustments
 

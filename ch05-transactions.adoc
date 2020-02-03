@@ -1305,7 +1305,7 @@ Let’s release version 5.0 of the cookie token system (<<tab0502>>).
 |===
 |Version|Feature|How
 
-.3+|image:{commonimagedir}/new.png[role="gbnew"]5.0
+.3+|image:{commonimagedir}/new.svg[role="gbnew"]5.0
 | Spend multiple “coins” in one payment
 | Multiple inputs in transactions
 

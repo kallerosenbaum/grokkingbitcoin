@@ -174,7 +174,7 @@ we can call version 1.0 of the cookie token spreadsheet system.
 |===
 |Version|Feature|How
 
-.2+|image:{commonimagedir}/new.png[role="gbnew"]1.0
+.2+|image:{commonimagedir}/new.svg[role="gbnew"]1.0
 |Simple payment system
 |Relies on Lisa being trustworthy and knowing everyone’s face
 |Finite money supply
@@ -1089,7 +1089,7 @@ spreadsheet system (<<tab0206>>).
 |===
 |Version|Feature|How
 
-|image:{commonimagedir}/new.png[role="gbnew"]2.0
+|image:{commonimagedir}/new.svg[role="gbnew"]2.0
 |Secure payments
 |Digital signatures solve the problem with imposters.
 

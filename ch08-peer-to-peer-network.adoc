@@ -1689,7 +1689,7 @@ we’ve decided to ditch the cookie token project. Enjoy the last version
 |===
 |Version|Feature|How
 
-.2+|image:{commonimagedir}/new.png[role="gbnew"]8.0
+.2+|image:{commonimagedir}/new.svg[role="gbnew"]8.0
 | Censorship-resistant; for real this time
 | Shared folder replaced by a peer-to-peer network
 

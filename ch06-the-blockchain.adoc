@@ -1260,7 +1260,7 @@ Just look at the fancy new features in <<tab0603>>!
 |===
 |Version|Feature|How
 
-.3+|image:{commonimagedir}/new.png[role="gbnew"]6.0
+.3+|image:{commonimagedir}/new.svg[role="gbnew"]6.0
 | Prevent Lisa from deleting transactions
 | Signed blocks in a blockchain
 

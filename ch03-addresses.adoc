@@ -731,7 +731,7 @@ use, and we release version 3.0 of the cookie token system
 |===
 |Version|Feature|How
 
-.2+|image:{commonimagedir}/new.png[role="gbnew"]3.0
+.2+|image:{commonimagedir}/new.svg[role="gbnew"]3.0
 |Safe from expensive typing errors
 |Cookie token addresses.
 |Privacy improvements
