@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-01-02 19:33+0100\n"
+"POT-Creation-Date: 2020-02-03 19:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2781,7 +2781,7 @@ msgstr ""
 #. type: Block title
 #: ch02-hash-functions-and-signatures.adoc:177
 #, no-wrap
-msgid "2+|image:{commonimagedir}/new.png[role=\"gbnew\"]1.0"
+msgid "2+|image:{commonimagedir}/new.svg[role=\"gbnew\"]1.0"
 msgstr ""
 
 #. type: Table
@@ -4343,7 +4343,7 @@ msgstr ""
 msgid ""
 "|Version|Feature|How\n"
 "\n"
-"|image:{commonimagedir}/new.png[role=\"gbnew\"]2.0\n"
+"|image:{commonimagedir}/new.svg[role=\"gbnew\"]2.0\n"
 "|Secure payments\n"
 "|Digital signatures solve the problem with imposters.\n"
 "\n"
@@ -5689,7 +5689,7 @@ msgstr ""
 #. type: Block title
 #: ch03-addresses.adoc:734
 #, no-wrap
-msgid "2+|image:{commonimagedir}/new.png[role=\"gbnew\"]3.0"
+msgid "2+|image:{commonimagedir}/new.svg[role=\"gbnew\"]3.0"
 msgstr ""
 
 #. type: Table
@@ -6670,7 +6670,7 @@ msgstr ""
 #. type: Plain text
 #: ch04-wallets.adoc:477
 msgid ""
-"The descendant_ extended private keys_ of the master extended private key "
+"The descendant _extended private keys_ of the master extended private key "
 "are derived."
 msgstr ""
 
@@ -7926,7 +7926,7 @@ msgstr ""
 #. type: Block title
 #: ch04-wallets.adoc:1237
 #, no-wrap
-msgid "3+|image:{commonimagedir}/new.png[role=\"gbnew\"]4.0"
+msgid "3+|image:{commonimagedir}/new.svg[role=\"gbnew\"]4.0"
 msgstr ""
 
 #. type: Table
@@ -10400,7 +10400,7 @@ msgstr ""
 #. type: Block title
 #: ch05-transactions.adoc:1308
 #, no-wrap
-msgid "3+|image:{commonimagedir}/new.png[role=\"gbnew\"]5.0"
+msgid "3+|image:{commonimagedir}/new.svg[role=\"gbnew\"]5.0"
 msgstr ""
 
 #. type: Table
@@ -12828,7 +12828,7 @@ msgstr ""
 #. type: Block title
 #: ch06-the-blockchain.adoc:1263
 #, no-wrap
-msgid "3+|image:{commonimagedir}/new.png[role=\"gbnew\"]6.0"
+msgid "3+|image:{commonimagedir}/new.svg[role=\"gbnew\"]6.0"
 msgstr ""
 
 #. type: Table
@@ -15908,7 +15908,7 @@ msgstr ""
 #. type: Block title
 #: ch07-proof-of-work.adoc:1711
 #, no-wrap
-msgid "2+|image:{commonimagedir}/new.png[role=\"gbnew\"]7.0"
+msgid "2+|image:{commonimagedir}/new.svg[role=\"gbnew\"]7.0"
 msgstr ""
 
 #. type: Table
@@ -19060,7 +19060,7 @@ msgstr ""
 #. type: Block title
 #: ch08-peer-to-peer-network.adoc:1692
 #, no-wrap
-msgid "2+|image:{commonimagedir}/new.png[role=\"gbnew\"]8.0"
+msgid "2+|image:{commonimagedir}/new.svg[role=\"gbnew\"]8.0"
 msgstr ""
 
 #. type: Table

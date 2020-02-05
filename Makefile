@@ -52,7 +52,7 @@ $(B):
 	@mkdir -p $(B)/images
 
 links:
-	rm -f $(B)/style
+	rm -rf $(B)/style
 	ln -sfr style $(B)
 
 $(B)/%.svg: %.eps
