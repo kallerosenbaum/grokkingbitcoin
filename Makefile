@@ -4,8 +4,10 @@ MAIN=$(BASE_NAME).adoc
 B=build
 ALLCHAPTERS=ch1 ch2 ch3 ch4 ch5 ch6 ch7 ch8 ch9 ch10 ch11
 ALLAPPENDIXES=app1 app2 app3
-EPS := $(wildcard images/**/*.eps style/images/*.eps)
-ALLSVGS := $(patsubst %.eps,build/%.svg,$(EPS))
+AIS := $(wildcard images/**/*.ai)
+SVGSTOCOPY := $(wildcard images/**/*.svg)
+SVGCOPYTARGETS := $(patsubst %,$(B)/%,$(SVGSTOCOPY)) 
+ALLSVGS := $(patsubst %.ai,$(B)/%.svg,$(AIS))
 ALLPNGS := $(patsubst %,$(B)/%,$(wildcard images/**/*.png))
 ALLJPGS := $(patsubst %,$(B)/%,$(wildcard images/**/*.jpg))
 ADOCS=grokking-bitcoin.adoc \
@@ -32,7 +34,7 @@ all: imgs full chunked
 full: setup $(ADOCS)
 	$(AD) -v $(MAIN) -o $(B)/$(BASE_NAME).html
 
-imgs: $(ALLSVGS) $(ALLPNGS) $(ALLJPGS)
+imgs: $(ALLSVGS) $(ALLPNGS) $(ALLJPGS) $(SVGCOPYTARGETS)
 
 chunked: fm $(ALLCHAPTERS) $(ALLAPPENDIXES)
 
@@ -55,11 +57,15 @@ links:
 	rm -rf $(B)/style
 	ln -sfr style $(B)
 
-$(B)/%.svg: %.eps
+$(B)/%.svg: %.ai
 	mkdir -p $(dir $@)
-	epstopdf $< $(B)/$*.pdf
+	pdfcrop $< $(B)/$*.pdf
 	pdf2svg $(B)/$*.pdf $@
 	rm $(B)/$*.pdf
+
+$(B)/%.svg: %.svg
+	mkdir -p $(dir $@)
+	cp $< $@
 
 $(B)/%.png: %.png
 	mkdir -p $(dir $@)

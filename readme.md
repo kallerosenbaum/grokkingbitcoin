@@ -66,16 +66,16 @@ The book build process is only tested on linux systems, please report
 any problems you encounter when building. The following software is
 needed:
 
-* Asciidoctor 1.5.7 or later
+* Asciidoctor >= 1.5.7 and < 2.0
 * GNU Make
-* epstopdf (To convert eps images to pdf)
-* pdf2svg (To convert pdf images to svg)
+* pdfcrop (To crop .ai images)
+* pdf2svg (To convert .ai images to svg)
 
 If you're running Ubuntu 18.10 or Debian 10 (Buster) you can install
 all these dependencies using:
 
 ```bash
-sudo apt-get install asciidoctor make texlive-font-utils pdf2svg
+sudo apt-get install asciidoctor make texlive-extra-utils pdf2svg
 ```
 
 ### Single html file
@@ -89,7 +89,7 @@ make full
 
 The resulting html file will be `build/grokking-bitcoin.html`. This
 html page will take approximately _forever_ to load in a web browser
-(~130 MB of .svg images), but once loaded it's a nice page to use for
+(~116 MB of .svg images), but once loaded it's a nice page to use for
 search and casual browsing.
 
 ### Chunked html
@@ -103,8 +103,9 @@ make chunked
 
 This will build one html file for each chapter and put them in the
 `build` directory with the names grokking-bitcoin-&lt;X>.html, where X
-is the chapter number. The cross references between chapters will not
-work in chunked build, unfortunately.
+is the chapter number (1-11), and grokking-bitcoin-app&lt;Y>.html,
+where Y is the appendix number (1-3). The cross references between
+chapters will not work in the chunked build, unfortunately.
 
 ### Build all
 
@@ -133,10 +134,10 @@ There are two css files that control the look of the html page:
 All images are stored under `images` directory in a
 one-directory-per-chapter structure. There is also a `images/common`
 directory that contains images that are used in multiple chapters. The
-format of images should be EPS (Encapsulated PostScript), but
-exceptions may occur. There is also an `style/images` directory, but
-those images are considered to be part of the styling and not the
-content. All EPS images will be converted to SVG by the build script.
+format of images should be .ai (Adobe Illustrator), but exceptions do
+occur. There is also a `style/images` directory, but those images are
+considered to be part of the styling and not the content. All .ai
+images will be converted to SVG by the build script.
 
 A script to find unused files is available in
 `images/findunused.sh`. Use that to search for image files that are

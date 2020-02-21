@@ -2,6 +2,3 @@ build/
 *~
 notes/local
 style/asciidoctor.css
-images/*/*.svg
-lang/*/images/*/*.svg
-style/images/periscope.svg
