@@ -536,7 +536,7 @@ possibility of typing errors. But now we have only 58 characters left,
 so we need another type of encoding.
 
 This new way to encode data is called _base58_ because the alphabet is
-the following 58 character
+the following 58 characters:
 
  123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz
 
