@@ -78,6 +78,9 @@ $(B)/%.jpg: %.jpg
 clean:
 	rm -rf $(B)
 
+package: all
+	tar --transform=s/build/site/ --exclude=$(B)/lang --exclude=$(B)/site.tar.gz -zchf $(B)/site.tar.gz $(B) 
+
 de_DE: % : translate_%
 	cp Makefile $(L)/$*
 	rm -rf $(L)/$*/images $(L)/$*/style $(L)/$*hacks $(L)/$*/locale
