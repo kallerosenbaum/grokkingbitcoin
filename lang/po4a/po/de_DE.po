@@ -6,10 +6,10 @@
 # Translators:
 # Kalle Rosenbaum <kalle@rosenbaum.se>, 2020
 # Volker Herminghaus <volker@bitcorn.wtf>, 2020
-# Hodling Erik <Btc_viking@protonmail.com>, 2020
-# Shoki Herminghaus, 2020
 # andhans CMO <andhan360@live.de>, 2020
 # Volker Herminghaus <v.herminghaus@me.com>, 2020
+# Shoki Herminghaus <sherminghaus@me.com>, 2020
+# Hodling Erik <Btc_viking@protonmail.com>, 2020
 # 
 #, fuzzy
 msgid ""
@@ -400,7 +400,7 @@ msgstr ""
 "dass du mich beschäftigt gehalten hast. Arbeiten Arbeiten Arbeiten. Danke "
 "auch dir, Bert Bates, für deine sehr wertvollen Informationen zur Pädagogik."
 " Danke auch dir, Volker Herminghaus, für die Übersetzung dieses Buches ins "
-"Deutsche, und euch, @btc_viking, @andhans_jail und Shoki Herminghaus, für "
+"Deutsche, und euch, @andhans_jail, Shoki Herminghaus und @btc_viking, für "
 "das Korrekturlesen dieser Übersetzung."
 
 #. type: Plain text
