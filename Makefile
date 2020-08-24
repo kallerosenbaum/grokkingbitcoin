@@ -1,4 +1,4 @@
-AD=asciidoctor _1.5.8_ -b html5 $(ADOCLANG)
+AD=asciidoctor -b html5 $(ADOCLANG)
 BASE_NAME=grokking-bitcoin
 MAIN=$(BASE_NAME).adoc
 B=build
