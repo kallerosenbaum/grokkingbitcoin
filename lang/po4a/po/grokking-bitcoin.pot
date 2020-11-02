@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-02-03 19:45+0000\n"
+"POT-Creation-Date: 2020-11-02 12:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2416,7 +2416,7 @@ msgid ""
 msgstr ""
 
 #. type: Title ===
-#: ch01-introduction-to-bitcoin.adoc:1003 ch02-hash-functions-and-signatures.adoc:1157 ch03-addresses.adoc:808 ch04-wallets.adoc:1335 ch05-transactions.adoc:1397 ch06-the-blockchain.adoc:1371 ch07-proof-of-work.adoc:1787 ch08-peer-to-peer-network.adoc:1787 ch09-transactions-revisited.adoc:1062 ch10-segregated-witness.adoc:1332 ch11-bitcoin-upgrades.adoc:1227
+#: ch01-introduction-to-bitcoin.adoc:1003 ch02-hash-functions-and-signatures.adoc:1157 ch03-addresses.adoc:808 ch04-wallets.adoc:1384 ch05-transactions.adoc:1397 ch06-the-blockchain.adoc:1371 ch07-proof-of-work.adoc:1787 ch08-peer-to-peer-network.adoc:1787 ch09-transactions-revisited.adoc:1062 ch10-segregated-witness.adoc:1332 ch11-bitcoin-upgrades.adoc:1227
 #, no-wrap
 msgid "Summary"
 msgstr ""
@@ -2771,7 +2771,7 @@ msgid "Release notes, cookie tokens 1.0"
 msgstr ""
 
 #. type: Table
-#: ch02-hash-functions-and-signatures.adoc:177 ch03-addresses.adoc:734 ch04-wallets.adoc:1237 ch05-transactions.adoc:1308 ch06-the-blockchain.adoc:1263 ch07-proof-of-work.adoc:1711 ch08-peer-to-peer-network.adoc:1692
+#: ch02-hash-functions-and-signatures.adoc:177 ch03-addresses.adoc:734 ch04-wallets.adoc:1284 ch05-transactions.adoc:1308 ch06-the-blockchain.adoc:1263 ch07-proof-of-work.adoc:1711 ch08-peer-to-peer-network.adoc:1692
 #, no-wrap
 msgid ""
 "|Version|Feature|How\n"
@@ -3390,13 +3390,13 @@ msgid ""
 msgstr ""
 
 #. type: Title ===
-#: ch02-hash-functions-and-signatures.adoc:526 ch02-hash-functions-and-signatures.adoc:1118 ch03-addresses.adoc:751 ch04-wallets.adoc:1260 ch05-transactions.adoc:1337 ch06-the-blockchain.adoc:1284 ch07-proof-of-work.adoc:1738 ch08-peer-to-peer-network.adoc:1718 ch09-transactions-revisited.adoc:1004 ch10-segregated-witness.adoc:1272 ch11-bitcoin-upgrades.adoc:1142
+#: ch02-hash-functions-and-signatures.adoc:526 ch02-hash-functions-and-signatures.adoc:1118 ch03-addresses.adoc:751 ch04-wallets.adoc:1307 ch05-transactions.adoc:1337 ch06-the-blockchain.adoc:1284 ch07-proof-of-work.adoc:1738 ch08-peer-to-peer-network.adoc:1718 ch09-transactions-revisited.adoc:1004 ch10-segregated-witness.adoc:1272 ch11-bitcoin-upgrades.adoc:1142
 #, no-wrap
 msgid "Exercises"
 msgstr ""
 
 #. type: Title ====
-#: ch02-hash-functions-and-signatures.adoc:528 ch02-hash-functions-and-signatures.adoc:1120 ch03-addresses.adoc:753 ch04-wallets.adoc:1262 ch05-transactions.adoc:1339 ch06-the-blockchain.adoc:1286 ch07-proof-of-work.adoc:1740 ch08-peer-to-peer-network.adoc:1720 ch09-transactions-revisited.adoc:1006 ch10-segregated-witness.adoc:1274 ch11-bitcoin-upgrades.adoc:1144
+#: ch02-hash-functions-and-signatures.adoc:528 ch02-hash-functions-and-signatures.adoc:1120 ch03-addresses.adoc:753 ch04-wallets.adoc:1309 ch05-transactions.adoc:1339 ch06-the-blockchain.adoc:1286 ch07-proof-of-work.adoc:1740 ch08-peer-to-peer-network.adoc:1720 ch09-transactions-revisited.adoc:1006 ch10-segregated-witness.adoc:1274 ch11-bitcoin-upgrades.adoc:1144
 #, no-wrap
 msgid "Warm up"
 msgstr ""
@@ -3431,7 +3431,7 @@ msgid ""
 msgstr ""
 
 #. type: Title ====
-#: ch02-hash-functions-and-signatures.adoc:539 ch02-hash-functions-and-signatures.adoc:1138 ch03-addresses.adoc:773 ch04-wallets.adoc:1297 ch05-transactions.adoc:1366 ch06-the-blockchain.adoc:1311 ch07-proof-of-work.adoc:1764 ch08-peer-to-peer-network.adoc:1757 ch09-transactions-revisited.adoc:1028 ch10-segregated-witness.adoc:1306 ch11-bitcoin-upgrades.adoc:1169
+#: ch02-hash-functions-and-signatures.adoc:539 ch02-hash-functions-and-signatures.adoc:1138 ch03-addresses.adoc:773 ch04-wallets.adoc:1346 ch05-transactions.adoc:1366 ch06-the-blockchain.adoc:1311 ch07-proof-of-work.adoc:1764 ch08-peer-to-peer-network.adoc:1757 ch09-transactions-revisited.adoc:1028 ch10-segregated-witness.adoc:1306 ch11-bitcoin-upgrades.adoc:1169
 #, no-wrap
 msgid "Dig in"
 msgstr ""
@@ -3780,7 +3780,7 @@ msgid ""
 msgstr ""
 
 #. type: Title ===
-#: ch02-hash-functions-and-signatures.adoc:768 ch03-addresses.adoc:396 ch04-wallets.adoc:590 ch05-transactions.adoc:684 ch06-the-blockchain.adoc:795 ch07-proof-of-work.adoc:391 ch08-peer-to-peer-network.adoc:615
+#: ch02-hash-functions-and-signatures.adoc:768 ch03-addresses.adoc:396 ch04-wallets.adoc:591 ch05-transactions.adoc:684 ch06-the-blockchain.adoc:795 ch07-proof-of-work.adoc:391 ch08-peer-to-peer-network.adoc:615
 #, no-wrap
 msgid "Where were we?"
 msgstr ""
@@ -4280,7 +4280,7 @@ msgid ""
 msgstr ""
 
 #. type: Title ===
-#: ch02-hash-functions-and-signatures.adoc:1052 ch03-addresses.adoc:679 ch04-wallets.adoc:1187 ch05-transactions.adoc:1241 ch06-the-blockchain.adoc:1185 ch07-proof-of-work.adoc:1636 ch08-peer-to-peer-network.adoc:1614 ch09-transactions-revisited.adoc:934 ch10-segregated-witness.adoc:1204 ch11-bitcoin-upgrades.adoc:1089
+#: ch02-hash-functions-and-signatures.adoc:1052 ch03-addresses.adoc:679 ch04-wallets.adoc:1234 ch05-transactions.adoc:1241 ch06-the-blockchain.adoc:1185 ch07-proof-of-work.adoc:1636 ch08-peer-to-peer-network.adoc:1614 ch09-transactions-revisited.adoc:934 ch10-segregated-witness.adoc:1204 ch11-bitcoin-upgrades.adoc:1089
 #, no-wrap
 msgid "Recap"
 msgstr ""
@@ -5393,7 +5393,7 @@ msgstr ""
 #: ch03-addresses.adoc:540
 msgid ""
 "This new way to encode data is called _base58_ because the alphabet is the "
-"following 58 character"
+"following 58 characters:"
 msgstr ""
 
 #. type: Plain text
@@ -5641,7 +5641,7 @@ msgid ""
 msgstr ""
 
 #. type: Title ====
-#: ch03-addresses.adoc:701 ch04-wallets.adoc:1208 ch05-transactions.adoc:1271 ch06-the-blockchain.adoc:1230 ch07-proof-of-work.adoc:1680 ch08-peer-to-peer-network.adoc:1663
+#: ch03-addresses.adoc:701 ch04-wallets.adoc:1255 ch05-transactions.adoc:1271 ch06-the-blockchain.adoc:1230 ch07-proof-of-work.adoc:1680 ch08-peer-to-peer-network.adoc:1663
 #, no-wrap
 msgid "System changes"
 msgstr ""
@@ -5655,7 +5655,7 @@ msgid ""
 msgstr ""
 
 #. type: Block title
-#: ch03-addresses.adoc:709 ch04-wallets.adoc:1218
+#: ch03-addresses.adoc:709 ch04-wallets.adoc:1265
 #, no-wrap
 msgid "Nothing new in the concept table"
 msgstr ""
@@ -5931,7 +5931,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:61 ch04-wallets.adoc:603
+#: ch04-wallets.adoc:61 ch04-wallets.adoc:604
 #, no-wrap
 msgid "Create new addresses"
 msgstr ""
@@ -5945,7 +5945,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:66 ch04-wallets.adoc:602
+#: ch04-wallets.adoc:66 ch04-wallets.adoc:603
 #, no-wrap
 msgid "Manage private keys"
 msgstr ""
@@ -5959,7 +5959,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:70 ch04-wallets.adoc:604
+#: ch04-wallets.adoc:70 ch04-wallets.adoc:605
 #, no-wrap
 msgid "Transfer payment details from payee to payer"
 msgstr ""
@@ -5974,7 +5974,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:75 ch04-wallets.adoc:605
+#: ch04-wallets.adoc:75 ch04-wallets.adoc:606
 #, no-wrap
 msgid "Make a payment"
 msgstr ""
@@ -5987,7 +5987,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:78 ch04-wallets.adoc:606
+#: ch04-wallets.adoc:78 ch04-wallets.adoc:607
 #, no-wrap
 msgid "Keep track of funds"
 msgstr ""
@@ -6000,7 +6000,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:82 ch04-wallets.adoc:607
+#: ch04-wallets.adoc:82 ch04-wallets.adoc:608
 #, no-wrap
 msgid "Back up private keys"
 msgstr ""
@@ -6720,18 +6720,18 @@ msgid "Steps 2 and 3 deserve their own subsections."
 msgstr ""
 
 #. type: Title ====
-#: ch04-wallets.adoc:511
+#: ch04-wallets.adoc:512
 #, no-wrap
 msgid "Deriving a master extended private key"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:518
+#: ch04-wallets.adoc:519
 msgid "Let’s look deeper into how to generate the master xprv (<<fig0411>>)."
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:520
+#: ch04-wallets.adoc:521
 #, no-wrap
 msgid ""
 "Deriving Rita’s master xprv. The seed is hashed with HMAC-SHA512. The "
@@ -6740,13 +6740,13 @@ msgid ""
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:524
+#: ch04-wallets.adoc:525
 #, no-wrap
 msgid "“CT seed”?"
 msgstr ""
 
 #. type: delimited block *
-#: ch04-wallets.adoc:531
+#: ch04-wallets.adoc:532
 msgid ""
 "An HMAC needs two inputs: a value to hash and a key. You don’t have or need "
 "a key for the master xprv because you have all the entropy you need in the "
@@ -6755,7 +6755,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:545
+#: ch04-wallets.adoc:546
 msgid ""
 "To create the master private key, the seed is hashed using HMAC-SHA512 (HMAC "
 "is short for Hash Based Message Authentication Code), which produces a "
@@ -6771,13 +6771,13 @@ msgid ""
 msgstr ""
 
 #. type: Title ====
-#: ch04-wallets.adoc:546
+#: ch04-wallets.adoc:547
 #, no-wrap
 msgid "Deriving a child extended private key"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:557
+#: ch04-wallets.adoc:558
 msgid ""
 "You just created Rita’s master xprv. It’s time to derive the child xprv that "
 "groups together her three savings keys. The direct children of an xprv can "
@@ -6787,7 +6787,7 @@ msgid ""
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:559
+#: ch04-wallets.adoc:560
 #, no-wrap
 msgid ""
 "Deriving a child xprv from a parent xprv. The parent’s public key and chain "
@@ -6797,12 +6797,12 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:563
+#: ch04-wallets.adoc:564
 msgid "The desired index is appended to the parent public key."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:566
+#: ch04-wallets.adoc:567
 msgid ""
 "The public key and index become the input to HMAC-SHA512. The parent chain "
 "code acts as a source of entropy to the hash function. To simplify, think of "
@@ -6810,36 +6810,36 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:571
+#: ch04-wallets.adoc:572
 msgid "The 512-bit hash value is split in half:"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:573
+#: ch04-wallets.adoc:574
 msgid ""
 "The left 256 bits are added, with normal addition (modulo 2^256^), to the "
 "parent private key. The sum becomes the child private key."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:574
+#: ch04-wallets.adoc:575
 msgid "The right 256 bits become the child chain code."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:576
+#: ch04-wallets.adoc:577
 msgid "The child private key and the child chain code together form the child xprv."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:579
+#: ch04-wallets.adoc:580
 msgid ""
 "This same process is used for all children and grandchildren of the master "
 "xprv until you have all the keys Rita wanted in her wallet."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:588
+#: ch04-wallets.adoc:589
 msgid ""
 "You might be wondering why you need the addition—why not use the left 256 "
 "bits as the child private key? The 512-bit hash is calculated from the "
@@ -6852,25 +6852,25 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:594
+#: ch04-wallets.adoc:595
 msgid ""
 "Let’s recall why you’re here: to create a wallet app that makes life easier "
 "for end users (<<fig0413>>)."
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:596
+#: ch04-wallets.adoc:597
 #, no-wrap
 msgid "You’re working on making a great wallet for users."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:600
+#: ch04-wallets.adoc:601
 msgid "The main duties of a wallet are to"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:611
+#: ch04-wallets.adoc:612
 msgid ""
 "We’ve covered the first five items, but we aren’t quite finished with "
 "backups. We just looked at xprv derivation, which is the groundwork for "
@@ -6878,19 +6878,19 @@ msgid ""
 msgstr ""
 
 #. type: Title ===
-#: ch04-wallets.adoc:613
+#: ch04-wallets.adoc:614
 #, no-wrap
 msgid "Back to backup"
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:615
+#: ch04-wallets.adoc:616
 #, no-wrap
 msgid "But the key paths?"
 msgstr ""
 
 #. type: delimited block *
-#: ch04-wallets.adoc:621
+#: ch04-wallets.adoc:622
 msgid ""
 "To restore keys, you also need their paths. In Bitcoin, those paths are "
 "standardized in BIP44. If a wallet uses that standard, you implicitly know "
@@ -6898,7 +6898,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:629
+#: ch04-wallets.adoc:630
 msgid ""
 "You want a safe, easy way to back up private keys. You’ve created an HD "
 "wallet to generate any number of private keys from a single seed. What’s the "
@@ -6908,18 +6908,18 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:631
+#: ch04-wallets.adoc:632
 msgid "Suppose Rita’s 128-bit (16-byte) seed is"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:633
+#: ch04-wallets.adoc:634
 #, no-wrap
 msgid " 16432a207785ec5c4e5a226e3bde819d\n"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:644
+#: ch04-wallets.adoc:645
 msgid ""
 "It’s a lot easier to write these 32-hex digits on a piece of paper than it "
 "would be to write her eight private keys. But the biggest win is that Rita "
@@ -6929,7 +6929,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:649
+#: ch04-wallets.adoc:650
 msgid ""
 "But it’s still difficult to write this down without any typos. What if Rita "
 "makes a typo and then loses her wallet? She won’t be able to restore any of "
@@ -6938,19 +6938,19 @@ msgid ""
 msgstr ""
 
 #. type: Title ====
-#: ch04-wallets.adoc:650
+#: ch04-wallets.adoc:651
 #, no-wrap
 msgid "Mnemonic sentences"
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:653
+#: ch04-wallets.adoc:654
 #, no-wrap
 msgid "BIP39"
 msgstr ""
 
 #. type: delimited block *
-#: ch04-wallets.adoc:659
+#: ch04-wallets.adoc:660
 msgid ""
 "Most Bitcoin wallets use mnemonic sentences for backup. This is standardized "
 "in BIP39. Before that, wallets typically used password-protected files with "
@@ -6958,7 +6958,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:664
+#: ch04-wallets.adoc:665
 msgid ""
 "Recall that the seed is a sequence of bits. For example, Rita’s seed is 128 "
 "bits long. What if you could encode those bits in a more human-friendly way? "
@@ -6966,72 +6966,93 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:667
+#: ch04-wallets.adoc:670
 msgid ""
-"Rita’s wallet can display the seed as a sequence of 12 English words, called "
-"a _mnemonic sentence_:"
+"Rita’s wallet used to create a seed using a random number generator, in the "
+"most straight-forward way possible. But if it had done it in a slightly "
+"different way, it could display her seed as a sequence of 12 English words, "
+"called a _mnemonic sentence_:"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:671
+#: ch04-wallets.adoc:673 ch04-wallets.adoc:774
 #, no-wrap
 msgid ""
-" Seed: 16432a207785ec5c4e5a226e3bde819d\n"
-" Mnemonic: bind bone marine upper gain comfort\n"
-"           defense dust hotel ten parrot depend\n"
+" bind bone marine upper gain comfort\n"
+" defense dust hotel ten parrot depend\n"
 msgstr ""
 
 #. type: delimited block *
-#: ch04-wallets.adoc:674
+#: ch04-wallets.adoc:676
 msgid "image:{imagedir}/u04-14.svg[]"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:682
+#: ch04-wallets.adoc:684
 msgid ""
-"This mnemonic sentence encodes the seed in a human-readable way. It’s much "
+"This mnemonic sentence presents the seed in a human-readable way. It’s much "
 "more approachable to write down 12 words than it is to write down cryptic "
 "hex code. If Rita loses her wallet, she can install the wallet app on "
 "another phone and restore the seed from those 12 words. Rita can regenerate "
 "all her private keys from that seed."
 msgstr ""
 
-#. type: Title ====
-#: ch04-wallets.adoc:683
-#, no-wrap
-msgid "Encoding a seed into a mnemonic sentence"
-msgstr ""
-
 #. type: Plain text
-#: ch04-wallets.adoc:688
-msgid ""
-"We’re going to explore how this encoding works. It’s really fun, but if you "
-"think this section goes too deep, you can accept the previous paragraph and "
-"skip to <<extended-public-keys>>."
-msgstr ""
-
-#. type: Plain text
-#: ch04-wallets.adoc:695
-msgid ""
-"The encoding starts with the random seed, as shown in <<fig0414>>. The seed "
-"is hashed with SHA256, and the first 4 bits of the hash—in this case, "
-"`0111`—are appended to the seed. Those 4 bits act as a checksum.  You then "
-"arrange the bits into 12 groups of 11 bits, where each group encodes a "
-"number in the range 0 to 2047. Eleven bits can encode 2^11^ = 2,048 "
-"different values, remember?"
+#: ch04-wallets.adoc:686
+msgid "This is a three-step process as shown in <<fig0414>>."
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:697
+#: ch04-wallets.adoc:688
 #, no-wrap
-msgid ""
-"Encoding a random seed as a 12-word mnemonic sentence. The seed is "
-"checksummed, and every group of 11 bits is looked up in a word list of 2,048 "
-"words."
+msgid "The three steps involved to create a seed from a random number generator."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:704
+#: ch04-wallets.adoc:696
+msgid ""
+"First, a random number is generated. Second, the mnemonic sentence, that can "
+"be used for backup, is generated from the random number. In the last and "
+"third step, you generate a seed from the mnemonic sentence. The last two "
+"steps are discussed more in detail in the next two subsections."
+msgstr ""
+
+#. type: Title ====
+#: ch04-wallets.adoc:697
+#, no-wrap
+msgid "Generating a mnemonic sentence"
+msgstr ""
+
+#. type: Plain text
+#: ch04-wallets.adoc:703
+msgid ""
+"We’re going to explore how the mnemonic sentence and seed generation "
+"works. It’s really fun, but if you think this section goes too deep, you can "
+"accept the previous section and skip to <<extended-public-keys>>."
+msgstr ""
+
+#. type: Plain text
+#: ch04-wallets.adoc:711
+msgid ""
+"The encoding starts with the random number, as shown in <<fig0415>>. The "
+"random number is hashed with SHA256, and the first 4 bits of the hash—in "
+"this case, `0111`—are appended to the random number. Those 4 bits act as a "
+"checksum.  You then arrange the bits into 12 groups of 11 bits, where each "
+"group encodes a number in the range 0 to 2047. Eleven bits can encode 2^11^ "
+"= 2,048 different values, remember?"
+msgstr ""
+
+#. type: Block title
+#: ch04-wallets.adoc:713
+#, no-wrap
+msgid ""
+"Generating a 12-word mnemonic sentence from a random number. The random "
+"number is checksummed, and every group of 11 bits is looked up in a word "
+"list of 2,048 words."
+msgstr ""
+
+#. type: Plain text
+#: ch04-wallets.adoc:720
 msgid ""
 "The 12 numbers are looked up in a standardized word list of 2,048 words "
 "numbered from 0 to 2047. You can find this list in BIP39 from <<web-bips>>; "
@@ -7040,19 +7061,19 @@ msgid ""
 msgstr ""
 
 #. type: delimited block *
-#: ch04-wallets.adoc:707
+#: ch04-wallets.adoc:723
 msgid "image:{imagedir}/u04-15.svg[]"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:711
+#: ch04-wallets.adoc:727
 msgid ""
 "The sentence doesn’t mean anything in particular. It’s 12 random words, just "
 "like the hex-encoded seed is 32 random hex digits."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:715
+#: ch04-wallets.adoc:731
 msgid ""
 "Rita’s wallet shows the mnemonic sentence to her, and she writes the 12 "
 "words down on a piece of paper. She puts the paper in a safe place and gets "
@@ -7060,13 +7081,58 @@ msgid ""
 msgstr ""
 
 #. type: Title ====
-#: ch04-wallets.adoc:716
+#: ch04-wallets.adoc:732
 #, no-wrap
-msgid "Decoding a mnemonic sentence into a seed"
+msgid "Generating a seed from a mnemonic sentence"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:727
+#: ch04-wallets.adoc:737
+msgid ""
+"Rita’s wallet doesn’t stop there. It has yet to generate a seed that it can "
+"use to generate addresses for Rita. The wallet will generate the seed in "
+"many steps (<<fig0416>>)."
+msgstr ""
+
+#. type: Block title
+#: ch04-wallets.adoc:739
+#, no-wrap
+msgid "A seed is generated from a mnemonic phrase in 2048 steps."
+msgstr ""
+
+#. type: Plain text
+#: ch04-wallets.adoc:748
+msgid ""
+"The mnemonic sentence is used as the main input for each of the 2048 "
+"HMAC-SHA512 function. This is the same function as we used in "
+"<<deriving-master-xprv>> to generate a master xprv from the seed. The other "
+"input, which is called the key, is `mnemonic1` in the first, leftmost, "
+"function. For subsequent functions the key input is the output of the "
+"previous function."
+msgstr ""
+
+#. type: Plain text
+#: ch04-wallets.adoc:754
+msgid ""
+"The output from each function is added using bitwise XOR (exclusive or) to "
+"form the final result, which is our 512 bit seed. In bitwise XOR, two "
+"numbers are compared bit by bit, and if the bits are equal the resulting bit "
+"is `0`, otherwise `1`. This seed is then used to generate a master xprv as "
+"described in <<deriving-master-xprv>>."
+msgstr ""
+
+#. type: Plain text
+#: ch04-wallets.adoc:761
+msgid ""
+"You’re probably wondering why the seed generation uses 2048 steps of "
+"HMAC-SHA512. This process is called _PBKDF2_ (Password-Based Key Derivation "
+"Function 2), which is a standardized way to achieve so-called key "
+"stretching. Key stretching makes brute-force attacking the mnemonic sentece "
+"harder because each try becomes slower due to the many steps involved."
+msgstr ""
+
+#. type: Plain text
+#: ch04-wallets.adoc:771
 msgid ""
 "The next day, Rita drops her phone into the ocean, and it disappears into "
 "the deep. She lost her wallet! But Rita isn’t very concerned. She buys a new "
@@ -7075,39 +7141,30 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:730
-#, no-wrap
+#: ch04-wallets.adoc:778
 msgid ""
-" bind bone marine upper gain comfort\n"
-" defense dust hotel ten parrot depend\n"
-msgstr ""
-
-#. type: Plain text
-#: ch04-wallets.adoc:734
-msgid ""
-"into the wallet app. The app decodes the sentence by reversing the encoding "
-"process; Rita can regenerate her keys from the decoded seed, as <<fig0415>> "
-"shows."
+"into the wallet app. The app uses the 4-bit checksum discussed in the "
+"previous section to make sure it’s correct. It does that by running the "
+"mnemonic sentence generation backwards as <<fig0417>> illustrates."
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:736
+#: ch04-wallets.adoc:780
 #, no-wrap
-msgid "Decoding a mnemonic sentence into the seed"
+msgid "Verifying the checksum of a mnemonic sentence"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:745
+#: ch04-wallets.adoc:788
 msgid ""
-"The decoding uses the 4-bit checksum to make sure it’s correct. If Rita "
-"accidentally writes the last word as `deposit` instead of `depend`, the "
-"checksum check will _probably_ fail because she wrote the wrong word at the "
-"end. If she types `depends` instead of `depend`, the decoding will "
+"If Rita accidentally writes the last word as `deposit` instead of `depend`, "
+"the checksum check will _probably_ fail because she wrote the wrong word at "
+"the end. If she types `depends` instead of `depend`, the decoding will "
 "definitely fail because there’s no word `depends` in the word list."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:753
+#: ch04-wallets.adoc:796
 msgid ""
 "The checksum is pretty weak—4 bits make only 16 possible checksums. A "
 "wrongly written mnemonic sentence, in which all words exist in the word "
@@ -7117,14 +7174,22 @@ msgid ""
 "of an invalid mnemonic sentence being restored."
 msgstr ""
 
+#. type: Plain text
+#: ch04-wallets.adoc:800
+msgid ""
+"After the checksum has been verified, the app regenerates the seed as shown "
+"in <<fig0416>> and all of Rita’s private keys can be restored from that "
+"seed."
+msgstr ""
+
 #. type: Title ===
-#: ch04-wallets.adoc:755
+#: ch04-wallets.adoc:802
 #, no-wrap
 msgid "Extended public keys"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:767
+#: ch04-wallets.adoc:814
 msgid ""
 "Rita created her wallet from a random 128-bit seed, which she backed up with "
 "a 12-word mnemonic sentence. Her wallet can create any number of private "
@@ -7134,29 +7199,29 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:770
+#: ch04-wallets.adoc:817
 msgid ""
 "Suppose the cafe uses an HD wallet. It wants to start selling cookies on its "
 "website and delivering those cookies to coworkers’ cubicles."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:776
+#: ch04-wallets.adoc:823
 msgid ""
 "For privacy reasons, the web server needs to be able to present a new cookie "
 "token address for every sale, but where does it get the addresses? The cafe "
 "could create an xprv for an _online sales_ account in its HD wallet and put "
-"that xprv on the web server, as <<fig0416>> shows."
+"that xprv on the web server, as <<fig0418>> shows."
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:778
+#: ch04-wallets.adoc:825
 #, no-wrap
 msgid "The cafe copies its online sales xprv to the web server."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:789
+#: ch04-wallets.adoc:836
 msgid ""
 "The web server can now create new addresses as the orders pour in.  Great! "
 "But what if Mallory, the gangster, gains access to the web server’s hard "
@@ -7168,7 +7233,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:795
+#: ch04-wallets.adoc:842
 msgid ""
 "Typical web servers are prone to hacking attempts because they’re usually "
 "accessible from anywhere in the world. Storing money on the web server would "
@@ -7178,21 +7243,21 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:799
+#: ch04-wallets.adoc:846
 msgid ""
 "For this reason, the cafe wants to avoid having any private keys on the web "
 "server. Thanks to the HD wallet, this is possible by using xpubs "
-"(<<fig0417>>)."
+"(<<fig0419>>)."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:801 app2-answers.adoc:145
+#: ch04-wallets.adoc:848 app2-answers.adoc:145
 #, no-wrap
 msgid "An xpub consists of a public key and a chain code."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:811
+#: ch04-wallets.adoc:858
 msgid ""
 "An xpub is similar to an xprv, but the xpub contains a public key and a "
 "chain code, whereas the xprv contains a private key and a chain code. An "
@@ -7203,18 +7268,18 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:819
+#: ch04-wallets.adoc:866
 msgid ""
 "The cafe puts the xpub `M/1` on the web server. By convention, we use `M` to "
 "denote an xpub path and `m` to denote an xprv path. `M/1` and `m/1` have the "
 "same chain code, but `M/1` doesn’t have the private key, only the public "
-"key. You can create the whole xpub tree from the master xpub (<<fig0418>>), "
+"key. You can create the whole xpub tree from the master xpub (<<fig0420>>), "
 "which means you can generate any and all addresses without any private "
 "key. You can create addresses, but not spend money from those addresses."
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:821
+#: ch04-wallets.adoc:868
 #, no-wrap
 msgid ""
 "Generating the tree of xpubs from the master xpub. The general pattern is "
@@ -7223,16 +7288,16 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:828
+#: ch04-wallets.adoc:875
 msgid ""
 "This looks exactly like when you generated the tree of xprvs. The difference "
-"is that you have no private keys. As <<fig0419>> shows, the xpubs are "
+"is that you have no private keys. As <<fig0421>> shows, the xpubs are "
 "generated differently than the xprvs. Please compare this to the xprv "
 "derivation."
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:830
+#: ch04-wallets.adoc:877
 #, no-wrap
 msgid ""
 "Xpub derivation. The private key addition from the xprv derivation is "
@@ -7240,13 +7305,13 @@ msgid ""
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:833
+#: ch04-wallets.adoc:880
 #, no-wrap
 msgid "xprv derivation"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:846
+#: ch04-wallets.adoc:893
 msgid ""
 "This resembles xprv derivation. The difference is what you do with the left "
 "256 bits of the 512-bit hash. To calculate the child public key, you treat "
@@ -7254,12 +7319,12 @@ msgid ""
 "them. This public key is then added to the parent public key using the "
 "special _public key addition_ operation. The result is the child public "
 "key. Let’s compare the child public key derivation to the child private key "
-"derivation (<<fig0420>>) from the point after generating the left 256 bits "
+"derivation (<<fig0422>>) from the point after generating the left 256 bits "
 "of the HMAC-SHA256 hash."
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:848
+#: ch04-wallets.adoc:895
 #, no-wrap
 msgid ""
 "The plus on the private side has a corresponding plus on the public "
@@ -7269,7 +7334,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:854
+#: ch04-wallets.adoc:901
 msgid ""
 "Normal addition is used for the private key. You add a 256-bit number to the "
 "parent private key to get the child private key. But to keep the result "
@@ -7277,7 +7342,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:858
+#: ch04-wallets.adoc:905
 msgid ""
 "The addition used to derive the child public key isn’t exactly what most "
 "people (including me) are used to. For now, let’s just say this addition "
@@ -7285,13 +7350,13 @@ msgid ""
 msgstr ""
 
 #. type: Title ===
-#: ch04-wallets.adoc:860
+#: ch04-wallets.adoc:907
 #, no-wrap
 msgid "Deriving hardened private keys"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:866
+#: ch04-wallets.adoc:913
 msgid ""
 "This section is challenging. If you had a hard time understanding xprv "
 "derivation and xpub derivation, I suggest skipping this section and jumping "
@@ -7300,14 +7365,14 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:869
+#: ch04-wallets.adoc:916
 msgid ""
 "This section will explain how to prevent a potential security issue with "
 "normal xprv derivation."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:875
+#: ch04-wallets.adoc:922
 msgid ""
 "The cafe’s online business works well. People are ordering cookies like "
 "crazy! The online sales account grows, with a new public key for every "
@@ -7317,17 +7382,17 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:882
+#: ch04-wallets.adoc:929
 msgid ""
 "Suppose Mallory somehow steals the private key `m/1/1`, which contains only "
 "10 CT. This might seem harmless because that private key has so little money "
 "in it. But it could be worse than that. If Mallory has also managed to get "
 "the xpub for the online sales account from the web server, she can "
-"_calculate the online sales xprv_, as <<fig0421>> shows."
+"_calculate the online sales xprv_, as <<fig0423>> shows."
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:884
+#: ch04-wallets.adoc:931
 #, no-wrap
 msgid ""
 "Mallory has stolen the private key `m/1/1` from the cafe and the parent xpub "
@@ -7336,37 +7401,37 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:889
+#: ch04-wallets.adoc:936
 msgid ""
 "Remember how the xprv derivation function used normal addition to calculate "
 "a child private key from a parent private key?"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:891 ch04-wallets.adoc:900 ch04-wallets.adoc:909 ch04-wallets.adoc:918 ch06-the-blockchain.adoc:738 ch07-proof-of-work.adoc:1255
+#: ch04-wallets.adoc:938 ch04-wallets.adoc:947 ch04-wallets.adoc:956 ch04-wallets.adoc:965 ch06-the-blockchain.adoc:738 ch07-proof-of-work.adoc:1255
 msgid "[stem]"
 msgstr ""
 
 #. type: delimited block +
-#: ch04-wallets.adoc:893
+#: ch04-wallets.adoc:940
 #, no-wrap
 msgid "\\text{\"m/1\"} + \\text{\"left half hash of index 1\"}=\\text{\"m/1/1\"}\n"
 msgstr ""
 
 #.  "m/1" + "left half hash of index 1" = "m/1/1"
 #. type: Plain text
-#: ch04-wallets.adoc:898
+#: ch04-wallets.adoc:945
 msgid "You can write this just as well as"
 msgstr ""
 
 #. type: delimited block +
-#: ch04-wallets.adoc:902
+#: ch04-wallets.adoc:949
 #, no-wrap
 msgid "\\text{\"m/1/1\"}-\\text{\"left half hash of index 1\"}=\\text{\"m/1\"}\n"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:907
+#: ch04-wallets.adoc:954
 msgid ""
 "Mallory has everything she needs to calculate the left-half hash for any "
 "child index of `M/1` she pleases, but she doesn’t know which index her "
@@ -7374,7 +7439,7 @@ msgid ""
 msgstr ""
 
 #. type: delimited block +
-#: ch04-wallets.adoc:911
+#: ch04-wallets.adoc:958
 #, no-wrap
 msgid ""
 "\\text{\"m/1/1\"} - \\text{\"left half hash of index 0\"} = \\text{\"a "
@@ -7382,14 +7447,14 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:916
+#: ch04-wallets.adoc:963
 msgid ""
 "She derives the public key from this private key and notices that it doesn’t "
 "match `M/1`, so `0` wasn’t the correct index. She then tries index `1`:"
 msgstr ""
 
 #. type: delimited block +
-#: ch04-wallets.adoc:920
+#: ch04-wallets.adoc:967
 #, no-wrap
 msgid ""
 "\\text{\"m/1/1\"} - \\text{\"left half hash of index 1\"} = \\text{\"another "
@@ -7397,7 +7462,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:927
+#: ch04-wallets.adoc:974
 msgid ""
 "This private key derives to the public key `M/1`. Bingo! She has calculated "
 "the private key `m/1` for the online sales account. The xprv shares the "
@@ -7407,7 +7472,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:935
+#: ch04-wallets.adoc:982
 msgid ""
 "Now think about what would happen if Mallory had the master xpub. She could "
 "use the same technique to derive the master xprv from the master xpub and "
@@ -7418,22 +7483,22 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:940
+#: ch04-wallets.adoc:987
 msgid ""
 "Suppose the cafe wants to prevent Mallory from accessing the master xprv, "
 "even if she got the master xpub and a private key in the online sales "
 "account. The cafe can generate the xprv for the online sales account using "
-"hardened xprv derivation, as <<fig0422>> shows."
+"hardened xprv derivation, as <<fig0424>> shows."
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:941
+#: ch04-wallets.adoc:988
 #, no-wrap
 msgid "Normal child xprv derivation"
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:947
+#: ch04-wallets.adoc:994
 #, no-wrap
 msgid ""
 "Deriving a hardened child xprv for the online sales account. You use the "
@@ -7441,19 +7506,19 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:957
+#: ch04-wallets.adoc:1004
 msgid ""
 "The apostrophe in `m/1'` isn’t a typo: it’s used to denote hardened key "
 "derivation. The difference is that with hardened key derivation, you hash "
 "the _private_ key instead of the public key. An attacker can’t do the "
 "“minus” trick anymore because the hash is derived from the parent private "
 "key. Mallory can’t calculate the left-half hash to subtract from the child "
-"private key because she doesn’t have the parent private key. <<fig0423>> "
+"private key because she doesn’t have the parent private key. <<fig0425>> "
 "illustrates the result."
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:959
+#: ch04-wallets.adoc:1006
 #, no-wrap
 msgid ""
 "The master xpub can’t be used to generate any child keys because `m/0'` and "
@@ -7461,7 +7526,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:972
+#: ch04-wallets.adoc:1019
 msgid ""
 "This also means you can’t derive a hardened child xpub from a parent "
 "xpub. You must have the parent xprv to generate any children, public or "
@@ -7475,13 +7540,13 @@ msgid ""
 msgstr ""
 
 #. type: Title ===
-#: ch04-wallets.adoc:974
+#: ch04-wallets.adoc:1021
 #, no-wrap
 msgid "Public key math"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:981
+#: ch04-wallets.adoc:1028
 msgid ""
 "This section digs deeper into the math behind public keys. We’ll start by "
 "looking at how a public key is derived from a private key using _public key "
@@ -7491,26 +7556,26 @@ msgid ""
 msgstr ""
 
 #. type: Title ====
-#: ch04-wallets.adoc:982
+#: ch04-wallets.adoc:1029
 #, no-wrap
 msgid "Public key multiplication"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:986
+#: ch04-wallets.adoc:1033
 msgid ""
 "I’ll try to explain this topic in simple terms, but if you think it’s too "
 "much, you can skip this section and jump to <<ch04-recap>>."
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:987
+#: ch04-wallets.adoc:1034
 #, no-wrap
 msgid "Normal public key derivation"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:995
+#: ch04-wallets.adoc:1042
 msgid ""
 "Think back to when you derived a public key from a private key in "
 "<<ch02>>. I didn’t really tell you _how_ the public key was derived.  I’ll "
@@ -7518,39 +7583,39 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:997
+#: ch04-wallets.adoc:1044
 msgid "A public key in Bitcoin is a whole-number solution to this equation:"
 msgstr ""
 
 #. type: delimited block +
-#: ch04-wallets.adoc:1001
+#: ch04-wallets.adoc:1048
 #, no-wrap
 msgid "y^2 = x^3 + 7 \\mod{(2^{256}-4294968273)}\n"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1006
+#: ch04-wallets.adoc:1053
 msgid ""
 "Many such solutions exist, about stem:[2^{256}] of them, so let’s simplify "
 "by using the solutions to stem:[y^2 = x^3 + 7 \\mod{11}] instead "
-"(<<fig0424>>)."
+"(<<fig0426>>)."
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:1008
+#: ch04-wallets.adoc:1055
 #, no-wrap
 msgid "Bitcoin uses this curve"
 msgstr ""
 
 #. type: delimited block *
-#: ch04-wallets.adoc:1012
+#: ch04-wallets.adoc:1059
 msgid ""
 "This specific elliptic curve is called _secp256k1_ and is used in "
 "Bitcoin. Plenty of other curves have similar properties."
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:1015
+#: ch04-wallets.adoc:1062
 #, no-wrap
 msgid ""
 "Whole-number solutions to the elliptic curve stem:[y^2 = x^3 + 7 "
@@ -7558,20 +7623,20 @@ msgid ""
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:1019
+#: ch04-wallets.adoc:1066
 #, no-wrap
 msgid "Curve? I see only dots."
 msgstr ""
 
 #. type: delimited block *
-#: ch04-wallets.adoc:1023
+#: ch04-wallets.adoc:1070
 msgid ""
 "It’s called a _curve_ because in the continuous, real-number world, the "
 "solutions form a curve like this:"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1035
+#: ch04-wallets.adoc:1082
 msgid ""
 "The previous equations are examples of a class of equations called _elliptic "
 "curves_, and a solution is often referred to as a _point on the curve_. You "
@@ -7583,12 +7648,12 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1037
+#: ch04-wallets.adoc:1084
 msgid "Suppose your private key is stem:[5]. Then your public key is stem:[5G]."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1041
+#: ch04-wallets.adoc:1088
 msgid ""
 "To calculate this multiplication, you need two basic public key operations: "
 "addition and doubling, where doubling can be seen as adding a point to "
@@ -7596,9 +7661,9 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1047
+#: ch04-wallets.adoc:1094
 msgid ""
-"To add two points (<<fig0425>>), you draw a straight line that “wraps "
+"To add two points (<<fig0427>>), you draw a straight line that “wraps "
 "around” the edges of the diagram and that intersects your two points and one "
 "third point. This third point is the negative result of the addition. To get "
 "the final result of the addition, take the symmetric point at the same "
@@ -7606,7 +7671,7 @@ msgid ""
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:1049
+#: ch04-wallets.adoc:1096
 #, no-wrap
 msgid ""
 "Point addition. You add stem:[(x, y)=(6,5)] to stem:[(2, 2)] by drawing a "
@@ -7614,20 +7679,20 @@ msgid ""
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:1053
+#: ch04-wallets.adoc:1100
 #, no-wrap
 msgid "Is there always a third point?"
 msgstr ""
 
 #. type: delimited block *
-#: ch04-wallets.adoc:1057
+#: ch04-wallets.adoc:1104
 msgid ""
 "Yes, there’s always a line that intersects a third point. It’s one of the "
 "curve’s important properties."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1063
+#: ch04-wallets.adoc:1110
 msgid ""
 "The result of stem:[(6, 5) + (2, 2)] is stem:[(7, 8)]. The straight line "
 "between the two points crosses the point stem:[(7, 3)]. The complement point "
@@ -7635,9 +7700,9 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1070
+#: ch04-wallets.adoc:1117
 msgid ""
-"To double a point (<<fig0426>>) is to add it to itself, but there’s no slope "
+"To double a point (<<fig0428>>) is to add it to itself, but there’s no slope "
 "to be calculated from a single point. In this special case, you calculate "
 "the slope from the single point stem:[P=(6,5)] as stem:[3*x^2*(2y)^{-1} "
 "\\mod{11} = 2]. The process is almost the same as adding two different "
@@ -7645,7 +7710,7 @@ msgid ""
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:1072
+#: ch04-wallets.adoc:1119
 #, no-wrap
 msgid ""
 "Point doubling. To double a point P, draw a line through P with a special "
@@ -7654,44 +7719,44 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1077
+#: ch04-wallets.adoc:1124
 msgid ""
 "Using these two basic operations, adding and doubling, you can derive the "
 "multiplication of stem:[5] and stem:[G]. In binary form, stem:[5] is"
 msgstr ""
 
 #. type: delimited block +
-#: ch04-wallets.adoc:1081
+#: ch04-wallets.adoc:1128
 #, no-wrap
 msgid "101_{binary} = 1*2^2 + 0*2^1 + 1*2^0\n"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1084
+#: ch04-wallets.adoc:1131
 msgid "Your public key is then"
 msgstr ""
 
 #. type: delimited block +
-#: ch04-wallets.adoc:1088
+#: ch04-wallets.adoc:1135
 #, no-wrap
 msgid "5G = 1*2^2*G + 0*2^1*G + 1*2^0*G\n"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1092
+#: ch04-wallets.adoc:1139
 msgid ""
 "Start in stem:[G] and calculate the resulting public key point by taking "
 "terms from right to left:"
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:1094
+#: ch04-wallets.adoc:1141
 #, no-wrap
 msgid "Elliptic curve calculator"
 msgstr ""
 
 #. type: delimited block *
-#: ch04-wallets.adoc:1099
+#: ch04-wallets.adoc:1146
 msgid ""
 "There’s a nice elliptic curve calculator at "
 "<<web-elliptic-curve-calculator>> that you can play with to get a better "
@@ -7699,12 +7764,12 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1102
+#: ch04-wallets.adoc:1149
 msgid "Calculate stem:[2^0*G = 1*G = G]. Easy. Now remember this point."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1106
+#: ch04-wallets.adoc:1153
 msgid ""
 "Calculate stem:[2^1*G = 2*G]. This is a point doubling of the previously "
 "remembered point _G_ from step 1. Remember the point. Because there is a 0 "
@@ -7712,7 +7777,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1109
+#: ch04-wallets.adoc:1156
 msgid ""
 "Calculate stem:[2^2*G = 2*2*G], which is a doubling of the previously "
 "remembered point stem:[2*G]. Because there is a 1 in front of the "
@@ -7720,20 +7785,20 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1112
+#: ch04-wallets.adoc:1159
 msgid ""
 "In short, multiplication is performed by a sequence of adding and doubling "
 "operations."
 msgstr ""
 
 #. type: Title ====
-#: ch04-wallets.adoc:1113
+#: ch04-wallets.adoc:1160
 #, no-wrap
 msgid "Why is this secure?"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1122
+#: ch04-wallets.adoc:1169
 msgid ""
 "The multiplication process is pretty easy to complete; it takes about 256 "
 "steps for a 256-bit private key. But to reverse this process is a totally "
@@ -7745,22 +7810,22 @@ msgid ""
 msgstr ""
 
 #. type: Title ====
-#: ch04-wallets.adoc:1123
+#: ch04-wallets.adoc:1170
 #, no-wrap
 msgid "Xpub derivation"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1129
+#: ch04-wallets.adoc:1176
 msgid ""
 "You’ve seen how an ordinary public key is derived from a private key through "
 "public-key multiplication. But how can adding the parent public key with the "
 "public key derived from the left 256 bits make the child public key? See "
-"<<fig0427>>."
+"<<fig0429>>."
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:1131
+#: ch04-wallets.adoc:1178
 #, no-wrap
 msgid ""
 "The child public key is derived by adding the parent public key with the "
@@ -7768,15 +7833,15 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1137
+#: ch04-wallets.adoc:1184
 msgid ""
 "You can convince yourself that it works by looking at both normal public-key "
 "derivation and child public-key derivation in the same picture: see "
-"<<fig0428>>."
+"<<fig0430>>."
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:1139
+#: ch04-wallets.adoc:1186
 #, no-wrap
 msgid ""
 "Xpub derivation and normal public-key derivation. A normal public key is the "
@@ -7785,7 +7850,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1146
+#: ch04-wallets.adoc:1193
 msgid ""
 "The nice thing with elliptic curves is that the special public key “add” "
 "operation works a bit like normal add. The same goes for the special public "
@@ -7793,7 +7858,7 @@ msgid ""
 msgstr ""
 
 #. type: delimited block +
-#: ch04-wallets.adoc:1151
+#: ch04-wallets.adoc:1198
 #, no-wrap
 msgid ""
 "c=p+h \\\\\n"
@@ -7801,46 +7866,46 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1155
+#: ch04-wallets.adoc:1202
 msgid ""
 "The result, stem:[C=Gc], is exactly how to derive the public key stem:[C] "
 "from the private key stem:[c]."
 msgstr ""
 
 #. type: Title ====
-#: ch04-wallets.adoc:1156
+#: ch04-wallets.adoc:1203
 #, no-wrap
 msgid "Public key encoding"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1159
+#: ch04-wallets.adoc:1206
 msgid "Do you remember how John’s public key looked like a big number?"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1161
+#: ch04-wallets.adoc:1208
 #, no-wrap
 msgid " 035541a13851a3742489fdddeef21be13c1abb85e053222c0dbf3703ba218dc1f3\n"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1166
+#: ch04-wallets.adoc:1213
 msgid ""
 "That doesn’t look like a pair of coordinates, does it? The public key is "
 "encoded in a certain way. Because of the symmetry, exactly two points exist "
 "for every value of stem:[x], one with an even stem:[y] value and one with an "
-"odd stem:[y] value (<<fig0429>>)."
+"odd stem:[y] value (<<fig0431>>)."
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:1168
+#: ch04-wallets.adoc:1215
 #, no-wrap
 msgid "Each point on the curve has a symmetric point at the same stem:[x] value."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1175
+#: ch04-wallets.adoc:1222
 msgid ""
 "You don’t need to store stem:[y] values, only whether the stem:[y] value is "
 "even or odd. You do this by prefixing the stem:[x] value with `02` (even) or "
@@ -7849,7 +7914,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1179
+#: ch04-wallets.adoc:1226
 msgid ""
 "This is why public keys are 33 bytes and not 32 bytes. It’s a 256-bit "
 "number—the stem:[x]-coordinate—prefixed by a byte specifying the odd/even "
@@ -7857,7 +7922,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1185
+#: ch04-wallets.adoc:1232
 msgid ""
 "The curve in the figure has a single point stem:[x=5, y=0]. This doesn’t "
 "look symmetric, but it’s a so-called _double-root_ to the curve—it’s two "
@@ -7867,7 +7932,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1192
+#: ch04-wallets.adoc:1239
 msgid ""
 "Let’s look back at what you’ve learned in this chapter. An HD wallet "
 "generates a tree of keys from a random seed. It can use key hardening to "
@@ -7875,14 +7940,14 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1199
+#: ch04-wallets.adoc:1246
 msgid ""
 "Users back up their keys by writing the random seed in the form of 12 to 24 "
 "English words on a piece of paper and lock it up safely."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1205
+#: ch04-wallets.adoc:1252
 msgid ""
 "The cafe accepts cookie tokens in its online shop. It only puts the xpub for "
 "the online sales account, `M/1'`, on the web server, which can now create as "
@@ -7891,7 +7956,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1215
+#: ch04-wallets.adoc:1262
 msgid ""
 "Our concept table (<<tab0401>>) isn’t updated in this chapter. The wallets "
 "described in this chapter work basically as they do in Bitcoin, but they "
@@ -7900,7 +7965,7 @@ msgid ""
 msgstr ""
 
 #. type: Table
-#: ch04-wallets.adoc:1227
+#: ch04-wallets.adoc:1274
 #, no-wrap
 msgid ""
 "| Cookie Tokens | Bitcoin | Covered in\n"
@@ -7913,24 +7978,24 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1230
+#: ch04-wallets.adoc:1277
 msgid "Let’s have a release party! Cookie tokens 4.0, fresh from the lab!"
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:1233
+#: ch04-wallets.adoc:1280
 #, no-wrap
 msgid "Release notes, cookie tokens 4.0"
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:1237
+#: ch04-wallets.adoc:1284
 #, no-wrap
 msgid "3+|image:{commonimagedir}/new.svg[role=\"gbnew\"]4.0"
 msgstr ""
 
 #. type: Table
-#: ch04-wallets.adoc:1249
+#: ch04-wallets.adoc:1296
 msgid ""
 "|Easy to make payments and create new addresses |Mobile app “wallet” "
 "|Simplified backups |HD wallets are generated from a seed. Only the seed, 12 "
@@ -7940,13 +8005,13 @@ msgid ""
 msgstr ""
 
 #. type: Block title
-#: ch04-wallets.adoc:1249 ch05-transactions.adoc:1330
+#: ch04-wallets.adoc:1296 ch05-transactions.adoc:1330
 #, no-wrap
 msgid "2+|3.0"
 msgstr ""
 
 #. type: Table
-#: ch04-wallets.adoc:1258
+#: ch04-wallets.adoc:1305
 msgid ""
 "|Safe from expensive typing errors |Cookie token addresses |Privacy "
 "improvements |A PKH is stored in the spreadsheet instead of a personal "
@@ -7955,7 +8020,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1273
+#: ch04-wallets.adoc:1320
 msgid ""
 "Suppose you use a bitcoin wallet app and want to receive 50 BTC from your "
 "friend to your Bitcoin address "
@@ -7965,57 +8030,59 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1276
+#: ch04-wallets.adoc:1323
 msgid ""
 "How many coin flips does a random password of 10 characters correspond to? "
 "The password is selected from a 64-character alphabet."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1279
+#: ch04-wallets.adoc:1326
 msgid ""
 "Name a few problems with password-protected backups. There are at least "
 "four."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1281
-msgid "How is the seed created in an HD wallet?"
+#: ch04-wallets.adoc:1330
+msgid ""
+"What three major steps are involved when a seed is created in an HD wallet "
+"that uses mnemonic sentences? You only need to answer this on a high level."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1283
+#: ch04-wallets.adoc:1332
 msgid "What does an xprv consist of?"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1285
+#: ch04-wallets.adoc:1334
 msgid "What does an xpub consist of?"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1289
+#: ch04-wallets.adoc:1338
 msgid ""
 "Exercises 4.7 and 4.8 assume that you read <<hardened-key-derivation>>. If "
 "you skipped that section, you can skip these exercises, too."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1293
+#: ch04-wallets.adoc:1342
 msgid ""
 "Suppose you want to make a hardened xprv with index `7` from `m/2/1`. What "
 "information do you need to create `m/2/1/7'`?"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1296
+#: ch04-wallets.adoc:1345
 msgid ""
 "Can you derive xpub `M/2/1/7'` from `M/2/1`? If not, how would you derive "
 "`M/2/1/7'`?"
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1304
+#: ch04-wallets.adoc:1353
 msgid ""
 "Suppose you’re a bad guy and have the master xpub of a clueless "
 "victim. You’ve also stolen the private key `m/4/1` that contains 1 BTC.  "
@@ -8024,7 +8091,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1310
+#: ch04-wallets.adoc:1359
 msgid ""
 "Suppose instead that your clueless victim had 0 bitcoins on the private key "
 "`m/4/1`, but plenty of money on other addresses under the same xprv. Would "
@@ -8032,19 +8099,19 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1313
+#: ch04-wallets.adoc:1362
 msgid "If you didn’t read <<hardened-key-derivation>>, you can skip exercise 4.11."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1317
+#: ch04-wallets.adoc:1366
 msgid ""
 "Suggest a better approach your victim could have used to prevent you from "
 "stealing all the money."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1328
+#: ch04-wallets.adoc:1377
 msgid ""
 "Say the cafe owner wants employees to have access to the counter sales "
 "account because they must be able to create a new address for each sale. But "
@@ -8054,7 +8121,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1334
+#: ch04-wallets.adoc:1383
 msgid ""
 "Suppose you work at the cafe and have loaded an xpub into your wallet. Your "
 "colleague Anita has loaded the same xpub into her wallet.  You can both "
@@ -8064,14 +8131,14 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1339
+#: ch04-wallets.adoc:1388
 msgid ""
 "You usually use a mobile app, called a wallet, to send and receive "
 "money—cookie tokens or bitcoins."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1343
+#: ch04-wallets.adoc:1392
 msgid ""
 "The wallet creates and stores keys, scans or shows payment details, sends "
 "payments, shows your balance, and backs up keys. You don’t have to do any of "
@@ -8079,7 +8146,7 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1347
+#: ch04-wallets.adoc:1396
 msgid ""
 "Backups are hard to do right. Password-protected backups suffer from "
 "problems with forgotten passwords, technology improvements, and humans being "
@@ -8087,35 +8154,35 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1350
+#: ch04-wallets.adoc:1399
 msgid ""
 "With HD wallets, you back up your random seed and store that seed in a safe "
 "place. Do it only once."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1353
+#: ch04-wallets.adoc:1402
 msgid ""
 "The seed can be encoded using a mnemonic sentence, which makes it easier to "
 "write down the seed."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1356
+#: ch04-wallets.adoc:1405
 msgid ""
 "HD wallets generate multiple private keys from a seed and organize them in a "
 "tree structure to improve privacy."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1359
+#: ch04-wallets.adoc:1408
 msgid ""
 "The tree of public keys—or any of its branches—can be generated from an "
 "xpub. This is useful for insecure environments such as web servers."
 msgstr ""
 
 #. type: Plain text
-#: ch04-wallets.adoc:1361
+#: ch04-wallets.adoc:1410
 msgid ""
 "Hardened private key derivation keeps “accounts” compartmental­ized. It "
 "confines an attacker to a single account."
@@ -27277,9 +27344,9 @@ msgstr ""
 #. type: Plain text
 #: app2-answers.adoc:141
 msgid ""
-"The seed is created by using a random number generator—for example, a series "
-"of coin flips or the random number generator provided by your operating "
-"system."
+"The seed is created by first generating a huge random number, then the "
+"random number is encoded as a mnemonic sentence, and lastly, the mnemonic "
+"sentence is used to generate the seed."
 msgstr ""
 
 #. type: Plain text
