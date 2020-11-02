@@ -508,6 +508,7 @@ backup. We’ll get back to this in <<back-to-backup>>.
 
 Steps 2 and 3 deserve their own subsections.
 
+[[deriving-master-xprv]]
 ==== Deriving a master extended private key
 
 ****
@@ -662,40 +663,55 @@ Recall that the seed is a sequence of bits. For example, Rita’s seed
 is 128 bits long. What if you could encode those bits in a more
 human-friendly way? You can!
 
-Rita’s wallet can display the seed as a sequence of 12 English words,
-called a _mnemonic sentence_:
+Rita’s wallet used to create a seed using a random number generator,
+in the most straight-forward way possible. But if it had done it in a
+slightly different way, it could display her seed as a sequence of 12
+English words, called a _mnemonic sentence_:
 
- Seed: 16432a207785ec5c4e5a226e3bde819d
- Mnemonic: bind bone marine upper gain comfort
-           defense dust hotel ten parrot depend
+ bind bone marine upper gain comfort
+ defense dust hotel ten parrot depend
 
 ****
 image:{imagedir}/u04-14.svg[]
 ****
 
 [role="important"]
-This mnemonic sentence encodes the seed in a human-readable way. It’s
+This mnemonic sentence presents the seed in a human-readable way. It’s
 much more approachable to write down 12 words than it is to write down
 cryptic hex code. If Rita loses her wallet, she can install the wallet
 app on another phone and restore the seed from those 12 words. Rita
 can regenerate all her private keys from that seed.
 
-==== Encoding a seed into a mnemonic sentence
-
-WARNING: We’re going to explore how this encoding works. It’s really fun, but if
-you think this section goes too deep, you can accept the previous
-paragraph and skip to <<extended-public-keys>>.
-
-The encoding starts with the random seed, as shown in <<fig0414>>. The
-seed is hashed with SHA256, and the first 4 bits of the hash—in this
-case, `0111`—are appended to the seed. Those 4 bits act as a checksum.
-You then arrange the bits into 12 groups of 11 bits, where each group
-encodes a number in the range 0 to 2047. Eleven bits can encode
-2^11^ = 2,048 different values, remember?
+This is a three-step process as shown in <<fig0414>>.
 
 [[fig0414]]
-.Encoding a random seed as a 12-word mnemonic sentence. The seed is checksummed, and every group of 11 bits is looked up in a word list of 2,048 words.
-image::{imagedir}/04-14.svg[{full-width}]
+.The three steps involved to create a seed from a random number generator.
+image::{imagedir}/04-14.svg[{half-width}]
+
+First, a random number is generated. Second, the mnemonic sentence,
+that can be used for backup, is generated from the random number. In
+the last and third step, you generate a seed from the mnemonic
+sentence. The last two steps are discussed more in detail in the next
+two subsections.
+
+==== Generating a mnemonic sentence
+
+WARNING: We’re going to explore how the mnemonic sentence and seed
+generation works. It’s really fun, but if you think this section goes
+too deep, you can accept the previous section and skip to
+<<extended-public-keys>>.
+
+The encoding starts with the random number, as shown in
+<<fig0415>>. The random number is hashed with SHA256, and the first 4
+bits of the hash—in this case, `0111`—are appended to the random
+number. Those 4 bits act as a checksum.  You then arrange the bits
+into 12 groups of 11 bits, where each group encodes a number in the
+range 0 to 2047. Eleven bits can encode 2^11^ = 2,048 different
+values, remember?
+
+[[fig0415]]
+.Generating a 12-word mnemonic sentence from a random number. The random number is checksummed, and every group of 11 bits is looked up in a word list of 2,048 words.
+image::{imagedir}/04-15.svg[{big-width}]
 
 The 12 numbers are looked up in a standardized word list of 2,048
 words numbered from 0 to 2047. You can find this list in BIP39 from
@@ -713,7 +729,35 @@ Rita’s wallet shows the mnemonic sentence to her, and she writes the 12
 words down on a piece of paper. She puts the paper in a safe place and
 gets on with her life.
 
-==== Decoding a mnemonic sentence into a seed
+==== Generating a seed from a mnemonic sentence
+
+Rita’s wallet doesn’t stop there. It has yet to generate a seed that
+it can use to generate addresses for Rita. The wallet will generate
+the seed in many steps (<<fig0416>>).
+
+[[fig0416]]
+.A seed is generated from a mnemonic phrase in 2048 steps.
+image::{imagedir}/04-16.svg[{big-width}]
+
+The mnemonic sentence is used as the main input for each of the 2048
+HMAC-SHA512 function. This is the same function as we used in
+<<deriving-master-xprv>> to generate a master xprv from the seed. The
+other input, which is called the key, is `mnemonic1` in the first,
+leftmost, function. For subsequent functions the key input is the
+output of the previous function.
+
+The output from each function is added using bitwise XOR (exclusive
+or) to form the final result, which is our 512 bit seed. In bitwise
+XOR, two numbers are compared bit by bit, and if the bits are equal
+the resulting bit is `0`, otherwise `1`. This seed is then used to
+generate a master xprv as described in <<deriving-master-xprv>>.
+
+You’re probably wondering why the seed generation uses 2048 steps of
+HMAC-SHA512. This process is called _PBKDF2_ (Password-Based Key
+Derivation Function 2), which is a standardized way to achieve
+so-called key stretching. Key stretching makes brute-force attacking
+the mnemonic sentece harder because each try becomes slower due to the
+many steps involved.
 
 ****
 image::{imagedir}/u04-16.svg[]
@@ -728,20 +772,19 @@ She writes
  bind bone marine upper gain comfort
  defense dust hotel ten parrot depend
 
-into the wallet app. The app decodes the sentence by reversing the
-encoding process; Rita can regenerate her keys from the decoded seed,
-as <<fig0415>> shows.
+into the wallet app. The app uses the 4-bit checksum discussed in the
+previous section to make sure it’s correct. It does that by running
+the mnemonic sentence generation backwards as <<fig0417>> illustrates.
 
-[[fig0415]]
-.Decoding a mnemonic sentence into the seed
-image::{imagedir}/04-15.svg[{big-width}]
+[[fig0417]]
+.Verifying the checksum of a mnemonic sentence
+image::{imagedir}/04-17.svg[{big-width}]
 
-The decoding uses the 4-bit checksum to make sure it’s correct. If Rita
-accidentally writes the last word as `deposit` instead of `depend`,
-the checksum check will _probably_ fail because she wrote the wrong
-word at the end. If she types `depends` instead of `depend`, the
-decoding will definitely fail because there’s no word `depends` in the
-word list.
+If Rita accidentally writes the last word as `deposit` instead of
+`depend`, the checksum check will _probably_ fail because she wrote
+the wrong word at the end. If she types `depends` instead of `depend`,
+the decoding will definitely fail because there’s no word `depends` in
+the word list.
 
 The checksum is pretty weak—4 bits make only 16 possible checksums. A
 wrongly written mnemonic sentence, in which all words exist in the
@@ -750,6 +793,10 @@ seems bad. But the probability that you’d write such a sentence is
 small, because your misspelled words have to exist in the word
 list. This reduces the risk of an invalid mnemonic sentence being
 restored.
+
+After the checksum has been verified, the app regenerates the seed as
+shown in <<fig0416>> and all of Rita’s private keys can be restored
+from that seed.
 
 [id=extended-public-keys]
 === Extended public keys
@@ -772,11 +819,11 @@ For privacy reasons, the web server needs to be able to present a new
 cookie token address for every sale, but where does it get the
 addresses? The cafe could create an xprv for an _online sales_
 account in its HD wallet and put that xprv on the web server, as
-<<fig0416>> shows.
+<<fig0418>> shows.
 
-[[fig0416]]
+[[fig0418]]
 .The cafe copies its online sales xprv to the web server.
-image::{imagedir}/04-16.svg[{big-width}]
+image::{imagedir}/04-18.svg[{big-width}]
 
 The web server can now create new addresses as the orders pour in.
 Great! But what if Mallory, the gangster, gains access to the web
@@ -795,11 +842,11 @@ hard drive, and steal the xprv.
 
 For this reason, the cafe wants to avoid having any private keys on
 the web server. Thanks to the HD wallet, this is possible by using
-xpubs (<<fig0417>>).
+xpubs (<<fig0419>>).
 
-[[fig0417]]
+[[fig0419]]
 .An xpub consists of a public key and a chain code.
-image::{imagedir}/04-17.svg[{half-width}]
+image::{imagedir}/04-19.svg[{half-width}]
 
 An xpub is similar to an xprv, but the xpub contains a public key and
 a chain code, whereas the xprv contains a private key and a chain
@@ -813,22 +860,22 @@ The cafe puts the xpub `M/1` on the web server. By convention, we use
 `M` to denote an xpub path and `m` to denote an xprv path. `M/1` and
 `m/1` have the same chain code, but `M/1` doesn’t have the private key,
 only the public key. You can create the whole xpub tree from the master
-xpub (<<fig0418>>), which means you can generate any and all addresses
+xpub (<<fig0420>>), which means you can generate any and all addresses
 without any private key. You can create addresses, but not spend money
 from those addresses.
 
-[[fig0418]]
+[[fig0420]]
 .Generating the tree of xpubs from the master xpub. The general pattern is the same as when generating xprvs, but the child-derivation function differs.
-image::{imagedir}/04-18.svg[{big-width}]
+image::{imagedir}/04-20.svg[{big-width}]
 
 This looks exactly like when you generated the tree of xprvs. The
-difference is that you have no private keys. As <<fig0419>> shows, the
+difference is that you have no private keys. As <<fig0421>> shows, the
 xpubs are generated differently than the xprvs. Please compare this to
 the xprv derivation.
 
-[[fig0419]]
+[[fig0421]]
 .Xpub derivation. The private key addition from the xprv derivation is replaced by public key “addition.”
-image::{imagedir}/04-19.svg[{full-width}]
+image::{imagedir}/04-21.svg[{full-width}]
 
 .xprv derivation
 ****
@@ -841,12 +888,12 @@ you treat the left 256 bits as if they were a private key and derive a
 public key from them. This public key is then added to the parent
 public key using the special _public key addition_ operation. The
 result is the child public key. Let’s compare the child public key
-derivation to the child private key derivation (<<fig0420>>) from the
+derivation to the child private key derivation (<<fig0422>>) from the
 point after generating the left 256 bits of the HMAC-SHA256 hash.
 
-[[fig0420]]
+[[fig0422]]
 .The plus on the private side has a corresponding plus on the public side. The parent private key plus some value is the child private key. The parent public key plus the public key derived from the same value is the child public key.
-image::{imagedir}/04-20.svg[{big-width}]
+image::{imagedir}/04-22.svg[{big-width}]
 
 Normal addition is used for the private key. You add a 256-bit number
 to the parent private key to get the child private key. But to keep
@@ -877,12 +924,12 @@ Suppose Mallory somehow steals the private key `m/1/1`, which contains
 only 10 CT. This might seem harmless because that private key has so
 little money in it. But it could be worse than that. If Mallory has
 also managed to get the xpub for the online sales account from the web
-server, she can _calculate the online sales xprv_, as <<fig0421>>
+server, she can _calculate the online sales xprv_, as <<fig0423>>
 shows.
 
-[[fig0421]]
+[[fig0423]]
 .Mallory has stolen the private key `m/1/1` from the cafe and the parent xpub from the web server. She can now steal all the money in the online sales account.
-image::{imagedir}/04-21.svg[{full-width}]
+image::{imagedir}/04-23.svg[{full-width}]
 
 Remember how the xprv derivation function used normal addition to
 calculate a child private key from a parent private key?
@@ -936,16 +983,16 @@ derivation_.
 Suppose the cafe wants to prevent Mallory from accessing the master
 xprv, even if she got the master xpub and a private key in the online
 sales account. The cafe can generate the xprv for the online sales
-account using hardened xprv derivation, as <<fig0422>> shows.
+account using hardened xprv derivation, as <<fig0424>> shows.
 
 .Normal child xprv derivation
 ****
 image::{imagedir}/u04-19.svg[]
 ****
 
-[[fig0422]]
+[[fig0424]]
 .Deriving a hardened child xprv for the online sales account. You use the parent private key as input to the hash function instead of the public key.
-image::{imagedir}/04-22.svg[{big-width}]
+image::{imagedir}/04-24.svg[{big-width}]
 
 The apostrophe in `m/1'` isn’t a typo: it’s used to denote hardened
 key derivation. The difference is that with hardened key derivation,
@@ -953,11 +1000,11 @@ you hash the _private_ key instead of the public key. An attacker
 can’t do the “minus” trick anymore because the hash is derived from
 the parent private key. Mallory can’t calculate the left-half hash to
 subtract from the child private key because she doesn’t have the
-parent private key. <<fig0423>> illustrates the result.
+parent private key. <<fig0425>> illustrates the result.
 
-[[fig0423]]
+[[fig0425]]
 .The master xpub can’t be used to generate any child keys because `m/0'` and `m/1'` are hardened keys.
-image::{imagedir}/04-23.svg[{big-width}]
+image::{imagedir}/04-25.svg[{big-width}]
 
 This also means you can’t derive a hardened child xpub from a parent
 xpub. You must have the parent xprv to generate any children, public
@@ -1002,7 +1049,7 @@ y^2 = x^3 + 7 \mod{(2^{256}-4294968273)}
 
 Many such solutions exist, about stem:[2^{256}] of them, so let’s
 simplify by using the solutions to stem:[y^2 = x^3 + 7 \mod{11}]
-instead (<<fig0424>>).
+instead (<<fig0426>>).
 
 [.inbitcoin]
 .Bitcoin uses this curve
@@ -1011,9 +1058,9 @@ This specific elliptic curve is called _secp256k1_ and is used in
 Bitcoin. Plenty of other curves have similar properties.
 ****
 
-[[fig0424]]
+[[fig0426]]
 .Whole-number solutions to the elliptic curve stem:[y^2 = x^3 + 7 \mod{11}]. Each such solution is a public key.
-image::{imagedir}/04-24.svg[{half-width}]
+image::{imagedir}/04-26.svg[{half-width}]
 
 [.gbinfo]
 .Curve? I see only dots.
@@ -1039,15 +1086,15 @@ To calculate this multiplication, you need two basic public key
 operations: addition and doubling, where doubling can be seen as
 adding a point to itself.
 
-To add two points (<<fig0425>>), you draw a straight line that “wraps
+To add two points (<<fig0427>>), you draw a straight line that “wraps
 around” the edges of the diagram and that intersects your two points
 and one third point. This third point is the negative result of the
 addition. To get the final result of the addition, take the symmetric
 point at the same stem:[x] value.
 
-[[fig0425]]
+[[fig0427]]
 .Point addition. You add stem:[(x, y)=(6,5)] to stem:[(2, 2)] by drawing a straight line through them that will intersect a third point.
-image::{imagedir}/04-25.svg[{half-width}]
+image::{imagedir}/04-27.svg[{half-width}]
 
 [.gbinfo]
 .Is there always a third point?
@@ -1061,16 +1108,16 @@ line between the two points crosses the point stem:[(7, 3)]. The
 complement point to stem:[(7, 3)] is stem:[(7, 8)], which is the
 result of the addition.
 
-To double a point (<<fig0426>>) is to add it to itself, but there’s no
+To double a point (<<fig0428>>) is to add it to itself, but there’s no
 slope to be calculated from a single point. In this special case, you
 calculate the slope from the single point stem:[P=(6,5)] as
 stem:[3*x^2*(2y)^{-1} \mod{11} = 2]. The process is almost the same as
 adding two different points, but you calculate the slope of the line
 differently.
 
-[[fig0426]]
+[[fig0428]]
 .Point doubling. To double a point P, draw a line through P with a special slope that’s calculated from P. The line crosses another point, stem:[(3,10)]. The complement point stem:[(3, 1)] is the doubling result.
-image::{imagedir}/04-26.svg[{half-width}]
+image::{imagedir}/04-28.svg[{half-width}]
 
 Using these two basic operations, adding and doubling, you can derive
 the multiplication of stem:[5] and stem:[G]. In binary form, stem:[5] is
@@ -1125,19 +1172,19 @@ public-key derivation a one-way function.
 You’ve seen how an ordinary public key is derived from a private key
 through public-key multiplication. But how can adding the parent public
 key with the public key derived from the left 256 bits make the child
-public key? See <<fig0427>>.
+public key? See <<fig0429>>.
 
-[[fig0427]]
+[[fig0429]]
 .The child public key is derived by adding the parent public key with the public key derived from the left 256 bits.
-image::{imagedir}/04-27.svg[{half-width}]
+image::{imagedir}/04-29.svg[{half-width}]
 
 You can convince yourself that it works by looking at both normal
 public-key derivation and child public-key derivation in the same
-picture: see <<fig0428>>.
+picture: see <<fig0430>>.
 
-[[fig0428]]
+[[fig0430]]
 .Xpub derivation and normal public-key derivation. A normal public key is the starting point _G_ multiplied by a private key. A child public key is the parent public key added to the public key derived from the left-half hash.
-image::{imagedir}/04-28.svg[{big-width}]
+image::{imagedir}/04-30.svg[{big-width}]
 
 The nice thing with elliptic curves is that the special public key
 “add” operation works a bit like normal add. The same goes for the
@@ -1162,11 +1209,11 @@ Do you remember how John’s public key looked like a big number?
 That doesn’t look like a pair of coordinates, does it? The public key is
 encoded in a certain way. Because of the symmetry, exactly two points
 exist for every value of stem:[x], one with an even stem:[y] value and one
-with an odd stem:[y] value (<<fig0429>>).
+with an odd stem:[y] value (<<fig0431>>).
 
-[[fig0429]]
+[[fig0431]]
 .Each point on the curve has a symmetric point at the same stem:[x] value.
-image::{imagedir}/04-29.svg[]
+image::{imagedir}/04-31.svg[]
 
 You don’t need to store stem:[y] values, only whether the stem:[y]
 value is even or odd. You do this by prefixing the stem:[x] value with
@@ -1277,7 +1324,9 @@ correspond to? The password is selected from a 64-character alphabet.
 . Name a few problems with password-protected backups. There are
 at least four.
 
-. How is the seed created in an HD wallet?
+. What three major steps are involved when a seed is created in an HD
+wallet that uses mnemonic sentences? You only need to answer this on a
+high level.
 
 . What does an xprv consist of?
 

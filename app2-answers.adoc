@@ -135,9 +135,9 @@ coin flips.
 * You need to keep track of two items: the backup _and_ the
 password. This increases the risk that the backup is lost.
 
-. The seed is created by using a random number generator—for
-example, a series of coin flips or the random number generator provided
-by your operating system.
+. The seed is created by first generating a huge random number, then
+the random number is encoded as a mnemonic sentence, and lastly, the
+mnemonic sentence is used to generate the seed.
 
 . An xprv consists of a private key and a chain code.
 
