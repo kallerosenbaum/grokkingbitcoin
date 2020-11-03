@@ -740,7 +740,7 @@ the seed in many steps (<<fig0416>>).
 image::{imagedir}/04-16.svg[{big-width}]
 
 The mnemonic sentence is used as the main input for each of the 2048
-HMAC-SHA512 function. This is the same function as we used in
+HMAC-SHA512 functions. This is the same function as we used in
 <<deriving-master-xprv>> to generate a master xprv from the seed. The
 other input, which is called the key, is `mnemonic1` in the first,
 leftmost, function. For subsequent functions the key input is the
@@ -756,7 +756,7 @@ You’re probably wondering why the seed generation uses 2048 steps of
 HMAC-SHA512. This process is called _PBKDF2_ (Password-Based Key
 Derivation Function 2), which is a standardized way to achieve
 so-called key stretching. Key stretching makes brute-force attacking
-the mnemonic sentece harder because each try becomes slower due to the
+the mnemonic sentence harder because each try becomes slower due to the
 many steps involved.
 
 ****
