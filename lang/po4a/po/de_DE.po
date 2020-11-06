@@ -4,20 +4,20 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Kalle Rosenbaum <kalle@rosenbaum.se>, 2020
 # Volker Herminghaus <volker@bitcorn.wtf>, 2020
+# Hodling Erik <Btc_viking@protonmail.com>, 2020
+# Shoki Herminghaus, 2020
 # andhans CMO <andhan360@live.de>, 2020
 # Volker Herminghaus <v.herminghaus@me.com>, 2020
-# Shoki Herminghaus <sherminghaus@me.com>, 2020
-# Hodling Erik <Btc_viking@protonmail.com>, 2020
+# Kalle Rosenbaum <kalle@rosenbaum.se>, 2020
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-11-03 13:22+0100\n"
+"POT-Creation-Date: 2020-11-06 21:02+0100\n"
 "PO-Revision-Date: 2019-09-20 17:45+0000\n"
-"Last-Translator: Volker Herminghaus <v.herminghaus@me.com>, 2020\n"
+"Last-Translator: Kalle Rosenbaum <kalle@rosenbaum.se>, 2020\n"
 "Language-Team: German (Germany) (https://www.transifex.com/none-684/"
 "teams/102992/de_DE/)\n"
 "Language: de_DE\n"
@@ -3759,8 +3759,7 @@ msgstr ""
 
 #. type: Block title
 #: ch02-hash-functions-and-signatures.adoc:177
-#, fuzzy, no-wrap
-#| msgid "2+|image:{commonimagedir}/new.png[role=\"gbnew\"]1.0"
+#, no-wrap
 msgid "2+|image:{commonimagedir}/new.svg[role=\"gbnew\"]1.0"
 msgstr "2+|image:{commonimagedir}/new.svg[role=\"gbnew\"]1.0"
 
@@ -5852,14 +5851,7 @@ msgstr "Release notes, Cookie Tokens 2.0"
 
 #. type: Table
 #: ch02-hash-functions-and-signatures.adoc:1096
-#, fuzzy, no-wrap
-#| msgid ""
-#| "|Version|Feature|How\n"
-#| "\n"
-#| "|image:{commonimagedir}/new.png[role=\"gbnew\"]2.0\n"
-#| "|Secure payments\n"
-#| "|Digital signatures solve the problem with imposters.\n"
-#| "\n"
+#, no-wrap
 msgid ""
 "|Version|Feature|How\n"
 "\n"
@@ -5872,7 +5864,7 @@ msgstr ""
 "\n"
 "|image:{commonimagedir}/new.svg[role=\"gbnew\"]2.0\n"
 "|Sichere Zahlungen\n"
-"|Digitale Signaturen lösen das Problem mit Betrügern.\n"
+"|Digitale Signaturen lösen das Problem der Imitatoren.\n"
 "\n"
 
 #. type: Block title
@@ -7233,16 +7225,12 @@ msgstr ""
 
 #. type: Plain text
 #: ch03-addresses.adoc:540
-#, fuzzy
-#| msgid ""
-#| "This new way to encode data is called _base58_ because the alphabet is "
-#| "the following 58 character"
 msgid ""
 "This new way to encode data is called _base58_ because the alphabet is the "
 "following 58 characters:"
 msgstr ""
-"Die neue Art der Codierung heisst _base58_, weil deren Alphabet 58 Zeichen "
-"enthält."
+"Dieses neue Codierverfahren heisst _base58_, weil sein Alphabet aus den "
+"folgenden 58 Zeichen besteht:"
 
 #. type: Plain text
 #: ch03-addresses.adoc:542
@@ -7633,8 +7621,7 @@ msgstr "Release notes, cookie tokens 3.0"
 
 #. type: Block title
 #: ch03-addresses.adoc:734
-#, fuzzy, no-wrap
-#| msgid "2+|image:{commonimagedir}/new.png[role=\"gbnew\"]3.0"
+#, no-wrap
 msgid "2+|image:{commonimagedir}/new.svg[role=\"gbnew\"]3.0"
 msgstr "2+|image:{commonimagedir}/new.svg[role=\"gbnew\"]3.0"
 
@@ -8906,16 +8893,12 @@ msgstr "Der _Master extended private Key_ wird aus dem Seed abgeleitet."
 
 #. type: Plain text
 #: ch04-wallets.adoc:477
-#, fuzzy
-#| msgid ""
-#| "The descendant_ extended private keys_ of the master extended private key "
-#| "are derived."
 msgid ""
 "The descendant _extended private keys_ of the master extended private key "
 "are derived."
 msgstr ""
-"Die abgeleiteten _extended private Keys_ des Master extended private Keys "
-"werden abgeleitet."
+"Die abgeleiteten _Extended private Keys_ des Master extended private Keys "
+"werden berechnet."
 
 #. type: Plain text
 #: ch04-wallets.adoc:480
@@ -9264,7 +9247,7 @@ msgstr ""
 #: ch04-wallets.adoc:651
 #, no-wrap
 msgid "Mnemonic sentences"
-msgstr "Mnemonische Sätze"
+msgstr "Merksätze oder mnemonische Sätze"
 
 #. type: Block title
 #: ch04-wallets.adoc:654
@@ -9279,8 +9262,8 @@ msgid ""
 "in BIP39. Before that, wallets typically used password-protected files with "
 "all keys, which caused a lot of headache."
 msgstr ""
-"Die meisten Bitcoin Wallets benutzen mnemonische Sätze als Backup. Diese "
-"sind in BIP39 standardisiert. Vorher benutzten Wallets typischerweise "
+"Die meisten Bitcoin Wallets benutzen Merksätze als Backup. Diese sind in "
+"BIP39 standardisiert. Vorher benutzten Wallets typischerweise "
 "passwortgeschützte Dateien mit allen Keys, was für eine Menge Kopfschmerzen "
 "gesorgt hat."
 
@@ -9303,6 +9286,11 @@ msgid ""
 "different way, it could display her seed as a sequence of 12 English words, "
 "called a _mnemonic sentence_:"
 msgstr ""
+"Ritas Wallet hat bisher einen Seed durch einen Zufallszahlengenerator "
+"erzeugt, so einfach wie möglich. Aber wenn es das auf eine nur ein bisschen "
+"andere Weise getan hätte, dass könnte es den Seed als Abfolge von 12 "
+"Englischen Wörtern darstellen, einen mnemonischen Code als Eselsbrücke, den "
+"sogenannten _mnemonic sentence_."
 
 #. type: Plain text
 #: ch04-wallets.adoc:673 ch04-wallets.adoc:774
@@ -9321,13 +9309,6 @@ msgstr "image:{imagedir}/u04-14.svg[]"
 
 #. type: Plain text
 #: ch04-wallets.adoc:684
-#, fuzzy
-#| msgid ""
-#| "This mnemonic sentence encodes the seed in a human-readable way. It’s "
-#| "much more approachable to write down 12 words than it is to write down "
-#| "cryptic hex code. If Rita loses her wallet, she can install the wallet "
-#| "app on another phone and restore the seed from those 12 words. Rita can "
-#| "regenerate all her private keys from that seed."
 msgid ""
 "This mnemonic sentence presents the seed in a human-readable way. It’s much "
 "more approachable to write down 12 words than it is to write down cryptic "
@@ -9335,21 +9316,22 @@ msgid ""
 "another phone and restore the seed from those 12 words. Rita can regenerate "
 "all her private keys from that seed."
 msgstr ""
-"Dieser mnemonische Satz codiert den Seed auf eine menschenlesbare Art. Es "
-"ist viel zugänglicher, 12 Wörter hinzuschreiben, als kryptischen Hexcode. "
-"Wenn Rita ihr Wallet verliert, kann sie die Wallet App auf einem anderen "
-"Telefon installieren und den Seed aus diesen 12 Wörtern regenerieren."
+"Dieser mnemonische Code, oder Merksatz, stellt den Seed in menschenlesbarer "
+"Form dar. Zwölf Wörter sind viel einfacher hinzuschreiben, als kryptische "
+"Hexadezimalziffern. Sollte Rita ihr Wallet verlieren, kann sie die Wallet "
+"App woanders installieren und aus den 12 Wörtern ihren Seed regenerieren. "
+"Sie bekommt damit auch all ihre private Keys zurück."
 
 #. type: Plain text
 #: ch04-wallets.adoc:686
 msgid "This is a three-step process as shown in <<fig0414>>."
-msgstr ""
+msgstr "Das ist ein dreiteiliger Prozess, wie in <<fig0414>> gezeigt."
 
 #. type: Block title
 #: ch04-wallets.adoc:688
 #, no-wrap
 msgid "The three steps involved to create a seed from a random number generator."
-msgstr ""
+msgstr "Die drei Schritte zum Erzeugen eines Seeds aus einem Zufallszahlengenerator."
 
 #. type: Plain text
 #: ch04-wallets.adoc:696
@@ -9359,40 +9341,30 @@ msgid ""
 "third step, you generate a seed from the mnemonic sentence. The last two "
 "steps are discussed more in detail in the next two subsections."
 msgstr ""
+"Zuerst wird eine Zufallszahl erzeugt. Als nächstes wird aus der Zufallszahl "
+"der Merksatz generiert, der als Backup verwendet werden kann. Im letzten "
+"Schritt berechnet man den Seed aus dem Merksatz. Auf diese letzten beiden "
+"Schritte wird in den nächsten beiden Unterkapiteln genauer eingegangen."
 
 #. type: Title ====
 #: ch04-wallets.adoc:697
-#, fuzzy, no-wrap
-#| msgid "Encoding a seed into a mnemonic sentence"
+#, no-wrap
 msgid "Generating a mnemonic sentence"
-msgstr "Codieren des Seeds in einen mnemonischen Satz"
+msgstr "Erzeugen eines Merksatzes"
 
 #. type: Plain text
 #: ch04-wallets.adoc:703
-#, fuzzy
-#| msgid ""
-#| "We’re going to explore how this encoding works. It’s really fun, but if "
-#| "you think this section goes too deep, you can accept the previous "
-#| "paragraph and skip to <<extended-public-keys>>."
 msgid ""
 "We’re going to explore how the mnemonic sentence and seed generation works. "
 "It’s really fun, but if you think this section goes too deep, you can accept "
 "the previous section and skip to <<extended-public-keys>>."
 msgstr ""
-"Wir untersuchen, wie diese Codierung funktioniert. Es ist wirklich spassig, "
-"aber wenn dir dieser Abschnitt zu tief geht, dann kannst du einfach den "
-"letzten Abschnitt glauben und vorwärts springen zu <<extended-public-keys>>."
+"Wir untersuchen, wie der Merksatz und die Seed-Erzeugung funktionieren. Es "
+"macht wirklich Spass, aber wenn dir dieser Abschnitt zu tief geht, kannst du "
+"auch gern nach vorne springen zu <<extended-public-keys>>."
 
 #. type: Plain text
 #: ch04-wallets.adoc:711
-#, fuzzy
-#| msgid ""
-#| "The encoding starts with the random seed, as shown in <<fig0414>>. The "
-#| "seed is hashed with SHA256, and the first 4 bits of the hash—in this "
-#| "case, `0111`—are appended to the seed. Those 4 bits act as a checksum.  "
-#| "You then arrange the bits into 12 groups of 11 bits, where each group "
-#| "encodes a number in the range 0 to 2047. Eleven bits can encode 2^11^ = "
-#| "2,048 different values, remember?"
 msgid ""
 "The encoding starts with the random number, as shown in <<fig0415>>. The "
 "random number is hashed with SHA256, and the first 4 bits of the hash—in "
@@ -9401,19 +9373,18 @@ msgid ""
 "group encodes a number in the range 0 to 2047. Eleven bits can encode 2^11^ "
 "= 2,048 different values, remember?"
 msgstr ""
-"Das Codieren beginnt mit dem Zufalls-Seed, wie in <<fig0414>> gezeigt. Der "
-"Seed wird mit SHA256 gehasht, und die ersten 4 Bits des Hashes–in diesem "
-"Fall `0111`–werden an den Seed angehängt. Diese 4 Bits dienen as Checksum. "
-"Dann arrangieren wir die Bits in 12 Gruppen zu 11 Bit, wobei jede Gruppe "
-"eine Zahl im Bereich 0 bis 2047 codiert. Elf Bits können 2^11^ = 2,048 "
-"verschiedene Werte darstellen, erinnerst du dich?"
+"Das Codieren fängt bei der Zufallszahl an, siehe <<fig0415>>. Diese "
+"Zufallszahl wird mit SHA256 gehasht, und die ersten 4 Bits des Hashes—in "
+"diesem Falle `0111`—werden der Zufallszahl hinten angehängt. Anschliessend "
+"kann man die Bits in 12 Gruppen zu je 11 Bits aufspalten, wobei dann jede "
+"Gruppe eine Zahl zwischen 0 und 2047 repräsentiert. Elf Bits codieren ja "
+"2^11 = 2.048 verschiedene Werte, weisst du noch?"
 
 #. type: Block title
 #: ch04-wallets.adoc:713
-#, fuzzy, no-wrap
-#| msgid "Encoding a random seed as a 12-word mnemonic sentence. The seed is checksummed, and every group of 11 bits is looked up in a word list of 2,048 words."
+#, no-wrap
 msgid "Generating a 12-word mnemonic sentence from a random number. The random number is checksummed, and every group of 11 bits is looked up in a word list of 2,048 words."
-msgstr "Codieren eines Zufalls-Seeds als 12-Wort mnemonic sentence. Der Seed wird mit Checksum versehen und zu jeder Gruppe von 11 Bit wird in einer Liste von 2048 Wörtern ein Wort nachgeschlagen."
+msgstr "Erzeugen eines 12 Wörter langen Merksatzes aus einer Zufallszahl. Die Zufallszahl wird mit einer Checksumme versehen und zu jeder Gruppe von 11 Bits wird der entsprechende Eintrag in einer Liste aus 2048 Wörtern ermittelt."
 
 #. type: Plain text
 #: ch04-wallets.adoc:720
@@ -9426,7 +9397,8 @@ msgstr ""
 "Die 12 Zahlen werden in einer standardisierten Wortliste aus 2048 Wörtern "
 "nachgeschaut, die von 0 bis 2047 durchnumeriert ist. Du findest diese Liste "
 "in BIP39 auf <<web-bips>>; sie enthält gängige englische Wörter. Nachdem du "
-"alle 12 Zahlen dort nachgeschaut hast, besitzt du den mnemonic sentence."
+"alle 12 Zahlen dort nachgeschaut hast, besitzt du den mnemonischen Code oder "
+"Merksatz."
 
 #. type: delimited block *
 #: ch04-wallets.adoc:723
@@ -9449,16 +9421,15 @@ msgid ""
 "words down on a piece of paper. She puts the paper in a safe place and gets "
 "on with her life."
 msgstr ""
-"Ritas Wallet zeigt ihr den mnemonic sentence, und sie schreibt die 12 Wörter "
-"auf ein Stück Papier. Sie legt das Papier in einen Safe und kümmert sich "
-"wieder um ihren Alltag."
+"Ritas Wallet zeigt ihr den Merksatz, und sie schreibt die 12 Wörter auf ein "
+"Stück Papier. Sie legt das Papier in einen Safe und kümmert sich wieder um "
+"ihren Alltag."
 
 #. type: Title ====
 #: ch04-wallets.adoc:732
-#, fuzzy, no-wrap
-#| msgid "Encoding a seed into a mnemonic sentence"
+#, no-wrap
 msgid "Generating a seed from a mnemonic sentence"
-msgstr "Codieren des Seeds in einen mnemonischen Satz"
+msgstr "Erzeugen des Seeds aus einem Merksatz"
 
 #. type: Plain text
 #: ch04-wallets.adoc:737
@@ -9467,12 +9438,15 @@ msgid ""
 "use to generate addresses for Rita. The wallet will generate the seed in "
 "many steps (<<fig0416>>)."
 msgstr ""
+"Ritas Wallet macht aber noch mehr. Es muss noch den Seed erzeugen, den es "
+"zum Generieren Ritas Adressen benutzen kann. Das Wallet erzeugt den Seed in "
+"vielen Schritten (<<fig0416>>)."
 
 #. type: Block title
 #: ch04-wallets.adoc:739
 #, no-wrap
 msgid "A seed is generated from a mnemonic phrase in 2048 steps."
-msgstr ""
+msgstr "Ein Seed wird in 2048 Schritten aus einem Merksatz erzeugt."
 
 #. type: Plain text
 #: ch04-wallets.adoc:748
@@ -9483,6 +9457,12 @@ msgid ""
 "called the key, is `mnemonic1` in the first, leftmost, function. For "
 "subsequent functions the key input is the output of the previous function."
 msgstr ""
+"Der Merksatz dient als Haupt-Input für jeden der 2048 Durchläufe durch die "
+"HMAC-SHA512 Funktion. Es handelt sich dabei um dieselbe Funktion, die wir "
+"schon in <<deriving-master-xprv>> zur Generierung des Master xprv aus dem "
+"Seed benutzt hatten. Der andere Input, der als Key bezeichnet wird, lautet "
+"`mnemonic1` in der ersten Funktion, ganz links. Für darauffolgende "
+"Funktionsaufrufe entspricht der Key Input dem Output der Vorgängerfunktion."
 
 #. type: Plain text
 #: ch04-wallets.adoc:754
@@ -9493,6 +9473,13 @@ msgid ""
 "is `0`, otherwise `1`. This seed is then used to generate a master xprv as "
 "described in <<deriving-master-xprv>>."
 msgstr ""
+"Die Outputs aller Funktionen werden mittels bitweisem XOR (exkluiv-oder) "
+"miteinander verknüpft, um zum Endergebnis zu kommen, nämlich unserem 512 Bit "
+"Seed. Bei der bitweisen XOR Verknüpfung werden Zahlen Bit für Bit "
+"verglichen, und wenn die jeweiligen Bits einer Position den gleichen Wert "
+"haben, ergibt die Funktion als Ergebnis das Bit `0` und sonst `1`. Dieser "
+"Seed wird dann benutzt, um wie in <<deriving-master-xprv>> beschrieben einen "
+"Master xprv zu generieren."
 
 #. type: Plain text
 #: ch04-wallets.adoc:761
@@ -9503,6 +9490,12 @@ msgid ""
 "stretching. Key stretching makes brute-force attacking the mnemonic sentence "
 "harder because each try becomes slower due to the many steps involved."
 msgstr ""
+"Du fragst dich vielleicht, weshalb die Seed-Erzeugung 2048 Male HMAC-SHA512 "
+"ausführt. Dieser Prozess heisst _PBKDF2_ (Password-Based Key Derivation "
+"Function 2) und ist ein Standardverfahren zur sogenannten "
+"Schlüsselstreckung. Schlüsselstreckung erschwert Angriffe auf den Merksatz "
+"mittels Holzhammermethode, weil jeder Versuch durch die zahlreichen Schritte "
+"verlangsamt wird."
 
 #. type: Plain text
 #: ch04-wallets.adoc:771
@@ -9516,7 +9509,7 @@ msgstr ""
 "Tiefe. Sie hat ihr Wallet verloren! Aber Rita macht sich keine grossen "
 "Sorgen. Sie kauft ein neues Telefon und installiert die Wallet App. Sie "
 "wählt die Funktion zum Restaurieren des Seeds aus einem Backup. Das Wallet "
-"bittet um den mnemonic sentence. Sie schreibt"
+"bittet um den Merksatz. Sie schreibt"
 
 #. type: Plain text
 #: ch04-wallets.adoc:778
@@ -9525,35 +9518,30 @@ msgid ""
 "previous section to make sure it’s correct. It does that by running the "
 "mnemonic sentence generation backwards as <<fig0417>> illustrates."
 msgstr ""
+"in die Wallet App. Die App benutzt die 4-Bit Checksumme, die wir im "
+"vorangegangenen Teil besprochen haben, um die Korrektheit des Merksatzes zu "
+"prüfen. Dazu lässt sie die Erzeugung des Merksatzes rückwärts laufen, wie in "
+"<<fig0417>> illustriert."
 
 #. type: Block title
 #: ch04-wallets.adoc:780
-#, fuzzy, no-wrap
-#| msgid "Encoding a seed into a mnemonic sentence"
+#, no-wrap
 msgid "Verifying the checksum of a mnemonic sentence"
-msgstr "Codieren des Seeds in einen mnemonischen Satz"
+msgstr "Überprüfen der Checksumme eines Merksatzes"
 
 #. type: Plain text
 #: ch04-wallets.adoc:788
-#, fuzzy
-#| msgid ""
-#| "The decoding uses the 4-bit checksum to make sure it’s correct. If Rita "
-#| "accidentally writes the last word as `deposit` instead of `depend`, the "
-#| "checksum check will _probably_ fail because she wrote the wrong word at "
-#| "the end. If she types `depends` instead of `depend`, the decoding will "
-#| "definitely fail because there’s no word `depends` in the word list."
 msgid ""
 "If Rita accidentally writes the last word as `deposit` instead of `depend`, "
 "the checksum check will _probably_ fail because she wrote the wrong word at "
 "the end. If she types `depends` instead of `depend`, the decoding will "
 "definitely fail because there’s no word `depends` in the word list."
 msgstr ""
-"Das Decodieren benutzt die 4 Bit Checksum, um sicherzustellen, dass alles "
-"stimmt. Wenn Rita versehentlich als letztes Wort `deposit` anstelle von "
-"`depend` schreibt, wird die Checksum _wahrscheinlich_ nicht passen, weil sie "
-"das falsche Wort am Ende geschrieben hatte. Wenn sie `depends` statt "
-"`depend` schreibt, wird das Decodieren definitiv scheitern, weil es das Wort "
-"`depends` in der Wortliste gar nicht gibt."
+"Wenn Rita als letztes Wort versehentlich `deposit` statt `depend` schreibt, "
+"schlägt die Prüfung der Checksumme _wahrscheinlich_ fehl, da sie das falsche "
+"Wort am Ende geschrieben hat. Schreibt sie `depends` anstelle von `depend`, "
+"scheitert das Dekodieren definitiv, das es das Word `depends` in der "
+"Wortliste nicht gibt."
 
 #. type: Plain text
 #: ch04-wallets.adoc:796
@@ -9566,13 +9554,12 @@ msgid ""
 "invalid mnemonic sentence being restored."
 msgstr ""
 "Die Checksum ist ziemlich schwach–4 Bit ergeben nur 16 mögliche Checksums. "
-"Ein falsch geschriebener mnemonic sentence, in dem alle Wörter in der "
-"Wortliste vorkommen, hat daher eine 1/16 Wahrscheinlichkeit, nicht entdeckt "
-"zu werden. Das scheint ziemlich schlecht zu sein. Aber die "
-"Wahrscheinlichkeit, dass man solch einen Satz schreibt, ist ziemlich klein, "
-"denn die falsch geschriebenen Wörter müssten in der Wortliste vorkommen. Das "
-"verringert das Risiko eines ungültigen mnemonic sentence beim "
-"Wiederherstellen."
+"Ein falsch geschriebener Merksatz, in dem alle Wörter in der Wortliste "
+"vorkommen, hat daher eine 1/16 Wahrscheinlichkeit, nicht entdeckt zu werden. "
+"Das scheint ziemlich schlecht zu sein. Aber die Wahrscheinlichkeit, dass man "
+"solch einen Satz schreibt, ist ziemlich klein, denn die falsch geschriebenen "
+"Wörter müssten in der Wortliste vorkommen. Das verringert das Risiko eines "
+"ungültigen Merksatzes beim Wiederherstellen."
 
 #. type: Plain text
 #: ch04-wallets.adoc:800
@@ -9580,6 +9567,9 @@ msgid ""
 "After the checksum has been verified, the app regenerates the seed as shown "
 "in <<fig0416>> and all of Rita’s private keys can be restored from that seed."
 msgstr ""
+"Nach Überprüfen der Checksumme regeneriert die App den Seed wie in "
+"<<fig0416>> gezeigt, und alle private Keys von Rita können anhand des Seeds "
+"wiederhergestellt werden."
 
 #. type: Title ===
 #: ch04-wallets.adoc:802
@@ -9597,11 +9587,11 @@ msgid ""
 "tree of public keys and chain codes without knowing any of the private keys."
 msgstr ""
 "Rita hat ihr Wallet aus einem 128 Bit Seed erzeugt, den sie mit einem "
-"mnemonic sentence von 12 Worten gesichert hat. Ihr Wallet kann eine "
-"beliebige Anzahl an private Keys aus diesem Seed erzeugen. Sie kann diese "
-"nach Belieben in verschiedene “Konten” organisieren. Sehr schön. Aber HD "
-"Wallets haben noch ein weiteres Feature: Man kann einen Baum von public Key "
-"und Chain Codes erzeugen, ohne irgendeinen private Key zu kennen."
+"Merksatz aus 12 Worten gesichert hat. Ihr Wallet kann eine beliebige Anzahl "
+"an private Keys aus diesem Seed erzeugen. Sie kann diese nach Belieben in "
+"verschiedene “Konten” organisieren. Sehr schön. Aber HD Wallets haben noch "
+"ein weiteres Feature: Man kann einen Baum von public Key und Chain Codes "
+"erzeugen, ohne irgendeinen private Key zu kennen."
 
 #. type: Plain text
 #: ch04-wallets.adoc:817
@@ -9614,23 +9604,17 @@ msgstr ""
 
 #. type: Plain text
 #: ch04-wallets.adoc:823
-#, fuzzy
-#| msgid ""
-#| "For privacy reasons, the web server needs to be able to present a new "
-#| "cookie token address for every sale, but where does it get the addresses? "
-#| "The cafe could create an xprv for an _online sales_ account in its HD "
-#| "wallet and put that xprv on the web server, as <<fig0416>> shows."
 msgid ""
 "For privacy reasons, the web server needs to be able to present a new cookie "
 "token address for every sale, but where does it get the addresses? The cafe "
 "could create an xprv for an _online sales_ account in its HD wallet and put "
 "that xprv on the web server, as <<fig0418>> shows."
 msgstr ""
-"Aus Gründen der Privacy muss der Web Server für jeden erkauf eine neue "
-"Cookie Token Adresse anzeigen können, aber woher bekommt er die Adressen? "
-"Das Café könnte einen xprv für einen _Onlineverkauf_ Konto in seinem HD "
-"Wallet einrichten und den xprv auf den Web Server legen, wie in <<fig0416>> "
-"gezeigt."
+"Der Web Server muss zur Sicherheit für jeden Verkauf eine neue Cookie Token "
+"Adresse anzeigen können, aber wo soll er die Adressen hernehmen? Das Cafe "
+"könnte einen xprv für ein _Online Verkauf_ Konto in seinem HD Wallet "
+"erzeugen und diesen xprv wie in <<fig0418>> gezeigt auf dem Web Server "
+"hinterlegen."
 
 #. type: Block title
 #: ch04-wallets.adoc:825
@@ -9674,19 +9658,13 @@ msgstr ""
 
 #. type: Plain text
 #: ch04-wallets.adoc:846
-#, fuzzy
-#| msgid ""
-#| "For this reason, the cafe wants to avoid having any private keys on the "
-#| "web server. Thanks to the HD wallet, this is possible by using xpubs "
-#| "(<<fig0417>>)."
 msgid ""
 "For this reason, the cafe wants to avoid having any private keys on the web "
 "server. Thanks to the HD wallet, this is possible by using xpubs "
 "(<<fig0419>>)."
 msgstr ""
-"Aus diesem Grund möchte das Café vermeiden, private Keys auf dem Web Server "
-"liegen zu haben. Dank des HD Wallets ist dies durch Benutzung von xpubs "
-"möglich (<<fig0417>>)."
+"Deshalb möchte das Cafe private Keys auf dem Web Server vermeiden. Dank des "
+"HD Wallets ist dies durch Verwendung von xpubs (<<fig0419>>) möglich."
 
 #. type: Plain text
 #: ch04-wallets.adoc:848 app2-answers.adoc:145
@@ -9714,15 +9692,6 @@ msgstr ""
 
 #. type: Plain text
 #: ch04-wallets.adoc:866
-#, fuzzy
-#| msgid ""
-#| "The cafe puts the xpub `M/1` on the web server. By convention, we use `M` "
-#| "to denote an xpub path and `m` to denote an xprv path. `M/1` and `m/1` "
-#| "have the same chain code, but `M/1` doesn’t have the private key, only "
-#| "the public key. You can create the whole xpub tree from the master xpub "
-#| "(<<fig0418>>), which means you can generate any and all addresses without "
-#| "any private key. You can create addresses, but not spend money from those "
-#| "addresses."
 msgid ""
 "The cafe puts the xpub `M/1` on the web server. By convention, we use `M` to "
 "denote an xpub path and `m` to denote an xprv path. `M/1` and `m/1` have the "
@@ -9731,13 +9700,13 @@ msgid ""
 "which means you can generate any and all addresses without any private key. "
 "You can create addresses, but not spend money from those addresses."
 msgstr ""
-"Das Café legt den xpub `M/1` auf den Web Server. Per Konvention benutzen wir "
-"`M`, um einen xpub Pfad zu bezeichnen und `m` für einen xprv Pfad. `M/1` und "
-"`m/1` haben denselben Chain Code, aber `M/1` hat nicht denselben private "
-"Key, nur den public Key. Man kann den gesamten xpub Baum aus dem Master xpub "
-"erzeugen (<<fig0418>>), was bedeutet, man kann alle und jede Adresse ohne "
-"irgendeinen private Key erzeugen. Man kann Adressen erzeugen, aber von "
-"diesen Adressen kein Geld ausgeben."
+"Das Cafe legt den xpub  `M/1` auf den Web Server. Per Konvention bezeichnet "
+"`M` einen xpub Pfad und `m` einen xprv Pfad. `M/1` und `m/1` besitzen "
+"denselben Chain Code, aber `M/1` enthält nicht den private Key, sondern nur "
+"den public Key. Man kann den gesamten xpub Baum aus dem Master xpub erzeugen "
+"(<<fig0420>>), was bedeutet, man kann jede beliebige Adresse ohne private "
+"Key erzeugen. Man kann also die Adressen zum Empfangen erzeugen, aber kein "
+"Geld daraus ausgeben."
 
 #. type: Block title
 #: ch04-wallets.adoc:868
@@ -9747,22 +9716,16 @@ msgstr "Erzeugung des Baums von xpubs aus dem Master xpub. Das allgemeine Muster
 
 #. type: Plain text
 #: ch04-wallets.adoc:875
-#, fuzzy
-#| msgid ""
-#| "This looks exactly like when you generated the tree of xprvs. The "
-#| "difference is that you have no private keys. As <<fig0419>> shows, the "
-#| "xpubs are generated differently than the xprvs. Please compare this to "
-#| "the xprv derivation."
 msgid ""
 "This looks exactly like when you generated the tree of xprvs. The difference "
 "is that you have no private keys. As <<fig0421>> shows, the xpubs are "
 "generated differently than the xprvs. Please compare this to the xprv "
 "derivation."
 msgstr ""
-"Das sieht genauso aus wie vorher, als du den Baum aus xprvs erzeugt hast. "
-"Der Unterschied ist, dass du keine private Keys hast. Wie <<fig0419>> zeigt, "
-"werden die xpubs anders erzeugt als die xprvs. Bitte vergleiche dies mit der "
-"Ableitung von xprvs."
+"Das sieht genauso aus, wie beim Erzeugen des Baums aus xprvs. Mit dem "
+"Unterschied, dass wir jetzt keine private Keys haben. Wie in <<fig0421>> "
+"gezeigt, werden die xpubs anders erzeugt als die xprvs. Bitte vergleiche "
+"dies mit der Ableitung der xprvs."
 
 #. type: Block title
 #: ch04-wallets.adoc:877
@@ -9778,16 +9741,6 @@ msgstr "xprv Ableitung"
 
 #. type: Plain text
 #: ch04-wallets.adoc:893
-#, fuzzy
-#| msgid ""
-#| "This resembles xprv derivation. The difference is what you do with the "
-#| "left 256 bits of the 512-bit hash. To calculate the child public key, you "
-#| "treat the left 256 bits as if they were a private key and derive a public "
-#| "key from them. This public key is then added to the parent public key "
-#| "using the special _public key addition_ operation. The result is the "
-#| "child public key. Let’s compare the child public key derivation to the "
-#| "child private key derivation (<<fig0420>>) from the point after "
-#| "generating the left 256 bits of the HMAC-SHA256 hash."
 msgid ""
 "This resembles xprv derivation. The difference is what you do with the left "
 "256 bits of the 512-bit hash. To calculate the child public key, you treat "
@@ -9796,16 +9749,16 @@ msgid ""
 "special _public key addition_ operation. The result is the child public key. "
 "Let’s compare the child public key derivation to the child private key "
 "derivation (<<fig0422>>) from the point after generating the left 256 bits "
-"of the HMAC-SHA256 hash."
+"of the HMAC-SHA512 hash."
 msgstr ""
-"Dies ähnelt der xprv Herleitung. Der Unterschied liegt in dem, was mit den "
-"linken 256 Bit des 512 Bit Hashes geschieht. Um den Child public Key zu "
-"berechnen, behandelt man die linken 256 Bit so, als wären sie ein private "
-"Key, und leitet einen public Key aus ihnen ab. Dieser public Key wird dann "
-"mittels der _public Key Addition_ zum Parent public Key addiert. Das "
-"Ergebnis ist der Child public Key. Vergleichen wir einmal die Child public "
-"Key Ableitung mit der Child private Key Ableitung (<<fig0420>>) ab dem Punkt "
-"nach der Erzeugung der linken 256 Bit des HMAC-SHA512 Hashes."
+"Das erinnert an die xprv Ableitung. Der Unterschied liegt in dem, war mit "
+"den linken 256 Bits des 512-Bit Hashes geschieht. Um den Child public Key zu "
+"berechnen, behandeln wir die linken 256 Bits als private Key und leiten "
+"einen public Key von ihm ab. Der public Key wird dann mittels der speziellen "
+"_public key addition_ Operation zum Parent public Key addiert. Das Ergebnis "
+"ist der Child public Key. Vergleichen wir die Child public Key Ableitung mit "
+"der Child private Key Ableitung (<<fig0422>>) ab dem Punkt nach der "
+"Erzeugung der linken 256 Bits des HMAC-SHA512 Hashes."
 
 #. type: Block title
 #: ch04-wallets.adoc:895
@@ -9877,17 +9830,10 @@ msgstr ""
 "verrückt! Das online Verkaufskonto wächst, mit einem neuen public Key für "
 "jede Bestellung. Der xpub für die online Verkäufe liegt auf dem Web Server, "
 "und der xprv liegt nur im Wallet des Cafés (und in einem weggeschlossenen "
-"mnemonic sentence)."
+"Merksatz)."
 
 #. type: Plain text
 #: ch04-wallets.adoc:929
-#, fuzzy
-#| msgid ""
-#| "Suppose Mallory somehow steals the private key `m/1/1`, which contains "
-#| "only 10 CT. This might seem harmless because that private key has so "
-#| "little money in it. But it could be worse than that. If Mallory has also "
-#| "managed to get the xpub for the online sales account from the web server, "
-#| "she can _calculate the online sales xprv_, as <<fig0421>> shows."
 msgid ""
 "Suppose Mallory somehow steals the private key `m/1/1`, which contains only "
 "10 CT. This might seem harmless because that private key has so little money "
@@ -9895,12 +9841,11 @@ msgid ""
 "the xpub for the online sales account from the web server, she can "
 "_calculate the online sales xprv_, as <<fig0423>> shows."
 msgstr ""
-"Angenommen Mallory stiehlt irgendwie den private Key `m/1/1`, der nur 10 CT "
-"enthält. Dann mag das zwar harmlos aussehen, weil dieser private Key so "
-"wenig Geld kontrolliert. Aber es könnte schlimmer sein als das. Falls es "
-"Mallory ausserdem schafft, den xpub vom online Verkaufskonto des Web Servers "
-"zu stehlen, dann kann sie den _xprv des online Verkaufskontos ausrechnen_, "
-"wie man in <<fig0421>> sieht."
+"Angenommen, Mallory stiehlt irgendwie den private Key `m/1/1`, der nur 10 CT "
+"enthält. Das klingt harmlos, weil dieser private Key nicht viel Geld "
+"kontrolliert. Aber es kann viel schlimmer sein. Sollte es Mallory gelingen, "
+"den xpub des Kontos für online Verkäufe herauszubekommen, könnte sie den "
+"_Online Verkauf xprv berechnen_, wie in <<fig0423>> gezeigt."
 
 #. type: Block title
 #: ch04-wallets.adoc:931
@@ -10011,23 +9956,17 @@ msgstr ""
 
 #. type: Plain text
 #: ch04-wallets.adoc:987
-#, fuzzy
-#| msgid ""
-#| "Suppose the cafe wants to prevent Mallory from accessing the master xprv, "
-#| "even if she got the master xpub and a private key in the online sales "
-#| "account. The cafe can generate the xprv for the online sales account "
-#| "using hardened xprv derivation, as <<fig0422>> shows."
 msgid ""
 "Suppose the cafe wants to prevent Mallory from accessing the master xprv, "
 "even if she got the master xpub and a private key in the online sales "
 "account. The cafe can generate the xprv for the online sales account using "
 "hardened xprv derivation, as <<fig0424>> shows."
 msgstr ""
-"Angenommen, das Café möchte verhindern, dass Mallory auf den master xprv "
-"zugreift, selbst wenn sie den master xpub und einen privaten Schlüssel im "
-"Online Verkaufskonto hat. Das Café kann den xprv für das Online "
-"Verkaufskonto mithilfe der gehärteten xprv Ableitung generieren, wie "
-"<<fig0422>> zeigt."
+"Natürlich möchte das Cafe Mallorys Zugriff auf den Master xprv auch dann "
+"verhindern, wenn diese den Master xpub und einen private Key im Konto für "
+"online Verkäufe erschnüffelt hat. Das Cafe kann hierzu den xprv für das "
+"Konto Online Verkauf mittels gehärteter xprv Ableitung erzeugen, wie in "
+"<<fig0424>> dargestellt."
 
 #. type: Block title
 #: ch04-wallets.adoc:988
@@ -10043,15 +9982,6 @@ msgstr "Ableitung eines gehärteten Child xprv für das online Verkaufskonto. Ma
 
 #. type: Plain text
 #: ch04-wallets.adoc:1004
-#, fuzzy
-#| msgid ""
-#| "The apostrophe in `m/1'` isn’t a typo: it’s used to denote hardened key "
-#| "derivation. The difference is that with hardened key derivation, you hash "
-#| "the _private_ key instead of the public key. An attacker can’t do the "
-#| "“minus” trick anymore because the hash is derived from the parent private "
-#| "key. Mallory can’t calculate the left-half hash to subtract from the "
-#| "child private key because she doesn’t have the parent private key. "
-#| "<<fig0423>> illustrates the result."
 msgid ""
 "The apostrophe in `m/1'` isn’t a typo: it’s used to denote hardened key "
 "derivation. The difference is that with hardened key derivation, you hash "
@@ -10061,13 +9991,14 @@ msgid ""
 "private key because she doesn’t have the parent private key. <<fig0425>> "
 "illustrates the result."
 msgstr ""
-"Das Apostroph in `m/1'` ist kein Tippfehler: Es wird benutzt, um eine "
-"gehärtete Key Ableitung auszeichnen. Der Unterschied ist, dass man bei "
-"gehärteter Key Ableitung den _private_ Key anstelle des public Key hasht. "
-"Ein Angreifer kann den “minus” Trick nicht mehr anwenden, weil der Hash vom "
-"Parent private Key abgeleitet ist. Mallory kann die linke Hashhälfte zum "
-"Subtrahieren nicht mehr ausrechnen, weil sie den Parent private Key nicht "
-"kennt. <<fig0423>> illustriert das Ergebnis."
+"Das Apostroph in `m/1'` ist kein Tippfehler: es ist das Kennzeichen für "
+"gehärtete Key Ableitung. Der Unterschied besteht darin, dass bei der "
+"gehärteten Key Ableitung nicht der public Key, sondern der _private_ Key "
+"gehasht wird. Ein Angreifer kann nicht mehr den \"minus\" Trick benutzen, "
+"weil der Hash auf dem parent private Key beruht. Mallory kann die zum "
+"Subtrahieren vom Child private Key benötigte linke Hälfte des Hashes nicht "
+"mehr berechnen, weil ihr der Parent private Key fehlt. <<fig0425>> "
+"illustriert das Ergebnis."
 
 #. type: Block title
 #: ch04-wallets.adoc:1006
@@ -10167,19 +10098,14 @@ msgstr "y^2 = x^3 + 7 \\mod{(2^{256}-4294968273)}\n"
 
 #. type: Plain text
 #: ch04-wallets.adoc:1053
-#, fuzzy
-#| msgid ""
-#| "Many such solutions exist, about stem:[2^{256}] of them, so let’s "
-#| "simplify by using the solutions to stem:[y^2 = x^3 + 7 \\mod{11}] instead "
-#| "(<<fig0424>>)."
 msgid ""
 "Many such solutions exist, about stem:[2^{256}] of them, so let’s simplify "
 "by using the solutions to stem:[y^2 = x^3 + 7 \\mod{11}] instead "
 "(<<fig0426>>)."
 msgstr ""
-"Viele solcher Lösungen existieren, ungefähr stem:[2^{256}] davon, also "
-"vereinfachen wir, indem wir stattdessen die Lösungen zu stem:[y^2 = x^3 + 7 "
-"\\mod{11}] (<<fig0424>>) benutzen."
+"Viele solche Lösungen existieren, ungefähr stem:[2^{256}], also vereinfachen "
+"wir es, indem wir stattdessen die Lösungen von stem:[y^2 = x^3 + 7 "
+"\\mod{11}] verwenden (<<fig0426>>)."
 
 #. type: Block title
 #: ch04-wallets.adoc:1055
@@ -10257,13 +10183,6 @@ msgstr ""
 
 #. type: Plain text
 #: ch04-wallets.adoc:1094
-#, fuzzy
-#| msgid ""
-#| "To add two points (<<fig0425>>), you draw a straight line that “wraps "
-#| "around” the edges of the diagram and that intersects your two points and "
-#| "one third point. This third point is the negative result of the addition. "
-#| "To get the final result of the addition, take the symmetric point at the "
-#| "same stem:[x] value."
 msgid ""
 "To add two points (<<fig0427>>), you draw a straight line that “wraps "
 "around” the edges of the diagram and that intersects your two points and one "
@@ -10271,11 +10190,11 @@ msgid ""
 "the final result of the addition, take the symmetric point at the same stem:"
 "[x] value."
 msgstr ""
-"Um zwei Punkte zu addieren (<<fig0425>>) ziehst du eine Gerade, die an den "
-"Rändern des Diagramms “umgebrochen” wird und die sowohl deine beiden Punkte "
-"schneidet als auch einen dritten Punkt. Dieser dritte Punkt ist das negative "
-"Resultat der Addition. Um das Endresultat der Addition zu erhalten, nimmst "
-"du den symmetrischen Punkt am selben stem:[x] Wert."
+"Zur Addition zweier Punkte (<<fig0427>>) zieht man eine Linie, die an den "
+"Kanten des Diagramms umgebrochen wird, und sich mit deinen zwei Punkten und "
+"einem dritten Punkt schneidet. Dieser dritte Punkt ist das negative Ergebnis "
+"der Addition. Um das Endergebnis der Addition zu erhalten, nimmt man den "
+"symmetrischen Punkt an demselben stem:[x] Wert."
 
 #. type: Block title
 #: ch04-wallets.adoc:1096
@@ -10312,13 +10231,6 @@ msgstr ""
 
 #. type: Plain text
 #: ch04-wallets.adoc:1117
-#, fuzzy
-#| msgid ""
-#| "To double a point (<<fig0426>>) is to add it to itself, but there’s no "
-#| "slope to be calculated from a single point. In this special case, you "
-#| "calculate the slope from the single point stem:[P=(6,5)] as stem:"
-#| "[3*x^2*(2y)^{-1} \\mod{11} = 2]. The process is almost the same as adding "
-#| "two different points, but you calculate the slope of the line differently."
 msgid ""
 "To double a point (<<fig0428>>) is to add it to itself, but there’s no slope "
 "to be calculated from a single point. In this special case, you calculate "
@@ -10326,11 +10238,11 @@ msgid ""
 "\\mod{11} = 2]. The process is almost the same as adding two different "
 "points, but you calculate the slope of the line differently."
 msgstr ""
-"Einen Punkt zu verdoppeln (<<fig0426>>) heisst, ihn zu sich selbst zu "
-"addieren, aber eine Steigung kann nicht aus einem einzigen Punkt berechnet "
-"werden. In diesem Spezialfall berechnet man die Steigung aus dem Einzelpunkt "
-"stem:[P=(6,5)] durch stem:[3*x^2*(2y)^{-1} \\mod{11} = 2]. Der Vorgang ist "
-"fast derselbe wir bei der Addition zweier unterschiedlicher Punkte, aber die "
+"Einen Punkt zu verdoppeln (<<fig0428>>) bedeutet, ihn zu sich selbst zu "
+"addieren, aber aus einem einzelnen Punkt kann man keine Steigung berechnen. "
+"In diesem Spezialfall berechnet man die Steigung aus dem Einzelpunkt durch "
+"stem:[P=(6,5)] als stem:[3*x^2*(2y)^{-1} \\mod{11} = 2]. Der Vorgang ist "
+"fast derselbe wie die Addition zweier verschiedener Punkte, aber die "
 "Steigung wird anders berechnet."
 
 #. type: Block title
@@ -10462,22 +10374,16 @@ msgstr "Xpub Herleitung"
 
 #. type: Plain text
 #: ch04-wallets.adoc:1176
-#, fuzzy
-#| msgid ""
-#| "You’ve seen how an ordinary public key is derived from a private key "
-#| "through public-key multiplication. But how can adding the parent public "
-#| "key with the public key derived from the left 256 bits make the child "
-#| "public key? See <<fig0427>>."
 msgid ""
 "You’ve seen how an ordinary public key is derived from a private key through "
 "public-key multiplication. But how can adding the parent public key with the "
 "public key derived from the left 256 bits make the child public key? See "
 "<<fig0429>>."
 msgstr ""
-"Du hast gesehen, wie ein normaler public Key aus einem private Key durch "
-"public Key Multiplikation hergeleitet werden kann. Aber wie kann die "
-"Addition eines Parent public Keys zu einem public Key, der aus den linken "
-"256 Bits abgeleitet wurde, den Child public Key ergeben? Siehe <<fig0427>>."
+"Wir haben verstanden, wie ein normaler public Key durch public Key "
+"Multiplikation abgeleitet wird. Aber wie kann sich aus Addition des Parent "
+"public Keys zu jenem public Key, der aus den linken 256 Bits abgeleitet "
+"wurde, der Child public Key ergeben? Siehe <<fig0429>>."
 
 #. type: Block title
 #: ch04-wallets.adoc:1178
@@ -10487,19 +10393,14 @@ msgstr "Der Child public Key wird durch Addition des Parent public Key zu dem pu
 
 #. type: Plain text
 #: ch04-wallets.adoc:1184
-#, fuzzy
-#| msgid ""
-#| "You can convince yourself that it works by looking at both normal public-"
-#| "key derivation and child public-key derivation in the same picture: see "
-#| "<<fig0428>>."
 msgid ""
 "You can convince yourself that it works by looking at both normal public-key "
 "derivation and child public-key derivation in the same picture: see "
 "<<fig0430>>."
 msgstr ""
-"Du kannst dich überzeugen, dass das funktioniert, indem du sowohl die "
-"normale public Key Herleitung als auch die Child public Key Herleitung im "
-"selben Bild betrachtest: siehe <<fig0428>>."
+"Du kannst dich selbst davon überzeugen, dass dies funktioniert, indem du dir "
+"die normale public Key Ableitung und die Child public Key Ableitung "
+"gemeinsam im selben Bild anschaust: Siehe <<fig0430>>."
 
 #. type: Block title
 #: ch04-wallets.adoc:1186
@@ -10558,22 +10459,16 @@ msgstr " 035541a13851a3742489fdddeef21be13c1abb85e053222c0dbf3703ba218dc1f3\n"
 
 #. type: Plain text
 #: ch04-wallets.adoc:1213
-#, fuzzy
-#| msgid ""
-#| "That doesn’t look like a pair of coordinates, does it? The public key is "
-#| "encoded in a certain way. Because of the symmetry, exactly two points "
-#| "exist for every value of stem:[x], one with an even stem:[y] value and "
-#| "one with an odd stem:[y] value (<<fig0429>>)."
 msgid ""
 "That doesn’t look like a pair of coordinates, does it? The public key is "
 "encoded in a certain way. Because of the symmetry, exactly two points exist "
 "for every value of stem:[x], one with an even stem:[y] value and one with an "
 "odd stem:[y] value (<<fig0431>>)."
 msgstr ""
-"Das sieht nicht wie ein Koordinatenpaar aus, oder? Der public Key wird auf "
-"eine bestimmte Art codiert, Aufgrund der Symmetrie existieren exakt zwei "
-"Punkte für jeden Wert von stem\\:[x], einer mit einem geraden stem\\:[y] "
-"Wert und einer mit einem ungeraden stem\\:[y] Wert (<<fig0429>>)."
+"Das sieht aber nicht wie ein Koordinatenpaar aus, oder? Der public Key wird "
+"auf eine bestimmte Weise kodiert-Aus Symmetriegründen existieren genau zwei "
+"Punkte für jeden Wert von stem:[x], einer mit geradem stem:[y] und einer mit "
+"ungeradem stem:[y] Wert (<<fig0431>>)."
 
 #. type: Block title
 #: ch04-wallets.adoc:1215
@@ -10702,8 +10597,7 @@ msgstr "Release Notes, Cookie Tokens 4.0"
 
 #. type: Block title
 #: ch04-wallets.adoc:1284
-#, fuzzy, no-wrap
-#| msgid "3+|image:{commonimagedir}/new.png[role=\"gbnew\"]4.0"
+#, no-wrap
 msgid "3+|image:{commonimagedir}/new.svg[role=\"gbnew\"]4.0"
 msgstr "3+|image:{commonimagedir}/new.svg[role=\"gbnew\"]4.0"
 
@@ -10777,6 +10671,9 @@ msgid ""
 "What three major steps are involved when a seed is created in an HD wallet "
 "that uses mnemonic sentences? You only need to answer this on a high level."
 msgstr ""
+"In welchen drei grossen Schritten geschieht die Erzeugung eines Seeds in "
+"einem HD Wallet, das Merksätze verwendet? Du brauchst dies nur oberflächlich "
+"zu beantworten."
 
 #. type: Plain text
 #: ch04-wallets.adoc:1332
@@ -10935,8 +10832,7 @@ msgid ""
 "The seed can be encoded using a mnemonic sentence, which makes it easier to "
 "write down the seed."
 msgstr ""
-"Der Seed kann als mnemonic sentence codiert sein, was das Aufschreiben "
-"vereinfacht."
+"Der Seed kann als Merksatz codiert sein, was das Aufschreiben vereinfacht."
 
 #. type: Plain text
 #: ch04-wallets.adoc:1405
@@ -13991,8 +13887,7 @@ msgstr "Release Notes, Cookie Tokens 5.0"
 
 #. type: Block title
 #: ch05-transactions.adoc:1308
-#, fuzzy, no-wrap
-#| msgid "3+|image:{commonimagedir}/new.png[role=\"gbnew\"]5.0"
+#, no-wrap
 msgid "3+|image:{commonimagedir}/new.svg[role=\"gbnew\"]5.0"
 msgstr "3+|image:{commonimagedir}/new.svg[role=\"gbnew\"]5.0"
 
@@ -15796,11 +15691,10 @@ msgstr ""
 "Erstmal kann es sein, dass nicht diese Wallet App die Transaktion erzeugt "
 "hat. John kann viele Wallet Apps benutzen, die Adressen aus demselben Seed "
 "erzeugen. Erinnere dich zum Beispiel daran, wie in <<ch04>> ein Wallet aus "
-"einem mnemonic sentence wiederhergestellt wurde? Dieser mnemonic sentence "
-"kann von vielen Wallets gleichzeitig benutzt werden. John möchte vielleicht "
-"von einem der Wallets eine Zahlung tätigen und einem anderen Wallet über die "
-"Zahlung auf informiert werden, damit er dort das Gesamtsaldo überschauen "
-"kann."
+"einem Merksatz wiederhergestellt wurde? Dieser Merksatz kann von vielen "
+"Wallets gleichzeitig benutzt werden. John möchte vielleicht von einem der "
+"Wallets eine Zahlung tätigen und einem anderen Wallet über die Zahlung auf "
+"informiert werden, damit er dort das Gesamtsaldo überschauen kann."
 
 #. type: Plain text
 #: ch06-the-blockchain.adoc:673
@@ -17185,8 +17079,7 @@ msgstr "Release Notes, Cookie Token 6.0"
 
 #. type: Block title
 #: ch06-the-blockchain.adoc:1263
-#, fuzzy, no-wrap
-#| msgid "3+|image:{commonimagedir}/new.png[role=\"gbnew\"]6.0"
+#, no-wrap
 msgid "3+|image:{commonimagedir}/new.svg[role=\"gbnew\"]6.0"
 msgstr "3+|image:{commonimagedir}/new.svg[role=\"gbnew\"]6.0"
 
@@ -21284,8 +21177,7 @@ msgstr "Release Notes, Cookie Tokens 7.0"
 
 #. type: Block title
 #: ch07-proof-of-work.adoc:1711
-#, fuzzy, no-wrap
-#| msgid "2+|image:{commonimagedir}/new.png[role=\"gbnew\"]7.0"
+#, no-wrap
 msgid "2+|image:{commonimagedir}/new.svg[role=\"gbnew\"]7.0"
 msgstr "2+|image:{commonimagedir}/new.svg[role=\"gbnew\"]7.0"
 
@@ -21733,7 +21625,7 @@ msgstr ""
 "erzählt er seinen drei Freunden davon, die ihrerseits wiederum all ihren "
 "Freunden davon erzählen, und das geht so weiter, bis jeder von dem neuen "
 "Block weiss. Wir nennen solche Netzwerke aus einleuchtenden Gründen _Gossip "
-"Netzworks_."
+"Networks_."
 
 #. type: Block title
 #: ch08-peer-to-peer-network.adoc:100
@@ -25372,8 +25264,7 @@ msgstr "Release Notes, Cookie Tokens 8.0"
 
 #. type: Block title
 #: ch08-peer-to-peer-network.adoc:1692
-#, fuzzy, no-wrap
-#| msgid "2+|image:{commonimagedir}/new.png[role=\"gbnew\"]8.0"
+#, no-wrap
 msgid "2+|image:{commonimagedir}/new.svg[role=\"gbnew\"]8.0"
 msgstr "2+|image:{commonimagedir}/new.svg[role=\"gbnew\"]8.0"
 
@@ -34898,12 +34789,11 @@ msgid ""
 "following:"
 msgstr ""
 "Du hast ein leeres Wallet generiert, und bevor du es anfängst zu benutzen, "
-"solltest du davon ein Backup machen. In <<ch04>> haben wir über mnemonische "
-"Sätze, wie definiert in BIP39, gesprochen, die das Anfertigen von Backups "
-"für hierarchische deterministische (HD) Wallet Seeds einfach machen. Aber "
-"dieses Feature ist _nicht_ in Bitcoin Core implementiert, aus ein paar "
-"Gründen–hauptsächlich dem, dass dem mnemonischen Satz Informationen fehlen "
-"über das folgende:"
+"solltest du davon ein Backup machen. In <<ch04>> haben wir über Merksätze, "
+"wie in BIP39 definiert, gesprochen, die das Anfertigen von Backups für "
+"hierarchische deterministische (HD) Wallet Seeds einfach machen. Aber dieses "
+"Feature ist _nicht_ in Bitcoin Core implementiert, aus mehreren Gründen–"
+"hauptsächlich dem, dass dem Merksatz folgende Informationen fehlen:"
 
 #. type: Plain text
 #: app1-bitcoin-cli.adoc:310
@@ -36252,6 +36142,8 @@ msgid ""
 "random number is encoded as a mnemonic sentence, and lastly, the mnemonic "
 "sentence is used to generate the seed."
 msgstr ""
+"Zuerst wird eine Zufallszahl erzeugt, dann wird diese als Merksatz codiert, "
+"und schliesslich wird der Merksatz zur Erzeugung des Seeds verwendet."
 
 #. type: Plain text
 #: app2-answers.adoc:147
@@ -37833,47 +37725,3 @@ msgstr "Bitcoin Core Downloadseite, http://mng.bz/177R."
 #: app3-web-resources.adoc:119
 msgid "Getting Started with Bitcoin, http://mng.bz/P885."
 msgstr "Anfangen mit Bitcoin, http://mng.bz/P885."
-
-#~ msgid ""
-#~ "Rita’s wallet can display the seed as a sequence of 12 English words, "
-#~ "called a _mnemonic sentence_:"
-#~ msgstr ""
-#~ "Ritas Wallet kann den Seed als Abfolge von 12 englischen Wörtern "
-#~ "darstellen, die als _mnemonic sentence_ oder _mnemonischer Satz_ "
-#~ "(Merksatz) bezeichnet werden:"
-
-#~ msgid ""
-#~ " Seed: 16432a207785ec5c4e5a226e3bde819d\n"
-#~ " Mnemonic: bind bone marine upper gain comfort\n"
-#~ "           defense dust hotel ten parrot depend\n"
-#~ msgstr ""
-#~ " Seed: 16432a207785ec5c4e5a226e3bde819d\n"
-#~ " Mnemonic: bind bone marine upper gain comfort\n"
-#~ "           defense dust hotel ten parrot depend\n"
-
-#~ msgid "Decoding a mnemonic sentence into a seed"
-#~ msgstr "Decodieren eines mnemonic sentence zu einem Seed"
-
-#~ msgid ""
-#~ "into the wallet app. The app decodes the sentence by reversing the "
-#~ "encoding process; Rita can regenerate her keys from the decoded seed, as "
-#~ "<<fig0415>> shows."
-#~ msgstr ""
-#~ "in die Wallet App. Die App decodiert den Satz, indem sie den "
-#~ "Codierprozess umkehrt. Rita kann ihre Keys aus dem decodierten Seed "
-#~ "regenerieren, wie <<fig0415>> zeigt."
-
-#~ msgid "Decoding a mnemonic sentence into the seed"
-#~ msgstr "Decodieren eines mnemonic sentence in einen Seed"
-
-#~ msgid "How is the seed created in an HD wallet?"
-#~ msgstr "Wie wird in HD Wallets der Seed generiert?"
-
-#~ msgid ""
-#~ "The seed is created by using a random number generator—for example, a "
-#~ "series of coin flips or the random number generator provided by your "
-#~ "operating system."
-#~ msgstr ""
-#~ "Der Seed wird unter Benutzung eines Zufallszahlengenerators erzeugt–zum "
-#~ "Beispiel einer Serie von Münzwürfen oder dem Zufallszahlengenerator, den "
-#~ "dein Betriebssystem liefert."
