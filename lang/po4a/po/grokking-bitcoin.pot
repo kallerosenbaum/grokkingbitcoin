@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-11-03 13:22+0100\n"
+"POT-Creation-Date: 2020-11-06 21:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7320,7 +7320,7 @@ msgid ""
 "special _public key addition_ operation. The result is the child public "
 "key. Let’s compare the child public key derivation to the child private key "
 "derivation (<<fig0422>>) from the point after generating the left 256 bits "
-"of the HMAC-SHA256 hash."
+"of the HMAC-SHA512 hash."
 msgstr ""
 
 #. type: Block title
