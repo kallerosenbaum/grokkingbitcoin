@@ -889,7 +889,7 @@ public key from them. This public key is then added to the parent
 public key using the special _public key addition_ operation. The
 result is the child public key. Let’s compare the child public key
 derivation to the child private key derivation (<<fig0422>>) from the
-point after generating the left 256 bits of the HMAC-SHA256 hash.
+point after generating the left 256 bits of the HMAC-SHA512 hash.
 
 [[fig0422]]
 .The plus on the private side has a corresponding plus on the public side. The parent private key plus some value is the child private key. The parent public key plus the public key derived from the same value is the child public key.
