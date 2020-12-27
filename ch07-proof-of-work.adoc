@@ -1617,7 +1617,7 @@ transaction.  This is a market for block space at play.
 .Lightning Network
 ****
 For more information about the Lightning Network, see
-<<web-lightinig-network>>. Unfortunately, there’s no room in this book
+<<web-lightning-network>>. Unfortunately, there’s no room in this book
 for this interesting and complex topic.
 ****
 

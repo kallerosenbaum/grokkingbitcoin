@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-11-06 21:02+0100\n"
+"POT-Creation-Date: 2020-12-27 11:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15838,7 +15838,7 @@ msgstr ""
 #: ch07-proof-of-work.adoc:1622
 msgid ""
 "For more information about the Lightning Network, see "
-"<<web-lightinig-network>>. Unfortunately, there’s no room in this book for "
+"<<web-lightning-network>>. Unfortunately, there’s no room in this book for "
 "this interesting and complex topic."
 msgstr ""
 

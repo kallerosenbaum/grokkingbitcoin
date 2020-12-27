@@ -93,7 +93,7 @@ Web resource {counter:webresourceid}:: Peter Todd, “What Attack Does
 the Difficulty Drop Rate Limiter Prevent?”, http://mng.bz/zgWQ.
 // https://petertodd.org/assets/commitments/52ccc4802bd563076cbd25ec4c1ba88152098cb6aa356ba644c9e79a24182da5.txt
 
-[[web-lightinig-network,Web resource {counter:webresourceid}]]
+[[web-lightning-network,Web resource {counter:webresourceid}]]
 Web resource {counter:webresourceid}:: Lightning Labs, Lightning
 Resources, http://mng.bz/RGGa.
 // https://dev.lightning.community/resources/index.html

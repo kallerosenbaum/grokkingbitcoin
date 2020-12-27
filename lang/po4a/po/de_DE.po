@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-11-06 21:02+0100\n"
+"POT-Creation-Date: 2020-12-27 11:15+0100\n"
 "PO-Revision-Date: 2019-09-20 17:45+0000\n"
 "Last-Translator: Kalle Rosenbaum <kalle@rosenbaum.se>, 2020\n"
 "Language-Team: German (Germany) (https://www.transifex.com/none-684/"
@@ -20986,8 +20986,13 @@ msgstr "Lightning Network"
 
 #. type: delimited block *
 #: ch07-proof-of-work.adoc:1622
+#, fuzzy
+#| msgid ""
+#| "For more information about the Lightning Network, see <<web-lightinig-"
+#| "network>>. Unfortunately, there’s no room in this book for this "
+#| "interesting and complex topic."
 msgid ""
-"For more information about the Lightning Network, see <<web-lightinig-"
+"For more information about the Lightning Network, see <<web-lightning-"
 "network>>. Unfortunately, there’s no room in this book for this interesting "
 "and complex topic."
 msgstr ""
