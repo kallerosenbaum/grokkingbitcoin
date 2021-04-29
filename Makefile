@@ -81,14 +81,14 @@ clean:
 package: all
 	tar --transform=s/build/site/ --exclude=$(B)/lang --exclude=$(B)/site.tar.gz -zchf $(B)/site.tar.gz $(B) 
 
-de_DE: % : translate_%
+fi_FI de_DE: % : translate_%
 	cp Makefile $(L)/$*
 	rm -rf $(L)/$*/images $(L)/$*/style $(L)/$*hacks $(L)/$*/locale
 	ln -s ../../../lang/$*/images $(L)/$*/images
 	ln -s ../../../lang/locale $(L)/$*/locale
 	cp -r style $(L)/$*/style
 	cp -r hacks $(L)/$*/hacks
-	cd $(L)/$* && $(MAKE) ADOCLANG="-a lang=de" all
+	cd $(L)/$* && $(MAKE) ADOCLANG="-a lang=$*" all
 
 translate_%: lang/po4a/po/%.po
 	po4a -o noimagetargets=1 lang/po4a/po4a.cfg
