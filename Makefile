@@ -28,7 +28,7 @@ app2-answers.adoc \
 app3-web-resources.adoc
 MASTERS := $(patsubst %,-m %,$(ADOCS))
 L=$(B)/lang
-
+LANGS := $(patsubst lang/po4a/po/%.po,%,$(wildcard lang/po4a/po/*.po))
 all: imgs full chunked
 
 full: setup $(ADOCS)
@@ -81,7 +81,7 @@ clean:
 package: all
 	tar --transform=s/build/site/ --exclude=$(B)/lang --exclude=$(B)/site.tar.gz -zchf $(B)/site.tar.gz $(B) 
 
-fi_FI de_DE: % : translate_%
+$(LANGS): % : translate_%
 	cp Makefile $(L)/$*
 	rm -rf $(L)/$*/images $(L)/$*/style $(L)/$*hacks $(L)/$*/locale
 	ln -s ../../../lang/$*/images $(L)/$*/images
