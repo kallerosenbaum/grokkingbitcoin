@@ -4,12 +4,6 @@ MAIN=$(BASE_NAME).adoc
 B=build
 ALLCHAPTERS=ch1 ch2 ch3 ch4 ch5 ch6 ch7 ch8 ch9 ch10 ch11
 ALLAPPENDIXES=app1 app2 app3
-AIS := $(wildcard images/**/*.ai)
-SVGSTOCOPY := $(wildcard images/**/*.svg)
-SVGCOPYTARGETS := $(patsubst %,$(B)/%,$(SVGSTOCOPY)) 
-ALLSVGS := $(patsubst %.ai,$(B)/%.svg,$(AIS))
-ALLPNGS := $(patsubst %,$(B)/%,$(wildcard images/**/*.png))
-ALLJPGS := $(patsubst %,$(B)/%,$(wildcard images/**/*.jpg))
 ADOCS=grokking-bitcoin.adoc \
 front-matter.adoc \
 ch01-introduction-to-bitcoin.adoc \
@@ -29,12 +23,11 @@ app3-web-resources.adoc
 MASTERS := $(patsubst %,-m %,$(ADOCS))
 L=$(B)/lang
 LANGS := $(patsubst lang/po4a/po/%.po,%,$(wildcard lang/po4a/po/*.po))
-all: imgs full chunked
+
+all: full chunked
 
 full: setup $(ADOCS)
 	$(AD) -v $(MAIN) -o $(B)/$(BASE_NAME).html
-
-imgs: $(ALLSVGS) $(ALLPNGS) $(ALLJPGS) $(SVGCOPYTARGETS)
 
 chunked: fm $(ALLCHAPTERS) $(ALLAPPENDIXES)
 
@@ -51,29 +44,11 @@ setup: $(B) links
 
 $(B):
 	@mkdir -p $(B)
-	@mkdir -p $(B)/images
 
 links:
-	rm -rf $(B)/style
+	rm -rf $(B)/style $(B)/images
 	ln -sfr style $(B)
-
-$(B)/%.svg: %.ai
-	mkdir -p $(dir $@)
-	pdfcrop $< $(B)/$*.pdf
-	pdf2svg $(B)/$*.pdf $@
-	rm $(B)/$*.pdf
-
-$(B)/%.svg: %.svg
-	mkdir -p $(dir $@)
-	cp $< $@
-
-$(B)/%.png: %.png
-	mkdir -p $(dir $@)
-	cp $< $@
-
-$(B)/%.jpg: %.jpg
-	mkdir -p $(dir $@)
-	cp $< $@
+	ln -sfr images $(B)
 
 clean:
 	rm -rf $(B)

@@ -68,14 +68,12 @@ needed:
 
 * Asciidoctor >= 1.5.7 and < 2.0
 * GNU Make
-* pdfcrop (To crop .ai images)
-* pdf2svg (To convert .ai images to svg)
 
 If you're running Ubuntu 18.10 or Debian 10 (Buster) you can install
 all these dependencies using:
 
 ```
-sudo apt-get install asciidoctor make texlive-extra-utils pdf2svg
+sudo apt-get install asciidoctor make
 ```
 
 On other systems, asciidoctor 1.5.7 or 1.5.8 may not exist as a
@@ -144,10 +142,9 @@ There are two css files that control the look of the html page:
 All images are stored under `images` directory in a
 one-directory-per-chapter structure. There is also a `images/common`
 directory that contains images that are used in multiple chapters. The
-format of images should be .ai (Adobe Illustrator), but exceptions do
-occur. All .ai images will be converted to SVG by the build
-script. The images found under `style/images` are considered to be
-part of the styling and not the content.
+format of images should be .svg, but exceptions do occur. The images
+found under `style/images` are considered to be part of the styling
+and not the content.
 
 A script to find unused files is available in
 `images/findunused.sh`. Use that to search for image files that are
@@ -170,13 +167,8 @@ which is an online translation tool. The German and Finnish
 translations were successfully made using this tool.
 
 Apart from the `.po` files you also need to edit all images that
-contains textual content. The `.ai` files are Adobe Illustrator files
-that probably need to be edited in Adobe Illustrator. Maybe the open
-source alternative Inkscape can be used too, but I've yet to
-investigate this at depth.
-
-Note, I'm looking into converting all image files into SVG instead, to
-make the images more usable in open source tools like Inkscape.
+contains textual content. I recommend using the open source tool
+Inkscape to edit the .svg images.
 
 ### Build translation
 
