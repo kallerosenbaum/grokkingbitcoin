@@ -56,7 +56,7 @@ review, for example on
 
 ## Build
 
-The source is written to produce html output. Other target formats
+The source is written to produce html5 output. Other target formats
 *might* work as well, but no effort has been made to keep them
 working.
 
@@ -92,11 +92,11 @@ sudo gem install asciidoctor --version 1.5.8
 #### Fonts
 
 In order to generate images that will display correctly on any web
-browser, that's independent on installed fonts, you need to
-have the fonts *Nimbus Mono PS*, *Arial*, and *Humanst521 Cn BT*
-installed on your system. If you don't have them, your images will be
-generated using similarly looking fonts, which may or may not result
-in bad looking images.
+browser, that's independent on system-installed fonts on the reader's
+machine, you need to have the fonts *Nimbus Mono PS*, *Arial*, and
+*Humanst521 Cn BT* installed on your system. If you don't have them,
+your images will be generated using similarly looking fonts, which may
+or may not result in bad looking images.
 
 To give a little background, the images were originally created by
 Manning (publisher) in Adobe Illustrator on MacOS. They chose these
@@ -126,7 +126,7 @@ make full
 
 The resulting html file will be `build/grokking-bitcoin.html`. This
 html page will take approximately _forever_ to load in a web browser
-(~116 MB of .svg images), but once loaded it's a nice page to use for
+(~100 MB of .svg images), but once loaded it's a nice page to use for
 search and casual browsing.
 
 ### Chunked html
