@@ -64,8 +64,8 @@
         font-family: ArialMT, Arial;
       }
     </style>
-    <clipPath id="clip-path" transform="translate(-118.25 -77.35)">
-      <path class="cls-1" d="M151,124.94H123c.11,10.79,7.05,18.7,2.45,29.56H151Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-118.25 -77.35)" class="cls-1" d="M151,124.94H123c.11,10.79,7.05,18.7,2.45,29.56H151Z"/>
     </clipPath>
   </defs>
   <g id="Layer_2" data-name="Layer 2">

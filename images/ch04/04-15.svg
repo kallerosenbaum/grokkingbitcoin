@@ -1,4 +1,4 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="314.9" height="263.66" viewBox="0 0 314.9 263.66">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" data-name="Layer 1" width="314.9" height="263.66" viewBox="0 0 314.9 263.66">
   <defs>
     <style>
       .cls-1, .cls-15, .cls-26, .cls-28, .cls-39, .cls-6, .cls-9 {
@@ -163,14 +163,14 @@
         stroke: #db1921;
       }
     </style>
-    <clipPath id="clip-path" transform="translate(-144.37 -132.4)">
-      <rect class="cls-1" width="612" height="792"/>
+    <clipPath id="clip-path">
+      <rect transform="translate(-144.37 -132.4)" class="cls-1" width="612" height="792"/>
     </clipPath>
-    <clipPath id="clip-path-2" transform="translate(-144.37 -132.4)">
-      <rect class="cls-1" x="406" y="157" width="37" height="22"/>
+    <clipPath id="clip-path-2">
+      <rect transform="translate(-144.37 -132.4)" class="cls-1" x="406" y="157" width="37" height="22"/>
     </clipPath>
-    <clipPath id="clip-path-3" transform="translate(-144.37 -132.4)">
-      <polygon class="cls-1" points="406.2 157.54 407.39 178.5 441.13 178.5 442.48 157.54 406.2 157.54"/>
+    <clipPath id="clip-path-3">
+      <polygon transform="translate(-144.37 -132.4)" class="cls-1" points="406.2 157.54 407.39 178.5 441.13 178.5 442.48 157.54 406.2 157.54"/>
     </clipPath>
     <linearGradient id="linear-gradient" y1="792" x2="1" y2="792" gradientTransform="matrix(0, 20.96, 20.96, 0, -16319.93, 25.14)" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#898c8f"/>
@@ -178,17 +178,17 @@
       <stop offset="0.5" stop-color="#fff"/>
       <stop offset="1" stop-color="#fff"/>
     </linearGradient>
-    <clipPath id="clip-path-6" transform="translate(-144.37 -132.4)">
-      <rect class="cls-1" x="407" y="169" width="35" height="10"/>
+    <clipPath id="clip-path-6">
+      <rect transform="translate(-144.37 -132.4)" class="cls-1" x="407" y="169" width="35" height="10"/>
     </clipPath>
-    <clipPath id="clip-path-7" transform="translate(-144.37 -132.4)">
-      <polygon class="cls-1" points="409.72 169.33 407.52 178.5 441 178.5 438.97 169.33 409.72 169.33"/>
+    <clipPath id="clip-path-7">
+      <polygon transform="translate(-144.37 -132.4)" class="cls-1" points="409.72 169.33 407.52 178.5 441 178.5 438.97 169.33 409.72 169.33"/>
     </clipPath>
-    <clipPath id="clip-path-10" transform="translate(-144.37 -132.4)">
-      <rect class="cls-1" x="407.52" y="169.33" width="33.48" height="9.17"/>
+    <clipPath id="clip-path-10">
+      <rect transform="translate(-144.37 -132.4)" class="cls-1" x="407.52" y="169.33" width="33.48" height="9.17"/>
     </clipPath>
-    <clipPath id="clip-path-12" transform="translate(-144.37 -132.4)">
-      <rect class="cls-1" x="408.82" y="130.09" width="30.89" height="18.82"/>
+    <clipPath id="clip-path-12">
+      <rect transform="translate(-144.37 -132.4)" class="cls-1" x="408.82" y="130.09" width="30.89" height="18.82"/>
     </clipPath>
   </defs>
   <rect class="cls-2" x="57.13" y="10.49" width="19.31" height="8.67"/>

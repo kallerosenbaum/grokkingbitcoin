@@ -1,4 +1,4 @@
-<svg id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="128.47mm" height="62.97mm" viewBox="0 0 364.17 178.48">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Ebene_1" data-name="Ebene 1" width="128.47mm" height="62.97mm" viewBox="0 0 364.17 178.48">
   <defs>
     <style>
       .cls-1, .cls-10, .cls-11, .cls-12, .cls-13, .cls-14, .cls-15, .cls-16, .cls-17, .cls-18, .cls-19, .cls-2, .cls-20, .cls-21, .cls-22, .cls-23, .cls-24, .cls-25, .cls-26, .cls-27, .cls-28, .cls-29, .cls-3, .cls-30, .cls-31, .cls-32, .cls-33, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9 {
@@ -381,71 +381,71 @@
     <clipPath id="clip-path-55">
       <path class="cls-31" d="M181.25,351a3.42,3.42,0,1,1,5.59-.93l-.09.19,5.87,6,.29,1.06-2.46.13-.12-.12a1.15,1.15,0,0,0-.29-1.21,1.16,1.16,0,0,0-1.2-.32l-.22-.23a1.23,1.23,0,0,0-1.5-1.54l-.21-.23a1.21,1.21,0,0,0-1.49-1.53l-.46-.47-.18.05a3.43,3.43,0,0,1-3.53-.89Zm0,0"/>
     </clipPath>
-    <clipPath id="clip-path-58" transform="translate(-114.07 -331.09)">
-      <path class="cls-2" d="M400.34,453.18H372.5l-3.45-1.8H402.4v1.11l-2.06.69m2.56-.86v-.94h2.82l-2.82.94"/>
+    <clipPath id="clip-path-58">
+      <path transform="translate(-114.07 -331.09)" class="cls-2" d="M400.34,453.18H372.5l-3.45-1.8H402.4v1.11l-2.06.69m2.56-.86v-.94h2.82l-2.82.94"/>
     </clipPath>
-    <clipPath id="clip-path-59" transform="translate(-114.07 -331.09)">
-      <polyline class="cls-23" points="402.39 452.49 402.39 451.38 402.89 451.38 402.89 452.32 402.39 452.49"/>
+    <clipPath id="clip-path-59">
+      <polyline transform="translate(-114.07 -331.09)" class="cls-23" points="402.39 452.49 402.39 451.38 402.89 451.38 402.89 452.32 402.39 452.49"/>
     </clipPath>
-    <clipPath id="clip-path-60" transform="translate(-114.07 -331.09)">
-      <polyline class="cls-3" points="405.72 451.38 369.06 451.38 369.04 451.37 405.68 451.37 408.63 450.4 405.72 451.38"/>
+    <clipPath id="clip-path-60">
+      <polyline transform="translate(-114.07 -331.09)" class="cls-3" points="405.72 451.38 369.06 451.38 369.04 451.37 405.68 451.37 408.63 450.4 405.72 451.38"/>
     </clipPath>
-    <clipPath id="clip-path-61" transform="translate(-114.07 -331.09)">
-      <polyline class="cls-6" points="408.71 450.38 389.24 450.38 367.18 450.37 367.19 450.38 367.14 450.38 323.97 427.87 476 427.87 408.71 450.38"/>
+    <clipPath id="clip-path-61">
+      <polyline transform="translate(-114.07 -331.09)" class="cls-6" points="408.71 450.38 389.24 450.38 367.18 450.37 367.19 450.38 367.14 450.38 323.97 427.87 476 427.87 408.71 450.38"/>
     </clipPath>
-    <clipPath id="clip-path-62" transform="translate(-114.07 -331.09)">
-      <rect class="cls-1" x="323.92" y="427.73" width="152.16" height="22.8"/>
+    <clipPath id="clip-path-62">
+      <rect transform="translate(-114.07 -331.09)" class="cls-1" x="323.92" y="427.73" width="152.16" height="22.8"/>
     </clipPath>
-    <clipPath id="clip-path-63" transform="translate(-114.07 -331.09)">
-      <path class="cls-9" d="M368.93,451.32l-1.79-.94h.05l1.74.94m39.76-.93h0"/>
+    <clipPath id="clip-path-63">
+      <path transform="translate(-114.07 -331.09)" class="cls-9" d="M368.93,451.32l-1.79-.94h.05l1.74.94m39.76-.93h0"/>
     </clipPath>
-    <clipPath id="clip-path-64" transform="translate(-114.07 -331.09)">
-      <polyline class="cls-9" points="405.68 451.37 369.04 451.37 368.93 451.31 367.19 450.38 367.18 450.37 389.24 450.38 408.69 450.39 408.63 450.4 405.68 451.37"/>
+    <clipPath id="clip-path-64">
+      <polyline transform="translate(-114.07 -331.09)" class="cls-9" points="405.68 451.37 369.04 451.37 368.93 451.31 367.19 450.38 367.18 450.37 389.24 450.38 408.69 450.39 408.63 450.4 405.68 451.37"/>
     </clipPath>
-    <clipPath id="clip-path-65" transform="translate(-114.07 -331.09)">
-      <rect class="cls-1" x="122" y="418.9" width="192" height="63.97"/>
+    <clipPath id="clip-path-65">
+      <rect transform="translate(-114.07 -331.09)" class="cls-1" x="122" y="418.9" width="192" height="63.97"/>
     </clipPath>
-    <clipPath id="clip-path-67" transform="translate(-114.07 -331.09)">
-      <rect class="cls-1" x="120.6" y="331.89" width="143.4" height="63.97"/>
+    <clipPath id="clip-path-67">
+      <rect transform="translate(-114.07 -331.09)" class="cls-1" x="120.6" y="331.89" width="143.4" height="63.97"/>
     </clipPath>
-    <clipPath id="clip-path-69" transform="translate(-114.07 -331.09)">
-      <rect class="cls-15" x="229" y="430.89" width="15" height="14"/>
+    <clipPath id="clip-path-69">
+      <rect transform="translate(-114.07 -331.09)" class="cls-15" x="229" y="430.89" width="15" height="14"/>
     </clipPath>
-    <clipPath id="clip-path-70" transform="translate(-114.07 -331.09)">
-      <rect class="cls-1" x="229.84" y="431.57" width="13.68" height="13.2"/>
+    <clipPath id="clip-path-70">
+      <rect transform="translate(-114.07 -331.09)" class="cls-1" x="229.84" y="431.57" width="13.68" height="13.2"/>
     </clipPath>
-    <clipPath id="clip-path-71" transform="translate(-114.07 -331.09)">
-      <rect class="cls-19" x="230" y="431.89" width="13" height="13"/>
+    <clipPath id="clip-path-71">
+      <rect transform="translate(-114.07 -331.09)" class="cls-19" x="230" y="431.89" width="13" height="13"/>
     </clipPath>
-    <clipPath id="clip-path-72" transform="translate(-114.07 -331.09)">
-      <rect class="cls-1" x="230.08" y="431.81" width="12.96" height="12.48"/>
+    <clipPath id="clip-path-72">
+      <rect transform="translate(-114.07 -331.09)" class="cls-1" x="230.08" y="431.81" width="12.96" height="12.48"/>
     </clipPath>
-    <clipPath id="clip-path-73" transform="translate(-114.07 -331.09)">
-      <rect class="cls-21" x="118" y="351.89" width="19" height="25"/>
+    <clipPath id="clip-path-73">
+      <rect transform="translate(-114.07 -331.09)" class="cls-21" x="118" y="351.89" width="19" height="25"/>
     </clipPath>
-    <clipPath id="clip-path-74" transform="translate(-114.07 -331.09)">
-      <rect class="cls-21" x="118" y="350.89" width="20" height="26"/>
+    <clipPath id="clip-path-74">
+      <rect transform="translate(-114.07 -331.09)" class="cls-21" x="118" y="350.89" width="20" height="26"/>
     </clipPath>
-    <clipPath id="clip-path-75" transform="translate(-114.07 -331.09)">
-      <rect class="cls-24" x="122" y="438.89" width="11" height="24"/>
+    <clipPath id="clip-path-75">
+      <rect transform="translate(-114.07 -331.09)" class="cls-24" x="122" y="438.89" width="11" height="24"/>
     </clipPath>
-    <clipPath id="clip-path-76" transform="translate(-114.07 -331.09)">
-      <rect class="cls-24" x="122" y="437.89" width="12" height="26"/>
+    <clipPath id="clip-path-76">
+      <rect transform="translate(-114.07 -331.09)" class="cls-24" x="122" y="437.89" width="12" height="26"/>
     </clipPath>
-    <clipPath id="clip-path-77" transform="translate(-114.07 -331.09)">
-      <rect class="cls-29" x="179" y="344.89" width="15" height="13"/>
+    <clipPath id="clip-path-77">
+      <rect transform="translate(-114.07 -331.09)" class="cls-29" x="179" y="344.89" width="15" height="13"/>
     </clipPath>
-    <clipPath id="clip-path-78" transform="translate(-114.07 -331.09)">
-      <rect class="cls-1" x="179.92" y="344.69" width="13.44" height="13.2"/>
+    <clipPath id="clip-path-78">
+      <rect transform="translate(-114.07 -331.09)" class="cls-1" x="179.92" y="344.69" width="13.44" height="13.2"/>
     </clipPath>
-    <clipPath id="clip-path-79" transform="translate(-114.07 -331.09)">
-      <rect class="cls-33" x="180" y="344.89" width="13" height="13"/>
+    <clipPath id="clip-path-79">
+      <rect transform="translate(-114.07 -331.09)" class="cls-33" x="180" y="344.89" width="13" height="13"/>
     </clipPath>
-    <clipPath id="clip-path-80" transform="translate(-114.07 -331.09)">
-      <rect class="cls-1" x="180.16" y="345.17" width="12.96" height="12.48"/>
+    <clipPath id="clip-path-80">
+      <rect transform="translate(-114.07 -331.09)" class="cls-1" x="180.16" y="345.17" width="12.96" height="12.48"/>
     </clipPath>
-    <clipPath id="clip-path-81" transform="translate(-114.07 -331.09)">
-      <rect class="cls-1" x="323" y="361.89" width="153.25" height="67"/>
+    <clipPath id="clip-path-81">
+      <rect transform="translate(-114.07 -331.09)" class="cls-1" x="323" y="361.89" width="153.25" height="67"/>
     </clipPath>
   </defs>
   <g>

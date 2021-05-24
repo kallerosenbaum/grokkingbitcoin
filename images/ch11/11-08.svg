@@ -52,8 +52,8 @@
         font-weight: 700;
       }
     </style>
-    <clipPath id="clip-path" transform="translate(-127.61 -116.38)">
-      <path class="cls-1" d="M149.51,152.5H132.4c.1,10.78,7,18.69,2.45,29.56h14.66Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-127.61 -116.38)" class="cls-1" d="M149.51,152.5H132.4c.1,10.78,7,18.69,2.45,29.56h14.66Z"/>
     </clipPath>
   </defs>
   <g id="Layer_2" data-name="Layer 2">

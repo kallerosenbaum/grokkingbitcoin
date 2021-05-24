@@ -365,6 +365,6 @@
     <path class="cls-25" d="M370.67,96.05c0,6.24-12.48,11.3-27.88,11.3s-27.87-5.06-27.87-11.3,12.48-11.3,27.87-11.3S370.67,89.81,370.67,96.05Z" transform="translate(-97.5 -73.56)"/>
     <rect class="cls-16" x="5.02" y="19.75" width="23.7" height="5.65" rx="1"/>
     <text class="cls-26" transform="translate(5.62 23.97)">000...000</text>
-    <text class="cls-27" transform="translate(46.93 24.42)">&quot;Lisa<tspan x="0" y="6">was here&quot;</tspan></text>
+    <text class="cls-27" transform="translate(46.93 24.42)">"Lisa<tspan x="0" y="6">was here"</tspan></text>
   </g>
 </svg>

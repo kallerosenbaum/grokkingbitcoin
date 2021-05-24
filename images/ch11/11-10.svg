@@ -56,8 +56,8 @@
         letter-spacing: -0.07em;
       }
     </style>
-    <clipPath id="clip-path" transform="translate(-122.78 -106.73)">
-      <path class="cls-1" d="M144.68,152.5H127.56c.11,10.78,7.05,18.69,2.45,29.56h14.67Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-122.78 -106.73)" class="cls-1" d="M144.68,152.5H127.56c.11,10.78,7.05,18.69,2.45,29.56h14.67Z"/>
     </clipPath>
   </defs>
   <g id="Layer_2" data-name="Layer 2">

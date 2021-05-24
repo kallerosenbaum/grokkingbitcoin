@@ -107,8 +107,8 @@
     <linearGradient id="linear-gradient-3" x1="263.57" y1="739.2" x2="287.37" y2="739.2" gradientTransform="translate(835.81 -344.16) rotate(68.86)" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-4" x1="263.76" y1="704.21" x2="287.56" y2="704.21" gradientTransform="translate(835.81 -344.16) rotate(68.86)" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-5" x1="284.58" y1="678.29" x2="308.38" y2="678.29" gradientTransform="translate(835.81 -344.16) rotate(68.86)" xlink:href="#linear-gradient"/>
-    <clipPath id="clip-path" transform="translate(-222.48 -130)">
-      <path class="cls-1" d="M343.48,187.25c-1.6,7.07,1.21,14,6.29,15.41s10.5-3.13,12.11-10.2-1.2-14-6.28-15.4S345.09,180.18,343.48,187.25Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-222.48 -130)" class="cls-1" d="M343.48,187.25c-1.6,7.07,1.21,14,6.29,15.41s10.5-3.13,12.11-10.2-1.2-14-6.28-15.4S345.09,180.18,343.48,187.25Z"/>
     </clipPath>
   </defs>
   <g id="Layer_2" data-name="Layer 2">

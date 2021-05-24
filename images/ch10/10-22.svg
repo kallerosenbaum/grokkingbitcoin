@@ -208,8 +208,8 @@
     </linearGradient>
     <linearGradient id="linear-gradient-3" x1="54.48" y1="232.37" x2="73.29" y2="232.37" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-4" x1="54.82" y1="232.37" x2="72.76" y2="232.37" xlink:href="#linear-gradient-2"/>
-    <clipPath id="clip-path" transform="translate(-99.17 -119.3)">
-      <path class="cls-1" d="M172.43,163.05h-69.1c.17,15.23,10.92,26.41,3.8,41.76h65.3Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-99.17 -119.3)" class="cls-1" d="M172.43,163.05h-69.1c.17,15.23,10.92,26.41,3.8,41.76h65.3Z"/>
     </clipPath>
     <linearGradient id="linear-gradient-5" x1="245.1" y1="193.67" x2="245.9" y2="193.67" gradientTransform="translate(41.34 -58.89) rotate(15.97)" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#565656"/>

@@ -219,7 +219,7 @@
       <line class="cls-3" x1="117.7" y1="0.64" x2="117.7" y2="37.31"/>
       <rect class="cls-4" x="7.77" y="0.5" width="230.18" height="37.33" rx="2"/>
       <text class="cls-5" transform="translate(47.95 14.59)">–1</text>
-      <text class="cls-6" transform="translate(69.85 14.59)">&quot;Hello&quot;</text>
+      <text class="cls-6" transform="translate(69.85 14.59)">"Hello"</text>
       <text class="cls-5" transform="translate(122.26 30.62)">0</text>
       <text class="cls-6" transform="translate(138.93 30.62)">OP_RETURN </text>
       <g>

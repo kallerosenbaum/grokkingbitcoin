@@ -152,11 +152,11 @@
       <stop offset="1" stop-color="#e5e5e5"/>
     </linearGradient>
     <linearGradient id="linear-gradient-2" x1="3.23" y1="151.37" x2="259.73" y2="151.37" xlink:href="#linear-gradient"/>
-    <clipPath id="clip-path" transform="translate(-94.27 -66.63)">
-      <path class="cls-1" d="M121.36,171H99.05c.11,10.78,7,18.69,2.45,29.56h19.86Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-94.27 -66.63)" class="cls-1" d="M121.36,171H99.05c.11,10.78,7,18.69,2.45,29.56h19.86Z"/>
     </clipPath>
-    <clipPath id="clip-path-2" transform="translate(-94.27 -66.63)">
-      <path class="cls-1" d="M110.19,203.41H99.05c.11,10.78,7,18.69,2.45,29.55h8.69Z"/>
+    <clipPath id="clip-path-2">
+      <path transform="translate(-94.27 -66.63)" class="cls-1" d="M110.19,203.41H99.05c.11,10.78,7,18.69,2.45,29.55h8.69Z"/>
     </clipPath>
     <linearGradient id="linear-gradient-3" x1="-101.95" y1="285.74" x2="-83.15" y2="285.74" gradientTransform="translate(499.31 -6.95) rotate(45.85)" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#5fb749"/>

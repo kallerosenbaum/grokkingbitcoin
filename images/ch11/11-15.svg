@@ -120,8 +120,8 @@
         isolation: isolate;
       }
     </style>
-    <clipPath id="clip-path" transform="translate(-94.43 -129.77)">
-      <path class="cls-1" d="M116.33,175.43H99.22c.1,10.79,7,18.7,2.45,29.56h14.66Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-94.43 -129.77)" class="cls-1" d="M116.33,175.43H99.22c.1,10.79,7,18.7,2.45,29.56h14.66Z"/>
     </clipPath>
   </defs>
   <g id="Layer_2" data-name="Layer 2">

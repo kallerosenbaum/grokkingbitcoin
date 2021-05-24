@@ -148,8 +148,8 @@
         fill: url(#linear-gradient-9);
       }
     </style>
-    <clipPath id="clip-path" transform="translate(-170.78 -121.79)">
-      <path class="cls-1" d="M261.63,121.85H179.7c-1.63,11,6.9,17.53,2.52,29.61h79.41Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-170.78 -121.79)" class="cls-1" d="M261.63,121.85H179.7c-1.63,11,6.9,17.53,2.52,29.61h79.41Z"/>
     </clipPath>
     <linearGradient id="linear-gradient" x1="303.88" y1="778.85" x2="340.16" y2="778.85" gradientTransform="translate(848.03 -283.17) rotate(90)" gradientUnits="userSpaceOnUse">
       <stop offset="0.16" stop-color="#dedede"/>

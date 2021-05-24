@@ -172,8 +172,8 @@
       <stop offset="0" stop-color="#eef0f0"/>
       <stop offset="1" stop-color="#cccfd0"/>
     </linearGradient>
-    <clipPath id="clip-path" transform="translate(-121.03 -155.03)">
-      <rect class="cls-1" x="360.87" y="152.45" width="34.07" height="20.77"/>
+    <clipPath id="clip-path">
+      <rect transform="translate(-121.03 -155.03)" class="cls-1" x="360.87" y="152.45" width="34.07" height="20.77"/>
     </clipPath>
   </defs>
   <g id="Layer_2" data-name="Layer 2">

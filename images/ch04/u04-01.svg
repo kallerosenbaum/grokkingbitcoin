@@ -17,8 +17,8 @@
         fill: #fff;
       }
     </style>
-    <clipPath id="clip-path" transform="translate(-244.2 -120.15)">
-      <rect class="cls-1" x="264" y="139.5" width="90" height="90.43"/>
+    <clipPath id="clip-path">
+      <rect transform="translate(-244.2 -120.15)" class="cls-1" x="264" y="139.5" width="90" height="90.43"/>
     </clipPath>
   </defs>
   <g id="Layer_2" data-name="Layer 2">

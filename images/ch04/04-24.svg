@@ -214,8 +214,8 @@
       <stop offset="0" stop-color="#eef0f0"/>
       <stop offset="1" stop-color="#cccfd0"/>
     </linearGradient>
-    <clipPath id="clip-path" transform="translate(-137.55 -120.66)">
-      <rect class="cls-1" x="244.23" y="165.96" width="30.89" height="18.83"/>
+    <clipPath id="clip-path">
+      <rect transform="translate(-137.55 -120.66)" class="cls-1" x="244.23" y="165.96" width="30.89" height="18.83"/>
     </clipPath>
     <linearGradient id="linear-gradient-7" x1="380.51" y1="230.04" x2="431.34" y2="230.04" xlink:href="#linear-gradient-3"/>
     <linearGradient id="linear-gradient-8" x1="381.41" y1="230.04" x2="429.92" y2="230.04" xlink:href="#linear-gradient-4"/>
@@ -373,9 +373,9 @@
       <path d="M270.83,202.36a10.06,10.06,0,0,0,1.19,1.83,7.34,7.34,0,0,1,1.11,1.26l-.63.48-1.19-1.35Z" transform="translate(-137.55 -120.66)"/>
       <path d="M246.75,204.58l-1.58,1.19s-.16.79.08.79,1.42-1.11,1.42-1.11Z" transform="translate(-137.55 -120.66)"/>
     </g>
-    <text class="cls-39" transform="translate(82.51 52.79)">1&apos;</text>
+    <text class="cls-39" transform="translate(82.51 52.79)">1'</text>
     <text class="cls-39" transform="translate(66.44 123.62)">m</text>
-    <text class="cls-39" transform="translate(281.82 122.92)">m/1&apos;</text>
+    <text class="cls-39" transform="translate(281.82 122.92)">m/1'</text>
     <g>
       <path class="cls-16" d="M427.26,226H402.35a11.32,11.32,0,0,0-21.84,4c0,.13,0,.26,0,.38s0,.26,0,.39A11.32,11.32,0,0,0,402,235.76H404a2.65,2.65,0,0,1,5.09,0h2.29a2.65,2.65,0,0,1,5.09,0h2.29a2.65,2.65,0,0,1,5.09,0h1.59l5.87-6.73v-.78Z" transform="translate(-137.55 -120.66)"/>
       <path class="cls-22" d="M431.34,228.25l-29-1.48a11.19,11.19,0,1,0-.4,9H404a2.65,2.65,0,0,1,5.09,0h2.29a2.65,2.65,0,0,1,5.09,0h2.29a2.65,2.65,0,0,1,5.09,0h1.59l5.87-6.73Z" transform="translate(-137.55 -120.66)"/>

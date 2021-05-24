@@ -188,8 +188,8 @@
         fill: url(#linear-gradient-20);
       }
     </style>
-    <clipPath id="clip-path" transform="translate(-183.32 -114.04)">
-      <path class="cls-1" d="M249.84,124.31v61h1.45c29.43,1.07,62.63-13.14,98.85-4.46l1.53,0v-56.5Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-183.32 -114.04)" class="cls-1" d="M249.84,124.31v61h1.45c29.43,1.07,62.63-13.14,98.85-4.46l1.53,0v-56.5Z"/>
     </clipPath>
     <linearGradient id="linear-gradient" x1="-39.08" y1="235.78" x2="-24.74" y2="235.78" gradientTransform="translate(499.31 -6.95) rotate(45.85)" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#5fb749"/>
@@ -207,8 +207,8 @@
     <linearGradient id="linear-gradient-8" x1="-12.12" y1="261.71" x2="1.57" y2="261.71" xlink:href="#linear-gradient-2"/>
     <linearGradient id="linear-gradient-9" x1="-3.68" y1="270.15" x2="10.66" y2="270.15" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-10" x1="-3.42" y1="270.15" x2="10.26" y2="270.15" xlink:href="#linear-gradient-2"/>
-    <clipPath id="clip-path-2" transform="translate(-183.32 -114.04)">
-      <path class="cls-1" d="M249.84,251V198.89h1.45c29.43,1.07,62.63-13.15,98.85-4.47l1.53,0V251Z"/>
+    <clipPath id="clip-path-2">
+      <path transform="translate(-183.32 -114.04)" class="cls-1" d="M249.84,251V198.89h1.45c29.43,1.07,62.63-13.15,98.85-4.47l1.53,0V251Z"/>
     </clipPath>
     <linearGradient id="linear-gradient-11" x1="2.33" y1="275.99" x2="16.67" y2="275.99" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-12" x1="2.59" y1="275.99" x2="16.27" y2="275.99" xlink:href="#linear-gradient-2"/>

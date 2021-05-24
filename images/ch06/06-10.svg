@@ -141,11 +141,11 @@
         fill: #2a8a2f;
       }
     </style>
-    <clipPath id="clip-path" transform="translate(-91.97 -99.98)">
-      <path class="cls-1" d="M124.78,110.67h-23.1c-1.07,16,13.14,34.13,4.46,53.87h18.62Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-91.97 -99.98)" class="cls-1" d="M124.78,110.67h-23.1c-1.07,16,13.14,34.13,4.46,53.87h18.62Z"/>
     </clipPath>
-    <clipPath id="clip-path-2" transform="translate(-91.97 -99.98)">
-      <rect class="cls-1" x="280.18" y="113.23" width="70.63" height="95.79"/>
+    <clipPath id="clip-path-2">
+      <rect transform="translate(-91.97 -99.98)" class="cls-1" x="280.18" y="113.23" width="70.63" height="95.79"/>
     </clipPath>
   </defs>
   <g id="Layer_2" data-name="Layer 2">

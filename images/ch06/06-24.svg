@@ -233,38 +233,38 @@
       <stop offset="0" stop-color="#eef0f0"/>
       <stop offset="1" stop-color="#cccfd0"/>
     </linearGradient>
-    <clipPath id="clip-path" transform="translate(-241.77 -78.9)">
-      <rect class="cls-1" x="251.98" y="202.02" width="12.9" height="7.86"/>
+    <clipPath id="clip-path">
+      <rect transform="translate(-241.77 -78.9)" class="cls-1" x="251.98" y="202.02" width="12.9" height="7.86"/>
     </clipPath>
     <linearGradient id="linear-gradient-3" x1="67.86" y1="134.59" x2="67.86" y2="143.34" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-4" x1="67.82" y1="139.51" x2="67.82" y2="143.34" xlink:href="#linear-gradient-2"/>
-    <clipPath id="clip-path-2" transform="translate(-241.77 -78.9)">
-      <rect class="cls-1" x="303.14" y="201.47" width="12.9" height="8.41"/>
+    <clipPath id="clip-path-2">
+      <rect transform="translate(-241.77 -78.9)" class="cls-1" x="303.14" y="201.47" width="12.9" height="8.41"/>
     </clipPath>
     <linearGradient id="linear-gradient-5" x1="258.46" y1="213.49" x2="258.46" y2="222.24" gradientTransform="translate(-88.17 -78.9)" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-6" x1="258.43" y1="218.41" x2="258.43" y2="222.24" gradientTransform="translate(-88.17 -78.9)" xlink:href="#linear-gradient-2"/>
-    <clipPath id="clip-path-3" transform="translate(-241.77 -78.9)">
-      <rect class="cls-1" x="405.57" y="201.47" width="12.9" height="8.41"/>
+    <clipPath id="clip-path-3">
+      <rect transform="translate(-241.77 -78.9)" class="cls-1" x="405.57" y="201.47" width="12.9" height="8.41"/>
     </clipPath>
     <linearGradient id="linear-gradient-7" x1="309.62" y1="213.49" x2="309.62" y2="222.24" gradientTransform="translate(-190.51 -78.9)" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-8" x1="309.59" y1="218.41" x2="309.59" y2="222.24" gradientTransform="translate(-190.51 -78.9)" xlink:href="#linear-gradient-2"/>
-    <clipPath id="clip-path-4" transform="translate(-241.77 -78.9)">
-      <rect class="cls-1" x="354.4" y="202.02" width="12.9" height="7.86"/>
+    <clipPath id="clip-path-4">
+      <rect transform="translate(-241.77 -78.9)" class="cls-1" x="354.4" y="202.02" width="12.9" height="7.86"/>
     </clipPath>
     <linearGradient id="linear-gradient-9" x1="93.48" y1="43" x2="93.48" y2="51.76" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-10" x1="93.45" y1="47.93" x2="93.45" y2="51.76" xlink:href="#linear-gradient-2"/>
-    <clipPath id="clip-path-5" transform="translate(-241.77 -78.9)">
-      <rect class="cls-1" x="328.77" y="110.44" width="12.9" height="7.86"/>
+    <clipPath id="clip-path-5">
+      <rect transform="translate(-241.77 -78.9)" class="cls-1" x="328.77" y="110.44" width="12.9" height="7.86"/>
     </clipPath>
     <linearGradient id="linear-gradient-11" x1="42.26" y1="88.31" x2="42.26" y2="97.07" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-12" x1="42.23" y1="93.23" x2="42.23" y2="97.07" xlink:href="#linear-gradient-2"/>
-    <clipPath id="clip-path-6" transform="translate(-241.77 -78.9)">
-      <rect class="cls-1" x="277.55" y="155.74" width="12.9" height="7.86"/>
+    <clipPath id="clip-path-6">
+      <rect transform="translate(-241.77 -78.9)" class="cls-1" x="277.55" y="155.74" width="12.9" height="7.86"/>
     </clipPath>
     <linearGradient id="linear-gradient-13" x1="284.02" y1="167.21" x2="284.02" y2="175.97" gradientTransform="translate(-139.31 -78.9)" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-14" x1="283.99" y1="172.13" x2="283.99" y2="175.97" gradientTransform="translate(-139.31 -78.9)" xlink:href="#linear-gradient-2"/>
-    <clipPath id="clip-path-7" transform="translate(-241.77 -78.9)">
-      <rect class="cls-1" x="380" y="155.74" width="12.9" height="7.86"/>
+    <clipPath id="clip-path-7">
+      <rect transform="translate(-241.77 -78.9)" class="cls-1" x="380" y="155.74" width="12.9" height="7.86"/>
     </clipPath>
   </defs>
   <g id="Layer_2" data-name="Layer 2">

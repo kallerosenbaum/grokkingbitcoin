@@ -123,8 +123,8 @@
         fill: url(#linear-gradient-8);
       }
     </style>
-    <clipPath id="clip-path" transform="translate(-120.05 -99.97)">
-      <path class="cls-1" d="M187.49,139.59H122c.07,8.89,4.79,15.41,1.67,24.37h63.8Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-120.05 -99.97)" class="cls-1" d="M187.49,139.59H122c.07,8.89,4.79,15.41,1.67,24.37h63.8Z"/>
     </clipPath>
     <linearGradient id="linear-gradient" x1="-149.35" y1="373.07" x2="-132.43" y2="373.07" gradientTransform="translate(499.31 -6.95) rotate(45.85)" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#5fb749"/>
@@ -134,8 +134,8 @@
       <stop offset="0" stop-color="#dbf1c6"/>
       <stop offset="1" stop-color="#5fb749"/>
     </linearGradient>
-    <clipPath id="clip-path-2" transform="translate(-120.05 -99.97)">
-      <path class="cls-1" d="M187.49,169.76H122c.07,8.9,4.79,15.41,1.67,24.37h63.8Z"/>
+    <clipPath id="clip-path-2">
+      <path transform="translate(-120.05 -99.97)" class="cls-1" d="M187.49,169.76H122c.07,8.9,4.79,15.41,1.67,24.37h63.8Z"/>
     </clipPath>
     <linearGradient id="linear-gradient-3" x1="-127.71" y1="394.08" x2="-110.78" y2="394.08" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-4" x1="-127.4" y1="394.08" x2="-111.25" y2="394.08" xlink:href="#linear-gradient-2"/>

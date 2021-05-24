@@ -217,8 +217,8 @@
       <stop offset="0" stop-color="#eef0f0"/>
       <stop offset="1" stop-color="#cccfd0"/>
     </linearGradient>
-    <clipPath id="clip-path" transform="translate(-98.62 -103.36)">
-      <rect class="cls-1" x="229.14" y="155.18" width="25.95" height="15.81"/>
+    <clipPath id="clip-path">
+      <rect transform="translate(-98.62 -103.36)" class="cls-1" x="229.14" y="155.18" width="25.95" height="15.81"/>
     </clipPath>
     <linearGradient id="linear-gradient-7" x1="107.74" y1="163.8" x2="156.11" y2="163.8" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-8" x1="108.61" y1="163.8" x2="154.75" y2="163.8" xlink:href="#linear-gradient-2"/>
@@ -467,7 +467,7 @@
     <text class="cls-2" transform="translate(221.8 62.54)">Special<tspan x="0" y="9.5">“public key</tspan><tspan x="0" y="19">additio</tspan><tspan class="cls-33" x="24.68" y="19">n</tspan><tspan class="cls-34" x="29" y="19">”</tspan></text>
     <text class="cls-2" transform="translate(91.59 150.93)">Desired<tspan x="0" y="9.5">child index</tspan></text>
     <text class="cls-2" transform="translate(145.98 150.93)"><tspan class="cls-35">T</tspan><tspan x="3.44" y="0">reat the le</tspan><tspan class="cls-36" x="40.02" y="0">f</tspan><tspan x="42.5" y="0">t</tspan><tspan x="0" y="9.5">256 bits as a</tspan><tspan x="0" y="19">“private ke</tspan><tspan class="cls-37" x="39.32" y="19">y</tspan><tspan class="cls-34" x="43.59" y="19">”</tspan><tspan x="47.69" y="19">…</tspan></text>
-    <text class="cls-2" transform="translate(209.86 150.93)">&quot;...derive the<tspan x="0" y="9.5">“public ke</tspan><tspan class="cls-37" x="35.94" y="9.5">y</tspan><tspan class="cls-34" x="40.21" y="9.5">”...</tspan></text>
+    <text class="cls-2" transform="translate(209.86 150.93)">"...derive the<tspan x="0" y="9.5">“public ke</tspan><tspan class="cls-37" x="35.94" y="9.5">y</tspan><tspan class="cls-34" x="40.21" y="9.5">”...</tspan></text>
     <text class="cls-38" transform="translate(285.31 150.93)">…and “add”<tspan x="0" y="9.5">to the parent</tspan><tspan x="0" y="19">public ke</tspan><tspan class="cls-39" x="31.84" y="19">y</tspan><tspan class="cls-40" x="34.83" y="19">.</tspan></text>
     <text class="cls-2" transform="translate(333.98 105.53)">Child<tspan x="0" y="9.5">public</tspan><tspan x="0" y="19">key</tspan></text>
     <line class="cls-3" x1="117.76" y1="94.14" x2="117.76" y2="73.25"/>

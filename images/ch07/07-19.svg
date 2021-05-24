@@ -190,8 +190,8 @@
       <stop offset="0" stop-color="#eef0f0"/>
       <stop offset="1" stop-color="#cccfd0"/>
     </linearGradient>
-    <clipPath id="clip-path" transform="translate(-134.42 -102.7)">
-      <rect class="cls-1" x="164.71" y="126.27" width="20.3" height="12.37"/>
+    <clipPath id="clip-path">
+      <rect transform="translate(-134.42 -102.7)" class="cls-1" x="164.71" y="126.27" width="20.3" height="12.37"/>
     </clipPath>
     <linearGradient id="linear-gradient-3" x1="457.26" y1="161.88" x2="459.71" y2="160.24" gradientUnits="userSpaceOnUse">
       <stop offset="0"/>

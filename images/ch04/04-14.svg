@@ -1,4 +1,4 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="217.46" height="177.64" viewBox="0 0 217.46 177.64">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" data-name="Layer 1" width="217.46" height="177.64" viewBox="0 0 217.46 177.64">
   <defs>
     <style>
       .cls-1, .cls-11, .cls-24, .cls-27, .cls-29, .cls-3, .cls-5, .cls-7 {
@@ -124,14 +124,14 @@
         stroke-width: 0.3px;
       }
     </style>
-    <clipPath id="clip-path" transform="translate(-255.78 -117.92)">
-      <rect class="cls-1" x="374" y="269" width="24" height="27"/>
+    <clipPath id="clip-path">
+      <rect transform="translate(-255.78 -117.92)" class="cls-1" x="374" y="269" width="24" height="27"/>
     </clipPath>
-    <clipPath id="clip-path-2" transform="translate(-255.78 -117.92)">
-      <path class="cls-1" d="M385.89,269.27,375.32,271c-.7,4.29-2,20.25,8,22.47,1.52.29,1.49,1.81,2.7,1.81s1.2-1.52,2.71-1.81c10-2.22,8.73-18.18,8-22.47l-10.57-1.76Z"/>
+    <clipPath id="clip-path-2">
+      <path transform="translate(-255.78 -117.92)" class="cls-1" d="M385.89,269.27,375.32,271c-.7,4.29-2,20.25,8,22.47,1.52.29,1.49,1.81,2.7,1.81s1.2-1.52,2.71-1.81c10-2.22,8.73-18.18,8-22.47l-10.57-1.76Z"/>
     </clipPath>
-    <clipPath id="clip-path-3" transform="translate(-255.78 -117.92)">
-      <rect class="cls-1" width="612" height="792"/>
+    <clipPath id="clip-path-3">
+      <rect transform="translate(-255.78 -117.92)" class="cls-1" width="612" height="792"/>
     </clipPath>
     <radialGradient id="radial-gradient" cx="0" cy="792" r="1" gradientTransform="matrix(16.1, 0, 0, -16.1, 124.49, 12909.94)" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#e7c09d"/>
@@ -139,14 +139,14 @@
       <stop offset="0.53" stop-color="#ca793e"/>
       <stop offset="1" stop-color="#ca793e"/>
     </radialGradient>
-    <clipPath id="clip-path-5" transform="translate(-255.78 -117.92)">
-      <rect class="cls-1" x="66.21" y="141.07" width="545.79" height="650.93"/>
+    <clipPath id="clip-path-5">
+      <rect transform="translate(-255.78 -117.92)" class="cls-1" x="66.21" y="141.07" width="545.79" height="650.93"/>
     </clipPath>
-    <clipPath id="clip-path-7" transform="translate(-255.78 -117.92)">
-      <rect class="cls-1" x="376.69" y="272.98" width="6.39" height="19.07"/>
+    <clipPath id="clip-path-7">
+      <rect transform="translate(-255.78 -117.92)" class="cls-1" x="376.69" y="272.98" width="6.39" height="19.07"/>
     </clipPath>
-    <clipPath id="clip-path-9" transform="translate(-255.78 -117.92)">
-      <rect class="cls-1" x="389.2" y="272.98" width="6.39" height="19.07"/>
+    <clipPath id="clip-path-9">
+      <rect transform="translate(-255.78 -117.92)" class="cls-1" x="389.2" y="272.98" width="6.39" height="19.07"/>
     </clipPath>
   </defs>
   <g class="cls-2">
