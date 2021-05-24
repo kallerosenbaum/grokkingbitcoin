@@ -46,12 +46,12 @@
       }
 
       .cls-10, .cls-37, .cls-38 {
-        font-family: LiberationSans, Liberation Sans;
+        font-family: Arial;
       }
 
       .cls-11, .cls-13 {
         font-size: 8.5px;
-        font-family: LiberationSans-Bold, Liberation Sans;
+        font-family: Arial;font-phase: bold;
       }
 
       .cls-11, .cls-12, .cls-13 {
