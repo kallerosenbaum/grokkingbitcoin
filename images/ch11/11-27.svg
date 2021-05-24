@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="244.29" height="119.2" viewBox="0 0 244.29 119.2">
+  <defs>
+    <style>
+      .cls-1, .cls-12, .cls-2, .cls-3, .cls-5, .cls-7, .cls-8 {
+        fill: none;
+      }
+
+      .cls-2, .cls-3 {
+        stroke: #4d4d4d;
+      }
+
+      .cls-2, .cls-3, .cls-5, .cls-7 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-3 {
+        stroke-dasharray: 2.05 1.03;
+      }
+
+      .cls-4 {
+        fill: #deebf0;
+      }
+
+      .cls-12, .cls-5, .cls-7, .cls-8 {
+        stroke: #000;
+      }
+
+      .cls-5 {
+        stroke-linejoin: round;
+      }
+
+      .cls-6 {
+        font-size: 7px;
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-12, .cls-8 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-8 {
+        stroke-width: 0.3px;
+      }
+
+      .cls-9 {
+        font-size: 9px;
+        font-family: Humanist521BT-BoldCondensed, Humanst521 Cn BT;
+        font-weight: 700;
+      }
+
+      .cls-10 {
+        letter-spacing: 0.02em;
+      }
+
+      .cls-11 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-12 {
+        stroke-width: 0.75px;
+      }
+    </style>
+    <clipPath id="clip-path" transform="translate(-172.25 -149.08)">
+      <path class="cls-1" d="M195.33,195.59H176.46c.09,9.41,6.15,16.32,2.14,25.8h16.73Z"/>
+    </clipPath>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g>
+      <line class="cls-2" x1="118.53" y1="31.6" x2="118.53" y2="32.6"/>
+      <line class="cls-3" x1="118.53" y1="33.62" x2="118.53" y2="85.4"/>
+      <line class="cls-2" x1="118.53" y1="85.91" x2="118.53" y2="86.91"/>
+    </g>
+    <g>
+      <rect class="cls-4" x="141.39" y="46.13" width="28.47" height="26.46" rx="2"/>
+      <rect class="cls-5" x="141.39" y="46.13" width="28.47" height="26.46" rx="2"/>
+    </g>
+    <text class="cls-6" transform="translate(150.56 62.1)">Big</text>
+    <g>
+      <rect class="cls-4" x="67.21" y="46.13" width="28.47" height="26.46" rx="2"/>
+      <rect class="cls-5" x="67.21" y="46.13" width="28.47" height="26.46" rx="2"/>
+    </g>
+    <line class="cls-7" x1="100.38" y1="59.45" x2="141.43" y2="59.45"/>
+    <path d="M270.62,207.92a21.94,21.94,0,0,0,2.33-.85V210a23.59,23.59,0,0,0-2.32-.86,16.54,16.54,0,0,0-2.54-.61A17,17,0,0,0,270.62,207.92Z" transform="translate(-172.25 -149.08)"/>
+    <g>
+      <rect class="cls-4" x="215.57" y="46.13" width="28.47" height="26.46" rx="2"/>
+      <rect class="cls-5" x="215.57" y="46.13" width="28.47" height="26.46" rx="2"/>
+    </g>
+    <line class="cls-7" x1="174.56" y1="59.45" x2="215.61" y2="59.45"/>
+    <path d="M344.8,207.92a21.94,21.94,0,0,0,2.33-.85V210a23.59,23.59,0,0,0-2.32-.86,16.54,16.54,0,0,0-2.54-.61A17,17,0,0,0,344.8,207.92Z" transform="translate(-172.25 -149.08)"/>
+    <line class="cls-7" x1="26.2" y1="59.45" x2="67.25" y2="59.45"/>
+    <path d="M196.44,207.92a21.94,21.94,0,0,0,2.33-.85V210a23.59,23.59,0,0,0-2.32-.86,16.54,16.54,0,0,0-2.54-.61A17,17,0,0,0,196.44,207.92Z" transform="translate(-172.25 -149.08)"/>
+    <g>
+      <path class="cls-8" d="M286.33,197C272,193.67,264,186,264,179" transform="translate(-172.25 -149.08)"/>
+      <polygon points="113.97 45.98 116.7 48.54 113.12 49.63 113.97 45.98"/>
+    </g>
+    <g>
+      <path class="cls-8" d="M327.66,190.59c0-4.76,3.62-8,3.62-12.26" transform="translate(-172.25 -149.08)"/>
+      <polygon points="157.27 40.97 155.4 44.2 153.53 40.97 157.27 40.97"/>
+    </g>
+    <g>
+      <path class="cls-8" d="M327.66,226.74c0,4.76,3.62,8,3.62,12.26" transform="translate(-172.25 -149.08)"/>
+      <polygon points="153.55 78.21 155.42 74.97 157.29 78.21 153.55 78.21"/>
+    </g>
+    <g>
+      <path class="cls-8" d="M253.71,226.74c0,4.76-3.71,8-3.71,12.26" transform="translate(-172.25 -149.08)"/>
+      <polygon points="79.6 78.21 81.47 74.97 83.34 78.21 79.6 78.21"/>
+    </g>
+    <text class="cls-9" transform="translate(70.27 7.57)">Users start<tspan x="0" y="9.5">rejecting</tspan><tspan x="0" y="19">big blocks.</tspan></text>
+    <text class="cls-9" transform="translate(135.39 17.07)">Miners’ branch<tspan x="0" y="9.5">(big block)</tspan></text>
+    <text class="cls-9" transform="translate(143.39 98.07)">Rejected<tspan x="0" y="9.5">by users</tspan></text>
+    <text class="cls-9" transform="translate(50.65 98.07)">Users wait for<tspan x="0" y="9.5">a valid block</tspan><tspan x="0" y="19">a</tspan><tspan class="cls-10" x="4.05" y="19">f</tspan><tspan x="6.53" y="19">ter this one.</tspan></text>
+    <g class="cls-11">
+      <g>
+        <rect class="cls-4" x="0.25" y="47.9" width="21.19" height="23.1" rx="2"/>
+        <rect class="cls-5" x="0.25" y="47.9" width="21.19" height="23.1" rx="2"/>
+      </g>
+    </g>
+    <path class="cls-12" d="M178.6,221.39c4-9.19-2.17-17.06-2.17-25.76" transform="translate(-172.25 -149.08)"/>
+  </g>
+</svg>

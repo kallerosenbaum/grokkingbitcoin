@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="241.04" height="163.98" viewBox="0 0 241.04 163.98">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #d9c2df;
+      }
+
+      .cls-1, .cls-2, .cls-6, .cls-8 {
+        stroke: #000;
+      }
+
+      .cls-1, .cls-2 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-2 {
+        fill: #deebf0;
+      }
+
+      .cls-3 {
+        font-size: 14px;
+        font-family: Myriad-Roman, Myriad Roman;
+      }
+
+      .cls-4 {
+        letter-spacing: 0em;
+      }
+
+      .cls-5 {
+        letter-spacing: 0.15em;
+      }
+
+      .cls-6, .cls-8 {
+        fill: none;
+        stroke-linecap: round;
+      }
+
+      .cls-6 {
+        stroke-width: 0.75px;
+      }
+
+      .cls-7 {
+        letter-spacing: 0em;
+      }
+
+      .cls-8 {
+        stroke-width: 0.69px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g>
+      <path class="cls-1" d="M299.69,204.7,319.74,143A64.88,64.88,0,1,1,238,184.66c8.86-27.26,33-44.83,61.7-44.83Z" transform="translate(-176.42 -105.87)"/>
+      <path class="cls-2" d="M299.69,204.7V139.83A61.8,61.8,0,0,1,319.74,143Z" transform="translate(-176.42 -105.87)"/>
+    </g>
+    <text class="cls-3" transform="translate(0 93.05)"><tspan class="cls-4">N</tspan><tspan x="9.19" y="0">ew</tspan><tspan x="0" y="21">95.</tspan><tspan class="cls-5" x="17.27" y="21">0%</tspan></text>
+    <line class="cls-6" x1="0.46" y1="98.67" x2="72.72" y2="98.67"/>
+    <path d="M250.77,204.54a1.6,1.6,0,1,1-1.59-1.6A1.59,1.59,0,0,1,250.77,204.54Z" transform="translate(-176.42 -105.87)"/>
+    <text class="cls-3" transform="translate(208.49 11.72)"><tspan class="cls-7">O</tspan><tspan x="9.67" y="0">ld</tspan><tspan x="0" y="21">5.</tspan><tspan class="cls-5" x="10.08" y="21">0%</tspan></text>
+    <line class="cls-8" x1="132.28" y1="17.33" x2="239.09" y2="17.33"/>
+    <line class="cls-6" x1="132.28" y1="46.25" x2="132.28" y2="17.49"/>
+    <path d="M310.3,152.12a1.6,1.6,0,1,1-1.59-1.6A1.6,1.6,0,0,1,310.3,152.12Z" transform="translate(-176.42 -105.87)"/>
+  </g>
+</svg>

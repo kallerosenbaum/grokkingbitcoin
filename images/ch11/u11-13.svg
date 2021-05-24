@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="115.15" height="79.66" viewBox="0 0 115.15 79.66">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #eeeaf4;
+      }
+
+      .cls-2 {
+        fill: #deebf0;
+      }
+
+      .cls-3 {
+        fill: #d9c2df;
+      }
+
+      .cls-4 {
+        fill: none;
+        stroke: #000;
+        stroke-linejoin: round;
+        stroke-width: 0.5px;
+      }
+
+      .cls-5 {
+        font-size: 7px;
+        font-family: ArialMT, Arial;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <path class="cls-1" d="M335.42,164.24a39.52,39.52,0,0,0-21.85-35.36,39.57,39.57,0,0,0,0,70.74A39.57,39.57,0,0,0,335.42,164.24Z" transform="translate(-256.01 -124.42)"/>
+    <path class="cls-2" d="M291.75,164.25a39.57,39.57,0,0,1,21.82-35.37,39.57,39.57,0,1,0,0,70.74A39.58,39.58,0,0,1,291.75,164.25Z" transform="translate(-256.01 -124.42)"/>
+    <path class="cls-3" d="M359.32,136.26a39.58,39.58,0,0,0-45.75-7.38,39.56,39.56,0,0,1,0,70.74,39.58,39.58,0,0,0,45.74-63.36Z" transform="translate(-256.01 -124.42)"/>
+    <path class="cls-4" d="M256.26,164.24h0a39.58,39.58,0,0,1,39.58-39.57h0a39.59,39.59,0,0,1,39.58,39.57h0a39.58,39.58,0,0,1-39.58,39.58h0A39.58,39.58,0,0,1,256.26,164.24Z" transform="translate(-256.01 -124.42)"/>
+    <path class="cls-4" d="M291.75,164.25h0a39.58,39.58,0,0,1,39.58-39.58h0a39.57,39.57,0,0,1,39.58,39.58h0a39.59,39.59,0,0,1-39.58,39.58h0A39.59,39.59,0,0,1,291.75,164.25Z" transform="translate(-256.01 -124.42)"/>
+    <text class="cls-5" transform="translate(12.46 42.05)">Old</text>
+    <text class="cls-5" transform="translate(90.22 42.05)">New</text>
+  </g>
+</svg>

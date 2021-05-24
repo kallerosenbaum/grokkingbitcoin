@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="368.23" height="275.15" viewBox="0 0 368.23 275.15">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #b488c1;
+      }
+
+      .cls-1, .cls-10, .cls-11, .cls-12, .cls-13, .cls-14, .cls-15, .cls-18, .cls-19, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9 {
+        stroke: #000;
+      }
+
+      .cls-1, .cls-10, .cls-11, .cls-12, .cls-13, .cls-14, .cls-15, .cls-19, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9 {
+        stroke-linejoin: round;
+        stroke-width: 0.3px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: #bdbdbd;
+      }
+
+      .cls-4 {
+        fill: #ff8c10;
+      }
+
+      .cls-5 {
+        fill: #131719;
+      }
+
+      .cls-6 {
+        fill: #d1e3ea;
+      }
+
+      .cls-7 {
+        fill: #799f44;
+      }
+
+      .cls-8 {
+        fill: #fd1f14;
+      }
+
+      .cls-9 {
+        fill: #3b809c;
+      }
+
+      .cls-10 {
+        fill: #fee164;
+      }
+
+      .cls-11 {
+        fill: #9258a6;
+      }
+
+      .cls-12 {
+        fill: #feab44;
+      }
+
+      .cls-13 {
+        fill: #b8cb8d;
+      }
+
+      .cls-14 {
+        fill: #515b60;
+      }
+
+      .cls-15 {
+        fill: #9ec5d5;
+      }
+
+      .cls-16 {
+        font-size: 7px;
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-17 {
+        letter-spacing: -0.02em;
+      }
+
+      .cls-18, .cls-19 {
+        fill: none;
+      }
+
+      .cls-18 {
+        stroke-miterlimit: 10;
+        stroke-width: 0.5px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_4" data-name="Layer 4">
+    <path class="cls-1" d="M293.48,156c-.83,0-.87,0-1.7,0l1.71,119.35Z" transform="translate(-107.88 -119.65)"/>
+    <path class="cls-2" d="M291.78,156l-1.7.06,3.41,119.29Z" transform="translate(-107.88 -119.65)"/>
+    <path class="cls-3" d="M290.08,156l-1.72.06,5.13,119.23Z" transform="translate(-107.88 -119.65)"/>
+    <path class="cls-4" d="M280.25,156.72l13.24,118.61L288.36,156.1Q284.27,156.28,280.25,156.72Z" transform="translate(-107.88 -119.65)"/>
+    <path class="cls-5" d="M268.1,158.7l25.39,116.63L280.25,156.72A121.12,121.12,0,0,0,268.1,158.7Z" transform="translate(-107.88 -119.65)"/>
+    <path class="cls-6" d="M255.7,162.1l37.79,113.23L268.1,158.7A119.29,119.29,0,0,0,255.7,162.1Z" transform="translate(-107.88 -119.65)"/>
+    <path class="cls-7" d="M240.25,168.5l53.24,106.83L255.7,162.1A117,117,0,0,0,240.25,168.5Z" transform="translate(-107.88 -119.65)"/>
+    <path class="cls-8" d="M221.69,180l71.8,95.33L240.25,168.5A118.5,118.5,0,0,0,221.69,180Z" transform="translate(-107.88 -119.65)"/>
+    <path class="cls-9" d="M199.75,201.45l93.74,73.88L221.69,180A120.11,120.11,0,0,0,199.75,201.45Z" transform="translate(-107.88 -119.65)"/>
+    <path class="cls-10" d="M174.86,262.29l118.63,13-93.74-73.88A118.78,118.78,0,0,0,174.86,262.29Z" transform="translate(-107.88 -119.65)"/>
+    <path class="cls-6" d="M174.14,275.32a118.72,118.72,0,0,0,13.48,55.12l105.87-55.11-118.63-13A119.37,119.37,0,0,0,174.14,275.32Z" transform="translate(-107.88 -119.65)"/>
+    <path class="cls-11" d="M245.85,384.76l47.64-109.43L187.62,330.44A119.77,119.77,0,0,0,245.85,384.76Z" transform="translate(-107.88 -119.65)"/>
+    <path class="cls-12" d="M293.48,394.66a119.25,119.25,0,0,0,41.21-7.31l-41.2-112L245.85,384.76A118.92,118.92,0,0,0,293.48,394.66Z" transform="translate(-107.88 -119.65)"/>
+    <path class="cls-13" d="M293.49,275.33l41.2,112A119.74,119.74,0,0,0,404,320.3l0-.05Z" transform="translate(-107.88 -119.65)"/>
+    <path class="cls-14" d="M398.56,218.73l-.06,0-105,56.58L404,320.25l.06,0a119.55,119.55,0,0,0-5.5-101.5Z" transform="translate(-107.88 -119.65)"/>
+    <path class="cls-15" d="M293.49,156V275.33l105-56.58,0-.1A119.3,119.3,0,0,0,293.49,156Z" transform="translate(-107.88 -119.65)"/>
+    <polygon class="cls-2" points="185.6 36.33 185.61 155.68 185.61 36.33 185.6 36.33"/>
+    <text class="cls-16" transform="translate(281.47 65.19)">BTC.com: 17.1%</text>
+    <text class="cls-16" transform="translate(296.31 235.24)">ViaBTC: 13.3%</text>
+    <text class="cls-16" transform="translate(46.97 270.02)">Unknown: 12.2%</text>
+    <text class="cls-16" transform="translate(27.47 240.19)">F2Pool: 10.9%</text>
+    <text class="cls-16" transform="translate(0 176.8)">BTC.<tspan class="cls-17" x="15.95" y="0">T</tspan><tspan x="20.09" y="0">OP: 9.4%</tspan></text>
+    <text class="cls-16" transform="translate(4.52 114.22)">SlushPool: 8.8%</text>
+    <text class="cls-16" transform="translate(33.08 76.91)">Poolin: 4.1%</text>
+    <text class="cls-16" transform="translate(58.87 46.38)">DPOOL: 2.3%</text>
+    <text class="cls-16" transform="translate(58.19 34.58)">BitClub Network: 1.7%</text>
+    <text class="cls-16" transform="translate(87.95 24.03)">Bitcoin.com: 1.7%</text>
+    <text class="cls-16" transform="translate(118.7 12.84)">Bixin: 1.1%</text>
+    <text class="cls-16" transform="translate(158.86 6.01)">58COIN: 0.2%</text>
+    <text class="cls-16" transform="translate(208.94 12.84)">CKPool: 0.2%</text>
+    <text class="cls-16" transform="translate(43.62 61.44)">BitFury: 2.8%</text>
+    <line class="cls-18" x1="246.12" y1="62.68" x2="278.62" y2="62.68"/>
+    <circle cx="246.12" cy="62.68" r="1"/>
+    <circle cx="183.08" cy="39.35" r="1"/>
+    <line class="cls-18" x1="181.41" y1="39.35" x2="181.41" y2="7.85"/>
+    <polyline class="cls-18" points="183.08 39.35 183.08 28.6 207.12 12.6"/>
+    <circle cx="181.41" cy="39.35" r="1"/>
+    <polyline class="cls-18" points="167.12 40.6 167.12 32.6 146.12 21.85"/>
+    <circle cx="167.12" cy="40.6" r="1"/>
+    <polyline class="cls-18" points="176.87 39.35 176.87 31.35 155.29 13.85"/>
+    <circle cx="176.87" cy="39.35" r="1"/>
+    <polyline class="cls-18" points="184.75 39.35 184.75 31.35 221.25 20.6"/>
+    <circle cx="184.75" cy="39.35" r="1"/>
+    <polyline class="cls-18" points="155.62 44.68 155.62 37.35 130.12 32.35"/>
+    <circle cx="155.62" cy="44.68" r="1"/>
+    <polyline class="cls-18" points="142.46 50.35 142.46 43.01 104.46 43.01"/>
+    <circle cx="142.46" cy="50.35" r="1"/>
+    <line class="cls-18" x1="265.79" y1="233.68" x2="293.46" y2="233.68"/>
+    <circle cx="265.79" cy="233.68" r="1"/>
+    <text class="cls-16" transform="translate(319.98 151.4)">AntPool: 13.9%</text>
+    <line class="cls-18" x1="296.79" y1="149.85" x2="317.12" y2="149.85"/>
+    <circle cx="296.79" cy="149.85" r="1"/>
+    <line class="cls-18" x1="109.12" y1="237.01" x2="76.12" y2="237.01"/>
+    <circle cx="109.12" cy="237.01" r="1"/>
+    <line class="cls-18" x1="175.12" y1="267.35" x2="103.62" y2="267.35"/>
+    <circle cx="175.12" cy="267.35" r="1"/>
+    <line class="cls-18" x1="77.79" y1="174.01" x2="52.87" y2="174.01"/>
+    <circle cx="77.79" cy="174.01" r="1"/>
+    <line class="cls-18" x1="83.29" y1="111.68" x2="59.46" y2="111.68"/>
+    <circle cx="83.29" cy="111.68" r="1"/>
+    <line class="cls-18" x1="106.46" y1="74.01" x2="75.12" y2="74.01"/>
+    <circle cx="106.46" cy="74.01" r="1"/>
+    <line class="cls-18" x1="126.29" y1="58.35" x2="87.79" y2="58.35"/>
+    <circle cx="126.29" cy="58.35" r="1"/>
+    <path class="cls-19" d="M404,320.3l0-.07-.06,0Z" transform="translate(-107.88 -119.65)"/>
+    <path class="cls-19" d="M398.56,218.73l0-.08,0,.1Z" transform="translate(-107.88 -119.65)"/>
+    <polygon class="cls-19" points="185.61 36.33 185.61 36.33 185.6 36.33 185.61 36.33"/>
+    <text class="cls-16" transform="translate(223.91 22.67)">KanoPool: 0.2%</text>
+  </g>
+</svg>

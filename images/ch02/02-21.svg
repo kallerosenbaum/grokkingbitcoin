@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="232.1" height="57.2" viewBox="0 0 232.1 57.2">
+  <defs>
+    <style>
+      .cls-1, .cls-9 {
+        fill: #fff;
+      }
+
+      .cls-1 {
+        stroke: #666;
+      }
+
+      .cls-1, .cls-10, .cls-7, .cls-9 {
+        stroke-linejoin: round;
+      }
+
+      .cls-1, .cls-7, .cls-9 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-2, .cls-6 {
+        font-size: 9px;
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        fill: #666;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-8 {
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-2 {
+        letter-spacing: -0.04em;
+      }
+
+      .cls-3, .cls-4, .cls-8 {
+        font-size: 7px;
+      }
+
+      .cls-3 {
+        letter-spacing: -0.04em;
+      }
+
+      .cls-4 {
+        letter-spacing: -0.04em;
+      }
+
+      .cls-10, .cls-5 {
+        fill: none;
+      }
+
+      .cls-5, .cls-7, .cls-9 {
+        stroke: #000;
+      }
+
+      .cls-5 {
+        stroke-miterlimit: 10;
+        stroke-width: 0.3px;
+      }
+
+      .cls-6 {
+        font-family: Humanist521BT-BoldCondensed, Humanst521 Cn BT;
+        font-weight: 700;
+      }
+
+      .cls-7 {
+        fill: #e5e5e5;
+      }
+
+      .cls-10 {
+        stroke: #fff;
+        stroke-width: 0.75px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <rect class="cls-1" x="0.25" y="16.28" width="44.17" height="12.29"/>
+    <text class="cls-2" transform="translate(5.01 24.65)">...</text>
+    <rect class="cls-1" x="0.25" y="28.57" width="44.17" height="12.29"/>
+    <text class="cls-3" transform="translate(5.01 36.94)">Company</text>
+    <rect class="cls-1" x="44.42" y="16.28" width="44.17" height="12.29"/>
+    <text class="cls-2" transform="translate(49.17 24.65)">...</text>
+    <rect class="cls-1" x="44.42" y="28.57" width="44.17" height="12.29"/>
+    <text class="cls-4" transform="translate(49.17 36.94)">John</text>
+    <rect class="cls-1" x="88.58" y="16.28" width="44.17" height="12.29"/>
+    <text class="cls-2" transform="translate(119.22 24.65)">...</text>
+    <rect class="cls-1" x="88.58" y="28.57" width="44.17" height="12.29"/>
+    <text class="cls-3" transform="translate(114.89 36.94)">100</text>
+    <g>
+      <path class="cls-5" d="M307.83,191c7.5,0,11.5-4,16.17-4" transform="translate(-170.25 -143.35)"/>
+      <polygon points="138.13 49.51 134.89 47.64 138.13 45.77 138.13 49.51"/>
+    </g>
+    <text class="cls-6" transform="translate(156 7.57)">New row! John has<tspan x="0" y="9.5">signed a transfer and</tspan><tspan x="0" y="19">Lisa verified it. She</tspan><tspan x="0" y="28.5">checks his balance</tspan><tspan x="0" y="38">and adds the transfer</tspan><tspan x="0" y="47.5">to the spreadsheet.</tspan></text>
+    <rect class="cls-7" x="0.25" y="3.99" width="44.17" height="12.29"/>
+    <rect class="cls-7" x="44.42" y="3.99" width="44.17" height="12.29"/>
+    <rect class="cls-7" x="88.58" y="3.99" width="44.17" height="12.29"/>
+    <text class="cls-8" transform="translate(14.17 12.36)">From</text>
+    <rect class="cls-9" x="0.25" y="40.86" width="44.17" height="12.29"/>
+    <text class="cls-8" transform="translate(5.01 49.23)">John</text>
+    <rect class="cls-9" x="44.42" y="40.86" width="44.17" height="12.29"/>
+    <text class="cls-8" transform="translate(49.17 49.23)">Cafe</text>
+    <rect class="cls-9" x="88.58" y="40.86" width="44.17" height="12.29"/>
+    <text class="cls-8" transform="translate(118.22 49.23)">10</text>
+    <text class="cls-8" transform="translate(62.42 12.36)">To</text>
+    <text class="cls-8" transform="translate(92.97 12.36)">Amount CT</text>
+    <polyline class="cls-10" points="0.9 15.86 0.9 4.67 43.88 4.67"/>
+    <polyline class="cls-10" points="45.07 15.86 45.07 4.67 88.04 4.67"/>
+    <polyline class="cls-10" points="89.24 15.86 89.24 4.67 132.21 4.67"/>
+  </g>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="194.73" height="84.48" viewBox="0 0 194.73 84.48">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #d9c2df;
+      }
+
+      .cls-1, .cls-2 {
+        stroke: #000;
+        stroke-width: 0.5px;
+      }
+
+      .cls-2 {
+        fill: #deebf0;
+        stroke-linejoin: round;
+      }
+
+      .cls-3 {
+        font-size: 7px;
+        font-family: ArialMT, Arial;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <path class="cls-1" d="M199.25,164.62h0c0-23.19,43.48-42,97.12-42h0c53.63,0,97.11,18.8,97.11,42h0c0,23.19-43.48,42-97.11,42h0c-53.64,0-97.12-18.79-97.12-42Z" transform="translate(-199 -122.38)"/>
+    <path class="cls-2" d="M217.85,177.18c0-15.13,35.15-27.39,78.52-27.39h0c43.36,0,78.51,12.26,78.51,27.39h0c0,15.12-35.15,27.38-78.51,27.38h0C253,204.56,217.85,192.3,217.85,177.18Z" transform="translate(-199 -122.38)"/>
+    <text class="cls-3" transform="translate(60.21 17.46)">Relaxed rules: hard fork</text>
+    <text class="cls-3" transform="translate(83.36 56.62)">Old rules</text>
+  </g>
+</svg>

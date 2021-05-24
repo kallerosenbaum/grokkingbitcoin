@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="220.66" height="180.07" viewBox="0 0 220.66 180.07">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #e5e5e5;
+      }
+
+      .cls-1, .cls-2 {
+        stroke: #000;
+        stroke-width: 0.5px;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke-linejoin: round;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: none;
+        stroke: #fff;
+        stroke-width: 0.75px;
+      }
+
+      .cls-4, .cls-7 {
+        font-size: 7px;
+      }
+
+      .cls-4, .cls-5 {
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-5 {
+        font-size: 9px;
+      }
+
+      .cls-6 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-7 {
+        font-family: Courier;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="196.94" y1="32.55" x2="222.47" y2="32.55" gradientTransform="translate(142.88 -115.62) rotate(90)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#318aaf"/>
+    </linearGradient>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g>
+      <rect class="cls-1" x="0.25" y="0.25" width="100" height="12.29"/>
+      <rect class="cls-1" x="100.25" y="0.25" width="100" height="12.29"/>
+      <rect class="cls-1" x="200.24" y="0.25" width="20.17" height="12.29"/>
+      <rect class="cls-2" x="0.25" y="12.54" width="100" height="12.29"/>
+      <rect class="cls-2" x="100.25" y="12.54" width="100" height="12.29"/>
+      <rect class="cls-2" x="200.24" y="12.54" width="20.17" height="12.29"/>
+      <rect class="cls-2" x="0.25" y="24.83" width="100" height="27.16"/>
+      <rect class="cls-2" x="200.24" y="24.83" width="20.17" height="27.16"/>
+      <polyline class="cls-3" points="0.9 12.11 0.9 0.92 99.71 0.92"/>
+      <polyline class="cls-3" points="100.9 12.11 100.9 0.92 199.7 0.92"/>
+      <polyline class="cls-3" points="200.9 12.11 200.9 0.92 219.87 0.92"/>
+    </g>
+    <text class="cls-4" transform="translate(42.68 8.62)">From</text>
+    <text class="cls-5" transform="translate(5.01 20.91)">...</text>
+    <text class="cls-5" transform="translate(105 20.91)">...</text>
+    <text class="cls-5" transform="translate(207.86 20.91)">...</text>
+    <text class="cls-4" transform="translate(145.93 8.62)">To</text>
+    <text class="cls-4" transform="translate(205.58 8.62)">CT</text>
+    <text class="cls-4" transform="translate(207.58 33.2)">10</text>
+    <rect class="cls-2" x="200.24" y="51.99" width="20.17" height="27.16"/>
+    <text class="cls-4" transform="translate(203.68 60.36)">100</text>
+    <g>
+      <rect class="cls-1" x="0.25" y="109.98" width="100" height="12.29"/>
+      <rect class="cls-1" x="100.25" y="109.98" width="100" height="12.29"/>
+      <rect class="cls-1" x="200.24" y="109.98" width="20.17" height="12.29"/>
+      <rect class="cls-2" x="0.25" y="122.27" width="100" height="12.29"/>
+      <rect class="cls-2" x="100.25" y="122.27" width="100" height="12.29"/>
+      <rect class="cls-2" x="200.24" y="122.27" width="20.17" height="12.29"/>
+      <rect class="cls-2" x="0.25" y="134.56" width="100" height="19.34"/>
+      <rect class="cls-2" x="100.25" y="134.56" width="100" height="19.34"/>
+      <rect class="cls-2" x="200.24" y="134.56" width="20.17" height="19.34"/>
+      <polyline class="cls-3" points="0.9 121.84 0.9 110.65 99.71 110.65"/>
+      <polyline class="cls-3" points="100.9 121.84 100.9 110.65 199.7 110.65"/>
+      <polyline class="cls-3" points="200.9 121.84 200.9 110.65 219.87 110.65"/>
+    </g>
+    <text class="cls-4" transform="translate(42.01 118.35)">From</text>
+    <text class="cls-5" transform="translate(5.01 130.64)">...</text>
+    <text class="cls-5" transform="translate(105 130.64)">...</text>
+    <text class="cls-5" transform="translate(207.86 130.64)">...</text>
+    <text class="cls-4" transform="translate(145.93 118.35)">To</text>
+    <text class="cls-4" transform="translate(205.58 118.35)">CT</text>
+    <text class="cls-4" transform="translate(207.58 142.93)">10</text>
+    <rect class="cls-2" x="200.24" y="153.9" width="20.17" height="19.34"/>
+    <text class="cls-4" transform="translate(203.68 162.27)">100</text>
+    <polygon class="cls-6" points="113 96.02 113 81.33 107.66 81.33 107.66 96.02 104.86 96.02 110.33 106.86 115.8 96.02 113 96.02"/>
+    <text class="cls-7" transform="translate(2.06 32.13)">035541a13851a3742489fd<tspan x="0" y="8">ddeef21be13c1abb85e053</tspan><tspan x="0" y="16">222c0dbf3703ba218dc1f3</tspan></text>
+    <rect class="cls-2" x="0.25" y="51.99" width="100" height="27.16"/>
+    <text class="cls-7" transform="translate(2.06 59.29)">037e944a7b778d190c05b5<tspan x="0" y="8">9325c58eed069205148fa0</tspan><tspan x="0" y="16">a2998273af0ffe36de9496</tspan></text>
+    <text class="cls-7" transform="translate(2.06 141.86)">5f2613791b36f667fdb8<tspan x="0" y="8">e95608b55e3df4c5f9eb</tspan></text>
+    <rect class="cls-2" x="0.25" y="153.9" width="100" height="19.34"/>
+    <text class="cls-7" transform="translate(2.06 161.21)">bc27a2f538aa6a796e4b<tspan x="0" y="8">2197f150ae0f667870eb</tspan></text>
+    <text class="cls-7" transform="translate(102.06 141.86)">87e3d1692022a7744bf2<tspan x="0" y="8">406a963c656c8393b1cc</tspan></text>
+    <rect class="cls-2" x="100.25" y="153.9" width="100" height="19.34"/>
+    <text class="cls-7" transform="translate(102.06 161.21)">bea73261a7499c22f8e1<tspan x="0" y="8">e57bdb0e41ffc35ce56a</tspan></text>
+    <rect class="cls-2" x="100.25" y="24.83" width="100" height="27.16"/>
+    <text class="cls-7" transform="translate(102.06 32.13)">0222436a49cd8ff2605255<tspan x="0" y="8">dcea8fadd6a9aff20703d5</tspan><tspan x="0" y="16">8d22bef7c5a6fc23807712</tspan></text>
+    <rect class="cls-2" x="100.25" y="51.99" width="100" height="27.16"/>
+    <text class="cls-7" transform="translate(102.06 59.29)">029a726cf74e24d366ce96<tspan x="0" y="8">534e7b078c798272e096a0</tspan><tspan x="0" y="16">f57a7e8358f52dad8f436d</tspan></text>
+  </g>
+</svg>

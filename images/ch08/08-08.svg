@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="247.36" height="50.22" viewBox="0 0 247.36 50.22">
+  <defs>
+    <style>
+      .cls-1, .cls-6 {
+        fill: none;
+      }
+
+      .cls-1, .cls-2, .cls-6, .cls-7, .cls-8 {
+        stroke: #000;
+      }
+
+      .cls-1, .cls-2, .cls-6, .cls-8 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-6, .cls-7, .cls-8 {
+        stroke-linejoin: round;
+      }
+
+      .cls-4 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-5, .cls-8 {
+        fill: #b3e2ee;
+      }
+
+      .cls-7 {
+        fill: #f0f9fc;
+        stroke-width: 0.3px;
+      }
+
+      .cls-9 {
+        font-size: 7px;
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-10 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-11 {
+        fill: #87489d;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="227.65" y1="738.27" x2="304.14" y2="738.27" gradientTransform="translate(835.81 -344.16) rotate(68.86)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#cbd8e2"/>
+      <stop offset="1" stop-color="#9aa5b5"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="290.56" y1="575.58" x2="367.06" y2="575.58" xlink:href="#linear-gradient"/>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <line class="cls-1" x1="178.33" y1="22.86" x2="64.21" y2="22.86"/>
+    <path class="cls-2" d="M383.28,158.6a21.94,21.94,0,0,1-2.33-.85v2.91a20.29,20.29,0,0,1,2.33-.87,16.23,16.23,0,0,1,2.53-.6A17.29,17.29,0,0,1,383.28,158.6Z" transform="translate(-203.04 -136.35)"/>
+    <g>
+      <path class="cls-3" d="M266.36,136.6H212.63a.82.82,0,0,0-.82.82v45.66a.84.84,0,0,0,.82.84h53.73a.83.83,0,0,0,.82-.84V137.42A.82.82,0,0,0,266.36,136.6Z" transform="translate(-203.04 -136.35)"/>
+      <path class="cls-4" d="M267.18,183.08a.83.83,0,0,1-.82.84H212.63a.84.84,0,0,1-.82-.84V138.39a.82.82,0,0,1,.82-.82h53.73a.82.82,0,0,1,.82.82Z" transform="translate(-203.04 -136.35)"/>
+      <path class="cls-5" d="M267.18,183.08a.83.83,0,0,1-.82.84H212.63a.84.84,0,0,1-.82-.84V138.39a.82.82,0,0,1,.82-.82h53.73a.82.82,0,0,1,.82.82Z" transform="translate(-203.04 -136.35)"/>
+      <path class="cls-6" d="M266.36,136.6H212.63a.82.82,0,0,0-.82.82v45.66a.84.84,0,0,0,.82.84h53.73a.83.83,0,0,0,.82-.84V137.42A.82.82,0,0,0,266.36,136.6Z" transform="translate(-203.04 -136.35)"/>
+      <rect class="cls-7" x="11.98" y="3.94" width="48.96" height="37.67"/>
+      <polyline class="cls-2" points="72.66 46.36 63.91 44.43 8.77 44.43 0.27 46.36"/>
+      <path class="cls-8" d="M203.29,182.71s1.64,3.61,3.52,3.61h65.37c1.73,0,3.53-3.61,3.53-3.61Z" transform="translate(-203.04 -136.35)"/>
+    </g>
+    <text class="cls-9" transform="translate(29.44 25.08)">Tom</text>
+    <text class="cls-9" transform="translate(97.22 17.41)">“Buenas noches”</text>
+    <g>
+      <path class="cls-3" d="M440.8,136.6H387.07a.82.82,0,0,0-.82.82v45.66a.84.84,0,0,0,.82.84H440.8a.84.84,0,0,0,.82-.84V137.42A.82.82,0,0,0,440.8,136.6Z" transform="translate(-203.04 -136.35)"/>
+      <path class="cls-10" d="M441.62,183.08a.84.84,0,0,1-.82.84H387.07a.84.84,0,0,1-.82-.84V138.39a.82.82,0,0,1,.82-.82H440.8a.82.82,0,0,1,.82.82Z" transform="translate(-203.04 -136.35)"/>
+      <path class="cls-5" d="M441.62,183.08a.84.84,0,0,1-.82.84H387.07a.84.84,0,0,1-.82-.84V138.39a.82.82,0,0,1,.82-.82H440.8a.82.82,0,0,1,.82.82Z" transform="translate(-203.04 -136.35)"/>
+      <path class="cls-6" d="M440.8,136.6H387.07a.82.82,0,0,0-.82.82v45.66a.84.84,0,0,0,.82.84H440.8a.84.84,0,0,0,.82-.84V137.42A.82.82,0,0,0,440.8,136.6Z" transform="translate(-203.04 -136.35)"/>
+      <rect class="cls-7" x="186.41" y="3.94" width="48.96" height="37.67"/>
+      <polyline class="cls-2" points="247.09 46.36 238.35 44.43 183.21 44.43 174.7 46.36"/>
+      <path class="cls-8" d="M377.73,182.71s1.64,3.61,3.52,3.61h65.37c1.73,0,3.53-3.61,3.53-3.61Z" transform="translate(-203.04 -136.35)"/>
+    </g>
+    <text class="cls-9" transform="translate(204.45 35.7)">Lisa</text>
+    <path class="cls-11" d="M413,157.2c0-1.76.45-2.59,1.77-4.1,1-1.16,2.35-2.48,2.37-4.27s-1.56-2.79-3.3-2.79a6.93,6.93,0,0,0-4.09,1.1l-.16-2.62a11.42,11.42,0,0,1,4.59-.9c3,0,5.93,1.74,5.88,5,0,2.9-2.34,4.41-3.86,6.64a3.33,3.33,0,0,0-.61,2v.5H413Zm-.29,2.9h3.09l0,3.08h-3.11Z" transform="translate(-203.04 -136.35)"/>
+  </g>
+</svg>

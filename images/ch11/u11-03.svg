@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="194.73" height="71.72" viewBox="0 0 194.73 71.72">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #d9c2df;
+      }
+
+      .cls-1, .cls-2 {
+        stroke: #000;
+        stroke-width: 0.5px;
+      }
+
+      .cls-2 {
+        fill: #deebf0;
+        stroke-linejoin: round;
+      }
+
+      .cls-3 {
+        font-size: 7px;
+        font-family: ArialMT, Arial;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <path class="cls-1" d="M211.27,155.61h0c0-19.67,43.48-35.61,97.12-35.61h0c53.63,0,97.11,15.94,97.11,35.61h0c0,19.66-43.48,35.61-97.11,35.61h0c-53.64,0-97.12-15.95-97.12-35.61Z" transform="translate(-211.02 -119.75)"/>
+    <path class="cls-2" d="M229.87,165.71c0-12.83,35.15-23.23,78.52-23.23h0c43.36,0,78.51,10.4,78.51,23.23h0c0,12.83-35.15,23.23-78.51,23.23h0C265,188.94,229.87,178.54,229.87,165.71Z" transform="translate(-211.02 -119.75)"/>
+    <text class="cls-3" transform="translate(83.36 14.62)">Old rules</text>
+    <text class="cls-3" transform="translate(63.52 37.62)">Tighter rules: soft fork</text>
+  </g>
+</svg>

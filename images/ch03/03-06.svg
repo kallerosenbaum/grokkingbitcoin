@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="360" height="120.25" viewBox="0 0 360 120.25">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #f0f0f0;
+      }
+
+      .cls-15, .cls-16, .cls-2 {
+        fill: none;
+      }
+
+      .cls-15, .cls-16, .cls-2, .cls-8 {
+        stroke: #000;
+      }
+
+      .cls-2 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-11, .cls-17, .cls-2 {
+        stroke-width: 0.3px;
+      }
+
+      .cls-3 {
+        font-size: 9px;
+        font-family: Humanist521BT-BoldCondensed, Humanst521 Cn BT;
+      }
+
+      .cls-13, .cls-3 {
+        font-weight: 700;
+      }
+
+      .cls-4 {
+        letter-spacing: -0.02em;
+      }
+
+      .cls-5 {
+        letter-spacing: -0.09em;
+      }
+
+      .cls-6 {
+        letter-spacing: -0.1em;
+      }
+
+      .cls-7 {
+        font-size: 8.5px;
+        letter-spacing: -0.08em;
+      }
+
+      .cls-13, .cls-7 {
+        font-family: Arial-BoldMT, Arial;
+      }
+
+      .cls-8 {
+        fill: #fff2ba;
+      }
+
+      .cls-15, .cls-8 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-21, .cls-9 {
+        font-size: 7px;
+      }
+
+      .cls-20, .cls-9 {
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-10 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-11, .cls-12 {
+        fill: #fff;
+      }
+
+      .cls-11 {
+        stroke: #b3b3b3;
+      }
+
+      .cls-13 {
+        font-size: 6.3px;
+      }
+
+      .cls-14 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-16, .cls-17 {
+        stroke-linejoin: round;
+      }
+
+      .cls-17 {
+        fill: #267520;
+        stroke: #267520;
+      }
+
+      .cls-18 {
+        fill: url(#linear-gradient-3);
+      }
+
+      .cls-19 {
+        fill: url(#linear-gradient-4);
+      }
+
+      .cls-20 {
+        font-size: 9.77px;
+      }
+
+      .cls-21 {
+        font-family: Courier;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="241.05" y1="182.55" x2="271.73" y2="199.96" gradientTransform="matrix(-1, 0, 0, 1, 401.97, -139.09)" gradientUnits="userSpaceOnUse">
+      <stop offset="0"/>
+      <stop offset="0.08" stop-color="#050505"/>
+      <stop offset="0.18" stop-color="#151515"/>
+      <stop offset="0.29" stop-color="#2f2f2f"/>
+      <stop offset="0.41" stop-color="#525252"/>
+      <stop offset="0.45" stop-color="#616161"/>
+      <stop offset="0.52" stop-color="#4e4e4e"/>
+      <stop offset="0.65" stop-color="#2c2c2c"/>
+      <stop offset="0.78" stop-color="#141414"/>
+      <stop offset="0.9" stop-color="#050505"/>
+      <stop offset="1"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="77.6" y1="182.55" x2="108.28" y2="199.96" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="419.88" y1="151.74" x2="475.05" y2="151.74" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5fb749"/>
+      <stop offset="1" stop-color="#dbf1c6"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="420.86" y1="151.74" x2="473.5" y2="151.74" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#dbf1c6"/>
+      <stop offset="1" stop-color="#5fb749"/>
+    </linearGradient>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <rect class="cls-1" y="31.91" width="360" height="68.54" rx="5"/>
+    <g>
+      <path class="cls-2" d="M178.33,189.67c0-10.8,6-18.9,6-28.28" transform="translate(-122 -139.09)"/>
+      <polygon points="58.19 50.02 56.32 53.26 54.45 50.02 58.19 50.02"/>
+    </g>
+    <g>
+      <path class="cls-2" d="M414.42,153.36c-7.92,0-14.92-6.86-22.67-6.86" transform="translate(-122 -139.09)"/>
+      <polygon points="291.87 12.4 295.11 14.27 291.87 16.14 291.87 12.4"/>
+    </g>
+    <g>
+      <path class="cls-2" d="M178.33,220.33c0,10.8,6,18.9,6,28.28" transform="translate(-122 -139.09)"/>
+      <polygon points="54.47 81.79 56.34 78.55 58.21 81.79 54.47 81.79"/>
+    </g>
+    <text class="cls-3" transform="translate(9.69 9.46)">Joh<tspan class="cls-4" x="11.4" y="0">n</tspan><tspan x="15.72" y="0">’s public key hash hides</tspan><tspan x="0" y="9.5">his public ke</tspan><tspan class="cls-5" x="44.27" y="9.5">y</tspan><tspan x="47.25" y="9.5">. It’s also shorte</tspan><tspan class="cls-6" x="104.33" y="9.5">r</tspan><tspan x="106.82" y="9.5">.</tspan></text>
+    <text class="cls-3" transform="translate(28.06 117.05)">20 bytes or <tspan class="cls-7" x="42.05" y="0">1</tspan><tspan x="46.14" y="0">60 bits</tspan></text>
+    <g>
+      <path class="cls-2" d="M350.42,226.5c0,10.8,3.58,15.5,3.58,22.11" transform="translate(-122 -139.09)"/>
+      <polygon points="226.56 87.95 228.43 84.72 230.3 87.95 226.56 87.95"/>
+    </g>
+    <text class="cls-3" transform="translate(197.73 117.05)">32 bytes or 256 bits</text>
+    <rect class="cls-8" x="118.2" y="38.42" width="56.99" height="55.51"/>
+    <text class="cls-9" transform="translate(124.91 69.57)">Cryptographic<tspan x="0.97" y="9">hash function</tspan><tspan x="2.34" y="18">RIPEMD160</tspan></text>
+    <g>
+      <rect class="cls-10" x="124.41" y="43.92" width="44.58" height="15.21" rx="1.8"/>
+      <path class="cls-11" d="M246.07,196.42V184.81a2.14,2.14,0,0,1,2.14-2.13h41a2.14,2.14,0,0,1,2.14,2.13v11.61a2.14,2.14,0,0,1-2.14,2.14h-41A2.14,2.14,0,0,1,246.07,196.42Zm2.14-13.07a1.46,1.46,0,0,0-1.46,1.46v11.61a1.46,1.46,0,0,0,1.46,1.46h41a1.46,1.46,0,0,0,1.46-1.46V184.81a1.46,1.46,0,0,0-1.46-1.46Z" transform="translate(-122 -139.09)"/>
+      <g>
+        <path class="cls-12" d="M251.18,191.13a.69.69,0,0,1,0-1l5.94-5.52c.31-.29.5-.16.43.28l-.26,1.71a.63.63,0,0,0,.59.8h28.68v6.57H257.88a.63.63,0,0,0-.59.79l.26,1.64c.07.44-.12.57-.43.29Z" transform="translate(-122 -139.09)"/>
+        <path class="cls-12" d="M257,196.82,251,191.3a.92.92,0,0,1-.31-.68.91.91,0,0,1,.31-.68l5.94-5.53c.27-.25.55-.27.71-.08a.75.75,0,0,1,.1.57l-.27,1.7a.49.49,0,0,0,.1.42.34.34,0,0,0,.27.12h28.68a.23.23,0,0,1,.23.23v6.57a.22.22,0,0,1-.23.22H257.88a.33.33,0,0,0-.27.12.51.51,0,0,0-.1.42l.26,1.64a.73.73,0,0,1-.09.57.36.36,0,0,1-.28.12h0A.66.66,0,0,1,257,196.82Zm29.37-9.23H257.88a.78.78,0,0,1-.61-.28,1,1,0,0,1-.21-.78l.27-1.7a.82.82,0,0,0,0-.14l-.06.05-5.95,5.53a.46.46,0,0,0-.16.35.5.5,0,0,0,.16.35l5.95,5.52.06,0a.72.72,0,0,0,0-.13l-.26-1.64a1,1,0,0,1,.19-.78.82.82,0,0,1,.62-.28h28.46Z" transform="translate(-122 -139.09)"/>
+      </g>
+      <text class="cls-13" transform="translate(135.46 53.86) scale(0.9 1)">ONE WAY</text>
+    </g>
+    <rect class="cls-8" x="281.65" y="38.42" width="56.99" height="55.51"/>
+    <g>
+      <rect class="cls-14" x="287.86" y="43.92" width="44.58" height="15.21" rx="1.8"/>
+      <path class="cls-11" d="M409.52,196.42V184.81a2.14,2.14,0,0,1,2.14-2.13h41a2.14,2.14,0,0,1,2.13,2.13v11.61a2.14,2.14,0,0,1-2.13,2.14h-41A2.14,2.14,0,0,1,409.52,196.42Zm2.14-13.07a1.46,1.46,0,0,0-1.46,1.46v11.61a1.46,1.46,0,0,0,1.46,1.46h41a1.46,1.46,0,0,0,1.46-1.46V184.81a1.47,1.47,0,0,0-1.46-1.46Z" transform="translate(-122 -139.09)"/>
+      <g>
+        <path class="cls-12" d="M414.63,191.13a.69.69,0,0,1,0-1l5.94-5.52c.31-.29.5-.16.43.28l-.27,1.71a.64.64,0,0,0,.6.8H450v6.57H421.33a.63.63,0,0,0-.59.79l.26,1.64c.07.44-.12.57-.43.29Z" transform="translate(-122 -139.09)"/>
+        <path class="cls-12" d="M420.42,196.82l-5.95-5.52a1,1,0,0,1-.3-.68.93.93,0,0,1,.3-.68l5.95-5.53c.27-.25.55-.27.71-.08a.71.71,0,0,1,.09.57l-.26,1.7a.49.49,0,0,0,.1.42.33.33,0,0,0,.27.12H450a.23.23,0,0,1,.23.23v6.57a.22.22,0,0,1-.23.22H421.33a.36.36,0,0,0-.28.12.54.54,0,0,0-.09.42l.26,1.64a.73.73,0,0,1-.09.57.36.36,0,0,1-.28.12h0A.66.66,0,0,1,420.42,196.82Zm29.37-9.23H421.33a.8.8,0,0,1-.62-.28,1,1,0,0,1-.2-.78l.27-1.7a.82.82,0,0,0,0-.14l-.07.05-5.94,5.53a.46.46,0,0,0-.16.35.5.5,0,0,0,.16.35l5.94,5.52.07,0a.72.72,0,0,0,0-.13l-.27-1.64a1,1,0,0,1,.2-.78.8.8,0,0,1,.62-.28h28.46Z" transform="translate(-122 -139.09)"/>
+      </g>
+      <text class="cls-13" transform="translate(298.91 53.86) scale(0.9 1)">ONE WAY</text>
+    </g>
+    <text class="cls-9" transform="translate(288.36 69.57)">Cryptographic<tspan x="0.97" y="9">hash function</tspan><tspan x="8.75" y="18">SHA256</tspan></text>
+    <path d="M225.6,204.67c1-.29,1.57-.55,2.34-.85v2.9a23.39,23.39,0,0,0-2.33-.87,17.55,17.55,0,0,0-2.54-.6A16.76,16.76,0,0,0,225.6,204.67Z" transform="translate(-122 -139.09)"/>
+    <line class="cls-15" x1="105.31" y1="66.17" x2="118.15" y2="66.17"/>
+    <path d="M299.92,204.67c.95-.29,1.57-.55,2.33-.85v2.9a22,22,0,0,0-2.32-.87,17.55,17.55,0,0,0-2.54-.6A16.76,16.76,0,0,0,299.92,204.67Z" transform="translate(-122 -139.09)"/>
+    <line class="cls-15" x1="179.63" y1="66.17" x2="193" y2="66.17"/>
+    <path d="M387.93,204.67c.95-.29,1.57-.55,2.33-.85v2.9a22.43,22.43,0,0,0-2.33-.87,17.47,17.47,0,0,0-2.53-.6A17,17,0,0,0,387.93,204.67Z" transform="translate(-122 -139.09)"/>
+    <line class="cls-15" x1="267.63" y1="66.17" x2="281.89" y2="66.17"/>
+    <path d="M431.54,174.72a24.51,24.51,0,0,0-.84-2.33h2.9a22.43,22.43,0,0,0-.87,2.33,17.17,17.17,0,0,0-.6,2.53A16.07,16.07,0,0,0,431.54,174.72Z" transform="translate(-122 -139.09)"/>
+    <line class="cls-15" x1="310.15" y1="33.92" x2="310.15" y2="26.1"/>
+    <text class="cls-3" transform="translate(222.05 9.46)">Joh<tspan class="cls-4" x="11.4" y="0">n</tspan><tspan x="15.72" y="0">’s public</tspan><tspan x="0" y="9.5">key 33 bytes</tspan></text>
+    <g>
+      <path class="cls-16" d="M470.62,147.34h-27a12.28,12.28,0,0,0-23.7,4.4c0,.14,0,.28,0,.42s0,.28,0,.42a12.28,12.28,0,0,0,23.26,5.36h2.26a2.88,2.88,0,0,1,5.53,0h2.48a2.88,2.88,0,0,1,5.53,0h2.48a2.88,2.88,0,0,1,5.53,0h1.72l6.38-7.3v-.84Z" transform="translate(-122 -139.09)"/>
+      <path class="cls-17" d="M475.05,149.8l-31.47-1.62a12.16,12.16,0,1,0-.44,9.76h2.26a2.88,2.88,0,0,1,5.53,0h2.48a2.88,2.88,0,0,1,5.53,0h2.48a2.88,2.88,0,0,1,5.53,0h1.72l6.38-7.3Z" transform="translate(-122 -139.09)"/>
+      <path class="cls-18" d="M470.62,147.34h-27a12.16,12.16,0,1,0-.44,9.76h2.26a2.88,2.88,0,0,1,5.53,0h2.48a2.88,2.88,0,0,1,5.53,0h2.48a2.88,2.88,0,0,1,5.53,0h1.72l6.38-7.3Z" transform="translate(-122 -139.09)"/>
+      <path class="cls-19" d="M432.15,162.89a11.16,11.16,0,1,1,10.51-15.19l.25.63h27.45l3.14,1.74-5.27,6h-.56a4,4,0,0,0-7,0h-1a4,4,0,0,0-7,0h-1a4,4,0,0,0-7,0h-2.14l-.28.55A11.22,11.22,0,0,1,432.15,162.89Z" transform="translate(-122 -139.09)"/>
+      <circle class="cls-12" cx="310.15" cy="12.64" r="9.7"/>
+      <text class="cls-20" transform="translate(301.37 16.36)">Pub</text>
+    </g>
+    <text class="cls-21" transform="translate(195.03 55.15)">85ae273f0aa730ed<tspan x="0" y="9">df2285d3f3ab071e</tspan><tspan x="0" y="18">b29caba1e428db90</tspan><tspan x="0" y="27">e6dfbd71b8e1e918</tspan></text>
+    <text class="cls-21" transform="translate(14.89 63.43)">5f2613791b36f667fdb8<tspan x="0" y="9">e95608b55e3df4c5f9eb</tspan></text>
+  </g>
+</svg>

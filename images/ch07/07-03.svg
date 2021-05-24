@@ -1,0 +1,334 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="344.73" height="169.74" viewBox="0 0 344.73 169.74">
+  <defs>
+    <style>
+      .cls-1, .cls-13, .cls-14, .cls-15, .cls-21, .cls-4, .cls-6 {
+        fill: none;
+      }
+
+      .cls-16, .cls-2 {
+        font-size: 9px;
+        font-family: Humanist521BT-BoldCondensed, Humanst521 Cn BT;
+        font-weight: 700;
+      }
+
+      .cls-2 {
+        fill: #141011;
+      }
+
+      .cls-3 {
+        fill: #deebf0;
+      }
+
+      .cls-14, .cls-15, .cls-21, .cls-4, .cls-7 {
+        stroke: #000;
+      }
+
+      .cls-13, .cls-4, .cls-6, .cls-7 {
+        stroke-linejoin: round;
+      }
+
+      .cls-15, .cls-4, .cls-7, .cls-8 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-5 {
+        fill: #fef0e8;
+      }
+
+      .cls-13, .cls-6 {
+        stroke: #e60001;
+      }
+
+      .cls-14, .cls-6 {
+        stroke-width: 0.75px;
+      }
+
+      .cls-7, .cls-9 {
+        fill: #fff;
+      }
+
+      .cls-10, .cls-8 {
+        fill: #8dac58;
+      }
+
+      .cls-8 {
+        stroke: #3b5c18;
+      }
+
+      .cls-11 {
+        fill: #28708e;
+      }
+
+      .cls-12 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-14, .cls-21 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-17 {
+        letter-spacing: -0.09em;
+      }
+
+      .cls-18, .cls-19 {
+        font-size: 8.5px;
+        font-family: Arial-BoldMT, Arial;
+      }
+
+      .cls-19 {
+        letter-spacing: 0em;
+      }
+
+      .cls-20 {
+        letter-spacing: -0.07em;
+      }
+
+      .cls-21 {
+        stroke-width: 0.3px;
+      }
+
+      .cls-22 {
+        font-size: 7px;
+        font-family: ArialMT, Arial;
+      }
+    </style>
+    <clipPath id="clip-path" transform="translate(-143.64 -119.54)">
+      <path class="cls-1" d="M232.28,175H180.49c.16,16.7,10.91,29,3.79,45.78h48Z"/>
+    </clipPath>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <text class="cls-2" transform="translate(99.55 124.31)">Height</text>
+  </g>
+  <g id="Layer_4" data-name="Layer 4">
+    <g>
+      <g>
+        <rect class="cls-3" x="168.06" y="104.96" width="64.3" height="40.99" rx="3"/>
+        <rect class="cls-4" x="168.06" y="104.96" width="64.3" height="40.99" rx="3"/>
+      </g>
+      <g>
+        <rect class="cls-5" x="195.87" y="133.35" width="8.68" height="7.92" rx="0.5"/>
+        <rect class="cls-6" x="195.87" y="133.35" width="8.68" height="7.92" rx="0.5"/>
+      </g>
+      <g>
+        <rect class="cls-5" x="183.6" y="133.35" width="8.68" height="7.92" rx="0.5"/>
+        <rect class="cls-6" x="183.6" y="133.35" width="8.68" height="7.92" rx="0.5"/>
+      </g>
+      <g>
+        <rect class="cls-5" x="171.32" y="133.3" width="8.68" height="7.91" rx="0.5"/>
+        <rect class="cls-6" x="171.32" y="133.3" width="8.68" height="7.91" rx="0.5"/>
+      </g>
+      <rect class="cls-7" x="171.32" y="108.55" width="57.78" height="19.96"/>
+      <g>
+        <path class="cls-8" d="M324.56,238.07a8,8,0,1,0,8-8A8,8,0,0,0,324.56,238.07Z" transform="translate(-143.64 -119.54)"/>
+        <path class="cls-9" d="M326,238.07a6.53,6.53,0,1,0,6.52-6.53A6.52,6.52,0,0,0,326,238.07Z" transform="translate(-143.64 -119.54)"/>
+        <polygon points="188.29 118.2 189.47 118.86 192.04 112.99 191.94 112.94 188.29 118.2"/>
+        <polygon points="188.55 119.12 189.21 117.94 185.32 116.47 185.27 116.56 188.55 119.12"/>
+        <g>
+          <path class="cls-10" d="M332,237.77a.6.6,0,0,0,.23.83.61.61,0,0,0,.83-.23.6.6,0,0,0-.23-.83A.61.61,0,0,0,332,237.77Z" transform="translate(-143.64 -119.54)"/>
+          <path d="M332.52,239h0a.86.86,0,0,1-.44-.12.88.88,0,0,1-.33-1.21.89.89,0,0,1,1.2-.33.89.89,0,0,1-.43,1.66Zm0-1.48a.57.57,0,0,0-.51.3.59.59,0,0,0,.22.8.61.61,0,0,0,.8-.22.58.58,0,0,0-.22-.8A.6.6,0,0,0,332.52,237.48Z" transform="translate(-143.64 -119.54)"/>
+        </g>
+      </g>
+      <path class="cls-11" d="M360.52,237.42q0,3.87-2.17,5.68c.49.69.8,1.15.94,1.39A6.92,6.92,0,0,1,360,246c-.07.29-.21.43-.43.43s-.47-.47-1-1.41-.88-1.42-1.1-1.42a2.29,2.29,0,0,0-.5.15l-.54.19c-.13,0-.42.05-.87.07-3.1.12-4.65-1.79-4.65-5.71a9.47,9.47,0,0,1,1.15-4.75A4.26,4.26,0,0,1,356,231a3.92,3.92,0,0,1,3.47,2.19A8.21,8.21,0,0,1,360.52,237.42Zm-1,0a7.26,7.26,0,0,0-.81-3.45,3.24,3.24,0,0,0-2.78-2,3,3,0,0,0-2.7,1.44,7.18,7.18,0,0,0-1.19,2.91,10.88,10.88,0,0,0-.19,2.17,5.58,5.58,0,0,0,.88,3.26,3.33,3.33,0,0,0,2.76,1.47,3.82,3.82,0,0,0,1.37-.3v-.21a4.8,4.8,0,0,0-.9-.62,6.09,6.09,0,0,1-1-.56.44.44,0,0,1-.21-.36c0-.32.23-.49.68-.49s1.19.6,2.38,1.79C359,241.38,359.55,239.7,359.55,237.38Z" transform="translate(-143.64 -119.54)"/>
+    </g>
+    <g>
+      <g>
+        <rect class="cls-3" x="168.06" y="10.99" width="64.3" height="40.99" rx="3"/>
+        <rect class="cls-4" x="168.06" y="10.99" width="64.3" height="40.99" rx="3"/>
+      </g>
+      <g>
+        <rect class="cls-5" x="195.87" y="39.37" width="8.68" height="7.92" rx="0.5"/>
+        <rect class="cls-6" x="195.87" y="39.37" width="8.68" height="7.92" rx="0.5"/>
+      </g>
+      <g>
+        <rect class="cls-5" x="183.6" y="39.37" width="8.68" height="7.92" rx="0.5"/>
+        <rect class="cls-6" x="183.6" y="39.37" width="8.68" height="7.92" rx="0.5"/>
+      </g>
+      <g>
+        <rect class="cls-5" x="171.32" y="39.32" width="8.68" height="7.91" rx="0.5"/>
+        <rect class="cls-6" x="171.32" y="39.32" width="8.68" height="7.91" rx="0.5"/>
+      </g>
+      <rect class="cls-7" x="171.32" y="14.58" width="57.78" height="19.96"/>
+      <g>
+        <path class="cls-8" d="M324.56,144.09a8,8,0,1,0,8-8A8,8,0,0,0,324.56,144.09Z" transform="translate(-143.64 -119.54)"/>
+        <path class="cls-9" d="M326,144.09a6.53,6.53,0,1,0,6.52-6.52A6.52,6.52,0,0,0,326,144.09Z" transform="translate(-143.64 -119.54)"/>
+        <polygon points="188.29 24.23 189.47 24.89 192.04 19.02 191.94 18.96 188.29 24.23"/>
+        <polygon points="188.55 25.15 189.21 23.97 185.32 22.5 185.27 22.59 188.55 25.15"/>
+        <g>
+          <path class="cls-10" d="M332,143.79a.61.61,0,1,0,1.06.6.6.6,0,0,0-.23-.83A.62.62,0,0,0,332,143.79Z" transform="translate(-143.64 -119.54)"/>
+          <path d="M332.52,145h0a.86.86,0,0,1-.44-.12.88.88,0,0,1-.33-1.21.9.9,0,0,1,1.2-.34.89.89,0,0,1-.43,1.67Zm0-1.48a.57.57,0,0,0-.51.3.59.59,0,0,0,.22.8.6.6,0,0,0,.8-.23.58.58,0,0,0-.51-.87Z" transform="translate(-143.64 -119.54)"/>
+        </g>
+      </g>
+      <path class="cls-11" d="M359.52,138.56c0,.31-.11.46-.32.46l-.41-.2a4.11,4.11,0,0,0-1.45-.15h-.85c-.3,0-.49,0-.57.14a1.59,1.59,0,0,0-.18.64q-.06.5-.21,1.47a49.21,49.21,0,0,0-.36,6.13,6.71,6.71,0,0,0,.53,3.26c0,.18-.07.26-.2.26a1.24,1.24,0,0,1-1.25-1.12,10,10,0,0,1-.11-1.88c0-1.4,0-2.45.09-3.16q0-.51.21-2.37c.1-1,.15-1.77.15-2.36s0-.89,0-.52c0-.19-.1-.29-.25-.29a5.64,5.64,0,0,0-1,.14,6.47,6.47,0,0,1-1,.13.94.94,0,0,1-1-.6c.13-.22,1.06-.43,2.8-.64,1.45-.16,2.5-.24,3.16-.24C358.79,137.66,359.52,138,359.52,138.56Z" transform="translate(-143.64 -119.54)"/>
+    </g>
+    <g>
+      <g>
+        <rect class="cls-3" x="95.66" y="57.98" width="64.3" height="40.99" rx="3"/>
+        <rect class="cls-4" x="95.66" y="57.98" width="64.3" height="40.99" rx="3"/>
+      </g>
+      <g>
+        <rect class="cls-5" x="111.2" y="86.36" width="8.68" height="7.92" rx="0.5"/>
+        <rect class="cls-6" x="111.2" y="86.36" width="8.68" height="7.92" rx="0.5"/>
+      </g>
+      <g>
+        <rect class="cls-5" x="98.93" y="86.31" width="8.68" height="7.91" rx="0.5"/>
+        <rect class="cls-6" x="98.93" y="86.31" width="8.68" height="7.91" rx="0.5"/>
+      </g>
+      <g>
+        <rect class="cls-5" x="123.48" y="86.31" width="8.68" height="7.91" rx="0.5"/>
+        <rect class="cls-6" x="123.48" y="86.31" width="8.68" height="7.91" rx="0.5"/>
+      </g>
+      <rect class="cls-7" x="98.93" y="61.56" width="57.78" height="19.96"/>
+      <g>
+        <path class="cls-8" d="M252.17,191.08a8,8,0,1,0,8-8A8,8,0,0,0,252.17,191.08Z" transform="translate(-143.64 -119.54)"/>
+        <path class="cls-9" d="M253.6,191.08a6.53,6.53,0,1,0,6.52-6.52A6.52,6.52,0,0,0,253.6,191.08Z" transform="translate(-143.64 -119.54)"/>
+        <polygon points="115.9 71.21 117.08 71.88 119.64 66 119.54 65.95 115.9 71.21"/>
+        <polygon points="116.16 72.13 116.82 70.96 112.93 69.49 112.88 69.58 116.16 72.13"/>
+        <g>
+          <path class="cls-10" d="M259.59,190.78a.61.61,0,1,0,.83-.23A.61.61,0,0,0,259.59,190.78Z" transform="translate(-143.64 -119.54)"/>
+          <path d="M260.12,192h0a.92.92,0,0,1-.43-.11.89.89,0,0,1-.34-1.21.9.9,0,0,1,1.21-.34.89.89,0,0,1,.34,1.21A.9.9,0,0,1,260.12,192Zm0-1.48a.59.59,0,0,0-.29,1.11.62.62,0,0,0,.81-.23.58.58,0,0,0-.23-.8A.6.6,0,0,0,260.12,190.49Z" transform="translate(-143.64 -119.54)"/>
+        </g>
+      </g>
+      <path class="cls-11" d="M286.52,196.83a10.85,10.85,0,0,1-3.9.66,2.23,2.23,0,0,1-2.22-1.26,6.57,6.57,0,0,1-.43-2.7c0-.78.06-1.93.18-3.47s.18-2.69.18-3.45c0-.16,0-.4,0-.71s0-.55,0-.71,0-.26,0-.4a.71.71,0,0,1,.56-.24c.44,0,.66.51.66,1.54q0,1.32-.24,4c-.17,1.77-.25,3.11-.25,4,0,1.69.57,2.53,1.69,2.53a5.84,5.84,0,0,0,1.59-.31,5.44,5.44,0,0,1,1.58-.32.55.55,0,0,1,.48.27A1,1,0,0,1,286.52,196.83Z" transform="translate(-143.64 -119.54)"/>
+    </g>
+    <g>
+      <g>
+        <rect class="cls-3" x="168.06" y="57.98" width="64.3" height="40.99" rx="3"/>
+        <rect class="cls-4" x="168.06" y="57.98" width="64.3" height="40.99" rx="3"/>
+      </g>
+      <g>
+        <rect class="cls-5" x="183.6" y="86.36" width="8.68" height="7.92" rx="0.5"/>
+        <rect class="cls-6" x="183.6" y="86.36" width="8.68" height="7.92" rx="0.5"/>
+      </g>
+      <g>
+        <rect class="cls-5" x="171.32" y="86.31" width="8.68" height="7.91" rx="0.5"/>
+        <rect class="cls-6" x="171.32" y="86.31" width="8.68" height="7.91" rx="0.5"/>
+      </g>
+      <g>
+        <rect class="cls-5" x="195.87" y="86.31" width="8.68" height="7.91" rx="0.5"/>
+        <rect class="cls-6" x="195.87" y="86.31" width="8.68" height="7.91" rx="0.5"/>
+      </g>
+      <rect class="cls-7" x="171.32" y="61.56" width="57.78" height="19.96"/>
+      <g>
+        <path class="cls-8" d="M324.56,191.08a8,8,0,1,0,8-8A8,8,0,0,0,324.56,191.08Z" transform="translate(-143.64 -119.54)"/>
+        <path class="cls-9" d="M326,191.08a6.53,6.53,0,1,0,6.52-6.52A6.52,6.52,0,0,0,326,191.08Z" transform="translate(-143.64 -119.54)"/>
+        <polygon points="188.29 71.21 189.47 71.88 192.04 66 191.94 65.95 188.29 71.21"/>
+        <polygon points="188.55 72.13 189.21 70.96 185.32 69.49 185.27 69.58 188.55 72.13"/>
+        <g>
+          <path class="cls-10" d="M332,190.78a.61.61,0,1,0,.83-.23A.61.61,0,0,0,332,190.78Z" transform="translate(-143.64 -119.54)"/>
+          <path d="M332.52,192h0a1,1,0,0,1-.44-.11.88.88,0,0,1-.33-1.21.9.9,0,0,1,1.2-.34.89.89,0,0,1-.43,1.66Zm0-1.48a.59.59,0,0,0-.29,1.11.61.61,0,0,0,.8-.23.59.59,0,0,0-.22-.8A.6.6,0,0,0,332.52,190.49Z" transform="translate(-143.64 -119.54)"/>
+        </g>
+      </g>
+      <path class="cls-11" d="M358.91,196.83a10.85,10.85,0,0,1-3.9.66,2.23,2.23,0,0,1-2.21-1.26,6.41,6.41,0,0,1-.43-2.7c0-.78.06-1.93.17-3.47s.18-2.69.18-3.45c0-.16,0-.4,0-.71s0-.55,0-.71a2.75,2.75,0,0,1,0-.4.68.68,0,0,1,.56-.24c.44,0,.65.51.65,1.54q0,1.32-.24,4c-.16,1.77-.24,3.11-.24,4,0,1.69.56,2.53,1.69,2.53a5.78,5.78,0,0,0,1.58-.31,5.51,5.51,0,0,1,1.58-.32.55.55,0,0,1,.48.27A1,1,0,0,1,358.91,196.83Z" transform="translate(-143.64 -119.54)"/>
+    </g>
+    <g class="cls-12">
+      <g>
+        <rect class="cls-3" x="23.28" y="57.97" width="64.3" height="40.99" rx="3"/>
+        <rect class="cls-4" x="23.28" y="57.97" width="64.3" height="40.99" rx="3"/>
+      </g>
+      <g>
+        <rect class="cls-5" x="51.09" y="86.35" width="8.68" height="7.92" rx="0.5"/>
+        <rect class="cls-13" x="51.09" y="86.35" width="8.68" height="7.92" rx="0.5"/>
+      </g>
+      <g>
+        <rect class="cls-5" x="38.82" y="86.35" width="8.68" height="7.92" rx="0.5"/>
+        <rect class="cls-13" x="38.82" y="86.35" width="8.68" height="7.92" rx="0.5"/>
+      </g>
+      <g>
+        <rect class="cls-5" x="26.54" y="86.3" width="8.68" height="7.91" rx="0.5"/>
+        <rect class="cls-13" x="26.54" y="86.3" width="8.68" height="7.91" rx="0.5"/>
+      </g>
+      <rect class="cls-7" x="26.54" y="61.55" width="57.78" height="19.96"/>
+      <g>
+        <path class="cls-8" d="M180.43,191.36a7.35,7.35,0,1,0,7.35-7.35A7.35,7.35,0,0,0,180.43,191.36Z" transform="translate(-143.64 -119.54)"/>
+        <path class="cls-9" d="M181.76,191.36a6,6,0,1,0,6-6A6,6,0,0,0,181.76,191.36Z" transform="translate(-143.64 -119.54)"/>
+        <polygon points="43.6 71.52 44.69 72.13 47.06 66.71 46.96 66.66 43.6 71.52"/>
+        <polygon points="43.84 72.37 44.45 71.28 40.85 69.92 40.81 70.01 43.84 72.37"/>
+        <g>
+          <path class="cls-10" d="M187.29,191.08a.57.57,0,0,0,.21.77.56.56,0,0,0,.77-.21.56.56,0,0,0-1-.56Z" transform="translate(-143.64 -119.54)"/>
+          <path d="M187.78,192.18h0a.79.79,0,0,1-.4-.1.81.81,0,0,1-.31-1.12.82.82,0,0,1,1.43.81A.85.85,0,0,1,187.78,192.18Zm0-1.36a.52.52,0,0,0-.47.27.55.55,0,0,0,.2.75.56.56,0,0,0,.74-.21.54.54,0,0,0-.2-.74A.52.52,0,0,0,187.78,190.82Z" transform="translate(-143.64 -119.54)"/>
+        </g>
+      </g>
+    </g>
+    <path class="cls-14" d="M184.28,220.82c7.17-16.3-3.84-30.27-3.84-45.71" transform="translate(-143.64 -119.54)"/>
+    <path d="M303,184.65c1,.29,1.57.55,2.33.85v-2.9a22.43,22.43,0,0,1-2.33.87,17.47,17.47,0,0,1-2.53.6A17,17,0,0,1,303,184.65Z" transform="translate(-143.64 -119.54)"/>
+    <polyline class="cls-15" points="171.32 24.85 165.36 24.85 165.36 64.46 160.53 64.46"/>
+    <path d="M303,198.82a21.94,21.94,0,0,1,2.33.85v-2.91a22.43,22.43,0,0,1-2.33.87,17.47,17.47,0,0,1-2.53.6A16.07,16.07,0,0,1,303,198.82Z" transform="translate(-143.64 -119.54)"/>
+    <polyline class="cls-15" points="171.32 118.82 165.36 118.82 165.36 78.62 160.53 78.62"/>
+    <line class="cls-15" x1="161.28" y1="71.54" x2="171.32" y2="71.54"/>
+    <path d="M303,191.68c1,.29,1.57.55,2.33.85v-2.9a22.43,22.43,0,0,1-2.33.87,17.47,17.47,0,0,1-2.53.6A17,17,0,0,1,303,191.68Z" transform="translate(-143.64 -119.54)"/>
+    <line class="cls-15" x1="88.88" y1="71.54" x2="98.93" y2="71.54"/>
+    <path d="M230.62,191.68c.95.29,1.57.55,2.34.85v-2.9a23.39,23.39,0,0,1-2.33.87,17.55,17.55,0,0,1-2.54.6A16.76,16.76,0,0,1,230.62,191.68Z" transform="translate(-143.64 -119.54)"/>
+    <text class="cls-16" transform="translate(0 25.85)">Merkle root and previous<tspan x="0" y="9.5">block ID are hidden in the</tspan><tspan x="0" y="19">figure for clarit</tspan><tspan class="cls-17" x="53.37" y="19">y</tspan><tspan x="56.36" y="19">.</tspan></text>
+    <text class="cls-16" transform="translate(285.57 83.81)">About the same<tspan x="0" y="9.5">transactions</tspan><tspan x="0" y="19">except coinbases</tspan></text>
+    <text class="cls-16" transform="translate(113.66 7.57)">20<tspan class="cls-18" x="8.66" y="0">1</tspan><tspan x="13.39" y="0">8-02-</tspan><tspan class="cls-18" x="32.07" y="0">1</tspan><tspan x="36.8" y="0">8</tspan><tspan x="0" y="9.5">20:</tspan><tspan class="cls-18" x="10.96" y="9.5">1</tspan><tspan x="15.68" y="9.5">6:</tspan><tspan class="cls-19" x="22.43" y="9.5">1</tspan><tspan x="27.16" y="9.5">6</tspan></text>
+    <text class="cls-16" transform="translate(113.66 38.61)">20<tspan class="cls-18" x="8.66" y="0">1</tspan><tspan x="13.39" y="0">8-02-</tspan><tspan class="cls-18" x="32.07" y="0">1</tspan><tspan x="36.8" y="0">8</tspan><tspan x="0" y="9.5">20:</tspan><tspan class="cls-18" x="10.96" y="9.5">1</tspan><tspan x="15.68" y="9.5">6:</tspan><tspan class="cls-19" x="22.43" y="9.5">1</tspan><tspan x="27.16" y="9.5">6</tspan></text>
+    <text class="cls-16" transform="translate(113.66 138.52)">20<tspan class="cls-18" x="8.66" y="0">1</tspan><tspan x="13.39" y="0">8-02-</tspan><tspan class="cls-18" x="32.07" y="0">1</tspan><tspan x="36.8" y="0">8</tspan><tspan x="0" y="9.5">20:</tspan><tspan class="cls-18" x="10.96" y="9.5">0</tspan><tspan x="15.68" y="9.5">6:</tspan><tspan class="cls-19" x="22.43" y="9.5">1</tspan><tspan x="27.16" y="9.5">5</tspan></text>
+    <text class="cls-16" transform="translate(14.5 138.52)">20<tspan class="cls-18" x="8.66" y="0">1</tspan><tspan x="13.39" y="0">8-02-</tspan><tspan class="cls-18" x="32.07" y="0">1</tspan><tspan x="36.8" y="0">8</tspan><tspan x="0" y="9.5">19:</tspan><tspan class="cls-18" x="9.29" y="9.5">5</tspan><tspan x="14.02" y="9.5">6:</tspan><tspan class="cls-18" x="20.77" y="9.5">1</tspan><tspan x="25.49" y="9.5">7</tspan></text>
+    <text class="cls-16" transform="translate(63 138.52)">20<tspan class="cls-18" x="8.66" y="0">1</tspan><tspan x="13.39" y="0">8-02-</tspan><tspan class="cls-18" x="32.07" y="0">1</tspan><tspan x="36.8" y="0">8</tspan><tspan x="0" y="9.5">20:</tspan><tspan class="cls-18" x="10.96" y="9.5">0</tspan><tspan x="15.68" y="9.5">6:</tspan><tspan class="cls-19" x="22.43" y="9.5">1</tspan><tspan x="27.16" y="9.5">5</tspan></text>
+    <text class="cls-16" transform="translate(152.45 158.11)"><tspan class="cls-20">T</tspan><tspan x="3.44" y="0">om and</tspan><tspan x="0" y="9.5">Qi joined.</tspan></text>
+    <text class="cls-16" transform="translate(243.12 20.88)"><tspan class="cls-20">T</tspan><tspan x="3.44" y="0">om’s</tspan><tspan x="0" y="9.5">signature</tspan></text>
+    <text class="cls-16" transform="translate(243.45 67)">Lisa’s<tspan x="0" y="9.5">signature</tspan></text>
+    <text class="cls-16" transform="translate(243.45 114.22)">Qi’s<tspan x="0" y="9.5">signature</tspan></text>
+    <path class="cls-11" d="M214.13,196.83a10.85,10.85,0,0,1-3.9.66,2.23,2.23,0,0,1-2.21-1.26,6.41,6.41,0,0,1-.43-2.7c0-.78.06-1.93.18-3.47s.18-2.69.18-3.45c0-.16,0-.4,0-.71s0-.55,0-.71,0-.26,0-.4a.71.71,0,0,1,.56-.24c.44,0,.66.51.66,1.54q0,1.32-.24,4c-.17,1.77-.25,3.11-.25,4,0,1.69.56,2.53,1.69,2.53a5.78,5.78,0,0,0,1.58-.31,5.56,5.56,0,0,1,1.59-.32.55.55,0,0,1,.48.27A1,1,0,0,1,214.13,196.83Z" transform="translate(-143.64 -119.54)"/>
+    <g>
+      <path class="cls-21" d="M321.85,184c-8.5-10-19.75-16.75-30.5-19.25" transform="translate(-143.64 -119.54)"/>
+      <polygon points="179.27 62.84 179.94 66.52 176.42 65.26 179.27 62.84"/>
+    </g>
+    <g>
+      <path class="cls-21" d="M245.85,177.83c-8-7.33-24.84-14.16-40.84-16.16" transform="translate(-143.64 -119.54)"/>
+      <polygon points="103.06 56.55 104.19 60.12 100.53 59.31 103.06 56.55"/>
+    </g>
+    <g>
+      <path class="cls-21" d="M321.35,138.83c-9.84-5.83-21.34-6.16-29.84-6.16" transform="translate(-143.64 -119.54)"/>
+      <polygon points="178.19 17.42 180.02 20.68 176.28 20.63 178.19 17.42"/>
+    </g>
+    <g>
+      <path class="cls-21" d="M321.5,244.5a28.44,28.44,0,0,1-21,9.75" transform="translate(-143.64 -119.54)"/>
+      <polygon points="176.11 124.13 179.67 122.97 178.89 126.63 176.11 124.13"/>
+    </g>
+    <g>
+      <path class="cls-21" d="M249,196c-15,12-23.33,41-23.33,53.33" transform="translate(-143.64 -119.54)"/>
+      <polygon points="103.77 75.35 107.47 74.79 106.11 78.27 103.77 75.35"/>
+    </g>
+    <g>
+      <path class="cls-21" d="M196.75,198c11.5,13.5-12.08,35.67-14.75,51" transform="translate(-143.64 -119.54)"/>
+      <polygon points="52.05 80.08 51.37 76.41 54.9 77.66 52.05 80.08"/>
+    </g>
+    <g>
+      <path class="cls-21" d="M353.25,163c65.32,0,88.32,17.33,99.19,30.67" transform="translate(-143.64 -119.54)"/>
+      <polygon points="210.16 45.32 206.92 43.45 210.16 41.58 210.16 45.32"/>
+    </g>
+    <g>
+      <path class="cls-21" d="M353.25,257c65.32,0,88.32-17.33,99.19-30.67" transform="translate(-143.64 -119.54)"/>
+      <polygon points="210.16 139.32 206.92 137.45 210.16 135.58 210.16 139.32"/>
+    </g>
+    <g>
+      <path class="cls-21" d="M365.67,237.33c7.08,0,13.58-6,20.18-6" transform="translate(-143.64 -119.54)"/>
+      <polygon points="222.57 119.66 219.34 117.78 222.57 115.92 222.57 119.66"/>
+    </g>
+    <g>
+      <path class="cls-21" d="M362,189.75c8,0,17.25-6,23.85-6" transform="translate(-143.64 -119.54)"/>
+      <polygon points="218.91 72.07 215.67 70.2 218.91 68.33 218.91 72.07"/>
+    </g>
+    <g>
+      <path class="cls-21" d="M362,143.67c8,0,17.25-6,23.85-6" transform="translate(-143.64 -119.54)"/>
+      <polygon points="218.91 25.99 215.67 24.12 218.91 22.25 218.91 25.99"/>
+    </g>
+    <g>
+      <path class="cls-21" d="M215,177a23.81,23.81,0,0,0-10-15.33" transform="translate(-143.64 -119.54)"/>
+      <polygon points="73.12 56.62 71.81 60.12 69.43 57.23 73.12 56.62"/>
+    </g>
+    <g>
+      <path class="cls-21" d="M261.83,227c-4.16.5-7.08,5.5-5.83,8.5" transform="translate(-143.64 -119.54)"/>
+      <polygon points="117.43 105.68 120.87 107.15 117.88 109.39 117.43 105.68"/>
+    </g>
+    <g>
+      <path class="cls-21" d="M353.25,209.75c27.42,1.92,47.25-2.25,73.75.75" transform="translate(-143.64 -119.54)"/>
+      <polygon points="210.03 92.11 206.93 90.01 210.29 88.38 210.03 92.11"/>
+    </g>
+    <text class="cls-22" transform="translate(194.77 156.55)">101</text>
+    <text class="cls-22" transform="translate(121.97 109.42)">100</text>
+    <text class="cls-22" transform="translate(65.5 109.42)">99</text>
+  </g>
+</svg>
