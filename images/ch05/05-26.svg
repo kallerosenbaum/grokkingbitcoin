@@ -32,7 +32,7 @@
       }
 
       .cls-6 {
-        font-family: Courier-Bold, Courier;
+        font-family: Nimbus Mono PS;font-phase: bold;
       }
 
       .cls-6, .cls-8 {
@@ -40,11 +40,11 @@
       }
 
       .cls-7, .cls-9 {
-        font-family: CourierNewPSMT, Courier New;
+        font-family: Nimbus Mono PS;
       }
 
       .cls-8 {
-        font-family: CourierNewPS-BoldMT, Courier New;
+        font-family: Nimbus Mono PS;font-phase: bold;
       }
 
       .cls-9 {

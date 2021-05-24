@@ -74,7 +74,7 @@
 
       .cls-16 {
         font-size: 12px;
-        font-family: Courier-Bold, Courier;
+        font-family: Nimbus Mono PS;font-phase: bold;
         font-weight: 700;
       }
     </style>

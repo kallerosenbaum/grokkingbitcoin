@@ -36,7 +36,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1980"
-     inkscape:window-height="928"
+     inkscape:window-height="1068"
      id="namedview193"
      showgrid="false"
      inkscape:zoom="4.7631082"
@@ -45,7 +45,8 @@
      inkscape:window-x="546"
      inkscape:window-y="218"
      inkscape:window-maximized="0"
-     inkscape:current-layer="g158" />
+     inkscape:current-layer="g158"
+     inkscape:document-rotation="0" />
   <defs
      id="defs16">
     <style
@@ -59,7 +60,7 @@
       }
 
       .cls-2, .cls-20, .cls-3 {
-        font-family: Courier;
+        font-family: Nimbus Mono PS;
       }
 
       .cls-3 {
@@ -239,12 +240,12 @@
          class="cls-3"
          transform="translate(86.48 29.49)"
          id="text24"
-         style="-inkscape-font-specification:'Courier, Normal';font-family:Courier;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:8px;font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;">ffffffff</text>
+         style="-inkscape-font-specification:'Nimbus Mono PS, Normal';font-family:'Nimbus Mono PS';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:8px;font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;">ffffffff</text>
       <text
          class="cls-3"
          transform="translate(86.48 46.49)"
          id="text26"
-         style="-inkscape-font-specification:'Courier, Normal';font-family:Courier;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:8px;font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;">ffffffff</text>
+         style="-inkscape-font-specification:'Nimbus Mono PS, Normal';font-family:'Nimbus Mono PS';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:8px;font-variant-ligatures:no-common-ligatures;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;">ffffffff</text>
       <text
          class="cls-2"
          transform="translate(138.18 29.49)"
