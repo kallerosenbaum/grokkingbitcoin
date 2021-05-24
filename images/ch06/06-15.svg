@@ -39,13 +39,14 @@
      inkscape:window-height="1376"
      id="namedview541"
      showgrid="false"
-     inkscape:zoom="117.56448"
-     inkscape:cx="336.55567"
-     inkscape:cy="78.09991"
+     inkscape:zoom="3.67389"
+     inkscape:cx="224.16111"
+     inkscape:cy="97.942933"
      inkscape:window-x="0"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g392" />
+     inkscape:current-layer="Layer_2"
+     inkscape:document-rotation="0" />
   <defs
      id="defs36">
     <style
@@ -246,6 +247,10 @@
   <g
      id="Layer_2"
      data-name="Layer 2">
+    <path
+       d="m 119.50461,61.613372 a 4.0970128,4.0970128 0 1 1 4.09701,-4.09702 4.0970128,4.0970128 0 0 1 -4.09701,4.09702 m -0.20232,-5.90105 c 0.4215,0 0.64911,0.29505 0.64911,0.75028 a 4.3499148,4.3499148 0 0 1 -1.19707,2.37727 l -0.45522,0.59854 v 0.52266 h 2.52902 v -0.70812 H 119.277 l 0.30348,-0.38779 a 4.1475932,4.1475932 0 0 0 1.16335,-2.45314 1.2223598,1.2223598 0 0 0 -1.29823,-1.36568 1.8883351,1.8883351 0 0 0 -1.01161,0.31192 l 0.15174,0.61539 a 1.3825311,1.3825311 0 0 1 0.72499,-0.2529"
+       id="path680"
+       style="stroke-width:0.843007" />
     <rect
        class="cls-1"
        x="124.53"
@@ -1065,18 +1070,19 @@
        id="text422">0</text>
     <text
        class="cls-24"
-       transform="translate(106.44 10.52)"
-       id="text430"><tspan
-   class="cls-25"
-   x="10.7"
-   y="0"
-   id="tspan424">Give me transactions concerning</tspan><tspan
-   class="cls-25"
-   id="tspan428"><tspan
-     x="0"
-     y="9"
-     xml:space="preserve"
-     id="tspan426">    addresses that match this bloom filter:</tspan></tspan></text>
+       transform="translate(112.44,10.52)"
+       id="text430"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7px;font-family:ArialMT, Arial;-inkscape-font-specification:'ArialMT, Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;white-space:pre;inline-size:134.257"
+       x="58.510498"
+       y="0"
+       xml:space="preserve"><tspan
+         x="58.510498"
+         y="0"><tspan
+           style="text-align:center;text-anchor:middle">Give me transactions concerning</tspan><tspan></tspan><tspan
+           y="0"> </tspan></tspan><tspan
+         x="58.510498"
+         y="8.7499998"><tspan
+           style="text-align:center;text-anchor:middle">addresses that match this bloom filter:</tspan></tspan></text>
     <text
        class="cls-22"
        transform="translate(126.38 60.36)"
@@ -1296,12 +1302,12 @@
          id="rect530" />
     </g>
     <text
-       class="cls-24"
-       transform="translate(114.85 60.87)"
-       id="text534"></text>
-    <text
        x="-122.3"
        y="-75.68"
        id="text536" />
+    <path
+       d="m 113.13692,11.652113 a 4.0970128,4.0970128 0 1 1 4.09701,-4.0970131 4.0885827,4.0885827 0 0 1 -4.09701,4.0970131 m -0.22761,-5.7577368 v 0 4.0970132 h 0.78399 V 5.1188102 h -0.68283 l -1.07905,0.598535 0.14331,0.623825 0.84301,-0.446794"
+       id="path678"
+       style="stroke-width:0.843007" />
   </g>
 </svg>
