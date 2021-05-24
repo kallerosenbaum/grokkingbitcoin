@@ -19,7 +19,7 @@
 
       .cls-4 {
         font-size: 20.09px;
-        font-family: Helvetica-Bold, Helvetica;
+        font-family: Arial;font-phase: bold;
         font-weight: 700;
       }
 
