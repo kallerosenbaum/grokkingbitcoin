@@ -1,6 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="Ebene_1" data-name="Ebene 1" width="114.3mm" height="65.91mm" viewBox="0 0 324 186.84">
-  <defs>
-    <style>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="Ebene_1"
+   data-name="Ebene 1"
+   width="114.3mm"
+   height="65.91mm"
+   viewBox="0 0 324 186.84"
+   version="1.1"
+   sodipodi:docname="new.svg"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)">
+  <metadata
+     id="metadata31">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2560"
+     inkscape:window-height="1376"
+     id="namedview29"
+     showgrid="false"
+     inkscape:zoom="3.0532407"
+     inkscape:cx="215.88124"
+     inkscape:cy="124.47732"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g22" />
+  <defs
+     id="defs4">
+    <style
+       id="style2">
       .cls-1 {
         fill: #5c0801;
       }
@@ -29,23 +78,59 @@
       }
     </style>
   </defs>
-  <g id="Canvas_1" data-name="Canvas 1">
-    <g id="Canvas_1:_Layer_1" data-name="Canvas_1: Layer 1">
-      <g id="Group_13" data-name="Group 13">
-        <g id="Group_11" data-name="Group 11">
-          <g id="Graphic_3" data-name="Graphic 3">
-            <path class="cls-1" d="M425.69,285.34l44,78.59h-44Z" transform="translate(-145.68 -285.34)"/>
+  <g
+     id="Canvas_1"
+     data-name="Canvas 1">
+    <g
+       id="Canvas_1:_Layer_1"
+       data-name="Canvas_1: Layer 1">
+      <g
+         id="Group_13"
+         data-name="Group 13">
+        <g
+           id="Group_11"
+           data-name="Group 11">
+          <g
+             id="Graphic_3"
+             data-name="Graphic 3">
+            <path
+               class="cls-1"
+               d="M425.69,285.34l44,78.59h-44Z"
+               transform="translate(-145.68 -285.34)"
+               id="path6" />
           </g>
-          <g id="Graphic_5" data-name="Graphic 5">
-            <path class="cls-1" d="M189.67,285.34l-44,78.59h44Z" transform="translate(-145.68 -285.34)"/>
+          <g
+             id="Graphic_5"
+             data-name="Graphic 5">
+            <path
+               class="cls-1"
+               d="M189.67,285.34l-44,78.59h44Z"
+               transform="translate(-145.68 -285.34)"
+               id="path9" />
           </g>
-          <g id="Graphic_8" data-name="Graphic 8">
-            <path class="cls-2" d="M425.44,423.49h.25V285.34h-236V423.49l117.88,48.68Z" transform="translate(-145.68 -285.34)"/>
+          <g
+             id="Graphic_8"
+             data-name="Graphic 8">
+            <path
+               class="cls-2"
+               d="M425.44,423.49h.25V285.34h-236V423.49l117.88,48.68Z"
+               transform="translate(-145.68 -285.34)"
+               id="path12" />
           </g>
         </g>
-        <g id="Graphic_12" data-name="Graphic 12">
-          <g class="cls-3">
-            <text class="cls-4" transform="translate(80.61 105.53)">N<tspan class="cls-5" x="46.83" y="0">E</tspan><tspan class="cls-6" x="82.49" y="0">W</tspan></text>
+        <g
+           id="Graphic_12"
+           data-name="Graphic 12">
+          <g
+             class="cls-3"
+             id="g22">
+            <text
+               class="cls-4"
+               transform="translate(80.61,105.53)"
+               id="text20"
+               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:71.18px;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;isolation:isolate;fill:#ffffff;"><tspan
+                 sodipodi:role="line"
+                 id="tspan35">NEW</tspan></text>
           </g>
         </g>
       </g>
