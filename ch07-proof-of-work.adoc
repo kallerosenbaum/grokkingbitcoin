@@ -1260,7 +1260,7 @@ q_{z}=
 \left\{
 \begin{array}{ll}
 1 & \mbox{if } p \leq q \\
-(\frac{q}{p})^z & \mbox{if } q \gt p \\
+(\frac{q}{p})^z & \mbox{if } p \gt q \\
 \end{array}
 \right.
 ++++
