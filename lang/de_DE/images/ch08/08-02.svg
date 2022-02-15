@@ -160,11 +160,11 @@
         fill: #9c724c;
       }
     </style>
-    <clipPath id="clip-path" transform="translate(-147.7 -83.81)">
-      <path class="cls-1" d="M180.5,94.5H157.4c-1.07,16,13.14,34.13,4.46,53.87h18.62Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-147.7 -83.81)" class="cls-1" d="M180.5,94.5H157.4c-1.07,16,13.14,34.13,4.46,53.87h18.62Z"/>
     </clipPath>
-    <clipPath id="clip-path-2" transform="translate(-147.7 -83.81)">
-      <rect class="cls-1" x="347.72" y="97.06" width="76" height="95.79"/>
+    <clipPath id="clip-path-2">
+      <rect transform="translate(-147.7 -83.81)" class="cls-1" x="347.72" y="97.06" width="76" height="95.79"/>
     </clipPath>
   </defs>
   <g id="Layer_2" data-name="Layer 2">

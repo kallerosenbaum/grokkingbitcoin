@@ -1,4 +1,4 @@
-<svg id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="76.71mm" height="63.02mm" viewBox="0 0 217.46 178.63">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Ebene_1" data-name="Ebene 1" width="76.71mm" height="63.02mm" viewBox="0 0 217.46 178.63">
   <defs>
     <style>
       .cls-1, .cls-10, .cls-14, .cls-15, .cls-2 {
@@ -71,8 +71,8 @@
         stroke-width: 0.3px;
       }
     </style>
-    <clipPath id="clip-path" transform="translate(-188 -331.89)">
-      <path class="cls-1" d="M318.11,483.24,307.54,485c-.7,4.29-2,20.25,8,22.47,1.52.29,1.49,1.81,2.7,1.81s1.19-1.52,2.71-1.81c10-2.22,8.73-18.18,8-22.47l-10.57-1.76Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-188 -331.89)" class="cls-1" d="M318.11,483.24,307.54,485c-.7,4.29-2,20.25,8,22.47,1.52.29,1.49,1.81,2.7,1.81s1.19-1.52,2.71-1.81c10-2.22,8.73-18.18,8-22.47l-10.57-1.76Z"/>
     </clipPath>
   </defs>
   <g>

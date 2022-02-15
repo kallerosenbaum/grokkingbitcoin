@@ -55,11 +55,11 @@
         clip-path: url(#clip-path-2);
       }
     </style>
-    <clipPath id="clip-path" transform="translate(-134.09 -89)">
-      <path class="cls-1" d="M166.84,95.45h-28c.11,10.78,7,18.69,2.45,29.55h25.52Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-134.09 -89)" class="cls-1" d="M166.84,95.45h-28c.11,10.78,7,18.69,2.45,29.55h25.52Z"/>
     </clipPath>
-    <clipPath id="clip-path-2" transform="translate(-134.09 -89)">
-      <path class="cls-1" d="M437.61,95.45h28c-.11,10.78-7.05,18.69-2.45,29.55H437.61Z"/>
+    <clipPath id="clip-path-2">
+      <path transform="translate(-134.09 -89)" class="cls-1" d="M437.61,95.45h28c-.11,10.78-7.05,18.69-2.45,29.55H437.61Z"/>
     </clipPath>
   </defs>
   <g id="Layer_2" data-name="Layer 2">

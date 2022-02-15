@@ -148,8 +148,8 @@
         fill: url(#linear-gradient-2);
       }
     </style>
-    <clipPath id="clip-path" transform="translate(-97.5 -64.19)">
-      <path class="cls-1" d="M149.83,101H134.89c.09,9.42,6.15,16.32,2.14,25.8h12.8Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-97.5 -64.19)" class="cls-1" d="M149.83,101H134.89c.09,9.42,6.15,16.32,2.14,25.8h12.8Z"/>
     </clipPath>
     <linearGradient id="linear-gradient" x1="294.61" y1="822.06" x2="326.07" y2="822.06" gradientTransform="translate(921.31 -225.58) rotate(90)" gradientUnits="userSpaceOnUse">
       <stop offset="0.01" stop-color="#ebebeb"/>
@@ -189,7 +189,7 @@
       <line class="cls-14" x1="127.17" y1="100.63" x2="127.17" y2="129.23"/>
       <rect class="cls-15" x="0.5" y="100.5" width="197.33" height="28.81" rx="2"/>
       <text class="cls-16" transform="translate(49.35 116.59)">–1</text>
-      <text class="cls-17" transform="translate(68.5 112.34)">&quot;Lisa was<tspan x="0" y="11">here&quot;</tspan></text>
+      <text class="cls-17" transform="translate(68.5 112.34)">"Lisa was<tspan x="0" y="11">here"</tspan></text>
       <text class="cls-16" transform="translate(131.73 115.62)">25.1</text>
       <g>
         <path class="cls-18" d="M106.83,178.49l-2.62-2.94c4.9-1.51,8.45-.36,11.3.57,2.11.69,3.65,1.18,5.75.73a6,6,0,0,0,3.74-2.23c1.11-1.23,2.38-2.62,6.65-3l2.08,3c-3.38.33-4.28,1.31-5.31,2.45a7.78,7.78,0,0,1-4.74,2.76c-3.06.66-5.65-.18-7.93-.92C113.17,178.08,110.73,177.29,106.83,178.49Z" transform="translate(-97.5 -64.19)"/>
@@ -232,7 +232,7 @@
       <line class="cls-14" x1="322.5" y1="100.63" x2="322.5" y2="129.23"/>
       <rect class="cls-15" x="204.5" y="100.5" width="188.67" height="28.81" rx="2"/>
       <text class="cls-16" transform="translate(253.35 116.59)">–1</text>
-      <text class="cls-17" transform="translate(278.17 112.34)">227836<tspan x="0" y="11">&quot;hello&quot;</tspan></text>
+      <text class="cls-17" transform="translate(278.17 112.34)">227836<tspan x="0" y="11">"hello"</tspan></text>
       <text class="cls-16" transform="translate(327.07 115.62)">25.2</text>
       <g>
         <path class="cls-18" d="M310.83,178.49l-2.62-2.94c4.9-1.51,8.45-.36,11.3.57,2.11.69,3.65,1.18,5.75.73a6,6,0,0,0,3.74-2.23c1.11-1.23,2.38-2.62,6.65-3l2.08,3c-3.39.33-4.28,1.31-5.31,2.45a7.78,7.78,0,0,1-4.74,2.76c-3.06.66-5.65-.18-7.93-.92C317.17,178.08,314.73,177.29,310.83,178.49Z" transform="translate(-97.5 -64.19)"/>

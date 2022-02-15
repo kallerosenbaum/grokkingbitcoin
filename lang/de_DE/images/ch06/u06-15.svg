@@ -167,28 +167,28 @@
       <stop offset="0" stop-color="#eef0f0"/>
       <stop offset="1" stop-color="#cccfd0"/>
     </linearGradient>
-    <clipPath id="clip-path" transform="translate(-178.26 -104.08)">
-      <rect class="cls-1" x="188.06" y="186.67" width="13.15" height="8.02"/>
+    <clipPath id="clip-path">
+      <rect transform="translate(-178.26 -104.08)" class="cls-1" x="188.06" y="186.67" width="13.15" height="8.02"/>
     </clipPath>
     <linearGradient id="linear-gradient-3" x1="62.45" y1="94.27" x2="62.45" y2="103.2" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-4" x1="62.42" y1="99.29" x2="62.42" y2="103.2" xlink:href="#linear-gradient-2"/>
-    <clipPath id="clip-path-2" transform="translate(-178.26 -104.08)">
-      <rect class="cls-1" x="234.1" y="186.67" width="13.15" height="8.02"/>
+    <clipPath id="clip-path-2">
+      <rect transform="translate(-178.26 -104.08)" class="cls-1" x="234.1" y="186.67" width="13.15" height="8.02"/>
     </clipPath>
     <linearGradient id="linear-gradient-5" x1="108.5" y1="94.27" x2="108.5" y2="103.2" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-6" x1="108.46" y1="99.29" x2="108.46" y2="103.2" xlink:href="#linear-gradient-2"/>
-    <clipPath id="clip-path-3" transform="translate(-178.26 -104.08)">
-      <rect class="cls-1" x="280.15" y="186.67" width="13.15" height="8.02"/>
+    <clipPath id="clip-path-3">
+      <rect transform="translate(-178.26 -104.08)" class="cls-1" x="280.15" y="186.67" width="13.15" height="8.02"/>
     </clipPath>
     <linearGradient id="linear-gradient-7" x1="154.54" y1="94.27" x2="154.54" y2="103.2" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-8" x1="154.51" y1="99.29" x2="154.51" y2="103.2" xlink:href="#linear-gradient-2"/>
-    <clipPath id="clip-path-4" transform="translate(-178.26 -104.08)">
-      <rect class="cls-1" x="326.19" y="186.67" width="13.15" height="8.02"/>
+    <clipPath id="clip-path-4">
+      <rect transform="translate(-178.26 -104.08)" class="cls-1" x="326.19" y="186.67" width="13.15" height="8.02"/>
     </clipPath>
     <linearGradient id="linear-gradient-9" x1="200.58" y1="94.27" x2="200.58" y2="103.2" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-10" x1="200.55" y1="99.29" x2="200.55" y2="103.2" xlink:href="#linear-gradient-2"/>
-    <clipPath id="clip-path-5" transform="translate(-178.26 -104.08)">
-      <rect class="cls-1" x="372.23" y="186.67" width="13.15" height="8.02"/>
+    <clipPath id="clip-path-5">
+      <rect transform="translate(-178.26 -104.08)" class="cls-1" x="372.23" y="186.67" width="13.15" height="8.02"/>
     </clipPath>
   </defs>
   <g id="Layer_2" data-name="Layer 2">

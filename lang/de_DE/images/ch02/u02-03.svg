@@ -1,4 +1,4 @@
-<svg id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="62.35mm" height="101.41mm" viewBox="0 0 176.74 287.46">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Ebene_1" data-name="Ebene 1" width="62.35mm" height="101.41mm" viewBox="0 0 176.74 287.46">
   <defs>
     <style>
       .cls-1, .cls-3, .cls-5 {
@@ -35,8 +35,8 @@
         clip-path: url(#clip-path);
       }
     </style>
-    <clipPath id="clip-path" transform="translate(-207 -277.77)">
-      <rect class="cls-1" x="208.61" y="276.89" width="178.8" height="284.88"/>
+    <clipPath id="clip-path">
+      <rect transform="translate(-207 -277.77)" class="cls-1" x="208.61" y="276.89" width="178.8" height="284.88"/>
     </clipPath>
   </defs>
   <g>

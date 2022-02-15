@@ -112,8 +112,8 @@
         stroke-width: 0.3px;
       }
     </style>
-    <clipPath id="clip-path" transform="translate(-148.86 -118.93)">
-      <path class="cls-1" d="M233,172.18h-54.6c.17,16.7,10.92,28.95,3.8,45.78H233Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-148.86 -118.93)" class="cls-1" d="M233,172.18h-54.6c.17,16.7,10.92,28.95,3.8,45.78H233Z"/>
     </clipPath>
   </defs>
   <g id="Layer_4" data-name="Layer 4">

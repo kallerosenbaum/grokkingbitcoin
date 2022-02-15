@@ -173,13 +173,13 @@
       <stop offset="0" stop-color="#eef0f0"/>
       <stop offset="1" stop-color="#cccfd0"/>
     </linearGradient>
-    <clipPath id="clip-path" transform="translate(-99.83 -126.69)">
-      <rect class="cls-1" x="397.15" y="174.08" width="21.23" height="12.93"/>
+    <clipPath id="clip-path">
+      <rect transform="translate(-99.83 -126.69)" class="cls-1" x="397.15" y="174.08" width="21.23" height="12.93"/>
     </clipPath>
     <linearGradient id="linear-gradient-3" x1="31.16" y1="214.1" x2="31.16" y2="228.5" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-4" x1="31.11" y1="222.2" x2="31.11" y2="228.5" xlink:href="#linear-gradient-2"/>
-    <clipPath id="clip-path-2" transform="translate(-99.83 -126.69)">
-      <rect class="cls-1" x="120.34" y="321.93" width="21.23" height="12.93"/>
+    <clipPath id="clip-path-2">
+      <rect transform="translate(-99.83 -126.69)" class="cls-1" x="120.34" y="321.93" width="21.23" height="12.93"/>
     </clipPath>
   </defs>
   <g id="Layer_2" data-name="Layer 2">

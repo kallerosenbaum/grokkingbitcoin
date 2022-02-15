@@ -371,14 +371,14 @@
     <polyline class="cls-7" points="187.42 108.76 187.42 98.73 151.83 98.73"/>
     <text class="cls-35" transform="translate(304.76 36.72)">M</text>
     <text class="cls-35" transform="translate(130.1 36.6)">m</text>
-    <text class="cls-35" transform="translate(179.3 92.95)">m/1&apos;</text>
-    <text class="cls-35" transform="translate(75.88 92.95)">m/0&apos;</text>
-    <text class="cls-9" transform="translate(128.12 191.76)">m/<tspan class="cls-36" x="9.24" y="0">1</tspan><tspan x="13.97" y="0">&apos;/</tspan><tspan class="cls-36" x="18.02" y="0">1</tspan><tspan x="22.74" y="0" xml:space="preserve"> gestohlen!</tspan></text>
+    <text class="cls-35" transform="translate(179.3 92.95)">m/1'</text>
+    <text class="cls-35" transform="translate(75.88 92.95)">m/0'</text>
+    <text class="cls-9" transform="translate(128.12 191.76)">m/<tspan class="cls-36" x="9.24" y="0">1</tspan><tspan x="13.97" y="0">'/</tspan><tspan class="cls-36" x="18.02" y="0">1</tspan><tspan x="22.74" y="0" xml:space="preserve"> gestohlen!</tspan></text>
     <text class="cls-9" transform="translate(54.55 191.87)">Nicht gehärtet</text>
-    <text class="cls-9" transform="translate(238.94 130.97)">Kann diese nicht aus M<tspan x="0" y="9.5">berechnen, bekommt also</tspan><tspan x="0" y="19">keine Keys außer m/</tspan><tspan class="cls-37" x="71.45" y="19">1</tspan><tspan x="76.18" y="19">&apos;/</tspan><tspan class="cls-36" x="80.23" y="19">1.</tspan></text>
-    <text class="cls-35" transform="translate(103.38 166.84)">m/1&apos;/0</text>
-    <text class="cls-35" transform="translate(138.98 166.84)">m/1&apos;/1</text>
-    <text class="cls-35" transform="translate(174.57 166.84)">m/1&apos;/2</text>
+    <text class="cls-9" transform="translate(238.94 130.97)">Kann diese nicht aus M<tspan x="0" y="9.5">berechnen, bekommt also</tspan><tspan x="0" y="19">keine Keys außer m/</tspan><tspan class="cls-37" x="71.45" y="19">1</tspan><tspan x="76.18" y="19">'/</tspan><tspan class="cls-36" x="80.23" y="19">1.</tspan></text>
+    <text class="cls-35" transform="translate(103.38 166.84)">m/1'/0</text>
+    <text class="cls-35" transform="translate(138.98 166.84)">m/1'/1</text>
+    <text class="cls-35" transform="translate(174.57 166.84)">m/1'/2</text>
     <polyline class="cls-7" points="235.85 52.37 235.85 42.35 273.69 42.35 273.69 36.28"/>
     <path d="M358.43,182.1c.29-.95.55-1.57.85-2.33h-2.9a22.94,22.94,0,0,1,.87,2.32,17.55,17.55,0,0,1,.6,2.54A17,17,0,0,1,358.43,182.1Z" transform="translate(-121.98 -128.02)"/>
     <path d="M434.1,182.1c.29-.95.55-1.57.85-2.33h-2.9a22.94,22.94,0,0,1,.87,2.32,17.55,17.55,0,0,1,.6,2.54A17,17,0,0,1,434.1,182.1Z" transform="translate(-121.98 -128.02)"/>
@@ -407,7 +407,7 @@
       <path class="cls-6" d="M350.11,214.72l-7.44-1.92s3.6,2.27,4.64,2.74A76.58,76.58,0,0,0,355,217Z" transform="translate(-121.98 -128.02)"/>
       <path class="cls-6" d="M359.54,186.76l-7.66,2.18s-3.07,3.11-1.83,3,6.54-2.54,6.54-2.54Z" transform="translate(-121.98 -128.02)"/>
     </g>
-    <text class="cls-35" transform="translate(268.35 93.01)">M/0&apos;</text>
+    <text class="cls-35" transform="translate(268.35 93.01)">M/0'</text>
     <g>
       <path class="cls-10" d="M398.47,202.43H370.9a12.52,12.52,0,0,0-24.15,4.47c0,.15,0,.29,0,.43s0,.29,0,.43a12.52,12.52,0,0,0,23.72,5.47h2.3a2.93,2.93,0,0,1,5.63,0h2.53a2.93,2.93,0,0,1,5.63,0h2.53a2.94,2.94,0,0,1,5.64,0h1.76l6.49-7.44v-.86Z" transform="translate(-121.98 -128.02)"/>
       <path class="cls-38" d="M403,204.93l-32.08-1.64a12.37,12.37,0,1,0-.43,9.94h2.3a2.93,2.93,0,0,1,5.63,0h2.53a2.93,2.93,0,0,1,5.63,0h2.53a2.94,2.94,0,0,1,5.64,0h1.76l6.49-7.44Z" transform="translate(-121.98 -128.02)"/>
@@ -432,7 +432,7 @@
       <path class="cls-6" d="M425.56,214.72l-7.45-1.92s3.6,2.27,4.64,2.74A76.58,76.58,0,0,0,430.4,217Z" transform="translate(-121.98 -128.02)"/>
       <path class="cls-6" d="M435,186.76l-7.66,2.18s-3.07,3.11-1.83,3,6.54-2.54,6.54-2.54Z" transform="translate(-121.98 -128.02)"/>
     </g>
-    <text class="cls-35" transform="translate(343.81 93.01)">M/1&apos;</text>
+    <text class="cls-35" transform="translate(343.81 93.01)">M/1'</text>
     <g>
       <path class="cls-10" d="M473.91,202.43H446.35a12.52,12.52,0,0,0-24.16,4.47c0,.15,0,.29,0,.43s0,.29,0,.43a12.52,12.52,0,0,0,23.72,5.47h2.3a2.93,2.93,0,0,1,5.63,0h2.53a2.93,2.93,0,0,1,5.63,0h2.54a2.93,2.93,0,0,1,5.63,0h1.76l6.49-7.44v-.86Z" transform="translate(-121.98 -128.02)"/>
       <path class="cls-38" d="M478.42,204.93l-32.07-1.64a12.38,12.38,0,1,0-.44,9.94h2.3a2.93,2.93,0,0,1,5.63,0h2.53a2.93,2.93,0,0,1,5.63,0h2.54a2.93,2.93,0,0,1,5.63,0h1.76l6.49-7.44Z" transform="translate(-121.98 -128.02)"/>

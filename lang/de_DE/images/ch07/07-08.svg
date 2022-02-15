@@ -180,8 +180,8 @@
       <stop offset="0" stop-color="#d4e5ec"/>
       <stop offset="1" stop-color="#9ec5d5"/>
     </linearGradient>
-    <clipPath id="clip-path" transform="translate(-116.57 -115.61)">
-      <path class="cls-1" d="M182.18,159.62h-51.8c.17,16.71,10.92,29,3.8,45.79h48Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-116.57 -115.61)" class="cls-1" d="M182.18,159.62h-51.8c.17,16.71,10.92,29,3.8,45.79h48Z"/>
     </clipPath>
     <linearGradient id="linear-gradient-5" x1="104.95" y1="126.99" x2="104.95" y2="109.96" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-6" x1="104.82" y1="127.2" x2="104.82" y2="68.7" xlink:href="#linear-gradient-2"/>

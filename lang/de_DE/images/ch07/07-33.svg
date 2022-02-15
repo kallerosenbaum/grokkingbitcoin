@@ -143,8 +143,8 @@
       <stop offset="0" stop-color="#f2f2f2"/>
       <stop offset="1" stop-color="#ccc"/>
     </linearGradient>
-    <clipPath id="clip-path" transform="translate(-124.27 -62.14)">
-      <path class="cls-1" d="M147,83.48H132.06c.13,12.92,8.45,22.4,2.94,35.42h12Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-124.27 -62.14)" class="cls-1" d="M147,83.48H132.06c.13,12.92,8.45,22.4,2.94,35.42h12Z"/>
     </clipPath>
   </defs>
   <g class="cls-2">
@@ -248,7 +248,7 @@
       </g>
       <rect class="cls-8" x="13.58" y="119.57" width="42.26" height="12.49" rx="2"/>
       <text class="cls-23" transform="translate(15.8 128.16)">000...000</text>
-      <text class="cls-18" transform="translate(83.23 128.16)">&quot;Lisa was here&quot;</text>
+      <text class="cls-18" transform="translate(83.23 128.16)">"Lisa was here"</text>
       <text class="cls-24" transform="translate(67.21 128.78)">–1</text>
       <text class="cls-24" transform="translate(167.38 128.78)">50,7 PKH<tspan class="cls-25" x="48.01" y="2">L</tspan></text>
       <g>

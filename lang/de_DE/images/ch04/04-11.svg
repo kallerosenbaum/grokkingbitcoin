@@ -233,8 +233,8 @@
       <stop offset="0" stop-color="#eef0f0"/>
       <stop offset="1" stop-color="#cccfd0"/>
     </linearGradient>
-    <clipPath id="clip-path" transform="translate(-139.14 -117.83)">
-      <rect class="cls-1" x="190.56" y="187.79" width="30.89" height="18.83"/>
+    <clipPath id="clip-path">
+      <rect transform="translate(-139.14 -117.83)" class="cls-1" x="190.56" y="187.79" width="30.89" height="18.83"/>
     </clipPath>
     <radialGradient id="radial-gradient" cx="145.62" cy="214.09" r="13.11" gradientUnits="userSpaceOnUse">
       <stop offset="0.01" stop-color="#e8c096"/>
@@ -333,7 +333,7 @@
       </g>
       <line class="cls-3" x1="239.95" y1="91.49" x2="231.1" y2="91.49"/>
       <polyline class="cls-3" points="224.76 145.52 231.1 145.52 231.1 38.68 224.76 38.68"/>
-      <text class="cls-28" transform="translate(45.4 57.14)">&quot;CT Seed&quot;</text>
+      <text class="cls-28" transform="translate(45.4 57.14)">"CT Seed"</text>
       <text class="cls-11" transform="translate(178.45 7.57)">Die rechten 256 Bits<tspan x="0" y="9.5">werden zum Chain</tspan><tspan x="0" y="19">Code</tspan></text>
       <text class="cls-11" transform="translate(41.36 146.31)">HM<tspan class="cls-29" x="11.54" y="0">A</tspan><tspan class="cls-30" x="15.82" y="0">C</tspan><tspan x="20.47" y="0">-SHA512</tspan></text>
       <text class="cls-11" transform="translate(252.12 33.5)">Master<tspan x="0" y="9.5">public Key</tspan></text>

@@ -146,8 +146,8 @@
         letter-spacing: -0.04em;
       }
     </style>
-    <clipPath id="clip-path" transform="translate(-122.67 -141.47)">
-      <path class="cls-1" d="M210,141.42H124.8c.08,9.88,5.32,17.13,1.85,27.08H210Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-122.67 -141.47)" class="cls-1" d="M210,141.42H124.8c.08,9.88,5.32,17.13,1.85,27.08H210Z"/>
     </clipPath>
     <linearGradient id="linear-gradient" x1="-145.18" y1="372.38" x2="-126.37" y2="372.38" gradientTransform="translate(499.31 -6.95) rotate(45.85)" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#5fb749"/>

@@ -1,4 +1,4 @@
-<svg id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="119.17mm" height="38.61mm" viewBox="0 0 337.8 109.45">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Ebene_1" data-name="Ebene 1" width="119.17mm" height="38.61mm" viewBox="0 0 337.8 109.45">
   <defs>
     <style>
       .cls-1, .cls-10, .cls-11, .cls-12, .cls-16, .cls-19, .cls-2, .cls-21, .cls-24, .cls-3, .cls-30, .cls-39, .cls-4, .cls-40, .cls-41, .cls-42, .cls-43, .cls-48, .cls-49, .cls-5, .cls-50, .cls-51, .cls-58, .cls-6, .cls-62, .cls-63, .cls-64, .cls-7, .cls-8, .cls-9 {
@@ -299,53 +299,53 @@
     <clipPath id="clip-path-11">
       <polygon class="cls-1" points="198.78 430.08 197.5 435.41 216.97 435.41 215.78 430.08 198.78 430.08 198.78 430.08"/>
     </clipPath>
-    <clipPath id="clip-path-12" transform="translate(-128 -366.89)">
-      <path class="cls-2" d="M454.47,444.89l-8.61,1.44c-.57,3.49-1.61,16.5,6.54,18.31h0c1.24.23,1.22,1.47,2.21,1.47s1-1.24,2.2-1.47h0c8.15-1.81,7.11-14.82,6.54-18.31l-8.61-1.44Z"/>
+    <clipPath id="clip-path-12">
+      <path transform="translate(-128 -366.89)" class="cls-2" d="M454.47,444.89l-8.61,1.44c-.57,3.49-1.61,16.5,6.54,18.31h0c1.24.23,1.22,1.47,2.21,1.47s1-1.24,2.2-1.47h0c8.15-1.81,7.11-14.82,6.54-18.31l-8.61-1.44Z"/>
     </clipPath>
-    <clipPath id="clip-path-14" transform="translate(-128 -366.89)">
-      <polygon class="cls-11" points="196.73 423.22 197.42 435.41 217.04 435.41 217.82 423.22 196.73 423.22 196.73 423.22"/>
+    <clipPath id="clip-path-14">
+      <polygon transform="translate(-128 -366.89)" class="cls-11" points="196.73 423.22 197.42 435.41 217.04 435.41 217.82 423.22 196.73 423.22 196.73 423.22"/>
     </clipPath>
-    <clipPath id="clip-path-16" transform="translate(-128 -366.89)">
-      <polygon class="cls-12" points="198.78 430.08 197.5 435.41 216.97 435.41 215.78 430.08 198.78 430.08 198.78 430.08"/>
+    <clipPath id="clip-path-16">
+      <polygon transform="translate(-128 -366.89)" class="cls-12" points="198.78 430.08 197.5 435.41 216.97 435.41 215.78 430.08 198.78 430.08 198.78 430.08"/>
     </clipPath>
-    <clipPath id="clip-path-18" transform="translate(-128 -366.89)">
-      <polygon class="cls-1" points="198.26 407.26 216.22 407.26 216.22 418.21 198.26 418.21 198.26 407.26 198.26 407.26"/>
+    <clipPath id="clip-path-18">
+      <polygon transform="translate(-128 -366.89)" class="cls-1" points="198.26 407.26 216.22 407.26 216.22 418.21 198.26 418.21 198.26 407.26 198.26 407.26"/>
     </clipPath>
-    <clipPath id="clip-path-19" transform="translate(-128 -366.89)">
-      <polygon class="cls-3" points="239.47 423.22 240.16 435.41 259.78 435.41 260.56 423.22 239.47 423.22 239.47 423.22"/>
+    <clipPath id="clip-path-19">
+      <polygon transform="translate(-128 -366.89)" class="cls-3" points="239.47 423.22 240.16 435.41 259.78 435.41 260.56 423.22 239.47 423.22 239.47 423.22"/>
     </clipPath>
-    <clipPath id="clip-path-21" transform="translate(-128 -366.89)">
-      <polygon class="cls-4" points="241.51 430.08 240.24 435.41 259.71 435.41 258.52 430.08 241.51 430.08 241.51 430.08"/>
+    <clipPath id="clip-path-21">
+      <polygon transform="translate(-128 -366.89)" class="cls-4" points="241.51 430.08 240.24 435.41 259.71 435.41 258.52 430.08 241.51 430.08 241.51 430.08"/>
     </clipPath>
-    <clipPath id="clip-path-23" transform="translate(-128 -366.89)">
-      <polygon class="cls-1" points="241 407.26 258.96 407.26 258.96 418.21 241 418.21 241 407.26 241 407.26"/>
+    <clipPath id="clip-path-23">
+      <polygon transform="translate(-128 -366.89)" class="cls-1" points="241 407.26 258.96 407.26 258.96 418.21 241 418.21 241 407.26 241 407.26"/>
     </clipPath>
-    <clipPath id="clip-path-24" transform="translate(-128 -366.89)">
-      <polygon class="cls-5" points="282.21 423.22 282.9 435.41 302.52 435.41 303.3 423.22 282.21 423.22 282.21 423.22"/>
+    <clipPath id="clip-path-24">
+      <polygon transform="translate(-128 -366.89)" class="cls-5" points="282.21 423.22 282.9 435.41 302.52 435.41 303.3 423.22 282.21 423.22 282.21 423.22"/>
     </clipPath>
-    <clipPath id="clip-path-26" transform="translate(-128 -366.89)">
-      <polygon class="cls-6" points="284.25 430.08 282.98 435.41 302.44 435.41 301.26 430.08 284.25 430.08 284.25 430.08"/>
+    <clipPath id="clip-path-26">
+      <polygon transform="translate(-128 -366.89)" class="cls-6" points="284.25 430.08 282.98 435.41 302.44 435.41 301.26 430.08 284.25 430.08 284.25 430.08"/>
     </clipPath>
-    <clipPath id="clip-path-28" transform="translate(-128 -366.89)">
-      <polygon class="cls-1" points="283.73 407.26 301.7 407.26 301.7 418.21 283.73 418.21 283.73 407.26 283.73 407.26"/>
+    <clipPath id="clip-path-28">
+      <polygon transform="translate(-128 -366.89)" class="cls-1" points="283.73 407.26 301.7 407.26 301.7 418.21 283.73 418.21 283.73 407.26 283.73 407.26"/>
     </clipPath>
-    <clipPath id="clip-path-29" transform="translate(-128 -366.89)">
-      <polygon class="cls-7" points="350.45 423.22 351.14 435.41 370.76 435.41 371.54 423.22 350.45 423.22 350.45 423.22"/>
+    <clipPath id="clip-path-29">
+      <polygon transform="translate(-128 -366.89)" class="cls-7" points="350.45 423.22 351.14 435.41 370.76 435.41 371.54 423.22 350.45 423.22 350.45 423.22"/>
     </clipPath>
-    <clipPath id="clip-path-31" transform="translate(-128 -366.89)">
-      <polygon class="cls-8" points="352.49 430.08 351.21 435.41 370.68 435.41 369.5 430.08 352.49 430.08 352.49 430.08"/>
+    <clipPath id="clip-path-31">
+      <polygon transform="translate(-128 -366.89)" class="cls-8" points="352.49 430.08 351.21 435.41 370.68 435.41 369.5 430.08 352.49 430.08 352.49 430.08"/>
     </clipPath>
-    <clipPath id="clip-path-33" transform="translate(-128 -366.89)">
-      <polygon class="cls-1" points="351.97 407.26 369.94 407.26 369.94 418.21 351.97 418.21 351.97 407.26 351.97 407.26"/>
+    <clipPath id="clip-path-33">
+      <polygon transform="translate(-128 -366.89)" class="cls-1" points="351.97 407.26 369.94 407.26 369.94 418.21 351.97 418.21 351.97 407.26 351.97 407.26"/>
     </clipPath>
-    <clipPath id="clip-path-34" transform="translate(-128 -366.89)">
-      <polygon class="cls-9" points="393.19 423.22 393.88 435.41 413.5 435.41 414.28 423.22 393.19 423.22 393.19 423.22"/>
+    <clipPath id="clip-path-34">
+      <polygon transform="translate(-128 -366.89)" class="cls-9" points="393.19 423.22 393.88 435.41 413.5 435.41 414.28 423.22 393.19 423.22 393.19 423.22"/>
     </clipPath>
-    <clipPath id="clip-path-36" transform="translate(-128 -366.89)">
-      <polygon class="cls-10" points="395.23 430.08 393.95 435.41 413.42 435.41 412.24 430.08 395.23 430.08 395.23 430.08"/>
+    <clipPath id="clip-path-36">
+      <polygon transform="translate(-128 -366.89)" class="cls-10" points="395.23 430.08 393.95 435.41 413.42 435.41 412.24 430.08 395.23 430.08 395.23 430.08"/>
     </clipPath>
-    <clipPath id="clip-path-38" transform="translate(-128 -366.89)">
-      <polygon class="cls-1" points="394.71 407.26 412.68 407.26 412.68 418.21 394.71 418.21 394.71 407.26 394.71 407.26"/>
+    <clipPath id="clip-path-38">
+      <polygon transform="translate(-128 -366.89)" class="cls-1" points="394.71 407.26 412.68 407.26 412.68 418.21 394.71 418.21 394.71 407.26 394.71 407.26"/>
     </clipPath>
     <image id="image" width="52" height="30" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAAeCAYAAABjTz27AAAACXBIWXMAABcRAAAXEQHKJvM/AAAAdElEQVRYR+3YMQ6AIBAFUTFGjiD3v59sjc1aiQVE24H8V5Flmwkdwd19mcj6tzAaBdEpiE5BdAqiUxCdgugURKcgOgXRKYhuew6lXF97SDHuzawGmVlzSZfS0cxq0DlbkOXxgnpqUB7whXreIL0QU5jts/4G7sUclnBsa5MAAAAASUVORK5CYII="/>
     <image id="image-2" width="48" height="15" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAPCAYAAACiLkz/AAAACXBIWXMAABcRAAAXEQHKJvM/AAAAYklEQVRIS+2WMQrAQAgEx9PHhED+/5BAyG9MceUVludCptRtZF3RMjMRZlSC7gTA/byVrgXXeSy1ABhmS0OFOYB7pWtLALjrRmE6MMQHcPkVUndAP8TqDuhn4D+j+zD1b/QD18ULfS45JAUAAAAASUVORK5CYII="/>

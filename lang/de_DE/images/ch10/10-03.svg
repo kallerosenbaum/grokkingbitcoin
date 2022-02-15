@@ -146,8 +146,8 @@
     </linearGradient>
     <linearGradient id="linear-gradient-3" x1="27.67" y1="258.9" x2="46.48" y2="258.9" xlink:href="#linear-gradient"/>
     <linearGradient id="linear-gradient-4" x1="28.01" y1="258.9" x2="45.95" y2="258.9" xlink:href="#linear-gradient-2"/>
-    <clipPath id="clip-path" transform="translate(-129.77 -142.27)">
-      <path class="cls-1" d="M151.67,199.2H134.55c.11,10.78,7,18.69,2.45,29.55h14.67Z"/>
+    <clipPath id="clip-path">
+      <path transform="translate(-129.77 -142.27)" class="cls-1" d="M151.67,199.2H134.55c.11,10.78,7,18.69,2.45,29.55h14.67Z"/>
     </clipPath>
   </defs>
   <g id="Layer_2" data-name="Layer 2">
