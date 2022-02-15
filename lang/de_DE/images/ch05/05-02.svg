@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="310.42" height="94.99" viewBox="0 0 310.42 94.99">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #e5e5e5;
+      }
+
+      .cls-1, .cls-2, .cls-6 {
+        stroke: #000;
+      }
+
+      .cls-1, .cls-11, .cls-2, .cls-3 {
+        stroke-linejoin: round;
+      }
+
+      .cls-1, .cls-2 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-11, .cls-3, .cls-6 {
+        fill: none;
+      }
+
+      .cls-3 {
+        stroke: #fff;
+      }
+
+      .cls-11, .cls-3 {
+        stroke-width: 0.75px;
+      }
+
+      .cls-4 {
+        font-size: 7px;
+      }
+
+      .cls-4, .cls-5 {
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-5, .cls-8 {
+        font-size: 9px;
+      }
+
+      .cls-6 {
+        stroke-miterlimit: 10;
+        stroke-width: 0.3px;
+      }
+
+      .cls-7 {
+        font-size: 4.7px;
+        font-family: Courier;
+      }
+
+      .cls-8 {
+        font-family: Humanist521BT-BoldCondensed, Humanst521 Cn BT;
+        font-weight: 700;
+      }
+
+      .cls-9 {
+        font-size: 8.8px;
+        font-family: Arial-BoldMT, Arial;
+        letter-spacing: -0.05em;
+      }
+
+      .cls-10 {
+        letter-spacing: -0.1em;
+      }
+
+      .cls-11 {
+        stroke: #ff0001;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g>
+      <rect class="cls-1" x="0.25" y="0.25" width="63.35" height="12.29"/>
+      <rect class="cls-1" x="63.6" y="0.25" width="63.35" height="12.29"/>
+      <rect class="cls-1" x="126.95" y="0.25" width="59" height="12.29"/>
+      <rect class="cls-2" x="0.25" y="12.54" width="63.35" height="12.29"/>
+      <rect class="cls-2" x="63.6" y="12.54" width="63.35" height="12.29"/>
+      <rect class="cls-2" x="126.95" y="12.54" width="59" height="12.29"/>
+      <rect class="cls-2" x="0.25" y="24.83" width="63.35" height="18.89"/>
+      <rect class="cls-2" x="63.6" y="24.83" width="63.35" height="18.89"/>
+      <rect class="cls-2" x="126.95" y="24.83" width="59" height="18.89"/>
+      <polyline class="cls-3" points="0.9 12.11 0.9 0.92 63.06 0.92"/>
+      <polyline class="cls-3" points="64.25 12.11 64.25 0.92 126.4 0.92"/>
+      <polyline class="cls-3" points="127.6 12.11 127.6 0.92 185.4 0.92"/>
+    </g>
+    <text class="cls-4" transform="translate(24.28 8.62)">VON</text>
+    <text class="cls-5" transform="translate(5.01 20.91)">...</text>
+    <text class="cls-5" transform="translate(68.35 20.91)">...</text>
+    <text class="cls-5" transform="translate(173.4 20.91)">...</text>
+    <rect class="cls-2" x="0.25" y="43.72" width="63.35" height="12.29"/>
+    <rect class="cls-2" x="63.6" y="43.72" width="63.35" height="12.29"/>
+    <rect class="cls-2" x="126.95" y="43.72" width="59" height="12.29"/>
+    <text class="cls-5" transform="translate(5.01 52.09)">...</text>
+    <text class="cls-5" transform="translate(68.35 52.09)">...</text>
+    <text class="cls-5" transform="translate(173.4 52.09)">...</text>
+    <text class="cls-4" transform="translate(90.33 8.62)">AN</text>
+    <text class="cls-4" transform="translate(136.25 8.62)">BETRAG CT</text>
+    <g>
+      <path class="cls-6" d="M317,162.76c6.65,0,15.11-8.76,20.8-8.76" transform="translate(-130.1 -124.67)"/>
+      <polygon points="187.4 39.96 184.16 38.09 187.4 36.22 187.4 39.96"/>
+    </g>
+    <text class="cls-4" transform="translate(173.11 33.19)">10<tspan x="0" y="7.5">30</tspan></text>
+    <text class="cls-7" transform="translate(2.89 30.56)">5f2613791b36f667fdb8<tspan x="0" y="5.7">e95608b55e3df4c5f9eb</tspan></text>
+    <rect class="cls-2" x="0.25" y="56.01" width="63.35" height="18.89"/>
+    <rect class="cls-2" x="63.6" y="56.01" width="63.35" height="18.89"/>
+    <rect class="cls-2" x="126.95" y="56.01" width="59" height="18.89"/>
+    <text class="cls-4" transform="translate(173.11 64.38)">40</text>
+    <text class="cls-7" transform="translate(2.89 61.75)">5f2613791b36f667fdb8<tspan x="0" y="5.7">e95608b55e3df4c5f9eb</tspan></text>
+    <text class="cls-7" transform="translate(66.23 61.75)">6f350f7855b0ea2dfd61<tspan x="0" y="5.7">6838d6da18412e611b1a</tspan></text>
+    <text class="cls-7" transform="translate(66.23 30.56)">6f350f7855b0ea2dfd61<tspan x="0" y="5.7">6838d6da18412e611b1a</tspan></text>
+    <text class="cls-8" transform="translate(139.82 92.86)">Lisas PKH</text>
+    <text class="cls-8" transform="translate(210.82 22.31)">Lisa stiehlt 20 CT von<tspan x="0" y="9.5">John in einer alten Zahlung.</tspan><tspan x="0" y="19">John signierte für </tspan><tspan class="cls-9" x="63.63" y="19">1</tspan><tspan x="68.09" y="19">0 C</tspan><tspan class="cls-10" x="79.44" y="19">T</tspan><tspan x="82.58" y="19">,</tspan><tspan x="0" y="28.5">nicht 30!</tspan></text>
+    <text class="cls-8" transform="translate(209.32 64.36)">Lisa stiehlt 40 CT von<tspan x="0" y="9.5">John in einer neuen Zahlung.</tspan><tspan x="0" y="19">John hat diese Zahlung</tspan><tspan x="0" y="28.5">noch nicht signiert.</tspan></text>
+    <line class="cls-11" x1="182.33" y1="28.35" x2="172.61" y2="33.04"/>
+    <g>
+      <path class="cls-6" d="M317,186.49c6.65,0,14,8.76,19.72,8.76" transform="translate(-130.1 -124.67)"/>
+      <polygon points="187.4 63.69 184.16 61.82 187.4 59.95 187.4 63.69"/>
+    </g>
+    <g>
+      <path class="cls-6" d="M246,165c11.83,13.67,42.83,16.5,42.83,44" transform="translate(-130.1 -124.67)"/>
+      <polygon points="114.86 41.96 114.15 38.29 117.68 39.52 114.86 41.96"/>
+    </g>
+    <g>
+      <path class="cls-6" d="M246,196.17c11.83,13.66,42.83,5,42.83,12.83" transform="translate(-130.1 -124.67)"/>
+      <polygon points="114.86 73.13 114.15 69.46 117.68 70.68 114.86 73.13"/>
+    </g>
+  </g>
+</svg>

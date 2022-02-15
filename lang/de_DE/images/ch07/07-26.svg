@@ -1,0 +1,295 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="363.25" height="215.43" viewBox="0 0 363.25 215.43">
+  <defs>
+    <style>
+      .cls-1, .cls-20, .cls-21, .cls-23, .cls-25, .cls-5, .cls-6, .cls-9 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-4 {
+        fill: #deebf0;
+      }
+
+      .cls-20, .cls-21, .cls-25, .cls-5, .cls-6, .cls-9 {
+        stroke: #000;
+      }
+
+      .cls-23, .cls-25, .cls-5, .cls-9 {
+        stroke-linejoin: round;
+      }
+
+      .cls-21, .cls-25, .cls-5, .cls-9 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-20, .cls-6 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-6 {
+        stroke-width: 0.3px;
+      }
+
+      .cls-7 {
+        fill: url(#linear-gradient-3);
+      }
+
+      .cls-8 {
+        font-size: 7px;
+      }
+
+      .cls-24, .cls-8 {
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-9 {
+        stroke-dasharray: 1.99 0.99;
+      }
+
+      .cls-10 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-11, .cls-15, .cls-16, .cls-24 {
+        font-size: 9px;
+      }
+
+      .cls-11, .cls-15, .cls-16 {
+        font-family: Humanist521BT-BoldCondensed, Humanst521 Cn BT;
+      }
+
+      .cls-11, .cls-16 {
+        font-weight: 700;
+      }
+
+      .cls-12, .cls-16 {
+        letter-spacing: -0.07em;
+      }
+
+      .cls-13 {
+        font-size: 8.5px;
+        font-family: Arial-BoldMT, Arial;
+      }
+
+      .cls-14 {
+        letter-spacing: -0.03em;
+      }
+
+      .cls-17 {
+        letter-spacing: 0em;
+      }
+
+      .cls-18 {
+        letter-spacing: -0.1em;
+      }
+
+      .cls-19 {
+        letter-spacing: 0em;
+      }
+
+      .cls-20, .cls-23 {
+        stroke-width: 0.75px;
+      }
+
+      .cls-22 {
+        fill: #fef0e8;
+      }
+
+      .cls-23 {
+        stroke: #e60001;
+      }
+
+      .cls-25 {
+        stroke-dasharray: 1.97 0.99;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="3.28" y1="58.17" x2="363.25" y2="58.17" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#e5e5e5"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="3.28" y1="94.46" y2="94.46" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="3.25" y1="121.44" x2="362.95" y2="121.44" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d4e5ec"/>
+      <stop offset="1" stop-color="#9ec5d5"/>
+    </linearGradient>
+    <clipPath id="clip-path" transform="translate(-118.75 -168.46)">
+      <path class="cls-1" d="M145,214.77H122.63c.08,8.63,5.63,15,2,23.65H145Z"/>
+    </clipPath>
+  </defs>
+  <g id="Layer_4" data-name="Layer 4">
+    <rect class="cls-2" x="3.28" y="43.04" width="359.97" height="30.26"/>
+    <rect class="cls-3" x="3.28" y="79.33" width="359.97" height="30.26"/>
+    <g>
+      <rect class="cls-4" x="87.93" y="47.59" width="33.21" height="21.17" rx="2"/>
+      <rect class="cls-5" x="87.93" y="47.59" width="33.21" height="21.17" rx="2"/>
+    </g>
+    <g>
+      <path class="cls-6" d="M169.67,211.5c.58-5.5.16-10.91-4-14.83" transform="translate(-118.75 -168.46)"/>
+      <polygon points="52.82 42.69 50.62 45.72 49.1 42.3 52.82 42.69"/>
+    </g>
+    <g>
+      <path class="cls-6" d="M212.5,220c-5.5-8.75-2.33-20.5,0-23.5" transform="translate(-118.75 -168.46)"/>
+      <polygon points="95.03 50.09 95.17 53.82 91.87 52.08 95.03 50.09"/>
+    </g>
+    <g>
+      <path class="cls-6" d="M214,241.67c-9.5,11.83-24.5,14.33-37.75,14.58" transform="translate(-118.75 -168.46)"/>
+      <polygon points="93.46 72.47 96.94 71.11 96.37 74.81 93.46 72.47"/>
+    </g>
+    <g>
+      <path class="cls-6" d="M188.46,297c-3.64,8.24-10.92,16.38-21.54,16.38" transform="translate(-118.75 -168.46)"/>
+      <polygon points="67.79 128.33 70.81 126.13 71.21 129.84 67.79 128.33"/>
+    </g>
+    <g>
+      <path class="cls-6" d="M204.8,297.31c0,3.52,2.7,7.27,2.7,12.52" transform="translate(-118.75 -168.46)"/>
+      <polygon points="84.19 129.4 86.06 126.16 87.93 129.4 84.19 129.4"/>
+    </g>
+    <g>
+      <path class="cls-6" d="M243.75,225.5c21.5-4,36.25-17.17,36.25-28.5" transform="translate(-118.75 -168.46)"/>
+      <polygon points="125.88 58.77 122.35 57.52 125.19 55.09 125.88 58.77"/>
+    </g>
+    <polygon class="cls-7" points="352.12 118.76 3.25 118.76 3.25 124.11 352.12 124.11 352.12 126.91 362.95 121.44 352.12 115.97 352.12 118.76"/>
+    <text class="cls-8" transform="translate(346.39 135.93)"><tspan xml:space="preserve"> Zeit</tspan></text>
+    <line class="cls-5" x1="70.25" y1="118.74" x2="70.25" y2="125.24"/>
+    <line class="cls-5" x1="85.93" y1="118.74" x2="85.93" y2="125.24"/>
+    <g>
+      <line class="cls-5" x1="70.25" y1="35.21" x2="70.25" y2="36.21"/>
+      <line class="cls-9" x1="70.25" y1="37.2" x2="70.25" y2="117.24"/>
+      <line class="cls-5" x1="70.25" y1="117.74" x2="70.25" y2="118.74"/>
+    </g>
+    <g>
+      <line class="cls-5" x1="85.93" y1="35.21" x2="85.93" y2="36.21"/>
+      <line class="cls-9" x1="85.93" y1="37.2" x2="85.93" y2="117.24"/>
+      <line class="cls-5" x1="85.93" y1="117.74" x2="85.93" y2="118.74"/>
+    </g>
+    <line class="cls-5" x1="104.54" y1="118.74" x2="104.54" y2="125.24"/>
+    <line class="cls-5" x1="141.29" y1="118.74" x2="141.29" y2="125.24"/>
+    <g>
+      <line class="cls-5" x1="104.54" y1="35.21" x2="104.54" y2="36.21"/>
+      <line class="cls-9" x1="104.54" y1="37.2" x2="104.54" y2="117.24"/>
+      <line class="cls-5" x1="104.54" y1="117.74" x2="104.54" y2="118.74"/>
+    </g>
+    <g>
+      <rect class="cls-4" x="35.04" y="47.59" width="33.21" height="21.17" rx="2"/>
+      <rect class="cls-5" x="35.04" y="47.59" width="33.21" height="21.17" rx="2"/>
+    </g>
+    <g class="cls-10">
+      <g>
+        <rect class="cls-4" x="0.25" y="47.59" width="24.5" height="21.17" rx="2"/>
+        <rect class="cls-5" x="0.25" y="47.59" width="24.5" height="21.17" rx="2"/>
+      </g>
+    </g>
+    <text class="cls-11" transform="translate(28.93 26.57)">Kumbaya</text>
+    <text class="cls-11" transform="translate(72.98 16)"><tspan class="cls-12">T</tspan><tspan x="3.44" y="0">ransaktion von</tspan><tspan class="cls-13"><tspan class="cls-14" x="0" y="9.5">1</tspan><tspan class="cls-15" x="4.51" y="9.5">0 CT an Cafe</tspan></tspan></text>
+    <text class="cls-11" transform="translate(134.98 7.57)">Die ehrlichen Miner<tspan x="0" y="9.5">finden keine Blocks</tspan><tspan x="0" y="19">mehr auf diesem Zweig.</tspan></text>
+    <text class="cls-11" transform="translate(11.07 89.9)">Gleiche Height</text>
+    <text class="cls-16" transform="translate(252.94 69.5)">T<tspan class="cls-17" x="3.44" y="0">om</tspan></text>
+    <text class="cls-11" transform="translate(304.9 69.5)">Qi</text>
+    <text class="cls-11" transform="translate(5.63 140.3)">Lisa beginnt,<tspan x="0" y="9.5">einen Block mit</tspan><tspan x="0" y="19">ihrer doppelt </tspan><tspan x="0" y="28.5">ausgebenden TX</tspan><tspan x="0" y="38">zu minen.</tspan></text>
+    <text class="cls-11" transform="translate(71.95 148.3)">Lisa bezahlt<tspan x="0" y="9.5">ein Plätzchen.</tspan></text>
+    <text class="cls-11" transform="translate(269.81 148.3)">Lisa hat Riesenglück und<tspan x="0" y="9.5">findet noch einen Block.</tspan><tspan x="0" y="19">Sie veröffentlicht beide </tspan><tspan x="0" y="28.5">Blocks auf einmal.</tspan></text>
+    <g>
+      <path class="cls-6" d="M227.67,295.33c8,5.22,19.83,20.34,16.83,40.34" transform="translate(-118.75 -168.46)"/>
+      <polygon points="108.36 128.73 106.67 125.4 110.4 125.6 108.36 128.73"/>
+    </g>
+    <g>
+      <path class="cls-6" d="M265.17,295c11.58,3.5,59.83,16,59.83,41" transform="translate(-118.75 -168.46)"/>
+      <polygon points="146.4 128.48 143.84 125.75 147.48 124.9 146.4 128.48"/>
+    </g>
+    <text class="cls-8" transform="translate(332.57 50.85)">Ehrliche<tspan x="-4.28" y="9">Chain: 350</tspan><tspan x="-0.58" y="18">Mhash/s</tspan></text>
+    <text class="cls-8" transform="translate(337.04 87.74)">Lisas<tspan x="-8.76" y="9">Chain: 200</tspan><tspan x="-5.06" y="18">Mhash/s</tspan></text>
+    <text class="cls-11" transform="translate(161.24 45.07)">Lisas Double-Spend<tspan x="0" y="9.5">TX an sich selbst</tspan></text>
+    <text class="cls-11" transform="translate(227.6 7.57)">Alle Hashpower schwenkt<tspan x="0" y="9.5">auf diesen Zweig übe</tspan><tspan class="cls-18" x="73.3" y="9.5">r</tspan><tspan class="cls-19" x="75.78" y="9.5">, weil</tspan><tspan x="0" y="19">er der Stärkere ist.</tspan></text>
+    <path class="cls-20" d="M124.59,238.42c3.7-8.42-2-15.63-2-23.61" transform="translate(-118.75 -168.46)"/>
+    <line class="cls-21" x1="28.64" y1="58.17" x2="34.89" y2="58.17"/>
+    <path d="M146.29,226a24.39,24.39,0,0,0,2.33-.85v2.9a22.43,22.43,0,0,0-2.33-.87,17.47,17.47,0,0,0-2.53-.6A17,17,0,0,0,146.29,226Z" transform="translate(-118.75 -168.46)"/>
+    <g>
+      <rect class="cls-4" x="175.51" y="83.87" width="33.21" height="21.17" rx="2"/>
+      <rect class="cls-5" x="175.51" y="83.87" width="33.21" height="21.17" rx="2"/>
+    </g>
+    <line class="cls-21" x1="161.78" y1="94.46" x2="175.36" y2="94.46"/>
+    <path d="M279.42,262.31a24.77,24.77,0,0,0,2.34-.84v2.9a22.43,22.43,0,0,0-2.33-.87,17.55,17.55,0,0,0-2.54-.6A15.83,15.83,0,0,0,279.42,262.31Z" transform="translate(-118.75 -168.46)"/>
+    <g>
+      <rect class="cls-4" x="224.11" y="83.87" width="33.21" height="21.17" rx="2"/>
+      <rect class="cls-5" x="224.11" y="83.87" width="33.21" height="21.17" rx="2"/>
+    </g>
+    <line class="cls-21" x1="212.54" y1="94.46" x2="223.96" y2="94.46"/>
+    <path d="M330.19,262.31a24.51,24.51,0,0,0,2.33-.84v2.9a22.94,22.94,0,0,0-2.32-.87,17.55,17.55,0,0,0-2.54-.6A16.07,16.07,0,0,0,330.19,262.31Z" transform="translate(-118.75 -168.46)"/>
+    <g>
+      <rect class="cls-4" x="277.04" y="83.87" width="33.21" height="21.17" rx="2"/>
+      <rect class="cls-5" x="277.04" y="83.87" width="33.21" height="21.17" rx="2"/>
+    </g>
+    <line class="cls-21" x1="261.4" y1="94.46" x2="276.89" y2="94.46"/>
+    <path d="M378.79,262.31a24.51,24.51,0,0,0,2.33-.84v2.9a22.43,22.43,0,0,0-2.33-.87,17.47,17.47,0,0,0-2.53-.6A16.07,16.07,0,0,0,378.79,262.31Z" transform="translate(-118.75 -168.46)"/>
+    <line class="cls-21" x1="72.11" y1="58.17" x2="87.78" y2="58.17"/>
+    <path d="M189.76,226a24.39,24.39,0,0,0,2.33-.85v2.9a22.94,22.94,0,0,0-2.32-.87,17.55,17.55,0,0,0-2.54-.6A17,17,0,0,0,189.76,226Z" transform="translate(-118.75 -168.46)"/>
+    <path d="M189.76,229.28a24.39,24.39,0,0,0,2.33-.85v2.9a22.94,22.94,0,0,0-2.32-.87,17.55,17.55,0,0,0-2.54-.6A17,17,0,0,0,189.76,229.28Z" transform="translate(-118.75 -168.46)"/>
+    <g>
+      <rect class="cls-22" x="97.46" y="51.71" width="14.13" height="12.89" rx="0.5"/>
+      <rect class="cls-23" x="97.46" y="51.71" width="14.13" height="12.89" rx="0.5"/>
+    </g>
+    <text class="cls-24" transform="translate(101.29 61.23)">C</text>
+    <g>
+      <rect class="cls-4" x="124.69" y="83.87" width="33.21" height="21.17" rx="2"/>
+      <rect class="cls-5" x="124.69" y="83.87" width="33.21" height="21.17" rx="2"/>
+    </g>
+    <g>
+      <line class="cls-5" x1="141.29" y1="35.21" x2="141.29" y2="36.21"/>
+      <line class="cls-9" x1="141.29" y1="37.2" x2="141.29" y2="117.24"/>
+      <line class="cls-5" x1="141.29" y1="117.74" x2="141.29" y2="118.74"/>
+    </g>
+    <line class="cls-5" x1="192.12" y1="118.74" x2="192.12" y2="125.24"/>
+    <g>
+      <line class="cls-5" x1="192.12" y1="56.54" x2="192.12" y2="57.54"/>
+      <line class="cls-25" x1="192.12" y1="58.53" x2="192.12" y2="117.25"/>
+      <line class="cls-5" x1="192.12" y1="117.74" x2="192.12" y2="118.74"/>
+    </g>
+    <g>
+      <rect class="cls-22" x="134.22" y="88" width="14.13" height="12.89" rx="0.5"/>
+      <rect class="cls-23" x="134.22" y="88" width="14.13" height="12.89" rx="0.5"/>
+    </g>
+    <text class="cls-24" transform="translate(138.79 97.52)">L</text>
+    <g>
+      <rect class="cls-4" x="17.65" y="181.63" width="33.21" height="21.17" rx="2"/>
+      <rect class="cls-5" x="17.65" y="181.63" width="33.21" height="21.17" rx="2"/>
+    </g>
+    <g>
+      <rect class="cls-22" x="27.18" y="185.76" width="14.13" height="12.89" rx="0.5"/>
+      <rect class="cls-23" x="27.18" y="185.76" width="14.13" height="12.89" rx="0.5"/>
+    </g>
+    <text class="cls-24" transform="translate(31.75 195.27)">L</text>
+    <g>
+      <path class="cls-6" d="M360,247.75c1-6.25,7.25-12,10.75-12" transform="translate(-118.75 -168.46)"/>
+      <polygon points="243.17 79.04 240.81 81.95 239.48 78.45 243.17 79.04"/>
+    </g>
+    <g>
+      <path class="cls-6" d="M410.75,247.75c1-6.25,7.25-12,10.75-12" transform="translate(-118.75 -168.46)"/>
+      <polygon points="293.92 79.04 291.56 81.95 290.23 78.45 293.92 79.04"/>
+    </g>
+    <text class="cls-11" transform="translate(98.47 175.31)">Zahlung<tspan x="0" y="9.5">bestätigt.</tspan><tspan x="0" y="19">Lisa bekommt</tspan><tspan x="0" y="28.5">das Plätzchen</tspan><tspan x="0" y="38">und isst es.</tspan></text>
+    <text class="cls-11" transform="translate(155.69 175.31)">Lisa findet einen Block, behält<tspan x="0" y="9.5">ihn aber für sich. Beide Zweige</tspan><tspan x="0" y="19">sind gleich lang, aber Lisas</tspan><tspan x="0" y="28.5">Zweig muss stärker sein, damit</tspan><tspan x="0" y="38">die Miner umschwenken.</tspan></text>
+    <g>
+      <path class="cls-6" d="M237.67,258.33c-19.34-4.66-47.55,4.05-61.42-2.08" transform="translate(-118.75 -168.46)"/>
+      <polygon points="118.82 87.94 121.53 90.52 117.94 91.57 118.82 87.94"/>
+    </g>
+    <g>
+      <path class="cls-6" d="M271.83,256.67c18.58-5.86,32-19.49,33.75-30.35" transform="translate(-118.75 -168.46)"/>
+      <polygon points="154.16 89.81 150.51 89.01 153.04 86.25 154.16 89.81"/>
+    </g>
+    <g>
+      <path class="cls-6" d="M315,249.67c30.33-8.34,60.75-30.17,65.25-51.67" transform="translate(-118.75 -168.46)"/>
+      <polygon points="197.27 82.86 193.65 81.91 196.28 79.25 197.27 82.86"/>
+    </g>
+    <g>
+      <path class="cls-6" d="M314.25,295.5c15.19,15.19,40.5,27.42,70,28.25" transform="translate(-118.75 -168.46)"/>
+      <polygon points="194.57 128.74 193.6 125.13 197.22 126.1 194.57 128.74"/>
+    </g>
+    <polyline class="cls-21" points="72.25 61.4 78.5 61.4 78.5 94.48 124.63 94.48"/>
+  </g>
+</svg>

@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="327.16" height="123.04" viewBox="0 0 327.16 123.04">
+  <defs>
+    <style>
+      .cls-1, .cls-11, .cls-12, .cls-6 {
+        fill: none;
+      }
+
+      .cls-1, .cls-11, .cls-12, .cls-2, .cls-6, .cls-7, .cls-8 {
+        stroke: #000;
+      }
+
+      .cls-1, .cls-11, .cls-2, .cls-6, .cls-8 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-6, .cls-7, .cls-8 {
+        stroke-linejoin: round;
+      }
+
+      .cls-4 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-5, .cls-8 {
+        fill: #b3e2ee;
+      }
+
+      .cls-7 {
+        fill: #f0f9fc;
+      }
+
+      .cls-12, .cls-7 {
+        stroke-width: 0.3px;
+      }
+
+      .cls-14, .cls-9 {
+        font-size: 7px;
+      }
+
+      .cls-9 {
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-10 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-11 {
+        stroke-dasharray: 2 1;
+      }
+
+      .cls-12 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-13 {
+        font-size: 9px;
+        font-family: Humanist521BT-BoldCondensed, Humanst521 Cn BT;
+        font-weight: 700;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="323.5" y1="561.95" x2="384.7" y2="561.95" gradientTransform="translate(835.81 -344.16) rotate(68.86)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#cbd8e2"/>
+      <stop offset="1" stop-color="#9aa5b5"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="226.58" y1="812.58" x2="287.77" y2="812.58" xlink:href="#linear-gradient"/>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <line class="cls-1" x1="270.87" y1="80.51" x2="51.44" y2="80.51"/>
+    <path class="cls-2" d="M411.35,211c-1-.29-1.57-.55-2.34-.85v2.9a22.43,22.43,0,0,1,2.33-.87,17.78,17.78,0,0,1,2.53-.6A17,17,0,0,1,411.35,211Z" transform="translate(-138.56 -131.1)"/>
+    <g>
+      <path class="cls-3" d="M458,162H415a.66.66,0,0,0-.66.65v36.54a.67.67,0,0,0,.66.66h43a.67.67,0,0,0,.66-.66V162.63A.66.66,0,0,0,458,162Z" transform="translate(-138.56 -131.1)"/>
+      <path class="cls-4" d="M458.65,199.17a.67.67,0,0,1-.66.66H415a.67.67,0,0,1-.66-.66V163.41a.67.67,0,0,1,.66-.66h43a.67.67,0,0,1,.66.66Z" transform="translate(-138.56 -131.1)"/>
+      <path class="cls-5" d="M458.65,199.17a.67.67,0,0,1-.66.66H415a.67.67,0,0,1-.66-.66V163.41a.67.67,0,0,1,.66-.66h43a.67.67,0,0,1,.66.66Z" transform="translate(-138.56 -131.1)"/>
+      <path class="cls-6" d="M458,162H415a.66.66,0,0,0-.66.65v36.54a.67.67,0,0,0,.66.66h43a.67.67,0,0,0,.66-.66V162.63A.66.66,0,0,0,458,162Z" transform="translate(-138.56 -131.1)"/>
+      <rect class="cls-7" x="278.36" y="33.83" width="39.17" height="30.14"/>
+      <polyline class="cls-2" points="326.9 67.77 319.9 66.22 275.79 66.22 268.99 67.77"/>
+      <path class="cls-8" d="M407.53,198.87s1.32,2.88,2.82,2.88h52.29c1.39,0,2.83-2.88,2.83-2.88Z" transform="translate(-138.56 -131.1)"/>
+    </g>
+    <text class="cls-9" transform="translate(290.52 51.36)">Peer</text>
+    <g>
+      <path class="cls-3" d="M189.27,162h-43a.65.65,0,0,0-.65.65v36.54a.66.66,0,0,0,.65.66h43a.66.66,0,0,0,.65-.66V162.63A.65.65,0,0,0,189.27,162Z" transform="translate(-138.56 -131.1)"/>
+      <path class="cls-10" d="M189.92,199.17a.66.66,0,0,1-.65.66h-43a.66.66,0,0,1-.65-.66V163.41a.66.66,0,0,1,.65-.66h43a.66.66,0,0,1,.65.66Z" transform="translate(-138.56 -131.1)"/>
+      <path class="cls-5" d="M189.92,199.17a.66.66,0,0,1-.65.66h-43a.66.66,0,0,1-.65-.66V163.41a.66.66,0,0,1,.65-.66h43a.66.66,0,0,1,.65.66Z" transform="translate(-138.56 -131.1)"/>
+      <path class="cls-6" d="M189.27,162h-43a.65.65,0,0,0-.65.65v36.54a.66.66,0,0,0,.65.66h43a.66.66,0,0,0,.65-.66V162.63A.65.65,0,0,0,189.27,162Z" transform="translate(-138.56 -131.1)"/>
+      <rect class="cls-7" x="9.63" y="33.83" width="39.17" height="30.14"/>
+      <polyline class="cls-2" points="58.17 67.77 51.18 66.22 7.07 66.22 0.26 67.77"/>
+      <path class="cls-8" d="M138.81,198.87s1.31,2.88,2.82,2.88h52.29c1.39,0,2.83-2.88,2.83-2.88Z" transform="translate(-138.56 -131.1)"/>
+    </g>
+    <text class="cls-9" transform="translate(24.72 51.36)">Du</text>
+    <polyline class="cls-11" points="77.04 80.06 77.04 57.65 245.27 57.65 245.27 80.06"/>
+    <line class="cls-1" x1="56.36" y1="99.42" x2="275.79" y2="99.42"/>
+    <path class="cls-2" d="M193,229.92c.95-.29,1.57-.55,2.33-.85V232a22.94,22.94,0,0,0-2.32-.87,17.55,17.55,0,0,0-2.54-.6A17,17,0,0,0,193,229.92Z" transform="translate(-138.56 -131.1)"/>
+    <line class="cls-1" x1="55.9" y1="118.43" x2="275.33" y2="118.43"/>
+    <path class="cls-2" d="M192.54,248.93a24.39,24.39,0,0,0,2.33-.85V251a23.59,23.59,0,0,0-2.32-.86,15.22,15.22,0,0,0-2.54-.6A18.7,18.7,0,0,0,192.54,248.93Z" transform="translate(-138.56 -131.1)"/>
+    <polyline class="cls-11" points="121.12 117.98 121.12 104.9 210.1 104.9 210.1 117.98"/>
+    <polyline class="cls-11" points="121.12 99.4 121.12 86.32 210.1 86.32 210.1 99.4"/>
+    <line class="cls-1" x1="55.9" y1="51.82" x2="275.33" y2="51.82"/>
+    <path class="cls-2" d="M192.54,182.32c1-.29,1.57-.55,2.33-.85v2.9a22.94,22.94,0,0,0-2.32-.87,17.55,17.55,0,0,0-2.54-.6A17,17,0,0,0,192.54,182.32Z" transform="translate(-138.56 -131.1)"/>
+    <polyline class="cls-11" points="77.04 51.37 77.04 28.96 245.27 28.96 245.27 51.37"/>
+    <line class="cls-1" x1="270.87" y1="23.11" x2="51.44" y2="23.11"/>
+    <path class="cls-2" d="M411.35,153.61c-1-.29-1.57-.55-2.34-.85v2.9a22.43,22.43,0,0,1,2.33-.87,17.78,17.78,0,0,1,2.53-.6A17,17,0,0,1,411.35,153.61Z" transform="translate(-138.56 -131.1)"/>
+    <polyline class="cls-11" points="77.04 22.66 77.04 0.25 245.27 0.25 245.27 22.66"/>
+    <g>
+      <path class="cls-12" d="M167.89,206.31c0,4-3.85,11.5-3.85,17" transform="translate(-138.56 -131.1)"/>
+      <polygon points="27.48 75.76 29.35 72.52 31.22 75.76 27.48 75.76"/>
+    </g>
+    <g>
+      <path class="cls-12" d="M439.73,206.31c0,4,3.85,11.5,3.85,17" transform="translate(-138.56 -131.1)"/>
+      <polygon points="299.31 75.76 301.19 72.52 303.06 75.76 299.31 75.76"/>
+    </g>
+    <text class="cls-13" transform="translate(293.6 99.92)">Beste<tspan x="0" y="9.5">Block ID:</tspan><tspan x="0" y="19">BID</tspan><tspan class="cls-14" x="12.57" y="21">2</tspan></text>
+    <text class="cls-13" transform="translate(8.6 99.92)">Beste<tspan x="0" y="9.5">Block ID:</tspan><tspan x="0" y="19">BID</tspan><tspan class="cls-14" x="12.57" y="21">0</tspan></text>
+  </g>
+</svg>

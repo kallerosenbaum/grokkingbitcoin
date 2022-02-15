@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="356.88" height="172.92" viewBox="0 0 356.88 172.92">
+  <defs>
+    <style>
+      .cls-1, .cls-10, .cls-13, .cls-8, .cls-9 {
+        fill: none;
+      }
+
+      .cls-2 {
+        font-size: 9px;
+        font-family: Humanist521BT-BoldCondensed, Humanst521 Cn BT;
+        font-weight: 700;
+      }
+
+      .cls-3 {
+        letter-spacing: -0.05em;
+      }
+
+      .cls-4 {
+        letter-spacing: -0.1em;
+      }
+
+      .cls-5 {
+        letter-spacing: 0.02em;
+      }
+
+      .cls-6 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-7 {
+        fill: #deebf0;
+      }
+
+      .cls-10, .cls-13, .cls-8, .cls-9 {
+        stroke: #000;
+      }
+
+      .cls-8 {
+        stroke-linejoin: round;
+      }
+
+      .cls-10, .cls-8 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-13, .cls-9 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-9 {
+        stroke-width: 0.75px;
+      }
+
+      .cls-11 {
+        font-size: 7px;
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-12 {
+        fill: #d9c2df;
+      }
+
+      .cls-13 {
+        stroke-width: 0.3px;
+      }
+    </style>
+    <clipPath id="clip-path" transform="translate(-117.25 -106.88)">
+      <path class="cls-1" d="M139.15,152.5H122c.11,10.78,7.05,18.69,2.45,29.56h14.67Z"/>
+    </clipPath>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <text class="cls-2" transform="translate(65.19 7.57)">A<tspan class="cls-3" x="4.44" y="0">L</tspan><tspan x="8.07" y="0">T Nodes ignorieren die</tspan><tspan x="0" y="9.5">neuen grossen Blocks und</tspan><tspan x="0" y="19">bauen auf alten Blocks</tspan><tspan x="0" y="28.5">weite</tspan><tspan class="cls-4" x="18.75" y="28.5">r</tspan><tspan x="21.24" y="28.5">.</tspan></text>
+    <text class="cls-2" transform="translate(32.12 132.8)">Du e<tspan class="cls-5" x="15.93" y="0">r</tspan><tspan x="19.49" y="0">zeugst einen Block</tspan><tspan x="0" y="9.5">von 6,000,000 WU.</tspan><tspan x="0" y="19">Er wird von Bitcoin A</tspan><tspan class="cls-3" x="74.3" y="19">L</tspan><tspan x="77.93" y="19">T</tspan><tspan x="0" y="28.5">abgelehnt.</tspan></text>
+    <g class="cls-6">
+      <g>
+        <rect class="cls-7" x="0.25" y="47.22" width="19.77" height="26.46" rx="2"/>
+        <rect class="cls-8" x="0.25" y="47.22" width="19.77" height="26.46" rx="2"/>
+      </g>
+    </g>
+    <path class="cls-9" d="M124.48,182.06c4.63-10.53-2.48-19.54-2.48-29.51" transform="translate(-117.25 -106.88)"/>
+    <line class="cls-10" x1="24.8" y1="60.44" x2="30.25" y2="60.44"/>
+    <path d="M140,166.72c.95-.29,1.57-.55,2.34-.85v2.9a22.43,22.43,0,0,0-2.33-.87,17.55,17.55,0,0,0-2.54-.6A16.76,16.76,0,0,0,140,166.72Z" transform="translate(-117.25 -106.88)"/>
+    <g>
+      <rect class="cls-7" x="30.5" y="47.13" width="28.47" height="26.46" rx="2"/>
+      <rect class="cls-8" x="30.5" y="47.13" width="28.47" height="26.46" rx="2"/>
+    </g>
+    <text class="cls-11" transform="translate(40.65 63.1)">Alt</text>
+    <text class="cls-11" transform="translate(7.74 63.1)">ld</text>
+    <line class="cls-10" x1="215.96" y1="60.44" x2="266.53" y2="60.44"/>
+    <path d="M331.2,166.72c.95-.29,1.57-.55,2.33-.85v2.9a22.94,22.94,0,0,0-2.32-.87,17.55,17.55,0,0,0-2.54-.6A17,17,0,0,0,331.2,166.72Z" transform="translate(-117.25 -106.88)"/>
+    <g>
+      <rect class="cls-7" x="266.78" y="47.13" width="28.47" height="26.46" rx="2"/>
+      <rect class="cls-8" x="266.78" y="47.13" width="28.47" height="26.46" rx="2"/>
+    </g>
+    <text class="cls-11" transform="translate(276.93 63.1)">Alt</text>
+    <g>
+      <rect class="cls-12" x="77.25" y="79.87" width="28.47" height="26.46" rx="2"/>
+      <rect class="cls-8" x="77.25" y="79.87" width="28.47" height="26.46" rx="2"/>
+    </g>
+    <text class="cls-11" transform="translate(85.07 95.85)">Neu</text>
+    <g>
+      <rect class="cls-7" x="182.78" y="47.13" width="28.47" height="26.46" rx="2"/>
+      <rect class="cls-8" x="182.78" y="47.13" width="28.47" height="26.46" rx="2"/>
+    </g>
+    <text class="cls-11" transform="translate(192.93 63.1)">Alt</text>
+    <line class="cls-10" x1="63.68" y1="60.44" x2="99.53" y2="60.44"/>
+    <path d="M178.91,166.72c1-.29,1.57-.55,2.33-.85v2.9a22,22,0,0,0-2.32-.87,17.55,17.55,0,0,0-2.54-.6A17,17,0,0,0,178.91,166.72Z" transform="translate(-117.25 -106.88)"/>
+    <polyline class="cls-10" points="63.68 63.92 70.13 63.92 70.13 93.23 77.13 93.23"/>
+    <path d="M178.91,170.2c1-.29,1.57-.55,2.33-.85v2.9a22,22,0,0,0-2.32-.87,17.55,17.55,0,0,0-2.54-.6A17,17,0,0,0,178.91,170.2Z" transform="translate(-117.25 -106.88)"/>
+    <g>
+      <rect class="cls-12" x="284.48" y="79.87" width="28.47" height="26.46" rx="2"/>
+      <rect class="cls-8" x="284.48" y="79.87" width="28.47" height="26.46" rx="2"/>
+    </g>
+    <text class="cls-11" transform="translate(292.29 95.85)">Neu</text>
+    <g>
+      <rect class="cls-12" x="232.67" y="79.87" width="28.47" height="26.46" rx="2"/>
+      <rect class="cls-8" x="232.67" y="79.87" width="28.47" height="26.46" rx="2"/>
+    </g>
+    <text class="cls-11" transform="translate(240.48 95.85)">Neu</text>
+    <g>
+      <rect class="cls-12" x="180.86" y="79.87" width="28.47" height="26.46" rx="2"/>
+      <rect class="cls-8" x="180.86" y="79.87" width="28.47" height="26.46" rx="2"/>
+    </g>
+    <text class="cls-11" transform="translate(188.68 95.85)">Neu</text>
+    <g>
+      <rect class="cls-12" x="129.06" y="79.87" width="28.47" height="26.46" rx="2"/>
+      <rect class="cls-8" x="129.06" y="79.87" width="28.47" height="26.46" rx="2"/>
+    </g>
+    <text class="cls-11" transform="translate(136.87 95.85)">Neu</text>
+    <g>
+      <rect class="cls-7" x="99.78" y="47.13" width="28.47" height="26.46" rx="2"/>
+      <rect class="cls-8" x="99.78" y="47.13" width="28.47" height="26.46" rx="2"/>
+    </g>
+    <text class="cls-11" transform="translate(109.93 63.1)">Alt</text>
+    <line class="cls-10" x1="133.08" y1="60.44" x2="182.8" y2="60.44"/>
+    <path d="M248.31,166.72c.95-.29,1.57-.55,2.34-.85v2.9a22.43,22.43,0,0,0-2.33-.87,17.55,17.55,0,0,0-2.54-.6A16.76,16.76,0,0,0,248.31,166.72Z" transform="translate(-117.25 -106.88)"/>
+    <line class="cls-10" x1="110.51" y1="93.19" x2="128.81" y2="93.19"/>
+    <path d="M225.74,199.46a21.94,21.94,0,0,0,2.33-.85v2.91a20.69,20.69,0,0,0-2.32-.87,16.3,16.3,0,0,0-2.54-.6A17.29,17.29,0,0,0,225.74,199.46Z" transform="translate(-117.25 -106.88)"/>
+    <line class="cls-10" x1="162.31" y1="93.19" x2="180.61" y2="93.19"/>
+    <path d="M277.54,199.46a21.37,21.37,0,0,0,2.34-.85v2.91a20.29,20.29,0,0,0-2.33-.87,16.23,16.23,0,0,0-2.53-.6A16.92,16.92,0,0,0,277.54,199.46Z" transform="translate(-117.25 -106.88)"/>
+    <line class="cls-10" x1="214.12" y1="93.19" x2="232.42" y2="93.19"/>
+    <path d="M329.35,199.46a23,23,0,0,0,2.34-.85v2.91a21.07,21.07,0,0,0-2.33-.87,16.3,16.3,0,0,0-2.54-.6A17,17,0,0,0,329.35,199.46Z" transform="translate(-117.25 -106.88)"/>
+    <line class="cls-10" x1="265.92" y1="93.19" x2="284.23" y2="93.19"/>
+    <path d="M381.16,199.46a21.94,21.94,0,0,0,2.33-.85v2.91a20.69,20.69,0,0,0-2.32-.87,16.3,16.3,0,0,0-2.54-.6A17.29,17.29,0,0,0,381.16,199.46Z" transform="translate(-117.25 -106.88)"/>
+    <g>
+      <path class="cls-13" d="M231.27,149.24c0-4.76-3.13-9.48-3.13-13.74" transform="translate(-117.25 -106.88)"/>
+      <polygon points="115.88 41.82 114.01 45.06 112.14 41.82 115.88 41.82"/>
+    </g>
+    <text class="cls-2" transform="translate(167.04 7.57)">A<tspan class="cls-3" x="4.44" y="0">L</tspan><tspan x="8.07" y="0">T Nodes ignorieren die</tspan><tspan x="0" y="9.5">neuen grossen Blocks und</tspan><tspan x="0" y="19">bauen auf alten Blocks</tspan><tspan x="0" y="28.5">weite</tspan><tspan class="cls-4" x="18.75" y="28.5">r</tspan><tspan x="21.24" y="28.5">.</tspan></text>
+    <g>
+      <path class="cls-13" d="M314,149.24c0-4.76,3.09-9.48,3.09-13.74" transform="translate(-117.25 -106.88)"/>
+      <polygon points="198.58 41.82 196.71 45.06 194.84 41.82 198.58 41.82"/>
+    </g>
+    <g>
+      <path class="cls-13" d="M207.79,217.51c0,6.49-6.79,7.82-6.79,14" transform="translate(-117.25 -106.88)"/>
+      <polygon points="88.69 111.18 90.56 107.94 92.43 111.18 88.69 111.18"/>
+    </g>
+    <text class="cls-2" transform="translate(126.33 132.8)">Ein NEU Node e<tspan class="cls-5" x="54.88" y="0">r</tspan><tspan x="58.44" y="0">zeugt einen Block</tspan><tspan x="0" y="9.5">von 2,000,000 WU.</tspan><tspan x="0" y="19">Er wird von den A</tspan><tspan class="cls-3" x="62.72" y="19">L</tspan><tspan x="66.35" y="19">T Nodes</tspan><tspan x="0" y="28.5">abgelehnt, weil der </tspan><tspan class="cls-3" x="69.63" y="28.5">V</tspan><tspan x="73.42" y="28.5">orgängerblock</tspan><tspan x="0" y="38">zu gross wa</tspan><tspan class="cls-4" x="41.27" y="38">r</tspan><tspan x="43.76" y="38">.</tspan></text>
+    <g>
+      <path class="cls-13" d="M263.67,217.64c1.33,6,10.66,7.69,10.66,14" transform="translate(-117.25 -106.88)"/>
+      <polygon points="144.72 111.69 145.85 108.13 148.37 110.89 144.72 111.69"/>
+    </g>
+    <text class="cls-2" transform="translate(302.41 7.57)">A<tspan class="cls-3" x="4.44" y="0">L</tspan><tspan x="8.07" y="0">T und NEU</tspan><tspan x="0" y="9.5">Nodes scheinen</tspan><tspan x="0" y="19">auseinander zu</tspan><tspan x="0" y="28.5">laufen.</tspan></text>
+    <g>
+      <path class="cls-13" d="M417.5,166.17c15.25-2.17,29.25-12.42,30-30.17" transform="translate(-117.25 -106.88)"/>
+      <polygon points="301.06 61.05 297.59 59.66 300.53 57.35 301.06 61.05"/>
+    </g>
+    <g>
+      <path class="cls-13" d="M434.75,194c18.25-17,17-42.75,12.75-58" transform="translate(-117.25 -106.88)"/>
+      <polygon points="319.17 88.11 315.52 88.95 316.62 85.37 319.17 88.11"/>
+    </g>
+  </g>
+</svg>

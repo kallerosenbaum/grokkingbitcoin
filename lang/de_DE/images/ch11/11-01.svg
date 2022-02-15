@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="269.13" height="108.56" viewBox="0 0 269.13 108.56">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #d9c2df;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-8 {
+        stroke: #000;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-2 {
+        fill: #deebf0;
+        stroke-linejoin: round;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-4 {
+        font-size: 7px;
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-5 {
+        font-size: 9px;
+        font-family: Humanist521BT-BoldCondensed, Humanst521 Cn BT;
+        font-weight: 700;
+      }
+
+      .cls-6 {
+        letter-spacing: -0.05em;
+      }
+
+      .cls-7 {
+        letter-spacing: 0.06em;
+      }
+
+      .cls-8 {
+        fill: none;
+        stroke-miterlimit: 10;
+        stroke-width: 0.3px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <path class="cls-1" d="M184.59,184.62h0c0-23.19,43.48-42,97.11-42h0c53.63,0,97.11,18.8,97.11,42h0c0,23.19-43.48,42-97.11,42h0c-53.63,0-97.11-18.79-97.11-42Z" transform="translate(-184.34 -133.04)"/>
+    <path class="cls-2" d="M203.19,197.18c0-15.13,35.15-27.39,78.51-27.39h0c43.36,0,78.51,12.26,78.51,27.39h0c0,15.12-35.15,27.38-78.51,27.38h0C238.34,224.56,203.19,212.3,203.19,197.18Z" transform="translate(-184.34 -133.04)"/>
+    <path class="cls-3" d="M228.14,208.3h0c0-7.59,24-13.74,53.56-13.74h0c29.58,0,53.56,6.15,53.56,13.74h0c0,7.59-24,13.74-53.56,13.74h0C252.12,222,228.14,215.89,228.14,208.3Z" transform="translate(-184.34 -133.04)"/>
+    <text class="cls-4" transform="translate(58.84 26.79)">Losere Regeln: hard fork</text>
+    <text class="cls-4" transform="translate(70.71 51.62)">Bisherige Regeln</text>
+    <text class="cls-4" transform="translate(59.62 77.56)">Engere Regeln: soft fork</text>
+    <text class="cls-5" transform="translate(207.84 96.94)">Block <tspan class="cls-6" x="21.44" y="0">W</tspan><tspan x="29" y="0">eight</tspan><tspan x="0" y="9.5" xml:space="preserve">  </tspan><tspan class="cls-7" x="4.61" y="9.5"> </tspan><tspan x="7.49" y="9.5">2,000,000 WU</tspan></text>
+    <text class="cls-5" transform="translate(207.84 7.57)">Menge gültiger<tspan x="0" y="9.5">Blocks gemäss</tspan><tspan x="0" y="19">unterschiedlicher</tspan><tspan x="0" y="28.5">Regeln</tspan></text>
+    <text class="cls-5" transform="translate(207.84 49.68)">Block <tspan class="cls-6" x="21.44" y="0">W</tspan><tspan x="29" y="0">eight</tspan><tspan x="0" y="9.5" xml:space="preserve">  </tspan><tspan class="cls-7" x="4.61" y="9.5"> </tspan><tspan x="7.49" y="9.5">8,000,000 WU</tspan></text>
+    <text class="cls-5" transform="translate(207.84 73.26)">Block <tspan class="cls-6" x="21.44" y="0">W</tspan><tspan x="29" y="0">eight</tspan><tspan x="0" y="9.5" xml:space="preserve">  </tspan><tspan class="cls-7" x="4.61" y="9.5"> </tspan><tspan x="7.49" y="9.5">4,000,000 WU</tspan></text>
+    <g>
+      <path class="cls-8" d="M332.25,154.75c14.25-5.75,43.5-7.5,56.91-6.08" transform="translate(-184.34 -133.04)"/>
+      <polygon points="149.12 23.23 145.41 22.71 147.72 19.76 149.12 23.23"/>
+    </g>
+    <g>
+      <path class="cls-8" d="M366.5,175.75c7.25,0,14,4,22.66,4" transform="translate(-184.34 -133.04)"/>
+      <polygon points="182.71 44.57 179.47 42.7 182.71 40.83 182.71 44.57"/>
+    </g>
+    <g>
+      <path class="cls-8" d="M351.75,196.5c15,0,24,6.75,37.41,6.75" transform="translate(-184.34 -133.04)"/>
+      <polygon points="167.96 65.32 164.72 63.45 167.96 61.58 167.96 65.32"/>
+    </g>
+    <g>
+      <path class="cls-8" d="M326.25,211.25c15.25,0,44,15.25,62.91,15.25" transform="translate(-184.34 -133.04)"/>
+      <polygon points="142.46 80.07 139.22 78.2 142.46 76.33 142.46 80.07"/>
+    </g>
+    <g>
+      <path class="cls-8" d="M310.25,176.25c22.5-15.75,61.25-27.5,78.91-27.58" transform="translate(-184.34 -133.04)"/>
+      <polygon points="127.43 44.42 123.7 44.74 125.28 41.35 127.43 44.42"/>
+    </g>
+    <g>
+      <path class="cls-8" d="M305.5,198.75c15.25-17.25,62-46,83.66-50.08" transform="translate(-184.34 -133.04)"/>
+      <polygon points="122.92 66.53 119.37 67.72 120.12 64.05 122.92 66.53"/>
+    </g>
+    <path d="M398.52,192.2h-5.23v-.86h5.23Zm0-4.54-3.65,1.16,3.65,1.15v.92l-5.22-1.7v-.76l5.22-1.69Z" transform="translate(-184.34 -133.04)"/>
+    <path d="M398.52,215.81h-5.23V215h5.23Zm0-4.54-3.65,1.16,3.65,1.15v.92l-5.22-1.69V212l5.22-1.69Z" transform="translate(-184.34 -133.04)"/>
+    <path d="M398.52,239.5h-5.23v-.87h5.23Zm0-4.54-3.65,1.16,3.65,1.15v.92l-5.22-1.7v-.76l5.22-1.69Z" transform="translate(-184.34 -133.04)"/>
+  </g>
+</svg>

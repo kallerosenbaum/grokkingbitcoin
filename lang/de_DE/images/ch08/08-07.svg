@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="274.82" height="146.59" viewBox="0 0 274.82 146.59">
+  <defs>
+    <style>
+      .cls-1, .cls-10, .cls-5 {
+        fill: none;
+      }
+
+      .cls-1, .cls-10, .cls-11, .cls-12, .cls-15, .cls-5, .cls-6 {
+        stroke: #000;
+      }
+
+      .cls-1 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-1, .cls-11 {
+        stroke-width: 0.3px;
+      }
+
+      .cls-2 {
+        font-size: 9px;
+        font-family: Humanist521BT-BoldCondensed, Humanst521 Cn BT;
+        font-weight: 700;
+      }
+
+      .cls-3 {
+        letter-spacing: -0.02em;
+      }
+
+      .cls-4 {
+        letter-spacing: -0.04em;
+      }
+
+      .cls-10, .cls-12, .cls-15, .cls-5, .cls-6 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-6, .cls-7 {
+        fill: #fff;
+      }
+
+      .cls-10, .cls-11, .cls-12, .cls-15, .cls-6 {
+        stroke-linejoin: round;
+      }
+
+      .cls-8 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-12, .cls-9 {
+        fill: #b3e2ee;
+      }
+
+      .cls-11 {
+        fill: #f0f9fc;
+      }
+
+      .cls-13 {
+        font-size: 7px;
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-14 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-15 {
+        fill: #d2b6d9;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="220.81" y1="780.62" x2="282" y2="780.62" gradientTransform="translate(835.81 -344.16) rotate(68.86)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#cbd8e2"/>
+      <stop offset="1" stop-color="#9aa5b5"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="298.86" y1="578.8" x2="360.05" y2="578.8" xlink:href="#linear-gradient"/>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g>
+      <path class="cls-1" d="M385.5,163c-8.75-1.75-31.5-7.75-35.5-25.33" transform="translate(-166.28 -118.66)"/>
+      <polygon points="219.05 42.41 221.85 44.88 218.31 46.08 219.05 42.41"/>
+    </g>
+    <text class="cls-2" transform="translate(139.23 7.57)">Lisas Computer <tspan class="cls-3" x="56.78" y="0">P</tspan><tspan x="61.25" y="0">rogramm</tspan><tspan x="0" y="9.5">hört auf </tspan><tspan class="cls-4" x="30.68" y="9.5">P</tspan><tspan x="34.99" y="9.5">ort 8333.</tspan></text>
+    <line class="cls-5" x1="238.63" y1="86.68" x2="31.22" y2="86.68"/>
+    <path class="cls-6" d="M406.84,204.73a22.16,22.16,0,0,1-2.34-.85v2.9a23.05,23.05,0,0,1,2.33-.86,15.22,15.22,0,0,1,2.54-.6A18.36,18.36,0,0,1,406.84,204.73Z" transform="translate(-166.28 -118.66)"/>
+    <g>
+      <path class="cls-7" d="M217,145.07H174a.67.67,0,0,0-.66.66v36.53a.67.67,0,0,0,.66.67h43a.67.67,0,0,0,.66-.67V145.73A.67.67,0,0,0,217,145.07Z" transform="translate(-166.28 -118.66)"/>
+      <path class="cls-8" d="M217.65,182.26a.67.67,0,0,1-.66.67H174a.67.67,0,0,1-.66-.67V146.51a.66.66,0,0,1,.66-.66h43a.66.66,0,0,1,.66.66Z" transform="translate(-166.28 -118.66)"/>
+      <path class="cls-9" d="M217.65,182.26a.67.67,0,0,1-.66.67H174a.67.67,0,0,1-.66-.67V146.51a.66.66,0,0,1,.66-.66h43a.66.66,0,0,1,.66.66Z" transform="translate(-166.28 -118.66)"/>
+      <path class="cls-10" d="M217,145.07H174a.67.67,0,0,0-.66.66v36.53a.67.67,0,0,0,.66.67h43a.67.67,0,0,0,.66-.67V145.73A.67.67,0,0,0,217,145.07Z" transform="translate(-166.28 -118.66)"/>
+      <rect class="cls-11" x="9.63" y="29.37" width="39.17" height="30.14"/>
+      <polyline class="cls-6" points="58.17 63.31 51.18 61.76 7.07 61.76 0.26 63.31"/>
+      <path class="cls-12" d="M166.53,182s1.32,2.89,2.82,2.89h52.3c1.38,0,2.82-2.89,2.82-2.89Z" transform="translate(-166.28 -118.66)"/>
+    </g>
+    <text class="cls-13" transform="translate(22.19 46.9)">Tom</text>
+    <text class="cls-13" transform="translate(65.42 81.23)">Bitte erlaube Verbindung auf Port 8883. (SYN)</text>
+    <line class="cls-5" x1="36.17" y1="112.18" x2="243.39" y2="112.18"/>
+    <path class="cls-6" d="M200.53,230.23a21.94,21.94,0,0,0,2.33-.85v2.9a23.59,23.59,0,0,0-2.32-.86,15.22,15.22,0,0,0-2.54-.6A18.7,18.7,0,0,0,200.53,230.23Z" transform="translate(-166.28 -118.66)"/>
+    <text class="cls-13" transform="translate(89.76 106.73)">Gern, willkommen. (SYN/ACK)</text>
+    <line class="cls-5" x1="238.63" y1="137.68" x2="31.22" y2="137.68"/>
+    <path class="cls-6" d="M406.84,255.73a22.16,22.16,0,0,1-2.34-.85v2.9a23.05,23.05,0,0,1,2.33-.86,15.22,15.22,0,0,1,2.54-.6A18.36,18.36,0,0,1,406.84,255.73Z" transform="translate(-166.28 -118.66)"/>
+    <text class="cls-13" transform="translate(92.87 132.23)">Ok, cool. Reden wir… (ACK)</text>
+    <g>
+      <path class="cls-7" d="M433.38,145.07h-43a.66.66,0,0,0-.66.66v36.53a.67.67,0,0,0,.66.67h43a.67.67,0,0,0,.66-.67V145.73A.67.67,0,0,0,433.38,145.07Z" transform="translate(-166.28 -118.66)"/>
+      <path class="cls-14" d="M434,182.26a.67.67,0,0,1-.66.67h-43a.67.67,0,0,1-.66-.67V146.51a.65.65,0,0,1,.66-.66h43a.66.66,0,0,1,.66.66Z" transform="translate(-166.28 -118.66)"/>
+      <path class="cls-9" d="M434,182.26a.67.67,0,0,1-.66.67h-43a.67.67,0,0,1-.66-.67V146.51a.65.65,0,0,1,.66-.66h43a.66.66,0,0,1,.66.66Z" transform="translate(-166.28 -118.66)"/>
+      <path class="cls-10" d="M433.38,145.07h-43a.66.66,0,0,0-.66.66v36.53a.67.67,0,0,0,.66.67h43a.67.67,0,0,0,.66-.67V145.73A.67.67,0,0,0,433.38,145.07Z" transform="translate(-166.28 -118.66)"/>
+      <rect class="cls-11" x="226.02" y="29.37" width="39.17" height="30.14"/>
+      <polyline class="cls-6" points="274.56 63.31 267.57 61.76 223.46 61.76 216.65 63.31"/>
+      <path class="cls-12" d="M382.92,182s1.31,2.89,2.82,2.89H438c1.39,0,2.83-2.89,2.83-2.89Z" transform="translate(-166.28 -118.66)"/>
+    </g>
+    <text class="cls-13" transform="translate(239.16 46.9)">Lisa</text>
+    <rect class="cls-15" x="27.22" y="70.09" width="4" height="76.25"/>
+    <rect class="cls-15" x="243.61" y="70.09" width="4" height="76.25"/>
+  </g>
+</svg>

@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="244.25" height="52.38" viewBox="0 0 244.25 52.38">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fef0e8;
+      }
+
+      .cls-13, .cls-2, .cls-4, .cls-5 {
+        fill: none;
+      }
+
+      .cls-2 {
+        stroke: #e60001;
+        stroke-linejoin: round;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-4 {
+        stroke: #daab98;
+      }
+
+      .cls-4, .cls-5 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-5 {
+        stroke: #4d4d4d;
+      }
+
+      .cls-6 {
+        font-size: 11.5px;
+      }
+
+      .cls-14, .cls-6, .cls-7 {
+        font-family: Courier;
+      }
+
+      .cls-7 {
+        font-size: 10px;
+      }
+
+      .cls-8 {
+        letter-spacing: 0.05em;
+      }
+
+      .cls-9 {
+        fill: #fda452;
+      }
+
+      .cls-13, .cls-9 {
+        stroke: #000;
+        stroke-width: 0.3px;
+      }
+
+      .cls-10 {
+        fill: #fbafc5;
+      }
+
+      .cls-10, .cls-11 {
+        fill-rule: evenodd;
+      }
+
+      .cls-11 {
+        fill: #96c749;
+      }
+
+      .cls-12 {
+        font-size: 7px;
+      }
+
+      .cls-13 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-14 {
+        font-size: 5.61px;
+      }
+
+      .cls-15 {
+        font-size: 9px;
+        font-family: Humanist521BT-BoldCondensed, Humanst521 Cn BT;
+        font-weight: 700;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <rect class="cls-1" x="0.5" y="0.5" width="243.25" height="28.81" rx="2"/>
+    <rect class="cls-2" x="0.5" y="0.5" width="243.25" height="28.81" rx="2"/>
+    <g>
+      <rect class="cls-3" x="134.12" y="6.57" width="38.11" height="14.15" rx="2"/>
+      <rect class="cls-4" x="134.12" y="6.57" width="38.11" height="14.15" rx="2"/>
+    </g>
+    <line class="cls-5" x1="180.83" y1="0.64" x2="180.83" y2="28.79"/>
+    <text class="cls-6" transform="translate(52.68 16.6)">–1</text>
+    <text class="cls-7" transform="translate(74.58 16.6)">&quot;I support<tspan class="cls-8" x="60.01" y="0">/</tspan><tspan x="66.51" y="0">P2S</tspan><tspan class="cls-8" x="84.51" y="0">H</tspan><tspan x="91.01" y="0">/&quot;</tspan></text>
+    <text class="cls-6" transform="translate(185.4 15.62)">50</text>
+    <g>
+      <path class="cls-9" d="M176.17,127.66l-2.62-2.94c4.9-1.51,8.44-.36,11.3.56,2.11.69,3.64,1.19,5.75.73a6,6,0,0,0,3.74-2.22c1.11-1.23,2.38-2.63,6.65-3l2.08,3c-3.39.33-4.28,1.31-5.31,2.44A7.73,7.73,0,0,1,193,129c-3,.66-5.64-.18-7.92-.92C182.51,127.25,180.07,126.46,176.17,127.66Z" transform="translate(-166 -113.36)"/>
+      <path class="cls-9" d="M181.29,130.46l-2.63-3c4.9-1.51,8.45-.35,11.3.57,2.12.69,3.65,1.19,5.76.73a6,6,0,0,0,3.73-2.22c1.12-1.23,2.39-2.63,6.65-3l2.09,3c-3.39.33-4.28,1.3-5.31,2.44a7.77,7.77,0,0,1-4.75,2.77c-3.06.66-5.64-.18-7.93-.92C187.62,130.05,185.19,129.26,181.29,130.46Z" transform="translate(-166 -113.36)"/>
+      <path class="cls-9" d="M180.15,133.57l-2.62-2.94c4.9-1.51,8.45-.35,11.3.57,2.12.69,3.65,1.18,5.75.73a6,6,0,0,0,3.74-2.23c1.12-1.22,2.38-2.62,6.65-3l2.08,3c-3.39.32-4.27,1.3-5.31,2.44a7.73,7.73,0,0,1-4.74,2.77c-3.06.65-5.64-.18-7.93-.93C186.49,133.16,184.05,132.37,180.15,133.57Z" transform="translate(-166 -113.36)"/>
+      <path class="cls-9" d="M185.36,136.34l-2.62-2.94c4.9-1.51,8.45-.36,11.29.57,2.12.69,3.65,1.19,5.75.73a6,6,0,0,0,3.74-2.23c1.12-1.23,2.39-2.62,6.65-3l2.08,3.05c-3.38.32-4.27,1.3-5.3,2.44a7.86,7.86,0,0,1-4.75,2.77c-3,.65-5.64-.19-7.93-.93C191.69,135.93,189.26,135.14,185.36,136.34Z" transform="translate(-166 -113.36)"/>
+      <path class="cls-9" d="M177,124.45l-2.63-3c4.91-1.51,8.45-.35,11.31.57,2.11.69,3.64,1.18,5.74.73a6,6,0,0,0,3.74-2.22c1.12-1.24,2.39-2.63,6.65-3l2.08,3c-3.38.32-4.27,1.31-5.3,2.44a7.77,7.77,0,0,1-4.75,2.77c-3.06.65-5.64-.19-7.93-.92C183.3,124,180.87,123.24,177,124.45Z" transform="translate(-166 -113.36)"/>
+      <polygon points="11.13 8.46 14.71 8.14 16.27 8.98 13.94 8.83 11.13 8.46"/>
+      <polygon points="20.27 10.28 24.09 11.72 26.56 10.94 23.43 10.53 20.27 10.28"/>
+      <polygon points="21.77 14.87 19.09 14.73 17.99 15.48 20.71 15.21 24.2 16.6 26.39 16.57 23.38 15.39 21.77 14.87"/>
+      <path d="M203.61,127.93c-.68.07-2.42.47-2.42.47l-1.33,2.18,1.87-1.32,2.92-.41Z" transform="translate(-166 -113.36)"/>
+      <polygon points="39 19.94 37.76 21.5 34.93 22.39 36.52 23.07 38.84 22.11 39 19.94"/>
+      <polygon points="27.19 21.39 24.46 20.56 22.37 21.07 24.86 21.24 27.19 21.39"/>
+      <polygon points="18.11 18.01 16.56 18.28 18.73 18.4 18.11 18.01"/>
+      <polygon class="cls-10" points="30.76 8.66 28.83 9.2 26.56 10.94 29.68 10.25 30.76 8.66"/>
+      <polygon class="cls-10" points="33.22 18.09 30.68 19.33 30.41 20.08 32.85 19.45 33.22 18.09"/>
+      <polygon class="cls-10" points="44.09 17.3 41.25 18.34 41.04 19.73 43.39 18.62 44.09 17.3"/>
+      <polygon class="cls-10" points="16.39 17.16 14.47 18.79 13.78 17.76 16.39 17.16"/>
+      <polygon class="cls-11" points="28.01 13.64 24.52 13.35 26.41 14.21 28.01 13.64"/>
+      <path class="cls-11" d="M197.43,135.61l-3.25-.74s1.68,1.16,2.14,1.38a24.68,24.68,0,0,0,3.3.42Z" transform="translate(-166 -113.36)"/>
+      <polygon class="cls-11" points="17.54 14.01 14.66 14.11 15.78 15.66 17.54 14.01"/>
+      <path class="cls-11" d="M200.75,118.92l-3.22,1.31s-1.29,1.88-.77,1.79a18.72,18.72,0,0,0,2.75-1.53Z" transform="translate(-166 -113.36)"/>
+    </g>
+    <text class="cls-6" transform="translate(212.31 15.62)">PKH<tspan class="cls-12" x="20.7" y="3">L</tspan></text>
+    <g>
+      <path class="cls-13" d="M319.61,138.25c0,6.33-6.59,11.75-6.59,18.42" transform="translate(-166 -113.36)"/>
+      <polygon points="151.75 25.44 153.62 22.2 155.49 25.44 151.75 25.44"/>
+    </g>
+    <rect class="cls-3" x="11.99" y="10.65" width="31.27" height="7.34" rx="1"/>
+    <text class="cls-14" transform="translate(12.48 16.26)">0000…0000</text>
+    <text class="cls-15" transform="translate(105.06 50.26)">Signalisiert Support für p2sh</text>
+  </g>
+</svg>

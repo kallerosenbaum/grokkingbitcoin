@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="248.15" height="130.24" viewBox="0 0 248.15 130.24">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #d9c2df;
+      }
+
+      .cls-1, .cls-2, .cls-6 {
+        stroke: #000;
+      }
+
+      .cls-1, .cls-2 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-2 {
+        fill: #deebf0;
+      }
+
+      .cls-3 {
+        font-size: 14px;
+        font-family: Myriad-Roman, Myriad Roman;
+      }
+
+      .cls-4 {
+        letter-spacing: 0em;
+      }
+
+      .cls-5 {
+        letter-spacing: 0.15em;
+      }
+
+      .cls-6 {
+        fill: none;
+        stroke-linecap: round;
+        stroke-width: 0.75px;
+      }
+
+      .cls-7 {
+        letter-spacing: 0em;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g>
+      <path class="cls-1" d="M325.69,183.69h64.87a64.87,64.87,0,1,1-64.87-64.87h0Z" transform="translate(-202.51 -118.57)"/>
+      <path class="cls-2" d="M325.69,183.69V118.82a64.87,64.87,0,0,1,64.87,64.87H325.69Z" transform="translate(-202.51 -118.57)"/>
+    </g>
+    <text class="cls-3" transform="translate(0.37 59.49)"><tspan class="cls-4">N</tspan><tspan x="9.19" y="0">eu</tspan><tspan x="0" y="21">75.</tspan><tspan class="cls-5" x="17.27" y="21">0%</tspan></text>
+    <line class="cls-6" x1="0.38" y1="65.1" x2="72.64" y2="65.1"/>
+    <path d="M276.77,183.67a1.6,1.6,0,1,1-1.59-1.6A1.6,1.6,0,0,1,276.77,183.67Z" transform="translate(-202.51 -118.57)"/>
+    <text class="cls-3" transform="translate(208.4 17.88)"><tspan class="cls-7">A</tspan><tspan x="8.52" y="0">lt</tspan><tspan x="0" y="21">25.</tspan><tspan class="cls-5" x="17.27" y="21">0%</tspan></text>
+    <line class="cls-6" x1="148.47" y1="23.5" x2="245.74" y2="23.5"/>
+    <path d="M352.58,142.06a1.6,1.6,0,1,1-1.6-1.59A1.6,1.6,0,0,1,352.58,142.06Z" transform="translate(-202.51 -118.57)"/>
+  </g>
+</svg>

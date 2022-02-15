@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="76.35" height="120.43" viewBox="0 0 76.35 120.43">
+  <defs>
+    <style>
+      .cls-1, .cls-6 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-3, .cls-7 {
+        fill: #b3e2ee;
+      }
+
+      .cls-12, .cls-4 {
+        fill: none;
+      }
+
+      .cls-12, .cls-4, .cls-5, .cls-6, .cls-7 {
+        stroke: #000;
+      }
+
+      .cls-4, .cls-5, .cls-6, .cls-7 {
+        stroke-linejoin: round;
+      }
+
+      .cls-12, .cls-4, .cls-6, .cls-7 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-5 {
+        fill: #f0f9fc;
+        stroke-width: 0.3px;
+      }
+
+      .cls-8 {
+        font-size: 7px;
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-9 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-10 {
+        fill: url(#linear-gradient-3);
+      }
+
+      .cls-11 {
+        fill: #fe8013;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="329.6" y1="732.1" x2="380.59" y2="732.1" gradientTransform="translate(835.81 -344.16) rotate(68.86)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#cbd8e2"/>
+      <stop offset="1" stop-color="#9aa5b5"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="276.82" y1="730.01" x2="318.12" y2="730.01" gradientTransform="translate(595.35 -485.88) rotate(68.86)" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="256" y1="682.56" x2="297.31" y2="682.56" gradientTransform="translate(595.35 -485.88) rotate(68.86)" xlink:href="#linear-gradient"/>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g>
+      <path class="cls-1" d="M296.55,228.75H260.73a.55.55,0,0,0-.55.55v30.44a.56.56,0,0,0,.55.56h35.82a.56.56,0,0,0,.55-.56V229.3A.55.55,0,0,0,296.55,228.75Z" transform="translate(-240.46 -141.72)"/>
+      <path class="cls-2" d="M297.1,259.74a.56.56,0,0,1-.55.56H260.73a.56.56,0,0,1-.55-.56V230a.55.55,0,0,1,.55-.55h35.82a.55.55,0,0,1,.55.55Z" transform="translate(-240.46 -141.72)"/>
+      <path class="cls-3" d="M297.1,259.74a.56.56,0,0,1-.55.56H260.73a.56.56,0,0,1-.55-.56V230a.55.55,0,0,1,.55-.55h35.82a.55.55,0,0,1,.55.55Z" transform="translate(-240.46 -141.72)"/>
+      <path class="cls-4" d="M296.55,228.75H260.73a.55.55,0,0,0-.55.55v30.44a.56.56,0,0,0,.55.56h35.82a.56.56,0,0,0,.55-.56V229.3A.55.55,0,0,0,296.55,228.75Z" transform="translate(-240.46 -141.72)"/>
+      <rect class="cls-5" x="21.85" y="89.49" width="32.64" height="25.11"/>
+      <polyline class="cls-6" points="62.3 117.77 56.48 116.48 19.72 116.48 14.04 117.77"/>
+      <path class="cls-7" d="M254.5,259.49s1.1,2.41,2.35,2.41h43.58c1.15,0,2.35-2.41,2.35-2.41Z" transform="translate(-240.46 -141.72)"/>
+    </g>
+    <text class="cls-8" transform="translate(28.11 110.8)">Selma</text>
+    <g>
+      <path class="cls-1" d="M274.78,178.5h-29a.44.44,0,0,0-.44.44V203.6a.45.45,0,0,0,.44.45h29a.45.45,0,0,0,.44-.45V178.94A.44.44,0,0,0,274.78,178.5Z" transform="translate(-240.46 -141.72)"/>
+      <rect class="cls-9" x="4.85" y="37.3" width="29.9" height="25.03" rx="0.44"/>
+      <rect class="cls-3" x="4.85" y="37.3" width="29.9" height="25.03" rx="0.44"/>
+      <path class="cls-4" d="M274.78,178.5h-29a.44.44,0,0,0-.44.44V203.6a.45.45,0,0,0,.44.45h29a.45.45,0,0,0,.44-.45V178.94A.44.44,0,0,0,274.78,178.5Z" transform="translate(-240.46 -141.72)"/>
+      <rect class="cls-5" x="6.58" y="38.77" width="26.44" height="20.34"/>
+      <polyline class="cls-6" points="39.35 61.68 34.63 60.63 4.85 60.63 0.26 61.68"/>
+      <path class="cls-7" d="M240.71,203.4s.89,1.95,1.91,1.95h35.3c.93,0,1.9-1.95,1.9-1.95Z" transform="translate(-240.46 -141.72)"/>
+    </g>
+    <text class="cls-8" transform="translate(16.19 51.36)">Qi</text>
+    <g>
+      <path class="cls-1" d="M311.52,142h-29a.45.45,0,0,0-.45.45v24.65a.46.46,0,0,0,.45.46h29a.45.45,0,0,0,.44-.46V142.42A.45.45,0,0,0,311.52,142Z" transform="translate(-240.46 -141.72)"/>
+      <rect class="cls-10" x="41.6" y="0.77" width="29.9" height="25.03" rx="0.44"/>
+      <rect class="cls-3" x="41.6" y="0.77" width="29.9" height="25.03" rx="0.44"/>
+      <path class="cls-4" d="M311.52,142h-29a.45.45,0,0,0-.45.45v24.65a.46.46,0,0,0,.45.46h29a.45.45,0,0,0,.44-.46V142.42A.45.45,0,0,0,311.52,142Z" transform="translate(-240.46 -141.72)"/>
+      <rect class="cls-5" x="43.33" y="2.24" width="26.44" height="20.34"/>
+      <polyline class="cls-6" points="76.09 25.15 71.37 24.1 41.6 24.1 37 25.15"/>
+      <path class="cls-7" d="M277.46,166.87s.89,1.95,1.9,1.95h35.3c.93,0,1.91-1.95,1.91-1.95Z" transform="translate(-240.46 -141.72)"/>
+    </g>
+    <text class="cls-8" transform="translate(46.05 14.83)">Rashid</text>
+    <g>
+      <path class="cls-11" d="M284.42,239.6a5.91,5.91,0,1,1-5.91-5.91A5.91,5.91,0,0,1,284.42,239.6Z" transform="translate(-240.46 -141.72)"/>
+      <path class="cls-1" d="M281,240.29a1.38,1.38,0,0,0-.69-.6,1.06,1.06,0,0,0,.79-1,1,1,0,0,0-.07-.53,1,1,0,0,0-.3-.42,2.12,2.12,0,0,0-.46-.29,3.48,3.48,0,0,0-.6-.21l.21-1.11-.68-.13-.2,1.08-.55-.09.21-1.09-.68-.12-.21,1.11-.43-.08-.93-.18-.14.73.49.09a.35.35,0,0,1,.34.37l-.23,1.27.06,0-.07,0-.32,1.78a.25.25,0,0,1-.3.18l-.49-.09-.29.78.88.16.25,0,.24.05-.21,1.12.68.13.2-1.11.54.1-.2,1.11.68.13.2-1.13a5.73,5.73,0,0,0,.66.05,2.09,2.09,0,0,0,.56-.05,1.5,1.5,0,0,0,.48-.18,1.27,1.27,0,0,0,.36-.34,1.85,1.85,0,0,0,.24-.53,1.3,1.3,0,0,0,0-1Zm-2.68-2.53.18,0,.24,0,.25,0,.26.09a1.27,1.27,0,0,1,.23.12.64.64,0,0,1,.19.16.51.51,0,0,1,.1.21.49.49,0,0,1,0,.27.48.48,0,0,1-.08.22.54.54,0,0,1-.15.15,1.11,1.11,0,0,1-.19.09l-.23,0h-.23a1.19,1.19,0,0,1-.25,0l-.22,0-.21,0-.15,0,.25-1.36Zm1.3,3.35a1.07,1.07,0,0,1-.14.16.75.75,0,0,1-.2.1l-.23,0-.25,0h-.26l-.26,0-.24,0-.21,0-.16,0,.27-1.5.22,0,.28,0,.3.07a1.52,1.52,0,0,1,.32.1,1.38,1.38,0,0,1,.28.13,1.11,1.11,0,0,1,.23.19.71.71,0,0,1,.12.23.57.57,0,0,1,0,.29.73.73,0,0,1-.09.22Zm0,0" transform="translate(-240.46 -141.72)"/>
+    </g>
+    <line class="cls-12" x1="28.67" y1="63.95" x2="36.67" y2="86.95"/>
+    <line class="cls-12" x1="56.87" y1="27.28" x2="39.73" y2="86.95"/>
+  </g>
+</svg>

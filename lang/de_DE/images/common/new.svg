@@ -1,0 +1,46 @@
+<svg id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" width="140.66mm" height="81.11mm" viewBox="0 0 398.72 229.93">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #5c0801;
+      }
+
+      .cls-2 {
+        fill: #b0200b;
+      }
+
+      .cls-3, .cls-4 {
+        isolation: isolate;
+      }
+
+      .cls-4 {
+        font-size: 87.59px;
+        fill: #fff;
+        font-family: OpenSans-SemiBold, OpenSans SemiBold;
+        font-weight: 600;
+      }
+    </style>
+  </defs>
+  <g id="Canvas_1" data-name="Canvas 1">
+    <g id="Canvas_1:_Layer_1" data-name="Canvas_1: Layer 1">
+      <g id="Group_13" data-name="Group 13">
+        <g id="Group_11" data-name="Group 11">
+          <g id="Graphic_3" data-name="Graphic 3">
+            <path class="cls-1" d="M441.8,302.68l54.13,96.71H441.8Z" transform="translate(-97.21 -302.68)"/>
+          </g>
+          <g id="Graphic_5" data-name="Graphic 5">
+            <path class="cls-1" d="M151.35,302.68,97.21,399.39h54.14Z" transform="translate(-97.21 -302.68)"/>
+          </g>
+          <g id="Graphic_8" data-name="Graphic 8">
+            <path class="cls-2" d="M441.49,472.69h.31v-170H151.35v170L296.42,532.6Z" transform="translate(-97.21 -302.68)"/>
+          </g>
+        </g>
+        <g id="Graphic_12" data-name="Graphic 12">
+          <g class="cls-3">
+            <text class="cls-4" transform="translate(108.11 129.87)">NEU</text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

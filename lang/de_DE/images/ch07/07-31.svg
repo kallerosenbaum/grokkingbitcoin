@@ -1,0 +1,234 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="357.97" height="152.29" viewBox="0 0 357.97 152.29">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        font-size: 7px;
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-3, .cls-6, .cls-7 {
+        fill: #fff;
+      }
+
+      .cls-4, .cls-8 {
+        fill: #b284bf;
+      }
+
+      .cls-14, .cls-15, .cls-16, .cls-22, .cls-5 {
+        fill: none;
+      }
+
+      .cls-14, .cls-15, .cls-16, .cls-18, .cls-22, .cls-5, .cls-6, .cls-7, .cls-8 {
+        stroke: #000;
+      }
+
+      .cls-15, .cls-16, .cls-18, .cls-5, .cls-6, .cls-7, .cls-8 {
+        stroke-linejoin: round;
+      }
+
+      .cls-14, .cls-15, .cls-16, .cls-18, .cls-5, .cls-7, .cls-8 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-22, .cls-6 {
+        stroke-width: 0.3px;
+      }
+
+      .cls-9 {
+        font-size: 9px;
+        font-family: Humanist521BT-BoldCondensed, Humanst521 Cn BT;
+        font-weight: 700;
+      }
+
+      .cls-10 {
+        letter-spacing: -0.1em;
+      }
+
+      .cls-11 {
+        letter-spacing: -0.05em;
+      }
+
+      .cls-12 {
+        letter-spacing: 0em;
+      }
+
+      .cls-13 {
+        fill: #deebf0;
+      }
+
+      .cls-15 {
+        stroke-dasharray: 1.99 0.99;
+      }
+
+      .cls-16 {
+        stroke-dasharray: 1.96 0.98;
+      }
+
+      .cls-17 {
+        fill: #018335;
+      }
+
+      .cls-18 {
+        fill: #fff2ba;
+      }
+
+      .cls-19 {
+        letter-spacing: -0.07em;
+      }
+
+      .cls-20 {
+        letter-spacing: 0em;
+      }
+
+      .cls-21 {
+        letter-spacing: -0.07em;
+      }
+
+      .cls-22 {
+        stroke-miterlimit: 10;
+      }
+    </style>
+    <linearGradient id="linear-gradient" y1="137.58" x2="357.67" y2="137.58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d4e5ec"/>
+      <stop offset="1" stop-color="#9ec5d5"/>
+    </linearGradient>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <polygon class="cls-1" points="346.83 134.91 0 134.91 0 140.26 346.83 140.26 346.83 143.06 357.67 137.59 346.83 132.12 346.83 134.91"/>
+    <text class="cls-2" transform="translate(344.35 128.41)"><tspan xml:space="preserve"> Zeit</tspan></text>
+    <text class="cls-2" transform="translate(336.52 150.02)"><tspan xml:space="preserve"> L</tspan></text>
+    <g>
+      <path class="cls-3" d="M199.59,164.48H173.8a.39.39,0,0,0-.39.39v21.92a.41.41,0,0,0,.39.4h25.79a.41.41,0,0,0,.4-.4V164.87A.39.39,0,0,0,199.59,164.48Z" transform="translate(-124.33 -135.61)"/>
+      <path class="cls-4" d="M200,186.79a.41.41,0,0,1-.4.4H173.8a.41.41,0,0,1-.39-.4V165.34a.4.4,0,0,1,.39-.4h25.79a.4.4,0,0,1,.4.4Z" transform="translate(-124.33 -135.61)"/>
+      <path class="cls-5" d="M199.59,164.48H173.8a.39.39,0,0,0-.39.39v21.92a.41.41,0,0,0,.39.4h25.79a.41.41,0,0,0,.4-.4V164.87A.39.39,0,0,0,199.59,164.48Z" transform="translate(-124.33 -135.61)"/>
+      <rect class="cls-6" x="50.61" y="30.64" width="23.5" height="18.08"/>
+      <polyline class="cls-7" points="79.74 51 75.54 50.07 49.08 50.07 44.99 51"/>
+      <path class="cls-8" d="M169.32,186.61s.79,1.73,1.69,1.73h31.38c.83,0,1.69-1.73,1.69-1.73Z" transform="translate(-124.33 -135.61)"/>
+    </g>
+    <g>
+      <path class="cls-3" d="M428.51,163.81H401.28a.42.42,0,0,0-.41.42v23.14a.43.43,0,0,0,.41.42h27.23a.42.42,0,0,0,.41-.42V164.23A.41.41,0,0,0,428.51,163.81Z" transform="translate(-124.33 -135.61)"/>
+      <path class="cls-4" d="M428.92,187.37a.42.42,0,0,1-.41.42H401.28a.43.43,0,0,1-.41-.42V164.72a.42.42,0,0,1,.41-.42h27.23a.41.41,0,0,1,.41.42Z" transform="translate(-124.33 -135.61)"/>
+      <path class="cls-5" d="M428.51,163.81H401.28a.42.42,0,0,0-.41.42v23.14a.43.43,0,0,0,.41.42h27.23a.42.42,0,0,0,.41-.42V164.23A.41.41,0,0,0,428.51,163.81Z" transform="translate(-124.33 -135.61)"/>
+      <rect class="cls-6" x="278.16" y="30.07" width="24.81" height="19.09"/>
+      <polyline class="cls-7" points="308.9 51.56 304.47 50.58 276.54 50.58 272.22 51.56"/>
+      <path class="cls-8" d="M396.55,187.18s.83,1.82,1.78,1.82h33.12c.88,0,1.79-1.82,1.79-1.82Z" transform="translate(-124.33 -135.61)"/>
+    </g>
+    <text class="cls-9" transform="translate(80.41 7.57)">Lisas Mining<tspan x="0" y="9.5">Computer</tspan></text>
+    <text class="cls-9" transform="translate(146.69 7.57)">Auf Share<tspan x="0" y="9.5">legen.</tspan></text>
+    <text class="cls-9" transform="translate(228.32 7.57)">Download auf<tspan x="0" y="9.5">Qis Compute</tspan><tspan class="cls-10" x="44.68" y="9.5">r</tspan><tspan x="47.17" y="9.5">.</tspan></text>
+    <text class="cls-9" transform="translate(306.4 7.57)"><tspan class="cls-11">V<tspan class="cls-12" x="3.78" y="0">erifiziere</tspan></tspan><tspan x="0" y="9.5">den Block.</tspan></text>
+    <g>
+      <rect class="cls-13" x="0.67" y="4.54" width="60.26" height="38.41" rx="2"/>
+      <rect class="cls-5" x="0.67" y="4.54" width="60.26" height="38.41" rx="2"/>
+    </g>
+    <line class="cls-14" x1="158.01" y1="39.3" x2="75.81" y2="39.3"/>
+    <path d="M283.71,174.31a24.39,24.39,0,0,1-2.33-.85v2.9a23.05,23.05,0,0,1,2.33-.86,16.47,16.47,0,0,1,2.53-.61A17,17,0,0,1,283.71,174.31Z" transform="translate(-124.33 -135.61)"/>
+    <line class="cls-14" x1="272.47" y1="39.3" x2="196.4" y2="39.3"/>
+    <path d="M398.18,174.31a24.64,24.64,0,0,1-2.34-.85v2.9a23.05,23.05,0,0,1,2.33-.86,16.74,16.74,0,0,1,2.53-.61A17,17,0,0,1,398.18,174.31Z" transform="translate(-124.33 -135.61)"/>
+    <g>
+      <line class="cls-5" x1="339.33" y1="48.33" x2="339.33" y2="49.33"/>
+      <line class="cls-15" x1="339.33" y1="50.33" x2="339.33" y2="133.39"/>
+      <line class="cls-5" x1="339.33" y1="133.89" x2="339.33" y2="134.89"/>
+    </g>
+    <line class="cls-5" x1="339.33" y1="134.89" x2="339.33" y2="141.39"/>
+    <text class="cls-2" transform="translate(256.06 150.02)"><tspan xml:space="preserve"> T</tspan></text>
+    <g>
+      <line class="cls-5" x1="259.06" y1="93.64" x2="259.06" y2="94.64"/>
+      <line class="cls-16" x1="259.06" y1="95.62" x2="259.06" y2="133.4"/>
+      <line class="cls-5" x1="259.06" y1="133.89" x2="259.06" y2="134.89"/>
+    </g>
+    <line class="cls-5" x1="259.06" y1="134.89" x2="259.06" y2="141.39"/>
+    <g>
+      <path class="cls-17" d="M471.72,170.47a9.2,9.2,0,1,1-12.49-3.62A9.19,9.19,0,0,1,471.72,170.47Z" transform="translate(-124.33 -135.61)"/>
+      <g>
+        <path class="cls-3" d="M457.89,177.42c-1-2-1.71-3.62.64-4.92s3.34.11,4.5,2.08l.62,1.13c1.16,2.1,1.85,3.72-.57,5s-3.41-.12-4.57-2.22Zm2.53,1c.36.66,1,1.69,2,1.13s.46-1.66.05-2.42l-1.11-2c-.35-.63-1.09-2-2.18-1.44s-.3,2,0,2.57Z" transform="translate(-124.33 -135.61)"/>
+        <path class="cls-3" d="M466.9,178.41l-4.34-7.88,1.47-.81,1.93,3.5h0a19.29,19.29,0,0,1-.12-2.4l0-2.09,1.66-.91-.08,4.45,4.51,3.38-1.66.91-3.1-2.34,0,1.13,1.24,2.26Z" transform="translate(-124.33 -135.61)"/>
+      </g>
+    </g>
+    <text class="cls-2" transform="translate(11.34 22.3)">Lisas großer<tspan x="10.89" y="9">Block</tspan></text>
+    <polyline class="cls-18" points="196.32 28.75 195.56 26.61 174.11 26.61 173.21 25.2 163.03 25.2 162.13 28.8"/>
+    <rect class="cls-18" x="162.13" y="28.8" width="34.2" height="20.87"/>
+    <text class="cls-2" transform="translate(169.71 37.28)">Share</text>
+    <g>
+      <path class="cls-3" d="M199.59,211.7H173.8a.4.4,0,0,0-.39.4V234a.41.41,0,0,0,.39.4h25.79a.41.41,0,0,0,.4-.4V212.1A.4.4,0,0,0,199.59,211.7Z" transform="translate(-124.33 -135.61)"/>
+      <path class="cls-4" d="M200,234a.41.41,0,0,1-.4.4H173.8a.41.41,0,0,1-.39-.4V212.56a.4.4,0,0,1,.39-.39h25.79a.4.4,0,0,1,.4.39Z" transform="translate(-124.33 -135.61)"/>
+      <path class="cls-5" d="M199.59,211.7H173.8a.4.4,0,0,0-.39.4V234a.41.41,0,0,0,.39.4h25.79a.41.41,0,0,0,.4-.4V212.1A.4.4,0,0,0,199.59,211.7Z" transform="translate(-124.33 -135.61)"/>
+      <rect class="cls-6" x="50.61" y="77.87" width="23.5" height="18.08"/>
+      <polyline class="cls-7" points="79.74 98.23 75.54 97.3 49.08 97.3 44.99 98.23"/>
+      <path class="cls-8" d="M169.32,233.84s.79,1.73,1.69,1.73h31.38c.83,0,1.69-1.73,1.69-1.73Z" transform="translate(-124.33 -135.61)"/>
+    </g>
+    <g>
+      <path class="cls-3" d="M362.21,211H335a.42.42,0,0,0-.42.42v23.13a.43.43,0,0,0,.42.43h27.22a.42.42,0,0,0,.41-.43V211.46A.41.41,0,0,0,362.21,211Z" transform="translate(-124.33 -135.61)"/>
+      <path class="cls-4" d="M362.62,234.59a.42.42,0,0,1-.41.43H335a.43.43,0,0,1-.42-.43V212a.42.42,0,0,1,.42-.42h27.22a.41.41,0,0,1,.41.42Z" transform="translate(-124.33 -135.61)"/>
+      <path class="cls-5" d="M362.21,211H335a.42.42,0,0,0-.42.42v23.13a.43.43,0,0,0,.42.43h27.22a.42.42,0,0,0,.41-.43V211.46A.41.41,0,0,0,362.21,211Z" transform="translate(-124.33 -135.61)"/>
+      <rect class="cls-6" x="211.86" y="77.3" width="24.81" height="19.09"/>
+      <polyline class="cls-7" points="242.6 98.79 238.17 97.81 210.24 97.81 205.93 98.79"/>
+      <path class="cls-8" d="M330.25,234.4s.83,1.83,1.78,1.83h33.13c.87,0,1.78-1.83,1.78-1.83Z" transform="translate(-124.33 -135.61)"/>
+    </g>
+    <g>
+      <rect class="cls-13" x="17.76" y="62.67" width="43.16" height="27.51" rx="2"/>
+      <rect class="cls-5" x="17.76" y="62.67" width="43.16" height="27.51" rx="2"/>
+    </g>
+    <line class="cls-14" x1="119.13" y1="86.53" x2="75.81" y2="86.53"/>
+    <path d="M244.83,221.54c-1-.29-1.57-.55-2.33-.85v2.9a22.94,22.94,0,0,1,2.32-.87,17.55,17.55,0,0,1,2.54-.6A17,17,0,0,1,244.83,221.54Z" transform="translate(-124.33 -135.61)"/>
+    <line class="cls-14" x1="206.17" y1="86.53" x2="157.4" y2="86.53"/>
+    <path d="M331.88,221.54c-.95-.29-1.57-.55-2.34-.85v2.9a22.43,22.43,0,0,1,2.33-.87,17.55,17.55,0,0,1,2.54-.6A16.76,16.76,0,0,1,331.88,221.54Z" transform="translate(-124.33 -135.61)"/>
+    <line class="cls-14" x1="245.96" y1="86.53" x2="238.37" y2="86.53"/>
+    <path d="M371.66,221.54c-1-.29-1.57-.55-2.34-.85v2.9a23.39,23.39,0,0,1,2.33-.87,17.55,17.55,0,0,1,2.54-.6A16.76,16.76,0,0,1,371.66,221.54Z" transform="translate(-124.33 -135.61)"/>
+    <line class="cls-14" x1="326.24" y1="39.3" x2="304.67" y2="39.3"/>
+    <path d="M452,174.31c-.95-.28-1.57-.55-2.34-.85v2.9a23.05,23.05,0,0,1,2.33-.86,16.54,16.54,0,0,1,2.54-.61A16.76,16.76,0,0,1,452,174.31Z" transform="translate(-124.33 -135.61)"/>
+    <g>
+      <path class="cls-17" d="M391.45,217.7A9.2,9.2,0,1,1,379,214.08,9.19,9.19,0,0,1,391.45,217.7Z" transform="translate(-124.33 -135.61)"/>
+      <g>
+        <path class="cls-3" d="M377.62,224.65c-1-2.05-1.71-3.62.64-4.92s3.34.11,4.5,2.08l.62,1.12c1.16,2.1,1.85,3.73-.57,5.06s-3.42-.12-4.57-2.22Zm2.53,1c.36.65,1,1.68,2,1.13s.46-1.67,0-2.42l-1.11-2c-.35-.63-1.09-2-2.18-1.44s-.3,2,0,2.57Z" transform="translate(-124.33 -135.61)"/>
+        <path class="cls-3" d="M386.63,225.64l-4.34-7.88,1.47-.81,1.93,3.5,0,0a19.1,19.1,0,0,1-.12-2.4l0-2.08,1.66-.91-.08,4.45,4.51,3.37-1.66.92-3.1-2.35,0,1.14,1.24,2.26Z" transform="translate(-124.33 -135.61)"/>
+      </g>
+    </g>
+    <text class="cls-2" transform="translate(19.31 75.21)">Toms kleiner<tspan x="11.47" y="9">Block</tspan></text>
+    <polyline class="cls-18" points="157.31 75.92 156.56 73.78 135.11 73.78 134.21 72.36 124.03 72.36 123.13 75.97"/>
+    <rect class="cls-18" x="123.13" y="75.97" width="34.2" height="20.87"/>
+    <text class="cls-2" transform="translate(130.71 84.45)">Share</text>
+    <text class="cls-9" transform="translate(78.07 119.73)"><tspan class="cls-19">T<tspan class="cls-20" x="3.44" y="0">oms Mining</tspan></tspan><tspan x="0" y="9.5">Computer</tspan></text>
+    <text class="cls-9" transform="translate(143.66 119.73)">Qi wird wahrscheinlich<tspan x="0" y="9.5">weiter auf </tspan><tspan class="cls-21" x="37.6" y="9.5">T</tspan><tspan x="41.04" y="9.5">oms Block aufbauen.</tspan></text>
+    <g>
+      <path class="cls-22" d="M378.18,235.43c-3.72,10.44-12.54,17.89-19.75,17.89" transform="translate(-124.33 -135.61)"/>
+      <polygon points="251.91 99.71 254.76 97.29 255.44 100.97 251.91 99.71"/>
+    </g>
+    <g>
+      <path class="cls-22" d="M192.65,160.2c1-5.37,6.79-10,10.68-10" transform="translate(-124.33 -135.61)"/>
+      <polygon points="70.24 24.4 67.8 27.23 66.57 23.7 70.24 24.4"/>
+    </g>
+    <g>
+      <path class="cls-22" d="M189.75,240c.42,4.67,4.58,10.33,10.75,11.83" transform="translate(-124.33 -135.61)"/>
+      <polygon points="63.61 105.1 65.19 101.71 67.34 104.77 63.61 105.1"/>
+    </g>
+    <g>
+      <path class="cls-22" d="M320.67,217.25c0-21.5,5.83-56,29.59-66.92" transform="translate(-124.33 -135.61)"/>
+      <polygon points="198.19 81.09 196.32 84.33 194.45 81.09 198.19 81.09"/>
+    </g>
+    <g>
+      <path class="cls-22" d="M339,170c1-7.34,6.21-17.39,11.22-19.64" transform="translate(-124.33 -135.61)"/>
+      <polygon points="216.63 34.08 214.33 37.02 212.92 33.56 216.63 34.08"/>
+    </g>
+    <g>
+      <path class="cls-22" d="M367,217.33c10.67-22.33,78.67,8,78.67-62.33" transform="translate(-124.33 -135.61)"/>
+      <polygon points="244.58 82.03 241.5 84.15 241.21 80.42 244.58 82.03"/>
+    </g>
+    <g>
+      <path class="cls-22" d="M436,170c1-7.34,9.67-9.64,9.67-15" transform="translate(-124.33 -135.61)"/>
+      <polygon points="313.58 34.08 311.29 37.02 309.88 33.56 313.58 34.08"/>
+    </g>
+    <g>
+      <path class="cls-22" d="M236,217.25c0-21.5,8.91-56,32.67-66.92" transform="translate(-124.33 -135.61)"/>
+      <polygon points="113.53 81.09 111.66 84.33 109.79 81.09 113.53 81.09"/>
+    </g>
+    <g>
+      <path class="cls-22" d="M257.45,170c1-7.34,6.2-17.39,11.22-19.64" transform="translate(-124.33 -135.61)"/>
+      <polygon points="135.04 34.08 132.74 37.02 131.33 33.56 135.04 34.08"/>
+    </g>
+  </g>
+</svg>

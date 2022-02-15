@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="126.33" height="61.95" viewBox="0 0 126.33 61.95">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #e5e5e5;
+      }
+
+      .cls-1, .cls-2 {
+        stroke: #000;
+        stroke-width: 0.5px;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke-linejoin: round;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: none;
+        stroke: #fff;
+        stroke-width: 0.75px;
+      }
+
+      .cls-4, .cls-6 {
+        font-size: 7px;
+      }
+
+      .cls-4, .cls-5, .cls-6 {
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-5 {
+        font-size: 9px;
+      }
+
+      .cls-6 {
+        fill: #666;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g>
+      <rect class="cls-1" x="0.25" y="0.25" width="40.83" height="12.29"/>
+      <rect class="cls-1" x="41.08" y="0.25" width="40.83" height="12.29"/>
+      <rect class="cls-1" x="81.92" y="0.25" width="44.17" height="12.29"/>
+      <rect class="cls-2" x="0.25" y="12.54" width="40.83" height="12.29"/>
+      <rect class="cls-2" x="0.25" y="24.83" width="40.83" height="12.29"/>
+      <rect class="cls-2" x="0.25" y="37.12" width="40.83" height="12.29"/>
+      <rect class="cls-2" x="41.08" y="12.54" width="40.83" height="12.29"/>
+      <rect class="cls-2" x="41.08" y="24.83" width="40.83" height="12.29"/>
+      <rect class="cls-2" x="41.08" y="37.12" width="40.83" height="12.29"/>
+      <rect class="cls-2" x="81.92" y="12.54" width="44.17" height="12.29"/>
+      <rect class="cls-2" x="81.92" y="24.83" width="44.17" height="12.29"/>
+      <rect class="cls-2" x="81.92" y="37.12" width="44.17" height="12.29"/>
+      <polyline class="cls-3" points="0.9 12.11 0.9 0.92 40.54 0.92"/>
+      <polyline class="cls-3" points="41.74 12.11 41.74 0.92 81.37 0.92"/>
+      <polyline class="cls-3" points="82.57 12.11 82.57 0.92 125.54 0.92"/>
+    </g>
+    <text class="cls-4" transform="translate(12.98 8.62)">VON</text>
+    <text class="cls-5" transform="translate(5.01 20.91)">...</text>
+    <text class="cls-6" transform="translate(5.01 33.19)">Cafe</text>
+    <text class="cls-5" transform="translate(45.84 20.91)">...</text>
+    <text class="cls-6" transform="translate(45.84 33.19)">Firma</text>
+    <text class="cls-5" transform="translate(111.84 20.91)">...</text>
+    <text class="cls-6" transform="translate(97.93 33.19)">10,000</text>
+    <rect class="cls-2" x="0.25" y="49.41" width="40.83" height="12.29"/>
+    <rect class="cls-2" x="41.08" y="49.41" width="40.83" height="12.29"/>
+    <rect class="cls-2" x="81.92" y="49.41" width="44.17" height="12.29"/>
+    <text class="cls-4" transform="translate(5.01 57.77)">NEU</text>
+    <text class="cls-4" transform="translate(45.84 57.77)">Lisa</text>
+    <text class="cls-4" transform="translate(101.82 57.77)">7,200</text>
+    <text class="cls-4" transform="translate(56.51 8.62)">AN</text>
+    <text class="cls-4" transform="translate(83.97 8.62)">BETRAG CT</text>
+    <text class="cls-6" transform="translate(4.33 45.48)">Alice</text>
+    <text class="cls-6" transform="translate(45.17 45.48)">Cafe</text>
+    <text class="cls-6" transform="translate(111.55 45.48)">10</text>
+  </g>
+</svg>

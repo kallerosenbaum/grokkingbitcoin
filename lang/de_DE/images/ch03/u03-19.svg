@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="242.5" height="73.31" viewBox="0 0 242.5 73.31">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #e5e5e5;
+      }
+
+      .cls-1, .cls-2, .cls-9 {
+        stroke: #000;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke-linejoin: round;
+      }
+
+      .cls-1, .cls-2 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3, .cls-9 {
+        fill: none;
+      }
+
+      .cls-3 {
+        stroke: #fff;
+        stroke-width: 0.75px;
+      }
+
+      .cls-4 {
+        font-size: 7px;
+      }
+
+      .cls-4, .cls-5 {
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-5, .cls-7 {
+        font-size: 9px;
+      }
+
+      .cls-6 {
+        font-size: 6.5px;
+        font-family: Courier;
+      }
+
+      .cls-7 {
+        font-family: Humanist521BT-BoldCondensed, Humanst521 Cn BT;
+        font-weight: 700;
+      }
+
+      .cls-8 {
+        letter-spacing: -0.05em;
+      }
+
+      .cls-9 {
+        stroke-miterlimit: 10;
+        stroke-width: 0.3px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g>
+      <rect class="cls-1" x="0.25" y="0.25" width="91" height="12.29"/>
+      <rect class="cls-1" x="91.25" y="0.25" width="91" height="12.29"/>
+      <rect class="cls-1" x="182.25" y="0.25" width="20.17" height="12.29"/>
+      <rect class="cls-2" x="0.25" y="12.54" width="91" height="12.29"/>
+      <rect class="cls-2" x="91.25" y="12.54" width="91" height="12.29"/>
+      <rect class="cls-2" x="182.25" y="12.54" width="20.17" height="12.29"/>
+      <rect class="cls-2" x="0.25" y="24.83" width="91" height="19.34"/>
+      <rect class="cls-2" x="91.25" y="24.83" width="91" height="19.34"/>
+      <rect class="cls-2" x="182.25" y="24.83" width="20.17" height="19.34"/>
+      <polyline class="cls-3" points="0.9 12.11 0.9 0.92 90.71 0.92"/>
+      <polyline class="cls-3" points="91.9 12.11 91.9 0.92 181.71 0.92"/>
+      <polyline class="cls-3" points="182.9 12.11 182.9 0.92 201.88 0.92"/>
+    </g>
+    <text class="cls-4" transform="translate(38.43 8.62)">VON</text>
+    <text class="cls-5" transform="translate(5.01 20.91)">...</text>
+    <text class="cls-5" transform="translate(96.01 20.91)">...</text>
+    <text class="cls-5" transform="translate(189.87 20.91)">...</text>
+    <text class="cls-4" transform="translate(131.99 8.62)">AN</text>
+    <text class="cls-4" transform="translate(187.59 8.62)">CT</text>
+    <text class="cls-4" transform="translate(189.58 33.2)">10</text>
+    <rect class="cls-2" x="182.25" y="44.17" width="20.17" height="12.29"/>
+    <text class="cls-6" transform="translate(2.06 32.13)">5f2613791b36f667fdb8<tspan x="0" y="8">e95608b55e3df4c5f9eb</tspan></text>
+    <rect class="cls-2" x="0.25" y="44.17" width="91" height="12.29"/>
+    <text class="cls-6" transform="translate(93.06 32.13)">87e3d1692022a7744bf2<tspan x="0" y="8">406a963c656c8393b1cc</tspan></text>
+    <rect class="cls-2" x="91.25" y="44.17" width="91" height="12.29"/>
+    <text class="cls-5" transform="translate(5.01 52.54)">...</text>
+    <text class="cls-5" transform="translate(96.01 52.54)">...</text>
+    <text class="cls-5" transform="translate(189.87 52.54)">...</text>
+    <text class="cls-7" transform="translate(177.58 71.19)"><tspan class="cls-8">W</tspan><tspan x="7.56" y="0">as für Adressen?</tspan></text>
+    <g>
+      <path class="cls-9" d="M268.5,170.5c22.5,21.75,58.5,29,88.82,30.84" transform="translate(-183.08 -133.42)"/>
+      <polygon points="84.52 38.8 83.49 35.2 87.12 36.11 84.52 38.8"/>
+    </g>
+    <g>
+      <path class="cls-9" d="M359.25,171.75c4,6.5-4.5,20.25-1.93,29.59" transform="translate(-183.08 -133.42)"/>
+      <polygon points="174.87 39.77 174.76 36.04 178.05 37.81 174.87 39.77"/>
+    </g>
+  </g>
+</svg>

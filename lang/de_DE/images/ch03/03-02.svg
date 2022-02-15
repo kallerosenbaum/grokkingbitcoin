@@ -1,0 +1,260 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="322.83" height="160.88" viewBox="0 0 322.83 160.88">
+  <defs>
+    <style>
+      .cls-1 {
+        isolation: isolate;
+      }
+
+      .cls-17, .cls-19, .cls-2, .cls-7 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-5, .cls-7 {
+        stroke: #666;
+      }
+
+      .cls-12, .cls-2 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-16, .cls-17, .cls-19, .cls-2, .cls-4, .cls-5, .cls-7 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-13, .cls-20, .cls-3 {
+        font-size: 7px;
+      }
+
+      .cls-3, .cls-8 {
+        fill: #666;
+      }
+
+      .cls-13, .cls-20, .cls-22, .cls-3, .cls-6, .cls-8 {
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-4, .cls-5 {
+        fill: #f0f0f0;
+      }
+
+      .cls-19, .cls-4 {
+        stroke: #949494;
+      }
+
+      .cls-16, .cls-17, .cls-19, .cls-23, .cls-4, .cls-5, .cls-7, .cls-9 {
+        stroke-linejoin: round;
+      }
+
+      .cls-6 {
+        font-size: 6px;
+      }
+
+      .cls-20, .cls-21, .cls-6 {
+        fill: #949494;
+      }
+
+      .cls-10, .cls-22, .cls-8 {
+        font-size: 9px;
+      }
+
+      .cls-12, .cls-23, .cls-9 {
+        fill: none;
+      }
+
+      .cls-9 {
+        stroke: #fff;
+      }
+
+      .cls-23, .cls-9 {
+        stroke-width: 0.75px;
+      }
+
+      .cls-10 {
+        font-family: Humanist521BT-BoldCondensed, Humanst521 Cn BT;
+        font-weight: 700;
+      }
+
+      .cls-11 {
+        letter-spacing: 0.02em;
+      }
+
+      .cls-12, .cls-16, .cls-17, .cls-23 {
+        stroke: #000;
+      }
+
+      .cls-12 {
+        stroke-width: 0.3px;
+      }
+
+      .cls-14 {
+        letter-spacing: 0em;
+      }
+
+      .cls-15 {
+        opacity: 0.36;
+        mix-blend-mode: multiply;
+        fill: url(#linear-gradient);
+      }
+
+      .cls-16 {
+        fill: #e5e5e5;
+      }
+
+      .cls-18 {
+        opacity: 0.53;
+      }
+
+      .cls-21 {
+        fill-rule: evenodd;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="30.96" y1="83.73" x2="198.94" y2="83.73" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f2f2f2"/>
+      <stop offset="1"/>
+    </linearGradient>
+  </defs>
+  <g class="cls-1">
+    <g id="Layer_2" data-name="Layer 2">
+      <g>
+        <rect class="cls-2" x="0.25" y="0.25" width="158.35" height="140.87"/>
+        <text class="cls-3" transform="translate(59.49 11.19)">Spreadsheet</text>
+      </g>
+      <rect class="cls-4" x="13.18" y="15.83" width="132.5" height="9"/>
+      <rect class="cls-4" x="13.18" y="24.83" width="132.5" height="15.04"/>
+      <rect class="cls-5" x="13.18" y="43.1" width="44.17" height="12.29"/>
+      <rect class="cls-5" x="57.34" y="43.1" width="44.17" height="12.29"/>
+      <rect class="cls-5" x="101.51" y="43.1" width="44.17" height="12.29"/>
+      <text class="cls-6" transform="translate(17.08 22.39)">File</text>
+      <text class="cls-6" transform="translate(34.41 22.39)">Edit</text>
+      <text class="cls-6" transform="translate(52.74 22.39)">Spreadsheet</text>
+      <text class="cls-6" transform="translate(94.16 22.39)">Help</text>
+      <rect class="cls-7" x="13.18" y="55.39" width="44.17" height="12.29"/>
+      <text class="cls-8" transform="translate(17.93 63.76)">...</text>
+      <rect class="cls-7" x="13.18" y="67.68" width="44.17" height="12.29"/>
+      <text class="cls-3" transform="translate(17.93 76.05)">Cafe</text>
+      <rect class="cls-7" x="13.18" y="79.97" width="44.17" height="12.29"/>
+      <text class="cls-3" transform="translate(17.93 88.34)">Lisa</text>
+      <rect class="cls-7" x="13.18" y="92.26" width="44.17" height="12.29"/>
+      <text class="cls-3" transform="translate(17.93 100.63)">Cafe</text>
+      <rect class="cls-7" x="13.18" y="104.55" width="44.17" height="12.29"/>
+      <text class="cls-3" transform="translate(17.93 112.91)">Alice</text>
+      <rect class="cls-7" x="57.34" y="55.39" width="44.17" height="12.29"/>
+      <text class="cls-8" transform="translate(62.1 63.76)">...</text>
+      <rect class="cls-7" x="57.34" y="67.68" width="44.17" height="12.29"/>
+      <text class="cls-3" transform="translate(62.1 76.05)">A</text>
+      <rect class="cls-7" x="57.34" y="79.97" width="44.17" height="12.29"/>
+      <text class="cls-3" transform="translate(62.1 88.34)">C</text>
+      <rect class="cls-7" x="57.34" y="92.26" width="44.17" height="12.29"/>
+      <text class="cls-3" transform="translate(62.1 100.63)">C</text>
+      <rect class="cls-7" x="57.34" y="104.55" width="44.17" height="12.29"/>
+      <text class="cls-3" transform="translate(62.1 112.91)">C</text>
+      <rect class="cls-7" x="101.51" y="55.39" width="44.17" height="12.29"/>
+      <text class="cls-8" transform="translate(131.43 63.76)">...</text>
+      <rect class="cls-7" x="101.51" y="67.68" width="44.17" height="12.29"/>
+      <text class="cls-3" transform="translate(131.15 76.05)">10</text>
+      <rect class="cls-7" x="101.51" y="79.97" width="44.17" height="12.29"/>
+      <text class="cls-3" transform="translate(121.41 88.34)">1,000</text>
+      <rect class="cls-7" x="101.51" y="92.26" width="44.17" height="12.29"/>
+      <text class="cls-3" transform="translate(131.15 100.63)">10</text>
+      <rect class="cls-7" x="101.51" y="104.55" width="44.17" height="12.29"/>
+      <text class="cls-3" transform="translate(117.52 112.91)">10,000</text>
+      <polyline class="cls-9" points="13.83 24.48 13.83 16.5 145.25 16.5"/>
+      <rect class="cls-7" x="13.18" y="116.84" width="44.17" height="12.29"/>
+      <rect class="cls-7" x="57.34" y="116.84" width="44.17" height="12.29"/>
+      <rect class="cls-7" x="101.51" y="116.84" width="44.17" height="12.29"/>
+      <polyline class="cls-9" points="13.83 54.97 13.83 43.77 56.8 43.77"/>
+      <polyline class="cls-9" points="58 54.97 58 43.77 100.97 43.77"/>
+      <polyline class="cls-9" points="102.16 54.97 102.16 43.77 145.13 43.77"/>
+      <polyline class="cls-9" points="13.83 39.48 13.83 25.5 145.25 25.5"/>
+      <text class="cls-10" transform="translate(226.25 96.25)">Chloe kau<tspan class="cls-11" x="34.42" y="0">f</tspan><tspan x="36.9" y="0">t viele Plätzchen.</tspan></text>
+      <g>
+        <path class="cls-12" d="M345.43,234.69c6.33,0,14.74-3.42,20.4-3.42" transform="translate(-141.7 -139.01)"/>
+        <polygon points="204.27 97.53 201.04 95.67 204.27 93.8 204.27 97.53"/>
+      </g>
+      <text class="cls-10" transform="translate(226.25 110.72)">Chloe kau<tspan class="cls-11" x="34.42" y="0">f</tspan><tspan x="36.9" y="0">t vierPlätzchen.</tspan></text>
+      <g>
+        <path class="cls-12" d="M345.43,247.69c6.33,0,14.74-4.13,20.4-4.13" transform="translate(-141.7 -139.01)"/>
+        <polygon points="204.27 110.53 201.04 108.67 204.27 106.8 204.27 110.53"/>
+      </g>
+      <g>
+        <path class="cls-12" d="M345.43,259c6.33,0,14.74,2.33,20.4,2.33" transform="translate(-141.7 -139.01)"/>
+        <polygon points="204.27 121.85 201.04 119.98 204.27 118.11 204.27 121.85"/>
+      </g>
+      <text class="cls-10" transform="translate(226.25 81.77)">Chloe kau<tspan class="cls-11" x="34.42" y="0">f</tspan><tspan x="36.9" y="0">t ein Plätzchen.</tspan></text>
+      <g>
+        <path class="cls-12" d="M345.43,221.69c6.33,0,14.74-3.86,20.4-3.86" transform="translate(-141.7 -139.01)"/>
+        <polygon points="204.27 84.53 201.04 82.67 204.27 80.8 204.27 84.53"/>
+      </g>
+      <g>
+        <path class="cls-12" d="M345.43,272c6.33,0,14.74,3.5,20.4,3.5" transform="translate(-141.7 -139.01)"/>
+        <polygon points="204.27 134.85 201.04 132.98 204.27 131.11 204.27 134.85"/>
+      </g>
+      <text class="cls-13" transform="translate(156.56 149.61)">Suchergebnis<tspan x="7.2" y="9">für Chloe</tspan></text>
+      <text class="cls-10" transform="translate(226.25 125.2)">Chloe kau<tspan class="cls-11" x="34.42" y="0">f</tspan><tspan class="cls-14" x="36.9" y="0">t zwei Plätzchen.</tspan></text>
+      <text class="cls-10" transform="translate(226.25 139.68)">Chloe kau<tspan class="cls-11" x="34.42" y="0">f</tspan><tspan class="cls-14" x="36.9" y="0">t zwei Plätzchen.</tspan></text>
+      <polygon class="cls-15" points="198.94 52.96 137.31 28.48 137.31 36.48 30.96 36.48 66.44 138.99 198.94 52.96"/>
+      <g>
+        <rect class="cls-16" x="66.64" y="52.83" width="44.17" height="12.29"/>
+        <rect class="cls-16" x="110.81" y="52.83" width="44.17" height="12.29"/>
+        <rect class="cls-16" x="154.98" y="52.83" width="44.17" height="12.29"/>
+        <rect class="cls-17" x="66.64" y="65.12" width="44.17" height="12.29"/>
+        <rect class="cls-17" x="66.64" y="77.41" width="44.17" height="12.29"/>
+        <rect class="cls-17" x="66.64" y="89.7" width="44.17" height="12.29"/>
+        <rect class="cls-17" x="110.81" y="65.12" width="44.17" height="12.29"/>
+        <rect class="cls-17" x="110.81" y="77.41" width="44.17" height="12.29"/>
+        <rect class="cls-17" x="110.81" y="89.7" width="44.17" height="12.29"/>
+        <rect class="cls-17" x="154.98" y="89.7" width="44.17" height="12.29"/>
+        <rect class="cls-17" x="154.98" y="65.12" width="44.17" height="12.29"/>
+        <rect class="cls-17" x="154.98" y="77.41" width="44.17" height="12.29"/>
+        <polyline class="cls-9" points="67.3 64.69 67.3 53.51 110.27 53.51"/>
+        <polyline class="cls-9" points="111.46 64.69 111.46 53.51 154.44 53.51"/>
+        <polyline class="cls-9" points="155.63 64.69 155.63 53.51 198.6 53.51"/>
+      </g>
+      <text class="cls-13" transform="translate(81.15 61.2)">VON</text>
+      <g class="cls-18">
+        <text class="cls-13" transform="translate(27.65 52.2)">VON</text>
+      </g>
+      <text class="cls-13" transform="translate(71.4 73.49)">Cafe</text>
+      <text class="cls-13" transform="translate(71.4 85.78)">Chloe</text>
+      <text class="cls-13" transform="translate(115.57 73.49)">Chloe</text>
+      <text class="cls-13" transform="translate(115.57 85.78)">Cafe</text>
+      <text class="cls-13" transform="translate(174.88 73.49)">1,000</text>
+      <text class="cls-13" transform="translate(184.61 85.78)">10</text>
+      <rect class="cls-17" x="66.64" y="101.99" width="44.17" height="12.29"/>
+      <rect class="cls-17" x="110.81" y="101.99" width="44.17" height="12.29"/>
+      <rect class="cls-17" x="154.98" y="101.99" width="44.17" height="12.29"/>
+      <text class="cls-13" transform="translate(71.4 110.36)">Chloe</text>
+      <text class="cls-13" transform="translate(115.57 110.36)">Cafe</text>
+      <text class="cls-13" transform="translate(184.61 110.36)">40</text>
+      <rect class="cls-17" x="66.64" y="114.28" width="44.17" height="12.29"/>
+      <rect class="cls-17" x="110.81" y="114.28" width="44.17" height="12.29"/>
+      <rect class="cls-17" x="154.98" y="114.28" width="44.17" height="12.29"/>
+      <text class="cls-13" transform="translate(71.4 122.64)">Chloe</text>
+      <text class="cls-13" transform="translate(115.57 122.64)">Cafe</text>
+      <text class="cls-13" transform="translate(184.61 122.64)">20</text>
+      <rect class="cls-17" x="66.64" y="126.57" width="44.17" height="12.29"/>
+      <rect class="cls-17" x="110.81" y="126.57" width="44.17" height="12.29"/>
+      <rect class="cls-17" x="154.98" y="126.57" width="44.17" height="12.29"/>
+      <text class="cls-13" transform="translate(71.4 134.93)">Chloe</text>
+      <text class="cls-13" transform="translate(115.57 134.93)">Cafe</text>
+      <text class="cls-13" transform="translate(184.61 134.93)">20</text>
+      <text class="cls-13" transform="translate(128.04 61.2)">AN</text>
+      <g class="cls-18">
+        <text class="cls-13" transform="translate(74.57 51.47)">AN</text>
+      </g>
+      <text class="cls-13" transform="translate(161.11 61.2)">Betrag CT</text>
+      <g class="cls-18">
+        <text class="cls-13" transform="translate(109.11 51.7)">Betrag CT</text>
+      </g>
+      <text class="cls-3" transform="translate(17.93 125.2)">John</text>
+      <text class="cls-3" transform="translate(62.1 125.2)">C</text>
+      <rect class="cls-19" x="31.16" y="28.35" width="106.35" height="8"/>
+      <text class="cls-20" transform="translate(33.55 34.98)">Chloe</text>
+      <path class="cls-21" d="M165.1,170.07A2.12,2.12,0,1,1,163,167.9,2.13,2.13,0,0,1,165.1,170.07Zm-4.71,0A2.62,2.62,0,0,0,163,172.7a2.55,2.55,0,0,0,1.61-.57.7.7,0,0,0,.11.21l2.17,2.59a.42.42,0,0,0,.61.06s0,0,0,0l.3-.28a.4.4,0,0,0,0-.59s0,0,0-.05l-2.55-2.23a.5.5,0,0,0-.21-.12,2.66,2.66,0,0,0,.55-1.62,2.59,2.59,0,1,0-5.18,0Z" transform="translate(-141.7 -139.01)"/>
+      <text class="cls-22" transform="translate(70.73 98.06)">...</text>
+      <text class="cls-22" transform="translate(114.89 98.06)">...</text>
+      <text class="cls-22" transform="translate(184.9 98.06)">...</text>
+      <polygon class="cls-23" points="154.98 52.83 110.81 52.83 66.64 52.83 66.64 65.12 66.64 138.85 199.14 138.85 199.14 65.12 199.14 52.83 154.98 52.83"/>
+    </g>
+  </g>
+</svg>
