@@ -219,7 +219,7 @@
       }
 
       .cls-52, .cls-53, .cls-54, .cls-65 {
-        font-family: Courier;
+        font-family: Nimbus Mono PS;
       }
 
       .cls-53, .cls-54 {
@@ -268,7 +268,7 @@
       }
 
       .cls-66 {
-        font-family: Courier-Bold, Courier;
+        font-family: Nimbus Mono PS;font-phase: bold;
       }
     </style>
     <linearGradient id="linear-gradient" x1="173.31" y1="45.55" x2="180.12" y2="45.55" gradientUnits="userSpaceOnUse">

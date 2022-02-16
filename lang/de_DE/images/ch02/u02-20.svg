@@ -183,11 +183,11 @@
       }
 
       .cls-45 {
-        font-family: Courier;
+        font-family: Nimbus Mono PS;
       }
 
       .cls-46 {
-        font-family: Courier-Bold, Courier;
+        font-family: Nimbus Mono PS;font-phase: bold;
       }
     </style>
     <linearGradient id="linear-gradient" x1="194.53" y1="29.34" x2="225.21" y2="46.75" gradientUnits="userSpaceOnUse">

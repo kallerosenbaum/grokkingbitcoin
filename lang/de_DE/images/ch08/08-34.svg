@@ -87,7 +87,7 @@
 
       .cls-20 {
         font-size: 6px;
-        font-family: Courier;
+        font-family: Nimbus Mono PS;
       }
     </style>
     <linearGradient id="linear-gradient" x1="345.02" y1="546.13" x2="406.21" y2="546.13" gradientTransform="translate(835.81 -344.16) rotate(68.86)" gradientUnits="userSpaceOnUse">

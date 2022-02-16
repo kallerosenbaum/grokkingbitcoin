@@ -40,7 +40,7 @@
       }
 
       .cls-8 {
-        font-family: Courier-Bold, Courier;
+        font-family: Nimbus Mono PS;font-phase: bold;
         font-weight: 700;
       }
     </style>

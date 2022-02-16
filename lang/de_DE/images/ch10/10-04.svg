@@ -7,7 +7,7 @@
 
       .cls-2 {
         font-size: 11.5px;
-        font-family: Courier;
+        font-family: Nimbus Mono PS;
       }
 
       .cls-16, .cls-3 {

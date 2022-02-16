@@ -53,11 +53,11 @@
       }
 
       .cls-9 {
-        font-family: Courier;
+        font-family: Nimbus Mono PS;
       }
 
       .cls-10 {
-        font-family: Courier-Bold, Courier;
+        font-family: Nimbus Mono PS;font-phase: bold;
       }
     </style>
   </defs>

@@ -107,7 +107,7 @@
 
       .cls-24 {
         font-size: 8px;
-        font-family: Courier;
+        font-family: Nimbus Mono PS;
       }
     </style>
     <linearGradient id="linear-gradient" x1="331.01" y1="179.35" x2="381.92" y2="179.35" gradientUnits="userSpaceOnUse">

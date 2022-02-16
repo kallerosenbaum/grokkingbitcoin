@@ -81,11 +81,11 @@
       }
 
       .cls-16, .cls-19 {
-        font-family: Courier;
+        font-family: Nimbus Mono PS;
       }
 
       .cls-17, .cls-18 {
-        font-family: Courier-Bold, Courier;
+        font-family: Nimbus Mono PS;font-phase: bold;
       }
 
       .cls-19 {

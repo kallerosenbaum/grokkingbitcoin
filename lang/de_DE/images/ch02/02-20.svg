@@ -156,11 +156,11 @@
 
       .cls-38 {
         font-size: 8px;
-        font-family: Courier-Bold, Courier;
+        font-family: Nimbus Mono PS;font-phase: bold;
       }
 
       .cls-39 {
-        font-family: Courier;
+        font-family: Nimbus Mono PS;
       }
     </style>
     <linearGradient id="linear-gradient" x1="169.63" y1="116.4" x2="169.63" y2="140.98" gradientUnits="userSpaceOnUse">
