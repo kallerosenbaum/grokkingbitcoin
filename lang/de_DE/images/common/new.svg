@@ -16,7 +16,7 @@
       .cls-4 {
         font-size: 87.59px;
         fill: #fff;
-        font-family: OpenSans-SemiBold, OpenSans SemiBold;
+        font-family: Arial;font-phase: bold;
         font-weight: 600;
       }
     </style>
