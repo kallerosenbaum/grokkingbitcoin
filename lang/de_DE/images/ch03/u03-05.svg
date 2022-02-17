@@ -101,7 +101,7 @@
       }
 
       .cls-20, .cls-21 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-21, .cls-22 {
@@ -109,7 +109,7 @@
       }
 
       .cls-22 {
-        font-family: Nimbus Mono PS;font-phase: bold;
+        font-family: FreeMono;font-phase: bold;font-phase: bold;
       }
     </style>
     <linearGradient id="linear-gradient" x1="133.09" y1="39.74" x2="139.91" y2="39.74" gradientUnits="userSpaceOnUse">

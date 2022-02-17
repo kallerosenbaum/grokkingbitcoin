@@ -146,7 +146,7 @@
 
       .cls-37 {
         font-size: 19.35px;
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
         letter-spacing: 0.02em;
       }
     </style>

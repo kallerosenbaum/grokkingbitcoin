@@ -83,7 +83,7 @@
       }
 
       .cls-18, .cls-23, .cls-24 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-19, .cls-25 {

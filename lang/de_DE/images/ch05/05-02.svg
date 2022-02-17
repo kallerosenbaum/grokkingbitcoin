@@ -52,7 +52,7 @@
 
       .cls-7 {
         font-size: 4.7px;
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-8 {

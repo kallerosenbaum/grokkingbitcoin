@@ -125,7 +125,7 @@
 
       .cls-29 {
         font-size: 5px;
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
     </style>
     <linearGradient id="linear-gradient" x1="318.12" y1="612.31" x2="379.32" y2="612.31" gradientTransform="translate(835.81 -344.16) rotate(68.86)" gradientUnits="userSpaceOnUse">

@@ -106,11 +106,11 @@
       }
 
       .cls-25 {
-        font-family: Nimbus Mono PS;font-phase: bold;
+        font-family: FreeMono;font-phase: bold;font-phase: bold;
       }
 
       .cls-26, .cls-27 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-26 {

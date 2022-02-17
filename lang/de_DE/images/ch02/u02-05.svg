@@ -26,7 +26,7 @@
 
       .cls-5 {
         font-size: 7px;
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
     </style>
   </defs>

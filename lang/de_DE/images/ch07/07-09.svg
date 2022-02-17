@@ -76,7 +76,7 @@
 
       .cls-20, .cls-39 {
         font-size: 6.3px;
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-21 {

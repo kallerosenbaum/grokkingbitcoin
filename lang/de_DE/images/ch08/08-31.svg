@@ -73,7 +73,7 @@
 
       .cls-16 {
         fill: #141011;
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
     </style>
     <linearGradient id="linear-gradient" x1="377.78" y1="582.93" x2="438.97" y2="582.93" gradientTransform="translate(835.81 -344.16) rotate(68.86)" gradientUnits="userSpaceOnUse">

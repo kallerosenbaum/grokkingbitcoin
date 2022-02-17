@@ -44,7 +44,7 @@
 
       .cls-8 {
         font-size: 8px;
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
     </style>
   </defs>

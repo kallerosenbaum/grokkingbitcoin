@@ -59,7 +59,7 @@
       }
 
       .cls-14 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-15 {

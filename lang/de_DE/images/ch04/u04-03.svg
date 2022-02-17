@@ -398,7 +398,7 @@
       }
 
       .cls-97 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
         font-weight: 400;
       }
     </style>

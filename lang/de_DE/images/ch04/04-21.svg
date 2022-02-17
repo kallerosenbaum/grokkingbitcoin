@@ -150,7 +150,7 @@
       }
 
       .cls-39, .cls-40 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-40 {

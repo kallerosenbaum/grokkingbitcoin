@@ -19,7 +19,7 @@
 
       .cls-3 {
         font-size: 8px;
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-4, .cls-46 {
