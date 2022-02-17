@@ -71,13 +71,15 @@ needed:
 * Asciidoctor >= 1.5.7 and < 2.0 or >= 2.0.12
 * GNU Make
 * Inkscape >= 1.0.2
-* Fonts Nimbus Mono PS, Arial and Humanst521 Cn BT (see section Fonts below)
+* Fonts
+  https://ftp.gnu.org/gnu/freefont/freefont-ttf-20120503.zip[FreeMono],
+  Arial and Humanst521 Cn BT (see section Fonts below)
 
-If you're running Ubuntu 18.10 or Debian 10 (Buster) you can install
-all these dependencies, except Arial and Humanst521 Cn BT using:
+If you're running Ubuntu 18.10 or Debian 11 you can install all these
+dependencies, except Arial and Humanst521 Cn BT using:
 
 ```
-sudo apt-get install asciidoctor make fonts-urw-base35 
+sudo apt-get install asciidoctor make fonts-freefont-ttf 
 ```
 
 On other systems, asciidoctor may not exist as a package in your linux
@@ -86,23 +88,24 @@ way, for example via ruby `gem` on debian 11:
 
 ```
 sudo apt install ruby-rubygems
-sudo gem install asciidoctor --version 1.5.8
+sudo gem install asciidoctor --version 2.0.17
 ```
 
 #### Fonts
 
 In order to generate images that will display correctly on any web
 browser, that's independent on system-installed fonts on the reader's
-machine, you need to have the fonts *Nimbus Mono PS*, *Arial*, and
+machine, you need to have the fonts *FreeMono*, *Arial*, and
 *Humanst521 Cn BT* installed on your system. If you don't have them,
 your images will be generated using similarly looking fonts, which may
 or may not result in bad looking images.
 
 To give a little background, the images were originally created by
-Manning (publisher) in Adobe Illustrator on MacOS. They chose these
-fonts because they thought they looked good and they had access to
-them on their machines. Unfortunately, these fonts aren't free to use
-as we please. In the future I aim to replace those fonts as follows:
+Manning (publisher) in Adobe Illustrator on MacOS. They chose Arial
+and Humanst521 Cn BT because they thought they looked good and they
+had access to them on their machines. Unfortunately, these fonts
+aren't free to use as we please. In the future I aim to replace those
+fonts as follows:
 
 * Arial -> Liberation Sans or Nimbus Sans
 * Humanst521 Cn BT -> Don't know yet. Maybe Nimbus Sans Narrow, Bold
