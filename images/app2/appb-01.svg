@@ -1,6 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="408.75" height="76.19" viewBox="0 0 408.75 76.19">
-  <defs>
-    <style>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="436.746"
+   height="76.190002"
+   viewBox="0 0 436.746 76.19"
+   version="1.1"
+   id="svg130"
+   sodipodi:docname="appb-01.svg"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)">
+  <metadata
+     id="metadata134">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2936"
+     inkscape:window-height="908"
+     id="namedview132"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="8.0097859"
+     inkscape:cx="352.82266"
+     inkscape:cy="38.945541"
+     inkscape:window-x="279"
+     inkscape:window-y="106"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="Layer_3" />
+  <defs
+     id="defs15">
+    <style
+       id="style2">
       .cls-1 {
         isolation: isolate;
       }
@@ -102,64 +156,324 @@
         font-size: 7px;
       }
     </style>
-    <linearGradient id="linear-gradient" x1="105.6" y1="801.12" x2="153.52" y2="801.12" gradientTransform="translate(-5.1 -786.93)" gradientUnits="userSpaceOnUse">
-      <stop offset="0.01" stop-color="#ebebeb"/>
-      <stop offset="0.36" stop-color="#e6e6e6"/>
-      <stop offset="0.77" stop-color="#d7d7d7"/>
-      <stop offset="1" stop-color="#ccc"/>
+    <linearGradient
+       id="linear-gradient"
+       x1="105.6"
+       y1="801.12"
+       x2="153.52"
+       y2="801.12"
+       gradientTransform="translate(-5.1,-786.93)"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0.01"
+         stop-color="#ebebeb"
+         id="stop4" />
+      <stop
+         offset="0.36"
+         stop-color="#e6e6e6"
+         id="stop6" />
+      <stop
+         offset="0.77"
+         stop-color="#d7d7d7"
+         id="stop8" />
+      <stop
+         offset="1"
+         stop-color="#ccc"
+         id="stop10" />
     </linearGradient>
-    <linearGradient id="linear-gradient-2" x1="112.97" y1="825.03" x2="153.52" y2="825.03" xlink:href="#linear-gradient"/>
-    <linearGradient id="linear-gradient-3" x1="125.1" y1="848.94" x2="153.52" y2="848.94" xlink:href="#linear-gradient"/>
+    <linearGradient
+       id="linear-gradient-2"
+       x1="112.97"
+       y1="825.03003"
+       x2="153.52"
+       y2="825.03003"
+       xlink:href="#linear-gradient" />
+    <linearGradient
+       id="linear-gradient-3"
+       x1="125.1"
+       y1="848.94"
+       x2="153.52"
+       y2="848.94"
+       xlink:href="#linear-gradient" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linear-gradient"
+       id="linearGradient142"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-5.1,-786.93)"
+       x1="105.6"
+       y1="801.12"
+       x2="153.52"
+       y2="801.12" />
   </defs>
-  <g class="cls-1">
-    <g id="Layer_3" data-name="Layer 3">
-      <rect class="cls-2" x="0.5" y="10.62" width="123.9" height="54" rx="2"/>
-      <line class="cls-3" x1="59.28" y1="10.76" x2="59.28" y2="64.54"/>
-      <rect class="cls-4" x="0.5" y="10.62" width="123.9" height="54" rx="2"/>
-      <text class="cls-5" transform="translate(33.7 23.74)">7</text>
-      <g>
-        <path class="cls-6" d="M103.24,159.59l-1.7-1.92a11.09,11.09,0,0,1,7.34.37,6.59,6.59,0,0,0,3.74.48,3.87,3.87,0,0,0,2.42-1.45c.73-.8,1.55-1.7,4.33-2l1.35,2a4.32,4.32,0,0,0-3.45,1.58,5,5,0,0,1-3.08,1.8,9.55,9.55,0,0,1-5.15-.59A8.33,8.33,0,0,0,103.24,159.59Z" transform="translate(-97.5 -138.25)"/>
-        <path class="cls-6" d="M106.56,161.4l-1.7-1.91a11.08,11.08,0,0,1,7.34.37,6.6,6.6,0,0,0,3.74.48,3.91,3.91,0,0,0,2.43-1.45c.73-.8,1.55-1.71,4.32-2l1.35,2a4.34,4.34,0,0,0-3.45,1.58,5,5,0,0,1-3.08,1.8,9.46,9.46,0,0,1-5.15-.6A8.44,8.44,0,0,0,106.56,161.4Z" transform="translate(-97.5 -138.25)"/>
-        <path class="cls-6" d="M105.83,163.43l-1.7-1.91a11.09,11.09,0,0,1,7.34.37,6.56,6.56,0,0,0,3.73.47,3.87,3.87,0,0,0,2.43-1.45c.73-.79,1.55-1.7,4.32-2l1.36,2a4.32,4.32,0,0,0-3.46,1.59,5,5,0,0,1-3.08,1.8,9.48,9.48,0,0,1-5.15-.6A8.35,8.35,0,0,0,105.83,163.43Z" transform="translate(-97.5 -138.25)"/>
-        <path class="cls-6" d="M109.21,165.23l-1.7-1.92a11.15,11.15,0,0,1,7.34.37,6.49,6.49,0,0,0,3.73.48,3.87,3.87,0,0,0,2.43-1.45c.73-.8,1.55-1.7,4.33-2l1.35,2c-2.2.21-2.78.85-3.45,1.59a5,5,0,0,1-3.09,1.8,9.48,9.48,0,0,1-5.15-.6A8.35,8.35,0,0,0,109.21,165.23Z" transform="translate(-97.5 -138.25)"/>
-        <path class="cls-6" d="M103.76,157.5l-1.71-1.91a11.06,11.06,0,0,1,7.35.36,6.57,6.57,0,0,0,3.73.48,3.87,3.87,0,0,0,2.43-1.45c.73-.8,1.55-1.7,4.32-2l1.36,2c-2.2.21-2.78.85-3.45,1.59a5,5,0,0,1-3.09,1.8,9.58,9.58,0,0,1-5.15-.6A8.35,8.35,0,0,0,103.76,157.5Z" transform="translate(-97.5 -138.25)"/>
-        <polygon points="6.37 17.54 8.69 17.33 9.7 17.87 8.19 17.77 6.37 17.54"/>
-        <polygon points="12.31 18.72 14.79 19.65 16.39 19.15 14.35 18.88 12.31 18.72"/>
-        <polygon points="13.28 21.7 11.54 21.61 10.82 22.1 12.59 21.92 14.86 22.83 16.28 22.81 14.32 22.04 13.28 21.7"/>
-        <path d="M121.07,159.76c-.44.05-1.57.31-1.57.31l-.87,1.42,1.22-.87,1.9-.26Z" transform="translate(-97.5 -138.25)"/>
-        <polygon points="24.47 24.99 23.66 26.01 21.83 26.59 22.86 27.03 24.37 26.41 24.47 24.99"/>
-        <polygon points="16.8 25.93 15.02 25.4 13.66 25.73 15.29 25.84 16.8 25.93"/>
-        <polygon points="10.9 23.74 9.89 23.91 11.3 24 10.9 23.74"/>
-        <polygon class="cls-7" points="19.12 17.66 17.87 18.01 16.39 19.15 18.42 18.7 19.12 17.66"/>
-        <polygon class="cls-7" points="20.72 23.79 19.07 24.6 18.89 25.08 20.48 24.68 20.72 23.79"/>
-        <polygon class="cls-7" points="27.78 23.28 25.93 23.96 25.8 24.86 27.33 24.14 27.78 23.28"/>
-        <polygon class="cls-7" points="9.79 23.19 8.54 24.25 8.09 23.58 9.79 23.19"/>
-        <polygon class="cls-8" points="17.33 20.9 15.06 20.71 16.29 21.27 17.33 20.9"/>
-        <path class="cls-8" d="M117.05,164.75l-2.11-.48s1.09.75,1.4.9a15.14,15.14,0,0,0,2.14.27Z" transform="translate(-97.5 -138.25)"/>
-        <polygon class="cls-8" points="10.53 21.14 8.66 21.2 9.38 22.21 10.53 21.14"/>
-        <path class="cls-8" d="M119.21,153.91l-2.09.85s-.84,1.22-.5,1.16a12.29,12.29,0,0,0,1.79-1Z" transform="translate(-97.5 -138.25)"/>
+  <g
+     class="cls-1"
+     id="g128">
+    <g
+       id="Layer_3"
+       data-name="Layer 3">
+      <rect
+         class="cls-2"
+         x="0.5"
+         y="10.62"
+         width="123.9"
+         height="54"
+         rx="2"
+         id="rect17" />
+      <line
+         class="cls-3"
+         x1="59.279999"
+         y1="10.76"
+         x2="59.279999"
+         y2="64.540001"
+         id="line19" />
+      <rect
+         class="cls-4"
+         x="0.5"
+         y="10.62"
+         width="123.9"
+         height="54"
+         rx="2"
+         id="rect21" />
+      <text
+         class="cls-5"
+         transform="translate(33.7,23.74)"
+         id="text23">7</text>
+      <g
+         id="g65">
+        <path
+           class="cls-6"
+           d="m 103.24,159.59 -1.7,-1.92 a 11.09,11.09 0 0 1 7.34,0.37 6.59,6.59 0 0 0 3.74,0.48 3.87,3.87 0 0 0 2.42,-1.45 c 0.73,-0.8 1.55,-1.7 4.33,-2 l 1.35,2 a 4.32,4.32 0 0 0 -3.45,1.58 5,5 0 0 1 -3.08,1.8 9.55,9.55 0 0 1 -5.15,-0.59 8.33,8.33 0 0 0 -5.8,-0.27 z"
+           transform="translate(-97.5,-138.25)"
+           id="path25" />
+        <path
+           class="cls-6"
+           d="m 106.56,161.4 -1.7,-1.91 a 11.08,11.08 0 0 1 7.34,0.37 6.6,6.6 0 0 0 3.74,0.48 3.91,3.91 0 0 0 2.43,-1.45 c 0.73,-0.8 1.55,-1.71 4.32,-2 l 1.35,2 a 4.34,4.34 0 0 0 -3.45,1.58 5,5 0 0 1 -3.08,1.8 9.46,9.46 0 0 1 -5.15,-0.6 8.44,8.44 0 0 0 -5.8,-0.27 z"
+           transform="translate(-97.5,-138.25)"
+           id="path27" />
+        <path
+           class="cls-6"
+           d="m 105.83,163.43 -1.7,-1.91 a 11.09,11.09 0 0 1 7.34,0.37 6.56,6.56 0 0 0 3.73,0.47 3.87,3.87 0 0 0 2.43,-1.45 c 0.73,-0.79 1.55,-1.7 4.32,-2 l 1.36,2 a 4.32,4.32 0 0 0 -3.46,1.59 5,5 0 0 1 -3.08,1.8 9.48,9.48 0 0 1 -5.15,-0.6 8.35,8.35 0 0 0 -5.79,-0.27 z"
+           transform="translate(-97.5,-138.25)"
+           id="path29" />
+        <path
+           class="cls-6"
+           d="m 109.21,165.23 -1.7,-1.92 a 11.15,11.15 0 0 1 7.34,0.37 6.49,6.49 0 0 0 3.73,0.48 3.87,3.87 0 0 0 2.43,-1.45 c 0.73,-0.8 1.55,-1.7 4.33,-2 l 1.35,2 c -2.2,0.21 -2.78,0.85 -3.45,1.59 a 5,5 0 0 1 -3.09,1.8 9.48,9.48 0 0 1 -5.15,-0.6 8.35,8.35 0 0 0 -5.79,-0.27 z"
+           transform="translate(-97.5,-138.25)"
+           id="path31" />
+        <path
+           class="cls-6"
+           d="m 103.76,157.5 -1.71,-1.91 a 11.06,11.06 0 0 1 7.35,0.36 6.57,6.57 0 0 0 3.73,0.48 3.87,3.87 0 0 0 2.43,-1.45 c 0.73,-0.8 1.55,-1.7 4.32,-2 l 1.36,2 c -2.2,0.21 -2.78,0.85 -3.45,1.59 a 5,5 0 0 1 -3.09,1.8 9.58,9.58 0 0 1 -5.15,-0.6 8.35,8.35 0 0 0 -5.79,-0.27 z"
+           transform="translate(-97.5,-138.25)"
+           id="path33" />
+        <polygon
+           points="9.7,17.87 8.19,17.77 6.37,17.54 8.69,17.33 "
+           id="polygon35" />
+        <polygon
+           points="16.39,19.15 14.35,18.88 12.31,18.72 14.79,19.65 "
+           id="polygon37" />
+        <polygon
+           points="10.82,22.1 12.59,21.92 14.86,22.83 16.28,22.81 14.32,22.04 13.28,21.7 11.54,21.61 "
+           id="polygon39" />
+        <path
+           d="m 121.07,159.76 c -0.44,0.05 -1.57,0.31 -1.57,0.31 l -0.87,1.42 1.22,-0.87 1.9,-0.26 z"
+           transform="translate(-97.5,-138.25)"
+           id="path41" />
+        <polygon
+           points="21.83,26.59 22.86,27.03 24.37,26.41 24.47,24.99 23.66,26.01 "
+           id="polygon43" />
+        <polygon
+           points="13.66,25.73 15.29,25.84 16.8,25.93 15.02,25.4 "
+           id="polygon45" />
+        <polygon
+           points="11.3,24 10.9,23.74 9.89,23.91 "
+           id="polygon47" />
+        <polygon
+           class="cls-7"
+           points="16.39,19.15 18.42,18.7 19.12,17.66 17.87,18.01 "
+           id="polygon49" />
+        <polygon
+           class="cls-7"
+           points="18.89,25.08 20.48,24.68 20.72,23.79 19.07,24.6 "
+           id="polygon51" />
+        <polygon
+           class="cls-7"
+           points="25.8,24.86 27.33,24.14 27.78,23.28 25.93,23.96 "
+           id="polygon53" />
+        <polygon
+           class="cls-7"
+           points="8.09,23.58 9.79,23.19 8.54,24.25 "
+           id="polygon55" />
+        <polygon
+           class="cls-8"
+           points="16.29,21.27 17.33,20.9 15.06,20.71 "
+           id="polygon57" />
+        <path
+           class="cls-8"
+           d="m 117.05,164.75 -2.11,-0.48 c 0,0 1.09,0.75 1.4,0.9 a 15.14,15.14 0 0 0 2.14,0.27 z"
+           transform="translate(-97.5,-138.25)"
+           id="path59" />
+        <polygon
+           class="cls-8"
+           points="9.38,22.21 10.53,21.14 8.66,21.2 "
+           id="polygon61" />
+        <path
+           class="cls-8"
+           d="m 119.21,153.91 -2.09,0.85 c 0,0 -0.84,1.22 -0.5,1.16 a 12.29,12.29 0 0 0 1.79,-1 z"
+           transform="translate(-97.5,-138.25)"
+           id="path63" />
       </g>
-      <polygon class="cls-9" points="148.42 0.25 100.5 14.19 100.5 28.12 148.42 17.63 148.42 0.25"/>
-      <polygon class="cls-10" points="148.42 29.4 107.88 31.13 107.88 45.06 148.42 46.79 148.42 29.4"/>
-      <polygon class="cls-11" points="148.42 58.56 120 48.07 120 62 148.42 75.94 148.42 58.56"/>
-      <path class="cls-12" d="M219.9,149.37a1.5,1.5,0,0,1,1.5,1.5v10.38l1-.22V150.87a2.51,2.51,0,0,0-2.5-2.5H212l-3.43,1Z" transform="translate(-97.5 -138.25)"/>
-      <polygon class="cls-12" points="123.9 45.74 124.9 45.78 124.9 30.41 123.9 30.45 123.9 45.74"/>
-      <path class="cls-12" d="M221.4,200.87a1.48,1.48,0,0,1-.45,1.07l.92.45a2.44,2.44,0,0,0,.53-1.52V188.13l-1-.37Z" transform="translate(-97.5 -138.25)"/>
-      <rect class="cls-13" x="148.42" y="29.4" width="260.08" height="17.38"/>
-      <text class="cls-5" transform="translate(64.2 23.74)">10</text>
-      <text class="cls-14" transform="translate(152.55 40.62)">OP_HASH160 &lt;SH<tspan class="cls-15" x="73.68" y="2.29">FEJ</tspan><tspan x="83.29" y="0">&gt; OP_EQUAL</tspan></text>
-      <rect class="cls-13" x="148.42" y="58.56" width="260.08" height="17.38"/>
-      <text class="cls-14" transform="translate(152.55 69.77)">OP_DUP OP_HASH160 &lt;PKH<tspan class="cls-15" x="115.78" y="2.29">CHANGE</tspan><tspan class="cls-16" x="135" y="0">&gt; OP_EQUAL OP_CHECKSIG</tspan></text>
-      <rect class="cls-13" x="148.42" y="0.25" width="260.08" height="17.38"/>
-      <text class="cls-14" transform="translate(152.55 11.46)">OP_DUP OP_HASH160 &lt;PKH<tspan class="cls-15" x="115.78" y="2.29">C</tspan><tspan x="118.98" y="0">&gt; OP_EQUAL OP_CHECKSIG</tspan></text>
-      <text class="cls-5" transform="translate(64.2 40.4)">40</text>
-      <text class="cls-5" transform="translate(64.2 57.07)">50</text>
-      <rect class="cls-17" x="81" y="14.19" width="19.5" height="13.93"/>
-      <rect class="cls-17" x="81" y="31.13" width="26.88" height="13.93"/>
-      <rect class="cls-17" x="81" y="48.07" width="39" height="13.93"/>
-      <text class="cls-5" transform="translate(84.62 23.74)">@<tspan class="cls-18" x="6.9" y="3">C</tspan></text>
-      <text class="cls-5" transform="translate(84.62 57.07)">@<tspan class="cls-18" x="6.9" y="3">CHANGE</tspan></text>
-      <text class="cls-5" transform="translate(84.62 40.49)">@<tspan class="cls-18" x="6.9" y="3">FEJ</tspan></text>
+      <polygon
+         class="cls-9"
+         points="100.5,28.12 148.42,17.63 148.42,0.25 100.5,14.19 "
+         id="polygon67"
+         style="fill:url(#linearGradient142)" />
+      <polygon
+         class="cls-10"
+         points="107.88,45.06 148.42,46.79 148.42,29.4 107.88,31.13 "
+         id="polygon69"
+         style="fill:url(#linear-gradient-2)" />
+      <polygon
+         class="cls-11"
+         points="120,62 148.42,75.94 148.42,58.56 120,48.07 "
+         id="polygon71"
+         style="fill:url(#linear-gradient-3)" />
+      <path
+         class="cls-12"
+         d="m 219.9,149.37 a 1.5,1.5 0 0 1 1.5,1.5 v 10.38 l 1,-0.22 v -10.16 a 2.51,2.51 0 0 0 -2.5,-2.5 H 212 l -3.43,1 z"
+         transform="translate(-97.5,-138.25)"
+         id="path73" />
+      <polygon
+         class="cls-12"
+         points="124.9,30.41 123.9,30.45 123.9,45.74 124.9,45.78 "
+         id="polygon75" />
+      <path
+         class="cls-12"
+         d="m 221.4,200.87 a 1.48,1.48 0 0 1 -0.45,1.07 l 0.92,0.45 a 2.44,2.44 0 0 0 0.53,-1.52 v -12.74 l -1,-0.37 z"
+         transform="translate(-97.5,-138.25)"
+         id="path77" />
+      <rect
+         class="cls-13"
+         x="148.23071"
+         y="29.403053"
+         width="288.45456"
+         height="17.373892"
+         id="rect79" />
+      <text
+         class="cls-5"
+         transform="translate(64.2,23.74)"
+         id="text81">10</text>
+      <text
+         class="cls-14"
+         transform="translate(152.55,40.62)"
+         id="text87">OP_HASH160 &lt;SH<tspan
+   class="cls-15"
+   x="73.68"
+   y="2.29"
+   id="tspan83">FEJ</tspan><tspan
+   x="83.290001"
+   y="0"
+   id="tspan85">&gt; OP_EQUAL</tspan></text>
+      <rect
+         class="cls-13"
+         x="148.43291"
+         y="58.572906"
+         width="288.05014"
+         height="17.354191"
+         id="rect89" />
+      <text
+         class="cls-14"
+         transform="translate(152.55,69.77)"
+         id="text95">OP_DUP OP_HASH160 &lt;PKH<tspan
+   class="cls-15"
+   x="115.78"
+   y="2.29"
+   id="tspan91">CHANGE</tspan><tspan
+   class="cls-16"
+   x="135"
+   y="0"
+   id="tspan93">&gt; OP_EQUALVERIFY OP_CHECKSIG</tspan></text>
+      <rect
+         class="cls-13"
+         x="148.43291"
+         y="0.26290441"
+         width="288.0502"
+         height="17.354191"
+         id="rect97" />
+      <text
+         class="cls-14"
+         transform="translate(152.55,11.46)"
+         id="text103">OP_DUP OP_HASH160 &lt;PKH<tspan
+   class="cls-15"
+   x="115.78"
+   y="2.29"
+   id="tspan99">C</tspan><tspan
+   x="118.98"
+   y="0"
+   id="tspan101">&gt; OP_EQUALVERIFY OP_CHECKSIG</tspan></text>
+      <text
+         class="cls-5"
+         transform="translate(64.2,40.4)"
+         id="text105">40</text>
+      <text
+         class="cls-5"
+         transform="translate(64.2,57.07)"
+         id="text107">50</text>
+      <rect
+         class="cls-17"
+         x="81"
+         y="14.19"
+         width="19.5"
+         height="13.93"
+         id="rect109" />
+      <rect
+         class="cls-17"
+         x="81"
+         y="31.129999"
+         width="26.879999"
+         height="13.93"
+         id="rect111" />
+      <rect
+         class="cls-17"
+         x="81"
+         y="48.07"
+         width="39"
+         height="13.93"
+         id="rect113" />
+      <text
+         class="cls-5"
+         transform="translate(84.62,23.74)"
+         id="text117">@<tspan
+   class="cls-18"
+   x="6.9000001"
+   y="3"
+   id="tspan115">C</tspan></text>
+      <text
+         class="cls-5"
+         transform="translate(84.62,57.07)"
+         id="text121">@<tspan
+   class="cls-18"
+   x="6.9000001"
+   y="3"
+   id="tspan119">CHANGE</tspan></text>
+      <text
+         class="cls-5"
+         transform="translate(84.62,40.49)"
+         id="text125">@<tspan
+   class="cls-18"
+   x="6.9000001"
+   y="3"
+   id="tspan123">FEJ</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:5.33333px;line-height:1.05;font-family:TrebuchetMS-Bold, 'Trebuchet MS';-inkscape-font-specification:'TrebuchetMS-Bold, Trebuchet MS';font-variant-ligatures:no-common-ligatures;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb"
+         x="287.78522"
+         y="41.971882"
+         id="text138"><tspan
+           sodipodi:role="line"
+           id="tspan136"
+           x="287.78522"
+           y="41.971882" /></text>
     </g>
   </g>
 </svg>
