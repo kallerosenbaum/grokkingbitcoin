@@ -10,7 +10,7 @@
       }
 
       .cls-19, .cls-2 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-3 {

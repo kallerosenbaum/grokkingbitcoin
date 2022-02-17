@@ -89,7 +89,7 @@
       }
 
       .cls-21, .cls-26 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-22 {

@@ -219,7 +219,7 @@
       }
 
       .cls-52, .cls-53, .cls-54 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-53, .cls-54 {

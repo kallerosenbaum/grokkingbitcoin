@@ -3,7 +3,7 @@
     <style>
       .cls-1 {
         font-size: 6px;
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-13, .cls-2, .cls-3 {

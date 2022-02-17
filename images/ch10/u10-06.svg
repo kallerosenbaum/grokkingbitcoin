@@ -69,7 +69,7 @@
 
       .cls-10 {
         font-size: 8.4px;
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-11 {

@@ -168,7 +168,7 @@
       }
 
       .cls-30, .cls-33 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-31 {

@@ -41,7 +41,7 @@
       }
 
       .cls-7 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
     </style>
     <linearGradient id="linear-gradient" x1="196.94" y1="32.55" x2="222.47" y2="32.55" gradientTransform="translate(142.88 -115.62) rotate(90)" gradientUnits="userSpaceOnUse">

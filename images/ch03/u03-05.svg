@@ -95,7 +95,7 @@
 
       .cls-20 {
         font-size: 8px;
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
     </style>
     <linearGradient id="linear-gradient" x1="133.09" y1="39.74" x2="139.91" y2="39.74" gradientUnits="userSpaceOnUse">

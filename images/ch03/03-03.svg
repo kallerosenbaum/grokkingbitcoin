@@ -42,7 +42,7 @@
 
       .cls-7 {
         font-size: 5.08px;
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
     </style>
     <linearGradient id="linear-gradient" x1="128.01" y1="60.08" x2="161.54" y2="60.08" gradientUnits="userSpaceOnUse">

@@ -197,7 +197,7 @@
       }
 
       .cls-48, .cls-49, .cls-50 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-49, .cls-50 {

@@ -118,7 +118,7 @@
 
       .cls-24 {
         font-size: 5px;
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-25 {

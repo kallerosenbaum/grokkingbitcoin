@@ -32,7 +32,7 @@
       }
 
       .cls-6 {
-        font-family: Nimbus Mono PS;font-phase: bold;
+        font-family: FreeMono;font-phase: bold;font-phase: bold;
       }
 
       .cls-6, .cls-8 {
@@ -40,11 +40,11 @@
       }
 
       .cls-7, .cls-9 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-8 {
-        font-family: Nimbus Mono PS;font-phase: bold;
+        font-family: FreeMono;font-phase: bold;font-phase: bold;
       }
 
       .cls-9 {

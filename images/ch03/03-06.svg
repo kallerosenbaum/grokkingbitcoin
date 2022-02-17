@@ -109,7 +109,7 @@
       }
 
       .cls-21 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
     </style>
     <linearGradient id="linear-gradient" x1="241.05" y1="182.55" x2="271.73" y2="199.96" gradientTransform="matrix(-1, 0, 0, 1, 401.97, -139.09)" gradientUnits="userSpaceOnUse">

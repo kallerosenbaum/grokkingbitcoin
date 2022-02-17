@@ -72,7 +72,7 @@
 
       .cls-16 {
         font-size: 8px;
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-17 {

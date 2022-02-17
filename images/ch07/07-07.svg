@@ -61,11 +61,11 @@
       }
 
       .cls-11, .cls-14 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-12, .cls-13 {
-        font-family: Nimbus Mono PS;font-phase: bold;
+        font-family: FreeMono;font-phase: bold;font-phase: bold;
       }
 
       .cls-14 {

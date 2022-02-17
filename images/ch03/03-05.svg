@@ -248,7 +248,7 @@
       }
 
       .cls-61, .cls-62, .cls-63 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-62, .cls-63 {

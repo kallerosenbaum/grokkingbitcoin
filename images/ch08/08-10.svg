@@ -135,7 +135,7 @@
 
       .cls-19 {
         font-size: 10px;
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-20 {

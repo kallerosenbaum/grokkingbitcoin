@@ -77,7 +77,7 @@
       }
 
       .cls-16, .cls-19, .cls-20 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-16, .cls-18 {
@@ -85,7 +85,7 @@
       }
 
       .cls-17, .cls-18 {
-        font-family: Nimbus Mono PS;font-phase: bold;
+        font-family: FreeMono;font-phase: bold;font-phase: bold;
       }
 
       .cls-19 {

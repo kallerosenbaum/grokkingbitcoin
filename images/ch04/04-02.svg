@@ -55,7 +55,7 @@
 
       .cls-10, .cls-11 {
         font-size: 4.7px;
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-12, .cls-14 {

@@ -46,7 +46,7 @@
       }
 
       .cls-11, .cls-35, .cls-38, .cls-7 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-8 {

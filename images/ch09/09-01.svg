@@ -26,7 +26,7 @@
       }
 
       .cls-4, .cls-5 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-5 {

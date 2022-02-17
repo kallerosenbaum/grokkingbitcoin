@@ -15,7 +15,7 @@
 
       .cls-2 {
         font-size: 10px;
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-3, .cls-4 {

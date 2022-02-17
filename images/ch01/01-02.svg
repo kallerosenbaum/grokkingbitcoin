@@ -193,7 +193,7 @@
       }
 
       .cls-38, .cls-41 {
-        font-family: Nimbus Mono PS;
+        font-family: FreeMono;font-phase: bold;
       }
 
       .cls-39 {
