@@ -33,7 +33,8 @@ image::{imagedir}/08-01.svg[{big-width}]
 We’ll follow a transaction’s path through the network, both as an
 unconfirmed transaction and, eventually, as part of a mined block. The
 transaction will start in John’s wallet and end as a confirmed
-transaction in the blockchain with Bob’s wallet being notified about it.
+transaction in the blockchain with the cafe’s wallet being notified
+about it.
 
 After following the transaction through the system, you’ll no longer
 need the cookie token system to help you understand Bitcoin. We’ll talk
