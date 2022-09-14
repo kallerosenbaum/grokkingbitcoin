@@ -73,10 +73,11 @@ working.
 #### Linux
 
 If you’re running Ubuntu 18.10 or Debian 11 you can install all these
-dependencies, except Arial and Humanst521 Cn BT using:
+dependencies (but see below for Inkscape), except Arial and Humanst521
+Cn BT using:
 
 ```shell
-sudo apt-get install asciidoctor make fonts-freefont-ttf 
+sudo apt-get install asciidoctor make fonts-freefont-ttf inkscape
 ```
 
 On other systems, asciidoctor may not exist as a package in your Linux
@@ -87,6 +88,11 @@ way, for example via ruby `gem` on debian 11:
 sudo apt install ruby-rubygems
 sudo gem install asciidoctor --version 2.0.17
 ```
+
+If you run an Ubuntu version earlier than 21.10, your version of
+Inkscape is too old. If so, you can install Inkscape using a ppa as
+described on their
+[web page](https://inkscape.org/release/inkscape-1.0.2/gnulinux/ubuntu/ppa/dl/).
 
 Please report any problems you encounter when building.
 
