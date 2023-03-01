@@ -40,8 +40,8 @@
      id="namedview1136"
      showgrid="false"
      inkscape:zoom="10.875656"
-     inkscape:cx="329.4514"
-     inkscape:cy="79.535434"
+     inkscape:cx="329.54334"
+     inkscape:cy="245.04269"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -576,7 +576,7 @@
          sodipodi:role="line"
          x="308.93213"
          y="155.6575"
-         id="tspan12648">(la blochchain)</tspan></text>
+         id="tspan12648">(la blockchain)</tspan></text>
     <text
        class="cls-9"
        transform="translate(368.59,243.2)"
@@ -588,7 +588,7 @@
          sodipodi:role="line"
          id="tspan14652"
          x="0"
-         y="10">transazion</tspan></text>
+         y="10">transazioni</tspan></text>
     <text
        class="cls-9"
        transform="translate(130.26,243.2)"
@@ -1359,7 +1359,7 @@
          y="15.257857"
          id="text8446"><tspan
            sodipodi:role="line"
-           id="tspan8444"></tspan></text>
+           id="tspan8444" /></text>
     </g>
     <g
        id="g701">
@@ -2386,7 +2386,7 @@
        y="189.48428"
        id="text7813"><tspan
          sodipodi:role="line"
-         id="tspan7811"></tspan></text>
+         id="tspan7811" /></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';text-align:center;text-anchor:middle;fill:#000000"
@@ -2394,7 +2394,7 @@
        y="53.423573"
        id="text9104"><tspan
          sodipodi:role="line"
-         id="tspan9102"></tspan></text>
+         id="tspan9102" /></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';text-align:center;text-anchor:middle;fill:#000000"
@@ -2402,7 +2402,7 @@
        y="39.627857"
        id="text9114"><tspan
          sodipodi:role="line"
-         id="tspan9112"></tspan></text>
+         id="tspan9112" /></text>
     <text
        class="cls-9"
        id="text461-2"
@@ -2448,7 +2448,7 @@
        y="226.70976"
        id="text15190"><tspan
          sodipodi:role="line"
-         id="tspan15188"></tspan></text>
+         id="tspan15188" /></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';text-align:center;text-anchor:middle;fill:#000000"
@@ -2456,6 +2456,6 @@
        y="81.161613"
        id="text18720"><tspan
          sodipodi:role="line"
-         id="tspan18718"></tspan></text>
+         id="tspan18718" /></text>
   </g>
 </svg>
