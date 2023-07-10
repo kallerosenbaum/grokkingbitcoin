@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="328.04"
+   height="145.3"
+   viewBox="0 0 328.04 145.3"
+   version="1.1"
+   id="svg3055"
+   sodipodi:docname="02-02.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview3057"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="5.4139738"
+     inkscape:cx="213.24447"
+     inkscape:cy="95.955396"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3055" />
+  <defs
+     id="defs2844">
+    <rect
+       x="210.90317"
+       y="100.4028"
+       width="115.00044"
+       height="48.277848"
+       id="rect1038" />
+    <rect
+       x="223.5051"
+       y="86.639226"
+       width="88.385286"
+       height="11.70149"
+       id="rect902" />
+    <rect
+       x="231.73756"
+       y="6.987849"
+       width="114.51775"
+       height="23.018414"
+       id="rect894" />
+    <style
+       id="style2837">
+      .cls-1 {
+        fill: #e4eef2;
+      }
+
+      .cls-2 {
+        fill: #e6e2de;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5, .cls-6 {
+        stroke: gray;
+      }
+
+      .cls-10, .cls-11, .cls-15, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6 {
+        stroke-width: 0.5px;
+      }
+
+      .cls-17, .cls-20, .cls-3 {
+        fill: none;
+      }
+
+      .cls-4 {
+        fill: #fb8160;
+      }
+
+      .cls-5 {
+        fill: #fff2a2;
+      }
+
+      .cls-6 {
+        fill: #86cc7f;
+      }
+
+      .cls-7 {
+        fill: #f5f3f1;
+      }
+
+      .cls-8 {
+        fill: gray;
+      }
+
+      .cls-9 {
+        fill: #bcd6e1;
+      }
+
+      .cls-10, .cls-15 {
+        fill: #fff;
+      }
+
+      .cls-10, .cls-11, .cls-15, .cls-20 {
+        stroke: #000;
+      }
+
+      .cls-10, .cls-20 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-11 {
+        fill: #e5e5e5;
+      }
+
+      .cls-11, .cls-15, .cls-17 {
+        stroke-linejoin: round;
+      }
+
+      .cls-12 {
+        font-size: 7px;
+      }
+
+      .cls-12, .cls-16 {
+        font-family: ArialMT, Arial;
+      }
+
+      .cls-13, .cls-16 {
+        font-size: 9px;
+      }
+
+      .cls-13 {
+        font-family: Humanist521BT-BoldCondensed, Humanst521 Cn BT;
+        font-weight: 700;
+      }
+
+      .cls-14 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-17 {
+        stroke: #fff;
+        stroke-width: 0.75px;
+      }
+
+      .cls-18 {
+        font-size: 8.5px;
+        font-family: Arial-BoldMT, Arial;
+        letter-spacing: -0.08em;
+      }
+
+      .cls-19 {
+        letter-spacing: 0em;
+      }
+
+      .cls-20 {
+        stroke-width: 0.3px;
+      }
+
+      .cls-21 {
+        letter-spacing: 0em;
+      }
+
+      .cls-22 {
+        letter-spacing: -0.02em;
+      }
+    </style>
+    <linearGradient
+       id="linear-gradient"
+       x1="47.46"
+       y1="152.96"
+       x2="154.71"
+       y2="152.96"
+       gradientTransform="translate(160.84 -16.58) rotate(90)"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0"
+         stop-color="#fff"
+         id="stop2839" />
+      <stop
+         offset="1"
+         stop-color="#318aaf"
+         id="stop2841" />
+    </linearGradient>
+  </defs>
+  <g
+     id="Layer_2"
+     data-name="Layer 2">
+    <g
+       id="g2888">
+      <rect
+         class="cls-1"
+         x="21.22"
+         y="0.25"
+         width="175.11"
+         height="142.8"
+         rx="2.1"
+         id="rect2846" />
+      <path
+         class="cls-2"
+         d="M346.23,158H175.33a2.1,2.1,0,0,0-2.1,2.1v11.2h175.1v-11.2A2.1,2.1,0,0,0,346.23,158Z"
+         transform="translate(-152.01 -157.7)"
+         id="path2848" />
+      <rect
+         class="cls-3"
+         x="21.22"
+         y="0.25"
+         width="175.11"
+         height="142.8"
+         rx="2.1"
+         id="rect2850" />
+      <path
+         class="cls-4"
+         d="M182.26,164.43a2.1,2.1,0,0,1-2.1,2.1h0a2.1,2.1,0,0,1-2.1-2.1h0a2.1,2.1,0,0,1,2.1-2.1h0a2.1,2.1,0,0,1,2.1,2.1Z"
+         transform="translate(-152.01 -157.7)"
+         id="path2852" />
+      <path
+         class="cls-5"
+         d="M188.6,164.43a2.1,2.1,0,0,1-2.1,2.1h0a2.1,2.1,0,0,1-2.1-2.1h0a2.1,2.1,0,0,1,2.1-2.1h0a2.1,2.1,0,0,1,2.1,2.1Z"
+         transform="translate(-152.01 -157.7)"
+         id="path2854" />
+      <path
+         class="cls-6"
+         d="M194.94,164.43a2.1,2.1,0,0,1-2.1,2.1h0a2.1,2.1,0,0,1-2.1-2.1h0a2.1,2.1,0,0,1,2.1-2.1h0a2.1,2.1,0,0,1,2.1,2.1Z"
+         transform="translate(-152.01 -157.7)"
+         id="path2856" />
+      <g
+         id="g2862">
+        <rect
+           class="cls-7"
+           x="47.61"
+           y="3.39"
+           width="6.6"
+           height="6.67"
+           rx="0.5"
+           id="rect2858" />
+        <rect
+           class="cls-3"
+           x="47.61"
+           y="3.39"
+           width="6.6"
+           height="6.67"
+           rx="0.5"
+           id="rect2860" />
+      </g>
+      <polygon
+         class="cls-8"
+         points="51.66 8.57 49.58 6.73 51.66 4.88 52.01 5.27 50.37 6.73 52.01 8.18 51.66 8.57"
+         id="polygon2864" />
+      <g
+         id="g2870">
+        <rect
+           class="cls-7"
+           x="55.9"
+           y="3.39"
+           width="6.6"
+           height="6.67"
+           rx="0.5"
+           id="rect2866" />
+        <rect
+           class="cls-3"
+           x="55.9"
+           y="3.39"
+           width="6.6"
+           height="6.67"
+           rx="0.5"
+           id="rect2868" />
+      </g>
+      <g
+         id="g2876">
+        <rect
+           class="cls-7"
+           x="66.86"
+           y="3.39"
+           width="114.89"
+           height="6.67"
+           rx="0.5"
+           id="rect2872" />
+        <rect
+           class="cls-3"
+           x="66.86"
+           y="3.39"
+           width="114.89"
+           height="6.67"
+           rx="0.5"
+           id="rect2874" />
+      </g>
+      <polygon
+         class="cls-8"
+         points="58.45 8.57 58.1 8.18 59.73 6.73 58.1 5.27 58.45 4.88 60.52 6.73 58.45 8.57"
+         id="polygon2878" />
+      <polygon
+         class="cls-8"
+         points="177.16 4.49 178.31 5.18 177.16 5.87 177.16 4.49"
+         id="polygon2880" />
+      <path
+         class="cls-8"
+         d="M329.17,166.18a1.76,1.76,0,1,1,0-3.51v.42a1.34,1.34,0,1,0,1.34,1.34,1.27,1.27,0,0,0,0-.28l.41-.09a2.21,2.21,0,0,1,0,.37A1.75,1.75,0,0,1,329.17,166.18Z"
+         transform="translate(-152.01 -157.7)"
+         id="path2882" />
+      <polygon
+         class="cls-8"
+         points="188.11 7.03 186.26 8.88 186.33 7.7 185.95 7.68 185.83 9.58 187.73 9.46 187.71 9.08 186.53 9.15 188.38 7.3 188.11 7.03"
+         id="polygon2884" />
+      <polygon
+         class="cls-8"
+         points="188.96 6.19 190.8 4.34 189.63 4.41 189.6 4.03 191.5 3.91 191.39 5.81 191 5.79 191.08 4.61 189.22 6.46 188.96 6.19"
+         id="polygon2886" />
+    </g>
+    <rect
+       class="cls-9"
+       x="31.3"
+       y="21.41"
+       width="158.35"
+       height="114.87"
+       id="rect2890" />
+    <rect
+       class="cls-10"
+       x="29.54"
+       y="19.76"
+       width="158.35"
+       height="114.87"
+       id="rect2892" />
+    <rect
+       class="cls-11"
+       x="42.52"
+       y="39.88"
+       width="44.17"
+       height="12.29"
+       id="rect2894" />
+    <rect
+       class="cls-11"
+       x="86.69"
+       y="39.88"
+       width="44.17"
+       height="12.29"
+       id="rect2896" />
+    <rect
+       class="cls-11"
+       x="130.86"
+       y="39.88"
+       width="44.17"
+       height="12.29"
+       id="rect2898" />
+    <text
+       class="cls-12"
+       id="text2900"
+       x="84.062653"
+       y="30.709999"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans'"
+         id="tspan1184">Foglio di calcolo</tspan></text>
+    <text
+       class="cls-13"
+       id="text2902"
+       x="209.56544"
+       y="34.982716"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Humanst521 Cn BT';-inkscape-font-specification:'Humanst521 Cn BT Bold'"
+         id="tspan3175">Tanti trasferimenti di vecchi CT</tspan></text>
+    <polygon
+       class="cls-14"
+       points="10.55 127.3 10.55 30.88 5.2 30.88 5.2 127.3 2.41 127.3 7.88 138.13 13.35 127.3 10.55 127.3"
+       id="polygon2904" />
+    <text
+       class="cls-12"
+       transform="translate(56.45,48.25)"
+       id="text2906">Da</text>
+    <rect
+       class="cls-15"
+       x="42.52"
+       y="52.17"
+       width="44.17"
+       height="12.29"
+       id="rect2908" />
+    <text
+       class="cls-16"
+       transform="translate(47.28 60.54)"
+       id="text2910">...</text>
+    <rect
+       class="cls-15"
+       x="42.52"
+       y="64.46"
+       width="44.17"
+       height="12.29"
+       id="rect2912" />
+    <text
+       class="cls-12"
+       transform="translate(47.28,72.83)"
+       id="text2914"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans'"
+         id="tspan1196">Alice</tspan></text>
+    <rect
+       class="cls-15"
+       x="42.52"
+       y="76.75"
+       width="44.17"
+       height="12.29"
+       id="rect2916" />
+    <text
+       class="cls-12"
+       transform="translate(47.28,85.12)"
+       id="text2918"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans'"
+         id="tspan1186">Bar</tspan></text>
+    <rect
+       class="cls-15"
+       x="42.52"
+       y="89.04"
+       width="44.17"
+       height="12.29"
+       id="rect2920" />
+    <text
+       class="cls-12"
+       transform="translate(47.28,97.41)"
+       id="text2922"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans'"
+         id="tspan1198">Lisa</tspan></text>
+    <rect
+       class="cls-15"
+       x="42.52"
+       y="101.33"
+       width="44.17"
+       height="12.29"
+       id="rect2924" />
+    <text
+       class="cls-12"
+       transform="translate(47.28,109.7)"
+       id="text2926"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans'"
+         id="tspan1190">Bar</tspan></text>
+    <rect
+       class="cls-15"
+       x="86.69"
+       y="52.17"
+       width="44.17"
+       height="12.29"
+       id="rect2928" />
+    <text
+       class="cls-16"
+       transform="translate(91.45 60.54)"
+       id="text2930">...</text>
+    <rect
+       class="cls-15"
+       x="86.69"
+       y="64.46"
+       width="44.17"
+       height="12.29"
+       id="rect2932" />
+    <text
+       class="cls-12"
+       transform="translate(91.45,72.83)"
+       id="text2934"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans'"
+         id="tspan1194">Bar</tspan></text>
+    <rect
+       class="cls-15"
+       x="86.69"
+       y="76.75"
+       width="44.17"
+       height="12.29"
+       id="rect2936" />
+    <text
+       class="cls-12"
+       transform="translate(91.45,85.12)"
+       id="text2938"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans'"
+         id="tspan1200">Anne</tspan></text>
+    <rect
+       class="cls-15"
+       x="86.69"
+       y="89.04"
+       width="44.17"
+       height="12.29"
+       id="rect2940" />
+    <text
+       class="cls-12"
+       transform="translate(91.45,97.41)"
+       id="text2942"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans'"
+         id="tspan1188">Bar</tspan></text>
+    <rect
+       class="cls-15"
+       x="86.69"
+       y="101.33"
+       width="44.17"
+       height="12.29"
+       id="rect2944" />
+    <text
+       class="cls-12"
+       transform="translate(91.45,109.7)"
+       id="text2946"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans'"
+         id="tspan1192">Azienda</tspan></text>
+    <rect
+       class="cls-15"
+       x="130.86"
+       y="52.17"
+       width="44.17"
+       height="12.29"
+       id="rect2948" />
+    <text
+       class="cls-16"
+       transform="translate(160.78 60.54)"
+       id="text2950">...</text>
+    <rect
+       class="cls-15"
+       x="130.86"
+       y="64.46"
+       width="44.17"
+       height="12.29"
+       id="rect2952" />
+    <text
+       class="cls-12"
+       transform="translate(160.49,72.83)"
+       id="text2954"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans'"
+         id="tspan1351">10</tspan></text>
+    <rect
+       class="cls-15"
+       x="130.86"
+       y="76.75"
+       width="44.17"
+       height="12.29"
+       id="rect2956" />
+    <text
+       class="cls-12"
+       transform="translate(150.76,85.12)"
+       id="text2958"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans'"
+         id="tspan1349">1.000</tspan></text>
+    <rect
+       class="cls-15"
+       x="130.86"
+       y="89.04"
+       width="44.17"
+       height="12.29"
+       id="rect2960" />
+    <text
+       class="cls-12"
+       transform="translate(160.49,97.41)"
+       id="text2962"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans'"
+         id="tspan1347">10</tspan></text>
+    <rect
+       class="cls-15"
+       x="130.86"
+       y="101.33"
+       width="44.17"
+       height="12.29"
+       id="rect2964" />
+    <text
+       class="cls-12"
+       transform="translate(146.87,109.7)"
+       id="text2966"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans'"
+         id="tspan1345">10.000</tspan></text>
+    <text
+       class="cls-12"
+       transform="translate(104.7,48.25)"
+       id="text2968">A</text>
+    <text
+       class="cls-12"
+       id="text2970"
+       x="134.55734"
+       y="48.25">Quantità CT</text>
+    <rect
+       class="cls-15"
+       x="42.52"
+       y="113.62"
+       width="44.17"
+       height="12.29"
+       id="rect2972" />
+    <rect
+       class="cls-15"
+       x="86.69"
+       y="113.62"
+       width="44.17"
+       height="12.29"
+       id="rect2974" />
+    <rect
+       class="cls-15"
+       x="130.86"
+       y="113.62"
+       width="44.17"
+       height="12.29"
+       id="rect2976" />
+    <polyline
+       class="cls-17"
+       points="43.18 51.75 43.18 40.56 86.15 40.56"
+       id="polyline2978" />
+    <polyline
+       class="cls-17"
+       points="87.34 51.75 87.34 40.56 130.31 40.56"
+       id="polyline2980" />
+    <polyline
+       class="cls-17"
+       points="131.51 51.75 131.51 40.56 174.48 40.56"
+       id="polyline2982" />
+    <text
+       class="cls-12"
+       transform="translate(0,28.96)"
+       id="text2984"
+       style="-inkscape-font-specification:'Liberation Sans';font-family:'Liberation Sans';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">Tempo</text>
+    <text
+       class="cls-13"
+       id="text2986"
+       x="209.79633"
+       y="49.098549"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Humanst521 Cn BT';-inkscape-font-specification:'Humanst521 Cn BT Bold'"
+         id="tspan3177">Alice compra un biscotto</tspan></text>
+    <text
+       class="cls-13"
+       transform="translate(210.52,71.89)"
+       id="text2998" />
+    <text
+       class="cls-13"
+       transform="translate(210.52,94.31)"
+       id="text3000"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Humanst521 Cn BT';-inkscape-font-specification:'Humanst521 Cn BT Bold'"
+         id="tspan898" /></text>
+    <g
+       id="g3006">
+      <path
+         class="cls-20"
+         d="m 179.24,94.925082 c 6.17002,0 22.66241,-10.381426 28.18911,-10.381426"
+         id="path3002" />
+      <polygon
+         points="179.79 97.08 176.55 95.21 179.79 93.34 179.79 97.08"
+         id="polygon3004" />
+    </g>
+    <text
+       class="cls-13"
+       transform="translate(210.52,108.38)"
+       id="text3020" />
+    <g
+       id="g3026">
+      <path
+         class="cls-20"
+         d="M331.25,265.7c8,1.55,23.25,7.3,28.92,7.3"
+         transform="translate(-152.01 -157.7)"
+         id="path3022" />
+      <polygon
+         points="179.43 109.93 176.6 107.47 180.14 106.26 179.43 109.93"
+         id="polygon3024" />
+    </g>
+    <g
+       id="g3034">
+      <path
+         class="cls-20"
+         d="m 179.42847,56.943306 c 10.4777,-7.314842 21.78861,-21.30075 28.80313,-24.088518"
+         id="path3030" />
+      <polygon
+         points="180.43 58.2 176.73 57.64 179.06 54.72 180.43 58.2"
+         id="polygon3032" />
+    </g>
+    <g
+       id="g3040">
+      <path
+         class="cls-20"
+         d="M331.25,280.5c11,4.5,21.92,15.83,28.92,17.33"
+         transform="translate(-152.01 -157.7)"
+         id="path3036" />
+      <polygon
+         points="179.04 124.73 176.76 121.77 180.46 121.27 179.04 124.73"
+         id="polygon3038" />
+    </g>
+    <g
+       id="g3046">
+      <path
+         class="cls-20"
+         d="M 179.26535,69.931054 C 189.62969,62.666786 201.42987,47.96529 208.50796,45.370909"
+         id="path3042" />
+      <polygon
+         points="180.46 71.52 176.75 71.02 179.04 68.06 180.46 71.52"
+         id="polygon3044" />
+    </g>
+    <g
+       id="g3052">
+      <path
+         class="cls-20"
+         d="m 179.26233,82.247436 c 9.13008,-8.166812 21.35873,-20.482366 28.1795,-22.867075"
+         id="path3048" />
+      <polygon
+         points="180.6 83.72 176.86 83.59 178.84 80.42 180.6 83.72"
+         id="polygon3050" />
+    </g>
+  </g>
+  <text
+     xml:space="preserve"
+     id="text892"
+     style="font-size:9px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';white-space:pre;shape-inside:url(#rect894);display:inline;fill:#000000"
+     transform="translate(-22.03355,46.140006)"><tspan
+       x="231.73828"
+       y="15.095071"
+       id="tspan1631"><tspan
+         style="font-weight:bold;font-family:'Humanst521 Cn BT';-inkscape-font-specification:'Humanst521 Cn BT Bold'"
+         id="tspan1629">Anne compra 1000 CT dal bar </tspan></tspan><tspan
+       x="231.73828"
+       y="26.488969"
+       id="tspan1635"><tspan
+         style="font-weight:bold;font-family:'Humanst521 Cn BT';-inkscape-font-specification:'Humanst521 Cn BT Bold'"
+         id="tspan1633">per 100$</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     id="text900"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9px;font-family:'Humanst521 Cn BT';-inkscape-font-specification:'Humanst521 Cn BT Bold';white-space:pre;shape-inside:url(#rect902);display:inline;fill:#000000"
+     transform="translate(-14.112064,-9.0369445)"><tspan
+       x="223.50586"
+       y="94.601562"
+       id="tspan1637">Lisa compra un biscotto</tspan></text>
+  <text
+     xml:space="preserve"
+     id="text1036"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9px;font-family:'Humanst521 Cn BT';-inkscape-font-specification:'Humanst521 Cn BT Bold';white-space:pre;shape-inside:url(#rect1038);display:inline;fill:#000000"
+     transform="translate(-1.4920879,-10.612006)"><tspan
+       x="210.90234"
+       y="108.36523"
+       id="tspan1639">L'azienda acquista 10.000 CT dal </tspan><tspan
+       x="210.90234"
+       y="119.61523"
+       id="tspan1641">bar per ricompensare i </tspan><tspan
+       x="210.90234"
+       y="130.86523"
+       id="tspan1643">lavoratori per la produzione di </tspan><tspan
+       x="210.90234"
+       y="142.11523"
+       id="tspan1645">prodotti eccellenti</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9px;font-family:'Humanst521 Cn BT';-inkscape-font-specification:'Humanst521 Cn BT Bold';fill:#000000"
+     x="209.52652"
+     y="142.6488"
+     id="text1044"><tspan
+       sodipodi:role="line"
+       id="tspan1042"
+       x="209.52652"
+       y="142.6488">I nuovi pagamenti compaiono qui </tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9px;font-family:'Humanst521 Cn BT';-inkscape-font-specification:'Humanst521 Cn BT Bold';fill:#000000"
+     x="276.14017"
+     y="158.91818"
+     id="text1048"><tspan
+       sodipodi:role="line"
+       id="tspan1046"></tspan></text>
+</svg>
