@@ -450,7 +450,7 @@ of hyperinflation is apparent.
 A rapid increase in the money supply will most likely lead to a
 depreciation of a country’s currency. This, in turn, pushes people to
 exchange their local currency for goods or alternative currencies that
-better hold value, which further drives down the value of the local
+hold better value, which further drives down the value of the local
 currency. This can spiral to extremes, as in Zimbabwe. The result is
 devastating for people as they see their life savings diminish to
 virtually nothing. <<inflation-table>> shows examples of recent
