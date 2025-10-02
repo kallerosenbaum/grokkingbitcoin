@@ -125,6 +125,7 @@ This tells John’s phone to launch the cookie token wallet (`ct:`) and
 pay 10 (`amount=10`) cookie tokens to the address
 `19UzNFW4Fq8wm8mtWmoPZAzE3tcB9tZVtN`.
 
+[start=3]
 . John’s wallet displays the payment details to John, who checks that
 they’re reasonable and clicks OK.
 
