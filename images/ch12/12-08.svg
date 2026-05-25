@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="220" viewBox="0 0 800 220">
+  <metadata>TODO placeholder figure for Grokking Bitcoin Ch12 (Taproot). Replace with real Inkscape artwork.</metadata>
+  <rect x="2" y="2" width="796" height="216" fill="#fff8dc" stroke="#cc8800" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#cc8800" text-anchor="middle">PLACEHOLDER — 12-08.svg</text>
+  <text font-family="Arial, sans-serif" font-size="13" fill="#333"><tspan x="30" y="80">p2tr address format diagram, matching the style of figures 10-30 through </tspan><tspan x="30" y="98">10-35 from Ch10. bc1p prefix, bech32m encoding, 58 base32m characters.</tspan></text>
+  <text x="400" y="208" font-family="Arial, sans-serif" font-size="10" fill="#999" text-anchor="middle">See images/ch12/figures-todo.md for the illustrator brief.</text>
+</svg>

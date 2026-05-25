@@ -811,6 +811,17 @@ Bitcoin uses this type of signature for most payments today, but it
 isn’t the only way to authenticate a payment.
 ****
 
+[.inbitcoin]
+.A second signature scheme: Schnorr
+****
+Since November 2021, Bitcoin has supported a second signature scheme
+called _Schnorr_, featuring some new, useful properties. The intuition
+we use here—signing is “encrypt the hash of the message with the
+private key”—still works for Schnorr, even though the math underneath
+is different. We cover Schnorr and the Taproot upgrade that introduced
+it in <<ch12>>.
+****
+
 [role="important"]
 
 The signature is an encrypted hash of a message. If John had used

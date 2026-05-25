@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="280" viewBox="0 0 800 280">
+  <metadata>TODO placeholder figure for Grokking Bitcoin Ch12 (Taproot). Replace with real Inkscape artwork.</metadata>
+  <rect x="2" y="2" width="796" height="276" fill="#fff8dc" stroke="#cc8800" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#cc8800" text-anchor="middle">PLACEHOLDER — 12-09.svg</text>
+  <text font-family="Arial, sans-serif" font-size="13" fill="#333"><tspan x="30" y="80">MuSig2 spend on chain. The witness contains exactly one 64-byte Schnorr </tspan><tspan x="30" y="98">signature, indistinguishable in shape from a single-signer p2tr spend.</tspan></text>
+  <text x="400" y="268" font-family="Arial, sans-serif" font-size="10" fill="#999" text-anchor="middle">See images/ch12/figures-todo.md for the illustrator brief.</text>
+</svg>

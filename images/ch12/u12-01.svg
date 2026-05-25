@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="300" viewBox="0 0 200 300">
+  <metadata>TODO placeholder figure for Grokking Bitcoin Ch12 (Taproot). Replace with real Inkscape artwork.</metadata>
+  <rect x="2" y="2" width="196" height="296" fill="#fff8dc" stroke="#cc8800" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="100" y="40" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#cc8800" text-anchor="middle">PLACEHOLDER — u12-01.svg</text>
+  <text font-family="Arial, sans-serif" font-size="13" fill="#333"><tspan x="30" y="80">Sidebar/marginalia image - John walking to the cafe with his Taproot </tspan><tspan x="30" y="98">wallet. Style match to u10-01 etc.</tspan></text>
+  <text x="100" y="288" font-family="Arial, sans-serif" font-size="10" fill="#999" text-anchor="middle">See images/ch12/figures-todo.md for the illustrator brief.</text>
+</svg>

@@ -117,3 +117,32 @@ http://mng.bz/177R.
 Web resource {counter:webresourceid}:: Getting Started with Bitcoin,
 http://mng.bz/P885.
 // https://bitcoin.org/en/getting-started
+
+[[web-bip340,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: Pieter Wuille, Jonas Nick,
+Tim Ruffing, “BIP340: Schnorr Signatures for secp256k1,”
+https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki.
+
+[[web-bip341,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: Pieter Wuille, Jonas Nick,
+Anthony Towns, “BIP341: Taproot — SegWit version 1 spending rules,”
+https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki.
+
+[[web-bip342,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: Pieter Wuille, Jonas Nick,
+Anthony Towns, “BIP342: Validation of Taproot Scripts (Tapscript),”
+https://github.com/bitcoin/bips/blob/master/bip-0342.mediawiki.
+
+[[web-bip327,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: Jonas Nick, Tim Ruffing,
+Elliott Jin, “BIP327: MuSig2 for BIP340-compatible Multi-Signatures,”
+https://github.com/bitcoin/bips/blob/master/bip-0327.mediawiki.
+
+[[web-bip350,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: Pieter Wuille, “BIP350: Bech32m
+format for v1+ witness addresses,”
+https://github.com/bitcoin/bips/blob/master/bip-0350.mediawiki.
+
+[[web-arkade,Web resource {counter:webresourceid}]]
+Web resource {counter:webresourceid}:: Arkade, a Bitcoin Layer-2
+based on Taproot script trees and MuSig2, https://arkadeos.com.

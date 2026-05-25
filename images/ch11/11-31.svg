@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="350" viewBox="0 0 800 350">
+  <metadata>TODO placeholder figure for Grokking Bitcoin Ch12 (Taproot). Replace with real Inkscape artwork.</metadata>
+  <rect x="2" y="2" width="796" height="346" fill="#fff8dc" stroke="#cc8800" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#cc8800" text-anchor="middle">PLACEHOLDER — 11-31.svg</text>
+  <text font-family="Arial, sans-serif" font-size="13" fill="#333"><tspan x="30" y="80">Speedy Trial state machine. Like Figure 11-22 (BIP9 state machine) but </tspan><tspan x="30" y="98">with: (a) shorter signaling window - 3 months instead of 1 year, (b) 90% </tspan><tspan x="30" y="116">threshold instead of 95%, (c) mandatory delayed activation at a fixed </tspan><tspan x="30" y="134">pre-announced block height after lock-in, (d) FAILED state if no lock-in </tspan><tspan x="30" y="152">inside the window. Style match figure 11-22.</tspan></text>
+  <text x="400" y="338" font-family="Arial, sans-serif" font-size="10" fill="#999" text-anchor="middle">See images/ch12/figures-todo.md for the illustrator brief.</text>
+</svg>

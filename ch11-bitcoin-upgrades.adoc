@@ -817,7 +817,7 @@ Unfortunately, all deployments aren’t as smooth.
 
 
 /////
-let's look at it in a bit finer detail:
+let’s look at it in a bit finer detail:
 
 .States of the BIP9 deployment of relative lock time.
 [%autowidth,role="widetable"]
@@ -832,7 +832,7 @@ let's look at it in a bit finer detail:
 | STARTED | 2016-05-24 21:02 | 413280 | Stay in STARTED, because < 1916 (95%) of last 2016 blocks signal support for csv
 | STARTED | 2016-06-08 02:02 | 415296 | Stay in STARTED, because < 1916 (95%) of last 2016 blocks signal support for csv
 | *LOCKED_IN* | 2016-06-21 04:49 | 417312 | LOCKED_IN because the last retarget period has >= 1916 blocks supporting csv
-| *ACTIVE* | 2016-07-04 21:44 | 419328 | Active because it's exactly one retarget after LOCKED_IN
+| *ACTIVE* | 2016-07-04 21:44 | 419328 | Active because it’s exactly one retarget after LOCKED_IN
 |===
 /////
 
@@ -1086,6 +1086,36 @@ fork will be dropped. This will effectively cause 100% support because
 noncompliant blocks won’t count anymore, and the deployment will soon
 get `LOCKED_IN`.
 
+[[speedy-trial]]
+==== Speedy Trial: a hybrid in practice
+
+[.inbitcoin]
+.Taproot
+****
+Taproot, deployed in 2021, is the only soft fork since segwit.
+<<ch12>> covers what it does.
+****
+
+The mechanism used to deploy Taproot is called _Speedy Trial_. It’s
+a stripped-down BIP9:
+
+* _Short signaling window_—three months instead of a year. If miners
+don’t lock it in within the window, the deployment fails and can be
+re-attempted with different parameters.
+
+* _90% lock-in threshold_ per retarget period.
+
+* _Mandatory delayed activation_ if locked in. The rules take effect
+at a fixed, pre-announced block height several months later, giving
+wallets and exchanges a predictable runway.
+
+[[fig1131]]
+.Speedy Trial state machine.
+image::{imagedir}/11-31.svg[{full-width}]
+
+Taproot signaled in its first retarget period and locked in.
+Activation followed at block height 709632 in November 2021.
+
 === Recap
 
 This chapter has taught you about hard forks and soft forks, and how to
@@ -1267,13 +1297,13 @@ If segwit not locked in before 2017-08-01, this BIP will be active
 active bit 1 is required. Other blocks will be dropped.
 
 BIP149:
-Sets service bit 5 "NODE_UAWITNESS".
-Deployed with BIP8 using "segwit" bit 1.
+Sets service bit 5 “NODE_UAWITNESS”.
+Deployed with BIP8 using “segwit” bit 1.
 start time: 2017-11-16
 timeout: 2018-07-04
 
 NYA (segwit2x):
-First signal intent with "NYA" in coinbase.
+First signal intent with “NYA” in coinbase.
 Then:
 BIP9 deployment of segwit
 bit: 4

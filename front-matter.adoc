@@ -275,12 +275,19 @@ details.
 safely upgraded using a soft fork together with a careful deployment
 plan.
 
+* <<ch12>> introduces Taproot. This 2021 upgrade gave Bitcoin a second
+signature scheme (Schnorr), a new output type with hidden script trees,
+and a refreshed script language. The chapter walks through how shared-
+custody spends—multisig, federations, and complex contracts—are made
+both cheaper and more flexible.
+
 I suggest that you read chapters 2–8, where we’ll build the cookie token
 system from the ground up, sequentially. Each chapter adds a technology
 to the system to solve a specific problem, and by chapter 8, we’ll have
-built Bitcoin. Chapters 9, 10, and 11 can be read out of order, but I
-recommend reading chapter 11 carefully, because it covers the essence of
-Bitcoin. If you get chapter 11, you’re grokking Bitcoin.
+built Bitcoin. Chapters 9, 10, 11, and 12 can be read out of order, but
+I recommend reading chapter 11 carefully, because it covers the essence
+of Bitcoin. If you get chapter 11, you’re grokking Bitcoin. Chapter 12
+builds on chapter 10, so read 10 first.
 
 ****
 image::style/images/periscope.svg[]

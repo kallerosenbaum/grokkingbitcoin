@@ -692,3 +692,97 @@ exchanging their block rewards for goods, services, or other currencies.
 to the New branch once that branch is stronger than the Old branch. This
 is because, in a soft fork, the New branch is valid according to the Old
 software.
+
+=== Chapter 12
+
+. The witness version byte for a p2tr output is `01`. (p2wpkh and
+p2wsh, the segwit-v0 outputs, use witness version `00`.)
+
+. A Schnorr signature is 64 bytes, fixed size. ECDSA signatures used
+in earlier output types are 71-73 bytes and variable-length, because
+they are DER-encoded.
+
+. The output key is the result of _tweaking_ the wallet’s internal
+public key by a 32-byte value derived from the internal key alone
+(if no script tree) or from the internal key combined with the
+merkle root of the script tree (if there are scripts). Calling it
+the “output key” rather than “the public key” makes the distinction
+clear: the wallet still has its internal key P; the chain only sees
+the tweaked output key Q.
+
+. No. A single-key p2tr spend and a 2-of-3 MuSig2 p2tr spend that
+takes the key path are both, on chain, a 32-byte output key and a
+single 64-byte Schnorr signature. They are visually indistinguishable.
+The verifier can check that the signature is valid under the output
+key, but not how that key was constructed.
+
+. Two reasons. First, `OP_CHECKMULTISIG` had a long-standing
+“off-by-one” quirk requiring an extra dummy item on the stack, which
+made it awkward to compose with other operators. Second,
+`OP_CHECKSIGADD` composes naturally with `OP_IF`/`OP_ELSE` and lets
+the script writer count valid signatures explicitly, which is more
+flexible than a built-in m-of-n check.
+
+. The `bc1p` prefix tells you it is a Taproot address. The `bc` is
+the human-readable part for mainnet (just like `bc1q` segwit
+addresses), the `1` is the separator, and the `p` (which encodes
+the value 1 in the bech32 alphabet) tells you the witness version
+is 1 — i.e., this is a p2tr output.
+
+. The witness must contain:
++
+* The values consumed by leaf~B~ (e.g. signatures, preimages,
+whatever the leaf’s script needs on the stack).
+* The leaf~B~ script itself.
+* A control block containing the internal public key P, the leaf
+version byte, and the merkle proof showing leaf~B~ is in the tree.
++
+The verifier then:
++
+.. Reconstructs the merkle root from leaf~B~ and the merkle proof.
+.. Recomputes the output key by tweaking P with the hash of P
+combined with the reconstructed merkle root.
+.. Checks that the recomputed value equals the actual output key in
+the spent output.
+.. Executes the leaf~B~ script with the supplied witness values.
++
+If all of those pass, the spend is valid. Notice that leaf~A~ and
+leaf~C~ are never revealed.
+
+. The atomic-swap contract from <<ch09>> needs two spending paths:
+“counterparty signs and reveals the secret pre-image” and “I get a
+refund after a timeout“. With Taproot, this is naturally a script
+tree with two leaves: leaf 1 checks the pre-image and the
+counterparty’s signature, leaf 2 checks the timeout and your own
+signature. The cooperative case (counterparty reveals the secret
+voluntarily) can collapse to a key path, which makes the spend
+indistinguishable from any other Taproot spend. The refund case
+reveals leaf 2 but never leaf 1, so an observer cannot tell from the
+chain that the contract had a hash-based path at all.
+
+. No. With MuSig2, Faiza’s share of the aggregated key is _her own
+private key_. To produce a valid signature under the aggregated key,
+the protocol requires _all_ participants to sign together. Stealing
+one participant’s private key gives an attacker the ability to
+participate in a signing session as that participant, but the other
+two still need to sign as well. (This is why a 2-of-3 charity
+typically uses a script tree of three different MuSig2 pair-aggregations
+as backup leaves, rather than a single 3-of-3 aggregation.)
+
+. Looking only at the chain, researchers can tell:
++
+* The output is a Taproot output.
+* It was spent with one signature, in time T at block height H.
+* The transaction’s amounts and fees.
++
+They cannot tell:
++
+* How many signers were behind the spend.
+* Whether the spend used the key path or a script path (unless they
+also have the spending witness, but even with the witness, a key-
+path spend reveals nothing about the internal key construction).
+* What the script tree (if any) contained.
+* The individual public keys of the participants.
++
+That is the structural property of MuSig2 plus key-path spending: a
+100-signer federation looks identical to a single signer on chain.

@@ -1,0 +1,915 @@
+[[ch12]]
+== Taproot
+
+:imagedir: {baseimagedir}/ch12
+
+This chapter covers
+
+* Spending bitcoins with Schnorr signatures
+
+* Hiding unused spending paths in a script tree
+
+* Aggregating many keys into one
+
+* Introducing the new `bc1p` address format
+
+To follow this chapter, you should be comfortable with segregated
+witness (<<ch10>>) and digital signatures (<<ch02>>). Multisig and
+script-hash payments (<<ch05>>) come back too, so it helps to have
+those fresh in your mind. Time-locked outputs from <<ch09>> turn up
+again, this time as one of several alternative spending paths hidden
+behind a single output.
+
+In November 2021, Bitcoin received its largest soft fork since
+segwit. The upgrade is called _Taproot_, and it’s actually three
+Bitcoin Improvement Proposals bundled together: BIP340 (_Schnorr
+signatures_), BIP341 (_Taproot_), and BIP342 (_Tapscript_). The
+naming is a little confusing—the whole package is called Taproot,
+but Taproot is also the name of just one of the three parts. You
+get used to it.
+
+Unlike segwit, Taproot doesn’t have a single headline fix. It pays
+off a long list of smaller paper cuts that have been bothering us
+since the early days of the system. The thread tying them together
+is _shared custody_. Any wallet with more than one signer—a couple
+sharing a household budget, a charity, a business, a federation
+running an exchange—has been taking up more block space than it
+should on every spend, and there have been hard ceilings on what
+kind of spending policies could even fit on the chain. Taproot lifts
+those.
+
+We’ll start with the four problems Taproot fixes, then walk through
+the mechanics with the cast you already know. John pays the cafe.
+The charity wallet from <<ch05>>, which we last saw using p2wsh in
+<<ch10>>, comes back to make its first Taproot spend. Your daughter’s
+inheritance from <<ch09>> picks up an upgraded form, where several
+alternative ways of unlocking the money sit hidden inside a single
+output until one of them is actually used. By the end of the
+chapter, the charity will be able to make a 2-of-3 spend that takes
+up the same block space as John’s single-key payment to the cafe—and
+that, on chain, looks no different from it.
+
+[[problems-solved-by-taproot]]
+=== Problems solved by Taproot
+
+Segwit (<<ch10>>) was a big step forward, but it left four problems
+unsolved. Each one has been taking up more block space than it
+should, and one has put a hard ceiling on what shared-custody
+arrangements could even fit on the chain. Less block space per spend
+means more spends per block, which means more economic activity on
+the chain for everyone. Let’s look at the four problems in turn.
+
+==== Multisig spends are expensive
+
+Remember John, Faiza, and Ellen’s charity wallet from <<ch05>>? They
+moved it to p2wsh in <<ch10>> to take advantage of the witness
+discount. It’s a 2-of-3 multisig: any two of the three private keys
+can spend an output. When they spend, the witness contains two
+signatures (about 72 bytes each), the witness script (exactly 105
+bytes for a 2-of-3 with three 33-byte compressed pubkeys), and a bit
+of overhead. <<fig1201>> compares this to John paying the cafe from
+a p2wpkh output.
+
+[[fig1201]]
+.A p2wpkh single-sig spend is small. A p2wsh 2-of-3 multisig spend is much larger, even with the witness discount.
+image::{imagedir}/12-01.svg[{big-width}]
+
+The 2-of-3 spend takes roughly 2-3 times the witness bytes of a
+single-sig spend. Every time the charity moves money, that extra
+block space is unavailable to other transactions in the block. Donors
+indirectly pick up the cost in fees, but the deeper issue is that
+the chain is carrying a lot of weight it doesn’t structurally need
+to.
+
+[.gbinfo]
+.Why do single-key spends cost less?
+****
+A p2wpkh witness contains one signature and one public key—that’s it.
+Everything else (the script that checks them) is implied by the output
+type. p2wsh has to spell the script out in the witness because it can
+be any script at all.
+****
+
+==== Every script branch has to be revealed
+
+Suppose the charity wanted a more nuanced policy: 2-of-3 normally, but
+a single-key emergency override after a long time delay if any of the
+three were unable to sign. With p2wsh, both branches must sit in the
+witness script, _even though only one of them is used when spending_
+(<<fig1202>>). The witness has to commit to the entire program,
+including the branch we didn’t take.
+
+[[fig1202]]
+.With p2wsh, the witness script contains both spending branches even when only the 2-of-3 branch is used. The unused emergency branch is paid for in fees.
+image::{imagedir}/12-02.svg[{big-width}]
+
+This is wasteful, and it puts a hard cap on how complex spending
+policies can get. A p2wsh script has a maximum size of 10,000 bytes
+_total_, across every branch combined. A contract with five alternative
+spending paths, each a few thousand bytes long, simply won’t fit.
+
+==== Multisig has a hard ceiling
+
+The script operator we’ve used for multisig since <<ch05>> is
+`OP_CHECKMULTISIG`. It has a built-in consensus limit of 20 keys per
+script. For a small charity, that’s plenty. For a federation running
+an exchange’s cold-storage scheme with 30 board members, or a
+corporate treasury with 50 signers, it’s a non-starter. Those
+organizations have had to either trust an off-chain orchestrator or
+break themselves up into smaller subgroups, losing the security of a
+single shared policy.
+
+==== ECDSA cannot be aggregated
+
+Even at 2-of-3, the chain has to carry _two_ signatures and _three_
+public keys (one for each key in the script, all of them hashed into
+the address). The signature scheme Bitcoin has used since <<ch02>>,
+ECDSA, has a property that makes signature aggregation mathematically
+inconvenient. There’s no clean way to combine several ECDSA signatures
+into one. The result is that every signer’s work shows up separately
+in the witness, and the chain pays for it.
+
+This is the structural problem behind the other three. Fix this, and a
+lot of the rest follows.
+
+=== Solutions
+
+Taproot’s three BIPs solve the four problems above with one
+structural move and three mechanical moves. The structural move is
+that Bitcoin gets a _second_ signature scheme, called Schnorr, that
+sits next to ECDSA. The mechanical moves use Schnorr’s properties to
+build cheaper spends, larger script trees, and bigger multisig.
+
+==== A new signature scheme: Schnorr
+
+[.inbitcoin]
+.BIP340
+****
+“Schnorr Signatures for secp256k1” specifies how Schnorr signatures
+work in Bitcoin.
+****
+
+[.gbinfo]
+.Older than Bitcoin
+****
+The Schnorr scheme itself predates Bitcoin and was patent-encumbered
+until 2008, which might be why Satoshi didn’t use it originally.
+****
+
+Schnorr uses the same elliptic curve as ECDSA (secp256k1) and the same
+kind of public and private keys. From the outside, not much changes:
+you still have a private key (a big random number), you still derive a
+public key from it, and you still produce a signature over a message
+hash with the private key. <<fig1203>> shows the signing flow side by
+side with ECDSA from <<ch02>>.
+
+[[fig1203]]
+.Schnorr signing looks almost the same as ECDSA from the outside. The differences are in how the math is structured.
+image::{imagedir}/12-03.svg[{big-width}]
+
+What changes is how the math underneath is put together. Three
+properties of Schnorr matter for what comes later in this chapter:
+
+* _Signatures are 64 bytes, fixed size_. ECDSA signatures are
+encoded in a variable-length format (the cause of one of the
+malleability problems we fixed in <<ch10>>) and are typically
+71-73 bytes.
+
+* _Public keys are 32 bytes, x-only_. A point on secp256k1 has an
+x-coordinate and a y-coordinate, but for Schnorr in Bitcoin, only
+the x-coordinate is encoded. There are always two y-coordinates
+that pair with a given x; BIP340 standardizes on the one that is
+“even”, and the verifier reconstructs it.
+
+* _Schnorr signatures are linear_. This is the property that makes
+key aggregation work; if two private keys are added together, the
+matching public keys are also added together; and a signature
+under the sum-of-keys is a sum of signatures-under-each-key. ECDSA
+does not have this property. We’ll come back to this in
+<<musig2-section>>.
+
+[.gbinfo]
+.A signature is still an “encrypted hash”
+****
+The intuition from <<ch02>>—signing is encrypting the message hash
+with the private key—still works for Schnorr. The math underneath is
+different, but the picture is the same.
+****
+
+Schnorr coexists with ECDSA. Old outputs (p2pkh, p2sh, p2wpkh, p2wsh)
+keep using ECDSA. Taproot outputs—the new ones we’re about to
+introduce—use Schnorr.
+
+==== A new output type: pay-to-taproot (p2tr)
+
+[.inbitcoin]
+.BIP341
+****
+“Taproot: SegWit version 1 spending rules” specifies p2tr, the
+script tree, and the new sighash algorithm.
+****
+
+Recall from <<ch10>> that segwit reserved a “witness version” byte in
+the output to leave room for future upgrades. Segwit shipped with
+witness version 0 (p2wpkh and p2wsh). Taproot is _witness version 1_,
+and the new output type is called pay-to-taproot, or p2tr.
+
+A p2tr output is just a single 32-byte x-only Schnorr public key,
+called the _output key_, prefixed with a witness version of 1
+(<<fig1204>>).
+
+[[fig1204]]
+.A p2tr output is a witness-version byte (`01`) and a 32-byte x-only public key.
+image::{imagedir}/12-04.svg[{big-width}]
+
+There’s no script in the output. There’s no hash in the output. The
+output _is_ the public key. This is the structural simplification that
+everything else in this chapter rests on: every Taproot output looks
+the same, no matter how complex the spending policy turns out to be.
+
+How can a single public key encode complex spending policies? Two
+ways, used together:
+
+* The output key can be _spent with a Schnorr signature_, the same way
+a p2wpkh output is spent with a signature. We call this _key-path
+spending_. It’s the cheapest and most common case.
+
+* The output key can also _commit_ to a tree of alternative scripts,
+without revealing them in the output. When you spend, you reveal just
+one leaf of that tree and execute it. We call this _script-path
+spending_.
+
+The two paths aren’t visible from the output. An observer can’t tell
+whether a Taproot output has any scripts attached to it or not. The
+spending witness reveals which path was taken—but only after the spend
+has happened.
+
+==== Key-path spending: John pays the cafe
+
+[.bigside]
+****
+image::{imagedir}/u12-01.svg[]
+****
+
+Suppose John has a Taproot wallet with some bitcoin in it at his p2tr
+address. He wants to buy a cookie. The cafe has given him their
+address. John’s wallet creates a transaction that spends the p2tr
+output (<<fig1205>>).
+
+[[fig1205]]
+.John’s transaction spending a p2tr output. The witness contains a single 64-byte Schnorr signature.
+image::{imagedir}/12-05.svg[{big-width}]
+
+The witness has _one_ item: a 64-byte Schnorr signature. That’s it.
+No public key in the witness—the verifier already has it from the
+spent output—no script (the output type implies it), no opcodes. This
+is the size baseline the rest of the chapter is going to come back to.
+
+A node verifying this spend does the following:
+
+. Recognize the spent output as a witness-v1 output with a 32-byte
+program. This is a p2tr output.
+
+. Take the 32-byte program as the output key.
+
+. Take the 64-byte witness as the Schnorr signature.
+
+. Verify the signature against the output key, using the Taproot
+sighash (which we’ll look at in <<bip341-sighash>>).
+
+If verification passes, the spend is valid.
+
+[.gbinfo]
+.Where did the address come from?
+****
+John’s p2tr address starts with `bc1p`. That’s the new bech32m
+address format, which we’ll look at in <<bech32m-section>>. For now,
+treat it like the `bc1q` segwit addresses you saw in <<ch10>>.
+****
+
+==== The output key is a tweaked key
+
+There’s one detail we glossed over. The output key in a p2tr output
+isn’t the wallet’s public key directly. It’s a _tweak_ of the wallet’s
+public key.
+
+Why? Because we want to leave room for the script-path spending we
+mentioned earlier, even when the wallet doesn’t actually use any
+scripts. The tweak gives the wallet a way to commit to “no scripts”
+or to “this script tree” without changing the format of the output.
+
+The output key Q is the result of _tweaking_ the wallet’s internal
+public key P by a 32-byte value t. The tweak operation is
+deterministic: anyone holding P and t can compute Q.
+
+If there are no scripts, t is just the hash of P alone—a predictable
+value anyone can recompute. If there are scripts, t is the hash of P
+combined with the merkle root of the script tree.
+
+When John spends the output via the key path, his wallet computes the
+corresponding tweaked _private_ key and signs with it. The signature
+verifies against the output key Q, exactly as if Q were an ordinary
+Schnorr key. The wallet doesn’t need to send anything extra in the
+witness—the verifier just checks the signature against the 32 bytes
+already in the output.
+
+[.important]
+
+This is the heart of Taproot. The output is a public key. The key path
+spends it with one signature. Whether or not there’s a script tree
+behind that key, an observer can’t tell from the output itself.
+
+==== Script-path spending: your daughter’s inheritance, upgraded
+
+Let’s bring back the time-locked inheritance from <<ch09>>. Recall
+that you wanted to leave 100 bitcoins to your daughter, but only after
+a date in the future, and you wanted a way to invalidate the
+arrangement if you were still alive on that date.
+
+That setup made do with what was available at the time: a presigned
+transaction, plus a separate transaction you could broadcast to
+double-spend it if you needed to invalidate the gift. With Taproot,
+you can express the whole arrangement as a single output. Suppose you
+want a Taproot output that can be spent in any of three ways:
+
+* By you and your daughter together, at any time, if you both agree
+to do the transfer early. (Key path.)
+
+* By your daughter alone, after 1 May 2027. (Script path, leaf 1.)
+
+* By your spouse and your attorney together, at any time, in case of
+emergency. (Script path, leaf 2.)
+
+You and your daughter generate a shared internal key P
+(<<musig2-section>> shows how). The two leaves are just scripts—the
+same kind we’ve written since <<ch05>>, except the keys are now
+32-byte x-only Schnorr keys. Leaf 1, the daughter-after-timelock
+path, is the familiar `OP_CHECKLOCKTIMEVERIFY` pattern from <<ch09>>:
+
+[subs="normal"]
+----
+<1 may 2027 00:00:00> OP_CHECKLOCKTIMEVERIFY OP_DROP <K~daughter~> OP_CHECKSIG
+----
+
+There’s no `OP_HASH160` here, unlike the p2pkh version in <<ch09>>;
+the leaf already spells out the key, so there’s nothing to hash.
+Leaf 2, the spouse-and-attorney emergency path, is a 2-of-2:
+
+[subs="normal"]
+----
+<K~spouse~> OP_CHECKSIGVERIFY <K~attorney~> OP_CHECKSIG
+----
+
+To turn these two leaves into a tree, you hash each leaf and then
+hash the pair together (<<fig1206>>):
+
+. Hash leaf 1 into a leaf hash, _A_.
+
+. Hash leaf 2 into a leaf hash, _B_.
+
+. Sort _A_ and _B_, concatenate them, and hash the result. That’s the
+_merkle root_.
+
+[[fig1206]]
+.A Taproot script tree with two leaves. Each leaf is hashed; the two hashes are sorted, concatenated, and hashed into the merkle root. The output key Q commits to both P and the merkle root.
+image::{imagedir}/12-06.svg[{big-width}]
+
+The sorting in step 3 matters: siblings are always placed in a fixed
+(lexicographic) order before being hashed together. That’s what lets
+a verifier recompute the root from a leaf and a proof without needing
+to know whether the leaf sat on the left or the right.
+
+[.inbitcoin]
+.Tagged hashes
+****
+The leaf and branch hashes aren’t plain SHA256; BIP340 and BIP341 use
+_tagged hashes_, which mix a fixed tag (like `TapLeaf` or `TapBranch`)
+into the hash so a leaf can never be confused with a branch. The
+details are in those BIPs.
+****
+
+The output key Q is computed by tweaking P with the hash of P
+combined with the merkle root of the tree. You send 100 bitcoins to
+the p2tr address derived from Q. Now look at what each spending path
+costs.
+
+===== The cooperative path
+
+You and your daughter agree to do the transfer early. You produce a
+joint Schnorr signature over the spending transaction. The witness is
+a single 64-byte signature—the same as John paying the cafe. The chain
+has no idea this output had script branches at all.
+
+===== The daughter-alone path after 1 May
+
+Your daughter’s wallet builds a witness that contains:
+
+* the values consumed by leaf 1 (her signature),
+
+* the leaf 1 script itself, and
+
+* a _control block_ that includes the internal key P and the merkle
+proof that leaf 1 belongs to the tree (<<fig1207>>).
+
+[[fig1207]]
+.Spending via leaf 1 reveals leaf 1 and a merkle proof, but not leaf 2. The verifier reconstructs the merkle root from the proof and checks that Q matches.
+image::{imagedir}/12-07.svg[{big-width}]
+
+The control block is where the merkle proof lives. For our two-leaf
+tree, spending via leaf 1 gives a control block of just 65 bytes:
+
+----
+1 byte    leaf version + a parity bit (0xc0 or 0xc1)
+32 bytes  the internal key P
+32 bytes  leaf 2's hash, B (the merkle proof)
+----
+
+Leaf 2’s hash, _B_, is all the verifier needs to rebuild the root: it
+hashes the revealed leaf 1 into _A_, sorts _A_ and _B_, hashes them
+together, and gets the merkle root back. It then recomputes Q from P
+and that root and checks it matches the output key. Finally it runs
+leaf 1’s script with the witness data on the stack, just like a p2wsh
+spend. Each extra level of tree depth adds one more 32-byte sibling
+hash to the control block.
+
+Notice that leaf 2 (the emergency path) is never revealed—only its
+hash. A blockchain analyst can’t tell that the output ever had an
+emergency override clause, much less who held it.
+
+===== The emergency path
+
+Same shape as the daughter-alone path, but your spouse and your
+attorney reveal leaf 2 instead of leaf 1. Leaf 1 stays hidden.
+
+This is what MAST—_Merkelized Alternative Script Trees_—buys us. The
+witness only carries the path actually taken, plus a short merkle
+proof showing it’s part of the tree. Unused branches contribute only
+their hashes to that proof (32 bytes per sibling), not the full
+scripts.
+
+[.gbinfo]
+.How big can the tree get?
+****
+A Taproot script tree has no consensus limit on the number of leaves
+or on the depth of the tree. Practical wallets keep the depth modest
+to keep the merkle proof short, but a contract with hundreds of
+alternative spending paths is entirely workable.
+****
+
+[[tapscript-section]]
+==== Tapscript: the script language inside a leaf
+
+[.inbitcoin]
+.BIP342
+****
+“Validation of Taproot Scripts” specifies Tapscript, the script
+language used inside Taproot script-tree leaves. The witness-v0
+script language (used in p2wpkh and p2wsh) is unchanged.
+****
+
+Each leaf in a Taproot script tree is a script. The language used
+inside a leaf is called _Tapscript_, and it’s _almost_ the same as
+the script we’ve been using since <<ch05>>—with a handful of changes
+that the new witness version made room for.
+
+The headline differences:
+
+* `OP_CHECKSIGADD` _replaces multisig_. `OP_CHECKMULTISIG`, which we
+covered in the Multiple signatures section of <<ch05>>, isn’t
+available in Tapscript. Instead, `OP_CHECKSIGADD` takes a public key,
+a counter, and a signature off the stack and adds 1 to the counter if
+the signature is valid, or 0 if the signature is an empty placeholder.
+You chain one `OP_CHECKSIG` and several `OP_CHECKSIGADD` together to
+count valid signatures, then compare the count to your threshold.
+This is more verbose than `OP_CHECKMULTISIG`, but it composes cleanly
+with `OP_IF`/`OP_ELSE` and avoids the historical “off-by-one” bug in
+`OP_CHECKMULTISIG`.
+
+* _The 201-op limit per script is gone_. Witness-v0 scripts could
+contain at most 201 non-push opcodes. Tapscript replaces that with a
+per-script _sigops budget_ that scales with the size of the spending
+witness. The practical effect is that a single Taproot script leaf
+can be much longer than a witness-v0 script.
+
+* _The 10,000-byte total-script cap is gone_. Witness-v0’s p2wsh
+required all branches in a single script of at most 10,000 bytes.
+With MAST, each leaf is its own script, and there’s no single
+“total” limit—because there’s no single total script.
+
+* _New default sighash_. The default sighash for a Taproot spend
+commits to all the values you’d expect (txid, output index, amount,
+script, sequence numbers, output values), in a fixed order, hashed
+once. We’ll look at it in detail in <<bip341-sighash>>.
+
+* _Some opcodes are gone, some are reserved_. `OP_CHECKMULTISIG` and
+`OP_CHECKMULTISIGVERIFY` aren’t allowed in Tapscript. A handful of
+opcodes (`OP_SUCCESS80`, `OP_SUCCESS98`, and so on) are reserved for
+future upgrades; they make a script succeed unconditionally if they
+appear, which lets future soft forks tighten them.
+
+Here’s the charity’s 2-of-3 from <<ch05>> written as a single
+Tapscript leaf, with John’s, Faiza’s, and Ellen’s keys:
+
+[subs="normal"]
+----
+<K~J~> OP_CHECKSIG <K~F~> OP_CHECKSIGADD <K~E~> OP_CHECKSIGADD OP_2 OP_NUMEQUAL
+----
+
+The spender supplies a signature for each key that signs and an empty
+placeholder for each key that doesn’t. `OP_CHECKSIG` checks John’s key
+and leaves a 0 or 1 on the stack; each `OP_CHECKSIGADD` adds the next
+key’s result to that running count. `OP_2 OP_NUMEQUAL` then passes
+only if exactly two of the three signatures were valid.
+
+The combined effect of MAST plus the lifted limits is that contract
+designs that simply didn’t fit on Bitcoin before now do. A contract
+with five alternative spending paths, each a few thousand bytes long,
+sits naturally as a five-leaf tree—and the spender pays only for the
+path they take.
+
+[[bip341-sighash]]
+==== A new sighash algorithm
+
+[.gbinfo]
+.Why a new sighash?
+****
+The witness-v0 sighash from BIP143 (covered in <<ch10>>) was a big
+improvement over legacy. BIP341’s sighash improves on it again,
+mostly by committing to slightly more of the spending context (all
+input amounts, all input scripts) so hardware wallets cannot be
+tricked even in adversarial signing setups. There is also a fee-rate
+improvement from a more compact serialization.
+****
+
+When a Taproot output is spent, the signature commits to a hash of
+the spending transaction computed in a specific way—_the BIP341
+sighash_. The differences from BIP143 (segwit’s sighash) are mostly
+mechanical:
+
+* The sighash commits to _all_ input amounts, not just the amount of
+the input being signed.
+
+* The sighash commits to _all_ input scripts.
+
+* For script-path spends, the sighash also commits to the leaf hash
+and the leaf version, so a leaf can’t be replayed in a different tree.
+
+The shape of the algorithm is the same as BIP143: hash the bulk of
+the transaction once, then per input add a small amount of
+input-specific data and hash again. Verification time still scales
+linearly with the number of inputs, the way it did with segwit.
+
+[[bech32m-section]]
+==== Bech32m and `bc1p` addresses
+
+[.inbitcoin]
+.BIP350
+****
+“Bech32m format for v1+ witness addresses” specifies the new
+encoding. Bech32 (from <<ch10>>) is still used for witness-v0; bech32m
+is used for witness-v1 and onwards.
+****
+
+You may have noticed that John’s address started with `bc1p` where
+the segwit addresses from <<ch10>> started with `bc1q`. That’s
+because Taproot addresses use a slightly different encoding called
+_bech32m_. The reason is unglamorous: shortly after <<ch10>> went to
+print, it turned out the original bech32 had a corner-case
+weakness—certain length-extended addresses with specific trailing
+characters could fail to detect a single-character error that you’d
+otherwise expect bech32 to catch. Witness-v0 addresses had a fixed
+length, so the bug never affected them in practice. The encoding for
+witness-v1 got patched.
+
+Bech32m is bech32 with a different “constant” value mixed into the
+checksum (`0x2bc830a3` instead of `1`). Otherwise it’s the same: same
+character set, same human-readable prefix, same kind of error
+correction. A bech32 decoder will reject a bech32m address as invalid,
+and vice versa, which is by design—it forces wallets to use the right
+verification rule for the right witness version.
+
+The first character after the `1` separator tells you the witness
+version: `q` (the letter that encodes 0 in the bech32 alphabet) for
+v0, `p` (which encodes 1) for v1.
+
+[[recap-of-payment-types-taproot]]
+==== Updated recap of payment types
+
+We can now update the recap of payment types from <<recap-of-payment-types>>
+with the new Taproot output type (<<fig1208>>).
+
+[[fig1208]]
+.p2tr: address format `bc1p<58 base32m characters>`
+image::{imagedir}/12-08.svg[{big-width}]
+
+A p2tr output is the simplest of all the output types we’ve seen. The
+output is just a witness-version byte (`01`) and a 32-byte x-only
+public key. There’s no script and no hash in the output. The
+complexity, if any, is hidden inside the tweak.
+
+[[musig2-section]]
+=== Cooperative multisig with one signature
+
+We’ve walked through key-path spending and script-path spending, and
+we’ve seen that the key path is dramatically cheaper. So a natural
+question follows: can a multi-party arrangement, like the charity
+wallet, use the key path? At first glance, no—the key path needs one
+private key, and the charity has three signers.
+
+The answer is yes, with a protocol that lets multiple signers
+collectively produce a single Schnorr signature that verifies under
+their _aggregated_ public key. This is the property we noted earlier
+under “Schnorr signatures are linear.” The most widely used protocol
+that does this safely is called _MuSig2_.
+
+[.inbitcoin]
+.BIP327
+****
+“MuSig2 for BIP340-compatible Multi-Signatures” specifies MuSig2.
+Earlier protocols (the original MuSig, MuSig-DN) had subtle pitfalls
+that were fixed in MuSig2. There is also a threshold variant called
+FROST for t-of-n where t < n.
+****
+
+==== The charity, in MuSig2 form
+
+John, Faiza, and Ellen each have an internal Schnorr keypair. They
+want a Taproot output where any two of them, working together, can
+spend it via the key path. The setup looks like this:
+
+. Each of the three publishes their internal public key to the other
+two: P~J~, P~F~, P~E~.
+
+. The three keys are combined into a single _aggregate public key_ P.
+The combination isn’t a simple sum. Anyone who knows P~J~, P~F~,
+and P~E~ can deterministically compute the aggregate P. MuSig2 uses
+a hash-based weighting to defeat a class of attacks called _key
+cancellation_.
+
+. P becomes the internal key of a Taproot output. The output key Q is
+the tweak of P with the hash of P alone (no script tree, in this
+simple case).
+
+. The charity’s p2tr address is derived from Q.
+
+So far, no signing has happened—only key setup. The address looks
+identical to John’s personal Taproot address from earlier in this
+chapter. Donors paying into it can’t tell from the address alone
+whether it’s held by one signer or three.
+
+When the charity wants to spend, two of the three (say Faiza and
+Ellen) collaborate to produce a single 64-byte Schnorr signature under
+Q. The protocol involves two communication rounds and some nonce care;
+we won’t walk through the rounds in detail here. The point is that
+what lands on chain is _one signature_, exactly as if Q belonged to a
+single signer.
+
+[.gbinfo]
+.But it’s 2-of-3, not 2-of-2
+****
+Key aggregation needs _all_ participants to sign. The charity gets
+2-of-3 by combining MuSig2 with a script tree: a key-path 2-of-2
+for the expected pair, with the other pair combinations as backup
+leaves.
+****
+
+==== What the chain sees
+
+When the cooperative path is taken, the spending witness contains
+exactly one item: a 64-byte Schnorr signature (<<fig1209>>).
+
+[[fig1209]]
+.A MuSig2 spend on chain is indistinguishable in shape from a single-signer p2tr spend.
+image::{imagedir}/12-09.svg[{big-width}]
+
+This closes the chapter’s opening problem. The charity’s witness is
+now the same size as John’s payment to the cafe earlier in this
+chapter. The extra block space they’ve been taking up since moving
+to p2wsh in <<ch10>> is gone—and lower fees follow as a consequence.
+
+A second, smaller consequence is worth noting. An observer of the
+chain can’t tell from this spend that the charity has three signers.
+They see a single Schnorr signature on a single public key. Address
+clustering still works, so the spend can still be linked to other
+spends from the same wallet, but the threshold-signing structure
+inside the wallet isn’t visible.
+
+==== Beyond the legacy multisig ceiling
+
+[.bigside]
+****
+image::{imagedir}/u12-02.svg[]
+****
+
+The same construction works at scale. Suppose a federation of 100
+custodians wants to manage a treasury. With `OP_CHECKMULTISIG`, they
+were stuck below the 20-key consensus limit and had to build some
+off-chain orchestration to express anything bigger. With MuSig2, all
+100 keys aggregate into a single P; the tweak gives a single Q; the
+chain sees a single 64-byte signature when they sign. The on-chain
+footprint of a 100-of-100 spend is identical to a 1-of-1 spend.
+
+For thresholds where not all participants need to sign (say, 67 out
+of 100), there’s a closely related protocol called _FROST_ that
+preserves the same property: one signature on chain, regardless of
+how many participants were behind it. FROST is more involved to set
+up than MuSig2 (it requires a distributed key-generation ceremony)
+and isn’t widely deployed yet as of this writing.
+
+This is the second measurable payoff of Taproot. Spending policies
+that simply couldn’t be expressed on Bitcoin before now have a
+first-class on-chain form.
+
+=== What Taproot enables next
+
+We’ve walked through the things Taproot fixes today: cheaper
+shared-custody spends, larger script trees, multisig past the legacy
+ceiling, and a more uniform on-chain shape for spends. The longer-term
+effect of these primitives is hard to predict, but two directions are
+already visible.
+
+==== More-flexible scripts in everyday wallets
+
+As more wallets adopt Taproot for ordinary single-key spends, the
+on-chain background fills up with key-path Taproot spends. Once that’s
+the dominant shape, the script-path spends that _do_ happen blend into
+the same crowd. The infrastructure benefit compounds: any wallet that
+uses Taproot for its single-sig accounts also gets, with no extra
+effort, the option to add script trees later for things like emergency
+recovery, or to upgrade to MuSig2 with co-signers.
+
+==== Layer-2 systems
+
+[.gbinfo]
+.Arkade
+****
+For more information about Arkade, see <<web-arkade>>. Unfortunately,
+there’s no room in this book for this interesting and complex topic.
+The same applies to Lightning, which we mentioned in <<ch07>>.
+****
+
+The construction we walked through in <<musig2-section>>—a single
+Taproot output that hides a tree of alternative spending paths and
+that can be co-signed by many parties to produce one chain-visible
+signature—is the building block for several Layer-2 systems being
+built on top of Bitcoin. _Arkade_ is one such system. It uses MuSig2
+key aggregation and Tapscript script trees extensively to let people
+transact off-chain without locking up bitcoin in payment channels the
+way Lightning does. The on-chain footprint of an Arkade Batch is small
+precisely because Taproot makes complex multi-party policies look like
+ordinary single-key spends.
+
+These are early days. The point isn’t that any specific Layer-2 will
+succeed, but that the primitives Taproot ships are flexible enough to
+be the foundation of designs that didn’t exist when segwit shipped.
+
+=== Recap
+
+This chapter has walked through Taproot, the November 2021 soft fork
+that gave Bitcoin a second signature scheme (Schnorr), a new output
+type (p2tr), a way to commit to many alternative scripts without
+revealing them in the output (MAST), and a refreshed script language
+inside the leaves (Tapscript).
+
+We solved four problems with shared-custody spending:
+
+* _Multisig spends took up too much block space._ A 2-of-3 p2wsh
+spend was 2-3 times the witness bytes of a single-key p2wpkh spend.
+The charity from <<ch05>> had been paying that surcharge in fees,
+and the chain had been carrying the weight, ever since they moved
+to p2wsh in <<ch10>>.
+
+* _Every script branch had to be revealed._ A p2wsh script that
+listed five alternative ways of spending an output had to put all
+five in the witness when only one of them was used. And a p2wsh
+script couldn’t exceed 10,000 bytes total, no matter how clever
+the contract.
+
+* _Multisig had a hard ceiling._ `OP_CHECKMULTISIG` capped at 20
+keys per script (consensus limit). A federation of 50 board members
+or a treasury with 100 signers couldn’t express their real signing
+rule on chain.
+
+* _ECDSA couldn’t be aggregated._ Every signer’s signature had to
+sit in the witness on its own.
+
+==== Solutions
+
+image::{imagedir}/u12-03.svg[{big-width}]
+
+Bitcoin gets a second signature scheme, _Schnorr_. Schnorr signatures
+are 64 bytes, fixed size, and—this is the key property—they’re
+_linear_. A signature under a sum of keys is the sum of the
+individual signatures under each key. ECDSA does not have this
+property. Almost everything else in the chapter is Schnorr’s
+linearity put to work.
+
+A new output type, _p2tr_, contains a single 32-byte x-only public
+key. There’s no script in the output. There’s no hash. The output
+_is_ the key. That key can be spent in two ways: with one Schnorr
+signature (the _key path_), or by revealing and executing one leaf
+of a hidden tree of alternative scripts (the _script path_). An
+observer of the output can’t tell which case applies.
+
+image::{imagedir}/u12-04.svg[{big-width}]
+
+The script path uses a merkle tree of leaves called _MAST_, so the
+spender only reveals the path actually taken. The other branches
+stay hidden. Inside a leaf, the script language is _Tapscript_:
+nearly the same as the script we’ve been using since <<ch05>>, but
+with a per-script sigops budget instead of the old 201-op limit, and
+with `OP_CHECKSIGADD` in place of `OP_CHECKMULTISIG`.
+
+_MuSig2_ (and _FROST_, for thresholds smaller than n-of-n) uses
+Schnorr’s linearity to let many signers cooperate to produce one
+signature that lands on chain. The charity’s 2-of-3 spend now takes
+up the same block space as John paying the cafe with a single key—
+and lower fees follow as a consequence. Because the chain only ever
+sees one key and one signature regardless of how many people were
+behind it, a 100-of-100 federation has the same on-chain footprint
+as a 1-of-1 spend.
+
+p2tr outputs use a new address format, _bech32m_. p2tr addresses
+start with `bc1p` rather than the `bc1q` segwit addresses from
+<<ch10>>—same character set, slightly different checksum, slightly
+stricter verification.
+
+=== Exercises
+
+==== Warm up
+
+. What is the witness version byte used in a p2tr output?
+
+. Schnorr signatures are how many bytes long? How does that compare
+to ECDSA?
+
+. Why is the public key in a p2tr output called the _output key_
+rather than just “the public key”?
+
+. Which of the following two spends, taken at face value, can a
+chain observer distinguish from each other?
+
+.. A single-key p2tr spend.
+
+.. A 2-of-3 MuSig2 p2tr spend that takes the key path.
+
+. Why does Tapscript replace `OP_CHECKMULTISIG` with `OP_CHECKSIGADD`?
+
+. What address prefix tells you that a Bitcoin address is a Taproot
+address?
+
+==== Dig in
+
+[start=7]
+. Suppose you have a Taproot output whose internal key P commits to
+a script tree with three leaves: leaf~A~, leaf~B~, leaf~C~. The
+output key Q is the tweak of P with the hash of P combined with the
+merkle root of the tree. You want to spend the output via leaf~B~.
+What items must your spending witness contain, and what does the
+verifier do with them?
+
+. Re-read <<ch09>>’s atomic-swap example. Sketch in two or three
+sentences how a Taproot output could express the same contract more
+naturally than the p2sh hash-time-locked contract used there. (You
+do not need to design the cryptography; just describe what would go
+in the script tree.)
+
+. The charity from <<musig2-section>> moves to MuSig2. Suppose Faiza’s
+laptop, holding her share of the aggregated key, is stolen. Can the
+attacker spend the charity’s funds with just Faiza’s share? Explain.
+
+. A 100-of-100 federation publishes its address. Years later,
+researchers want to know what kind of script lay behind it. Looking
+only at the chain, what can they tell? What can they not tell?
+
+=== Summary
+
+* Taproot is a soft fork that activated in November 2021. It is
+specified in BIPs 340 (Schnorr), 341 (Taproot), and 342 (Tapscript).
+
+* Schnorr signatures are 64 bytes, fixed size. They are linear,
+which means signatures and keys can be aggregated.
+
+* A p2tr output is a witness-v1 output containing a single 32-byte
+x-only public key. There is no script in the output.
+
+* p2tr outputs can be spent via the _key path_ (one Schnorr
+signature) or via the _script path_ (reveal one leaf of a script
+tree and execute it).
+
+* The script path uses a merkle tree of leaves (MAST). Only the leaf
+actually used is revealed when spending.
+
+* The script language inside a leaf is _Tapscript_. It removes the
+201-op limit, replaces `OP_CHECKMULTISIG` with `OP_CHECKSIGADD`,
+and uses a new sighash algorithm.
+
+* p2tr outputs use _bech32m_ addresses, which start with `bc1p`.
+
+* MuSig2 lets multiple signers cooperate to produce one chain-visible
+Schnorr signature, so multi-party spends can be the same size as
+single-key spends.
+
+* MuSig2 (and FROST, for thresholds) scales past the 20-key
+`OP_CHECKMULTISIG` ceiling to hundreds of signers without changing
+the on-chain footprint.

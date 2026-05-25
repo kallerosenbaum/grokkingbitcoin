@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="200" viewBox="0 0 800 200">
+  <metadata>TODO placeholder figure for Grokking Bitcoin Ch12 (Taproot). Replace with real Inkscape artwork.</metadata>
+  <rect x="2" y="2" width="796" height="196" fill="#fff8dc" stroke="#cc8800" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#cc8800" text-anchor="middle">PLACEHOLDER — 12-04.svg</text>
+  <text font-family="Arial, sans-serif" font-size="13" fill="#333"><tspan x="30" y="80">A p2tr output: witness version byte (01) followed by a 32-byte x-only </tspan><tspan x="30" y="98">public key. Simple, single-row diagram contrasted with p2wpkh and p2wsh </tspan><tspan x="30" y="116">from Ch10.</tspan></text>
+  <text x="400" y="188" font-family="Arial, sans-serif" font-size="10" fill="#999" text-anchor="middle">See images/ch12/figures-todo.md for the illustrator brief.</text>
+</svg>
